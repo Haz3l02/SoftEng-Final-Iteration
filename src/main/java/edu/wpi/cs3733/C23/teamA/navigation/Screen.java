@@ -1,4 +1,4 @@
-package edu.wpi.teamname.navigation;
+package edu.wpi.cs3733.C23.teamA.navigation;
 
 public enum Screen {
   ROOT("views/Root.fxml"),
