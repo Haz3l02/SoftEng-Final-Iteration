@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.navigation;
 
-import edu.wpi.cs3733.C23.teamA.App;
+import edu.wpi.cs3733.C23.teamA.AApp;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 
@@ -10,10 +10,10 @@ public class Navigation {
     final String filename = screen.getFilename();
 
     try {
-      final var resource = App.class.getResource(filename);
+      final var resource = AApp.class.getResource(filename);
       final FXMLLoader loader = new FXMLLoader(resource);
 
-      App.getRootPane().setCenter(loader.load());
+      AApp.getRootPane().setCenter(loader.load());
     } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     }
