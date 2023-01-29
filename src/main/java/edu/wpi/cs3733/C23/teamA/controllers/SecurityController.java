@@ -75,7 +75,7 @@ public class SecurityController extends ServiceRequestController {
               descBox.getText(),
               urgencyBox.getValue(),
               requestsBox.getValue(),
-              3));
+              "Security Request"));
 
       // *some db thing for getting the request in there*
       System.out.println("this submits data");

@@ -14,7 +14,7 @@ public class SecurityEntity extends ServiceRequestEntities {
       String description,
       String ul,
       String requests,
-      int requestType) {
+      String requestType) {
     super(name, idNum, location, description, ul, requestType);
     this.phone = phone;
     switch (requests) {

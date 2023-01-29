@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.SanitationEntity;
+import edu.wpi.cs3733.C23.teamA.SanitationRequest;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -51,17 +51,18 @@ public class SanitationController extends ServiceRequestController {
     } else {
       requests.put(
           IDNum.getText(),
-          new SanitationEntity(
+          new SanitationRequest(
               nameBox.getText(),
               IDNum.getText(),
               locBox.getText(),
               descBox.getText(),
               categoryBox.getValue(),
               urgencyBox.getValue(),
-              1));
+              "Sanitation Request"));
 
       // *some db thing for getting the request in there*
       System.out.println("this submits data"); // to be removed later
+      System.out.println(requests.get(IDNum.getText()).getName());
 
       switchToConfirmationScene(event);
     }

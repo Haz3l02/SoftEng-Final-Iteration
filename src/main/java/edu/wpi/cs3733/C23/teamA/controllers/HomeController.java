@@ -28,6 +28,11 @@ public class HomeController {
   public void switchToHomeServiceRequest(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
   }
+
+  @FXML
+  public void switchToStatus(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
+  }
   // TO DO
   //  @FXML
   //  public void switchToDatabase(ActionEvent event) throws IOException {

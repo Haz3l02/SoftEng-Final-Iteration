@@ -42,7 +42,7 @@
          <children>
             <MFXButton onAction="#switchToHomeServiceRequest" style="-fx-background-color: #2A4494;" text="Service Requests" textFill="WHITE" />
             <MFXButton style="-fx-background-color: #2A4494;" text="Pathfinding" textFill="WHITE" />
-            <MFXButton style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
+            <MFXButton onAction="#switchToStatus" style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
          </children>
          <padding>
             <Insets left="10.0" />

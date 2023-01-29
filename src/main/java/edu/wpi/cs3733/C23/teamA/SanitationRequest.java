@@ -2,17 +2,17 @@ package edu.wpi.cs3733.C23.teamA;
 
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 
-public class SanitationEntity extends ServiceRequestEntities {
+public class SanitationRequest extends ServiceRequestEntities {
   IssueCategory category;
 
-  public SanitationEntity(
+  public SanitationRequest(
       String name,
       String idNum,
       String location,
       String description,
       String category,
       String ul,
-      int requestType) {
+      String requestType) {
     super(name, idNum, location, description, ul, requestType);
 
     switch (category) {

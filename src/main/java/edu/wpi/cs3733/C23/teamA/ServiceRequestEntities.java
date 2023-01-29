@@ -9,12 +9,17 @@ public abstract class ServiceRequestEntities {
   @Getter @Setter private String IDNum;
   @Getter @Setter private String location;
   @Getter @Setter private String description;
-  @Getter @Setter private int requestType;
+  @Getter @Setter private String requestType;
 
   @Getter @Setter private UrgencyLevel ul;
 
   public ServiceRequestEntities(
-      String name, String IDNum, String location, String description, String ul, int requestType) {
+      String name,
+      String IDNum,
+      String location,
+      String description,
+      String ul,
+      String requestType) {
     this.name = name;
     this.IDNum = IDNum;
     this.location = location;

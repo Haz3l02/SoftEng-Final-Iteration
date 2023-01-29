@@ -38,21 +38,43 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
+    System.out.println(requests.get("123").getName());
 
+    //for (sanitationRequest.getSanitationRequestByUser(IDNum) :  request)
+    requests.forEach(
+        (key, value) -> {
+          System.out.println(value.getRequestType());
 
-    for (int i = 1; i <= 50; i++) {
-      CheckBox ch = new CheckBox("");
-      ServiceRequestTableRow serviceReqRow =
-          new ServiceRequestTableRow(ch, "a", "aa", "aaa", "aaaa", "aaaaa");
-      dbTableRowsModel.add(serviceReqRow);
-    }
+          CheckBox ch = new CheckBox("");
+          ServiceRequestTableRow serviceReqNewRow =
+              new ServiceRequestTableRow(
+                  ch,
+                  value.getRequestType(),
+                  "value.date()",
+                  "value.status()",
+                  value.getUl().toString(),
+                  "value.getEmployeeAssigned()");
+          dbTableRowsModel.add(serviceReqNewRow);
+        });
+
+    //    for (int i = 1; i <= 50; i++) {
+    //      CheckBox ch = new CheckBox("");
+    //      ServiceRequestTableRow serviceReqRow =
+    //          new ServiceRequestTableRow(ch, "a", "aa", "aaa", "aaaa", "aaaaa");
+    //      dbTableRowsModel.add(serviceReqRow);
+    //    }
+    //    requests.forEach((key,value) -> {
+    //
+    //      ServiceRequestTableRow serviceReqNewRow = new ServiceRequestTableRow(ch,
+    // value.getRequestType(), "value.date()", "value.status()",value.getUl(),
+    // "value.getEmployeeAssigned()");
+    //    });
 
     serviceReqsTable.setItems(dbTableRowsModel);
   }
 
   @FXML
   public void editData(ActionEvent event) throws IOException {
-
 
     // Navigation.navigate(Screen.SECURITY_CONFIRMATION);
   }

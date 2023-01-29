@@ -63,7 +63,7 @@ public class ComputerController extends ServiceRequestController {
               urgencyBox.getValue(),
               devicesBox.getValue(),
               deviceIDNum.getText(),
-              2));
+              "Computer Request"));
 
       // *some db thing for getting the request in there*
       System.out.println(
