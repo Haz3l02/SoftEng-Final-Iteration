@@ -50,7 +50,7 @@ public class PathInterpreter {
 
   /**
    * Prints the path specified by the parameter path. Prints each node with their ID and long name.
-   * Implies that the path being given is not null or empty, and has at least two nodes.
+   * Implies that the path being given is not null or empty.
    *
    * @param path An ArrayList which represents a path from the node in index zero to the node in the
    *     last index
@@ -68,5 +68,34 @@ public class PathInterpreter {
         System.out.println("; Long Name: " + n.getLongName());
       }
     }
+  }
+
+  /**
+   * Creates a string representation of the path specified by the parameter path. Shows each node
+   * with their ID and long name. Implies that the path being given is not null or empty.
+   *
+   * @param path An ArrayList which represents a path from the node in index zero to the node in the
+   *     last index
+   */
+  public static String generatePathString(ArrayList<Node> path) {
+    // get the first and last node names to print
+    String startID = path.get(0).getNodeID();
+    String endID = path.get(path.size() - 1).getNodeID();
+
+    // make a stringBuilder object to get a giant string
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("Path from " + startID + " to " + endID + ":\n");
+
+    // loop through all of them to print the full path
+    for (Node n : path) {
+      sb.append("Node ID: " + n.getNodeID());
+      if (n.getLongName() != null) {
+        sb.append("; Long Name: " + n.getLongName() + "\n");
+      }
+    }
+
+    // return the built string
+    return sb.toString();
   }
 }
