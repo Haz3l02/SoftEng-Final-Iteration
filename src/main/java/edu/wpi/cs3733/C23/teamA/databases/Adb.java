@@ -39,16 +39,16 @@ public class Adb {
   }
 
   public void init() throws SQLException {
-    if (!tableExists("Edge")) {
+    if (!tableExists("edge")) {
       Edge.initTable();
     }
-    if (!tableExists("Node")) {
+    if (!tableExists("node")) {
       Node.initTable();
     }
-    if (!tableExists("LocationName")) {
+    if (!tableExists("locationname")) {
       LocationName.initTable();
     }
-    if (!tableExists("Move")) {
+    if (!tableExists("move")) {
       Move.initTable();
     }
   }
