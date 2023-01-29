@@ -18,23 +18,35 @@ public class SanitationRequest {
   @Getter @Setter String description;
   @Getter @Setter String category;
   @Getter @Setter String ul;
+  @Getter @Setter String requestType;
 
 
+  public SanitationRequest() {
+    requestID = 0;
+    name=null;
+    idNum=null;
+    location=null;
+    description=null;
+    category=null;
+    ul=null;
+    requestType=null;
+  }
 
   //for new request
   public SanitationRequest(
-      String name, String idNum, String location, String description, String category, String ul) {
+      String name, String idNum, String location, String description, String category, String ul, String requestType) {
     this.name = name;
     this.idNum = idNum;
     this.location = location;
     this.description = description;
     this.category = category;
     this.ul = ul;
+    this.requestType = requestType;
   }
 
 
   //for selecting existing
-  public SanitationRequest(int requestID, String name, String idNum, String location, String description, String category, String ul) {
+  public SanitationRequest(int requestID, String name, String idNum, String location, String description, String category, String ul, String requestType) {
     this.requestID = requestID;
     this.name = name;
     this.idNum = idNum;
@@ -42,6 +54,7 @@ public class SanitationRequest {
     this.description = description;
     this.category = category;
     this.ul = ul;
+    this.requestType = requestType;
   }
 
   public static void initTable() throws SQLException {
@@ -55,7 +68,8 @@ public class SanitationRequest {
             "location text,",
             "description text,",
             "category text,",
-            "ul text);");
+            "ul text,",
+            "requestType text);");
     Adb.processUpdate(sql);
   }
 
@@ -67,11 +81,13 @@ public class SanitationRequest {
                     " ",
                     "insert into SanitationRequest",
                     "(name, idNum, location, description, category, ul) VALUES" +
-                            "( " + name + ", " + idNum + ", " + location + ", " + description + ", " + category + ", " + ul + ");");
+                            "( " + name + ", " + idNum + ", " + location + ", " + description + ", " + category + ", " + ul + ", " + requestType + ");");
     Adb.processUpdate(sql);
   }
 
-  public ArrayList<SanitationRequest> getSanitationRequestByUser(int id) throws SQLException {
+
+  //returns list of sanitation requests based on a userID
+  public ArrayList<SanitationRequest> getSanitationRequestByUser(String id) throws SQLException {
     ArrayList<SanitationRequest> fin = new ArrayList<>();
     String sql = "SELECT * FROM SanitationRequest where idNum = " +id+ ";";
     ResultSet rs = Adb.processQuery(sql);
@@ -83,7 +99,8 @@ public class SanitationRequest {
                       rs.getString("location"),
                       rs.getString("description"),
                       rs.getString("category"),
-                      rs.getString("ul")));
+                      rs.getString("ul"),
+                      rs.getString("requestID")));
     }
     return fin;
   }
