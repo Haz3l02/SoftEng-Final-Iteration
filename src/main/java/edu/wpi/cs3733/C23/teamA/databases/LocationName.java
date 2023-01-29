@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.databases;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +28,18 @@ public class LocationName {
             "shortName text,",
             "locationType text);");
     Adb.processUpdate(sql);
+  }
+
+  public static ArrayList<LocationName> getAll() throws SQLException {
+    ArrayList<LocationName> locations = new ArrayList<>();
+    String sql = "SELECT * FROM locationname;";
+    ResultSet rs = Adb.processQuery(sql);
+    while (rs.next()) {
+      locations.add(
+          new LocationName(
+              rs.getString("longname"), rs.getString("shortname"), rs.getString("locationtype")));
+    }
+    return locations;
   }
 
   public static String getTableName() {

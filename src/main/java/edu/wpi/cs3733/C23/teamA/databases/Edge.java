@@ -50,4 +50,8 @@ public class Edge {
   public static String getTableName() {
     return tableName;
   }
+
+  public String toString() {
+    return String.format("%s %s", node1, node2);
+  }
 }

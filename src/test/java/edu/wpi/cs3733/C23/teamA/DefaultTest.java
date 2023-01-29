@@ -4,8 +4,7 @@
 
 package edu.wpi.cs3733.C23.teamA;
 
-import edu.wpi.cs3733.C23.teamA.databases.Adb;
-import edu.wpi.cs3733.C23.teamA.databases.Node;
+import edu.wpi.cs3733.C23.teamA.databases.*;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
@@ -14,5 +13,8 @@ public class DefaultTest {
   public void test() throws SQLException, ClassNotFoundException {
     new Adb();
     System.out.println(Node.getAll());
+    System.out.println(Move.getAll());
+    System.out.println(LocationName.getAll());
+    System.out.println(Edge.getAll());
   }
 }

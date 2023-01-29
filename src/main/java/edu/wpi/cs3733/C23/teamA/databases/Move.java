@@ -2,7 +2,6 @@ package edu.wpi.cs3733.C23.teamA.databases;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,9 +12,9 @@ public class Move {
 
   @Setter @Getter private String nodeID;
   @Setter @Getter private String longName;
-  @Setter @Getter private LocalDateTime moveDate;
+  @Setter @Getter private String moveDate;
 
-  public Move(String nodeID, String longName, LocalDateTime moveDate) {
+  public Move(String nodeID, String longName, String moveDate) {
     this.nodeID = nodeID;
     this.longName = longName;
     this.moveDate = moveDate;
@@ -33,17 +32,14 @@ public class Move {
   }
 
   public static ArrayList<Move> getAll() throws SQLException {
-    ArrayList<Move> edges = new ArrayList<>();
-    String sql = "SELECT * FROM Edge;";
+    ArrayList<Move> moves = new ArrayList<>();
+    String sql = "SELECT * FROM Move;";
     ResultSet rs = Adb.processQuery(sql);
     while (rs.next()) {
-      edges.add(
-          new Move(
-              rs.getString("nodeid"),
-              rs.getString("longname"),
-              LocalDateTime.parse(rs.getString("movedate"))));
+      moves.add(
+          new Move(rs.getString("nodeid"), rs.getString("longname"), rs.getString("movedate")));
     }
-    return edges;
+    return moves;
   }
 
   public void moveLocation(LocationName location, Node node) throws SQLException {
@@ -64,5 +60,9 @@ public class Move {
             " ",
             "select * from move where nodeID = '" + node + "' order by moveDate desc limit 1;");
     return Adb.processQuery(sql);
+  }
+
+  public String toString() {
+    return String.format("%s %s %s", nodeID, longName, moveDate);
   }
 }
