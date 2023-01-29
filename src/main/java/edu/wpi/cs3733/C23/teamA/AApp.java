@@ -37,7 +37,7 @@ public class AApp extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
 
-    Navigation.navigate(Screen.HOME);
+    Navigation.navigate(Screen.DATABASE);
   }
 
   @Override
