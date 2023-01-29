@@ -81,7 +81,7 @@ public class SanitationRequest {
                     " ",
                     "insert into SanitationRequest",
                     "(name, idNum, location, description, category, ul) VALUES" +
-                            "( " + name + ", " + idNum + ", " + location + ", " + description + ", " + category + ", " + ul + ", " + requestType + ");");
+                            "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + category + "', '" + ul + "', '" + requestType + "');");
     Adb.processUpdate(sql);
   }
 
