@@ -139,7 +139,8 @@ public class DFSTest {
   @Test
   public void roomToVendingPath() throws IOException {
     // call to readNodes and readEdges method to add in all the nodes and edges
-    ArrayList<GraphNode> roomVending = PathfindingController.callDFS(graph, "CHALL003L1", "CHALL007L1");
+    ArrayList<GraphNode> roomVending =
+        PathfindingController.callDFS(graph, "CHALL003L1", "CHALL007L1");
     assertTrue(roomVending != null);
   }
 
@@ -149,7 +150,8 @@ public class DFSTest {
     // these rooms are literally right across a hallaway from eachother. They're connected in
     // L1Edges.csv.
     // If it didn't work, that would be BAD.
-    ArrayList<GraphNode> questionable = PathfindingController.callDFS(graph, "CLABS003L1", "CLABS004L1");
+    ArrayList<GraphNode> questionable =
+        PathfindingController.callDFS(graph, "CLABS003L1", "CLABS004L1");
     assertTrue(questionable != null);
   }
 
@@ -157,7 +159,8 @@ public class DFSTest {
   public void questionableHospitalPath() throws IOException {
     // going from L1 Anesthesia Conference Room (CCONF001L1) to L1 Abrams Conference Room
     // (CCONF003L1)
-    ArrayList<GraphNode> questionable = PathfindingController.callDFS(graph, "CCONF001L1", "CCONF003L1");
+    ArrayList<GraphNode> questionable =
+        PathfindingController.callDFS(graph, "CCONF001L1", "CCONF003L1");
     assertTrue(questionable != null);
   }
 

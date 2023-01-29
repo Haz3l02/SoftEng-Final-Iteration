@@ -68,7 +68,7 @@ public class PathfindingController {
    * @return the path between startNode and endNode, if it exists. Otherwise, null.
    */
   public static ArrayList<GraphNode> callDFS(
-          HashMap<String, GraphNode> graph, String startNodeID, String endNodeID) {
+      HashMap<String, GraphNode> graph, String startNodeID, String endNodeID) {
     return DFS.traverse(graph.get(startNodeID), graph.get(endNodeID));
   }
 
@@ -79,7 +79,7 @@ public class PathfindingController {
    * @return the path between startNode and endNode, if it exists. Otherwise, null.
    */
   public static ArrayList<GraphNode> callAStar(
-          HashMap<String, GraphNode> graph, String startNodeID, String endNodeID) {
+      HashMap<String, GraphNode> graph, String startNodeID, String endNodeID) {
     return AStar.traverse(graph.get(startNodeID), graph.get(endNodeID));
   }
 

@@ -40,6 +40,7 @@ public class GraphNode implements Comparable<GraphNode> {
     this.nodeID = nodeID;
     visited = false;
     neighbors = new ArrayList<GraphNode>();
+
     costFromStart = Double.POSITIVE_INFINITY;
     heurCostToEnd = Double.POSITIVE_INFINITY;
     score = Double.POSITIVE_INFINITY;
@@ -63,6 +64,7 @@ public class GraphNode implements Comparable<GraphNode> {
 
     visited = false;
     neighbors = new ArrayList<GraphNode>();
+
     costFromStart = Double.POSITIVE_INFINITY;
     heurCostToEnd = Double.POSITIVE_INFINITY;
     score = Double.POSITIVE_INFINITY;
@@ -103,6 +105,7 @@ public class GraphNode implements Comparable<GraphNode> {
     visited = false;
     parent = null;
     neighbors = new ArrayList<GraphNode>();
+
     costFromStart = Double.POSITIVE_INFINITY;
     heurCostToEnd = Double.POSITIVE_INFINITY;
     score = Double.POSITIVE_INFINITY;
