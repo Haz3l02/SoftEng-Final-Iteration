@@ -100,7 +100,7 @@ public class SanitationRequest {
                       rs.getString("description"),
                       rs.getString("category"),
                       rs.getString("ul"),
-                      rs.getString("requestID")));
+                      rs.getString("requestType")));
     }
     return fin;
   }
