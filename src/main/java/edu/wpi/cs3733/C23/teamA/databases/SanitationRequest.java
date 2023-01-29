@@ -89,7 +89,7 @@ public class SanitationRequest {
   //returns list of sanitation requests based on a userID
   public ArrayList<SanitationRequest> getSanitationRequestByUser(String id) throws SQLException {
     ArrayList<SanitationRequest> fin = new ArrayList<>();
-    String sql = "SELECT * FROM SanitationRequest where idNum = " +id+ ";";
+    String sql = "SELECT * FROM SanitationRequest where idNum = '" +id+ "';";
     ResultSet rs = Adb.processQuery(sql);
     while (rs.next()) {
       fin.add(
