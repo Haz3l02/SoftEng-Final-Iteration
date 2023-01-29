@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.ComputerEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -53,24 +52,24 @@ public class ComputerController extends ServiceRequestController {
         || urgencyBox.getValue() == null) {
       reminder.setText("Please fill out all fields in the form!");
     } else {
-      requests.put(
-          IDNum.getText(),
-          new ComputerEntity(
-              nameBox.getText(),
-              IDNum.getText(),
-              locBox.getText(),
-              descBox.getText(),
-              urgencyBox.getValue(),
-              devicesBox.getValue(),
-              deviceIDNum.getText(),
-              "Computer Request"));
+      //      requests.put(
+      //          IDNum.getText(),
+      //          new ComputerEntity(
+      //              nameBox.getText(),
+      //              IDNum.getText(),
+      //              locBox.getText(),
+      //              descBox.getText(),
+      //              urgencyBox.getValue(),
+      //              devicesBox.getValue(),
+      //              deviceIDNum.getText(),
+      //              "Computer Request"));
 
       // *some db thing for getting the request in there*
-      System.out.println(
-          "NAME: "
-              + (requests.get(IDNum.getText())).getName()
-              + " ID Number: "
-              + (requests.get(IDNum.getText())).getIDNum());
+      //      System.out.println(
+      //          "NAME: "
+      //              + (requests.get(IDNum.getText())).getName()
+      //              + " ID Number: "
+      //              + (requests.get(IDNum.getText())).getIDNum());
 
       switchToConfirmationScene(event);
     }

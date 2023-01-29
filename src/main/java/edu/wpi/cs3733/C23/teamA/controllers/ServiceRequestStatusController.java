@@ -1,8 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.SanitationRequest;
 import edu.wpi.cs3733.C23.teamA.ServiceRequestTableRow;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +32,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
           new ServiceRequestTableRow(aCheckbox, "aaa", "aaaaaaaa", "aaa", "aaaaaaa", "aaaa"));
 
   @FXML
-  public void initialize() {
+  public void initialize() throws SQLException {
 
     checkbox.setCellValueFactory(new PropertyValueFactory<>("checkbox"));
     formTypeCol.setCellValueFactory(new PropertyValueFactory<>("formType"));
@@ -38,37 +41,22 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
-    System.out.println(requests.get("123").getName());
+    // System.out.println(requests.get("123").getName());
 
-    //for (sanitationRequest.getSanitationRequestByUser(IDNum) :  request)
-    requests.forEach(
-        (key, value) -> {
-          System.out.println(value.getRequestType());
+    SanitationRequest sr = new SanitationRequest();
 
-          CheckBox ch = new CheckBox("");
-          ServiceRequestTableRow serviceReqNewRow =
-              new ServiceRequestTableRow(
-                  ch,
-                  value.getRequestType(),
-                  "value.date()",
-                  "value.status()",
-                  value.getUl().toString(),
-                  "value.getEmployeeAssigned()");
-          dbTableRowsModel.add(serviceReqNewRow);
-        });
+    ArrayList<SanitationRequest> specificRequests = new ArrayList<>();
+    specificRequests = sr.getSanitationRequestByUser("123"); // MAKE SURE TO FIX THIS;
+    System.out.println(specificRequests.get(0).getName());
 
-    //    for (int i = 1; i <= 50; i++) {
-    //      CheckBox ch = new CheckBox("");
-    //      ServiceRequestTableRow serviceReqRow =
-    //          new ServiceRequestTableRow(ch, "a", "aa", "aaa", "aaaa", "aaaaa");
-    //      dbTableRowsModel.add(serviceReqRow);
-    //    }
-    //    requests.forEach((key,value) -> {
-    //
-    //      ServiceRequestTableRow serviceReqNewRow = new ServiceRequestTableRow(ch,
-    // value.getRequestType(), "value.date()", "value.status()",value.getUl(),
-    // "value.getEmployeeAssigned()");
-    //    });
+    for (SanitationRequest bla : specificRequests) {
+      CheckBox ch = new CheckBox("");
+      ServiceRequestTableRow serviceReqNewRow =
+          new ServiceRequestTableRow(
+              ch, bla.getRequestType(), "date", "status", bla.getUl(), "assignedEmployee");
+      dbTableRowsModel.add(serviceReqNewRow);
+    }
+
 
     serviceReqsTable.setItems(dbTableRowsModel);
   }

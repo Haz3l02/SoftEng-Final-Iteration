@@ -5,6 +5,7 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,7 +40,7 @@ public class SanitationController extends ServiceRequestController {
   }
 
   @FXML
-  void submitRequest(ActionEvent event) throws IOException {
+  void submitRequest(ActionEvent event) throws IOException, SQLException {
 
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
@@ -49,8 +50,18 @@ public class SanitationController extends ServiceRequestController {
         || urgencyBox.getValue() == null) {
       reminder.setText("Please fill out all fields in the form!");
     } else {
-      requests.put(
-          IDNum.getText(),
+      //      requests.put(
+      //          IDNum.getText(),
+      //          new SanitationRequest(
+      //              nameBox.getText(),
+      //              IDNum.getText(),
+      //              locBox.getText(),
+      //              descBox.getText(),
+      //              categoryBox.getValue(),
+      //              urgencyBox.getValue(),
+      //              "Sanitation Request"));
+
+      SanitationRequest submission =
           new SanitationRequest(
               nameBox.getText(),
               IDNum.getText(),
@@ -58,11 +69,16 @@ public class SanitationController extends ServiceRequestController {
               descBox.getText(),
               categoryBox.getValue(),
               urgencyBox.getValue(),
-              "Sanitation Request"));
+              "Sanitation Request");
+
+      System.out.println(submission.getIdNum());
+      System.out.println(submission.getName());
+
+      submission.insert();
 
       // *some db thing for getting the request in there*
       System.out.println("this submits data"); // to be removed later
-      System.out.println(requests.get(IDNum.getText()).getName());
+      // System.out.println(requests.get(IDNum.getText()).getName());
 
       switchToConfirmationScene(event);
     }

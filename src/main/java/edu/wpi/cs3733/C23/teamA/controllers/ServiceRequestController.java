@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.ServiceRequestEntities;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
-import java.util.HashMap;
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -19,8 +18,8 @@ import javafx.scene.text.Text;
 // import org.controlsfx.control.PopOver;
 
 public abstract class ServiceRequestController {
-  protected HashMap<String, ServiceRequestEntities> requests =
-      new HashMap<String, ServiceRequestEntities>();
+  // protected HashMap<String, SanitationRequest> requests = new HashMap<String,
+  // SanitationRequest>();
 
   @FXML protected MFXTextField nameBox;
   @FXML protected MFXTextField IDNum;
@@ -33,7 +32,7 @@ public abstract class ServiceRequestController {
   // private PopOver popup;
 
   @FXML
-  public void initialize() {
+  public void initialize() throws SQLException {
 
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
