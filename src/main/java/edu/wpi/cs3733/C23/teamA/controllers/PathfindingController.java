@@ -1,14 +1,15 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.util.*;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.event.ActionEvent;
 
 public class PathfindingController {
 
@@ -17,29 +18,34 @@ public class PathfindingController {
   @FXML private MFXTextField endNodeID;
   // @FXML private Button findPathButton; // to generate & print the path
   @FXML private Text pathDisplay; // to display the generated path
+  @FXML private Text reminder;
 
   @FXML
   public void generatePath() {
-    // create the graph hashMap
-    HashMap<String, Node> hospitalL1;
-    System.out.println("Prininfjgdndjkf");
+    if (startNodeID.getText().equals("") || endNodeID.getText().equals("")) {
+      reminder.setText("Please fill out all fields in the form!");
+    } else {
+      // create the graph hashMap
+      HashMap<String, Node> hospitalL1;
+      System.out.println("Prininfjgdndjkf");
 
-    // try to initialize the graph. If it fails, throw an error
-    try {
-      hospitalL1 = prepGraph();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+      // try to initialize the graph. If it fails, throw an error
+      try {
+        hospitalL1 = prepGraph();
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+
+      // get the nodeIDs from the application
+      String sID = startNodeID.getText();
+      String eID = endNodeID.getText();
+
+      // run A*
+      ArrayList<Node> path = callAStar(hospitalL1, sID, eID);
+
+      // print the path to the textField
+      pathDisplay.setText(PathInterpreter.generatePathString(path));
     }
-
-    // get the nodeIDs from the application
-    String sID = startNodeID.getText();
-    String eID = endNodeID.getText();
-
-    // run A*
-    ArrayList<Node> path = callAStar(hospitalL1, sID, eID);
-
-    // print the path to the textField
-    pathDisplay.setText(PathInterpreter.generatePathString(path));
   }
 
   /**
@@ -79,13 +85,26 @@ public class PathfindingController {
     return AStar.traverse(graph.get(startNodeID), graph.get(endNodeID));
   }
 
-  public void switchToHomeScene(ActionEvent actionEvent) {}
+  @FXML
+  public void switchToHomeScene(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.HOME);
+  }
 
   public void logout(ActionEvent actionEvent) {}
 
-  public void clearForm(ActionEvent actionEvent) {}
+  @FXML
+  void clearForm() {
+    startNodeID.clear();
+    endNodeID.clear();
+  }
 
-  public void switchToSRHomeScene(ActionEvent actionEvent) {}
+  @FXML
+  public void switchToHomeServiceRequest(ActionEvent event) throws IOException {
+    //Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
+  }
 
-  public void switchToHelpScene(ActionEvent actionEvent) {}
+  @FXML
+  public void switchToHelpScene(ActionEvent event) throws IOException {
+    //Navigation.navigate(Screen.HELP);
+  }
 }
