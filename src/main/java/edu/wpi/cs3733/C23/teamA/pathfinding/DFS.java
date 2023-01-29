@@ -15,15 +15,15 @@ public class DFS {
    * @return an ArrayList containing the nodes in the path from startNode to endNode, or null if
    *     there isn't one.
    */
-  public static ArrayList<Node> traverse(Node startNode, Node endNode) {
+  public static ArrayList<GraphNode> traverse(GraphNode startNode, GraphNode endNode) {
     // first, check if the starting and ending nodes are the same
 
     // initialize the stack and add the starting node to it
-    Deque<Node> stack = new LinkedList<>();
+    Deque<GraphNode> stack = new LinkedList<>();
     stack.push(startNode);
 
     while (!stack.isEmpty()) {
-      Node current = stack.pop();
+      GraphNode current = stack.pop();
       if (current == endNode) {
         // add a return statement here: we found it!
         return PathInterpreter.getPath(startNode, endNode);
@@ -32,7 +32,7 @@ public class DFS {
       if (!current.isVisited()) {
         // System.out.println(current.getNodeID());
         current.setVisited(true);
-        for (Node n : current.getNeighbors()) {
+        for (GraphNode n : current.getNeighbors()) {
           stack.push(n); // add edges to the stack
           if (n.getParent() == null) {
             // set the parent for each node in neighbors that doesn't already have a parent

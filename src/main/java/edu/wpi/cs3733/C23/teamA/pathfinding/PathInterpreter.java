@@ -12,10 +12,10 @@ public class PathInterpreter {
    * @param endNode Node that the search ends at or looks for
    * @return the path from the starting node to the ending node
    */
-  public static ArrayList<Node> getPath(Node startNode, Node endNode) {
+  public static ArrayList<GraphNode> getPath(GraphNode startNode, GraphNode endNode) {
     // initialize the ArrayList which will contain all the Nodes present in the path, and add the
     // ending node to it
-    ArrayList<Node> path = new ArrayList<>();
+    ArrayList<GraphNode> path = new ArrayList<>();
 
     // Check if startNode and endNode are the same. If they are, return the path with one Node
     if (startNode.equals(endNode)) {
@@ -32,7 +32,7 @@ public class PathInterpreter {
     // add the ending node to the path, which exists
     path.add(endNode);
     // create a tracker "node" to go through the path created by parent relationships
-    Node tracker = endNode;
+    GraphNode tracker = endNode;
 
     // loop until the startNode is found as a parent
     while (!tracker.getParent().equals(startNode)) {
@@ -55,14 +55,14 @@ public class PathInterpreter {
    * @param path An ArrayList which represents a path from the node in index zero to the node in the
    *     last index
    */
-  public static void printPath(ArrayList<Node> path) {
+  public static void printPath(ArrayList<GraphNode> path) {
     // get the first and last node names to print
     String startID = path.get(0).getNodeID();
     String endID = path.get(path.size() - 1).getNodeID();
     System.out.println("Path from " + startID + " to " + endID + ":");
 
     // loop through all of them to print the full path
-    for (Node n : path) {
+    for (GraphNode n : path) {
       System.out.print("Node ID: " + n.getNodeID());
       if (n.getLongName() != null) {
         System.out.println("; Long Name: " + n.getLongName());
@@ -77,7 +77,7 @@ public class PathInterpreter {
    * @param path An ArrayList which represents a path from the node in index zero to the node in the
    *     last index
    */
-  public static String generatePathString(ArrayList<Node> path) {
+  public static String generatePathString(ArrayList<GraphNode> path) {
     // get the first and last node names to print
     String startID = path.get(0).getNodeID();
     String endID = path.get(path.size() - 1).getNodeID();
@@ -88,7 +88,7 @@ public class PathInterpreter {
     sb.append("Path from " + startID + " to " + endID + ":\n");
 
     // loop through all of them to print the full path
-    for (Node n : path) {
+    for (GraphNode n : path) {
       sb.append("Node ID: " + n.getNodeID());
       if (n.getLongName() != null) {
         sb.append("; Long Name: " + n.getLongName() + "\n");

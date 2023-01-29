@@ -13,7 +13,7 @@ public class PathfindingApp {
    */
   public static void main(String[] args) {
     // create a HashMap to act as the hospital graph
-    HashMap<String, Node> hospitalL1;
+    HashMap<String, GraphNode> hospitalL1;
 
     // try to initialize the graph
     try {
@@ -26,7 +26,7 @@ public class PathfindingApp {
     String[] nodes = gatherInput(hospitalL1);
 
     // run A*
-    ArrayList<Node> L1path = PathfindingController.callAStar(hospitalL1, nodes[0], nodes[1]);
+    ArrayList<GraphNode> L1path = PathfindingController.callAStar(hospitalL1, nodes[0], nodes[1]);
 
     // print the final path, if found
     if (L1path == null) {
@@ -46,7 +46,7 @@ public class PathfindingApp {
    * @param hospitalL1 a HashMap of the graph
    * @return a pair of Strings (startNodeID, endNodeID)
    */
-  private static String[] gatherInput(HashMap<String, Node> hospitalL1) {
+  private static String[] gatherInput(HashMap<String, GraphNode> hospitalL1) {
     // once the graph is successfully initialized, create a Scanner for user input and begin asking
     // the user for Node IDs
     Scanner userInput = new Scanner(System.in);

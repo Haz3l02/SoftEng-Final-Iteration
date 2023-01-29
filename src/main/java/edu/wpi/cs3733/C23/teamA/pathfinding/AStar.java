@@ -15,7 +15,7 @@ public class AStar {
    * @param b The second node to find the direct distance between
    * @return the direct distance between the two nodes, in the form of a singular line between them
    */
-  public static double pythagThrm(Node a, Node b) {
+  public static double pythagThrm(GraphNode a, GraphNode b) {
     // x and y coordinates of a
     int aX = a.getXCoord();
     int aY = a.getYCoord();
@@ -38,9 +38,9 @@ public class AStar {
    * @return an ArrayList containing the nodes in the path from startNode to endNode, or null if
    *     there isn't one.
    */
-  public static ArrayList<Node> traverse(Node startNode, Node endNode) {
+  public static ArrayList<GraphNode> traverse(GraphNode startNode, GraphNode endNode) {
     // initialize open and closed lists
-    Queue<Node> open = new PriorityQueue<>();
+    Queue<GraphNode> open = new PriorityQueue<>();
 
     // set the scoring values for the open list
     startNode.setCostFromStart(0.0); // g(x) = 0, since it's the start
@@ -54,7 +54,7 @@ public class AStar {
     // start loopin'
     while (!open.isEmpty()) {
       // get the node from the top of the priority queue
-      Node current = open.poll();
+      GraphNode current = open.poll();
 
       // if the current node equals the end node, we're done!
       if (current.equals(endNode)) {
@@ -62,7 +62,7 @@ public class AStar {
       }
 
       // if we're not at the end, add current's children to the queue
-      for (Node n : current.getNeighbors()) {
+      for (GraphNode n : current.getNeighbors()) {
 
         // compute g(x) for the successor
         double tentativeGScore = current.getCostFromStart() + pythagThrm(current, n);

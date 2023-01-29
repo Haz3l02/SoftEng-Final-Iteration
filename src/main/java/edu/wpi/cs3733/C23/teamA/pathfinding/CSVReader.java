@@ -36,7 +36,7 @@ public class CSVReader {
    * @param graph is the HashMap<String, Node> we want to add Nodes too.
    * @throws IOException if the file cannot be found/read
    */
-  public static void readNodes(String path, HashMap<String, Node> graph) throws IOException {
+  public static void readNodes(String path, HashMap<String, GraphNode> graph) throws IOException {
     // create a scanner to import the CSV
     Scanner csvScanner = new Scanner(new File(path));
     csvScanner.useDelimiter(",");
@@ -53,8 +53,8 @@ public class CSVReader {
       // Should have exactly 8 entries because there are 8 columns
       if (entries.length == 8) {
         // Creates a node with this row and adds it to the graph HashMap
-        Node node =
-            new Node(
+        GraphNode node =
+            new GraphNode(
                 entries[0],
                 Integer.parseInt(entries[1]),
                 Integer.parseInt(entries[2]),
@@ -81,7 +81,7 @@ public class CSVReader {
    *     for
    * @throws IOException if the file cannot be found/read
    */
-  public static void readEdges(String path, HashMap<String, Node> graph) throws IOException {
+  public static void readEdges(String path, HashMap<String, GraphNode> graph) throws IOException {
     // create a scanner to import the CSV
     Scanner csvScanner = new Scanner(new File(path));
     csvScanner.useDelimiter(",");
@@ -99,8 +99,8 @@ public class CSVReader {
       // Making sure the correct number of entries exist (should have 3 columns)
       if (entries.length == 2) {
         // node with value entries[0] adds entries[1] to neighbors and vice versa
-        Node node1 = graph.get(entries[0]);
-        Node node2 = graph.get(entries[1]);
+        GraphNode node1 = graph.get(entries[0]);
+        GraphNode node2 = graph.get(entries[1]);
         node1.addNeighbor(node2);
         node2.addNeighbor(node1);
       } else {

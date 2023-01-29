@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 public class PathfindingController {
@@ -26,7 +25,7 @@ public class PathfindingController {
       reminder.setVisible(true);
     } else {
       // create the graph hashMap
-      HashMap<String, Node> hospitalL1;
+      HashMap<String, GraphNode> hospitalL1;
 
       // try to initialize the graph. If it fails, throw an error
       try {
@@ -40,7 +39,7 @@ public class PathfindingController {
       String eID = endNodeID.getText();
 
       // run A*
-      ArrayList<Node> path = callAStar(hospitalL1, sID, eID);
+      ArrayList<GraphNode> path = callAStar(hospitalL1, sID, eID);
 
       // print the path to the textField
       pathDisplay.setText(PathInterpreter.generatePathString(path));
@@ -51,9 +50,9 @@ public class PathfindingController {
    * @return a HashMap<String, Node> representing a graph, read from .csv files
    * @throws IOException if the files cannot be read
    */
-  public static HashMap<String, Node> prepGraph() throws IOException {
+  public static HashMap<String, GraphNode> prepGraph() throws IOException {
     // create a graph to hold the L1 information
-    HashMap<String, Node> graph = new HashMap<>();
+    HashMap<String, GraphNode> graph = new HashMap<>();
 
     // add the L1 CSV information to the graph (TO BE UPDATED LATER)
     CSVReader.readNodes("src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/L1Nodes.csv", graph);
@@ -68,8 +67,8 @@ public class PathfindingController {
    * @param endNodeID the ID of the node that the user wants to get to
    * @return the path between startNode and endNode, if it exists. Otherwise, null.
    */
-  public static ArrayList<Node> callDFS(
-      HashMap<String, Node> graph, String startNodeID, String endNodeID) {
+  public static ArrayList<GraphNode> callDFS(
+          HashMap<String, GraphNode> graph, String startNodeID, String endNodeID) {
     return DFS.traverse(graph.get(startNodeID), graph.get(endNodeID));
   }
 
@@ -79,8 +78,8 @@ public class PathfindingController {
    * @param endNodeID the ID of the node that the user wants to get to
    * @return the path between startNode and endNode, if it exists. Otherwise, null.
    */
-  public static ArrayList<Node> callAStar(
-      HashMap<String, Node> graph, String startNodeID, String endNodeID) {
+  public static ArrayList<GraphNode> callAStar(
+          HashMap<String, GraphNode> graph, String startNodeID, String endNodeID) {
     return AStar.traverse(graph.get(startNodeID), graph.get(endNodeID));
   }
 

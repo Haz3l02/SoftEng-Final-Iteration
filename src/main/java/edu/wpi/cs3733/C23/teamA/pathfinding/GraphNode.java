@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Node implements Comparable<Node> {
+public class GraphNode implements Comparable<GraphNode> {
 
   // attributes from the .csv file
   @Getter private String nodeID; // unique string id of the node
@@ -20,9 +20,9 @@ public class Node implements Comparable<Node> {
   @Getter @Setter private boolean visited; // where it has been visited in a search
 
   @Getter @Setter
-  private Node parent; // the node it was first accessed from (used for backtracking)
+  private GraphNode parent; // the node it was first accessed from (used for backtracking)
 
-  @Getter private ArrayList<Node> neighbors; // nodes that have edges with this node
+  @Getter private ArrayList<GraphNode> neighbors; // nodes that have edges with this node
 
   // attributes specifically for A* searching
   @Getter @Setter private double costFromStart; // g(x)
@@ -36,10 +36,10 @@ public class Node implements Comparable<Node> {
    *
    * @param nodeID is a unique id name
    */
-  public Node(String nodeID) {
+  public GraphNode(String nodeID) {
     this.nodeID = nodeID;
     visited = false;
-    neighbors = new ArrayList<Node>();
+    neighbors = new ArrayList<GraphNode>();
     costFromStart = Double.POSITIVE_INFINITY;
     heurCostToEnd = Double.POSITIVE_INFINITY;
     score = Double.POSITIVE_INFINITY;
@@ -55,14 +55,14 @@ public class Node implements Comparable<Node> {
    *     located
    * @param longName is the long name of the node
    */
-  public Node(String nodeID, int xCoord, int yCoord, String longName) {
+  public GraphNode(String nodeID, int xCoord, int yCoord, String longName) {
     this.nodeID = nodeID;
     this.xCoord = xCoord;
     this.yCoord = yCoord;
     this.longName = longName;
 
     visited = false;
-    neighbors = new ArrayList<Node>();
+    neighbors = new ArrayList<GraphNode>();
     costFromStart = Double.POSITIVE_INFINITY;
     heurCostToEnd = Double.POSITIVE_INFINITY;
     score = Double.POSITIVE_INFINITY;
@@ -82,7 +82,7 @@ public class Node implements Comparable<Node> {
    * @param longName is the long name of the node
    * @param shortName is the shortened name of the node (not the same as the ID)
    */
-  public Node(
+  public GraphNode(
       String nodeID,
       int xCoord,
       int yCoord,
@@ -102,7 +102,7 @@ public class Node implements Comparable<Node> {
 
     visited = false;
     parent = null;
-    neighbors = new ArrayList<Node>();
+    neighbors = new ArrayList<GraphNode>();
     costFromStart = Double.POSITIVE_INFINITY;
     heurCostToEnd = Double.POSITIVE_INFINITY;
     score = Double.POSITIVE_INFINITY;
@@ -113,7 +113,7 @@ public class Node implements Comparable<Node> {
    *
    * @param neighbor node that is connected to this node by an edge
    */
-  public void addNeighbor(Node neighbor) {
+  public void addNeighbor(GraphNode neighbor) {
     neighbors.add(neighbor);
   }
 
@@ -125,7 +125,7 @@ public class Node implements Comparable<Node> {
    * @return an integer which represents the result of the comparison.
    */
   @Override
-  public int compareTo(Node other) {
+  public int compareTo(GraphNode other) {
     if (this.score > other.score) {
       return 1;
     } else if (this.score < other.score) {
