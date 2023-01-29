@@ -4,14 +4,12 @@ import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
 import java.io.IOException;
 import java.util.*;
 
-/*
-The Main class to run a pathfinding search using terminal line input
- */
+// The main class to run a pathfinding search using terminal line input
 public class PathfindingApp {
 
   /*
   This main method allows a user to use the terminal and will print out
-  the path between the two inputted nodes using Depth First Search
+  the path between the two inputted nodes using A* search
    */
   public static void main(String[] args) {
     // create a HashMap to act as the hospital graph
@@ -19,7 +17,7 @@ public class PathfindingApp {
 
     // try to initialize the graph
     try {
-      hospitalL1 = PathfindingController.prepDFS();
+      hospitalL1 = PathfindingController.prepGraph();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -27,14 +25,17 @@ public class PathfindingApp {
     // Calls helper function to get input
     String[] nodes = gatherInput(hospitalL1);
 
-    // run DFS
-    ArrayList<Node> L1path = PathfindingController.callDFS(hospitalL1, nodes[0], nodes[1]);
+    // run A*
+    ArrayList<Node> L1path = PathfindingController.callAStar(hospitalL1, nodes[0], nodes[1]);
 
     // print the final path, if found
-    if (L1path != null) {
-      PathfindingController.printPath(L1path);
-    } else {
+    if (L1path == null) {
       System.out.println("Sorry, no path between these locations exists.");
+    } else if (L1path.size() == 1) {
+      System.out.println(
+          "The starting and ending locations are the same, so there is no path between them.");
+    } else {
+      PathfindingController.printPath(L1path);
     }
   }
 

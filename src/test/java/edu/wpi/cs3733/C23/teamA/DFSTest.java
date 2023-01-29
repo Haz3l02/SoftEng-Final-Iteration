@@ -33,7 +33,7 @@ public class DFSTest {
     testGraph.put("a6", a6);
 
     // Hospital L1 Graph
-    graph = PathfindingController.prepDFS();
+    graph = PathfindingController.prepGraph();
   }
 
   @Test

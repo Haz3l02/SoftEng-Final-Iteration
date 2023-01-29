@@ -1,12 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
 import java.util.*;
 
 /*
 Class to be made in Prototype 2 to run an A star graph search algorithm
  */
 public class AStar {
-  // attributes: ???
 
   /**
    * Uses the Pythagorean Theorem to find the direct distance between two nodes. Used as a heuristic
@@ -29,22 +29,63 @@ public class AStar {
     return Math.sqrt((Math.pow((bX - aX), 2)) + (Math.pow((bY - aY), 2)));
   }
 
-  public static ArrayList<Node> aStarTraverse(Node startNode, Node endNode) {
+  /**
+   * Uses the A* algorithm to find the shortest path between startNode and endNode, with
+   * the Euclidean distance between nodes used to track the distance from startNode and the
+   * estimated heuristic distance to the endNode.
+   *
+   * @param startNode Node that the search begins at
+   * @param endNode Node that the search ends at or looks for
+   * @return an ArrayList containing the nodes in the path from startNode to endNode, or null if there isn't one.
+   */
+  public static ArrayList<Node> traverse(Node startNode, Node endNode) {
     // initialize open and closed lists
-    Deque<Node> open = new LinkedList<>();
-    Deque<Node> closed = new LinkedList<>();
+    Queue<Node> open = new PriorityQueue<>();
 
-    // add the starting node to the open list
-    open.push(startNode);
+    // set the scoring values for the open list
+    startNode.setCostFromStart(0.0); // g(x) = 0, since it's the start
+    startNode.setHeurCostToEnd(pythagThrm(startNode, endNode)); // h(x)
+    startNode.setScore(
+        startNode.getCostFromStart() + startNode.getHeurCostToEnd()); // f(x) = g(x) + h(x)
 
     // add the starting node to the open list
     open.add(startNode);
 
-    // f(x) = g(x) + h(x), where g(x) is the distance from the start and h(x) is the heuristic
-    // distance from the end
+    // start loopin'
+    while (!open.isEmpty()) {
+      // get the node from the top of the priority queue
+      Node current = open.poll();
 
-    // to get IntelliJ to stop yelling at me :)
-    ArrayList<Node> test = new ArrayList<>();
-    return test;
+      // if the current node equals the end node, we're done!
+      if (current.equals(endNode)) {
+        return PathfindingController.getPath(startNode, endNode);
+      }
+
+      // if we're not at the end, add current's children to the queue
+      for (Node n : current.getNeighbors()) {
+
+        // compute g(x) for the successor
+        double tentativeGScore = current.getCostFromStart() + pythagThrm(current, n);
+
+        //
+        if (tentativeGScore < n.getCostFromStart()) {
+          // set the parent to current
+          n.setParent(current);
+
+          // set attributes of n
+          n.setCostFromStart(tentativeGScore);
+          n.setHeurCostToEnd(pythagThrm(n, endNode));
+          n.setScore(n.getCostFromStart() + n.getHeurCostToEnd());
+
+          // if n is not in the set, add it (can happen multiple times for a node)
+          if (!open.contains(n)) {
+            open.add(n);
+          }
+        }
+      }
+    }
+
+    // if we get here, no path was found. Return null
+    return null;
   }
 }

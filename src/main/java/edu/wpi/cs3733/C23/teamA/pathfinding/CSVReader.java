@@ -17,7 +17,7 @@ public class CSVReader {
    * This will print out the rows of a .csv file; intended for testing/research purposes.
    *
    * @param path The "Path from Repository Root" for any .csv file.
-   * @throws IOException
+   * @throws IOException if the file cannot be found/read
    */
   public static void readCSV(String path) throws IOException {
     // create a scanner to import the CSV
@@ -34,7 +34,7 @@ public class CSVReader {
    *
    * @param path The "Path from Repository Root" for a Node .csv file.
    * @param graph is the HashMap<String, Node> we want to add Nodes too.
-   * @throws IOException
+   * @throws IOException if the file cannot be found/read
    */
   public static void readNodes(String path, HashMap<String, Node> graph) throws IOException {
     // create a scanner to import the CSV
@@ -55,12 +55,20 @@ public class CSVReader {
         // Creates a node with this row and adds it to the graph HashMap
         Node node =
             new Node(
-                entries[0], Integer.parseInt(entries[1]), Integer.parseInt(entries[2]), entries[6]);
+                entries[0],
+                Integer.parseInt(entries[1]),
+                Integer.parseInt(entries[2]),
+                entries[3],
+                entries[4],
+                entries[5],
+                entries[6],
+                entries[7]);
         graph.put(entries[0], node);
       } else {
         throw new InvalidPropertiesFormatException("Improper Number of Columns or Commas");
       }
     }
+
     // close the scanner
     csvScanner.close();
   }
@@ -71,7 +79,7 @@ public class CSVReader {
    * @param path is the path from repository root to an Edges csv file
    * @param graph is the HashMap<String, Node> with existing nodes in it that we want to add edges
    *     for
-   * @throws IOException
+   * @throws IOException if the file cannot be found/read
    */
   public static void readEdges(String path, HashMap<String, Node> graph) throws IOException {
     // create a scanner to import the CSV
@@ -89,16 +97,17 @@ public class CSVReader {
       row = csvScanner.nextLine();
       String[] entries = row.split(",");
       // Making sure the correct number of entries exist (should have 3 columns)
-      if (entries.length == 3) {
-        // node with value entries[1] adds entries[2] to neighbors and vice versa
-        Node node1 = graph.get(entries[1]);
-        Node node2 = graph.get(entries[2]);
+      if (entries.length == 2) {
+        // node with value entries[0] adds entries[1] to neighbors and vice versa
+        Node node1 = graph.get(entries[0]);
+        Node node2 = graph.get(entries[1]);
         node1.addNeighbor(node2);
         node2.addNeighbor(node1);
       } else {
         throw new InvalidPropertiesFormatException("Improper Number of Columns or Commas");
       }
     }
+
     // close the scanner
     csvScanner.close();
   }
