@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
@@ -22,12 +20,13 @@ public class PathfindingController {
 
   @FXML
   public void generatePath() {
+    // check that the fields are filled out
     if (startNodeID.getText().equals("") || endNodeID.getText().equals("")) {
       reminder.setText("Please fill out all fields in the form!");
+      reminder.setVisible(true);
     } else {
       // create the graph hashMap
       HashMap<String, Node> hospitalL1;
-      System.out.println("Prininfjgdndjkf");
 
       // try to initialize the graph. If it fails, throw an error
       try {
@@ -87,7 +86,7 @@ public class PathfindingController {
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME);
+    // Navigation.navigate(Screen.HOME);
   }
 
   public void logout(ActionEvent actionEvent) {}
@@ -100,11 +99,11 @@ public class PathfindingController {
 
   @FXML
   public void switchToHomeServiceRequest(ActionEvent event) throws IOException {
-    //Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
+    // Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
   }
 
   @FXML
   public void switchToHelpScene(ActionEvent event) throws IOException {
-    //Navigation.navigate(Screen.HELP);
+    // Navigation.navigate(Screen.HELP);
   }
 }
