@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.navigation;
 
 import edu.wpi.cs3733.C23.teamA.AApp;
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 
 public class Navigation {
@@ -17,5 +18,11 @@ public class Navigation {
     } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     }
+  }
+
+  public static void close() {
+    // We need to test
+    // AApp.getRootPane();
+    Platform.exit();
   }
 }
