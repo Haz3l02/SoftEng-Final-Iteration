@@ -1,6 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.DBTableRow;
+import edu.wpi.cs3733.C23.teamA.databases.Move;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,13 +20,23 @@ public class DatabaseController {
   @FXML public TableColumn<DBTableRow, String> moveCol;
   @FXML public TableColumn<DBTableRow, String> edgeDataCol;
 
-  private ObservableList<DBTableRow> dbTableRowsModel =
-      FXCollections.observableArrayList(
-          new DBTableRow("a", "aaaaaaaa", "aaa", "aaaaaaa"),
-          new DBTableRow("bb", "b", "bbb", "bbbbb"));
+  private ArrayList<Move> data;
+
+  {
+    try {
+      data = Move.getAll();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private ObservableList<DBTableRow> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-
+    for (Move row : data) {
+      dbTableRowsModel.add(
+          new DBTableRow(row.getNodeID(), row.getLongName(), row.getMoveDate(), "goes to"));
+    }
     nodeCol.setCellValueFactory(new PropertyValueFactory<>("node"));
     locNameCol.setCellValueFactory(new PropertyValueFactory<>("locName"));
     moveCol.setCellValueFactory(new PropertyValueFactory<>("move"));

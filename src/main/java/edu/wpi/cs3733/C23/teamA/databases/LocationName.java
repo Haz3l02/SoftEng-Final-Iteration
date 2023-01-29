@@ -7,8 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class LocationName {
-  private static final String tableName = "locationname";
-
+  @Getter private static final String tableName = "locationname";
   @Setter @Getter private String longName;
   @Setter @Getter private String shortName;
   @Setter @Getter private String locationType;
@@ -40,10 +39,6 @@ public class LocationName {
               rs.getString("longname"), rs.getString("shortname"), rs.getString("locationtype")));
     }
     return locations;
-  }
-
-  public static String getTableName() {
-    return tableName;
   }
 
   public String toString() {

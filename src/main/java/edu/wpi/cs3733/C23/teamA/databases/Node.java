@@ -7,27 +7,40 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Node {
-  private static final String tableName = "node";
-  @Setter @Getter private String nodeid;
+  @Getter private static final String tableName = "node";
+  @Setter @Getter private String nodeID;
   @Setter @Getter private int xcoord;
   @Setter @Getter private int ycoord;
   @Setter @Getter private String floor;
   @Setter @Getter private String building;
 
   public Node() {
-    nodeid = null;
+    nodeID = null;
     xcoord = 0;
     ycoord = 0;
     floor = null;
     building = null;
   }
 
-  public Node(String nodeid, int xcoord, int ycoord, String floor, String building) {
-    this.nodeid = nodeid;
+  public Node(String nodeID, int xcoord, int ycoord, String floor, String building) {
+    this.nodeID = nodeID;
     this.xcoord = xcoord;
     this.ycoord = ycoord;
     this.floor = floor;
     this.building = building;
+  }
+
+  public static void initTable() throws SQLException {
+    String sql =
+        String.join(
+            " ",
+            "CREATE TABLE Node",
+            "(nodeid text,",
+            "xcoord INTEGER,",
+            "ycoord INTEGER,",
+            "floor text,",
+            "building text);");
+    Adb.processUpdate(sql);
   }
 
   public static ArrayList<Node> getAll() throws SQLException {
@@ -44,23 +57,6 @@ public class Node {
               rs.getString("building")));
     }
     return nodes;
-  }
-
-  public static void initTable() throws SQLException {
-    String sql =
-        String.join(
-            " ",
-            "CREATE TABLE Node",
-            "(nodeid text,",
-            "xcoord INTEGER,",
-            "ycoord INTEGER,",
-            "floor text,",
-            "building text);");
-    Adb.processUpdate(sql);
-  }
-
-  public static String getTableName() {
-    return tableName;
   }
 
   public static ResultSet getSpecificNode(String id) throws SQLException {
@@ -89,7 +85,7 @@ public class Node {
   }
 
   public String toString() {
-    return String.format("%s %d %d %s %s", nodeid, xcoord, ycoord, floor, building);
+    return String.format("%s %d %d %s %s", nodeID, xcoord, ycoord, floor, building);
   }
 
   //  public int setLocation(String shortName, String longName, String node) throws SQLException {

@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Edge {
-  private static final String tableName = "edge";
+  @Getter private static final String tableName = "edge";
 
   @Setter @Getter private String node1;
   @Setter @Getter private String node2;
@@ -46,10 +46,6 @@ public class Edge {
   //    String sql = String.join(" ", "DELETE from Edge where edgeID = '" + id + "'");
   //    Adb.processUpdate(sql);
   //  }
-
-  public static String getTableName() {
-    return tableName;
-  }
 
   public String toString() {
     return String.format("%s %s", node1, node2);

@@ -20,10 +20,6 @@ public class Move {
     this.moveDate = moveDate;
   }
 
-  /*
-   *
-   * @throws SQLException
-   */
   public static void initTable() throws SQLException {
     String sql =
         String.join(
@@ -47,7 +43,7 @@ public class Move {
         String.join(
             " ",
             "insert into Move values('"
-                + node.getNodeid()
+                + node.getNodeID()
                 + "','"
                 + location.getLongName()
                 + "',NOW()::timestamp);");
