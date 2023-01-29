@@ -16,7 +16,7 @@
    <top>
       <SplitPane orientation="VERTICAL" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <items>
-            <VBox alignment="BOTTOM_LEFT" disable="true" prefHeight="91.0" prefWidth="598.0" style="-fx-background-color: #122C34;" SplitPane.resizableWithParent="false">
+            <VBox alignment="BOTTOM_LEFT" disable="true" prefHeight="91.0" prefWidth="598.0" style="-fx-background-color: #122C34; -fx-border-color: #122C34;" SplitPane.resizableWithParent="false">
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
                      <font>

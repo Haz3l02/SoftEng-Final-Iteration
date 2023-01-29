@@ -15,8 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
-
-// import org.controlsfx.control.PopOver;
+//import org.controlsfx.control.PopOver;
 
 public class ComputerController {
   private HashMap<String, ServiceRequestEntities> requests =
@@ -30,7 +29,7 @@ public class ComputerController {
   @FXML private MFXComboBox<String> devicesBox;
   @FXML private MFXComboBox<String> urgencyBox;
   @FXML private Text reminder;
-  // private PopOver popup;
+  //private PopOver popup;
 
   @FXML
   public void initialize() {
