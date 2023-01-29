@@ -41,6 +41,14 @@ public class LocationName {
     return locations;
   }
 
+  public void update() throws SQLException {
+    String sql =
+        String.format(
+            "insert into locationname values('%s','%s','%s') on conflict do update;",
+            longName, shortName, locationType);
+    Adb.processUpdate(sql);
+  }
+
   public String toString() {
     return String.format("%s %s %s", longName, shortName, locationType);
   }

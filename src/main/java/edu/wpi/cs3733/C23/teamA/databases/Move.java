@@ -38,16 +38,11 @@ public class Move {
     return moves;
   }
 
-  public void moveLocation(LocationName location, Node node) throws SQLException {
+  public void update() throws SQLException {
     String sql =
-        String.join(
-            " ",
-            "insert into Move values('"
-                + node.getNodeID()
-                + "','"
-                + location.getLongName()
-                + "',NOW()::timestamp);");
-    Adb.processQuery(sql);
+        String.format(
+            "insert into move values('%s','%s',NOW()) on conflict do update;", nodeID, longName);
+    Adb.processUpdate(sql);
   }
 
   public ResultSet mostRecentLoc(String node) throws SQLException {

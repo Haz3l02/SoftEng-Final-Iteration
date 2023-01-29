@@ -47,6 +47,12 @@ public class Edge {
   //    Adb.processUpdate(sql);
   //  }
 
+  public void update() throws SQLException {
+    String sql =
+        String.format("insert into edge values('%s','%s') on conflict do update;", node1, node2);
+    Adb.processUpdate(sql);
+  }
+
   public String toString() {
     return String.format("%s %s", node1, node2);
   }

@@ -69,19 +69,12 @@ public class Node {
     Adb.processUpdate(sql);
   }
 
-  public static int setCoords(int x, int y, String node) throws SQLException {
+  public void update() throws SQLException {
     String sql =
-        String.join(
-            " ",
-            "UPDATE Node "
-                + "SET xcoord = '"
-                + x
-                + "', ycoord = '"
-                + y
-                + "' WHERE nodeID = '"
-                + node
-                + "';");
-    return Adb.processUpdate(sql);
+        String.format(
+            "insert into node values('%s','%d','%d','%s','%s') on conflict do update;",
+            nodeID, xcoord, ycoord, floor, building);
+    Adb.processUpdate(sql);
   }
 
   public String toString() {
