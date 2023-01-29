@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 public class SanitationRequest {
 
+    private static final String tableName = "SanitationRequest";
+
     @Getter @Setter
     int requestID;
     @Getter @Setter
