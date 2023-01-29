@@ -30,6 +30,7 @@ public abstract class ServiceRequestController {
 
   @FXML
   public void initialize() {
+
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 

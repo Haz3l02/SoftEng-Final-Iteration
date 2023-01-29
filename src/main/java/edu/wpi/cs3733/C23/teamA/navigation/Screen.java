@@ -11,7 +11,9 @@ public enum Screen {
   SECURITY("views/SecurityFXML.fxml"),
   HELP("views/HelpFXML.fxml"),
   HOME_SERVICE_REQUEST("views/HomeServiceRequestFXML.fxml"),
-  SERVICE_REQUEST("views/ServiceRequest.fxml");
+  SERVICE_REQUEST("views/ServiceRequest.fxml"),
+  DATABASE_FXML("views/DatabaseFXML.fxml"),
+  SERVICE_REQUEST_STATUS("views/ServiceRequestStatusNewFXML.fxml");
 
   private final String filename;
 
