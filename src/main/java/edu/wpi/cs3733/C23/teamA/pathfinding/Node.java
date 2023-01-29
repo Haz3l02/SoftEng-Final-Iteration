@@ -72,8 +72,10 @@ public class Node implements Comparable<Node> {
    * Node Constructor with all features in the original .csv file.
    *
    * @param nodeID is a unique id name
-   * @param xCoord is the x-coordinate (in pixels) on the image of the floor where the node is located
-   * @param yCoord is the y-coordinate (in pixels) on the image of the floor where the node is located
+   * @param xCoord is the x-coordinate (in pixels) on the image of the floor where the node is
+   *     located
+   * @param yCoord is the y-coordinate (in pixels) on the image of the floor where the node is
+   *     located
    * @param floor is the floor where this node of located
    * @param building is the building in which this node is located
    * @param nodeType is the type of location (ELEV = elevator, SERV = service, etc.) at this node
@@ -116,8 +118,8 @@ public class Node implements Comparable<Node> {
   }
 
   /**
-   * Compares two Node objects using the 'score' attribute. Nodes with a higher (worse)
-   * are 'greater than' Nodes with a lower (better) score.
+   * Compares two Node objects using the 'score' attribute. Nodes with a higher (worse) are 'greater
+   * than' Nodes with a lower (better) score.
    *
    * @param other the object to be compared.
    * @return an integer which represents the result of the comparison.

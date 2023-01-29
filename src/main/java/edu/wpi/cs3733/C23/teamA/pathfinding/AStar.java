@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
-import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
 import java.util.*;
 
 /*
@@ -30,13 +29,14 @@ public class AStar {
   }
 
   /**
-   * Uses the A* algorithm to find the shortest path between startNode and endNode, with
-   * the Euclidean distance between nodes used to track the distance from startNode and the
-   * estimated heuristic distance to the endNode.
+   * Uses the A* algorithm to find the shortest path between startNode and endNode, with the
+   * Euclidean distance between nodes used to track the distance from startNode and the estimated
+   * heuristic distance to the endNode.
    *
    * @param startNode Node that the search begins at
    * @param endNode Node that the search ends at or looks for
-   * @return an ArrayList containing the nodes in the path from startNode to endNode, or null if there isn't one.
+   * @return an ArrayList containing the nodes in the path from startNode to endNode, or null if
+   *     there isn't one.
    */
   public static ArrayList<Node> traverse(Node startNode, Node endNode) {
     // initialize open and closed lists
@@ -58,7 +58,7 @@ public class AStar {
 
       // if the current node equals the end node, we're done!
       if (current.equals(endNode)) {
-        return PathfindingController.getPath(startNode, endNode);
+        return PathInterpreter.getPath(startNode, endNode);
       }
 
       // if we're not at the end, add current's children to the queue

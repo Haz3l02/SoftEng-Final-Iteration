@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
-import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -13,7 +12,8 @@ public class DFS {
    *
    * @param startNode Node that the search begins at
    * @param endNode Node that the search ends at or looks for
-   * @return an ArrayList containing the nodes in the path from startNode to endNode, or null if there isn't one.
+   * @return an ArrayList containing the nodes in the path from startNode to endNode, or null if
+   *     there isn't one.
    */
   public static ArrayList<Node> traverse(Node startNode, Node endNode) {
     // first, check if the starting and ending nodes are the same
@@ -26,7 +26,7 @@ public class DFS {
       Node current = stack.pop();
       if (current == endNode) {
         // add a return statement here: we found it!
-        return PathfindingController.getPath(startNode, endNode);
+        return PathInterpreter.getPath(startNode, endNode);
       }
 
       if (!current.isVisited()) {

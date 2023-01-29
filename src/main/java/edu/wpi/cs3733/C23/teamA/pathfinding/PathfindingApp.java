@@ -35,7 +35,7 @@ public class PathfindingApp {
       System.out.println(
           "The starting and ending locations are the same, so there is no path between them.");
     } else {
-      PathfindingController.printPath(L1path);
+      PathInterpreter.printPath(L1path);
     }
   }
 
