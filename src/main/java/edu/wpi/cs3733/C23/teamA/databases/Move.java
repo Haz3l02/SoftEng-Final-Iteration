@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Move {
@@ -17,9 +18,9 @@ public class Move {
     @Setter @Getter
     private String longName;
     @Setter @Getter
-    private LocalTime moveDate;
+    private LocalDateTime moveDate;
 
-    public Move(String nodeID, String longName, LocalTime moveDate) {
+    public Move(String nodeID, String longName, LocalDateTime moveDate) {
         this.nodeID = nodeID;
         this.longName = longName;
         this.moveDate = moveDate;
