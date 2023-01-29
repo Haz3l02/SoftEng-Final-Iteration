@@ -31,7 +31,7 @@ public class SanitationRequest {
         String.join(
             " ",
             "CREATE TABLE SanitationRequest",
-            "(requestID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), ",
+            "(requestID SERIAL PRIMARY KEY, ",
             "name text,",
             "idNum text,",
             "location text,",
