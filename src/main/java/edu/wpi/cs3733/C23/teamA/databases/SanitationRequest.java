@@ -80,7 +80,7 @@ public class SanitationRequest {
             String.join(
                     " ",
                     "insert into SanitationRequest",
-                    "(name, idNum, location, description, category, ul) VALUES" +
+                    "(name, idNum, location, description, category, ul, requestType) VALUES" +
                             "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + category + "', '" + ul + "', '" + requestType + "');");
     Adb.processUpdate(sql);
   }
