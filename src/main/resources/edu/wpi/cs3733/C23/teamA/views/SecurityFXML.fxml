@@ -35,7 +35,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <MFXTextField fx:id="name" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="184.0" promptText="Enter your first and last name" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                  <MFXTextField fx:id="nameBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="184.0" promptText="Enter your first and last name" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                      <HBox.margin>
                         <Insets top="-5.0" />
                      </HBox.margin>
@@ -58,7 +58,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <MFXTextField fx:id="IDnum" alignment="CENTER" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" promptText="Enter your BWH ID" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                  <MFXTextField fx:id="IDNum" alignment="CENTER" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" promptText="Enter your BWH ID" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                      <HBox.margin>
                         <Insets left="2.0" top="-5.0" />
                      </HBox.margin>
@@ -139,7 +139,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <MFXTextField fx:id="issue" floatMode="DISABLED" prefHeight="22.0" prefWidth="478.0" promptText="Enter additional details of the issue" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" />
+                  <MFXTextField fx:id="descBox" floatMode="DISABLED" prefHeight="22.0" prefWidth="478.0" promptText="Enter additional details of the issue" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" />
                </children>
                <padding>
                   <Insets top="5.0" />

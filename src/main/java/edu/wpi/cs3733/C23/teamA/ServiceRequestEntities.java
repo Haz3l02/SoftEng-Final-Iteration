@@ -6,17 +6,20 @@ import lombok.Setter;
 
 public abstract class ServiceRequestEntities {
   @Getter @Setter private String name;
-  @Getter @Setter private String idNum;
+  @Getter @Setter private String IDNum;
   @Getter @Setter private String location;
   @Getter @Setter private String description;
+  @Getter @Setter private int requestType;
+
   @Getter @Setter private UrgencyLevel ul;
 
   public ServiceRequestEntities(
-      String name, String idNum, String location, String description, String ul) {
+      String name, String IDNum, String location, String description, String ul, int requestType) {
     this.name = name;
-    this.idNum = idNum;
+    this.IDNum = IDNum;
     this.location = location;
     this.description = description;
+    this.requestType = requestType;
     // this.urgencyLevel = UrgencyLevel.LOW;
 
     switch (ul) {

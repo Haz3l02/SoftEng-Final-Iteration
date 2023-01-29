@@ -35,7 +35,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <MFXTextField fx:id="name" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.4" prefWidth="210.4" promptText="Enter your first and last name" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                  <MFXTextField fx:id="nameBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.4" prefWidth="210.4" promptText="Enter your first and last name" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
@@ -48,7 +48,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <MFXTextField fx:id="IDnum" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.4" prefWidth="154.0" promptText="Enter your ID number" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                  <MFXTextField fx:id="IDNum" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.4" prefWidth="154.0" promptText="Enter your ID number" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
@@ -150,7 +150,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <MFXTextField fx:id="issue" floatMode="DISABLED" prefHeight="22.0" prefWidth="478.0" promptText="Enter additional details of the issue" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" />
+                  <MFXTextField fx:id="descBox" floatMode="DISABLED" prefHeight="22.0" prefWidth="478.0" promptText="Enter additional details of the issue" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" />
                </children>
                <padding>
                   <Insets top="5.0" />
@@ -209,7 +209,7 @@
                   <Insets bottom="10.0" right="10.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton fx:id="cancel" buttonType="RAISED" onAction="#switchToHomeServiceRequest" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+            <MFXButton fx:id="cancel" buttonType="RAISED" onAction="#switchToHomeServiceRequestScene" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets bottom="10.0" right="10.0" />
                </HBox.margin>

@@ -6,8 +6,14 @@ public class SanitationEntity extends ServiceRequestEntities {
   IssueCategory category;
 
   public SanitationEntity(
-      String name, String idNum, String location, String description, String category, String ul) {
-    super(name, idNum, location, description, ul);
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String category,
+      String ul,
+      int requestType) {
+    super(name, idNum, location, description, ul, requestType);
 
     switch (category) {
       case "standard":
