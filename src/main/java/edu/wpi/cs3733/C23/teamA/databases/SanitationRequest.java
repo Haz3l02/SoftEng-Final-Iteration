@@ -5,7 +5,7 @@ import lombok.*;
 
 public class SanitationRequest {
 
-  private static final String tableName = "SanitationRequest";
+  @Getter private static final String tableName = "SanitationRequest";
 
   @Getter @Setter int requestID;
   @Getter @Setter String name;
