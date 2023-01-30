@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.databases.Move;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -18,6 +19,8 @@ public class DatabaseController {
   @FXML public TableColumn<Move, String> nodeCol;
   @FXML public TableColumn<Move, String> locNameCol;
   @FXML public TableColumn<Move, String> moveCol;
+
+  @FXML public MFXButton refresh;
   // @FXML public TableColumn<Move, String> edgeDataCol;
 
   private ArrayList<Move> data;
@@ -32,11 +35,14 @@ public class DatabaseController {
 
   private ObservableList<Move> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
-  public void initialize() throws SQLException {
+  public void initialize() {
+
     for (Move row : data) {
       dbTableRowsModel.add(row);
     }
     initializeColumns();
+    editableColumns();
+    dbTable.setEditable(true);
   }
 
   public void initializeColumns() {
@@ -45,32 +51,35 @@ public class DatabaseController {
     moveCol.setCellValueFactory(new PropertyValueFactory<>("moveDate"));
     // edgeDataCol.setCellValueFactory(new PropertyValueFactory<>("edgeData"));
     dbTable.setItems(dbTableRowsModel);
-    editableColumns();
   }
 
   public void editableColumns() {
     nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    nodeCol.setOnEditCommit(
-        e ->
-            e.getTableView()
-                .getItems()
-                .get(e.getTablePosition().getRow())
-                .setNodeID(e.getNewValue()));
     locNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
     locNameCol.setOnEditCommit(
-        e ->
-            e.getTableView()
-                .getItems()
-                .get(e.getTablePosition().getRow())
-                .setLongName(e.getNewValue()));
-    moveCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    moveCol.setOnEditCommit(
-        e ->
-            e.getTableView()
-                .getItems()
-                .get(e.getTablePosition().getRow())
-                .setMoveDate(e.getNewValue()));
+        e -> {
+          Move n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          try {
+            n.setLongName(e.getNewValue());
+            n.update();
+          } catch (SQLException ex) {
+            refresh.setText("Invalid Node: Refresh");
+            n.setLongName(e.getOldValue());
+            initializeColumns();
+          }
+        });
+    nodeCol.setOnEditCommit(
+        e -> {
+          Move n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          try {
+            n.setNodeID(e.getNewValue());
+            n.update();
+          } catch (SQLException ex) {
+            refresh.setText("Invalid Location: Refresh");
+            n.setNodeID(e.getOldValue());
+            initializeColumns();
+          }
+        });
     // edgeDataCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    dbTable.setEditable(true);
   }
 }

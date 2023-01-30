@@ -3,9 +3,6 @@ package edu.wpi.cs3733.C23.teamA.databases;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import edu.wpi.cs3733.C23.teamA.databases.Adb;
-
 import lombok.*;
 
 public class SanitationRequest {
@@ -20,21 +17,26 @@ public class SanitationRequest {
   @Getter @Setter String ul;
   @Getter @Setter String requestType;
 
-
   public SanitationRequest() {
     requestID = 0;
-    name=null;
-    idNum=null;
-    location=null;
-    description=null;
-    category=null;
-    ul=null;
-    requestType=null;
+    name = null;
+    idNum = null;
+    location = null;
+    description = null;
+    category = null;
+    ul = null;
+    requestType = null;
   }
 
-  //for new request
+  // for new request
   public SanitationRequest(
-      String name, String idNum, String location, String description, String category, String ul, String requestType) {
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String category,
+      String ul,
+      String requestType) {
     this.name = name;
     this.idNum = idNum;
     this.location = location;
@@ -44,9 +46,16 @@ public class SanitationRequest {
     this.requestType = requestType;
   }
 
-
-  //for selecting existing
-  public SanitationRequest(int requestID, String name, String idNum, String location, String description, String category, String ul, String requestType) {
+  // for selecting existing
+  public SanitationRequest(
+      int requestID,
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String category,
+      String ul,
+      String requestType) {
     this.requestID = requestID;
     this.name = name;
     this.idNum = idNum;
@@ -73,34 +82,46 @@ public class SanitationRequest {
     Adb.processUpdate(sql);
   }
 
-
-
   public void insert() throws SQLException {
     String sql =
-            String.join(
-                    " ",
-                    "insert into SanitationRequest",
-                    "(name, idNum, location, description, category, ul, requestType) VALUES" +
-                            "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + category + "', '" + ul + "', '" + requestType + "');");
+        String.join(
+            " ",
+            "insert into SanitationRequest",
+            "(name, idNum, location, description, category, ul, requestType) VALUES"
+                + "( '"
+                + name
+                + "', '"
+                + idNum
+                + "', '"
+                + location
+                + "', '"
+                + description
+                + "', '"
+                + category
+                + "', '"
+                + ul
+                + "', '"
+                + requestType
+                + "');");
     Adb.processUpdate(sql);
   }
 
-
-  //returns list of sanitation requests based on a userID
+  // returns list of sanitation requests based on a userID
   public ArrayList<SanitationRequest> getSanitationRequestByUser(String id) throws SQLException {
     ArrayList<SanitationRequest> fin = new ArrayList<>();
-    String sql = "SELECT * FROM SanitationRequest where idNum = '" +id+ "';";
+    String sql = "SELECT * FROM SanitationRequest where idNum = '" + id + "';";
     ResultSet rs = Adb.processQuery(sql);
     while (rs.next()) {
       fin.add(
-              new SanitationRequest(rs.getInt("requestID"),
-                      rs.getString("name"),
-                      rs.getString("idNum"),
-                      rs.getString("location"),
-                      rs.getString("description"),
-                      rs.getString("category"),
-                      rs.getString("ul"),
-                      rs.getString("requestType")));
+          new SanitationRequest(
+              rs.getInt("requestID"),
+              rs.getString("name"),
+              rs.getString("idNum"),
+              rs.getString("location"),
+              rs.getString("description"),
+              rs.getString("category"),
+              rs.getString("ul"),
+              rs.getString("requestType")));
     }
     return fin;
   }
