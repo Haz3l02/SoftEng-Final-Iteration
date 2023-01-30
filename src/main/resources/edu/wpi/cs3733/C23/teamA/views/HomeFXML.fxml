@@ -13,7 +13,7 @@
 
 <AnchorPane styleClass="BackDropStyle" stylesheets="@../assets/BackDropStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <children>
-      <StackPane layoutY="200.0" prefHeight="400.0" prefWidth="549.0" AnchorPane.bottomAnchor="-200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-8.0" AnchorPane.topAnchor="200.0">
+      <StackPane layoutX="-18.0" layoutY="188.0" prefHeight="412.0" prefWidth="565.0" AnchorPane.bottomAnchor="-200.0" AnchorPane.leftAnchor="-18.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="188.0">
          <children>
             <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="541.0" style="-fx-background-color: BAD1EA;">
                <padding>

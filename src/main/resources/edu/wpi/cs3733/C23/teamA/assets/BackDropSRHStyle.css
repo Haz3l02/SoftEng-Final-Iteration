@@ -1,0 +1,7 @@
+.BackDropSRHStyle{
+    -fx-background-image: url(BackDropSRH.jpg);
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+
+}
