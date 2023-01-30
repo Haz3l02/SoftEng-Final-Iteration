@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.pathfinding.PathInterpreter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ public class AStarTest {
   final GraphNode b1 = new GraphNode("b1", 0, 0);
   final GraphNode b2 = new GraphNode("b2", -1, 3);
   final GraphNode b3 = new GraphNode("b3", 1, 2);
+  final GraphNode b4 = new GraphNode("b4", 0, 4);
+  static HashMap<String, GraphNode> testGraph2 = new HashMap<>();
 
   // test graph from Hospital L1 data
   static HashMap<String, GraphNode> graphL1 = new HashMap<>();
@@ -34,6 +37,11 @@ public class AStarTest {
     testGraph.put("a3", a3);
     testGraph.put("a4", a4);
     testGraph.put("a5", a5);
+
+    testGraph2.put("b1", b1);
+    testGraph2.put("b2", b2);
+    testGraph2.put("b3", b3);
+    testGraph2.put("b4", b4);
 
     // Hospital L1 Graph
     graphL1 = PathfindingController.prepGraph();
@@ -92,7 +100,7 @@ public class AStarTest {
   }
 
   @Test
-  public void shortestPath4() {
+  public void shortestNumberPath() {
     // connecting nodes
     a1.addNeighbor(a2);
     a2.addNeighbor(a3);
@@ -114,7 +122,7 @@ public class AStarTest {
   }
 
   @Test
-  public void shortestPath4Reverse() {
+  public void shortestNumberPathReverse() {
     // connecting nodes entered in reverse order to assure no bias in order
     a5.addNeighbor(a4);
     a4.addNeighbor(a3);
@@ -170,6 +178,47 @@ public class AStarTest {
 
     String[] correctPath = {"a1"};
     ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a1");
+    for (int i = 0; i < path.size(); i++) {
+      GraphNode current = path.get(i);
+      assertEquals(current.getNodeID(), correctPath[i]);
+    }
+  }
+
+  @Test
+  public void shortestPath4() {
+    // random nodes, with self loop
+    b1.addNeighbor(b2);
+    b1.addNeighbor(b3);
+    b2.addNeighbor(b4);
+    b3.addNeighbor(b4);
+    b4.addNeighbor(b3);
+    b4.addNeighbor(b2);
+    b2.addNeighbor(b1);
+    b3.addNeighbor(b1);
+
+    String[] correctPath = {"b1", "b3", "b4"};
+    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph2, "b1", "b4");
+    System.out.println(PathInterpreter.generatePathString(path));
+    for (int i = 0; i < path.size(); i++) {
+      GraphNode current = path.get(i);
+      assertEquals(current.getNodeID(), correctPath[i]);
+    }
+  }
+
+  @Test
+  public void shortestPath4Backwards() {
+    // random nodes, with self loop
+    b1.addNeighbor(b2);
+    b1.addNeighbor(b3);
+    b2.addNeighbor(b4);
+    b3.addNeighbor(b4);
+    b4.addNeighbor(b3);
+    b4.addNeighbor(b2);
+    b2.addNeighbor(b1);
+    b3.addNeighbor(b1);
+
+    String[] correctPath = {"b4", "b3", "b1"};
+    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph2, "b4", "b1");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
