@@ -29,7 +29,7 @@ public class PathfindingController {
 
       // try to initialize the graph. If it fails, throw an error
       try {
-        hospitalL1 = prepGraph();
+        hospitalL1 = prepGraphCSV(); // reads through CSV files //
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
@@ -59,7 +59,7 @@ public class PathfindingController {
         reminder.setVisible(true);
       } else {
         // run A*
-        ArrayList<GraphNode> path = callAStar(hospitalL1, sID, eID);
+        ArrayList<GraphNode> path = callAStar(hospitalL1, sID, eID); // makes a call to AStar //
 
         // print the path to the textField
         pathDisplay.setText(PathInterpreter.generatePathString(path));
@@ -71,13 +71,33 @@ public class PathfindingController {
    * @return a HashMap<String, Node> representing a graph, read from .csv files
    * @throws IOException if the files cannot be read
    */
-  public static HashMap<String, GraphNode> prepGraph() throws IOException {
+  public static HashMap<String, GraphNode> prepGraphCSV() throws IOException {
     // create a graph to hold the L1 information
     HashMap<String, GraphNode> graph = new HashMap<>();
 
     // add the L1 CSV information to the graph (TO BE UPDATED LATER)
     CSVReader.readNodes("src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/L1Nodes.csv", graph);
     CSVReader.readEdges("src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/L1Edges.csv", graph);
+
+    return graph;
+  }
+
+  public static HashMap<String, GraphNode> prepGraphDB() {
+    // create a graph to hold the L1 information
+    HashMap<String, GraphNode> graph = new HashMap<>();
+
+    // add the L1 information to the graph
+
+    // Nodes
+    /* - make node objects
+       - add nodes and string names to the hashMap
+     */
+
+    // Edges
+    /* - read through edge columns and add edges to correct node (bidirectional)
+     */
+
+
 
     return graph;
   }

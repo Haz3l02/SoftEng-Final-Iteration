@@ -17,7 +17,7 @@ public class PathfindingApp {
 
     // try to initialize the graph
     try {
-      hospitalL1 = PathfindingController.prepGraph();
+      hospitalL1 = PathfindingController.prepGraphCSV();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
