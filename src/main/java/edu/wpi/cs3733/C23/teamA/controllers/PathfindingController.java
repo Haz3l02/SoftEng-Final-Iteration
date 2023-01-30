@@ -38,11 +38,32 @@ public class PathfindingController {
       String sID = startNodeID.getText();
       String eID = endNodeID.getText();
 
-      // run A*
-      ArrayList<GraphNode> path = callAStar(hospitalL1, sID, eID);
+      // check if the nodes entered are in the graph at all
+      // Note: this could probably be a helper function, but that can happen later - Audrey
+      boolean startValid = hospitalL1.containsKey(sID);
+      boolean endValid = hospitalL1.containsKey(eID);
 
-      // print the path to the textField
-      pathDisplay.setText(PathInterpreter.generatePathString(path));
+      // check both nodes
+      if (!startValid && !endValid) {
+        reminder.setText("Both IDs entered are invalid. Please try again.");
+        reminder.setVisible(true);
+      }
+      // check start node
+      else if (!startValid) {
+        reminder.setText("The Start Node ID isn't valid. Please try again.");
+        reminder.setVisible(true);
+      }
+      // check end node
+      else if (!endValid) {
+        reminder.setText("The End Node ID isn't valid. Please try again.");
+        reminder.setVisible(true);
+      } else {
+        // run A*
+        ArrayList<GraphNode> path = callAStar(hospitalL1, sID, eID);
+
+        // print the path to the textField
+        pathDisplay.setText(PathInterpreter.generatePathString(path));
+      }
     }
   }
 
