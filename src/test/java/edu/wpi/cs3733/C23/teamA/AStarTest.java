@@ -19,6 +19,10 @@ public class AStarTest {
   final GraphNode a5 = new GraphNode("a5", 3, 4);
   static HashMap<String, GraphNode> testGraph = new HashMap<>();
 
+  final GraphNode b1 = new GraphNode("b1", 0, 0);
+  final GraphNode b2 = new GraphNode("b2", -1, 3);
+  final GraphNode b3 = new GraphNode("b3", 1, 2);
+
   // test graph from Hospital L1 data
   static HashMap<String, GraphNode> graphL1 = new HashMap<>();
 
