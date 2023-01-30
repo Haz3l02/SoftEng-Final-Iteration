@@ -47,7 +47,6 @@ public class PathInterpreter {
     return path;
   }
 
-
   /**
    * Creates a string representation of the path specified by the parameter path. Shows each node
    * with their ID and long name. Implies that the path being given is not null or empty.

@@ -8,8 +8,8 @@ public class GraphNode implements Comparable<GraphNode> {
 
   // attributes from the .csv file
   @Getter private String nodeID; // unique string id of the node
-  @Getter private int xCoord; // x coordinate of where it is located
-  @Getter private int yCoord; // y coordinate of where it is located
+  @Getter @Setter private int xCoord; // x coordinate of where it is located
+  @Getter @Setter private int yCoord; // y coordinate of where it is located
   private String floor; // floor identifier that it is on
   private String building; // name of building it is in
   private String nodeType; // type of node (ie hallway, restroom, etc)
@@ -32,7 +32,7 @@ public class GraphNode implements Comparable<GraphNode> {
   private double score; // score (f(x)) = costFromStart (g(x)) + heurCostToEnd (h(x))
 
   /**
-   * Node Constructor
+   * A Simple Node Constructor
    *
    * @param nodeID is a unique id name
    */
@@ -47,21 +47,14 @@ public class GraphNode implements Comparable<GraphNode> {
   }
 
   /**
-   * Node Constructor with the name, x-coordinates, and y-coordinates included
+   * A Simple Node Constructor
    *
    * @param nodeID is a unique id name
-   * @param xCoord is the x-coordinate (in pixels) on the image of the floor where the node is
-   *     located
-   * @param yCoord is the y-coordinate (in pixels) on the image of the floor where the node is
-   *     located
-   * @param longName is the long name of the node
    */
-  public GraphNode(String nodeID, int xCoord, int yCoord, String longName) {
+  public GraphNode(String nodeID, int xCoord, int yCoord) {
     this.nodeID = nodeID;
     this.xCoord = xCoord;
     this.yCoord = yCoord;
-    this.longName = longName;
-
     visited = false;
     neighbors = new ArrayList<GraphNode>();
 

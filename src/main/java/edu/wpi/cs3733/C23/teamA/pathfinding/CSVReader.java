@@ -14,22 +14,6 @@ method using the same node names and graph
 public class CSVReader {
 
   /**
-   * This will print out the rows of a .csv file; intended for testing/research purposes.
-   *
-   * @param path The "Path from Repository Root" for any .csv file.
-   * @throws IOException if the file cannot be found/read
-   */
-  public static void readCSV(String path) throws IOException {
-    // create a scanner to import the CSV
-    Scanner csvScanner = new Scanner(new File(path));
-    csvScanner.useDelimiter(",");
-
-    while (csvScanner.hasNextLine()) {
-      System.out.println(csvScanner.nextLine());
-    }
-  }
-
-  /**
    * This will add nodes to a specified "graph" (HashMap<String>, Node) from a .csv file.
    *
    * @param path The "Path from Repository Root" for a Node .csv file.
@@ -110,5 +94,21 @@ public class CSVReader {
 
     // close the scanner
     csvScanner.close();
+  }
+
+  /**
+   * This will print out the rows of a .csv file; intended for testing/research purposes.
+   *
+   * @param path The "Path from Repository Root" for any .csv file.
+   * @throws IOException if the file cannot be found/read
+   */
+  public static void readCSV(String path) throws IOException {
+    // create a scanner to import the CSV
+    Scanner csvScanner = new Scanner(new File(path));
+    csvScanner.useDelimiter(",");
+
+    while (csvScanner.hasNextLine()) {
+      System.out.println(csvScanner.nextLine());
+    }
   }
 }
