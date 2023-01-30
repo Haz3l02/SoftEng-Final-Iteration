@@ -19,6 +19,8 @@ public class SanitationRequest {
   @Getter @Setter String category;
   @Getter @Setter String ul;
   @Getter @Setter String requestType;
+  @Getter @Setter String status;
+  @Getter @Setter String employeeAssigned;
 
 
   public SanitationRequest() {
@@ -30,11 +32,13 @@ public class SanitationRequest {
     category=null;
     ul=null;
     requestType=null;
+    status=null;
+    employeeAssigned = null;
   }
 
   //for new request
   public SanitationRequest(
-      String name, String idNum, String location, String description, String category, String ul, String requestType) {
+      String name, String idNum, String location, String description, String category, String ul, String requestType, String status, String employeeAssigned) {
     this.name = name;
     this.idNum = idNum;
     this.location = location;
@@ -42,11 +46,13 @@ public class SanitationRequest {
     this.category = category;
     this.ul = ul;
     this.requestType = requestType;
+    this.status = status;
+    this.employeeAssigned = employeeAssigned;
   }
 
 
   //for selecting existing
-  public SanitationRequest(int requestID, String name, String idNum, String location, String description, String category, String ul, String requestType) {
+  public SanitationRequest(int requestID, String name, String idNum, String location, String description, String category, String ul, String requestType, String status, String employeeAssigned) {
     this.requestID = requestID;
     this.name = name;
     this.idNum = idNum;
@@ -55,6 +61,8 @@ public class SanitationRequest {
     this.category = category;
     this.ul = ul;
     this.requestType = requestType;
+    this.status = status;
+    this.employeeAssigned = employeeAssigned;
   }
 
   public static void initTable() throws SQLException {
@@ -69,7 +77,9 @@ public class SanitationRequest {
             "description text,",
             "category text,",
             "ul text,",
-            "requestType text);");
+            "requestType text,",
+            "status text,",
+            "employeeAssigned text);");
     Adb.processUpdate(sql);
   }
 
@@ -80,8 +90,8 @@ public class SanitationRequest {
             String.join(
                     " ",
                     "insert into SanitationRequest",
-                    "(name, idNum, location, description, category, ul, requestType) VALUES" +
-                            "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + category + "', '" + ul + "', '" + requestType + "');");
+                    "(name, idNum, location, description, category, ul, requestType, status, employeeAssigned) VALUES" +
+                            "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + category + "', '" + ul + "', '" + requestType + "', '" + status, "', '" + employeeAssigned + "');");
     Adb.processUpdate(sql);
   }
 
@@ -100,7 +110,9 @@ public class SanitationRequest {
                       rs.getString("description"),
                       rs.getString("category"),
                       rs.getString("ul"),
-                      rs.getString("requestType")));
+                      rs.getString("requestType"),
+                      rs.getString("status"),
+                      rs.getString("employeeAssigned")));
     }
     return fin;
   }
