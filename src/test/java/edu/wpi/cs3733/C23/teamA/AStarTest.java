@@ -47,7 +47,7 @@ public class AStarTest {
     ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a2");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
-      assertTrue(current.getNodeID().equals(correctPath[i]));
+      assertEquals(current.getNodeID(), correctPath[i]);
     }
   }
 
@@ -63,7 +63,7 @@ public class AStarTest {
     ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a3");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
-      assertTrue(current.getNodeID().equals(correctPath[i]));
+      assertEquals(current.getNodeID(), correctPath[i]);
     }
   }
 
@@ -83,7 +83,7 @@ public class AStarTest {
     ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a4");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
-      assertTrue(current.getNodeID().equals(correctPath[i]));
+      assertEquals(current.getNodeID(), correctPath[i]);
     }
   }
 
@@ -105,7 +105,7 @@ public class AStarTest {
     ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a2", "a5");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
-      assertTrue(current.getNodeID().equals(correctPath[i]));
+      assertEquals(current.getNodeID(), correctPath[i]);
     }
   }
 
@@ -127,7 +127,7 @@ public class AStarTest {
     ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a2", "a5");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
-      assertTrue(current.getNodeID().equals(correctPath[i]));
+      assertEquals(current.getNodeID(), correctPath[i]);
     }
   }
 
@@ -141,7 +141,7 @@ public class AStarTest {
     ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a1");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
-      assertTrue(current.getNodeID().equals(correctPath[i]));
+      assertEquals(current.getNodeID(), correctPath[i]);
     }
   }
 
@@ -153,7 +153,7 @@ public class AStarTest {
     ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a1");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
-      assertTrue(current.getNodeID().equals(correctPath[i]));
+      assertEquals(current.getNodeID(), correctPath[i]);
     }
   }
 
@@ -168,7 +168,8 @@ public class AStarTest {
     ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a1");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
-      assertTrue(current.getNodeID().equals(correctPath[i]));
+      assertEquals(current.getNodeID(), correctPath[i]);
     }
   }
+
 }

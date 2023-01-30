@@ -7,26 +7,6 @@ Class that runs an A star graph search algorithm
  */
 public class AStar {
 
-  /**
-   * Uses the Pythagorean Theorem to find the direct distance between two nodes. Used as a heuristic
-   * for finding the shortest path between two nodes using A*.
-   *
-   * @param a The first node to find the direct distance between
-   * @param b The second node to find the direct distance between
-   * @return the direct distance between the two nodes, in the form of a singular line between them
-   */
-  private static double pythagThrm(GraphNode a, GraphNode b) {
-    // x and y coordinates of a
-    int aX = a.getXCoord();
-    int aY = a.getYCoord();
-
-    // x and y coordinates of b
-    int bX = b.getXCoord();
-    int bY = b.getYCoord();
-
-    // compute the direct distance between the nodes using the pythagorean theorem
-    return Math.sqrt((Math.pow((bX - aX), 2)) + (Math.pow((bY - aY), 2)));
-  }
 
   /**
    * Uses the A* algorithm to find the shortest path between startNode and endNode, with the
@@ -88,4 +68,26 @@ public class AStar {
     // if we get here, no path was found. Return null
     return null;
   }
+
+  /**
+   * Uses the Pythagorean Theorem to find the direct distance between two nodes. Used as a heuristic
+   * for finding the shortest path between two nodes using A*.
+   *
+   * @param a The first node to find the direct distance between
+   * @param b The second node to find the direct distance between
+   * @return the direct distance between the two nodes, in the form of a singular line between them
+   */
+  private static double pythagThrm(GraphNode a, GraphNode b) {
+    // x and y coordinates of a
+    int aX = a.getXCoord();
+    int aY = a.getYCoord();
+
+    // x and y coordinates of b
+    int bX = b.getXCoord();
+    int bY = b.getYCoord();
+
+    // compute the direct distance between the nodes using the pythagorean theorem
+    return Math.sqrt((Math.pow((bX - aX), 2)) + (Math.pow((bY - aY), 2)));
+  }
+
 }
