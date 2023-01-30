@@ -3,93 +3,106 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BAD1EA; -fx-border-color: black; -fx-border-width: 1 1 1 1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeServiceRequestController">
-   <padding>
-      <Insets bottom="-20.0" />
-   </padding>
-   <top>
-      <SplitPane orientation="VERTICAL" prefHeight="103.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <items>
-            <VBox alignment="BOTTOM_LEFT" disable="true" prefHeight="91.0" prefWidth="598.0" style="-fx-background-color: #224870;" SplitPane.resizableWithParent="false">
-               <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Page" underline="true">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+<AnchorPane styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeServiceRequestController">
+   <children>
+      <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="114.0">
+         <children>
+            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: BAD1EA; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
                <padding>
-                  <Insets bottom="20.0" left="20.0" />
+                  <Insets bottom="-20.0" />
                </padding>
-            </VBox>
-         </items>
-      </SplitPane>
-   </top>
-   <left>
-      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="600.0" spacing="20.0" BorderPane.alignment="CENTER">
-         <children>
-            <MFXButton buttonType="RAISED" onAction="#switchToSanitation" prefHeight="70.0" prefWidth="300.0" text="Sanitation">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </MFXButton>
-            <MFXButton buttonType="RAISED" onAction="#switchToComputer" prefHeight="70.0" prefWidth="300.0" text="Computer">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </MFXButton>
-            <MFXButton buttonType="RAISED" onAction="#switchToSecurity" prefHeight="70.0" prefWidth="300.0" text="Security">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </MFXButton>
+               <top>
+                  <SplitPane orientation="VERTICAL" prefHeight="103.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                     <items>
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="121.0" prefWidth="619.0" spacing="10.0" style="-fx-background-color: #122C34;">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Page" underline="true">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Text>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="497.0" spacing="20.0" style="-fx-background-color: #2A4494;">
+                                 <children>
+                                    <MFXButton buttonType="RAISED" onAction="#switchToSanitation" prefHeight="29.0" prefWidth="205.0" style="-fx-background-color: #2A4494;" text="Sanitation Request" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton buttonType="RAISED" onAction="#switchToComputer" prefHeight="20.0" prefWidth="205.0" style="-fx-background-color: #2A4494;" text="Computer Request" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton buttonType="RAISED" onAction="#switchToSecurity" prefHeight="20.0" prefWidth="205.0" style="-fx-background-color: #2A4494;" text="Security Request" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="257.0" spacing="20.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css">
+                                       <children>
+                                          <MFXButton buttonType="RAISED" onAction="#switchToHome" prefHeight="20.0" prefWidth="100.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton buttonType="RAISED" onAction="#logout" prefHeight="20.0" prefWidth="100.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton buttonType="RAISED" onAction="#switchToHelpScene" prefHeight="20.0" prefWidth="100.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </MFXButton>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" />
+                           </padding>
+                        </VBox>
+                     </items>
+                  </SplitPane>
+               </top>
+               <center>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/helth.jpg" />
+                           </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meme of the Day!">
+                           <font>
+                              <Font name="Chalkduster" size="13.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </center>
+            </BorderPane>
          </children>
-         <BorderPane.margin>
-            <Insets left="10.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="60.0" BorderPane.alignment="CENTER_LEFT">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sanitation: Steve and Hazel">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Computer: Isabella and Isabelle">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Security: Chris and Co">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-         </children>
-         <padding>
-            <Insets top="50.0" />
-         </padding>
-         <BorderPane.margin>
-            <Insets right="10.0" />
-         </BorderPane.margin>
-      </VBox>
-   </right>
-</BorderPane>
+      </StackPane>
+   </children>
+</AnchorPane>
