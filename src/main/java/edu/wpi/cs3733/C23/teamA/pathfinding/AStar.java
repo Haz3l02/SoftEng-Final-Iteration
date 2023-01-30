@@ -3,7 +3,7 @@ package edu.wpi.cs3733.C23.teamA.pathfinding;
 import java.util.*;
 
 /*
-Class to be made in Prototype 2 to run an A star graph search algorithm
+Class that runs an A star graph search algorithm
  */
 public class AStar {
 
@@ -15,7 +15,7 @@ public class AStar {
    * @param b The second node to find the direct distance between
    * @return the direct distance between the two nodes, in the form of a singular line between them
    */
-  public static double pythagThrm(GraphNode a, GraphNode b) {
+  private static double pythagThrm(GraphNode a, GraphNode b) {
     // x and y coordinates of a
     int aX = a.getXCoord();
     int aY = a.getYCoord();

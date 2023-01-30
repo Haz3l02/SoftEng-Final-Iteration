@@ -23,7 +23,7 @@ public class PathfindingApp {
     }
 
     // Calls helper function to get input
-    String[] nodes = gatherInput(hospitalL1);
+    String[] nodes = getInput(hospitalL1);
 
     // run A*
     ArrayList<GraphNode> L1path = PathfindingController.callAStar(hospitalL1, nodes[0], nodes[1]);
@@ -35,7 +35,7 @@ public class PathfindingApp {
       System.out.println(
           "The starting and ending locations are the same, so there is no path between them.");
     } else {
-      PathInterpreter.printPath(L1path);
+      System.out.println(PathInterpreter.generatePathString(L1path));
     }
   }
 
@@ -46,7 +46,7 @@ public class PathfindingApp {
    * @param hospitalL1 a HashMap of the graph
    * @return a pair of Strings (startNodeID, endNodeID)
    */
-  private static String[] gatherInput(HashMap<String, GraphNode> hospitalL1) {
+  private static String[] getInput(HashMap<String, GraphNode> hospitalL1) {
     // once the graph is successfully initialized, create a Scanner for user input and begin asking
     // the user for Node IDs
     Scanner userInput = new Scanner(System.in);

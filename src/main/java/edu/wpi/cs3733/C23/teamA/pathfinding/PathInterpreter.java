@@ -13,8 +13,7 @@ public class PathInterpreter {
    * @return the path from the starting node to the ending node
    */
   public static ArrayList<GraphNode> getPath(GraphNode startNode, GraphNode endNode) {
-    // initialize the ArrayList which will contain all the Nodes present in the path, and add the
-    // ending node to it
+    // initialize the array which will contain all the Nodes in the path and add the end node
     ArrayList<GraphNode> path = new ArrayList<>();
 
     // Check if startNode and endNode are the same. If they are, return the path with one Node
@@ -48,27 +47,6 @@ public class PathInterpreter {
     return path;
   }
 
-  /**
-   * Prints the path specified by the parameter path. Prints each node with their ID and long name.
-   * Implies that the path being given is not null or empty.
-   *
-   * @param path An ArrayList which represents a path from the node in index zero to the node in the
-   *     last index
-   */
-  public static void printPath(ArrayList<GraphNode> path) {
-    // get the first and last node names to print
-    String startID = path.get(0).getNodeID();
-    String endID = path.get(path.size() - 1).getNodeID();
-    System.out.println("Path from " + startID + " to " + endID + ":");
-
-    // loop through all of them to print the full path
-    for (GraphNode n : path) {
-      System.out.print("Node ID: " + n.getNodeID());
-      if (n.getLongName() != null) {
-        System.out.println("; Long Name: " + n.getLongName());
-      }
-    }
-  }
 
   /**
    * Creates a string representation of the path specified by the parameter path. Shows each node
