@@ -44,7 +44,7 @@ public class AStarTest {
     testGraph2.put("b4", b4);
 
     // Hospital L1 Graph
-    graphL1 = PathfindingController.prepGraph();
+    graphL1 = PathfindingController.prepGraphCSV();
   }
 
   @Test
