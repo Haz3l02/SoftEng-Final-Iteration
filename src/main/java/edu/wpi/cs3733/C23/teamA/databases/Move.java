@@ -10,8 +10,8 @@ public class Move {
 
   private static final String tableName = "move";
 
-  @Setter @Getter private String nodeID;
-  @Setter @Getter private String longName;
+  @Getter private String nodeID;
+  @Getter private String longName;
   @Setter @Getter private String moveDate;
 
   public Move(String nodeID, String longName, String moveDate) {
@@ -39,9 +39,7 @@ public class Move {
   }
 
   public void update() throws SQLException {
-    String sql =
-        String.format(
-            "insert into move values('%s','%s',NOW()) on conflict do update;", nodeID, longName);
+    String sql = String.format("insert into move values('%s','%s',NOW());", nodeID, longName);
     Adb.processUpdate(sql);
   }
 
@@ -51,6 +49,14 @@ public class Move {
             " ",
             "select * from move where nodeID = '" + node + "' order by moveDate desc limit 1;");
     return Adb.processQuery(sql);
+  }
+
+  public void setNodeID(String id) {
+    nodeID = id;
+  }
+
+  public void setLongName(String name) {
+    longName = name;
   }
 
   public String toString() {
