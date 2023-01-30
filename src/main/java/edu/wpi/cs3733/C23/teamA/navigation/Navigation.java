@@ -21,8 +21,6 @@ public class Navigation {
   }
 
   public static void close() {
-    // We need to test
-    // AApp.getRootPane();
     Platform.exit();
   }
 }

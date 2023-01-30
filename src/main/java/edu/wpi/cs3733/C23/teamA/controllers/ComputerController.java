@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.enums.DevicesCatagory;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -9,8 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
-// import org.controlsfx.control.PopOver;
 
 public class ComputerController extends ServiceRequestController {
 
@@ -22,9 +22,19 @@ public class ComputerController extends ServiceRequestController {
     if (devicesBox != null) {
       ObservableList<String> devices =
           FXCollections.observableArrayList(
-              "Desktop", "Tablet", "Laptop", "Monitor", "Peripherals", "Kiosks", "Printers");
+              DevicesCatagory.DESKTOP.getDevices(),
+              DevicesCatagory.TABLET.getDevices(),
+              DevicesCatagory.LAPTOP.getDevices(),
+              DevicesCatagory.MONITOR.getDevices(),
+              DevicesCatagory.PERIPHERALS.getDevices(),
+              DevicesCatagory.KIOSK.getDevices(),
+              DevicesCatagory.PRINTER.getDevices());
       ObservableList<String> urgencies =
-          FXCollections.observableArrayList("Low", "Medium", "High", "Extremely Urgent");
+          FXCollections.observableArrayList(
+              UrgencyLevel.LOW.getUrgency(),
+              UrgencyLevel.MEDIUM.getUrgency(),
+              UrgencyLevel.HIGH.getUrgency(),
+              UrgencyLevel.EXTREMELY_URGENT.getUrgency());
 
       devicesBox.setItems(devices);
       urgencyBox.setItems(urgencies);

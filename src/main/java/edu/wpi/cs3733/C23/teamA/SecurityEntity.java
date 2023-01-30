@@ -1,10 +1,8 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
-
 public class SecurityEntity extends ServiceRequestEntities {
   String phone;
-  RequestCategory requests;
+  String requests;
 
   public SecurityEntity(
       String name,
@@ -18,15 +16,6 @@ public class SecurityEntity extends ServiceRequestEntities {
       String status) {
     super(name, idNum, location, description, ul, requestType, status);
     this.phone = phone;
-    switch (requests) {
-      case "SecurityEscort":
-        this.requests = RequestCategory.SECURITY_ESCORT;
-      case "Harassment":
-        this.requests = RequestCategory.HARASSMENT;
-      case "PotentialThreat":
-        this.requests = RequestCategory.POTENTIAL_THREAT;
-      default:
-        this.requests = RequestCategory.POTENTIAL_THREAT; // CHECK WHAT IS THE DEFAULT CASE
-    }
+    this.requests = requests;
   }
 }

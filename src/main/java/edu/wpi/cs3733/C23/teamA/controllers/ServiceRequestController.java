@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -9,11 +10,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
-
-// import org.controlsfx.control.PopOver;
+import org.controlsfx.control.PopOver;
 
 // import org.controlsfx.control.PopOver;
 
@@ -29,7 +31,7 @@ public abstract class ServiceRequestController {
   @FXML protected Text reminder;
 
   @FXML MFXButton backButton;
-  // private PopOver popup;
+  private PopOver popup;
 
   @FXML
   public void initialize() throws SQLException {
@@ -44,11 +46,9 @@ public abstract class ServiceRequestController {
 
   @FXML
   public void switchToHelpScene(ActionEvent event) throws IOException {
-    //    FXMLLoader loader =
-    //        new FXMLLoader(Main.class.getResource("views/ServiceReqOneHelpScreenFXML.fxml"));
-    //    popup = new PopOver(loader.load());
-    //    popup.show(((Node) event.getSource()).getScene().getWindow());
-    //    Navigation.navigate(Screen.HELP);
+    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
+    popup = new PopOver(loader.load());
+    popup.show(((Node) event.getSource()).getScene().getWindow());
   }
 
   @FXML

@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -19,9 +21,16 @@ public class SecurityController extends ServiceRequestController {
   public void initialize() {
     if (requestsBox != null) {
       ObservableList<String> requests =
-          FXCollections.observableArrayList("Harassment", "Security Escort", "Potential Threat");
+          FXCollections.observableArrayList(
+              RequestCategory.HARASSMENT.getRequest(),
+              RequestCategory.SECURITY_ESCORT.getRequest(),
+              RequestCategory.POTENTIAL_THREAT.getRequest());
       ObservableList<String> urgencies =
-          FXCollections.observableArrayList("Low", "Medium", "High", "Extremely Urgent");
+          FXCollections.observableArrayList(
+              UrgencyLevel.LOW.getUrgency(),
+              UrgencyLevel.MEDIUM.getUrgency(),
+              UrgencyLevel.HIGH.getUrgency(),
+              UrgencyLevel.EXTREMELY_URGENT.getUrgency());
 
       requestsBox.setItems(requests);
       urgencyBox.setItems(urgencies);

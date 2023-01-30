@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.SanitationRequest;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -26,7 +27,11 @@ public class SanitationController extends ServiceRequestController {
               IssueCategory.BIOHAZARD.getIssue(),
               IssueCategory.WONG.getIssue());
       ObservableList<String> urgencies =
-          FXCollections.observableArrayList("Low", "Medium", "High", "Extremely Urgent");
+          FXCollections.observableArrayList(
+              UrgencyLevel.LOW.getUrgency(),
+              UrgencyLevel.MEDIUM.getUrgency(),
+              UrgencyLevel.HIGH.getUrgency(),
+              UrgencyLevel.EXTREMELY_URGENT.getUrgency());
 
       categoryBox.setItems(categories);
       urgencyBox.setItems(urgencies);

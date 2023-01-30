@@ -84,19 +84,19 @@
                   <Insets left="10.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <SplitPane dividerPositions="0.13711001642036125" prefHeight="520.0" prefWidth="611.0">
+            <SplitPane dividerPositions="0.1627296587926509" prefHeight="520.0" prefWidth="611.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                  <AnchorPane maxHeight="-Infinity" prefHeight="100.0" prefWidth="94.0" />
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TableView fx:id="serviceReqsTable" editable="true" layoutX="113.0" layoutY="82.0" prefHeight="314.0" prefWidth="522.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="serviceReqsTable" editable="true" layoutX="-199.0" layoutY="14.0" prefHeight="232.0" prefWidth="501.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
                           <columns>
-                            <TableColumn fx:id="checkbox" prefWidth="75.0" text="Select" />
-                            <TableColumn fx:id="formTypeCol" prefWidth="119.0" text="Form Type" />
-                              <TableColumn fx:id="dateCol" prefWidth="67.0" text="Date" />
-                              <TableColumn fx:id="statusCol" prefWidth="78.0" text="Status" />
-                              <TableColumn fx:id="urgencyCol" prefWidth="64.0" text="Urgency" />
-                              <TableColumn fx:id="employeeAssignedCol" prefWidth="118.0" text="Employee Assigned" />
+                            <TableColumn fx:id="checkbox" prefWidth="52.799990713596344" text="Select" />
+                            <TableColumn fx:id="formTypeCol" prefWidth="134.3999481201172" text="Form Type" />
+                              <TableColumn fx:id="dateCol" prefWidth="126.40005493164062" text="Date" />
+                              <TableColumn fx:id="statusCol" prefWidth="78.4000244140625" text="Status" />
+                              <TableColumn fx:id="urgencyCol" prefWidth="93.5999755859375" text="Urgency" />
+                              <TableColumn fx:id="employeeAssignedCol" prefWidth="127.20004272460938" text="Employee Assigned" />
                           </columns>
                         </TableView>
                      </children>

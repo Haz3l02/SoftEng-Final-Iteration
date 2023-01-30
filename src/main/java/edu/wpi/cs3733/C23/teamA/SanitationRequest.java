@@ -135,4 +135,10 @@ public class SanitationRequest {
     }
     return fin;
   }
+
+  /**
+   * have an update method take in the string id and the updated data for this iteration youre only
+   * updating status and employeeAssigned so you can make the update for just those columns (this
+   * week) OR do a full row update but pass in the existing service request info
+   */
 }
