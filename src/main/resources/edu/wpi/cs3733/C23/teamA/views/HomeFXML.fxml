@@ -3,58 +3,64 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BAD1EA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
-   <padding>
-      <Insets bottom="-20.0" />
-   </padding>
-   <top>
-      <SplitPane orientation="VERTICAL" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <items>
-            <VBox alignment="BOTTOM_LEFT" disable="true" prefHeight="91.0" prefWidth="598.0" style="-fx-background-color: #122C34; -fx-border-color: #122C34;" SplitPane.resizableWithParent="false">
-               <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Text>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+<AnchorPane styleClass="BackDropStyle" stylesheets="@../assets/BackDropStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
+   <children>
+      <StackPane layoutY="200.0" prefHeight="400.0" prefWidth="549.0" AnchorPane.bottomAnchor="-200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-8.0" AnchorPane.topAnchor="200.0">
+         <children>
+            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="541.0" style="-fx-background-color: BAD1EA;">
                <padding>
-                  <Insets bottom="20.0" left="20.0" />
+                  <Insets bottom="-20.0" />
                </padding>
-            </VBox>
-         </items>
-      </SplitPane>
-   </top>
-   <bottom>
-      <VBox prefHeight="326.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-   </bottom>
-   <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #2A4494;" BorderPane.alignment="CENTER">
-         <children>
-            <MFXButton onAction="#switchToHomeServiceRequest" style="-fx-background-color: #2A4494;" text="Service Requests" textFill="WHITE" />
-            <MFXButton style="-fx-background-color: #2A4494;" text="Pathfinding" textFill="WHITE" />
-            <MFXButton onAction="#switchToIDInput" style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
+               <bottom>
+                  <HBox prefHeight="320.0" prefWidth="541.0" BorderPane.alignment="CENTER" />
+               </bottom>
+               <top>
+                  <SplitPane orientation="VERTICAL" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                     <items>
+                        <VBox alignment="BOTTOM_LEFT" disable="true" prefHeight="91.0" prefWidth="598.0" style="-fx-background-color: #122C34; -fx-border-color: #122C34;" SplitPane.resizableWithParent="false">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Text>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #2A4494;">
+                                 <children>
+                                    <MFXButton onAction="#switchToHomeServiceRequest" style="-fx-background-color: #2A4494;" text="Service Requests" textFill="WHITE" />
+                                    <MFXButton style="-fx-background-color: #2A4494;" text="Pathfinding" textFill="WHITE" />
+                                    <MFXButton onAction="#switchToIDInput" style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
+                                    <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2A4494;">
+                                       <children>
+                                          <MFXButton onAction="#switchToHelpScene" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
+                                          <MFXButton onAction="#logout" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" />
+                           </padding>
+                        </VBox>
+                     </items>
+                  </SplitPane>
+               </top>
+            </BorderPane>
          </children>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </HBox>
-   </center>
-   <right>
-      <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2A4494;" BorderPane.alignment="CENTER">
-         <children>
-            <MFXButton onAction="#switchToHelpScene" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
-            <MFXButton onAction="#logout" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
-         </children>
-      </HBox>
-   </right>
-</BorderPane>
+      </StackPane>
+   </children>
+</AnchorPane>
