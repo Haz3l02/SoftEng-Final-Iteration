@@ -171,5 +171,4 @@ public class AStarTest {
       assertEquals(current.getNodeID(), correctPath[i]);
     }
   }
-
 }

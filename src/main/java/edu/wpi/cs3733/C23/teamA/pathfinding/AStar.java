@@ -7,7 +7,6 @@ Class that runs an A star graph search algorithm
  */
 public class AStar {
 
-
   /**
    * Uses the A* algorithm to find the shortest path between startNode and endNode, with the
    * Euclidean distance between nodes used to track the distance from startNode and the estimated
@@ -89,5 +88,4 @@ public class AStar {
     // compute the direct distance between the nodes using the pythagorean theorem
     return Math.sqrt((Math.pow((bX - aX), 2)) + (Math.pow((bY - aY), 2)));
   }
-
 }
