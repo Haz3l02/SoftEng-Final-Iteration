@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.SanitationRequest;
+import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -20,7 +21,10 @@ public class SanitationController extends ServiceRequestController {
     if (categoryBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
       ObservableList<String> categories =
-          FXCollections.observableArrayList("Standard", "Biohazard", "Wong");
+          FXCollections.observableArrayList(
+              IssueCategory.STANDARD.getIssue(),
+              IssueCategory.BIOHAZARD.getIssue(),
+              IssueCategory.WONG.getIssue());
       ObservableList<String> urgencies =
           FXCollections.observableArrayList("Low", "Medium", "High", "Extremely Urgent");
 

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ public abstract class ServiceRequestEntities {
   @Getter @Setter private String location;
   @Getter @Setter private String description;
   @Getter @Setter private String requestType;
-
+  @Getter @Setter private Status status;
   @Getter @Setter private UrgencyLevel ul;
 
   public ServiceRequestEntities(
@@ -19,7 +20,8 @@ public abstract class ServiceRequestEntities {
       String location,
       String description,
       String ul,
-      String requestType) {
+      String requestType,
+      String status) {
     this.name = name;
     this.IDNum = IDNum;
     this.location = location;
@@ -38,6 +40,16 @@ public abstract class ServiceRequestEntities {
         this.ul = UrgencyLevel.EXTREMELY_URGENT;
       default:
         this.ul = UrgencyLevel.LOW; // CHECK WHAT IS THE DEFAULT CASE
+    }
+    switch (status) {
+      case "Blank":
+        this.status = Status.BLANK;
+      case "Processing":
+        this.status = Status.PROCESSING;
+      case "Done":
+        this.status = Status.DONE;
+      default:
+        this.status = Status.BLANK;
     }
   }
 }

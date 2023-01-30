@@ -25,40 +25,54 @@
                <top>
                   <SplitPane orientation="VERTICAL" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                      <items>
-                        <VBox alignment="BOTTOM_LEFT" prefHeight="91.0" prefWidth="598.0" style="-fx-background-color: #122C34; -fx-border-color: #122C34;" SplitPane.resizableWithParent="false">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="549.0" style="-fx-background-color: #122C34; -fx-border-color: #122C34;" SplitPane.resizableWithParent="false">
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
                                  <font>
                                     <Font size="26.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </Text>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #2A4494;">
-                                 <children>
-                                    <MFXButton onAction="#switchToHomeServiceRequest" style="-fx-background-color: #2A4494;" text="Service Requests" textFill="WHITE" />
-                                    <MFXButton style="-fx-background-color: #2A4494;" text="Pathfinding" textFill="WHITE" />
-                                    <MFXButton onAction="#switchToIDInput" style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
-                                    <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2A4494;">
-                                       <children>
-                                          <MFXButton onAction="#switchToHelpScene" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
-                                          <MFXButton onAction="#logout" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </HBox>
                            </children>
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <padding>
-                              <Insets bottom="20.0" left="20.0" />
+                              <Insets bottom="20.0" />
                            </padding>
                         </VBox>
                      </items>
                   </SplitPane>
                </top>
+               <center>
+                  <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" prefWidth="550.0" spacing="20.0" style="-fx-background-color: #2A4494; -fx-border-image-width: 0 0 0 0;" BorderPane.alignment="TOP_LEFT">
+                     <children>
+                        <MFXButton onAction="#switchToHomeServiceRequest" style="-fx-background-color: #2A4494;" text="Service Requests" textFill="WHITE" />
+                        <MFXButton style="-fx-background-color: #2A4494;" text="Pathfinding" textFill="WHITE" />
+                        <MFXButton onAction="#switchToIDInput" style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
+                     </children>
+                  </HBox>
+               </center>
+               <right>
+                  <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" prefHeight="28.0" prefWidth="220.0" style="-fx-background-color: #2A4494;" BorderPane.alignment="TOP_LEFT">
+                     <children>
+                        <MFXButton onAction="#switchToHelpScene" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
+                        <MFXButton onAction="#logout" prefHeight="26.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </MFXButton>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                     <padding>
+                        <Insets right="7.0" />
+                     </padding>
+                  </HBox>
+               </right>
             </BorderPane>
          </children>
       </StackPane>

@@ -16,7 +16,7 @@ public class SanitationRequest {
   @Getter @Setter String description;
   @Getter @Setter String category;
   @Getter @Setter String ul;
-
+  @Getter @Setter String status;
   @Getter @Setter String requestType;
 
   // for new request
@@ -35,6 +35,7 @@ public class SanitationRequest {
     this.category = category;
     this.ul = ul;
     this.requestType = requestType;
+    // this.status = status;
   }
 
   // for selecting existing
@@ -55,6 +56,7 @@ public class SanitationRequest {
     this.category = category;
     this.ul = ul;
     this.requestType = requestType;
+    // this.status = status;
   }
 
   // for submitting data;
@@ -66,6 +68,7 @@ public class SanitationRequest {
     this.description = "";
     this.category = "";
     this.ul = "";
+    this.status = "";
   }
 
   public static void initTable() throws SQLException {

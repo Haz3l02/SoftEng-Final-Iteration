@@ -14,13 +14,14 @@ public class SecurityEntity extends ServiceRequestEntities {
       String description,
       String ul,
       String requests,
-      String requestType) {
-    super(name, idNum, location, description, ul, requestType);
+      String requestType,
+      String status) {
+    super(name, idNum, location, description, ul, requestType, status);
     this.phone = phone;
     switch (requests) {
       case "SecurityEscort":
         this.requests = RequestCategory.SECURITY_ESCORT;
-      case "Harrasment":
+      case "Harassment":
         this.requests = RequestCategory.HARASSMENT;
       case "PotentialThreat":
         this.requests = RequestCategory.POTENTIAL_THREAT;

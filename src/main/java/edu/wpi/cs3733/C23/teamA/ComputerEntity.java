@@ -15,8 +15,9 @@ public class ComputerEntity extends ServiceRequestEntities {
       String ul,
       String devices,
       String deviceIDNum,
-      String requestType) {
-    super(name, idNum, location, description, ul, requestType);
+      String requestType,
+      String status) {
+    super(name, idNum, location, description, ul, requestType, status);
     this.deviceIDnum = deviceIDNum;
 
     switch (devices) {
