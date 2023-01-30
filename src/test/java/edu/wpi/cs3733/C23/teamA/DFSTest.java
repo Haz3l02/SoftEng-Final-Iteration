@@ -172,4 +172,31 @@ public class DFSTest {
         PathfindingController.callDFS(graph, "GELEV00QL1", "CDEPT002L1");
     assertTrue(shouldBeEmpty == null);
   }
+
+  @Test
+  public void sameStartAndEnd1() {
+    // connecting nodes entered in reverse order to assure no bias in order
+    a2.addNeighbor(a1);
+    a1.addNeighbor(a5);
+    a1.addNeighbor(a1);
+
+    String[] correctPath = {"a1"};
+    ArrayList<GraphNode> path = PathfindingController.callDFS(testGraph, "a1", "a1");
+    for (int i = 0; i < path.size(); i++) {
+      GraphNode current = path.get(i);
+      assertTrue(current.getNodeID().equals(correctPath[i]));
+    }
+  }
+
+  @Test
+  public void sameStartAndEnd2() {
+    // connecting nodes entered in reverse order to assure no bias in order
+
+    String[] correctPath = {"a4"};
+    ArrayList<GraphNode> path = PathfindingController.callDFS(testGraph, "a4", "a4");
+    for (int i = 0; i < path.size(); i++) {
+      GraphNode current = path.get(i);
+      assertTrue(current.getNodeID().equals(correctPath[i]));
+    }
+  }
 }
