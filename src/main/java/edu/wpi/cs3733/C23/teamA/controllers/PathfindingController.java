@@ -1,8 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.databases.Edge;
+import edu.wpi.cs3733.C23.teamA.databases.Node;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,8 +32,8 @@ public class PathfindingController {
 
       // try to initialize the graph. If it fails, throw an error
       try {
-        hospitalL1 = prepGraphCSV(); // reads through CSV files //
-      } catch (IOException e) {
+        hospitalL1 = prepGraphDB(); // reads through CSV files //
+      } catch (Exception e) {
         throw new RuntimeException(e);
       }
 
@@ -84,24 +87,31 @@ public class PathfindingController {
 
   /**
    * Generates a graph to use with added Nodes and neighboring nodes added
+   *
    * @return HashMap<String, GraphNode> graph where String is the nodeID and GraphNode is the node
    */
-  public static HashMap<String, GraphNode> prepGraphDB() {
+  public static HashMap<String, GraphNode> prepGraphDB() throws SQLException {
     // create a graph to hold the L1 information
     HashMap<String, GraphNode> graph = new HashMap<>();
 
     // add the L1 information to the graph
 
     // Nodes
-    /* - make node objects
-       - add nodes and string names to the hashMap graph
-     */
-
+    ArrayList<Node> allNodes = Node.getAll(); // Gets list of all nodes from database's table
+    for (Node n : allNodes) {
+      GraphNode g = new GraphNode(n.getNodeID(), n.getXcoord(), n.getYcoord());
+      graph.put(n.getNodeID(), g);
+    }
 
     // Edges
-    /* - read through edge columns and add edges to correct node (bidirectional)
-     */
-
+    /* - read through edge columns and add edges to correct node (bidirectional) */
+    ArrayList<Edge> allEdges = Edge.getAll(); // Gets list of all edges from database's edge table
+    for (Edge e : allEdges) {
+      GraphNode node1 = graph.get(e.getNode1());
+      GraphNode node2 = graph.get(e.getNode2());
+      node1.addNeighbor(node2);
+      node2.addNeighbor(node1);
+    }
 
     return graph;
   }

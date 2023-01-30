@@ -21,21 +21,29 @@ public class SanitationRequest {
 
   public SanitationRequest() {
     requestID = 0;
-    name=null;
-    idNum=null;
-    location=null;
-    description=null;
-    category=null;
-    ul=null;
-    requestType=null;
-    status=null;
+    name = null;
+    idNum = null;
+    location = null;
+    description = null;
+    category = null;
+    ul = null;
+    requestType = null;
+    status = null;
     employeeAssigned = null;
-
   }
 
   // for new request
   public SanitationRequest(
-      String name, String idNum, String location, String description, String category, String ul, String requestType, String status, String employeeAssigned) throws SQLException {
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String category,
+      String ul,
+      String requestType,
+      String status,
+      String employeeAssigned)
+      throws SQLException {
     this.name = name;
     this.idNum = idNum;
     this.location = location;
@@ -47,10 +55,19 @@ public class SanitationRequest {
     this.employeeAssigned = employeeAssigned;
   }
 
-
-  //for selecting existing
-  public SanitationRequest(int requestID, String name, String idNum, String location, String description, String category, String ul, String requestType, String status, String employeeAssigned) {
   // for selecting existing
+  public SanitationRequest(
+      int requestID,
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String category,
+      String ul,
+      String requestType,
+      String status,
+      String employeeAssigned) {
+    // for selecting existing
     this.requestID = requestID;
     this.name = name;
     this.idNum = idNum;
@@ -83,11 +100,27 @@ public class SanitationRequest {
 
   public void insert() throws SQLException {
     String sql =
-            String.join(
-                    " ",
-                    "insert into SanitationRequest",
-                    "(name, idNum, location, description, category, ul, requestType, status, employeeAssigned) VALUES" +
-                            "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + category + "', '" + ul + "', '" + requestType + "', '" + status, "', '" + employeeAssigned + "');");
+        String.join(
+            " ",
+            "insert into SanitationRequest",
+            "(name, idNum, location, description, category, ul, requestType, status, employeeAssigned) VALUES"
+                + "( '"
+                + name
+                + "', '"
+                + idNum
+                + "', '"
+                + location
+                + "', '"
+                + description
+                + "', '"
+                + category
+                + "', '"
+                + ul
+                + "', '"
+                + requestType
+                + "', '"
+                + status,
+            "', '" + employeeAssigned + "');");
     Adb.processUpdate(sql);
   }
 
@@ -98,24 +131,31 @@ public class SanitationRequest {
     ResultSet rs = Adb.processQuery(sql);
     while (rs.next()) {
       fin.add(
-              new SanitationRequest(rs.getInt("requestID"),
-                      rs.getString("name"),
-                      rs.getString("idNum"),
-                      rs.getString("location"),
-                      rs.getString("description"),
-                      rs.getString("category"),
-                      rs.getString("ul"),
-                      rs.getString("requestType"),
-                      rs.getString("status"),
-                      rs.getString("employeeAssigned")));
+          new SanitationRequest(
+              rs.getInt("requestID"),
+              rs.getString("name"),
+              rs.getString("idNum"),
+              rs.getString("location"),
+              rs.getString("description"),
+              rs.getString("category"),
+              rs.getString("ul"),
+              rs.getString("requestType"),
+              rs.getString("status"),
+              rs.getString("employeeAssigned")));
     }
     return fin;
   }
 
-
-
-  public void updateStatusEmployee (int id, String status, String employeeAssigned) throws SQLException {
-      String sql = "update sanitationrequest set status = '" +status+ "', employeeAssigned = '" + employeeAssigned + "' where requestID = "+id+";";
-      Adb.processUpdate(sql);
+  public void updateStatusEmployee(int id, String status, String employeeAssigned)
+      throws SQLException {
+    String sql =
+        "update sanitationrequest set status = '"
+            + status
+            + "', employeeAssigned = '"
+            + employeeAssigned
+            + "' where requestID = "
+            + id
+            + ";";
+    Adb.processUpdate(sql);
   }
 }
