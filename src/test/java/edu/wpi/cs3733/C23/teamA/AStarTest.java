@@ -37,7 +37,7 @@ public class AStarTest {
 
   @Test
   public void shortestPath1() {
-    // connecting nodes
+    // connecting nodes to make sure it picks the quickest way to a2
     a1.addNeighbor(a2);
     a1.addNeighbor(a3);
     a2.addNeighbor(a3);
@@ -53,7 +53,7 @@ public class AStarTest {
 
   @Test
   public void shortestPath2() {
-    // connecting nodes
+    // same connecting nodes making sure it picks the quickest way to a3
     a1.addNeighbor(a2);
     a1.addNeighbor(a3);
     a2.addNeighbor(a3);
@@ -69,7 +69,7 @@ public class AStarTest {
 
   @Test
   public void shortestPath3() {
-    // connecting nodes
+    // connecting nodes with multiple existing paths, one being shorter
     a1.addNeighbor(a2);
     a1.addNeighbor(a3);
     a2.addNeighbor(a3);
@@ -133,7 +133,7 @@ public class AStarTest {
 
   @Test
   public void sameStartAndEnd1() {
-    // connecting nodes entered in reverse order to assure no bias in order
+    // small cycle
     a1.addNeighbor(a5);
     a5.addNeighbor(a1);
 
@@ -147,7 +147,7 @@ public class AStarTest {
 
   @Test
   public void sameStartAndEnd2() {
-    // connecting nodes entered in reverse order to assure no bias in order
+    // no neighboring nodes
 
     String[] correctPath = {"a1"};
     ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a1");
@@ -159,7 +159,7 @@ public class AStarTest {
 
   @Test
   public void sameStartAndEnd3() {
-    // connecting nodes entered in reverse order to assure no bias in order
+    // random nodes, with self loop
     a2.addNeighbor(a1);
     a1.addNeighbor(a5);
     a1.addNeighbor(a1);
