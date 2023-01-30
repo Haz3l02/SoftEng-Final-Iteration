@@ -111,4 +111,11 @@ public class SanitationRequest {
     }
     return fin;
   }
+
+
+
+  public void updateStatusEmployee (int id, String status, String employeeAssigned) throws SQLException {
+      String sql = "update sanitationrequest set status = '" +status+ "', employeeAssigned = '" + employeeAssigned + "' where requestID = "+id+";";
+      Adb.processUpdate(sql);
+  }
 }
