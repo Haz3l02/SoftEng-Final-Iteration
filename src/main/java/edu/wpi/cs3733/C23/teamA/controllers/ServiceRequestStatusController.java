@@ -1,7 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.IdNumberHolder;
 import edu.wpi.cs3733.C23.teamA.SanitationRequest;
 import edu.wpi.cs3733.C23.teamA.ServiceRequestTableRow;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,15 +27,30 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML public TableColumn<ServiceRequestTableRow, String> statusCol;
   @FXML public TableColumn<ServiceRequestTableRow, String> urgencyCol;
   @FXML public TableColumn<ServiceRequestTableRow, String> employeeAssignedCol;
+  private String id;
 
   private CheckBox aCheckbox = new CheckBox("");
+
+  @FXML
+  public void switchToHomeScene(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.HOME);
+  }
 
   private ObservableList<ServiceRequestTableRow> dbTableRowsModel =
       FXCollections.observableArrayList(
           new ServiceRequestTableRow(aCheckbox, "aaa", "aaaaaaaa", "aaa", "aaaaaaa", "aaaa"));
 
+  //  @FXML
+  //  private void receiveData(ActionEvent event) {
+  //    IdNumberHolder holder = IdNumberHolder.getInstance();
+  //    id = holder.getId();
+  //  }
+
   @FXML
   public void initialize() throws SQLException {
+
+    IdNumberHolder holder = IdNumberHolder.getInstance();
+    id = holder.getId();
 
     checkbox.setCellValueFactory(new PropertyValueFactory<>("checkbox"));
     formTypeCol.setCellValueFactory(new PropertyValueFactory<>("formType"));
@@ -41,12 +59,10 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
-    // System.out.println(requests.get("123").getName());
-
     SanitationRequest sr = new SanitationRequest();
 
     ArrayList<SanitationRequest> specificRequests = new ArrayList<>();
-    specificRequests = sr.getSanitationRequestByUser("123"); // MAKE SURE TO FIX THIS;
+    specificRequests = sr.getSanitationRequestByUser(id); // MAKE SURE TO FIX THIS;
     System.out.println(specificRequests.get(0).getName());
 
     for (SanitationRequest bla : specificRequests) {
@@ -56,7 +72,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
               ch, bla.getRequestType(), "date", "status", bla.getUl(), "assignedEmployee");
       dbTableRowsModel.add(serviceReqNewRow);
     }
-
 
     serviceReqsTable.setItems(dbTableRowsModel);
   }

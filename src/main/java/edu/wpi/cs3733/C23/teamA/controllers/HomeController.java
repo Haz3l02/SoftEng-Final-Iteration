@@ -8,15 +8,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.text.Text;
 
 public class HomeController {
 
   @FXML MFXButton navigateButton;
+  @FXML Text textNotification;
 
   @FXML
   public void initialize() {
 
     // navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+  }
+
+  @FXML
+  public void switchToIDInput(ActionEvent event) throws IOException {
+
+    Navigation.navigate(Screen.ID_INPUT);
   }
 
   @FXML

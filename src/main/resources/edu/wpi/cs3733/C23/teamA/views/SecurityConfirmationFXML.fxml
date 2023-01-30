@@ -11,7 +11,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="594.0" style="-fx-background-color: #BAD1EA;" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Request Recieved for your Security Request" wrappingWidth="507.90704345703125">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Request Recieved for your Security Request" textAlignment="CENTER" wrappingWidth="507.90704345703125">
                <font>
                   <Font size="24.0" />
                </font>
@@ -35,7 +35,7 @@
       </VBox>
    </center>
    <top>
-      <VBox prefHeight="82.4" prefWidth="605.0" style="-fx-background-color: #224870; -fx-border-style: solid; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #224870; -fx-border-style: solid; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER">
          <children>
             <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="324.0">
                <font>

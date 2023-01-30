@@ -13,7 +13,8 @@ public enum Screen {
   HOME_SERVICE_REQUEST("views/HomeServiceRequestFXML.fxml"),
   SERVICE_REQUEST("views/ServiceRequest.fxml"),
   DATABASE_FXML("views/DatabaseFXML.fxml"),
-  SERVICE_REQUEST_STATUS("views/ServiceRequestStatusNewFXML.fxml");
+  SERVICE_REQUEST_STATUS("views/ServiceRequestStatusNewFXML.fxml"),
+  ID_INPUT("views/IDInputFXML.fxml");
 
   private final String filename;
 
