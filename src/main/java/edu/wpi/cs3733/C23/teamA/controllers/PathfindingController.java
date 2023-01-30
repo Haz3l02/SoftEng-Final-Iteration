@@ -82,6 +82,10 @@ public class PathfindingController {
     return graph;
   }
 
+  /**
+   * Generates a graph to use with added Nodes and neighboring nodes added
+   * @return HashMap<String, GraphNode> graph where String is the nodeID and GraphNode is the node
+   */
   public static HashMap<String, GraphNode> prepGraphDB() {
     // create a graph to hold the L1 information
     HashMap<String, GraphNode> graph = new HashMap<>();
@@ -90,13 +94,13 @@ public class PathfindingController {
 
     // Nodes
     /* - make node objects
-       - add nodes and string names to the hashMap
+       - add nodes and string names to the hashMap graph
      */
+
 
     // Edges
     /* - read through edge columns and add edges to correct node (bidirectional)
      */
-
 
 
     return graph;
