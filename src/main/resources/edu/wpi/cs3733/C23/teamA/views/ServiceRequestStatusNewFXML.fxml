@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="613.0" style="-fx-background-color: BAD1EA; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
+   <bottom>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="42.0" prefWidth="591.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+            <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" onAction="#clearForm" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Delete" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets bottom="10.0" />
+               </HBox.margin>
+            </MFXButton>
+            <MFXButton id="helpButton" fx:id="submitButton" buttonType="RAISED" onAction="#submitRequest" prefHeight="23.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Select All" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </HBox.margin>
+            </MFXButton>
+            <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" onAction="#switchToHomeServiceRequestScene" prefHeight="23.0" prefWidth="86.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets bottom="10.0" right="10.0" />
+               </HBox.margin>
+            </MFXButton>
+         </children>
+      </HBox>
+   </bottom>
+   <padding>
+      <Insets top="10.0" />
+   </padding>
+   <top>
+      <HBox prefHeight="37.0" prefWidth="611.0" style="-fx-background-color: #224870;" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="373.1484375">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="226.0">
+               <children>
+                  <MFXButton id="helpButton" fx:id="homeButton" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="61.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton id="helpButton" fx:id="helpButton" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="34.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Help" textFill="#122c34">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="35.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets top="-10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Form Submissions" wrappingWidth="244.21630859375">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </VBox.margin>
+            </Text>
+            <SplitPane dividerPositions="0.2438423645320197" prefHeight="520.0" prefWidth="611.0">
+              <items>
+                  <AnchorPane maxHeight="-Infinity" prefHeight="309.0" prefWidth="145.0">
+                     <children>
+                        <VBox layoutX="44.0" layoutY="38.0" prefHeight="275.5" prefWidth="145.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form Type" wrappingWidth="128.0790786743164" />
+                              <MFXTextField fx:id="formTypeBox" disable="true" floatMode="ABOVE" prefHeight="30.0" prefWidth="130.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="128.0790786743164">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Text>
+                              <MFXTextField fx:id="dateBox" disable="true" floatMode="ABOVE" prefHeight="30.0" prefWidth="130.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" wrappingWidth="102.62251281738281">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Text>
+                              <MFXTextField fx:id="statusBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="130.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency" wrappingWidth="128.0790786743164">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Text>
+                              <MFXComboBox fx:id="urgencyBox" disable="true" floatMode="ABOVE" prefHeight="30.0" prefWidth="130.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Assigned" wrappingWidth="128.0790786743164">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Text>
+                              <MFXTextField fx:id="employeeBox" floatMode="ABOVE" prefHeight="12.0" prefWidth="130.0" />
+                              <MFXButton onAction="#submitEdit" prefHeight="29.0" prefWidth="126.0" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </MFXButton>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <TableView fx:id="serviceReqsTable" editable="true" layoutX="-199.0" layoutY="14.0" onMouseClicked="#rowClicked" prefHeight="275.5" prefWidth="457.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                              <TableColumn fx:id="IDCol" prefWidth="42.41563415527344" text="ID" />
+                            <TableColumn fx:id="formTypeCol" prefWidth="86.6051025390625" text="Form Type" />
+                              <TableColumn fx:id="dateCol" prefWidth="56.659881591796875" text="Date" />
+                              <TableColumn fx:id="statusCol" prefWidth="68.94076538085938" text="Status" />
+                              <TableColumn fx:id="urgencyCol" prefWidth="78.75567626953125" text="Urgency" />
+                              <TableColumn fx:id="employeeAssignedCol" prefWidth="121.74432373046875" text="Employee Assigned" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
