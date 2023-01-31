@@ -87,7 +87,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
               bla.getStatus(),
               bla.getUl(),
               bla.getEmployeeAssigned());
-      System.out.println(bla.getRequestID()); // todo: remove later
       dbTableRowsModel.add(serviceReqNewRow);
     }
 
@@ -96,7 +95,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
   @FXML
   public void rowClicked(MouseEvent event) {
-    // TODO: make it not throw a bunch of errors when an empty row is clicked (add an if statement
     // that checks for null values I guess?)
 
     ServiceRequestTableRow clickedServiceReqTableRow =
@@ -116,8 +114,11 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML
   public void submitEdit(ActionEvent event) throws IOException, SQLException {
 
-    if (!statusBox.getText().trim().isEmpty() && !dateBox.getText().trim().isEmpty() && !formTypeBox.getText().trim().isEmpty()
-    && !urgencyBox.getText().trim().isEmpty() && !employeeBox.getText().trim().isEmpty()) {
+    if (!statusBox.getText().trim().isEmpty()
+        && !dateBox.getText().trim().isEmpty()
+        && !formTypeBox.getText().trim().isEmpty()
+        && !urgencyBox.getText().trim().isEmpty()
+        && !employeeBox.getText().trim().isEmpty()) {
 
       ObservableList<ServiceRequestTableRow> currentTableData = serviceReqsTable.getItems();
       int currentRowId = Integer.parseInt(IDBoxSaver.getText());
