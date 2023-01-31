@@ -4,7 +4,9 @@ public enum Screen {
   ROOT("views/Root.fxml"),
   HOME("views/Home.fxml"),
   SERVICE_REQUEST("views/ServiceRequest.fxml"),
-  DATABASE("views/DatabaseFXML.fxml");
+  DATABASE("views/DatabaseFXML.fxml"),
+
+  NODE("views/NodeFXML.fxml");
 
   private final String filename;
 

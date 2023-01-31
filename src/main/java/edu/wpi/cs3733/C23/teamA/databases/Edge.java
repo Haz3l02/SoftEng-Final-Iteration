@@ -33,7 +33,17 @@ public class Edge {
   }
 
   public static void initTable() throws SQLException {
-    String sql = String.join(" ", "CREATE TABLE Edge", "(node1 text,", "node2 text);");
+    String sql =
+        String.join(
+            " ",
+            "create table public.edge (\n"
+                + "  node1 text not null,\n"
+                + "  node2 text not null,\n"
+                + "  primary key (node1, node2),\n"
+                + "  foreign key (node1) references public.node (nodeid)\n"
+                + "  match simple on update cascade on delete no action,\n"
+                + "  foreign key (node2) references public.node (nodeid)\n"
+                + "  match simple on update cascade on delete no action);");
     Adb.processUpdate(sql);
   }
 

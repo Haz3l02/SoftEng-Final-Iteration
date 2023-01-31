@@ -34,12 +34,12 @@ public class Node {
     String sql =
         String.join(
             " ",
-            "CREATE TABLE Node",
-            "(nodeid text,",
-            "xcoord INTEGER,",
-            "ycoord INTEGER,",
-            "floor text,",
-            "building text);");
+            "create table node (\n"
+                + "  nodeid text primary key not null,\n"
+                + "  xcoord integer,\n"
+                + "  ycoord integer,\n"
+                + "  floor text,\n"
+                + "  building text\n);");
     Adb.processUpdate(sql);
   }
 
@@ -50,7 +50,7 @@ public class Node {
     while (rs.next()) {
       nodes.add(
           new Node(
-              rs.getString("nodeid"),
+              rs.getString("nodeID"),
               rs.getInt("xcoord"),
               rs.getInt("ycoord"),
               rs.getString("floor"),
@@ -60,7 +60,7 @@ public class Node {
   }
 
   public static ResultSet getSpecificNode(String id) throws SQLException {
-    String sql = String.join(" ", "select * from Node where nodeID = '" + id + "';");
+    String sql = String.format("select * from Node where nodeID = %s;", id);
     return Adb.processQuery(sql);
   }
 
@@ -72,9 +72,13 @@ public class Node {
   public void update() throws SQLException {
     String sql =
         String.format(
-            "insert into node values('%s','%d','%d','%s','%s') on conflict do update;",
-            nodeID, xcoord, ycoord, floor, building);
+            "update node set (xcoord, ycoord, floor, building) = (%d,%d,'%s','%s') where nodeid = '%s';",
+            xcoord, ycoord, floor, building, nodeID);
+    String idCorrection =
+        String.format(
+            "update node set nodeid = floor  || 'X' || to_char(xcoord, 'fm0000') || 'Y' || to_char(ycoord, 'fm0000');");
     Adb.processUpdate(sql);
+    Adb.processUpdate(idCorrection);
   }
 
   public String toString() {

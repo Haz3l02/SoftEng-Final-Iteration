@@ -10,8 +10,8 @@ public class Move {
 
   private static final String tableName = "move";
 
-  @Getter private String nodeID;
-  @Getter private String longName;
+  @Setter @Getter private String nodeID;
+  @Setter @Getter private String longName;
   @Setter @Getter private String moveDate;
 
   public Move(String nodeID, String longName, String moveDate) {
@@ -23,7 +23,16 @@ public class Move {
   public static void initTable() throws SQLException {
     String sql =
         String.join(
-            " ", "CREATE TABLE Move", "(nodeID text,", "longName text,", "moveDate TIMESTAMP);");
+            " ",
+            "create table move (\n"
+                + "  nodeid text not null,\n"
+                + "  longname text not null,\n"
+                + "  movedate timestamp without time zone not null,\n"
+                + "  primary key (nodeid, longname, movedate),\n"
+                + "  foreign key (longname) references locationname (longname)\n"
+                + "  match simple on update no action on delete no action,\n"
+                + "  foreign key (nodeid) references node (nodeid)\n"
+                + "  match simple on update cascade on delete no action);");
     Adb.processUpdate(sql);
   }
 
@@ -54,14 +63,6 @@ public class Move {
       loc = rs.getString("longName");
     }
     return loc;
-  }
-
-  public void setNodeID(String id) {
-    nodeID = id;
-  }
-
-  public void setLongName(String name) {
-    longName = name;
   }
 
   public String toString() {

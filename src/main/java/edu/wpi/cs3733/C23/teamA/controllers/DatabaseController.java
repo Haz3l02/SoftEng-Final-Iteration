@@ -36,25 +36,38 @@ public class DatabaseController {
   private ObservableList<Move> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-
+    {
+      try {
+        data = Move.getAll();
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      }
+    }
     for (Move row : data) {
       dbTableRowsModel.add(row);
     }
-    initializeColumns();
-    editableColumns();
-    dbTable.setEditable(true);
-  }
-
-  public void initializeColumns() {
     nodeCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
     locNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
     moveCol.setCellValueFactory(new PropertyValueFactory<>("moveDate"));
     // edgeDataCol.setCellValueFactory(new PropertyValueFactory<>("edgeData"));
     dbTable.setItems(dbTableRowsModel);
+    editableColumns();
+    dbTable.setEditable(true);
   }
 
   public void editableColumns() {
     nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    nodeCol.setOnEditCommit(
+        e -> {
+          Move n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          try {
+            n.setNodeID(e.getNewValue());
+            n.update();
+          } catch (SQLException ex) {
+            refresh.setText("Invalid Location: Refresh");
+          }
+          dbTable.refresh();
+        });
     locNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
     locNameCol.setOnEditCommit(
         e -> {
@@ -64,22 +77,10 @@ public class DatabaseController {
             n.update();
           } catch (SQLException ex) {
             refresh.setText("Invalid Node: Refresh");
-            n.setLongName(e.getOldValue());
-            initializeColumns();
           }
+          dbTable.refresh();
         });
-    nodeCol.setOnEditCommit(
-        e -> {
-          Move n = e.getTableView().getItems().get(e.getTablePosition().getRow());
-          try {
-            n.setNodeID(e.getNewValue());
-            n.update();
-          } catch (SQLException ex) {
-            refresh.setText("Invalid Location: Refresh");
-            n.setNodeID(e.getOldValue());
-            initializeColumns();
-          }
-        });
+
     // edgeDataCol.setCellFactory(TextFieldTableCell.forTableColumn());
   }
 }
