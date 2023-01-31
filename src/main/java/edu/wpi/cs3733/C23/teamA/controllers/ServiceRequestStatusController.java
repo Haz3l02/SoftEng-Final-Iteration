@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.IdNumberHolder;
-import edu.wpi.cs3733.C23.teamA.SanitationRequest;
-import edu.wpi.cs3733.C23.teamA.ServiceRequest;
-import edu.wpi.cs3733.C23.teamA.ServiceRequestTableRow;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequest;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequestTableRow;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;

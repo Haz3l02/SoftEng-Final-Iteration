@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA;
+package edu.wpi.cs3733.C23.teamA.serviceRequests;
 
 import edu.wpi.cs3733.C23.teamA.databases.Adb;
 import java.sql.ResultSet;

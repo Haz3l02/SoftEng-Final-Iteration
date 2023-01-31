@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA;
+package edu.wpi.cs3733.C23.teamA.serviceRequests;
 
 import java.awt.*;
 import lombok.Getter;
