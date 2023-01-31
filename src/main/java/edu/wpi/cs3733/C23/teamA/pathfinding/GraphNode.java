@@ -47,14 +47,33 @@ public class GraphNode implements Comparable<GraphNode> {
   }
 
   /**
-   * A Simple Node Constructor
-   *
-   * @param nodeID is a unique id name
+   * @param nodeID
+   * @param xCoord
+   * @param yCoord
    */
   public GraphNode(String nodeID, int xCoord, int yCoord) {
     this.nodeID = nodeID;
     this.xCoord = xCoord;
     this.yCoord = yCoord;
+    visited = false;
+    neighbors = new ArrayList<GraphNode>();
+
+    costFromStart = Double.POSITIVE_INFINITY;
+    heurCostToEnd = Double.POSITIVE_INFINITY;
+    score = Double.POSITIVE_INFINITY;
+  }
+
+  /**
+   * @param nodeID
+   * @param xCoord
+   * @param yCoord
+   * @param longName
+   */
+  public GraphNode(String nodeID, int xCoord, int yCoord, String longName) {
+    this.nodeID = nodeID;
+    this.xCoord = xCoord;
+    this.yCoord = yCoord;
+    this.longName = longName;
     visited = false;
     neighbors = new ArrayList<GraphNode>();
 
