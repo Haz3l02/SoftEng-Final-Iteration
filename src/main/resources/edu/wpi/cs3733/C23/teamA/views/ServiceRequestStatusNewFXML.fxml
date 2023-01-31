@@ -16,22 +16,22 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="613.0" style="-fx-background-color: BAD1EA; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
    <bottom>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="42.0" prefWidth="591.0" BorderPane.alignment="CENTER">
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="611.0" BorderPane.alignment="CENTER">
          <children>
             <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
-            <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" onAction="#clearForm" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Delete" textFill="#d3e9f6">
+            <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" onAction="#clearForm" prefHeight="25.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Delete" textFill="#d3e9f6">
                <HBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="5.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton id="helpButton" fx:id="submitButton" buttonType="RAISED" onAction="#submitRequest" prefHeight="23.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Select All" textFill="#d3e9f6">
+            <MFXButton id="helpButton" fx:id="submitButton" buttonType="RAISED" onAction="#submitRequest" prefHeight="25.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Select All" textFill="#d3e9f6">
                <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
+                  <Insets bottom="5.0" left="10.0" right="10.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" onAction="#switchToHomeServiceRequestScene" prefHeight="23.0" prefWidth="86.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+            <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" onAction="#switchToHomeServiceRequestScene" prefHeight="30.0" prefWidth="86.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
-                  <Insets bottom="10.0" right="10.0" />
+                  <Insets bottom="5.0" right="10.0" />
                </HBox.margin>
             </MFXButton>
          </children>
@@ -63,7 +63,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="35.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
+                  <MFXButton fx:id="logout" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="35.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -79,15 +79,15 @@
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Form Submissions" wrappingWidth="244.21630859375">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Form Submissions" wrappingWidth="195.21630859375">
                <font>
                   <Font size="24.0" />
                </font>
                <VBox.margin>
-                  <Insets left="10.0" top="10.0" />
+                  <Insets left="10.0" />
                </VBox.margin>
             </Text>
-            <SplitPane dividerPositions="0.2438423645320197" prefHeight="520.0" prefWidth="611.0">
+            <SplitPane dividerPositions="0.2438423645320197" prefHeight="320.0" prefWidth="611.0">
               <items>
                   <AnchorPane maxHeight="-Infinity" prefHeight="309.0" prefWidth="145.0">
                      <children>
@@ -119,7 +119,7 @@
                                  </VBox.margin>
                               </Text>
                               <MFXTextField fx:id="employeeBox" floatMode="ABOVE" prefHeight="12.0" prefWidth="130.0" />
-                              <MFXButton onAction="#submitEdit" prefHeight="29.0" prefWidth="126.0" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
+                              <MFXButton onAction="#submitEdit" prefHeight="12.0" prefWidth="126.0" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -127,9 +127,9 @@
                            </children>
                         </VBox>
                      </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="237.0" prefWidth="462.0">
                      <children>
-                        <TableView fx:id="serviceReqsTable" editable="true" layoutX="-199.0" layoutY="14.0" onMouseClicked="#rowClicked" prefHeight="275.5" prefWidth="457.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="serviceReqsTable" editable="true" layoutX="-199.0" layoutY="14.0" onMouseClicked="#rowClicked" prefHeight="241.0" prefWidth="462.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                               <TableColumn fx:id="IDCol" prefWidth="42.41563415527344" text="ID" />
                             <TableColumn fx:id="formTypeCol" prefWidth="86.6051025390625" text="Form Type" />

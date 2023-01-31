@@ -46,8 +46,13 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   }
 
   private ObservableList<ServiceRequestTableRow> dbTableRowsModel =
-      FXCollections.observableArrayList(
-          new ServiceRequestTableRow(0, "aa", "aaaaaaaa", "aaa", "aaaaaaa", "aaaa"));
+      FXCollections.observableArrayList();
+
+  /*
+  FXCollections.observableArrayList(
+  new ServiceRequestTableRow(0, "aa", "aaaaaaaa", "aaa", "aaaaaaa", "aaaa"));
+
+   */
 
   //  @FXML
   //  private void receiveData(ActionEvent event) {
@@ -83,6 +88,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
               bla.getStatus(),
               bla.getUl(),
               bla.getEmployeeAssigned());
+      System.out.println(bla.getRequestID()); // todo: remove later
       dbTableRowsModel.add(serviceReqNewRow);
     }
 
@@ -91,6 +97,8 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
   @FXML
   public void rowClicked(MouseEvent event) {
+    // TODO: make it not throw a bunch of errors when an empty row is clicked (add an if statement
+    // that checks for null values I guess?)
 
     ServiceRequestTableRow clickedServiceReqTableRow =
         serviceReqsTable.getSelectionModel().getSelectedItem();
@@ -107,10 +115,10 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   public void submitEdit(ActionEvent event) throws IOException, SQLException {
 
     ObservableList<ServiceRequestTableRow> currentTableData = serviceReqsTable.getItems();
-    int currentAnimalId = Integer.parseInt(IDBoxSaver.getText());
+    int currentRowId = Integer.parseInt(IDBoxSaver.getText());
 
     for (ServiceRequestTableRow SRTable : currentTableData) {
-      if (SRTable.getID() == currentAnimalId) {
+      if (SRTable.getID() == currentRowId) {
         SRTable.setID(Integer.parseInt(IDBoxSaver.getText()));
         SRTable.setFormType(formTypeBox.getText());
         SRTable.setDate(dateBox.getText());
@@ -120,8 +128,10 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
         serviceReqsTable.setItems(currentTableData);
         serviceReqsTable.refresh();
+
         SanitationRequest bob = new SanitationRequest();
-        bob.updateStatusEmployee(17, statusBox.getText(), employeeBox.getText());
+        bob.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
+
         break;
       }
     }
