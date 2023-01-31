@@ -66,6 +66,8 @@ public class SanitationRequest extends ServiceRequest {
     sql = String.join(" ",
             "insert into SanitationRequest(requestID, category) VALUES",
             "((select max(requestID) from ServiceRequest), '"+category+"');" );
+    Adb.processUpdate(sql);
+
   }
 
   // returns list of sanitation requests based on a userID
