@@ -4,7 +4,6 @@ import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import javafx.event.ActionEvent;
@@ -95,24 +94,13 @@ public class PathfindingController {
     HashMap<String, GraphNode> graph = new HashMap<>();
 
     // add the L1 information to the graph
-    // create a Move object and ResultSet object to call functions relating to the move table
-    Move move = new Move(null, null, null); // this won't break, we swear
-    ResultSet result;
-
     // Nodes
     ArrayList<Node> allNodes = Node.getAll(); // Gets list of all nodes from database's table
     for (Node n : allNodes) {
-      // try-catch for SQL exceptions
-      try {
-        result = move.mostRecentLoc(n.getNodeID());
-      } catch (SQLException e) {
-        throw new RuntimeException(e);
-      }
-      result.next();
-
       // create the graph and add the nodes
       GraphNode g =
-          new GraphNode(n.getNodeID(), n.getXcoord(), n.getYcoord(), result.getString("longName"));
+          new GraphNode(
+              n.getNodeID(), n.getXcoord(), n.getYcoord(), Move.mostRecentLoc(n.getNodeID()));
       graph.put(n.getNodeID(), g);
     }
 
