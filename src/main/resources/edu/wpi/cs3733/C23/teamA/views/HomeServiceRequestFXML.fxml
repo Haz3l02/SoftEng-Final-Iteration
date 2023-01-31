@@ -22,7 +22,7 @@
                   <Insets bottom="-20.0" />
                </padding>
                <top>
-                  <SplitPane orientation="VERTICAL" prefHeight="103.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                  <SplitPane orientation="VERTICAL" prefHeight="0.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                      <items>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="121.0" prefWidth="619.0" spacing="10.0" style="-fx-background-color: #122C34;">
                            <children>
@@ -36,44 +36,6 @@
                                     <Font size="14.0" />
                                  </font>
                               </Text>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="497.0" spacing="20.0" style="-fx-background-color: #2A4494;">
-                                 <children>
-                                    <MFXButton buttonType="RAISED" onAction="#switchToSanitation" prefHeight="29.0" prefWidth="205.0" style="-fx-background-color: #2A4494;" text="Sanitation Request" textFill="WHITE">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton buttonType="RAISED" onAction="#switchToComputer" prefHeight="20.0" prefWidth="205.0" style="-fx-background-color: #2A4494;" text="Computer Request" textFill="WHITE">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton buttonType="RAISED" onAction="#switchToSecurity" prefHeight="20.0" prefWidth="205.0" style="-fx-background-color: #2A4494;" text="Security Request" textFill="WHITE">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="257.0" spacing="20.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css">
-                                       <children>
-                                          <MFXButton buttonType="RAISED" onAction="#switchToHome" prefHeight="20.0" prefWidth="100.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </MFXButton>
-                                          <MFXButton buttonType="RAISED" onAction="#logout" prefHeight="20.0" prefWidth="100.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </MFXButton>
-                                          <MFXButton buttonType="RAISED" onAction="#switchToHelpScene" prefHeight="20.0" prefWidth="100.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </MFXButton>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </HBox>
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -86,12 +48,22 @@
                   </SplitPane>
                </top>
                <center>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+                  <VBox alignment="TOP_CENTER" prefHeight="330.0" prefWidth="602.0" BorderPane.alignment="CENTER_LEFT">
                      <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="497.0" style="-fx-background-color: #2A4494;">
+                           <children>
+                              <MFXButton onAction="#switchToSanitation" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: #2A4494;" text="Sanitation Request" textFill="WHITE" />
+                              <MFXButton onAction="#switchToComputer" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: #2A4494;" text="Computer Request" textFill="WHITE" />
+                              <MFXButton onAction="#switchToSecurity" prefHeight="28.0" prefWidth="121.0" style="-fx-background-color: #2A4494;" text="Security Request" textFill="WHITE" />
+                           </children>
+                        </HBox>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/helth.jpg" />
                            </image>
+                           <VBox.margin>
+                              <Insets left="100.0" top="60.0" />
+                           </VBox.margin>
                         </ImageView>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meme of the Day!">
                            <font>
@@ -99,8 +71,20 @@
                            </font>
                         </Text>
                      </children>
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
                   </VBox>
                </center>
+               <right>
+                  <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="TOP_LEFT">
+                     <children>
+                        <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHome" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE" />
+                        <MFXButton alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
+                        <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
+                     </children>
+                  </HBox>
+               </right>
             </BorderPane>
          </children>
       </StackPane>

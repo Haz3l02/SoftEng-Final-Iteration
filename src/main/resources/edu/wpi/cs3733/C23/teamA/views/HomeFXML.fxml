@@ -13,17 +13,14 @@
 
 <AnchorPane styleClass="BackDropStyle" stylesheets="@../assets/BackDropStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <children>
-      <StackPane layoutX="-18.0" layoutY="188.0" prefHeight="412.0" prefWidth="565.0" AnchorPane.bottomAnchor="-200.0" AnchorPane.leftAnchor="-18.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="188.0">
+      <StackPane layoutX="-18.0" layoutY="188.0" prefHeight="412.0" prefWidth="565.0" AnchorPane.bottomAnchor="-200.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
          <children>
             <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="541.0" style="-fx-background-color: BAD1EA;">
-               <padding>
-                  <Insets bottom="-20.0" />
-               </padding>
                <bottom>
                   <HBox prefHeight="320.0" prefWidth="541.0" BorderPane.alignment="CENTER" />
                </bottom>
                <top>
-                  <SplitPane orientation="VERTICAL" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                  <SplitPane orientation="VERTICAL" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER_LEFT">
                      <items>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="549.0" style="-fx-background-color: #122C34; -fx-border-color: #122C34;" SplitPane.resizableWithParent="false">
                            <children>
@@ -39,11 +36,11 @@
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <padding>
-                              <Insets bottom="20.0" />
-                           </padding>
                         </VBox>
                      </items>
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
                   </SplitPane>
                </top>
                <center>
@@ -56,7 +53,7 @@
                   </HBox>
                </center>
                <right>
-                  <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" prefHeight="28.0" prefWidth="220.0" style="-fx-background-color: #2A4494;" BorderPane.alignment="TOP_LEFT">
+                  <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" prefWidth="220.0" style="-fx-background-color: #2A4494;" BorderPane.alignment="TOP_LEFT">
                      <children>
                         <MFXButton onAction="#switchToHelpScene" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
                         <MFXButton onAction="#logout" prefHeight="26.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE">
