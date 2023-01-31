@@ -26,7 +26,7 @@
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
                                  <font>
-                                    <Font size="26.0" />
+                                    <Font name="Arial Black" size="24.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets />
