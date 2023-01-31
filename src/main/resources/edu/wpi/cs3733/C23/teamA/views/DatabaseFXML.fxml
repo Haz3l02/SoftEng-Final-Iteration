@@ -58,7 +58,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <MFXListView layoutX="-53.0" layoutY="-57.0" prefHeight="158.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <MFXButton fx:id="refresh" buttonType="RAISED" layoutX="14.0" layoutY="70.0" onAction="#ReLoadPage" text="Refresh" />
+                        <MFXButton fx:id="refresh" buttonType="RAISED" layoutX="14.0" layoutY="70.0" onAction="#reloadPage" text="Refresh" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

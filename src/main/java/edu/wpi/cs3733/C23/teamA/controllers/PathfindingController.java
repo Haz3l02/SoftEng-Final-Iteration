@@ -16,7 +16,6 @@ public class PathfindingController extends ServiceRequestController {
   @FXML private MFXTextField endNodeID;
   // @FXML private Button findPathButton; // to generate & print the path
   @FXML private Text pathDisplay; // to display the generated path
-  @FXML private Text reminder;
 
   @FXML
   public void generatePath() {
@@ -138,24 +137,9 @@ public class PathfindingController extends ServiceRequestController {
     return AStar.traverse(graph.get(startNodeID), graph.get(endNodeID));
   }
 
-  /*@FXML
-  public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME);
-  }*/
-
   @FXML
   void clearForm() {
     startNodeID.clear();
     endNodeID.clear();
   }
-
-  /*@FXML
-  public void switchToHomeServiceRequest(ActionEvent event) throws IOException {
-    // Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
-  }
-
-  @FXML
-  public void switchToHelpScene(ActionEvent event) throws IOException {
-    // Navigation.navigate(Screen.HELP);
-  }*/
 }

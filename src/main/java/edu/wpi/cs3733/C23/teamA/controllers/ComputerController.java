@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.ComputerRequest;
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCatagory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -7,6 +8,7 @@ import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -52,7 +54,7 @@ public class ComputerController extends ServiceRequestController {
   }
 
   @FXML
-  void submitRequest(ActionEvent event) throws IOException {
+  void submitRequest(ActionEvent event) throws IOException, SQLException {
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locBox.getText().equals("")
@@ -62,28 +64,20 @@ public class ComputerController extends ServiceRequestController {
         || urgencyBox.getValue() == null) {
       reminder.setText("Please fill out all fields in the form!");
     } else {
-      //      ComputerEntity submission = new ComputerEntity(
-      //                            nameBox.getText(),
-      //                            IDNum.getText(),
-      //                            locBox.getText(),
-      //                            descBox.getText(),
-      //                            urgencyBox.getValue(),
-      //                            devicesBox.getValue(),
-      //                            deviceIDNum.getText(),
-      //                            "Computer Request", "Blank", "Unassigned");
-      //      requests.put(
-      //          IDNum.getText(),
-      //          new ComputerEntity(
-      //              nameBox.getText(),
-      //              IDNum.getText(),
-      //              locBox.getText(),
-      //              descBox.getText(),
-      //              urgencyBox.getValue(),
-      //              devicesBox.getValue(),
-      //              deviceIDNum.getText(),
-      //              "Computer Request", "Blank"));
+      ComputerRequest submission =
+          new ComputerRequest(
+              nameBox.getText(),
+              IDNum.getText(),
+              locBox.getText(),
+              descBox.getText(),
+              urgencyBox.getValue(),
+              "Computer Request",
+              "Blank",
+              "Unassigned",
+              devicesBox.getValue(),
+              deviceIDNum.getText());
 
-      // submission.insert();// *some db thing for getting the request in there*
+      submission.insert(); // *some db thing for getting the request in there*
 
       switchToConfirmationScene(event);
     }

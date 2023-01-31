@@ -82,7 +82,7 @@
                <right>
                   <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="TOP_LEFT">
                      <children>
-                        <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHome" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE" />
+                        <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE" />
                         <MFXButton alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
                         <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
                      </children>

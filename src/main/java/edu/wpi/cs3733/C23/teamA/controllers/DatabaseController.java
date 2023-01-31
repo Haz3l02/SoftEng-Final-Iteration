@@ -40,6 +40,7 @@ public class DatabaseController extends ServiceRequestController {
     for (Move row : data) {
       dbTableRowsModel.add(row);
     }
+
     initializeColumns();
     editableColumns();
     dbTable.setEditable(true);
@@ -53,7 +54,7 @@ public class DatabaseController extends ServiceRequestController {
     dbTable.setItems(dbTableRowsModel);
   }
 
-  public void ReLoadPage() {}
+  public void reloadPage() {}
 
   public void editableColumns() {
     nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
