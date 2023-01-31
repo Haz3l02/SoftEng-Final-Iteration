@@ -75,8 +75,8 @@ public class SanitationRequest extends ServiceRequest {
     public ArrayList<SanitationRequest> getSanitationRequestByUser(String id) throws SQLException {
         ArrayList<SanitationRequest> fin = new ArrayList<>();
         String sql = "SELECT * FROM " +
-                "(SanitationRequest SRR join ServiceRequest SR" +
-                "on SRR.requestID = SR.requestID)" +
+                "SanitationRequest join ServiceRequest" +
+                "on SanitationRequest.requestID = ServiceRequest.requestID" +
                 "where idNum = '" + id + "';";
         ResultSet rs = Adb.processQuery(sql);
         while (rs.next()) {
