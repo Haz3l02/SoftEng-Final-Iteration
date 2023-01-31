@@ -61,7 +61,7 @@ public class SanitationRequest extends ServiceRequest {
                     " ",
                     "insert into ServiceRequest",
                     "(name, idNum, location, description, ul, requestType, status, employeeAssigned) VALUES" +
-                            "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + ul + "', '" + requestType + "', '" + status, "', '" + employeeAssigned + "');");
+                            "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + ul + "', '" + requestType + "', '" + status + "', '" + employeeAssigned + "');");
     Adb.processUpdate(sql);
     sql = String.join(" ",
             "insert into SanitationRequest(requestID, category) VALUES",
