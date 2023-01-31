@@ -66,7 +66,7 @@ public class SecurityRequest extends ServiceRequest {
                         " ",
                         "insert into ServiceRequest",
                         "(name, idNum, location, description, ul, requestType, status, employeeAssigned) VALUES" +
-                                "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + ul + "', '" + requestType + "', '" + status, "', '" + employeeAssigned + "');");
+                                "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + ul + "', '" + requestType + "', '" + status + "', '" + employeeAssigned + "');");
         Adb.processUpdate(sql);
         sql = String.join(" ",
                 "insert into SecurityRequest(requestID, request, secPhone) VALUES",
