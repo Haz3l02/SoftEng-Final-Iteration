@@ -103,18 +103,22 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     ServiceRequestTableRow clickedServiceReqTableRow =
         serviceReqsTable.getSelectionModel().getSelectedItem();
 
-    IDBoxSaver.setText(String.valueOf(clickedServiceReqTableRow.getID()));
-    formTypeBox.setText(String.valueOf(clickedServiceReqTableRow.getFormType()));
-    dateBox.setText(String.valueOf(clickedServiceReqTableRow.getDate()));
-    statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
-    urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
-    employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
+    if (clickedServiceReqTableRow != null) {
+
+      IDBoxSaver.setText(String.valueOf(clickedServiceReqTableRow.getID()));
+      formTypeBox.setText(String.valueOf(clickedServiceReqTableRow.getFormType()));
+      dateBox.setText(String.valueOf(clickedServiceReqTableRow.getDate()));
+      statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
+      urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
+      employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
+    }
   }
 
   @FXML
   public void submitEdit(ActionEvent event) throws IOException, SQLException {
 
-    if (!IDBoxSaver.equals("")) {
+    if (!statusBox.getText().trim().isEmpty() && !dateBox.getText().trim().isEmpty() && !formTypeBox.getText().trim().isEmpty()
+    && !urgencyBox.getText().trim().isEmpty() && !employeeBox.getText().trim().isEmpty()) {
 
       ObservableList<ServiceRequestTableRow> currentTableData = serviceReqsTable.getItems();
       int currentRowId = Integer.parseInt(IDBoxSaver.getText());
