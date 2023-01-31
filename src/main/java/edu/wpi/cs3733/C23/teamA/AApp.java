@@ -28,7 +28,7 @@ public class AApp extends Application {
     /* primaryStage is generally only used if one of your components require the stage to display */
     AApp.primaryStage = primaryStage;
 
-    final FXMLLoader loader = new FXMLLoader(AApp.class.getResource("views/SanitationFXML.fxml"));
+    final FXMLLoader loader = new FXMLLoader(AApp.class.getResource("views/Root.fxml"));
     final BorderPane root = loader.load();
 
     AApp.rootPane = root;
@@ -36,7 +36,7 @@ public class AApp extends Application {
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
-    Navigation.navigate(Screen.SANITATION);
+    Navigation.navigate(Screen.HOME);
   }
 
   @Override
