@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.C23.teamA;
 
 import java.awt.*;
-import javafx.scene.control.CheckBox;
 import lombok.Getter;
 import lombok.Setter;
 
 public class ServiceRequestTableRow {
 
-  @Getter @Setter private CheckBox checkbox;
+  @Getter @Setter private int ID;
   @Getter @Setter private String formType;
   @Getter @Setter private String date;
   @Getter @Setter private String status;
@@ -15,14 +14,14 @@ public class ServiceRequestTableRow {
   @Getter @Setter private String employeeAssigned;
 
   public ServiceRequestTableRow(
-      CheckBox checkbox,
+      int ID,
       String formType,
       String date,
       String status,
       String urgency,
       String employeeAssigned) {
 
-    this.checkbox = checkbox;
+    this.ID = ID;
     this.date = date;
     this.formType = formType;
     this.status = status;

@@ -111,16 +111,13 @@ public class SanitationRequest {
   }
 
   public ArrayList<SanitationRequest> getSanitationRequestByUser(String id) throws SQLException {
-    System.out.println("HELLO");
     ArrayList<SanitationRequest> fin = new ArrayList<>();
-    System.out.println("HELLO1");
 
     String sql = "SELECT * FROM SanitationRequest where idNum = '" + id + "';";
 
     System.out.println(sql);
 
     ResultSet rs = Adb.processQuery(sql);
-    System.out.println("HI");
     while (rs.next()) {
       fin.add(
           new SanitationRequest(
