@@ -56,7 +56,7 @@ public class ServiceRequest {
     public ArrayList<ServiceRequest> getServiceRequestsByID(String id) throws SQLException {
         ArrayList<ServiceRequest> fin = new ArrayList<>();
         String sql = "SELECT * FROM " +
-                "ServiceRequest" +
+                "ServiceRequest " +
                 "where idNum = '" + id + "';";
         ResultSet rs = Adb.processQuery(sql);
         while (rs.next()) {
