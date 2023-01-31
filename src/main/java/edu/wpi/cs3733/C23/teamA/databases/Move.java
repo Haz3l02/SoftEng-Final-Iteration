@@ -43,12 +43,17 @@ public class Move {
     Adb.processUpdate(sql);
   }
 
-  public ResultSet mostRecentLoc(String node) throws SQLException {
+  public static String mostRecentLoc(String node) throws SQLException {
+    String loc = "";
     String sql =
         String.join(
             " ",
             "select * from move where nodeID = '" + node + "' order by moveDate desc limit 1;");
-    return Adb.processQuery(sql);
+    ResultSet rs = Adb.processQuery(sql);
+    while (rs.next()) {
+      loc = rs.getString("longName");
+    }
+    return loc;
   }
 
   public void setNodeID(String id) {

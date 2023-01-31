@@ -16,5 +16,6 @@ public class DefaultTest {
     System.out.println(Move.getAll());
     System.out.println(LocationName.getAll());
     System.out.println(Edge.getAll());
+    System.out.println(Move.mostRecentLoc("L1X2665Y1043"));
   }
 }
