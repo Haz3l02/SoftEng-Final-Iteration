@@ -11,9 +11,9 @@
    <top>
       <HBox prefHeight="54.0" prefWidth="600.0" style="-fx-background-color: #224870; -fx-border-color: BLACK; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="401.1484375">
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="479.1484375">
                <font>
-                  <Font size="30.0" />
+                  <Font name="Arial Black" size="30.0" />
                </font>
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />

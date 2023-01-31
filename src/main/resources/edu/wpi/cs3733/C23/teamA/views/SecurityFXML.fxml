@@ -212,9 +212,9 @@
    <top>
       <HBox prefHeight="47.0" prefWidth="600.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: black; -fx-background-color: #224870;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false;" text="Brigham &amp; Women’s Hospital " wrappingWidth="373.1484375">
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false;" text="Brigham &amp; Women’s Hospital " wrappingWidth="390.1484375">
                <font>
-                  <Font size="30.0" />
+                  <Font name="Arial Black" size="24.0" />
                </font>
                <HBox.margin>
                   <Insets left="10.0" top="5.0" />

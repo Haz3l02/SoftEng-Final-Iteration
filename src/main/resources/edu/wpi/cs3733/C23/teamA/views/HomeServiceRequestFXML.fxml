@@ -28,7 +28,7 @@
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
                                  <font>
-                                    <Font size="30.0" />
+                                    <Font name="Arial Black" size="30.0" />
                                  </font>
                               </Text>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Page" underline="true">
