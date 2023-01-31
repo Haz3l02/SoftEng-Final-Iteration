@@ -37,12 +37,12 @@
    <top>
       <VBox prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: #224870; -fx-border-style: solid; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="324.0">
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" textAlignment="CENTER" wrappingWidth="384.0">
                <font>
-                  <Font size="26.0" />
+                  <Font name="Arial Black" size="24.0" />
                </font>
                <VBox.margin>
-                  <Insets left="10.0" top="10.0" />
+                  <Insets left="10.0" top="5.0" />
                </VBox.margin>
             </Text>
          </children>

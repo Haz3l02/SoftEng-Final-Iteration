@@ -15,11 +15,11 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" style="-fx-background-color: #BAD1EA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.DatabaseController">
    <top>
-      <BorderPane prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="46.0" prefWidth="623.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
          <left>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="326.13671875" BorderPane.alignment="CENTER">
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="382.13671875" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="34.0" />
+                  <Font name="Arial Black" size="24.0" />
                </font>
                <BorderPane.margin>
                   <Insets left="10.0" />
