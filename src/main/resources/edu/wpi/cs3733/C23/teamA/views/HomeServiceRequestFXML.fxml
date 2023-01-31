@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeServiceRequestController">
+<AnchorPane prefWidth="604.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeServiceRequestController">
    <children>
       <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="114.0">
          <children>
@@ -62,13 +62,16 @@
                               <Image url="@../assets/helth.jpg" />
                            </image>
                            <VBox.margin>
-                              <Insets left="100.0" top="60.0" />
+                              <Insets left="150.0" top="25.0" />
                            </VBox.margin>
                         </ImageView>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meme of the Day!">
                            <font>
                               <Font name="Chalkduster" size="13.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets left="150.0" />
+                           </VBox.margin>
                         </Text>
                      </children>
                      <BorderPane.margin>

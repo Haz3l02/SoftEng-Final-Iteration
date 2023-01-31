@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="613.0" style="-fx-background-color: BAD1EA; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="613.0" style="-fx-background-color: BAD1EA; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="611.0" BorderPane.alignment="CENTER">
          <children>
@@ -87,7 +87,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Text>
-            <SplitPane dividerPositions="0.2438423645320197" prefHeight="320.0" prefWidth="611.0">
+            <SplitPane dividerPositions="0.2438423645320197" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="275.0" prefWidth="611.0">
               <items>
                   <AnchorPane maxHeight="-Infinity" prefHeight="309.0" prefWidth="145.0">
                      <children>
@@ -127,12 +127,12 @@
                            </children>
                         </VBox>
                      </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="237.0" prefWidth="462.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="237.0" prefWidth="458.0">
                      <children>
                         <TableView fx:id="serviceReqsTable" editable="true" layoutX="-199.0" layoutY="14.0" onMouseClicked="#rowClicked" prefHeight="241.0" prefWidth="462.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                              <TableColumn fx:id="IDCol" prefWidth="42.41563415527344" text="ID" />
-                            <TableColumn fx:id="formTypeCol" prefWidth="86.6051025390625" text="Form Type" />
+                              <TableColumn fx:id="IDCol" minWidth="0.0" prefWidth="0.0" text="ID" />
+                            <TableColumn fx:id="formTypeCol" prefWidth="130.3999786376953" text="Form Type" />
                               <TableColumn fx:id="dateCol" prefWidth="56.659881591796875" text="Date" />
                               <TableColumn fx:id="statusCol" prefWidth="68.94076538085938" text="Status" />
                               <TableColumn fx:id="urgencyCol" prefWidth="78.75567626953125" text="Urgency" />
