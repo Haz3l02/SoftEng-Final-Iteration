@@ -81,7 +81,7 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <MFXButton buttonType="RAISED" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Refresh" textFill="#d3e9f6">
+            <MFXButton buttonType="RAISED" defaultButton="true" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Refresh" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
@@ -91,7 +91,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton fx:id="cancel" alignment="CENTER" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+            <MFXButton fx:id="cancel" alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>

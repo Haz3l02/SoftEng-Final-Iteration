@@ -22,12 +22,12 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </MFXTextField>
-            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6" wrapText="true">
+            <Button fx:id="submitButton" defaultButton="true" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6" wrapText="true">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6" wrapText="true">
+            <Button fx:id="backButton" cancelButton="true" mnemonicParsing="false" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6" wrapText="true">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>

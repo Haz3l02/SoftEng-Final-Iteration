@@ -50,9 +50,9 @@
                <center>
                   <VBox alignment="TOP_CENTER" prefHeight="330.0" prefWidth="602.0" BorderPane.alignment="CENTER_LEFT">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="497.0" style="-fx-background-color: #2A4494;">
+                        <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="424.0" style="-fx-background-color: #2A4494;">
                            <children>
-                              <MFXButton onAction="#switchToSanitation" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: #2A4494;" text="Sanitation Request" textFill="WHITE" />
+                              <MFXButton onAction="#switchToSanitation" prefHeight="28.0" prefWidth="144.0" style="-fx-background-color: #2A4494;" text="Sanitation Request" textFill="WHITE" />
                               <MFXButton onAction="#switchToComputer" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: #2A4494;" text="Computer Request" textFill="WHITE" />
                               <MFXButton onAction="#switchToSecurity" prefHeight="28.0" prefWidth="121.0" style="-fx-background-color: #2A4494;" text="Security Request" textFill="WHITE" />
                            </children>
@@ -82,8 +82,8 @@
                <right>
                   <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="TOP_LEFT">
                      <children>
-                        <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE" />
-                        <MFXButton alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
+                        <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE" />
+                        <MFXButton alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
                         <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
                      </children>
                   </HBox>

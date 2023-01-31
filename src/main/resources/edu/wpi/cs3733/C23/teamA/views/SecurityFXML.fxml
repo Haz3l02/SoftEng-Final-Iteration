@@ -193,12 +193,12 @@
                   <Insets bottom="10.0" right="10.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton fx:id="submit" buttonType="RAISED" onAction="#submitRequest" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
+            <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" onAction="#submitRequest" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets bottom="10.0" right="10.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton fx:id="cancel" buttonType="RAISED" onAction="#switchToHomeServiceRequestScene" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+            <MFXButton fx:id="cancel" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeServiceRequestScene" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets bottom="10.0" right="10.0" />
                </HBox.margin>

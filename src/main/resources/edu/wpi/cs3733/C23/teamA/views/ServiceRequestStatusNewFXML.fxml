@@ -18,18 +18,18 @@
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="611.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
-            <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" onAction="#clearForm" prefHeight="25.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Delete" textFill="#d3e9f6">
-               <HBox.margin>
-                  <Insets bottom="5.0" />
-               </HBox.margin>
-            </MFXButton>
-            <MFXButton id="helpButton" fx:id="submitButton" buttonType="RAISED" onAction="#submitRequest" prefHeight="25.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Select All" textFill="#d3e9f6">
+            <MFXButton id="helpButton" fx:id="submitButton" buttonType="RAISED" onAction="#submitRequest" prefHeight="25.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Select All" textFill="#d3e9f6" visible="false">
                <HBox.margin>
                   <Insets bottom="5.0" left="10.0" right="10.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" onAction="#switchToHomeServiceRequestScene" prefHeight="30.0" prefWidth="86.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+            <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+            <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" onAction="#clearForm" prefHeight="27.0" prefWidth="93.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Clear Edits" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets bottom="5.0" right="10.0" />
+               </HBox.margin>
+            </MFXButton>
+            <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeServiceRequestScene" prefHeight="30.0" prefWidth="86.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets bottom="5.0" right="10.0" />
                </HBox.margin>
@@ -119,7 +119,7 @@
                                  </VBox.margin>
                               </Text>
                               <MFXTextField fx:id="employeeBox" floatMode="ABOVE" prefHeight="12.0" prefWidth="130.0" />
-                              <MFXButton onAction="#submitEdit" prefHeight="12.0" prefWidth="126.0" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
+                              <MFXButton defaultButton="true" onAction="#submitEdit" prefHeight="12.0" prefWidth="126.0" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>

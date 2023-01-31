@@ -16,7 +16,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button mnemonicParsing="false" onAction="#switchToHomeScene" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToHomeScene" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
@@ -26,7 +26,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #224870;" text="Logout" textFill="#d3e9f6" wrapText="true">
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #224870;" text="Logout" textFill="#d3e9f6" wrapText="true">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>

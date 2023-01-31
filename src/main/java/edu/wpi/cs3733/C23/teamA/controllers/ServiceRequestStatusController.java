@@ -114,25 +114,28 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML
   public void submitEdit(ActionEvent event) throws IOException, SQLException {
 
-    ObservableList<ServiceRequestTableRow> currentTableData = serviceReqsTable.getItems();
-    int currentRowId = Integer.parseInt(IDBoxSaver.getText());
+    if (!IDBoxSaver.equals("")) {
 
-    for (ServiceRequestTableRow SRTable : currentTableData) {
-      if (SRTable.getID() == currentRowId) {
-        SRTable.setID(Integer.parseInt(IDBoxSaver.getText()));
-        SRTable.setFormType(formTypeBox.getText());
-        SRTable.setDate(dateBox.getText());
-        SRTable.setStatus(statusBox.getText());
-        SRTable.setUrgency(urgencyBox.getText());
-        SRTable.setEmployeeAssigned(employeeBox.getText());
+      ObservableList<ServiceRequestTableRow> currentTableData = serviceReqsTable.getItems();
+      int currentRowId = Integer.parseInt(IDBoxSaver.getText());
 
-        serviceReqsTable.setItems(currentTableData);
-        serviceReqsTable.refresh();
+      for (ServiceRequestTableRow SRTable : currentTableData) {
+        if (SRTable.getID() == currentRowId) {
+          SRTable.setID(Integer.parseInt(IDBoxSaver.getText()));
+          SRTable.setFormType(formTypeBox.getText());
+          SRTable.setDate(dateBox.getText());
+          SRTable.setStatus(statusBox.getText());
+          SRTable.setUrgency(urgencyBox.getText());
+          SRTable.setEmployeeAssigned(employeeBox.getText());
 
-        SanitationRequest bob = new SanitationRequest();
-        bob.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
+          serviceReqsTable.setItems(currentTableData);
+          serviceReqsTable.refresh();
 
-        break;
+          SanitationRequest bob = new SanitationRequest();
+          bob.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
+
+          break;
+        }
       }
     }
   }
@@ -143,4 +146,14 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
   @FXML
   public void submitRequest(ActionEvent event) throws IOException {}
+
+  public void clearEdits(ActionEvent event) {
+
+    IDBoxSaver.setText("");
+    formTypeBox.clear();
+    dateBox.clear();
+    statusBox.clear();
+    urgencyBox.clear();
+    employeeBox.clear();
+  }
 }
