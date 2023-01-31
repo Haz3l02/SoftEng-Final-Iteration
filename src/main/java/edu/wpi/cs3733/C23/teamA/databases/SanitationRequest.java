@@ -69,28 +69,29 @@ public class SanitationRequest extends ServiceRequest {
   }
 
   // returns list of sanitation requests based on a userID
-  public ArrayList<SanitationRequest> getSanitationRequestByUser(String id) throws SQLException {
-    ArrayList<SanitationRequest> fin = new ArrayList<>();
-    String sql = "SELECT * FROM " +
-            "(SanitationRequest SRR join ServiceRequest SR" +
-            "on SRR.requestID = SR.requestID)" +
-            "where idNum = '" + id + "';";
-    ResultSet rs = Adb.processQuery(sql);
-    while (rs.next()) {
-      fin.add(
-              new SanitationRequest(rs.getInt("requestID"),
-                      rs.getString("name"),
-                      rs.getString("idNum"),
-                      rs.getString("location"),
-                      rs.getString("description"),
-                      rs.getString("category"),
-                      rs.getString("ul"),
-                      rs.getString("requestType"),
-                      rs.getString("status"),
-                      rs.getString("employeeAssigned")));
+
+    public ArrayList<SanitationRequest> getSanitationRequestByUser(String id) throws SQLException {
+        ArrayList<SanitationRequest> fin = new ArrayList<>();
+        String sql = "SELECT * FROM " +
+                "(SanitationRequest SRR join ServiceRequest SR" +
+                "on SRR.requestID = SR.requestID)" +
+                "where idNum = '" + id + "';";
+        ResultSet rs = Adb.processQuery(sql);
+        while (rs.next()) {
+            fin.add(
+                    new SanitationRequest(rs.getInt("requestID"),
+                            rs.getString("name"),
+                            rs.getString("idNum"),
+                            rs.getString("location"),
+                            rs.getString("description"),
+                            rs.getString("category"),
+                            rs.getString("ul"),
+                            rs.getString("requestType"),
+                            rs.getString("status"),
+                            rs.getString("employeeAssigned")));
+        }
+        return fin;
     }
-    return fin;
-  }
 
 
 
