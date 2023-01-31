@@ -50,7 +50,6 @@
                                     <MFXButton maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" prefWidth="123.0" style="-fx-background-color: #2A4494;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
                                     <MFXButton onAction="#switchToPathfinding" style="-fx-background-color: #2A4494;" text="Pathfinding" textFill="WHITE" />
                                     <MFXButton onAction="#switchToDatabase" style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
-                                    <MFXButton onAction="#switchToIDInput" prefHeight="28.0" prefWidth="125.0" style="-fx-background-color: #2A4494;" text="Past Submissions" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
                                     <HBox alignment="TOP_RIGHT" prefHeight="31.0" prefWidth="127.0">
                                        <children>
                                           <MFXButton onAction="#switchToHelpScene" prefHeight="27.0" prefWidth="52.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />

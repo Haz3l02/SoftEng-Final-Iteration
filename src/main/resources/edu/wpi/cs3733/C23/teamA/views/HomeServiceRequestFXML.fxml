@@ -55,6 +55,7 @@
                               <MFXButton onAction="#switchToSanitation" prefHeight="28.0" prefWidth="144.0" style="-fx-background-color: #2A4494;" text="Sanitation Request" textFill="WHITE" />
                               <MFXButton onAction="#switchToComputer" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: #2A4494;" text="Computer Request" textFill="WHITE" />
                               <MFXButton onAction="#switchToSecurity" prefHeight="28.0" prefWidth="121.0" style="-fx-background-color: #2A4494;" text="Security Request" textFill="WHITE" />
+                              <MFXButton onAction="#switchToIDInput" prefHeight="28.0" prefWidth="121.0" style="-fx-background-color: #2A4494;" text="Past Submissions" textFill="WHITE" />
                            </children>
                         </HBox>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">

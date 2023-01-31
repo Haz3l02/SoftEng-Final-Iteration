@@ -58,7 +58,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <MFXListView layoutX="-53.0" layoutY="-57.0" prefHeight="158.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <MFXButton fx:id="refresh" buttonType="RAISED" layoutX="14.0" layoutY="70.0" onAction="#reloadPage" text="Refresh" />
+                        <MFXButton fx:id="refresh" buttonType="RAISED" layoutX="9.0" layoutY="60.0" onAction="#reloadPage" prefHeight="122.0" prefWidth="62.0" text="Double Click to edit table" wrapText="true" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -81,16 +81,6 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <MFXButton buttonType="RAISED" defaultButton="true" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Refresh" textFill="#d3e9f6">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </MFXButton>
-            <MFXButton fx:id="clear" alignment="CENTER" buttonType="RAISED" onAction="#clearForm" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Clear" textFill="#d3e9f6">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </MFXButton>
             <MFXButton fx:id="cancel" alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
