@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
 import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
-import java.io.IOException;
 import java.util.*;
 
 // The main class to run a pathfinding search using terminal line input
@@ -17,8 +16,8 @@ public class PathfindingApp {
 
     // try to initialize the graph
     try {
-      hospitalL1 = PathfindingController.prepGraphCSV();
-    } catch (IOException e) {
+      hospitalL1 = PathfindingController.prepGraphDB();
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
 

@@ -32,7 +32,7 @@ public class PathfindingController {
 
       // try to initialize the graph. If it fails, throw an error
       try {
-        hospitalL1 = prepGraphDB(); // reads through CSV files //
+        hospitalL1 = prepGraphDB(); // reads through DB files //
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
