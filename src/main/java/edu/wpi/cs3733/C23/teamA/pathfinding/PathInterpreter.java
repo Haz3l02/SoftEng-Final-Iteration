@@ -66,10 +66,12 @@ public class PathInterpreter {
 
     // loop through all of them to print the full path
     for (GraphNode n : path) {
-      sb.append("Node ID: " + n.getNodeID());
+      sb.append("Node ID: " + n.getNodeID() + "\n");
+      /*
       if (n.getLongName() != null) {
         sb.append("; Long Name: " + n.getLongName() + "\n");
       }
+      */
     }
 
     // return the built string
