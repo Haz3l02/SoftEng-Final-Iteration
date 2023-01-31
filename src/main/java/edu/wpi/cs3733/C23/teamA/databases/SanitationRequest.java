@@ -5,96 +5,76 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import lombok.*;
 
-public class SanitationRequest {
+public class SanitationRequest extends ServiceRequest {
 
   @Getter private static final String tableName = "SanitationRequest";
-  @Getter @Setter int requestID;
-  @Getter @Setter String name;
-  @Getter @Setter String idNum;
-  @Getter @Setter String location;
-  @Getter @Setter String description;
-  @Getter @Setter String category;
-  @Getter @Setter String ul;
-  @Getter @Setter String requestType;
-  @Getter @Setter String status;
-  @Getter @Setter String employeeAssigned;
+  @Getter @Setter String category;//sanitation
+
 
   public SanitationRequest() {
-    requestID = 0;
-    name=null;
-    idNum=null;
-    location=null;
-    description=null;
-    category=null;
-    ul=null;
-    requestType=null;
-    status=null;
-    employeeAssigned = null;
-
+      super();
+      category=null;
   }
 
   // for new request
   public SanitationRequest(
       String name, String idNum, String location, String description, String category, String ul, String requestType, String status, String employeeAssigned) throws SQLException {
-    this.name = name;
-    this.idNum = idNum;
-    this.location = location;
-    this.description = description;
+    super(name, idNum, location, description, ul, requestType, status, employeeAssigned);
     this.category = category;
-    this.ul = ul;
-    this.requestType = requestType;
-    this.status = status;
-    this.employeeAssigned = employeeAssigned;
   }
 
 
   //for selecting existing
   public SanitationRequest(int requestID, String name, String idNum, String location, String description, String category, String ul, String requestType, String status, String employeeAssigned) {
   // for selecting existing
-    this.requestID = requestID;
-    this.name = name;
-    this.idNum = idNum;
-    this.location = location;
-    this.description = description;
+      super(requestID, name, idNum, location, description, ul, requestType, status, employeeAssigned);
     this.category = category;
-    this.ul = ul;
-    this.requestType = requestType;
-    this.status = status;
-    this.employeeAssigned = employeeAssigned;
   }
 
-  public static void initTable() throws SQLException {
-    String sql =
-        String.join(
-            " ",
-            "CREATE TABLE SanitationRequest",
-            "(requestID SERIAL PRIMARY KEY, ",
-            "name text,",
-            "idNum text,",
-            "location text,",
-            "description text,",
-            "category text,",
-            "ul text,",
-            "requestType text,",
-            "status text,",
-            "employeeAssigned text);");
-    Adb.processUpdate(sql);
-  }
+//  public static void initTable() throws SQLException {
+//    String sql =
+//        String.join(
+//            " ",
+//            "CREATE TABLE SanitationRequest",
+//            "(requestID SERIAL PRIMARY KEY, ",
+//            "name text,",
+//            "idNum text,",
+//            "location text,",
+//            "description text,",
+//            "category text,",
+//            "ul text,",
+//            "requestType text,",
+//            "status text,",
+//            "employeeAssigned text);");
+//    Adb.processUpdate(sql);
+//  }
 
   public void insert() throws SQLException {
-    String sql =
+//    String sql =
+//            String.join(
+//                    " ",
+//                    "insert into SanitationRequest",
+//                    "(name, idNum, location, description, category, ul, requestType, status, employeeAssigned) VALUES" +
+//                            "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + category + "', '" + ul + "', '" + requestType + "', '" + status, "', '" + employeeAssigned + "');");
+      String sql =
             String.join(
                     " ",
-                    "insert into SanitationRequest",
-                    "(name, idNum, location, description, category, ul, requestType, status, employeeAssigned) VALUES" +
-                            "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + category + "', '" + ul + "', '" + requestType + "', '" + status, "', '" + employeeAssigned + "');");
+                    "insert into ServiceRequest",
+                    "(name, idNum, location, description, ul, requestType, status, employeeAssigned) VALUES" +
+                            "( '" + name + "', '" + idNum + "', '" + location + "', '" + description + "', '" + ul + "', '" + requestType + "', '" + status, "', '" + employeeAssigned + "');");
     Adb.processUpdate(sql);
+    sql = String.join(" ",
+            "insert into SanitationRequest(requestID, category) VALUES",
+            "((select max(requestID) from ServiceRequest), '"+category+"');" );
   }
 
   // returns list of sanitation requests based on a userID
   public ArrayList<SanitationRequest> getSanitationRequestByUser(String id) throws SQLException {
     ArrayList<SanitationRequest> fin = new ArrayList<>();
-    String sql = "SELECT * FROM SanitationRequest where idNum = '" + id + "';";
+    String sql = "SELECT * FROM " +
+            "(SanitationRequest SRR join ServiceRequest SR" +
+            "on SRR.requestID = SR.requestID)" +
+            "where idNum = '" + id + "';";
     ResultSet rs = Adb.processQuery(sql);
     while (rs.next()) {
       fin.add(
@@ -114,8 +94,7 @@ public class SanitationRequest {
 
 
 
-  public void updateStatusEmployee (int id, String status, String employeeAssigned) throws SQLException {
-      String sql = "update sanitationrequest set status = '" +status+ "', employeeAssigned = '" + employeeAssigned + "' where requestID = "+id+";";
-      Adb.processUpdate(sql);
-  }
 }
+
+
+
