@@ -62,6 +62,15 @@ public class ComputerController extends ServiceRequestController {
         || urgencyBox.getValue() == null) {
       reminder.setText("Please fill out all fields in the form!");
     } else {
+      //      ComputerEntity submission = new ComputerEntity(
+      //                            nameBox.getText(),
+      //                            IDNum.getText(),
+      //                            locBox.getText(),
+      //                            descBox.getText(),
+      //                            urgencyBox.getValue(),
+      //                            devicesBox.getValue(),
+      //                            deviceIDNum.getText(),
+      //                            "Computer Request", "Blank", "Unassigned");
       //      requests.put(
       //          IDNum.getText(),
       //          new ComputerEntity(
@@ -74,12 +83,7 @@ public class ComputerController extends ServiceRequestController {
       //              deviceIDNum.getText(),
       //              "Computer Request", "Blank"));
 
-      // *some db thing for getting the request in there*
-      //      System.out.println(
-      //          "NAME: "
-      //              + (requests.get(IDNum.getText())).getName()
-      //              + " ID Number: "
-      //              + (requests.get(IDNum.getText())).getIDNum());
+      // submission.insert();// *some db thing for getting the request in there*
 
       switchToConfirmationScene(event);
     }

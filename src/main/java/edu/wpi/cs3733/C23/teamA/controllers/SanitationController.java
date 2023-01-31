@@ -80,17 +80,9 @@ public class SanitationController extends ServiceRequestController {
               urgencyBox.getValue(),
               "Sanitation Request",
               "Blank",
-              "Patricia");
+              "Unassigned");
 
-      System.out.println(submission.getIdNum());
-      System.out.println(submission.getName());
-
-      submission.insert();
-
-      // *some db thing for getting the request in there*
-      System.out.println("this submits data"); // to be removed later
-      // System.out.println(requests.get(IDNum.getText()).getName());
-
+      submission.insert(); // Adding to the database
       switchToConfirmationScene(event);
     }
   }

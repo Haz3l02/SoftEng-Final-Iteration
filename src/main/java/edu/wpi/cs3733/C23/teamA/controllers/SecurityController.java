@@ -73,6 +73,14 @@ public class SecurityController extends ServiceRequestController {
         || urgencyBox.getValue() == null) {
       reminder.setText("Please fill out all fields in the form!");
     } else {
+      //      SecurityEntity submission = new SecurityEntity(nameBox.getText(),
+      //                            phone.getText(),
+      //                            IDNum.getText(),
+      //                            locBox.getText(),
+      //                            descBox.getText(),
+      //                            urgencyBox.getValue(),
+      //                            requestsBox.getValue(),
+      //                            "Security Request", "Blank", "Unassigned");
       //      requests.put(
       //          IDNum.getText(),
       //          new SecurityEntity(
@@ -85,13 +93,8 @@ public class SecurityController extends ServiceRequestController {
       //              requestsBox.getValue(),
       //              "Security Request", "Blank"));
 
-      // *some db thing for getting the request in there*
-      System.out.println("this submits data");
-      //      System.out.println(
-      //          "NAME: "
-      //              + (requests.get(IDNum.getText())).getName()
-      //              + " ID Number: "
-      //              + (requests.get(IDNum.getText())).getIDNum());
+      // submission.insert();// *some db thing for getting the request in there*
+
       switchToConfirmationScene(event);
     }
   }
