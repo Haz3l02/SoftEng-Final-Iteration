@@ -35,8 +35,8 @@ public abstract class ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
-
-    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    //This statement blocks Pathfinding from being opened... is it important?
+    // backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
   @FXML

@@ -233,7 +233,7 @@
             </Text>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="238.0">
                <children>
-                  <MFXButton id="helpButton" fx:id="home" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="61.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
+                  <MFXButton id="homeButton" fx:id="home" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="61.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>

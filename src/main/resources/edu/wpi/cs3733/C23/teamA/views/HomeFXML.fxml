@@ -47,8 +47,9 @@
                   <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" prefWidth="550.0" spacing="20.0" style="-fx-background-color: #2A4494; -fx-border-image-width: 0 0 0 0;" BorderPane.alignment="TOP_LEFT">
                      <children>
                         <MFXButton onAction="#switchToHomeServiceRequest" style="-fx-background-color: #2A4494;" text="Service Requests" textFill="WHITE" />
-                        <MFXButton style="-fx-background-color: #2A4494;" text="Pathfinding" textFill="WHITE" />
-                        <MFXButton onAction="#switchToIDInput" style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
+                        <MFXButton onAction="#switchToPathfinding" style="-fx-background-color: #2A4494;" text="Pathfinding" textFill="WHITE" />
+                        <MFXButton onAction="#switchToDatabase" style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
+                        <MFXButton onAction="#switchToIDInput" style="-fx-background-color: #2A4494;" text="Service Request Status" textFill="WHITE" />
                      </children>
                   </HBox>
                </center>

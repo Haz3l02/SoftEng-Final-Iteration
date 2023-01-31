@@ -12,7 +12,8 @@ public enum Screen {
   HELP("views/HelpFXML.fxml"),
   HOME_SERVICE_REQUEST("views/HomeServiceRequestFXML.fxml"),
   SERVICE_REQUEST("views/ServiceRequest.fxml"),
-  DATABASE_FXML("views/DatabaseFXML.fxml"),
+  DATABASE("views/DatabaseFXML.fxml"),
+  PATHFINDING("views/PathfindingFXML.fxml"),
   SERVICE_REQUEST_STATUS("views/ServiceRequestStatusNewFXML.fxml"),
   ID_INPUT("views/IDInputFXML.fxml");
 

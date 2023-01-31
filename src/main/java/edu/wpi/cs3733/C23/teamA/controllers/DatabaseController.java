@@ -12,7 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
-public class DatabaseController {
+public class DatabaseController extends ServiceRequestController {
 
   @FXML private TableView<Move> dbTable;
 
@@ -52,6 +52,8 @@ public class DatabaseController {
     // edgeDataCol.setCellValueFactory(new PropertyValueFactory<>("edgeData"));
     dbTable.setItems(dbTableRowsModel);
   }
+
+  public void ReLoadPage() {}
 
   public void editableColumns() {
     nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());

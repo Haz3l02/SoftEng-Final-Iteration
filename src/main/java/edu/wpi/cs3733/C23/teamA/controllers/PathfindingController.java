@@ -6,11 +6,10 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
-public class PathfindingController {
+public class PathfindingController extends ServiceRequestController {
 
   // javaFX items
   @FXML private MFXTextField startNodeID;
@@ -139,12 +138,10 @@ public class PathfindingController {
     return AStar.traverse(graph.get(startNodeID), graph.get(endNodeID));
   }
 
-  @FXML
+  /*@FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
-    // Navigation.navigate(Screen.HOME);
-  }
-
-  public void logout(ActionEvent actionEvent) {}
+    Navigation.navigate(Screen.HOME);
+  }*/
 
   @FXML
   void clearForm() {
@@ -152,7 +149,7 @@ public class PathfindingController {
     endNodeID.clear();
   }
 
-  @FXML
+  /*@FXML
   public void switchToHomeServiceRequest(ActionEvent event) throws IOException {
     // Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
   }
@@ -160,5 +157,5 @@ public class PathfindingController {
   @FXML
   public void switchToHelpScene(ActionEvent event) throws IOException {
     // Navigation.navigate(Screen.HELP);
-  }
+  }*/
 }

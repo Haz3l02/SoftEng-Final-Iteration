@@ -8,14 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-public class HomeServiceRequestController {
+public class HomeServiceRequestController extends ServiceRequestController {
   @FXML
   public void initialize() {}
 
-  @FXML
+  /*@FXML
   public void switchToHelpScene(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.HELP);
-  }
+  }*/
 
   @FXML
   public void switchToHome(ActionEvent event) throws IOException {

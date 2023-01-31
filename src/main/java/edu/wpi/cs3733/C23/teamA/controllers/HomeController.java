@@ -10,7 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 
-public class HomeController {
+public class HomeController extends ServiceRequestController {
 
   @FXML MFXButton navigateButton;
   @FXML Text textNotification;
@@ -28,19 +28,29 @@ public class HomeController {
   }
 
   @FXML
+  public void switchToDatabase(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.DATABASE);
+  }
+
+  @FXML
+  public void switchToPathfinding(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.PATHFINDING);
+  }
+
+  /*@FXML
   public void switchToHelpScene(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.HELP);
-  }
+  }*/
 
   @FXML
   public void switchToHomeServiceRequest(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
   }
 
-  @FXML
+  /*@FXML
   public void switchToStatus(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
-  }
+  }*/
   // TO DO
   //  @FXML
   //  public void switchToDatabase(ActionEvent event) throws IOException {
