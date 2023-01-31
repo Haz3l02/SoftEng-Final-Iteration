@@ -101,8 +101,10 @@ public class ComputerRequest extends ServiceRequest {
                 + "', '"
                 + requestType
                 + "', '"
-                + status,
-            "', '" + employeeAssigned + "');");
+                + status
+                + "', '"
+                + employeeAssigned
+                + "');");
     Adb.processUpdate(sql);
     sql =
         String.join(

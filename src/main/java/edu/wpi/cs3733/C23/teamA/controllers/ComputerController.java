@@ -74,8 +74,8 @@ public class ComputerController extends ServiceRequestController {
               "Computer Request",
               "Blank",
               "Unassigned",
-              devicesBox.getValue(),
-              deviceIDNum.getText());
+              deviceIDNum.getText(),
+              devicesBox.getValue());
 
       submission.insert(); // *some db thing for getting the request in there*
 
