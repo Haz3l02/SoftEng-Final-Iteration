@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import edu.wpi.cs3733.C23.teamA.database.Adb;
+import edu.wpi.cs3733.C23.teamA.databases.Adb;
 import java.sql.SQLException;
 import lombok.*;
 
