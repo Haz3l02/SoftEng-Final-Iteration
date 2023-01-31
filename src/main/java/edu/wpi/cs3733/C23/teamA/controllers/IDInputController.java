@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.IdNumberHolder;
-import edu.wpi.cs3733.C23.teamA.SanitationRequest;
+import edu.wpi.cs3733.C23.teamA.ServiceRequest;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -31,10 +31,10 @@ public class IDInputController {
   public void submitButtonPressed(ActionEvent event)
       throws IOException, SQLException, InterruptedException {
 
-    SanitationRequest sr = new SanitationRequest();
+    ServiceRequest sr = new ServiceRequest();
 
-    ArrayList<SanitationRequest> specificRequests = new ArrayList<>();
-    specificRequests = sr.getSanitationRequestByUser(idNumTextField.getText());
+    ArrayList<ServiceRequest> specificRequests = new ArrayList<>();
+    specificRequests = sr.getServiceRequestsByID(idNumTextField.getText());
     if (specificRequests.size() == 0) {
       textNotification.setVisible(true);
     } else {

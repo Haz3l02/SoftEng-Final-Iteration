@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.IdNumberHolder;
 import edu.wpi.cs3733.C23.teamA.SanitationRequest;
+import edu.wpi.cs3733.C23.teamA.ServiceRequest;
 import edu.wpi.cs3733.C23.teamA.ServiceRequestTableRow;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -37,7 +38,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML public MFXTextField statusBox;
   @FXML public Text IDBoxSaver;
 
-  private String id;
+  private String hospitalID;
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
@@ -58,7 +59,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   public void initialize() throws SQLException {
 
     IdNumberHolder holder = IdNumberHolder.getInstance();
-    id = holder.getId();
+    hospitalID = holder.getId();
 
     IDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
     formTypeCol.setCellValueFactory(new PropertyValueFactory<>("formType"));
@@ -69,19 +70,19 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
     SanitationRequest sr = new SanitationRequest();
 
-    ArrayList<SanitationRequest> specificRequests = new ArrayList<>();
-    specificRequests = sr.getSanitationRequestByUser(id); // MAKE SURE TO FIX THIS;
+    ArrayList<ServiceRequest> specificRequests = new ArrayList<>();
+    specificRequests = sr.getServiceRequestsByID(hospitalID); // MAKE SURE TO FIX THIS;
     // System.out.println(specificRequests.get(0).getName());
 
-    for (SanitationRequest bla : specificRequests) {
+    for (ServiceRequest bla : specificRequests) {
       ServiceRequestTableRow serviceReqNewRow =
           new ServiceRequestTableRow(
               bla.getRequestID(),
               bla.getRequestType(),
               "date",
-              "status",
+              bla.getStatus(),
               bla.getUl(),
-              "assignedEmployee");
+              bla.getEmployeeAssigned());
       dbTableRowsModel.add(serviceReqNewRow);
     }
 
@@ -103,7 +104,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   }
 
   @FXML
-  public void submitEdit(ActionEvent event) throws IOException {
+  public void submitEdit(ActionEvent event) throws IOException, SQLException {
 
     ObservableList<ServiceRequestTableRow> currentTableData = serviceReqsTable.getItems();
     int currentAnimalId = Integer.parseInt(IDBoxSaver.getText());
@@ -119,10 +120,16 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
         serviceReqsTable.setItems(currentTableData);
         serviceReqsTable.refresh();
+        SanitationRequest bob = new SanitationRequest();
+        bob.updateStatusEmployee(17, statusBox.getText(), employeeBox.getText());
         break;
       }
     }
   }
+  //  @FXML
+  //  public void editData(ActionEvent event) throws IOException {
+  //  edit.
+  //  }
 
   @FXML
   public void submitRequest(ActionEvent event) throws IOException {}

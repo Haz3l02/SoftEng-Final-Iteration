@@ -78,7 +78,9 @@ public class SanitationController extends ServiceRequestController {
               descBox.getText(),
               categoryBox.getValue(),
               urgencyBox.getValue(),
-              "Sanitation Request");
+              "Sanitation Request",
+              "Blank",
+              "Patricia");
 
       System.out.println(submission.getIdNum());
       System.out.println(submission.getName());
