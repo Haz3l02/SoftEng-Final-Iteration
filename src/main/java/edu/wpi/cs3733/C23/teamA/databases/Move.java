@@ -13,11 +13,13 @@ public class Move {
   @Setter @Getter private String nodeID;
   @Setter @Getter private String longName;
   @Setter @Getter private String moveDate;
+  @Setter @Getter private String connections;
 
-  public Move(String nodeID, String longName, String moveDate) {
+  public Move(String nodeID, String longName, String moveDate) throws SQLException {
     this.nodeID = nodeID;
     this.longName = longName;
     this.moveDate = moveDate;
+    this.connections = Edge.connections(nodeID).toString();
   }
 
   public static void initTable() throws SQLException {
@@ -66,6 +68,6 @@ public class Move {
   }
 
   public String toString() {
-    return String.format("%s %s %s", nodeID, longName, moveDate);
+    return String.format("%s %s %s %s", nodeID, longName, moveDate, connections);
   }
 }

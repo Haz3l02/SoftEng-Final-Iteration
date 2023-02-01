@@ -21,17 +21,8 @@ public class DatabaseController {
   @FXML public TableColumn<Move, String> moveCol;
 
   @FXML public MFXButton refresh;
-  // @FXML public TableColumn<Move, String> edgeDataCol;
 
   private ArrayList<Move> data;
-
-  {
-    try {
-      data = Move.getAll();
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-  }
 
   private ObservableList<Move> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
@@ -40,16 +31,16 @@ public class DatabaseController {
       try {
         data = Move.getAll();
       } catch (SQLException e) {
-        throw new RuntimeException(e);
+        e.printStackTrace();
       }
     }
     for (Move row : data) {
+      row.getConnections();
       dbTableRowsModel.add(row);
     }
     nodeCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
     locNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
     moveCol.setCellValueFactory(new PropertyValueFactory<>("moveDate"));
-    // edgeDataCol.setCellValueFactory(new PropertyValueFactory<>("edgeData"));
     dbTable.setItems(dbTableRowsModel);
     editableColumns();
     dbTable.setEditable(true);
@@ -64,7 +55,7 @@ public class DatabaseController {
             n.setNodeID(e.getNewValue());
             n.update();
           } catch (SQLException ex) {
-            refresh.setText("Invalid Location: Refresh");
+            refresh.setText("Invalid Node: Refresh");
           }
           dbTable.refresh();
         });
@@ -76,11 +67,9 @@ public class DatabaseController {
             n.setLongName(e.getNewValue());
             n.update();
           } catch (SQLException ex) {
-            refresh.setText("Invalid Node: Refresh");
+            refresh.setText("Invalid Location: Refresh");
           }
           dbTable.refresh();
         });
-
-    // edgeDataCol.setCellFactory(TextFieldTableCell.forTableColumn());
   }
 }

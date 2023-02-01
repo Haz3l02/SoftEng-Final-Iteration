@@ -6,7 +6,8 @@ public enum Screen {
   SERVICE_REQUEST("views/ServiceRequest.fxml"),
   DATABASE("views/DatabaseFXML.fxml"),
 
-  NODE("views/NodeFXML.fxml");
+  NODE("views/NodeFXML.fxml"),
+  EDGE("views/EdgeFXML.fxml");
 
   private final String filename;
 

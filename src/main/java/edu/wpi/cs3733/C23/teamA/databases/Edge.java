@@ -47,15 +47,20 @@ public class Edge {
     Adb.processUpdate(sql);
   }
 
-  //  public ResultSet getSpecificEdge(String id) throws SQLException {
-  //    String sql = String.join(" ", "select * from Edge where edgeId = '" + id + "';");
-  //    return Adb.processQuery(sql);
-  //  }
-
-  //  public void delete(String id) throws SQLException {
-  //    String sql = String.join(" ", "DELETE from Edge where edgeID = '" + id + "'");
-  //    Adb.processUpdate(sql);
-  //  }
+  public static ArrayList<String> connections(String nodeid) throws SQLException {
+    ArrayList<String> nodes = new ArrayList<>();
+    String sql = String.format("select node2 from edge where node1 = '%s';", nodeid);
+    ResultSet rs = Adb.processQuery(sql);
+    while (rs.next()) {
+      nodes.add(rs.getString("node2"));
+    }
+    sql = String.format("select node1 from edge where node2 = '%s';", nodeid);
+    rs = Adb.processQuery(sql);
+    while (rs.next()) {
+      nodes.add(rs.getString("node1"));
+    }
+    return nodes;
+  }
 
   public void update() throws SQLException {
     String sql =
