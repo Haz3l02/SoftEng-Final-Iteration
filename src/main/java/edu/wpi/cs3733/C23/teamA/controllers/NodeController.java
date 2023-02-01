@@ -1,11 +1,14 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.databases.Node;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -13,7 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 
-public class NodeController {
+public class NodeController extends ServiceRequestController {
 
   @FXML private TableView<Node> dbTable;
 
@@ -106,5 +109,13 @@ public class NodeController {
           }
           dbTable.refresh();
         });
+  }
+
+  public void switchToEdgeScene(ActionEvent event) {
+    Navigation.navigate(Screen.EDGE);
+  }
+
+  public void switchToMoveScene(ActionEvent event) {
+    Navigation.navigate(Screen.DATABASE);
   }
 }
