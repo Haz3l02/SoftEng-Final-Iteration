@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -85,4 +86,12 @@ public class DatabaseController extends ServiceRequestController {
         });
     // edgeDataCol.setCellFactory(TextFieldTableCell.forTableColumn());
   }
+
+  public void switchToEdgeScene(ActionEvent event){
+
+
+
+
+  }
+
 }
