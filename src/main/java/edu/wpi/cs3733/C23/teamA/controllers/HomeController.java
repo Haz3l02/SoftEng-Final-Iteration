@@ -14,10 +14,13 @@ public class HomeController extends ServiceRequestController {
   @FXML
   public void initialize() {}
 
+  /*
   @FXML
   public void switchToIDInput(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.ID_INPUT);
   }
+
+   */
 
   @FXML
   public void switchToDatabase(ActionEvent event) throws IOException {

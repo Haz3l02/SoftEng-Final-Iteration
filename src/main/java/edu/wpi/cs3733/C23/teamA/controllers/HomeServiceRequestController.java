@@ -24,4 +24,9 @@ public class HomeServiceRequestController extends ServiceRequestController {
   public void switchToComputer(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.COMPUTER);
   }
+
+  @FXML
+  public void switchToIDInput(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.ID_INPUT);
+  }
 }

@@ -13,13 +13,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" style="-fx-background-color: #BAD1EA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.DatabaseController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BAD1EA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.EdgeController">
    <top>
-      <BorderPane prefHeight="46.0" prefWidth="623.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
          <left>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="382.13671875" BorderPane.alignment="CENTER">
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="326.13671875" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Arial Black" size="24.0" />
+                  <Font size="34.0" />
                </font>
                <BorderPane.margin>
                   <Insets left="10.0" />
@@ -29,17 +29,17 @@
          <right>
             <HBox alignment="CENTER" prefHeight="81.0" prefWidth="230.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton fx:id="home" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="66.0" style="-fx-background-color: #BAD1EA;" text="Home" textFill="#224870">
+                  <MFXButton buttonType="RAISED" prefHeight="34.0" prefWidth="66.0" style="-fx-background-color: #BAD1EA;" text="Home" textFill="#224870">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton id="helpButton" fx:id="help" buttonType="RAISED" onAction="#switchToHelpScene" prefHeight="36.0" prefWidth="62.0" style="-fx-background-color: #BAD1EA;" text="Help" textFill="#224870">
+                  <MFXButton buttonType="RAISED" prefHeight="36.0" prefWidth="62.0" style="-fx-background-color: #BAD1EA;" text="Help" textFill="#224870">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton buttonType="RAISED" onAction="#logout" prefHeight="36.0" prefWidth="71.0" style="-fx-background-color: #BAD1EA;" text="Logout" textFill="#224870" />
+                  <MFXButton buttonType="RAISED" prefHeight="36.0" prefWidth="71.0" style="-fx-background-color: #BAD1EA;" text="Logout" textFill="#224870" />
                </children>
             </HBox>
          </right>
@@ -48,7 +48,7 @@
    <center>
       <VBox prefHeight="564.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map Data Editor" wrappingWidth="201.13671875">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Edge Data" wrappingWidth="201.13671875">
                <font>
                   <Font size="24.0" />
                </font>
@@ -58,17 +58,15 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <MFXListView layoutX="-53.0" layoutY="-57.0" prefHeight="158.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <MFXButton fx:id="refresh" buttonType="RAISED" layoutX="9.0" layoutY="60.0" onAction="#reloadPage" prefHeight="122.0" prefWidth="62.0" text="Double Click to edit table" wrapText="true" />
+                        <MFXButton fx:id="refresh" layoutX="14.0" layoutY="70.0" text="do stuff" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <TableView fx:id="dbTable" editable="true" layoutX="-36.0" layoutY="-38.0" prefHeight="237.0" prefWidth="514.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn fx:id="nodeCol" prefWidth="100.0" text="Node" />
-                            <TableColumn fx:id="locNameCol" prefWidth="100.0" text="Location Name" />
-                              <TableColumn fx:id="moveCol" prefWidth="100.0" text="Move" />
-                              <TableColumn fx:id="edgeDataCol" prefWidth="100.0" text="Edge Data" />
+                            <TableColumn fx:id="startNodeCol" prefWidth="100.0" text="Start Node" />
+                            <TableColumn fx:id="endNodeCol" prefWidth="100.0" text="End Node" />
                           </columns>
                         </TableView>
                      </children>
@@ -81,12 +79,17 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <MFXButton alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#switchToEdgeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Edges" textFill="#d3e9f6">
+            <MFXButton buttonType="RAISED" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Refresh" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton fx:id="cancel" alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+            <MFXButton alignment="CENTER" buttonType="RAISED" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Clear" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </MFXButton>
+            <MFXButton alignment="CENTER" buttonType="RAISED" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>

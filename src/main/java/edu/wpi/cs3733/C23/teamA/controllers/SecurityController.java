@@ -45,11 +45,6 @@ public class SecurityController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToHelpScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HELP);
-  }
-
-  @FXML
   public void switchToSecurityScene(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.SECURITY);
   }
