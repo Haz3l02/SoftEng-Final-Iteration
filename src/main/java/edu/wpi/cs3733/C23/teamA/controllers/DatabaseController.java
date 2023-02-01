@@ -6,13 +6,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
-public class DatabaseController {
+public class DatabaseController extends ServiceRequestController {
 
   @FXML private TableView<Move> dbTable;
 
@@ -46,6 +47,8 @@ public class DatabaseController {
     dbTable.setEditable(true);
   }
 
+  public void reloadPage() {}
+
   public void editableColumns() {
     nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
     nodeCol.setOnEditCommit(
@@ -72,4 +75,12 @@ public class DatabaseController {
           dbTable.refresh();
         });
   }
+
+  public void switchToEdgeScene(ActionEvent event){
+
+
+
+
+  }
+
 }

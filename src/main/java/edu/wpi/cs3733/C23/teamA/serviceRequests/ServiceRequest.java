@@ -1,5 +1,6 @@
-package edu.wpi.cs3733.C23.teamA.databases;
+package edu.wpi.cs3733.C23.teamA.serviceRequests;
 
+import edu.wpi.cs3733.C23.teamA.databases.Adb;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class ServiceRequest {
 
   public ArrayList<ServiceRequest> getServiceRequestsByID(String id) throws SQLException {
     ArrayList<ServiceRequest> fin = new ArrayList<>();
-    String sql = "SELECT * FROM " + "ServiceRequest" + "where idNum = '" + id + "';";
+    String sql = "SELECT * FROM " + "ServiceRequest " + "where idNum = '" + id + "';";
     ResultSet rs = Adb.processQuery(sql);
     while (rs.next()) {
       fin.add(

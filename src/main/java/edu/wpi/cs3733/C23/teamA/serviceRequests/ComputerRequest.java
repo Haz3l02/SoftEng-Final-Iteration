@@ -1,51 +1,58 @@
-package edu.wpi.cs3733.C23.teamA.databases;
+package edu.wpi.cs3733.C23.teamA.serviceRequests;
 
+import edu.wpi.cs3733.C23.teamA.databases.Adb;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import lombok.*;
 
-public class SanitationRequest extends ServiceRequest {
+public class ComputerRequest extends ServiceRequest {
 
-  @Getter private static final String tableName = "SanitationRequest";
-  @Getter @Setter String category; // sanitation
+  @Getter private static final String tableName = "ComputerRequest";
+  @Getter @Setter String deviceID;
+  @Getter @Setter String device;
 
-  public SanitationRequest() {
+  public ComputerRequest() {
     super();
-    category = null;
+    deviceID = null;
+    device = null;
   }
 
   // for new request
-  public SanitationRequest(
+  public ComputerRequest(
       String name,
       String idNum,
       String location,
       String description,
-      String category,
       String ul,
       String requestType,
       String status,
-      String employeeAssigned)
+      String employeeAssigned,
+      String deviceID,
+      String device)
       throws SQLException {
     super(name, idNum, location, description, ul, requestType, status, employeeAssigned);
-    this.category = category;
+    this.deviceID = deviceID;
+    this.device = device;
   }
 
   // for selecting existing
-  public SanitationRequest(
+  public ComputerRequest(
       int requestID,
       String name,
       String idNum,
       String location,
       String description,
-      String category,
       String ul,
       String requestType,
       String status,
-      String employeeAssigned) {
+      String employeeAssigned,
+      String deviceID,
+      String device) {
     // for selecting existing
     super(requestID, name, idNum, location, description, ul, requestType, status, employeeAssigned);
-    this.category = category;
+    this.deviceID = deviceID;
+    this.device = device;
   }
 
   //  public static void initTable() throws SQLException {
@@ -67,7 +74,6 @@ public class SanitationRequest extends ServiceRequest {
   //  }
 
   public void insert() throws SQLException {
-
     //    String sql =
     //            String.join(
     //                    " ",
@@ -95,42 +101,45 @@ public class SanitationRequest extends ServiceRequest {
                 + "', '"
                 + requestType
                 + "', '"
-                + status,
-            "', '" + employeeAssigned + "');");
+                + status
+                + "', '"
+                + employeeAssigned
+                + "');");
     Adb.processUpdate(sql);
     sql =
         String.join(
             " ",
-            "insert into SanitationRequest(requestID, category) VALUES",
-            "((select max(requestID) from ServiceRequest), '" + category + "');");
+            "insert into ComputerRequest(requestID, deviceID, device) VALUES",
+            "((select max(requestID) from ServiceRequest), '" + deviceID + "', '" + device + "');");
     Adb.processUpdate(sql);
   }
 
   // returns list of sanitation requests based on a userID
 
-  public ArrayList<SanitationRequest> getSanitationRequestByUser(String id) throws SQLException {
-    ArrayList<SanitationRequest> fin = new ArrayList<>();
+  public ArrayList<ComputerRequest> getComputerRequestByUser(String id) throws SQLException {
+    ArrayList<ComputerRequest> fin = new ArrayList<>();
     String sql =
         "SELECT * FROM "
-            + "SanitationRequest join ServiceRequest"
-            + "on SanitationRequest.requestID = ServiceRequest.requestID"
+            + "ComputerRequest join ServiceRequest"
+            + "on ComputerRequest.requestID = ServiceRequest.requestID"
             + "where idNum = '"
             + id
             + "';";
     ResultSet rs = Adb.processQuery(sql);
     while (rs.next()) {
       fin.add(
-          new SanitationRequest(
+          new ComputerRequest(
               rs.getInt("requestID"),
               rs.getString("name"),
               rs.getString("idNum"),
               rs.getString("location"),
               rs.getString("description"),
-              rs.getString("category"),
               rs.getString("ul"),
               rs.getString("requestType"),
               rs.getString("status"),
-              rs.getString("employeeAssigned")));
+              rs.getString("employeeAssigned"),
+              rs.getString("deviceID"),
+              rs.getString("devices")));
     }
     return fin;
   }
