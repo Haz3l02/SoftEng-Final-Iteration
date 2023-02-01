@@ -33,19 +33,34 @@ public class Edge {
   }
 
   public static void initTable() throws SQLException {
-    String sql = String.join(" ", "CREATE TABLE Edge", "(node1 text,", "node2 text);");
+    String sql =
+        String.join(
+            " ",
+            "create table public.edge (\n"
+                + "  node1 text not null,\n"
+                + "  node2 text not null,\n"
+                + "  primary key (node1, node2),\n"
+                + "  foreign key (node1) references public.node (nodeid)\n"
+                + "  match simple on update cascade on delete no action,\n"
+                + "  foreign key (node2) references public.node (nodeid)\n"
+                + "  match simple on update cascade on delete no action);");
     Adb.processUpdate(sql);
   }
 
-  //  public ResultSet getSpecificEdge(String id) throws SQLException {
-  //    String sql = String.join(" ", "select * from Edge where edgeId = '" + id + "';");
-  //    return Adb.processQuery(sql);
-  //  }
-
-  //  public void delete(String id) throws SQLException {
-  //    String sql = String.join(" ", "DELETE from Edge where edgeID = '" + id + "'");
-  //    Adb.processUpdate(sql);
-  //  }
+  public static ArrayList<String> connections(String nodeid) throws SQLException {
+    ArrayList<String> nodes = new ArrayList<>();
+    String sql = String.format("select node2 from edge where node1 = '%s';", nodeid);
+    ResultSet rs = Adb.processQuery(sql);
+    while (rs.next()) {
+      nodes.add(rs.getString("node2"));
+    }
+    sql = String.format("select node1 from edge where node2 = '%s';", nodeid);
+    rs = Adb.processQuery(sql);
+    while (rs.next()) {
+      nodes.add(rs.getString("node1"));
+    }
+    return nodes;
+  }
 
   public void update() throws SQLException {
     String sql =

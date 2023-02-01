@@ -22,10 +22,10 @@ public class LocationName {
     String sql =
         String.join(
             " ",
-            "CREATE TABLE LocationName",
-            "(longName text,",
-            "shortName text,",
-            "locationType text);");
+            "create table locationname (\n"
+                + "  longname text primary key not null,\n"
+                + "  shortname text,\n"
+                + "  locationtype text);");
     Adb.processUpdate(sql);
   }
 
