@@ -116,8 +116,11 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML
   public void submitEdit(ActionEvent event) throws IOException, SQLException {
 
-    if (!statusBox.getText().trim().isEmpty() && !dateBox.getText().trim().isEmpty() && !formTypeBox.getText().trim().isEmpty()
-    && !urgencyBox.getText().trim().isEmpty() && !employeeBox.getText().trim().isEmpty()) {
+    if (!statusBox.getText().trim().isEmpty()
+        && !dateBox.getText().trim().isEmpty()
+        && !formTypeBox.getText().trim().isEmpty()
+        && !urgencyBox.getText().trim().isEmpty()
+        && !employeeBox.getText().trim().isEmpty()) {
 
       ObservableList<ServiceRequestTableRow> currentTableData = serviceReqsTable.getItems();
       int currentRowId = Integer.parseInt(IDBoxSaver.getText());
