@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.jupiter.api.*; // notably, BeforeEach & Test
 
+// Testing class for AStar Algorithm
 public class AStarTest {
 
   // test nodes
