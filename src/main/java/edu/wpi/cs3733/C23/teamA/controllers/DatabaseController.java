@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.databases.Move;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -76,11 +78,11 @@ public class DatabaseController extends ServiceRequestController {
         });
   }
 
-  public void switchToEdgeScene(ActionEvent event){
-
-
-
-
+  public void switchToEdgeScene(ActionEvent event) {
+    Navigation.navigate(Screen.EDGE);
   }
 
+  public void switchToNodeScene(ActionEvent event) {
+    Navigation.navigate(Screen.NODE);
+  }
 }

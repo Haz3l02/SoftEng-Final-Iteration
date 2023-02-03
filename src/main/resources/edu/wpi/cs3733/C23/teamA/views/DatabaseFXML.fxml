@@ -86,6 +86,11 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </MFXButton>
+            <MFXButton alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#switchToNodeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Nodes" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </MFXButton>
             <MFXButton fx:id="cancel" alignment="CENTER" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
