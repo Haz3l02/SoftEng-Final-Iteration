@@ -14,30 +14,28 @@ public class Employee {
     @Getter @Setter private String username;
     @Getter @Setter private String password;
     @Getter @Setter private String job;
-    @Getter @Setter private String firstName;
-    @Getter @Setter private String lastName;
+    @Getter @Setter private String name;
 
 
     public Employee() {
     }
 
-    public Employee(String employeeID, String username, String password, String job, String firstName, String lastName) {
+    public Employee(String employeeID, String username, String password, String job, String name) {
         this.employeeID = employeeID;
         this.username = username;
         this.password = password;
         this.job = job;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
     }
 
 
 
-    public boolean checkPass(String user, String pwd) throws SQLException {
+    public String checkPass(String user, String pwd) throws SQLException {
         String sql = "SELECT * FROM Employee where username = '" + user + "';";
         ResultSet rs = Adb.processQuery(sql);
         if(rs.next()) {
-            return rs.getString("password").equals(pwd);
+            if (rs.getString("password").equals(pwd)) return rs.getString("employeeID");
         }
-        return false;
+        return "";
     }
 }
