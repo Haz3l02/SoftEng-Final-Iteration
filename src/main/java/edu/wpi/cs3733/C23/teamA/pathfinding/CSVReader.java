@@ -81,10 +81,10 @@ public class CSVReader {
       row = csvScanner.nextLine();
       String[] entries = row.split(",");
       // Making sure the correct number of entries exist (should have 3 columns)
-      if (entries.length == 2) {
-        // node with value entries[0] adds entries[1] to neighbors and vice versa
-        GraphNode node1 = graph.get(entries[0]);
-        GraphNode node2 = graph.get(entries[1]);
+      if (entries.length == 3) {
+        // node with value entries[1] adds entries[2] to neighbors and vice versa
+        GraphNode node1 = graph.get(entries[1]);
+        GraphNode node2 = graph.get(entries[2]);
         node1.addNeighbor(node2);
         node2.addNeighbor(node1);
       } else {

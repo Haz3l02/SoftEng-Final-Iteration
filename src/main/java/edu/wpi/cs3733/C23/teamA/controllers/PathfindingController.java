@@ -86,12 +86,12 @@ public class PathfindingController extends ServiceRequestController {
    * @throws IOException if the files cannot be read
    */
   public static HashMap<String, GraphNode> prepGraphCSV() throws IOException {
-    // create a graph to hold the L1 information
+    // create a graph to hold the information
     HashMap<String, GraphNode> graph = new HashMap<>();
 
-    // add the L1 CSV information to the graph (TO BE UPDATED LATER)
-    CSVReader.readNodes("src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/L1Nodes.csv", graph);
-    CSVReader.readEdges("src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/L1Edges.csv", graph);
+    // add the CSV information to the graph (TO BE UPDATED LATER)
+    CSVReader.readNodes("src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/nodes.csv", graph);
+    CSVReader.readEdges("src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/edges.csv", graph);
 
     return graph;
   }

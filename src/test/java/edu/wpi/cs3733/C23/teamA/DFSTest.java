@@ -147,8 +147,7 @@ public class DFSTest {
   @Test
   public void easyHospitalPath() throws IOException {
     // going from L1 Nuclear Medicine (CLABS003L1) to L1 Ultrasound (CLABS004L1)
-    // these rooms are literally right across a hallaway from eachother. They're connected in
-    // L1Edges.csv.
+    // these rooms are literally right across a hallaway from eachother.
     // If it didn't work, that would be BAD.
     ArrayList<GraphNode> questionable =
         PathfindingController.callDFS(graph, "CLABS003L1", "CLABS004L1");
@@ -164,6 +163,7 @@ public class DFSTest {
     assertTrue(questionable != null);
   }
 
+  /* this test was true for the L1 nodes/edges, but is no longer true because paths are now multi-floor
   @Test
   public void shapiroPath() throws IOException {
     // going from L1 Shapiro Elevator (GELEV00QL1) to L1 Day Surgery Family Waiting (CDEPT002L1)
@@ -172,6 +172,7 @@ public class DFSTest {
         PathfindingController.callDFS(graph, "GELEV00QL1", "CDEPT002L1");
     assertTrue(shouldBeEmpty == null);
   }
+  */
 
   @Test
   public void sameStartAndEnd1() {
