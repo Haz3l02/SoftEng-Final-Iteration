@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.IDInputController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.IDInputController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="594.0" style="-fx-background-color: #BAD1EA;" BorderPane.alignment="CENTER">
          <children>
@@ -22,12 +22,12 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </MFXTextField>
-            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6" wrapText="true">
+            <Button fx:id="submitButton" defaultButton="true" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6" wrapText="true">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6" wrapText="true">
+            <Button fx:id="backButton" cancelButton="true" mnemonicParsing="false" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6" wrapText="true">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -46,12 +46,12 @@
    <top>
       <VBox prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #224870; -fx-border-style: solid; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="432.0">
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="385.0">
                <font>
-                  <Font name="Arial Black" size="26.0" />
+                  <Font name="Arial Black" size="24.0" />
                </font>
                <VBox.margin>
-                  <Insets left="10.0" top="10.0" />
+                  <Insets left="10.0" top="5.0" />
                </VBox.margin>
             </Text>
          </children>

@@ -1,10 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.SanitationRequest;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -59,16 +59,6 @@ public class SanitationController extends ServiceRequestController {
         || urgencyBox.getValue() == null) {
       reminder.setText("Please fill out all fields in the form!");
     } else {
-      //      requests.put(
-      //          IDNum.getText(),
-      //          new SanitationRequest(
-      //              nameBox.getText(),
-      //              IDNum.getText(),
-      //              locBox.getText(),
-      //              descBox.getText(),
-      //              categoryBox.getValue(),
-      //              urgencyBox.getValue(),
-      //              "Sanitation Request"));
 
       SanitationRequest submission =
           new SanitationRequest(
@@ -80,17 +70,9 @@ public class SanitationController extends ServiceRequestController {
               urgencyBox.getValue(),
               "Sanitation Request",
               "Blank",
-              "Patricia");
+              "Unassigned");
 
-      System.out.println(submission.getIdNum());
-      System.out.println(submission.getName());
-
-      submission.insert();
-
-      // *some db thing for getting the request in there*
-      System.out.println("this submits data"); // to be removed later
-      // System.out.println(requests.get(IDNum.getText()).getName());
-
+      submission.insert(); // Adding to the database
       switchToConfirmationScene(event);
     }
   }

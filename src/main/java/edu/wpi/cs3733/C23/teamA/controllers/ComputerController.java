@@ -4,9 +4,11 @@ import edu.wpi.cs3733.C23.teamA.enums.DevicesCatagory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.ComputerRequest;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -52,7 +54,7 @@ public class ComputerController extends ServiceRequestController {
   }
 
   @FXML
-  void submitRequest(ActionEvent event) throws IOException {
+  void submitRequest(ActionEvent event) throws IOException, SQLException {
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locBox.getText().equals("")
@@ -62,25 +64,20 @@ public class ComputerController extends ServiceRequestController {
         || urgencyBox.getValue() == null) {
       reminder.setText("Please fill out all fields in the form!");
     } else {
-      //      requests.put(
-      //          IDNum.getText(),
-      //          new ComputerEntity(
-      //              nameBox.getText(),
-      //              IDNum.getText(),
-      //              locBox.getText(),
-      //              descBox.getText(),
-      //              urgencyBox.getValue(),
-      //              devicesBox.getValue(),
-      //              deviceIDNum.getText(),
-      //              "Computer Request", "Blank"));
+      ComputerRequest submission =
+          new ComputerRequest(
+              nameBox.getText(),
+              IDNum.getText(),
+              locBox.getText(),
+              descBox.getText(),
+              urgencyBox.getValue(),
+              "Computer Request",
+              "Blank",
+              "Unassigned",
+              deviceIDNum.getText(),
+              devicesBox.getValue());
 
-      // *some db thing for getting the request in there*
-      //      System.out.println(
-      //          "NAME: "
-      //              + (requests.get(IDNum.getText())).getName()
-      //              + " ID Number: "
-      //              + (requests.get(IDNum.getText())).getIDNum());
-
+      submission.insert(); // *some db thing for getting the request in there*
       switchToConfirmationScene(event);
     }
   }

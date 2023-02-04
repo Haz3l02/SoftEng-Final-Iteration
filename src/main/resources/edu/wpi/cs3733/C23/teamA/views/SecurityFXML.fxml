@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="613.0" style="-fx-background-color: bad1ea; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SecurityController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" style="-fx-background-color: bad1ea; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SecurityController">
    <left>
       <VBox prefHeight="41.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
@@ -193,12 +193,12 @@
                   <Insets bottom="10.0" right="10.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton fx:id="submit" buttonType="RAISED" onAction="#submitRequest" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
+            <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" onAction="#submitRequest" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets bottom="10.0" right="10.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton fx:id="cancel" buttonType="RAISED" onAction="#switchToHomeServiceRequestScene" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+            <MFXButton fx:id="cancel" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeServiceRequestScene" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets bottom="10.0" right="10.0" />
                </HBox.margin>
@@ -210,14 +210,14 @@
       </HBox>
    </bottom>
    <top>
-      <HBox prefHeight="47.0" prefWidth="600.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: black; -fx-background-color: #224870;" BorderPane.alignment="CENTER">
+      <HBox prefHeight="56.0" prefWidth="613.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: black; -fx-background-color: #224870;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false;" text="Brigham &amp; Women’s Hospital " wrappingWidth="390.1484375">
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false;" text="Brigham &amp; Women’s Hospital " wrappingWidth="392.1484375">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
                <HBox.margin>
-                  <Insets left="10.0" top="5.0" />
+                  <Insets left="10.0" top="15.0" />
                </HBox.margin>
             </Text>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="238.0">

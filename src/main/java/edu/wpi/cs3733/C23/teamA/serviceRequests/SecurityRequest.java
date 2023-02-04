@@ -1,50 +1,58 @@
-package edu.wpi.cs3733.C23.teamA;
+package edu.wpi.cs3733.C23.teamA.serviceRequests;
 
-import edu.wpi.cs3733.C23.teamA.database.Adb;
+import edu.wpi.cs3733.C23.teamA.databases.Adb;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import lombok.*;
 
-// for new request
-public class SanitationRequest extends ServiceRequest {
-  @Getter private static final String tableName = "SanitationRequest";
-  @Getter @Setter String category; // sanitation
+public class SecurityRequest extends ServiceRequest {
 
-  public SanitationRequest() {
+  @Getter private static final String tableName = "SecurityRequest";
+  @Getter @Setter String request;
+  @Getter @Setter String secPhone;
+
+  public SecurityRequest() {
     super();
-    category = null;
+    request = null;
+    secPhone = null;
   }
 
   // for new request
-  public SanitationRequest(
+  public SecurityRequest(
       String name,
       String idNum,
       String location,
       String description,
-      String category,
       String ul,
       String requestType,
       String status,
-      String employeeAssigned)
+      String employeeAssigned,
+      String request,
+      String secPhone)
       throws SQLException {
     super(name, idNum, location, description, ul, requestType, status, employeeAssigned);
-    this.category = category;
+    this.request = request;
+    this.secPhone = secPhone;
   }
 
   // for selecting existing
-  public SanitationRequest(
+  public SecurityRequest(
       int requestID,
       String name,
       String idNum,
       String location,
       String description,
-      String category,
       String ul,
       String requestType,
       String status,
-      String employeeAssigned) {
+      String employeeAssigned,
+      String request,
+      String secPhone) {
     // for selecting existing
     super(requestID, name, idNum, location, description, ul, requestType, status, employeeAssigned);
-    this.category = category;
+    this.request = request;
+    this.secPhone = secPhone;
   }
 
   //  public static void initTable() throws SQLException {
@@ -93,51 +101,50 @@ public class SanitationRequest extends ServiceRequest {
                 + "', '"
                 + requestType
                 + "', '"
-                + status,
-            "', '" + employeeAssigned + "');");
+                + status
+                + "', '"
+                + employeeAssigned
+                + "');");
     Adb.processUpdate(sql);
     sql =
         String.join(
             " ",
-            "insert into SanitationRequest(requestID, category) VALUES",
-            "((select max(requestID) from ServiceRequest), '" + category + "');");
+            "insert into SecurityRequest(requestID, request, secPhone) VALUES",
+            "((select max(requestID) from ServiceRequest), '"
+                + request
+                + "', '"
+                + secPhone
+                + "');");
     Adb.processUpdate(sql);
   }
 
   // returns list of sanitation requests based on a userID
-  /*
-    public ArrayList<SanitationRequest> getSanitationRequestByUser(String id) throws SQLException {
-      ArrayList<SanitationRequest> fin = new ArrayList<>();
-      String sql =
-          "SELECT * FROM "
-              + "(SanitationRequest SRR join ServiceRequest SR"
-              + "on SRR.requestID = SR.requestID)"
-              + "where idNum = '"
-              + id
-              + "';";
-      ResultSet rs = Adb.processQuery(sql);
-      while (rs.next()) {
-        fin.add(
-            new SanitationRequest(
-                rs.getInt("requestID"),
-                rs.getString("name"),
-                rs.getString("idNum"),
-                rs.getString("location"),
-                rs.getString("description"),
-                rs.getString("category"),
-                rs.getString("ul"),
-                rs.getString("requestType"),
-                rs.getString("status"),
-                rs.getString("employeeAssigned")));
-      }
-      return fin;
+
+  public ArrayList<SecurityRequest> getSecurityRequestByUser(String id) throws SQLException {
+    ArrayList<SecurityRequest> fin = new ArrayList<>();
+    String sql =
+        "SELECT * FROM "
+            + "SecurityRequest join ServiceRequest"
+            + "on SecurityRequest.requestID = ServiceRequest.requestID"
+            + "where idNum = '"
+            + id
+            + "';";
+    ResultSet rs = Adb.processQuery(sql);
+    while (rs.next()) {
+      fin.add(
+          new SecurityRequest(
+              rs.getInt("requestID"),
+              rs.getString("name"),
+              rs.getString("idNum"),
+              rs.getString("location"),
+              rs.getString("description"),
+              rs.getString("ul"),
+              rs.getString("requestType"),
+              rs.getString("status"),
+              rs.getString("employeeAssigned"),
+              rs.getString("request"),
+              rs.getString("secPhone")));
     }
-  */
-  /**
-   * have an update method take in the string id and the updated data for this iteration youre only
-   * updating status and employeeAssigned so you can make the update for just those columns (this
-   * week) OR do a full row update but pass in the existing service request info
-   *
-   * <p>""
-   */
+    return fin;
+  }
 }

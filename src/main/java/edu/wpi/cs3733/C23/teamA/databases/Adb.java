@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.database;
+package edu.wpi.cs3733.C23.teamA.databases;
 
 import java.sql.*;
 
@@ -39,18 +39,18 @@ public class Adb {
   }
 
   public void init() throws SQLException {
-    //        if (!tableExists("edge")) {
-    //            Edge.initTable();
-    //        }
-    //        if (!tableExists("node")) {
-    //            Node.initTable();
-    //        }
-    //        if (!tableExists("locationname")) {
-    //            LocationName.initTable();
-    //        }
-    //        if (!tableExists("move")) {
-    //            Move.initTable();
-    //        }
+    if (!tableExists("edge")) {
+      Edge.initTable();
+    }
+    if (!tableExists("node")) {
+      Node.initTable();
+    }
+    if (!tableExists("locationname")) {
+      LocationName.initTable();
+    }
+    if (!tableExists("move")) {
+      Move.initTable();
+    }
   }
 
   public static boolean tableExists(String tableName) throws SQLException {

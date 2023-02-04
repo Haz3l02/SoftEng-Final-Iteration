@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SanitationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SanitationController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="594.0" style="-fx-background-color: #BAD1EA;" BorderPane.alignment="CENTER">
          <children>
@@ -16,7 +16,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button mnemonicParsing="false" onAction="#switchToHomeScene" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToHomeScene" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
@@ -26,7 +26,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #224870;" text="Logout" textFill="#d3e9f6" wrapText="true">
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="63.0" style="-fx-background-color: #224870;" text="Logout" textFill="#d3e9f6" wrapText="true">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -37,9 +37,9 @@
    <top>
       <VBox prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: #224870; -fx-border-style: solid; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="443.0">
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="385.0">
                <font>
-                  <Font name="Arial Black" size="26.0" />
+                  <Font name="Arial Black" size="24.0" />
                </font>
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />

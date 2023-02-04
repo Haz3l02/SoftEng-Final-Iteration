@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.IdNumberHolder;
-import edu.wpi.cs3733.C23.teamA.SanitationRequest;
-import edu.wpi.cs3733.C23.teamA.ServiceRequest;
-import edu.wpi.cs3733.C23.teamA.ServiceRequestTableRow;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequest;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequestTableRow;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,8 +45,13 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   }
 
   private ObservableList<ServiceRequestTableRow> dbTableRowsModel =
-      FXCollections.observableArrayList(
-          new ServiceRequestTableRow(0, "aa", "aaaaaaaa", "aaa", "aaaaaaa", "aaaa"));
+      FXCollections.observableArrayList();
+
+  /*
+  FXCollections.observableArrayList(
+  new ServiceRequestTableRow(0, "aa", "aaaaaaaa", "aaa", "aaaaaaa", "aaaa"));
+
+   */
 
   //  @FXML
   //  private void receiveData(ActionEvent event) {
@@ -91,38 +95,51 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
   @FXML
   public void rowClicked(MouseEvent event) {
+    // that checks for null values I guess?)
 
     ServiceRequestTableRow clickedServiceReqTableRow =
         serviceReqsTable.getSelectionModel().getSelectedItem();
 
-    IDBoxSaver.setText(String.valueOf(clickedServiceReqTableRow.getID()));
-    formTypeBox.setText(String.valueOf(clickedServiceReqTableRow.getFormType()));
-    dateBox.setText(String.valueOf(clickedServiceReqTableRow.getDate()));
-    statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
-    urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
-    employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
+    if (clickedServiceReqTableRow != null) {
+
+      IDBoxSaver.setText(String.valueOf(clickedServiceReqTableRow.getID()));
+      formTypeBox.setText(String.valueOf(clickedServiceReqTableRow.getFormType()));
+      dateBox.setText(String.valueOf(clickedServiceReqTableRow.getDate()));
+      statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
+      urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
+      employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
+    }
   }
 
   @FXML
   public void submitEdit(ActionEvent event) throws IOException, SQLException {
 
-    ObservableList<ServiceRequestTableRow> currentTableData = serviceReqsTable.getItems();
-    int currentAnimalId = Integer.parseInt(IDBoxSaver.getText());
+    if (!statusBox.getText().trim().isEmpty()
+        && !dateBox.getText().trim().isEmpty()
+        && !formTypeBox.getText().trim().isEmpty()
+        && !urgencyBox.getText().trim().isEmpty()
+        && !employeeBox.getText().trim().isEmpty()) {
 
-    for (ServiceRequestTableRow SRTable : currentTableData) {
-      if (SRTable.getID() == currentAnimalId) {
-        SRTable.setID(Integer.parseInt(IDBoxSaver.getText()));
-        SRTable.setFormType(formTypeBox.getText());
-        SRTable.setDate(dateBox.getText());
-        SRTable.setStatus(statusBox.getText());
-        SRTable.setUrgency(urgencyBox.getText());
-        SRTable.setEmployeeAssigned(employeeBox.getText());
+      ObservableList<ServiceRequestTableRow> currentTableData = serviceReqsTable.getItems();
+      int currentRowId = Integer.parseInt(IDBoxSaver.getText());
 
-        serviceReqsTable.setItems(currentTableData);
-        serviceReqsTable.refresh();
-        SanitationRequest bob = new SanitationRequest();
-        bob.updateStatusEmployee(17, statusBox.getText(), employeeBox.getText());
-        break;
+      for (ServiceRequestTableRow SRTable : currentTableData) {
+        if (SRTable.getID() == currentRowId) {
+          SRTable.setID(Integer.parseInt(IDBoxSaver.getText()));
+          SRTable.setFormType(formTypeBox.getText());
+          SRTable.setDate(dateBox.getText());
+          SRTable.setStatus(statusBox.getText());
+          SRTable.setUrgency(urgencyBox.getText());
+          SRTable.setEmployeeAssigned(employeeBox.getText());
+
+          serviceReqsTable.setItems(currentTableData);
+          serviceReqsTable.refresh();
+
+          SanitationRequest bob = new SanitationRequest();
+          bob.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
+
+          break;
+        }
       }
     }
   }
@@ -133,4 +150,14 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
   @FXML
   public void submitRequest(ActionEvent event) throws IOException {}
+
+  public void clearEdits(ActionEvent event) {
+
+    IDBoxSaver.setText("");
+    formTypeBox.clear();
+    dateBox.clear();
+    statusBox.clear();
+    urgencyBox.clear();
+    employeeBox.clear();
+  }
 }

@@ -4,9 +4,11 @@ import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.SecurityRequest;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -43,11 +45,6 @@ public class SecurityController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToHelpScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HELP);
-  }
-
-  @FXML
   public void switchToSecurityScene(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.SECURITY);
   }
@@ -63,7 +60,7 @@ public class SecurityController extends ServiceRequestController {
   }
 
   @FXML
-  public void submitRequest(ActionEvent event) throws IOException {
+  public void submitRequest(ActionEvent event) throws IOException, SQLException {
     if (nameBox.getText().equals("")
         || phone.getText().equals("")
         || IDNum.getText().equals("")
@@ -73,25 +70,21 @@ public class SecurityController extends ServiceRequestController {
         || urgencyBox.getValue() == null) {
       reminder.setText("Please fill out all fields in the form!");
     } else {
-      //      requests.put(
-      //          IDNum.getText(),
-      //          new SecurityEntity(
-      //              nameBox.getText(),
-      //              phone.getText(),
-      //              IDNum.getText(),
-      //              locBox.getText(),
-      //              descBox.getText(),
-      //              urgencyBox.getValue(),
-      //              requestsBox.getValue(),
-      //              "Security Request", "Blank"));
+      SecurityRequest submission =
+          new SecurityRequest(
+              nameBox.getText(),
+              IDNum.getText(),
+              locBox.getText(),
+              descBox.getText(),
+              urgencyBox.getValue(),
+              "Security Request",
+              "Blank",
+              "Unassigned",
+              requestsBox.getValue(),
+              phone.getText());
 
-      // *some db thing for getting the request in there*
-      System.out.println("this submits data");
-      //      System.out.println(
-      //          "NAME: "
-      //              + (requests.get(IDNum.getText())).getName()
-      //              + " ID Number: "
-      //              + (requests.get(IDNum.getText())).getIDNum());
+      submission.insert(); // *some db thing for getting the request in there*
+
       switchToConfirmationScene(event);
     }
   }
