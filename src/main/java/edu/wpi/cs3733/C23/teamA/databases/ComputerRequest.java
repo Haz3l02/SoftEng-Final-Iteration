@@ -113,14 +113,19 @@ public class ComputerRequest extends ServiceRequest {
     Adb.processUpdate(sql);
   }
 
-  public void updateComputerRequest(String name, int id, String location,
+  public void updateComputerRequest(int requestId, String name, String idNum, String location,
                                     String description, String ul,
                                     String requestType, String status,
-                                    String employeeAssigned)
+                                    String employeeAssigned, String deviceID,
+                                    String device)
           throws SQLException {
     String sql =
-            "update servicerequest set name = '"
+            "update servicerequest set requestId = "
+                    + requestId
+                    + "', name = '"
                     + name
+                    + "', idNum = "
+                    + idNum
                     + "', location = '"
                     + location
                     + "', description = '"
@@ -133,8 +138,12 @@ public class ComputerRequest extends ServiceRequest {
                     + status
                     + "', employeeAssigned = '"
                     + employeeAssigned
+                    + "', deviceId = "
+                    + deviceID
+                    + "', device = "
+                    + device
                     + "' where requestID = "
-                    + id
+                    + requestId
                     + ";";
     Adb.processUpdate(sql);
   }
