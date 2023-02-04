@@ -112,8 +112,8 @@ public class SanitationRequest extends ServiceRequest {
     ArrayList<SanitationRequest> fin = new ArrayList<>();
     String sql =
         "SELECT * FROM "
-            + "SanitationRequest join ServiceRequest"
-            + "on SanitationRequest.requestID = ServiceRequest.requestID"
+            + "SanitationRequest join ServiceRequest "
+            + "on SanitationRequest.requestID = ServiceRequest.requestID "
             + "where idNum = '"
             + id
             + "';";
@@ -135,29 +135,26 @@ public class SanitationRequest extends ServiceRequest {
     return fin;
   }
 
-
-
   public SanitationRequest getSanitationRequest(int id) throws SQLException {
     String sql =
-            "SELECT * FROM "
-                    + "SanitationRequest join ServiceRequest"
-                    + "on SanitationRequest.requestID = ServiceRequest.requestID"
-                    + "where requestID = "
-                    + id
-                    + ";";
+        "SELECT * FROM "
+            + "SanitationRequest join ServiceRequest "
+            + "on SanitationRequest.requestID = ServiceRequest.requestID "
+            + "where ServiceRequest.requestID = "
+            + id
+            + ";";
     ResultSet rs = Adb.processQuery(sql);
     rs.next();
     return new SanitationRequest(
-            rs.getInt("requestID"),
-            rs.getString("name"),
-            rs.getString("idNum"),
-            rs.getString("location"),
-            rs.getString("description"),
-            rs.getString("category"),
-            rs.getString("ul"),
-            rs.getString("requestType"),
-            rs.getString("status"),
-            rs.getString("employeeAssigned"));
-
+        rs.getInt("requestID"),
+        rs.getString("name"),
+        rs.getString("idNum"),
+        rs.getString("location"),
+        rs.getString("description"),
+        rs.getString("category"),
+        rs.getString("ul"),
+        rs.getString("requestType"),
+        rs.getString("status"),
+        rs.getString("employeeAssigned"));
   }
 }

@@ -4,59 +4,62 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 public class MoveEntityPK implements Serializable {
-    @Column(name = "nodeid", nullable = false, length = -1)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String nodeid;
-    @Column(name = "longname", nullable = false, length = -1)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String longname;
-    @Column(name = "movedate", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Timestamp movedate;
+  @Column(name = "nodeid", nullable = false, length = -1)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private String nodeid;
 
-    public String getNodeid() {
-        return nodeid;
-    }
+  @Column(name = "longname", nullable = false, length = -1)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private String longname;
 
-    public void setNodeid(String nodeid) {
-        this.nodeid = nodeid;
-    }
+  @Column(name = "movedate", nullable = false)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Timestamp movedate;
 
-    public String getLongname() {
-        return longname;
-    }
+  public String getNodeid() {
+    return nodeid;
+  }
 
-    public void setLongname(String longname) {
-        this.longname = longname;
-    }
+  public void setNodeid(String nodeid) {
+    this.nodeid = nodeid;
+  }
 
-    public Timestamp getMovedate() {
-        return movedate;
-    }
+  public String getLongname() {
+    return longname;
+  }
 
-    public void setMovedate(Timestamp movedate) {
-        this.movedate = movedate;
-    }
+  public void setLongname(String longname) {
+    this.longname = longname;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MoveEntityPK that = (MoveEntityPK) o;
-        return Objects.equals(nodeid, that.nodeid) && Objects.equals(longname, that.longname) && Objects.equals(movedate, that.movedate);
-    }
+  public Timestamp getMovedate() {
+    return movedate;
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(nodeid, longname, movedate);
-    }
+  public void setMovedate(Timestamp movedate) {
+    this.movedate = movedate;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    MoveEntityPK that = (MoveEntityPK) o;
+    return Objects.equals(nodeid, that.nodeid)
+        && Objects.equals(longname, that.longname)
+        && Objects.equals(movedate, that.movedate);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nodeid, longname, movedate);
+  }
 }
