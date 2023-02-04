@@ -59,16 +59,6 @@ public class SanitationController extends ServiceRequestController {
         || urgencyBox.getValue() == null) {
       reminder.setText("Please fill out all fields in the form!");
     } else {
-      //      requests.put(
-      //          IDNum.getText(),
-      //          new SanitationRequest(
-      //              nameBox.getText(),
-      //              IDNum.getText(),
-      //              locBox.getText(),
-      //              descBox.getText(),
-      //              categoryBox.getValue(),
-      //              urgencyBox.getValue(),
-      //              "Sanitation Request"));
 
       SanitationRequest submission =
           new SanitationRequest(
