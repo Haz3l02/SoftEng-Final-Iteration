@@ -51,7 +51,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   private ObservableList<ServiceRequestTableRow> dbTableRowsModel =
       FXCollections.observableArrayList();
 
-
   @FXML
   public void initialize() throws SQLException {
 
@@ -69,7 +68,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
     ArrayList<ServiceRequest> specificRequests = new ArrayList<>();
     specificRequests = sr.getServiceRequestsByID(hospitalID);
-
 
     for (ServiceRequest bla : specificRequests) {
       ServiceRequestTableRow serviceReqNewRow =
@@ -170,7 +168,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       }
     }
   }
-
 
   @FXML
   public void submitRequest(ActionEvent event) throws IOException {}
