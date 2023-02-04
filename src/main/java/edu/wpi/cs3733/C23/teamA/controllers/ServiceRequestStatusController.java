@@ -1,11 +1,15 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.enums.FormType;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequest;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequestTableRow;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,10 +35,10 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML public TableColumn<ServiceRequestTableRow, String> employeeAssignedCol;
 
   // text boxes for editing
-  @FXML public MFXTextField formTypeBox; // this should probably be a MFXComboBox
-  @FXML public MFXTextField dateBox;
-  @FXML public MFXTextField employeeBox;
-  @FXML public MFXTextField statusBox;
+  @FXML public MFXComboBox<String> formTypeBox;
+  @FXML public MFXTextField dateBox; // make a MFXDatePicker
+  @FXML public MFXComboBox<String> employeeBox;
+  @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;
 
   private String hospitalID;
@@ -47,17 +51,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   private ObservableList<ServiceRequestTableRow> dbTableRowsModel =
       FXCollections.observableArrayList();
 
-  /*
-  FXCollections.observableArrayList(
-  new ServiceRequestTableRow(0, "aa", "aaaaaaaa", "aaa", "aaaaaaa", "aaaa"));
-
-   */
-
-  //  @FXML
-  //  private void receiveData(ActionEvent event) {
-  //    IdNumberHolder holder = IdNumberHolder.getInstance();
-  //    id = holder.getId();
-  //  }
 
   @FXML
   public void initialize() throws SQLException {
@@ -76,7 +69,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
     ArrayList<ServiceRequest> specificRequests = new ArrayList<>();
     specificRequests = sr.getServiceRequestsByID(hospitalID);
-    // System.out.println(specificRequests.get(0).getName());
+
 
     for (ServiceRequest bla : specificRequests) {
       ServiceRequestTableRow serviceReqNewRow =
@@ -95,7 +88,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
   @FXML
   public void rowClicked(MouseEvent event) {
-    // that checks for null values I guess?)
 
     ServiceRequestTableRow clickedServiceReqTableRow =
         serviceReqsTable.getSelectionModel().getSelectedItem();
@@ -109,6 +101,41 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
       employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
     }
+
+    ObservableList<String> statuses =
+        FXCollections.observableArrayList(
+            Status.BLANK.getStatus(), Status.PROCESSING.getStatus(), Status.DONE.getStatus());
+
+    ObservableList<String> urgencies =
+        FXCollections.observableArrayList(
+            UrgencyLevel.LOW.getUrgency(),
+            UrgencyLevel.MEDIUM.getUrgency(),
+            UrgencyLevel.HIGH.getUrgency(),
+            UrgencyLevel.EXTREMELY_URGENT.getUrgency());
+
+    ObservableList<String> formTypes =
+        FXCollections.observableArrayList(
+            FormType.SANITATION.getFormType(),
+            FormType.COMPUTER.getFormType(),
+            FormType.SECURITY.getFormType());
+
+    ObservableList<String> employees =
+        FXCollections.observableArrayList(
+            "Izzy",
+            "Isabella",
+            "Andrei",
+            "Harrison",
+            "John",
+            "Chris",
+            "Steve",
+            "Hazel",
+            "Audrey",
+            "Sarah");
+
+    statusBox.setItems(statuses);
+    urgencyBox.setItems(urgencies);
+    formTypeBox.setItems(formTypes);
+    employeeBox.setItems(employees);
   }
 
   @FXML
@@ -143,10 +170,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       }
     }
   }
-  //  @FXML
-  //  public void editData(ActionEvent event) throws IOException {
-  //  edit.
-  //  }
+
 
   @FXML
   public void submitRequest(ActionEvent event) throws IOException {}
