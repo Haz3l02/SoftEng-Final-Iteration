@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity" table="move" schema="public" catalog="dba">
+        <composite-id mapped="true" class="edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntityPK">
+            <key-property name="nodeid">
+                <column name="nodeid" sql-type="text"/>
+            </key-property>
+            <key-property name="longname">
+                <column name="longname" sql-type="text"/>
+            </key-property>
+            <key-property name="movedate">
+                <column name="movedate" sql-type="timestamp"/>
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

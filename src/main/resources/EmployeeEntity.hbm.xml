@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity" table="employee" schema="public" catalog="dba">
+        <id name="employeeid">
+            <column name="employeeid" sql-type="text"/>
+        </id>
+        <property name="username">
+            <column name="username" sql-type="text" not-null="true"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="text" not-null="true"/>
+        </property>
+        <property name="job">
+            <column name="job" sql-type="text" not-null="true"/>
+        </property>
+        <property name="name">
+            <column name="name" sql-type="text" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

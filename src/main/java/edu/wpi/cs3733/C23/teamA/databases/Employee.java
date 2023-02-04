@@ -29,7 +29,7 @@ public class Employee {
     }
 
 
-
+//Returns employeeID if correct, empty String is rejected
     public String checkPass(String user, String pwd) throws SQLException {
         String sql = "SELECT * FROM Employee where username = '" + user + "';";
         ResultSet rs = Adb.processQuery(sql);

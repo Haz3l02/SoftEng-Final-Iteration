@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity" table="node" schema="public" catalog="dba">
+        <id name="nodeid">
+            <column name="nodeid" sql-type="text"/>
+        </id>
+        <property name="xcoord">
+            <column name="xcoord" sql-type="integer" not-null="true"/>
+        </property>
+        <property name="ycoord">
+            <column name="ycoord" sql-type="integer" not-null="true"/>
+        </property>
+        <property name="floor">
+            <column name="floor" sql-type="text" not-null="true"/>
+        </property>
+        <property name="building">
+            <column name="building" sql-type="text" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

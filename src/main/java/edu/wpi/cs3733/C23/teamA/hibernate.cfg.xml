@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">
+      jdbc:postgresql://wpi-softeng-postgres-db.coyfss2f91ba.us-east-1.rds.amazonaws.com:2112/dba
+    </property>
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+    <property name="connection.username">teama</property>
+    <property name="connection.password">3oAm3GERjEWGeKUfjj1WHs6KjcItEI75</property>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity"/>
+    <mapping resource="ComputerrequestEntity.hbm.xml"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity"/>
+    <mapping resource="EdgeEntity.hbm.xml"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity"/>
+    <mapping resource="EmployeeEntity.hbm.xml"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.LocationnameEntity"/>
+    <mapping resource="LocationnameEntity.hbm.xml"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity"/>
+    <mapping resource="MoveEntity.hbm.xml"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity"/>
+    <mapping resource="NodeEntity.hbm.xml"/>
+    <mapping resource="SanitationrequestEntity.hbm.xml"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.SanitationrequestEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.SecurityrequestEntity"/>
+    <mapping resource="SecurityrequestEntity.hbm.xml"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity"/>
+    <mapping resource="ServicerequestEntity.hbm.xml"/>
+    <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.password"/> -->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>
