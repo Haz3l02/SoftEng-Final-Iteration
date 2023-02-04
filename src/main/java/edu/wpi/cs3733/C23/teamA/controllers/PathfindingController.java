@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
@@ -153,12 +152,13 @@ public class PathfindingController extends ServiceRequestController {
    *
    * @return HashMap<String, GraphNode> graph where String is the nodeID and GraphNode is the node
    */
-  private HashMap<String, GraphNode> prepGraphDB() throws SQLException {
+  public static HashMap<String, GraphNode> prepGraphDB() throws SQLException {
     // create a graph to hold the L1 information
     HashMap<String, GraphNode> graph = new HashMap<>();
 
     // Nodes
-    ///////ArrayList<Node> allNodes = Node.getAll(); // Gets list of all nodes from database's table
+    ArrayList<Node> allNodes = Node.getAll(); // Gets list of all nodes from database's
+    // table
     for (Node n : allNodes) {
       // create the graph and add the nodes (id, xcoord, ycoord, longName)
       GraphNode g =
