@@ -17,7 +17,6 @@ public class LoginController {
   @FXML MFXTextField usernameTextField;
   @FXML MFXTextField passwordTextField;
   @FXML Text incorrectNotification;
-  static String idNum;
   Employee employee = new Employee();
 
   @FXML
@@ -50,7 +49,6 @@ public class LoginController {
       holder.setId(str);
       holder.setUsername(usernameTextField.getText());
       holder.setPassword(passwordTextField.getText());
-      idNum = str;
       Navigation.navigate(Screen.HOME);
     }
   }

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.databases.Move;
 import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -9,6 +10,7 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +22,7 @@ public class SecurityController extends ServiceRequestController {
   @FXML private MFXComboBox<String> requestsBox;
 
   @FXML
-  public void initialize() {
+  public void initialize() throws SQLException {
     if (requestsBox != null) {
       ObservableList<String> requests =
           FXCollections.observableArrayList(
@@ -34,8 +36,15 @@ public class SecurityController extends ServiceRequestController {
               UrgencyLevel.HIGH.getUrgency(),
               UrgencyLevel.EXTREMELY_URGENT.getUrgency());
 
+      ArrayList<Move> moves = Move.getAll();
+      ObservableList<String> locations = FXCollections.observableArrayList();
+      for (Move move : moves) {
+        locations.add(move.getLongName());
+      }
+
       requestsBox.setItems(requests);
       urgencyBox.setItems(urgencies);
+      locationBox.setItems(locations);
     }
   }
 

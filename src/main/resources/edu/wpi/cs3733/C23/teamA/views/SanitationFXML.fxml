@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
@@ -91,11 +92,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <MFXTextField fx:id="locBox" alignment="TOP_LEFT" floatMode="DISABLED" prefHeight="32.0" prefWidth="295.0" promptText="Enter the location where sanitation is needed" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
-                     <HBox.margin>
-                        <Insets left="-5.0" />
-                     </HBox.margin>
-                  </MFXTextField>
+                  <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" prefHeight="42.0" prefWidth="344.0" promptText="Enter location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" />
                   <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" wrappingWidth="61.21630859375">
                      <font>
                         <Font size="14.0" />
@@ -115,7 +112,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="91.0" prefWidth="601.0">
                <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="77.21630859375">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="81.21630859375">
                      <font>
                         <Font size="14.0" />
                      </font>

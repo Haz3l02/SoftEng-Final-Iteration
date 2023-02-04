@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.databases.Move;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -8,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +20,7 @@ public class SanitationController extends ServiceRequestController {
   @FXML private MFXComboBox<String> categoryBox;
 
   @FXML
-  public void initialize() {
+  public void initialize() throws SQLException {
     if (categoryBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
       ObservableList<String> categories =
@@ -33,8 +35,15 @@ public class SanitationController extends ServiceRequestController {
               UrgencyLevel.HIGH.getUrgency(),
               UrgencyLevel.EXTREMELY_URGENT.getUrgency());
 
+      ArrayList<Move> moves = Move.getAll();
+      ObservableList<String> locations = FXCollections.observableArrayList();
+      for (Move move : moves) {
+        locations.add(move.getLongName());
+      }
+
       categoryBox.setItems(categories);
       urgencyBox.setItems(urgencies);
+      locationBox.setItems(locations);
     }
   }
 
@@ -53,7 +62,7 @@ public class SanitationController extends ServiceRequestController {
 
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
-        || locBox.getText().equals("")
+        || locationBox.getValue().equals("")
         || descBox.getText().equals("")
         || categoryBox.getValue() == null
         || urgencyBox.getValue() == null) {
@@ -64,7 +73,7 @@ public class SanitationController extends ServiceRequestController {
           new SanitationRequest(
               nameBox.getText(),
               IDNum.getText(),
-              locBox.getText(),
+              locationBox.getValue(),
               descBox.getText(),
               categoryBox.getValue(),
               urgencyBox.getValue(),

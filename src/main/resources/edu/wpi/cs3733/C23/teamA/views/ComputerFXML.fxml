@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
@@ -121,26 +122,16 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <MFXTextField fx:id="locBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="238.0" promptText="enter floor number, room number/station" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                     <padding>
-                        <Insets left="2.0" />
-                     </padding>
-                  </MFXTextField>
+                  <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" prefHeight="42.0" prefWidth="344.0" promptText="Enter location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" />
                </children>
                <VBox.margin>
-                  <Insets left="15.0" />
+                  <Insets left="15.0" top="10.0" />
                </VBox.margin>
                <padding>
                   <Insets left="-5.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="81.0" prefWidth="593.0">
                <children>
                   <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Issues:">
                      <HBox.margin>

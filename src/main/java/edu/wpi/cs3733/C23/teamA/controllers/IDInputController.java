@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
 public class IDInputController {
   @FXML public MFXTextField idNumTextField;
   @FXML public Text textNotification;
-  private String idNum;
 
   @FXML
   public void initialize() {
