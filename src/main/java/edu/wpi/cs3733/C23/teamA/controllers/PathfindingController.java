@@ -2,11 +2,11 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
+import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,12 +23,63 @@ Contains Methods: - generatePath   - prepGraphDB     - callDFS
 public class PathfindingController extends ServiceRequestController {
 
   // javaFX items
-  @FXML private MFXTextField startNodeID; // field to enter startNode
-  @FXML private MFXTextField endNodeID; // field to enter endNode
+  @FXML private MFXFilterComboBox<String> startNodeID; // field to enter startNode
+  @FXML private MFXFilterComboBox<String> endNodeID; // field to enter endNode
   @FXML private MFXTextField startNodeName;
   @FXML private MFXTextField endNodeName;
   // @FXML private Button findPathButton; // to generate & print the path
   @FXML private Text pathDisplay; // to display the generated path
+
+  public void initialize() throws SQLException {
+
+    // Database's list of longNames
+    allNodeIDs = new ArrayList<String>(); //
+    allLongNames = new ArrayList<String>();
+    allNodes = Node.getAll();
+
+    for (Node n : allNodes) {
+      allNodeIDs.add(n.getNodeID());
+      allLongNames.add(Move.mostRecentLoc(n.getNodeID()));
+    }
+
+    // Add to front end
+    ObservableList<String> locations = FXCollections.observableArrayList(allLongNames);
+    // populates the dropdown boxes
+    startNodeID.setItems(locations);
+    endNodeID.setItems(locations);
+  }
+
+  @FXML
+  public void generatePath() throws SQLException, RuntimeException {
+
+    int startIndex = startNodeID.getSelectedIndex();
+    int endIndex = endNodeID.getSelectedIndex();
+
+    System.out.println(allNodeIDs.get(startIndex));
+    System.out.println(allLongNames.get(startIndex));
+    System.out.println(allNodeIDs.get(endIndex));
+    System.out.println(allLongNames.get(endIndex));
+
+    HashMap<String, GraphNode> hospitalL1 = null;
+
+    if (startIndex == -1 || endIndex == -1) {
+      reminder.setText("Please select an option from all fields in the form!");
+      reminder.setVisible(true);
+    } else {
+      // create the graph hashMap where String is nodeId and GraphNode is the node
+      hospitalL1 = prepGraphDB();
+    }
+
+    // get the IDs from the input combined w/ indexes
+    String sName = allNodeIDs.get(startIndex);
+    String eName = allNodeIDs.get(endIndex);
+
+    // run A*
+    ArrayList<GraphNode> path = callAStar(hospitalL1, sName, eName); // makes a call to AStar //
+
+    // print the path to the textField
+    pathDisplay.setText(PathInterpreter.generatePathString(path));
+  }
 
   /**
    * Method gets called when pathDisplay button is pressed Takes in startNodeName and endNodeName
@@ -37,7 +88,6 @@ public class PathfindingController extends ServiceRequestController {
    */
   @FXML
   public void generatePathNew() {
-
     // check that the fields are filled out
     if (startNodeName.getText().equals("") || endNodeName.getText().equals("")) {
       reminder.setText("Please fill out all fields in the form!");
