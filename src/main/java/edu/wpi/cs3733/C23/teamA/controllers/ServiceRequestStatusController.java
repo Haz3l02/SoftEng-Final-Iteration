@@ -75,7 +75,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     SanitationRequest sr = new SanitationRequest();
 
     ArrayList<ServiceRequest> specificRequests = new ArrayList<>();
-    specificRequests = sr.getServiceRequestsByID(hospitalID); // MAKE SURE TO FIX THIS;
+    specificRequests = sr.getServiceRequestsByID(hospitalID);
     // System.out.println(specificRequests.get(0).getName());
 
     for (ServiceRequest bla : specificRequests) {
