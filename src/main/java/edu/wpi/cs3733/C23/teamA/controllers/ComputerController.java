@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
+
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCatagory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -18,9 +20,10 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML private MFXTextField deviceIDNum;
   @FXML private MFXComboBox<String> devicesBox;
+  private ComputerRequest submission = new ComputerRequest();
 
   @FXML
-  public void initialize() {
+  public void initialize() throws SQLException {
     if (devicesBox != null) {
       ObservableList<String> devices =
           FXCollections.observableArrayList(
@@ -41,6 +44,30 @@ public class ComputerController extends ServiceRequestController {
       devicesBox.setItems(devices);
       urgencyBox.setItems(urgencies);
     }
+    // If Edit past submissions is pressed. Open Service request with form fields filled out.
+
+    if (newEdit.needEdits) {
+      String requestType =
+          (newEdit.getRequestType())
+              .substring(0, (newEdit.getRequestType().indexOf("Request")) - 1); // "Computer"
+      if (requestType.equals("Computer")) {
+        System.out.println("here");
+
+        ComputerRequest editComputerRequest = new ComputerRequest();
+        System.out.println("before swithc here");
+        // editComputerRequest.getRequestID()
+        editComputerRequest = editComputerRequest.getComputerRequest(newEdit.getRequestID());
+        System.out.println("after swithc here");
+        nameBox.setText(editComputerRequest.getName());
+        IDNum.setText(editComputerRequest.getIdNum());
+        devicesBox.setText(editComputerRequest.getDevice());
+        deviceIDNum.setText(editComputerRequest.getDeviceID());
+        locBox.setText(editComputerRequest.getLocation());
+        urgencyBox.setText(editComputerRequest.getUl());
+        descBox.setText(editComputerRequest.getDescription());
+      }
+    }
+    // Otherwise Initialize service requests as normal
   }
 
   @FXML
@@ -64,20 +91,37 @@ public class ComputerController extends ServiceRequestController {
         || urgencyBox.getValue() == null) {
       reminder.setText("Please fill out all fields in the form!");
     } else {
-      ComputerRequest submission =
-          new ComputerRequest(
-              nameBox.getText(),
-              IDNum.getText(),
-              locBox.getText(),
-              descBox.getText(),
-              urgencyBox.getValue(),
-              "Computer Request",
-              "Blank",
-              "Unassigned",
-              deviceIDNum.getText(),
-              devicesBox.getValue());
+      if (newEdit.needEdits) {
+        // something that submits it
+        submission.updateComputerRequest(
+            newEdit.getRequestID(),
+            nameBox.getText(),
+            IDNum.getText(),
+            locBox.getText(),
+            descBox.getText(),
+            urgencyBox.getValue(),
+            "Computer Request",
+            "Blank",
+            "Unassigned",
+            deviceIDNum.getText(),
+            devicesBox.getValue());
+      } else {
+        ComputerRequest submission =
+            new ComputerRequest(
+                nameBox.getText(),
+                IDNum.getText(),
+                locBox.getText(),
+                descBox.getText(),
+                urgencyBox.getValue(),
+                "Computer Request",
+                "Blank",
+                "Unassigned",
+                deviceIDNum.getText(),
+                devicesBox.getValue());
 
-      submission.insert(); // *some db thing for getting the request in there*
+        submission.insert(); // *some db thing for getting the request in there*
+      }
+      newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }
   }

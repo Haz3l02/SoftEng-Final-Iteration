@@ -2,10 +2,8 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequest;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequestTableRow;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.*;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -36,6 +34,9 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML public MFXTextField employeeBox;
   @FXML public MFXTextField statusBox;
   @FXML public Text IDBoxSaver;
+  @FXML private MFXButton editForm;
+
+  public static EditTheForm newEdit = new EditTheForm(0, "", false);
 
   private String hospitalID;
 
@@ -108,6 +109,9 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
       urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
       employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
+      if (hospitalID.equals("69420")) {
+        editForm.setVisible(true);
+      }
     }
   }
 
@@ -159,5 +163,13 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     statusBox.clear();
     urgencyBox.clear();
     employeeBox.clear();
+  }
+
+  public void editForm(ActionEvent event) {
+    ServiceRequestTableRow clickedRow = serviceReqsTable.getSelectionModel().getSelectedItem();
+    clickedRow.getFormType();
+    clickedRow.getID();
+    newEdit = new EditTheForm(clickedRow.getID(), clickedRow.getFormType(), true);
+    Navigation.navigate(Screen.COMPUTER); // Change to specifci type
   }
 }
