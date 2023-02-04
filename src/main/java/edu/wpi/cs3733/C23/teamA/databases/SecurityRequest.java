@@ -146,4 +146,31 @@ public class SecurityRequest extends ServiceRequest {
     }
     return fin;
   }
+
+
+
+  public SecurityRequest getSecurityRequest(int id) throws SQLException {
+    String sql =
+            "SELECT * FROM "
+                    + "SecurityRequest join ServiceRequest"
+                    + "on SecurityRequest.requestID = ServiceRequest.requestID"
+                    + "where requestID = "
+                    + id
+                    + ";";
+    ResultSet rs = Adb.processQuery(sql);
+    rs.next();
+    return new SecurityRequest(
+            rs.getInt("requestID"),
+            rs.getString("name"),
+            rs.getString("idNum"),
+            rs.getString("location"),
+            rs.getString("description"),
+            rs.getString("ul"),
+            rs.getString("requestType"),
+            rs.getString("status"),
+            rs.getString("employeeAssigned"),
+            rs.getString("request"),
+            rs.getString("secPhone"));
+
+  }
 }
