@@ -5,60 +5,64 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "node", schema = "public", catalog = "dba")
 public class NodeEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "nodeid", nullable = false, length = -1)
-    private String nodeid;
-    @Basic
-    @Column(name = "xcoord", nullable = true)
-    private Integer xcoord;
-    @Basic
-    @Column(name = "ycoord", nullable = true)
-    private Integer ycoord;
-    @Basic
-    @Column(name = "floor", nullable = true, length = -1)
-    private String floor;
-    @Basic
-    @Column(name = "building", nullable = true, length = -1)
-    private String building;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @Column(name = "nodeid", nullable = false, length = -1)
+  private String nodeid;
 
-    public String getNodeid() {
-        return nodeid;
-    }
+  @Basic
+  @Column(name = "xcoord", nullable = true)
+  private Integer xcoord;
 
-    public void setNodeid(String nodeid) {
-        this.nodeid = nodeid;
-    }
+  @Basic
+  @Column(name = "ycoord", nullable = true)
+  private Integer ycoord;
 
-    public Integer getXcoord() {
-        return xcoord;
-    }
+  @Basic
+  @Column(name = "floor", nullable = true, length = -1)
+  private String floor;
 
-    public void setXcoord(Integer xcoord) {
-        this.xcoord = xcoord;
-    }
+  @Basic
+  @Column(name = "building", nullable = true, length = -1)
+  private String building;
 
-    public Integer getYcoord() {
-        return ycoord;
-    }
+  public String getNodeid() {
+    return nodeid;
+  }
 
-    public void setYcoord(Integer ycoord) {
-        this.ycoord = ycoord;
-    }
+  public void setNodeid(String nodeid) {
+    this.nodeid = nodeid;
+  }
 
-    public String getFloor() {
-        return floor;
-    }
+  public Integer getXcoord() {
+    return xcoord;
+  }
 
-    public void setFloor(String floor) {
-        this.floor = floor;
-    }
+  public void setXcoord(Integer xcoord) {
+    this.xcoord = xcoord;
+  }
 
-    public String getBuilding() {
-        return building;
-    }
+  public Integer getYcoord() {
+    return ycoord;
+  }
 
-    public void setBuilding(String building) {
-        this.building = building;
-    }
+  public void setYcoord(Integer ycoord) {
+    this.ycoord = ycoord;
+  }
+
+  public String getFloor() {
+    return floor;
+  }
+
+  public void setFloor(String floor) {
+    this.floor = floor;
+  }
+
+  public String getBuilding() {
+    return building;
+  }
+
+  public void setBuilding(String building) {
+    this.building = building;
+  }
 }

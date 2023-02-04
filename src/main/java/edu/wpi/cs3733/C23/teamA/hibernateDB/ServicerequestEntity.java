@@ -1,108 +1,142 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 @Entity
 @Table(name = "servicerequest", schema = "public", catalog = "dba")
 public class ServicerequestEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "requestid", nullable = false)
-    private int requestid;
-    @Basic
-    @Column(name = "name", nullable = true, length = -1)
-    private String name;
-    @Basic
-    @Column(name = "idnum", nullable = true, length = -1)
-    private String idnum;
-    @Basic
-    @Column(name = "location", nullable = true, length = -1)
-    private String location;
-    @Basic
-    @Column(name = "description", nullable = true, length = -1)
-    private String description;
-    @Basic
-    @Column(name = "ul", nullable = true, length = -1)
-    private String ul;
-    @Basic
-    @Column(name = "requesttype", nullable = true, length = -1)
-    private String requesttype;
-    @Basic
-    @Column(name = "status", nullable = true, length = -1)
-    private String status;
-    @Basic
-    @Column(name = "employeeassigned", nullable = true, length = -1)
-    private String employeeassigned;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @Column(name = "requestid", nullable = false)
+  private int requestid;
 
-    public int getRequestid() {
-        return requestid;
-    }
+  @Basic
+  @Column(name = "name", nullable = true, length = -1)
+  private String name;
 
-    public void setRequestid(int requestid) {
-        this.requestid = requestid;
-    }
+  @Basic
+  @Column(name = "idnum", nullable = true, length = -1)
+  private String idnum;
 
-    public String getName() {
-        return name;
-    }
+  @Basic
+  @Column(name = "location", nullable = true, length = -1)
+  private String location;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  @Basic
+  @Column(name = "description", nullable = true, length = -1)
+  private String description;
 
-    public String getIdnum() {
-        return idnum;
-    }
+  @Basic
+  @Column(name = "ul", nullable = true, length = -1)
+  private String ul;
 
-    public void setIdnum(String idnum) {
-        this.idnum = idnum;
-    }
+  @Basic
+  @Column(name = "requesttype", nullable = true, length = -1)
+  private String requesttype;
 
-    public String getLocation() {
-        return location;
-    }
+  @Basic
+  @Column(name = "status", nullable = true, length = -1)
+  private String status;
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+  @Basic
+  @Column(name = "employeeassigned", nullable = true, length = -1)
+  private String employeeassigned;
 
-    public String getDescription() {
-        return description;
-    }
+  public int getRequestid() {
+    return requestid;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setRequestid(int requestid) {
+    this.requestid = requestid;
+  }
 
-    public String getUl() {
-        return ul;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setUl(String ul) {
-        this.ul = ul;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getRequesttype() {
-        return requesttype;
-    }
+  public String getIdnum() {
+    return idnum;
+  }
 
-    public void setRequesttype(String requesttype) {
-        this.requesttype = requesttype;
-    }
+  public void setIdnum(String idnum) {
+    this.idnum = idnum;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public String getLocation() {
+    return location;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setLocation(String location) {
+    this.location = location;
+  }
 
-    public String getEmployeeassigned() {
-        return employeeassigned;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setEmployeeassigned(String employeeassigned) {
-        this.employeeassigned = employeeassigned;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getUl() {
+    return ul;
+  }
+
+  public void setUl(String ul) {
+    this.ul = ul;
+  }
+
+  public String getRequesttype() {
+    return requesttype;
+  }
+
+  public void setRequesttype(String requesttype) {
+    this.requesttype = requesttype;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public String getEmployeeassigned() {
+    return employeeassigned;
+  }
+
+  public void setEmployeeassigned(String employeeassigned) {
+    this.employeeassigned = employeeassigned;
+  }
+
+  public static void main(String[] args) {
+    Configuration configuration = new Configuration();
+    configuration.configure("hibernate.cfg.xml");
+    SessionFactory factory = configuration.buildSessionFactory();
+    Session session = factory.openSession();
+
+    Transaction tx = session.beginTransaction();
+    ServicerequestEntity req = new ServicerequestEntity();
+    req.setName("Wilson Wong");
+    req.setIdnum("69420");
+    req.setUl("High");
+    req.setStatus("Blank");
+    req.setDescription("Stuff");
+    req.setLocation("Places");
+    req.setEmployeeassigned("Wilson Wong");
+    req.setRequesttype("SanitationRequest");
+
+    session.persist(req);
+    tx.commit();
+    session.close();
+  }
 }

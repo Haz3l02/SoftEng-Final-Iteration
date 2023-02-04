@@ -5,38 +5,40 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "locationname", schema = "public", catalog = "dba")
 public class LocationnameEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "longname", nullable = false, length = -1)
-    private String longname;
-    @Basic
-    @Column(name = "shortname", nullable = true, length = -1)
-    private String shortname;
-    @Basic
-    @Column(name = "locationtype", nullable = true, length = -1)
-    private String locationtype;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @Column(name = "longname", nullable = false, length = -1)
+  private String longname;
 
-    public String getLongname() {
-        return longname;
-    }
+  @Basic
+  @Column(name = "shortname", nullable = true, length = -1)
+  private String shortname;
 
-    public void setLongname(String longname) {
-        this.longname = longname;
-    }
+  @Basic
+  @Column(name = "locationtype", nullable = true, length = -1)
+  private String locationtype;
 
-    public String getShortname() {
-        return shortname;
-    }
+  public String getLongname() {
+    return longname;
+  }
 
-    public void setShortname(String shortname) {
-        this.shortname = shortname;
-    }
+  public void setLongname(String longname) {
+    this.longname = longname;
+  }
 
-    public String getLocationtype() {
-        return locationtype;
-    }
+  public String getShortname() {
+    return shortname;
+  }
 
-    public void setLocationtype(String locationtype) {
-        this.locationtype = locationtype;
-    }
+  public void setShortname(String shortname) {
+    this.shortname = shortname;
+  }
+
+  public String getLocationtype() {
+    return locationtype;
+  }
+
+  public void setLocationtype(String locationtype) {
+    this.locationtype = locationtype;
+  }
 }

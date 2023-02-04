@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 public class EdgeController extends ServiceRequestController {
 
@@ -28,19 +29,49 @@ public class EdgeController extends ServiceRequestController {
   private ObservableList<Edge> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-    {
-      try {
-        data = Edge.getAll();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
+    reloadData();
+    startNodeCol.setCellValueFactory(new PropertyValueFactory<>("node1"));
+    endNodeCol.setCellValueFactory(new PropertyValueFactory<>("node2"));
+    dbTable.setItems(dbTableRowsModel);
+  }
+
+  public void reloadData() {
+    dbTableRowsModel.clear();
+    try {
+      data = Edge.getAll();
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     for (Edge row : data) {
       dbTableRowsModel.add(row);
     }
-    startNodeCol.setCellValueFactory(new PropertyValueFactory<>("node1"));
-    endNodeCol.setCellValueFactory(new PropertyValueFactory<>("node2"));
-    dbTable.setItems(dbTableRowsModel);
+  }
+
+  public void editableColumns() {
+    startNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    endNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    startNodeCol.setOnEditCommit(
+        e -> {
+          Edge n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          try {
+            n.setNode1(e.getNewValue());
+            n.update();
+          } catch (SQLException ex) {
+            refresh.setText("Invalid Node: Refresh");
+          }
+          reloadData();
+        });
+    endNodeCol.setOnEditCommit(
+        e -> {
+          Edge n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          try {
+            n.setNode2(e.getNewValue());
+            n.update();
+          } catch (SQLException ex) {
+            refresh.setText("Invalid Node: Refresh");
+          }
+          reloadData();
+        });
   }
 
   public void switchToMoveScene(ActionEvent event) {

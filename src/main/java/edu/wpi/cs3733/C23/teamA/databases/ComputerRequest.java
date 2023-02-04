@@ -164,8 +164,32 @@ public class ComputerRequest extends ServiceRequest {
               rs.getString("status"),
               rs.getString("employeeAssigned"),
               rs.getString("deviceID"),
-              rs.getString("devices")));
+              rs.getString("device")));
     }
     return fin;
+  }
+
+  public ComputerRequest getComputerRequest(int id) throws SQLException {
+    String sql =
+        "SELECT * FROM "
+            + "ComputerRequest join ServiceRequest "
+            + "on ComputerRequest.requestID = ServiceRequest.requestID "
+            + "where requestID = "
+            + id
+            + ";";
+    ResultSet rs = Adb.processQuery(sql);
+    rs.next();
+    return new ComputerRequest(
+        rs.getInt("requestID"),
+        rs.getString("name"),
+        rs.getString("idNum"),
+        rs.getString("location"),
+        rs.getString("description"),
+        rs.getString("ul"),
+        rs.getString("requestType"),
+        rs.getString("status"),
+        rs.getString("employeeAssigned"),
+        rs.getString("deviceID"),
+        rs.getString("device"));
   }
 }
