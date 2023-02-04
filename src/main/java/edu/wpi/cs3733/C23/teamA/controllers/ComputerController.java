@@ -78,7 +78,6 @@ public class ComputerController extends ServiceRequestController {
               devicesBox.getValue());
 
       submission.insert(); // *some db thing for getting the request in there*
-
       switchToConfirmationScene(event);
     }
   }
