@@ -89,6 +89,7 @@ public class PathfindingController extends ServiceRequestController {
   @FXML
   public void generatePathNew() {
     // check that the fields are filled out
+
     if (startNodeName.getText().equals("") || endNodeName.getText().equals("")) {
       reminder.setText("Please fill out all fields in the form!");
       reminder.setVisible(true);
