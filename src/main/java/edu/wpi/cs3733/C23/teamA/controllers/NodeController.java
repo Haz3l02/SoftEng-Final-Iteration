@@ -33,14 +33,7 @@ public class NodeController extends ServiceRequestController {
   private ObservableList<Node> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-    try {
-      data = Node.getAll();
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-    for (Node row : data) {
-      dbTableRowsModel.add(row);
-    }
+    refreshData();
     nodeCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
     xCol.setCellValueFactory(new PropertyValueFactory<>("xcoord"));
     yCol.setCellValueFactory(new PropertyValueFactory<>("ycoord"));
@@ -49,6 +42,18 @@ public class NodeController extends ServiceRequestController {
     dbTable.setItems(dbTableRowsModel);
     editableColumns();
     dbTable.setEditable(true);
+  }
+
+  public void refreshData() {
+    dbTableRowsModel.clear();
+    try {
+      data = Node.getAll();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    for (Node row : data) {
+      dbTableRowsModel.add(row);
+    }
   }
 
   public void editableColumns() {
@@ -69,7 +74,7 @@ public class NodeController extends ServiceRequestController {
             refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
-          dbTable.refresh();
+          refreshData();
         });
     yCol.setOnEditCommit(
         e -> {
@@ -83,7 +88,7 @@ public class NodeController extends ServiceRequestController {
             refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
-          dbTable.refresh();
+          refreshData();
         });
     floorCol.setOnEditCommit(
         e -> {
@@ -95,7 +100,7 @@ public class NodeController extends ServiceRequestController {
             refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
-          dbTable.refresh();
+          refreshData();
         });
     buildingCol.setOnEditCommit(
         e -> {
@@ -107,7 +112,7 @@ public class NodeController extends ServiceRequestController {
             refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
-          dbTable.refresh();
+          refreshData();
         });
   }
 

@@ -30,17 +30,7 @@ public class DatabaseController extends ServiceRequestController {
   private ObservableList<Move> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-    {
-      try {
-        data = Move.getAll();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
-    for (Move row : data) {
-      row.getConnections();
-      dbTableRowsModel.add(row);
-    }
+    reloadData();
     nodeCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
     locNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
     moveCol.setCellValueFactory(new PropertyValueFactory<>("moveDate"));
@@ -49,7 +39,18 @@ public class DatabaseController extends ServiceRequestController {
     dbTable.setEditable(true);
   }
 
-  public void reloadPage() {}
+  public void reloadData() {
+    dbTableRowsModel.clear();
+    try {
+      data = Move.getAll();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    for (Move row : data) {
+      row.getConnections();
+      dbTableRowsModel.add(row);
+    }
+  }
 
   public void editableColumns() {
     nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -62,7 +63,7 @@ public class DatabaseController extends ServiceRequestController {
           } catch (SQLException ex) {
             refresh.setText("Invalid Node: Refresh");
           }
-          dbTable.refresh();
+          reloadData();
         });
     locNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
     locNameCol.setOnEditCommit(
@@ -74,7 +75,7 @@ public class DatabaseController extends ServiceRequestController {
           } catch (SQLException ex) {
             refresh.setText("Invalid Location: Refresh");
           }
-          dbTable.refresh();
+          reloadData();
         });
   }
 
