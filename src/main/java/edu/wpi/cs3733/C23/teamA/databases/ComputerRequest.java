@@ -113,38 +113,29 @@ public class ComputerRequest extends ServiceRequest {
     Adb.processUpdate(sql);
   }
 
-  public void updateComputerRequest(int requestId, String name, String idNum, String location,
-                                    String description, String ul,
-                                    String requestType, String status,
-                                    String employeeAssigned, String deviceID,
-                                    String device)
-          throws SQLException {
+  public void updateComputerRequest(
+      int requestId,
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String ul,
+      String requestType,
+      String status,
+      String employeeAssigned,
+      String deviceID,
+      String device)
+      throws SQLException {
+    updateServiceRequest(
+        requestId, name, idNum, location, description, ul, requestType, status, employeeAssigned);
     String sql =
-            "update servicerequest set requestId = "
-                    + requestId
-                    + "', name = '"
-                    + name
-                    + "', idNum = "
-                    + idNum
-                    + "', location = '"
-                    + location
-                    + "', description = '"
-                    + description
-                    + "', ul = '"
-                    + ul
-                    + "', requestType = "
-                    + requestType
-                    + "', status = '"
-                    + status
-                    + "', employeeAssigned = '"
-                    + employeeAssigned
-                    + "', deviceId = "
-                    + deviceID
-                    + "', device = "
-                    + device
-                    + "' where requestID = "
-                    + requestId
-                    + ";";
+        "update servicerequest set deviceId = "
+            + deviceID
+            + "', device = "
+            + device
+            + "' where requestID = "
+            + requestId
+            + ";";
     Adb.processUpdate(sql);
   }
 

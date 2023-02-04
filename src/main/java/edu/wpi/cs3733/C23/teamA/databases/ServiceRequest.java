@@ -72,6 +72,40 @@ public class ServiceRequest {
     Adb.processUpdate(sql);
   }
 
+  public void updateServiceRequest(
+      int requestId,
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String ul,
+      String requestType,
+      String status,
+      String employeeAssigned)
+      throws SQLException {
+    String sql =
+        "update servicerequest set name = '"
+            + name
+            + "', idNum = "
+            + idNum
+            + "', location = '"
+            + location
+            + "', description = '"
+            + description
+            + "', ul = '"
+            + ul
+            + "', requestType = "
+            + requestType
+            + "', status = '"
+            + status
+            + "', employeeAssigned = '"
+            + employeeAssigned
+            + "' where requestID = "
+            + requestId
+            + ";";
+    Adb.processUpdate(sql);
+  }
+
   public ArrayList<ServiceRequest> getServiceRequestsByID(String id) throws SQLException {
     ArrayList<ServiceRequest> fin = new ArrayList<>();
     String sql = "SELECT * FROM " + "ServiceRequest" + "where idNum = '" + id + "';";
