@@ -70,6 +70,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     ArrayList<ServiceRequest> specificRequests = new ArrayList<>();
     specificRequests = sr.getServiceRequestsByID(hospitalID);
 
+
     for (ServiceRequest bla : specificRequests) {
       ServiceRequestTableRow serviceReqNewRow =
           new ServiceRequestTableRow(
