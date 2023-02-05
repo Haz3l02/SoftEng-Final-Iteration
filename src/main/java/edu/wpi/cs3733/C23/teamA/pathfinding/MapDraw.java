@@ -33,7 +33,7 @@ public class MapDraw {
     return scaledCoordinates;
   }
 
-  public static void drawShapes(GraphicsContext gc, ArrayList<GraphNode> path) {
+  public static void drawShapes(GraphicsContext gc, ArrayList<GraphNode> path, double scaleFactor) {
     gc.setFill(Color.web("0x224870"));
     gc.setStroke(Color.web("0x224870"));
     gc.setLineWidth(2);
@@ -45,7 +45,7 @@ public class MapDraw {
     // set the prev values and draw the starting circle
     int size = path.size();
     if (size > 0) {
-      int[] updatedCoords = scaleCoordinates(path.get(0), 0.05);
+      int[] updatedCoords = scaleCoordinates(path.get(0), scaleFactor);
       prevX = updatedCoords[0];
       prevY = updatedCoords[1];
       gc.fillOval(prevX - 4, prevY - 4, 8, 8); // starting circle
@@ -57,7 +57,7 @@ public class MapDraw {
 
     // get all node x and y coords to draw lines between them
     for (GraphNode g : path) {
-      int[] updatedCoords = scaleCoordinates(g, 0.05);
+      int[] updatedCoords = scaleCoordinates(g, scaleFactor);
       currentX = updatedCoords[0];
       currentY = updatedCoords[1];
 

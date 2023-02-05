@@ -71,7 +71,7 @@ public class PathfindingController extends ServiceRequestController {
    */
   public void callMapDraw(ArrayList<GraphNode> path) {
     gc = mapCanvas.getGraphicsContext2D();
-    MapDraw.drawShapes(gc, path);
+    MapDraw.drawShapes(gc, path, 0.05); // change the scale factor here!
   }
 
   @FXML
