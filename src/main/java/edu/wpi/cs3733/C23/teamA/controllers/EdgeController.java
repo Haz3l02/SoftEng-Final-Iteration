@@ -1,11 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.databases.Edge;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,36 +13,49 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 public class EdgeController extends ServiceRequestController {
 
-  @FXML private TableView<Edge> dbTable;
+  @FXML private TableView<EdgeEntity> dbTable;
 
-  @FXML public TableColumn<Edge, String> startNodeCol;
-  @FXML public TableColumn<Edge, String> endNodeCol;
+  @FXML public TableColumn<EdgeEntity, String> startNodeCol;
+  @FXML public TableColumn<EdgeEntity, String> endNodeCol;
 
   @FXML public MFXButton refresh;
 
-  private ArrayList<Edge> data;
+  private Session session;
+  private SessionFactory sf;
+  private List<EdgeEntity> data;
 
-  private ObservableList<Edge> dbTableRowsModel = FXCollections.observableArrayList();
+  private ObservableList<EdgeEntity> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
+    // Create configurations, session factory, and session
+    Configuration configuration = new Configuration();
+    configuration.configure("hibernate.cfg.xml");
+    sf = configuration.buildSessionFactory();
+    session = sf.openSession();
+
     reloadData();
     startNodeCol.setCellValueFactory(new PropertyValueFactory<>("node1"));
     endNodeCol.setCellValueFactory(new PropertyValueFactory<>("node2"));
     dbTable.setItems(dbTableRowsModel);
   }
 
+  // Loads data from the database into the list
   public void reloadData() {
     dbTableRowsModel.clear();
     try {
-      data = Edge.getAll();
-    } catch (SQLException e) {
+      data = session.createQuery("from EdgeEntity ", EdgeEntity.class).getResultList();
+    } catch (Exception e) {
       e.printStackTrace();
     }
-    for (Edge row : data) {
-      dbTableRowsModel.add(row);
+    for (EdgeEntity edge : data) {
+      dbTableRowsModel.add(edge);
     }
   }
 
@@ -52,22 +64,26 @@ public class EdgeController extends ServiceRequestController {
     endNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
     startNodeCol.setOnEditCommit(
         e -> {
-          Edge n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
+            Transaction t = session.beginTransaction();
             n.setNode1(e.getNewValue());
-            n.update();
-          } catch (SQLException ex) {
+            session.persist(n);
+            t.commit();
+          } catch (Exception ex) {
             refresh.setText("Invalid Node: Refresh");
           }
           reloadData();
         });
     endNodeCol.setOnEditCommit(
         e -> {
-          Edge n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
+            Transaction t = session.beginTransaction();
             n.setNode2(e.getNewValue());
-            n.update();
-          } catch (SQLException ex) {
+            session.persist(n);
+            t.commit();
+          } catch (Exception ex) {
             refresh.setText("Invalid Node: Refresh");
           }
           reloadData();

@@ -113,6 +113,32 @@ public class ComputerRequest extends ServiceRequest {
     Adb.processUpdate(sql);
   }
 
+  public void updateComputerRequest(
+      int requestId,
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String ul,
+      String requestType,
+      String status,
+      String employeeAssigned,
+      String deviceID,
+      String device)
+      throws SQLException {
+    updateServiceRequest(
+        requestId, name, idNum, location, description, ul, requestType, status, employeeAssigned);
+    String sql =
+        "update servicerequest set deviceId = "
+            + deviceID
+            + "', device = "
+            + device
+            + "' where requestID = "
+            + requestId
+            + ";";
+    Adb.processUpdate(sql);
+  }
+
   // returns list of sanitation requests based on a userID
 
   public ArrayList<ComputerRequest> getComputerRequestByUser(String id) throws SQLException {
