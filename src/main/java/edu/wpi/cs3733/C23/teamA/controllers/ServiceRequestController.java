@@ -51,6 +51,7 @@ public abstract class ServiceRequestController {
     FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
     popup = new PopOver(loader.load());
     popup.show(((Node) event.getSource()).getScene().getWindow());
+    popup.detach();
   }
 
   @FXML

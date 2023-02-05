@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
+import edu.wpi.cs3733.C23.teamA.databases.Move;
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCatagory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -11,6 +12,7 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,8 +43,15 @@ public class ComputerController extends ServiceRequestController {
               UrgencyLevel.HIGH.getUrgency(),
               UrgencyLevel.EXTREMELY_URGENT.getUrgency());
 
+      ArrayList<Move> moves = Move.getAll();
+      ObservableList<String> locations = FXCollections.observableArrayList();
+      for (Move move : moves) {
+        locations.add(move.getLongName());
+      }
+
       devicesBox.setItems(devices);
       urgencyBox.setItems(urgencies);
+      locationBox.setItems(locations);
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
 
@@ -54,10 +63,10 @@ public class ComputerController extends ServiceRequestController {
         System.out.println("here");
 
         ComputerRequest editComputerRequest = new ComputerRequest();
-        System.out.println("before swithc here");
+        System.out.println("before switch here");
         // editComputerRequest.getRequestID()
         editComputerRequest = editComputerRequest.getComputerRequest(newEdit.getRequestID());
-        System.out.println("after swithc here");
+        System.out.println("after switch here");
         nameBox.setText(editComputerRequest.getName());
         IDNum.setText(editComputerRequest.getIdNum());
         devicesBox.setText(editComputerRequest.getDevice());
