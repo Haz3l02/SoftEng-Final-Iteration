@@ -39,14 +39,14 @@ public class EmployeeEntity {
   @Setter
   private String name;
 
-  @Column(name = "requests", nullable = false)
-  @Getter
-  @Setter
-  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-  private Set<ServicerequestEntity> requests;
-
-  public EmployeeEntity addServiceRequest(ServicerequestEntity req) {
-    this.requests.add(req);
-    return this;
-  }
+//  @Column(name = "requests", nullable = false)
+//  @Getter
+//  @Setter
+//  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+//  private Set<ServicerequestEntity> requests;
+//
+//  public EmployeeEntity addServiceRequest(ServicerequestEntity req) {
+//    this.requests.add(req);
+//    return this;
+//  }
 }

@@ -39,15 +39,15 @@ public class NodeEntity {
   @Setter
   private String building;
 
-  @Column(name = "moves", nullable = false)
-  @Getter
-  @Setter
-  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
-  private Set<MoveEntity> moves;
-
-  @Column(name = "edges", nullable = false)
-  @Getter
-  @Setter
-  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
-  private Set<EdgeEntity> edges;
+//  @Column(name = "moves", nullable = false)
+//  @Getter
+//  @Setter
+//  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
+//  private Set<MoveEntity> moves;
+//
+//  @Column(name = "edges", nullable = false)
+//  @Getter
+//  @Setter
+//  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
+//  private Set<EdgeEntity> edges;
 }

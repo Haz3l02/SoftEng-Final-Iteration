@@ -27,9 +27,9 @@ public class LocationnameEntity {
   @Setter
   private String locationtype;
 
-  @Column(name = "moves", nullable = false)
-  @Getter
-  @Setter
-  @OneToMany(mappedBy = "locationname", cascade = CascadeType.ALL)
-  private Set<MoveEntity> moves;
+//  @Column(name = "moves", nullable = false)
+//  @Getter
+//  @Setter
+//  @OneToMany(mappedBy = "locationname", cascade = CascadeType.ALL)
+//  private Set<MoveEntity> moves;
 }
