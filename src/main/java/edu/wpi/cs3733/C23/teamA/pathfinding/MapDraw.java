@@ -8,8 +8,8 @@ import javafx.scene.paint.Color;
 public class MapDraw {
 
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
-  // hospital image scale factor to fit on screen (popover): 30% (0.30)
-  // hospital image scale factor fo
+  // hospital image scale factor to fit on screen (popover - 1500 x 1020): 30% (0.30)
+  // hospital image scale factor for our prototype (on-page): 5% (0.05)
 
   /**
    * @param node the GraphNode you want the scaled coordinates for
@@ -38,26 +38,33 @@ public class MapDraw {
     gc.setStroke(Color.web("0x224870"));
     gc.setLineWidth(2);
 
-    // Circles for start and end node
+    // coordinates for the previous point in the path
     int prevX = 0;
     int prevY = 0;
+
+    // set the prev values and draw the starting circle
     int size = path.size();
     if (size > 0) {
-      prevX = path.get(0).getXCoord() / 20;
-      prevY = path.get(0).getYCoord() / 20;
-      gc.fillOval(prevX - 4, prevY - 4, 8, 8);
+      int[] updatedCoords = scaleCoordinates(path.get(0), 0.05);
+      prevX = updatedCoords[0];
+      prevY = updatedCoords[1];
+      gc.fillOval(prevX - 4, prevY - 4, 8, 8); // starting circle
     }
 
+    // current holders for coordinates
     int currentX;
     int currentY;
-    // get all node x and y coords
-    for (GraphNode g : path) { //
-      currentX = g.getXCoord() / 20;
-      currentY = g.getYCoord() / 20;
+
+    // get all node x and y coords to draw lines between them
+    for (GraphNode g : path) {
+      int[] updatedCoords = scaleCoordinates(g, 0.05);
+      currentX = updatedCoords[0];
+      currentY = updatedCoords[1];
+
       gc.strokeLine(prevX, prevY, currentX, currentY);
       prevX = currentX;
       prevY = currentY;
     }
-    gc.strokeOval(prevX - 2.5, prevY - 2.5, 5, 5);
+    gc.strokeOval(prevX - 2.5, prevY - 2.5, 5, 5); // ending open circle
   }
 }
