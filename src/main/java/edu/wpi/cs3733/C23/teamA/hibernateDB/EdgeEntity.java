@@ -10,18 +10,37 @@ import lombok.Setter;
 public class EdgeEntity {
 
   @Id
-  @Column(name = "node1", nullable = false, length = -1)
   @Getter
   @Setter
   @ManyToOne
-  @JoinColumn(name = "nodeid")
+  @JoinColumn(name = "node1", foreignKey = @ForeignKey(name = "node1"))
   private NodeEntity node1;
 
   @Id
-  @Column(name = "node2", nullable = false, length = -1)
   @Getter
   @Setter
   @ManyToOne
-  @JoinColumn(name = "nodeid")
+  @JoinColumn(name = "node2", foreignKey = @ForeignKey(name = "node2"))
   private NodeEntity node2;
+
+  public EdgeEntity(NodeEntity node1, NodeEntity node2) {
+    this.node1 = node1;
+    this.node2 = node2;
+  }
+
+  public EdgeEntity() {}
+
+  @Override
+  public int hashCode() {
+    return node1.getXcoord() * node1.getYcoord() + node2.getXcoord() * node2.getYcoord();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) return false;
+    if (this == obj) return true;
+    if (this.getClass() != obj.getClass()) return false;
+    EdgeEntity ed = (EdgeEntity) obj;
+    return (node1.equals(ed.node1) && node2.equals(ed.node2));
+  }
 }

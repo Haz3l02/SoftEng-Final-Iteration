@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,15 +38,24 @@ public class NodeEntity {
   @Setter
   private String building;
 
-  @Column(name = "moves", nullable = false)
-  @Getter
-  @Setter
-  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
-  private Set<MoveEntity> moves;
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) return false;
+    if (this == obj) return true;
+    if (this.getClass() != obj.getClass()) return false;
+    NodeEntity other = (NodeEntity) obj;
+    return nodeid.equals(other.getNodeid());
+  }
 
-  @Column(name = "edges", nullable = false)
-  @Getter
-  @Setter
-  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
-  private Set<EdgeEntity> edges;
+  //  @Column(name = "moves", nullable = false)
+  //  @Getter
+  //  @Setter
+  //  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
+  //  private Set<MoveEntity> moves;
+  //
+  //  @Column(name = "edges", nullable = false)
+  //  @Getter
+  //  @Setter
+  //  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
+  //  private Set<EdgeEntity> edges;
 }
