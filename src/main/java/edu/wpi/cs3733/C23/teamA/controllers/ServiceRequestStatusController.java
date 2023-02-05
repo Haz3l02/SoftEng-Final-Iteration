@@ -38,7 +38,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
   // text boxes for editing
   @FXML public MFXComboBox<String> formTypeBox;
-  @FXML public MFXTextField dateBox; // make a MFXDatePicker
+  @FXML public MFXTextField dateBox; // make a MFXDatePicker ?????? or not??
   @FXML public MFXComboBox<String> employeeBox;
   @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;

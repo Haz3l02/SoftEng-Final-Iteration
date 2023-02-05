@@ -63,10 +63,10 @@ public class ComputerController extends ServiceRequestController {
         System.out.println("here");
 
         ComputerRequest editComputerRequest = new ComputerRequest();
-        System.out.println("before swithc here");
+        System.out.println("before switch here");
         // editComputerRequest.getRequestID()
         editComputerRequest = editComputerRequest.getComputerRequest(newEdit.getRequestID());
-        System.out.println("after swithc here");
+        System.out.println("after switch here");
         nameBox.setText(editComputerRequest.getName());
         IDNum.setText(editComputerRequest.getIdNum());
         devicesBox.setText(editComputerRequest.getDevice());
