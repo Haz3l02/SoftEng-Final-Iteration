@@ -8,6 +8,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "sanitationrequest", catalog = "dba")
+@PrimaryKeyJoinColumn(name = "requestid_FK", foreignKey = @ForeignKey(name = "requestid_FK"))
 public class SanitationrequestEntity extends ServicerequestEntity {
 
   @Id
@@ -24,9 +25,9 @@ public class SanitationrequestEntity extends ServicerequestEntity {
   private Category category;
 
   public enum Category {
-    BIOHAZARD("Biohazard");
-    // SECURITY_ESCORT("Security Escort"),
-    // POTENTIAL_THREAT("Potential Threat");
+    BIOHAZARD("Biohazard"),
+    STANDARD("Standard"),
+    WONG("Wong");
 
     @NonNull public final String category;
 
@@ -43,7 +44,7 @@ public class SanitationrequestEntity extends ServicerequestEntity {
       EmployeeEntity employee,
       String location,
       String description,
-      Urgency ul,
+      Urgency urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
@@ -55,7 +56,7 @@ public class SanitationrequestEntity extends ServicerequestEntity {
         employee,
         location,
         description,
-        ul,
+        urgency,
         requesttype,
         status,
         employeeassigned,
@@ -68,12 +69,12 @@ public class SanitationrequestEntity extends ServicerequestEntity {
       EmployeeEntity employee,
       String location,
       String description,
-      Urgency ul,
+      Urgency urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
       Category category) {
-    super(name, employee, location, description, ul, requesttype, status, employeeassigned);
+    super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.category = category;
   }
 }

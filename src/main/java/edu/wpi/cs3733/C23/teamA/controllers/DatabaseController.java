@@ -12,10 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class DatabaseController extends ServiceRequestController {
@@ -61,34 +59,34 @@ public class DatabaseController extends ServiceRequestController {
   }
 
   public void editableColumns() {
-    nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    nodeCol.setOnEditCommit(
-        e -> {
-          MoveEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
-          try {
-            Transaction t = session.beginTransaction();
-            n.setNodeid(e.getNewValue());
-            session.persist(n);
-            t.commit();
-            reloadData();
-          } catch (Exception ex) {
-            refresh.setText("Invalid Node: Refresh");
-          }
-        });
-    locNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    locNameCol.setOnEditCommit(
-        e -> {
-          MoveEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
-          try {
-            Transaction t = session.beginTransaction();
-            n.setLongname(e.getNewValue());
-            session.persist(n);
-            t.commit();
-          } catch (Exception ex) {
-            refresh.setText("Invalid Location: Refresh");
-          }
-          reloadData();
-        });
+    //    nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    //    nodeCol.setOnEditCommit(
+    //        e -> {
+    //          MoveEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+    //          try {
+    //            Transaction t = session.beginTransaction();
+    //            n.setNodeid(e.getNewValue());
+    //            session.persist(n);
+    //            t.commit();
+    //            reloadData();
+    //          } catch (Exception ex) {
+    //            refresh.setText("Invalid Node: Refresh");
+    //          }
+    //        });
+    //    locNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    //    locNameCol.setOnEditCommit(
+    //        e -> {
+    //          MoveEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+    //          try {
+    //            Transaction t = session.beginTransaction();
+    //            n.setLongname(e.getNewValue());
+    //            session.persist(n);
+    //            t.commit();
+    //          } catch (Exception ex) {
+    //            refresh.setText("Invalid Location: Refresh");
+    //          }
+    //          reloadData();
+    //        });
   }
 
   public void switchToEdgeScene(ActionEvent event) {

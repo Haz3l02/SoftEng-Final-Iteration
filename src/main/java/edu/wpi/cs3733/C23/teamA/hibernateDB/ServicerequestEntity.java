@@ -30,7 +30,7 @@ public class ServicerequestEntity {
   private String name;
 
   @ManyToOne
-  @JoinColumn(name = "employeeid", nullable = false)
+  @JoinColumn(name = "employeeid")
   @Setter
   @Getter
   private EmployeeEntity employee;
@@ -48,11 +48,11 @@ public class ServicerequestEntity {
   private String description;
 
   @Basic
-  @Column(name = "ul", nullable = false, length = -1)
+  @Column(name = "urgency", nullable = false, length = -1)
   @Setter
   @Getter
   @Enumerated(EnumType.STRING)
-  private Urgency ul;
+  private Urgency urgency;
 
   @Basic
   @Column(name = "requesttype", nullable = false, length = -1)
@@ -126,7 +126,7 @@ public class ServicerequestEntity {
       EmployeeEntity employee,
       String location,
       String description,
-      Urgency ul,
+      Urgency urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
@@ -136,7 +136,7 @@ public class ServicerequestEntity {
     this.employee = employee;
     this.location = location;
     this.description = description;
-    this.ul = ul;
+    this.urgency = urgency;
     this.requesttype = requesttype;
     this.status = status;
     this.employeeassigned = employeeassigned;
@@ -148,7 +148,7 @@ public class ServicerequestEntity {
       EmployeeEntity employee,
       String location,
       String description,
-      Urgency ul,
+      Urgency urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned) {
@@ -156,7 +156,7 @@ public class ServicerequestEntity {
     this.employee = employee;
     this.location = location;
     this.description = description;
-    this.ul = ul;
+    this.urgency = urgency;
     this.requesttype = requesttype;
     this.status = status;
     this.employeeassigned = employeeassigned;

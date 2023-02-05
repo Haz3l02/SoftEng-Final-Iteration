@@ -1,21 +1,16 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class EdgeController extends ServiceRequestController {
@@ -60,41 +55,41 @@ public class EdgeController extends ServiceRequestController {
   }
 
   public void editableColumns() {
-    startNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    endNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    startNodeCol.setOnEditCommit(
-        e -> {
-          EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
-          try {
-            Transaction t = session.beginTransaction();
-            n.setNode1(e.getNewValue());
-            session.persist(n);
-            t.commit();
-          } catch (Exception ex) {
-            refresh.setText("Invalid Node: Refresh");
-          }
-          reloadData();
-        });
-    endNodeCol.setOnEditCommit(
-        e -> {
-          EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
-          try {
-            Transaction t = session.beginTransaction();
-            n.setNode2(e.getNewValue());
-            session.persist(n);
-            t.commit();
-          } catch (Exception ex) {
-            refresh.setText("Invalid Node: Refresh");
-          }
-          reloadData();
-        });
-  }
+    //    startNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    //    endNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    //    startNodeCol.setOnEditCommit(
+    //        e -> {
+    //          EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+    //          try {
+    //            Transaction t = session.beginTransaction();
+    //            n.setNode1(e.getNewValue());
+    //            session.persist(n);
+    //            t.commit();
+    //          } catch (Exception ex) {
+    //            refresh.setText("Invalid Node: Refresh");
+    //          }
+    //          reloadData();
+    //        });
+    //    endNodeCol.setOnEditCommit(
+    //        e -> {
+    //          EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+    //          try {
+    //            Transaction t = session.beginTransaction();
+    //            n.setNode2(e.getNewValue());
+    //            session.persist(n);
+    //            t.commit();
+    //          } catch (Exception ex) {
+    //            refresh.setText("Invalid Node: Refresh");
+    //          }
+    //          reloadData();
+    //        });
+    //  }
 
-  public void switchToMoveScene(ActionEvent event) {
-    Navigation.navigate(Screen.DATABASE);
-  }
-
-  public void switchToNodeScene(ActionEvent event) {
-    Navigation.navigate(Screen.NODE);
+    //  public void switchToMoveScene(ActionEvent event) {
+    //    Navigation.navigate(Screen.DATABASE);
+    //  }
+    //
+    //  public void switchToNodeScene(ActionEvent event) {
+    //    Navigation.navigate(Screen.NODE);
   }
 }

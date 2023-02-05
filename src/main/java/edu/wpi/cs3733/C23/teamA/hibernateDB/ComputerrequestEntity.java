@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 
 @Entity
 @Table(name = "computerrequest", catalog = "dba")
+@PrimaryKeyJoinColumn(name = "requestid_FK", foreignKey = @ForeignKey(name = "requestid_FK"))
 public class ComputerrequestEntity extends ServicerequestEntity {
 
   @Id
@@ -56,7 +57,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
       EmployeeEntity employee,
       String location,
       String description,
-      Urgency ul,
+      Urgency urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
@@ -69,7 +70,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
         employee,
         location,
         description,
-        ul,
+        urgency,
         requesttype,
         status,
         employeeassigned,
@@ -83,13 +84,13 @@ public class ComputerrequestEntity extends ServicerequestEntity {
       EmployeeEntity employee,
       String location,
       String description,
-      Urgency ul,
+      Urgency urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
       String deviceid,
       Device device) {
-    super(name, employee, location, description, ul, requesttype, status, employeeassigned);
+    super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.deviceid = deviceid;
     this.device = device;
   }
