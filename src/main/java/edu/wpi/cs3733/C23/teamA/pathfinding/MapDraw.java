@@ -8,8 +8,8 @@ import javafx.scene.paint.Color;
 public class MapDraw {
 
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
-  // hospital image scale factor to fit on screen (popover - 1500 x 1020): 30% (0.30)
-  // hospital image scale factor for our prototype (on-page): 5% (0.05)
+  // hospital image scale factor to fit on screen (popover - 1250 x 850): 25% (0.25)
+  // hospital image scale factor for our prototype (on-page - 250 x 170): 5% (0.05)
 
   /**
    * @param node the GraphNode you want the scaled coordinates for
