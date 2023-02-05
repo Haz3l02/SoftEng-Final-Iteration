@@ -30,8 +30,7 @@ public class LoginController {
   public void logout(ActionEvent event) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Logout");
-    alert.setHeaderText("You are about to log out!");
-    alert.setContentText("Unsubmitted information in the form will be lost!");
+    alert.setHeaderText("Are you sure you want to leave the app?");
 
     if (alert.showAndWait().get() == ButtonType.OK) {
       System.out.println("You have successfully logged out!");
