@@ -110,10 +110,9 @@ public class ComputerrequestEntity extends ServicerequestEntity {
     // administrative stuff
     SessionFactory sessionFactory = ADBSingletonClass.getSessionFactory();
     Session session = sessionFactory.openSession();
-
     Transaction tx = session.beginTransaction();
 
-    ComputerrequestEntity comRqst = session.load(ComputerrequestEntity.class, 1);
+    ComputerrequestEntity comRqst = Adb.getInstance().load(ComputerrequestEntity.class, 1);
     comRqst.setName(name);
     comRqst.setName(idNum);
     comRqst.setName(location);

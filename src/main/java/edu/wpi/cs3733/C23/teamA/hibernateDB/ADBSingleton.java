@@ -12,9 +12,7 @@ public enum ADBSingleton {
   ADBSingleton() { // Should not be void, fix enum
     try {
       SessionFactory sessionFactory =
-          new Configuration()
-              .configure("edu.wpi.cs3733.C23.teamA.hibernate.cfg.xml")
-              .buildSessionFactory();
+          new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
       session = sessionFactory.openSession();
     } catch (Exception e) {
       e.printStackTrace();

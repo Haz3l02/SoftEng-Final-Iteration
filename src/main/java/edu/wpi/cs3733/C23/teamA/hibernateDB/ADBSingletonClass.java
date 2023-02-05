@@ -15,7 +15,7 @@ public class ADBSingletonClass {
       Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
       StandardServiceRegistryBuilder builder =
           new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-      SessionFactory factory = configuration.buildSessionFactory(builder.build());
+      factory = configuration.buildSessionFactory(builder.build());
     }
     return factory;
   }

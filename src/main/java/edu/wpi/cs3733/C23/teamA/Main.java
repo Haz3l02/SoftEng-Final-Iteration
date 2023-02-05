@@ -1,23 +1,26 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class Main {
 
   public static void main(String[] args) {
 
     // AApp.launch(AApp.class, args);
-    /*
-    Configuration configuration = new Configuration();
-    configuration.configure("hibernate.cfg.xml");
-    SessionFactory factory = configuration.buildSessionFactory();
-    Session session = factory.openSession();
 
+    SessionFactory sessionFactory = ADBSingletonClass.getSessionFactory();
+    Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
 
-     */
-
     ComputerrequestEntity com = new ComputerrequestEntity();
+    com.setRequestid(1);
+
+    tx.commit();
+    session.close();
 
     com.editComputerRequest(
         3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
@@ -34,5 +37,7 @@ public class Main {
     //            SanitationrequestEntity.Category.BIOHAZARD);
     //
     //    session.persist(sanreq);
+    //    tx.commit();
+    //    session.close();
   }
 }
