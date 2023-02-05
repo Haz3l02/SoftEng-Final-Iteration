@@ -1,10 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "move", catalog = "dba")
@@ -28,6 +27,4 @@ public class MoveEntity {
   @Getter
   @Setter
   private Timestamp movedate;
-
-
 }

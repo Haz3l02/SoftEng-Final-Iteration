@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import java.util.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +20,46 @@ public class SanitationrequestEntity extends ServicerequestEntity {
   @Setter
   @Getter
   private String category;
+
+  public SanitationrequestEntity() {}
+
+  public SanitationrequestEntity(
+      int requestid,
+      String name,
+      String employeeid,
+      String location,
+      String description,
+      Urgency ul,
+      String requesttype,
+      Status status,
+      String employeeassigned,
+      String category,
+      Date date) {
+    super(
+        requestid,
+        name,
+        employeeid,
+        location,
+        description,
+        ul,
+        requesttype,
+        status,
+        employeeassigned,
+        date);
+    this.category = category;
+  }
+
+  public SanitationrequestEntity(
+      String name,
+      String employeeid,
+      String location,
+      String description,
+      Urgency ul,
+      String requesttype,
+      Status status,
+      String employeeassigned,
+      String category) {
+    super(name, employeeid, location, description, ul, requesttype, status, employeeassigned);
+    this.category = category;
+  }
 }

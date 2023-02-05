@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import edu.wpi.cs3733.C23.teamA.hibernateDB.SanitationrequestEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,17 +19,19 @@ public class Main {
     Session session = factory.openSession();
 
     Transaction tx = session.beginTransaction();
-    ServicerequestEntity req = new ServicerequestEntity();
-    req.setName("Wilson Wong");
-    req.setIdnum("69420");
-    req.setUl("High");
-    req.setStatus("Blank");
-    req.setDescription("Stuff");
-    req.setLocation("Places");
-    req.setEmployeeassigned("Wilson Wong");
-    req.setRequesttype("SanitationRequest");
+    SanitationrequestEntity sanreq =
+        new SanitationrequestEntity(
+            "Clean",
+            "123",
+            "there",
+            "stuff",
+            ServicerequestEntity.Urgency.VERY_URGENT,
+            "Sanitation",
+            ServicerequestEntity.Status.BLANK,
+            "John",
+            "we");
 
-    session.persist(req);
+    session.persist(sanreq);
     tx.commit();
     session.close();
   }

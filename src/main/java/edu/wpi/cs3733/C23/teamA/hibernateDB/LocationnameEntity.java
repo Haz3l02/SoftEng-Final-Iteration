@@ -25,6 +25,4 @@ public class LocationnameEntity {
   @Getter
   @Setter
   private String locationtype;
-
-
 }

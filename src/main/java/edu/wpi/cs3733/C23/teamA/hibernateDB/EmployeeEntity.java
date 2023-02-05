@@ -37,6 +37,4 @@ public class EmployeeEntity {
   @Getter
   @Setter
   private String name;
-
-
 }

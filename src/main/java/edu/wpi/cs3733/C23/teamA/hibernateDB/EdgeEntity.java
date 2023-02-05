@@ -20,6 +20,4 @@ public class EdgeEntity {
   @Getter
   @Setter
   private String node2;
-
-
 }

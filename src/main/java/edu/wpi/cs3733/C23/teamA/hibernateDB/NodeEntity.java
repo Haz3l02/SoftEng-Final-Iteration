@@ -37,6 +37,4 @@ public class NodeEntity {
   @Getter
   @Setter
   private String building;
-
-
 }
