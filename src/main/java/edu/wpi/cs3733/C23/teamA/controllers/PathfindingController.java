@@ -24,7 +24,6 @@ public class PathfindingController extends ServiceRequestController {
   // javaFX items
   @FXML private MFXFilterComboBox<String> startNodeID; // field to enter startNode
   @FXML private MFXFilterComboBox<String> endNodeID; // field to enter endNode
-  // @FXML private Button findPathButton; // to generate & print the path
   @FXML private Text pathDisplay; // to display the generated path
 
   // Lists of Nodes and Node Data
