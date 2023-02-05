@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.hibernateDB;
 import jakarta.persistence.*;
 import java.util.Date;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
@@ -19,13 +20,26 @@ public class SecurityrequestEntity extends ServicerequestEntity {
   @Column(name = "request", nullable = false, length = -1)
   @Setter
   @Getter
-  private String request;
+  @Enumerated(EnumType.STRING)
+  private Assistance assistance;
 
   @Basic
   @Column(name = "secphone", nullable = false, length = -1)
   @Setter
   @Getter
   private String secphone;
+
+  public enum Assistance {
+    HARASSMENT("Harassment"),
+    SECURITY_ESCORT("Security Escort"),
+    POTENTIAL_THREAT("Potential Threat");
+
+    @NonNull public final String assistance;
+
+    Assistance(@NonNull String assistance) {
+      this.assistance = assistance;
+    }
+  }
 
   public SecurityrequestEntity() {}
 
@@ -36,10 +50,10 @@ public class SecurityrequestEntity extends ServicerequestEntity {
       String location,
       String description,
       Urgency ul,
-      String requesttype,
+      RequestType requesttype,
       Status status,
       String employeeassigned,
-      String request,
+      Assistance assistance,
       String secphone,
       Date date) {
     super(
@@ -53,7 +67,7 @@ public class SecurityrequestEntity extends ServicerequestEntity {
         status,
         employeeassigned,
         date);
-    this.request = request;
+    this.assistance = assistance;
     this.secphone = secphone;
   }
 
@@ -63,13 +77,13 @@ public class SecurityrequestEntity extends ServicerequestEntity {
       String location,
       String description,
       Urgency ul,
-      String requesttype,
+      RequestType requesttype,
       Status status,
       String employeeassigned,
-      String request,
+      Assistance assistance,
       String secphone) {
     super(name, employeeid, location, description, ul, requesttype, status, employeeassigned);
-    this.request = request;
+    this.assistance = assistance;
     this.secphone = secphone;
   }
 }

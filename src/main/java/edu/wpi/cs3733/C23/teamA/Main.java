@@ -25,11 +25,11 @@ public class Main {
             "123",
             "there",
             "stuff",
-            ServicerequestEntity.Urgency.VERY_URGENT,
-            "Sanitation",
+            ServicerequestEntity.Urgency.HIGH,
+            ServicerequestEntity.RequestType.SANITATION,
             ServicerequestEntity.Status.BLANK,
             "John",
-            "we");
+            SanitationrequestEntity.Category.BIOHAZARD);
 
     session.persist(sanreq);
     tx.commit();

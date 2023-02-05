@@ -50,18 +50,21 @@ public class ServicerequestEntity {
   @Column(name = "ul", nullable = false, length = -1)
   @Setter
   @Getter
+  @Enumerated(EnumType.STRING)
   private Urgency ul;
 
   @Basic
   @Column(name = "requesttype", nullable = false, length = -1)
   @Setter
   @Getter
-  private String requesttype;
+  @Enumerated(EnumType.STRING)
+  private RequestType requesttype;
 
   @Basic
   @Column(name = "status", nullable = false, length = -1)
   @Setter
   @Getter
+  @Enumerated(EnumType.STRING)
   private Status status;
 
   @Basic
@@ -76,15 +79,29 @@ public class ServicerequestEntity {
   private Date date;
 
   public enum Urgency {
-    VERY_URGENT("very urgent"),
-    MODERATELY_URGENT("moderately urgent"),
-    NOT_URGENT("not urgent");
+    EXTREMELY_URGENT("Extremely urgent"),
+    HIGH("High"),
+    MEDIUM("Medium"),
+    LOW("Low");
 
     // FILL OUT TOMORROW WITH ISABELLA
-    @NonNull public final String Urgency;
+    @NonNull public final String urgency;
 
     Urgency(@NonNull String urgency) {
-      Urgency = urgency;
+      this.urgency = urgency;
+    }
+  }
+
+  public enum RequestType {
+    SECURITY("Security"),
+    COMPUTER("Computer"),
+    SANITATION("Sanitation");
+
+    // FILL OUT TOMORROW WITH ISABELLA
+    @NonNull public final String requesttype;
+
+    RequestType(@NonNull String requesttype) {
+      this.requesttype = requesttype;
     }
   }
 
@@ -95,8 +112,8 @@ public class ServicerequestEntity {
 
     @NonNull public final String status;
 
-    Status(@NonNull String statusVal) {
-      status = statusVal;
+    Status(@NonNull String status) {
+      this.status = status;
     }
   }
 
@@ -109,7 +126,7 @@ public class ServicerequestEntity {
       String location,
       String description,
       Urgency ul,
-      String requesttype,
+      RequestType requesttype,
       Status status,
       String employeeassigned,
       Date date) {
@@ -131,7 +148,7 @@ public class ServicerequestEntity {
       String location,
       String description,
       Urgency ul,
-      String requesttype,
+      RequestType requesttype,
       Status status,
       String employeeassigned) {
     this.name = name;

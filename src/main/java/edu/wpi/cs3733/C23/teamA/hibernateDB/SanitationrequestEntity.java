@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.hibernateDB;
 import jakarta.persistence.*;
 import java.util.*;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
@@ -19,7 +20,20 @@ public class SanitationrequestEntity extends ServicerequestEntity {
   @Column(name = "category", nullable = false, length = -1)
   @Setter
   @Getter
-  private String category;
+  @Enumerated(EnumType.STRING)
+  private Category category;
+
+  public enum Category {
+    BIOHAZARD("Biohazard");
+    // SECURITY_ESCORT("Security Escort"),
+    // POTENTIAL_THREAT("Potential Threat");
+
+    @NonNull public final String category;
+
+    Category(@NonNull String category) {
+      this.category = category;
+    }
+  }
 
   public SanitationrequestEntity() {}
 
@@ -30,10 +44,10 @@ public class SanitationrequestEntity extends ServicerequestEntity {
       String location,
       String description,
       Urgency ul,
-      String requesttype,
+      RequestType requesttype,
       Status status,
       String employeeassigned,
-      String category,
+      Category category,
       Date date) {
     super(
         requestid,
@@ -55,10 +69,10 @@ public class SanitationrequestEntity extends ServicerequestEntity {
       String location,
       String description,
       Urgency ul,
-      String requesttype,
+      RequestType requesttype,
       Status status,
       String employeeassigned,
-      String category) {
+      Category category) {
     super(name, employeeid, location, description, ul, requesttype, status, employeeassigned);
     this.category = category;
   }

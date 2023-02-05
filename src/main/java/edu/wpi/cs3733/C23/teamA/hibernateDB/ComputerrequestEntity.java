@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.hibernateDB;
 import jakarta.persistence.*;
 import java.util.Date;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
@@ -25,7 +26,24 @@ public class ComputerrequestEntity extends ServicerequestEntity {
   @Column(name = "device", nullable = false, length = -1)
   @Getter
   @Setter
-  private String device;
+  @Enumerated(EnumType.STRING)
+  private Device device;
+
+  public enum Device {
+    DESKTOP("Desktop"),
+    TABLET("Tablet"),
+    LAPTOP("Laptop"),
+    PERIPHERALS("Peripherals"),
+    KIOSK("Kiosk"),
+    MONITOR("Monitor"),
+    PRINTER("Printer");
+
+    @NonNull public final String device;
+
+    Device(@NonNull String device) {
+      this.device = device;
+    }
+  }
 
   public ComputerrequestEntity() {}
 
@@ -36,11 +54,11 @@ public class ComputerrequestEntity extends ServicerequestEntity {
       String location,
       String description,
       Urgency ul,
-      String requesttype,
+      RequestType requesttype,
       Status status,
       String employeeassigned,
       String deviceid,
-      String device,
+      Device device,
       Date date) {
     super(
         requestid,
@@ -63,11 +81,11 @@ public class ComputerrequestEntity extends ServicerequestEntity {
       String location,
       String description,
       Urgency ul,
-      String requesttype,
+      RequestType requesttype,
       Status status,
       String employeeassigned,
       String deviceid,
-      String device) {
+      Device device) {
     super(name, employeeid, location, description, ul, requesttype, status, employeeassigned);
     this.deviceid = deviceid;
     this.device = device;
