@@ -3,12 +3,16 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 /* This class has methods for pathfinding UI as well as methods to
@@ -25,10 +29,14 @@ public class PathfindingController extends ServiceRequestController {
   @FXML private MFXFilterComboBox<String> startNodeID; // field to enter startNode
   @FXML private MFXFilterComboBox<String> endNodeID; // field to enter endNode
   @FXML private Text pathDisplay; // to display the generated path
+  @FXML private Canvas mapCanvas; // to display the generated path
+  @FXML private ImageView mapImage;
 
   // Lists of Nodes and Node Data
   private List<String> allNodeIDs; // List of all Node IDs in specific order
   private List<String> allLongNames; // List of corresponding long names in order
+
+  private GraphicsContext gc;
 
   public void initialize() throws SQLException {
 
@@ -47,6 +55,11 @@ public class PathfindingController extends ServiceRequestController {
     // populates the dropdown boxes
     startNodeID.setItems(locations);
     endNodeID.setItems(locations);
+  }
+
+  public void callMapDraw(ArrayList<GraphNode> path) {
+    gc = mapCanvas.getGraphicsContext2D();
+    MapDraw.drawShapes(gc, path);
   }
 
   @FXML
@@ -70,8 +83,19 @@ public class PathfindingController extends ServiceRequestController {
 
     // run A*
     ArrayList<GraphNode> path = callAStar(hospitalL1, sName, eName); // makes a call to AStar //
+
+    addFloorMapImage();
+    callMapDraw(path); // actually draws the path
     // print the path to the textField
-    pathDisplay.setText(PathInterpreter.generatePathString(path));
+    // pathDisplay.setText(PathInterpreter.generatePathString(path));
+  }
+
+  private void addFloorMapImage() {
+    File file =
+        new File(
+            "src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/5% Scale/00_thelowerlevel1_unlabeled_5%.png");
+    Image image = new Image(file.toURI().toString());
+    mapImage.setImage(image);
   }
 
   /**
@@ -204,5 +228,7 @@ public class PathfindingController extends ServiceRequestController {
   public void clearForm() {
     startNodeID.clear();
     endNodeID.clear();
+
+    gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
   }
 }
