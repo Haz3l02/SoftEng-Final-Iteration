@@ -30,14 +30,13 @@ public class PathfindingController extends ServiceRequestController {
   // Lists of Nodes and Node Data
   private List<String> allNodeIDs; // List of all Node IDs in specific order
   private List<String> allLongNames; // List of corresponding long names in order
-  private List<Node> allNodes;
 
   public void initialize() throws SQLException {
 
     // Database's list of longNames
     allNodeIDs = new ArrayList<String>();
     allLongNames = new ArrayList<String>();
-    allNodes = Node.getAll(); // get all nodes from Database
+    List<Node> allNodes = Node.getAll(); // get all nodes from Database
 
     for (Node n : allNodes) {
       allNodeIDs.add(n.getNodeID()); // get nodeId
