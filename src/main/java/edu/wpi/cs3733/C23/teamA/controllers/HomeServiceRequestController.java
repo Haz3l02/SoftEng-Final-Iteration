@@ -20,13 +20,14 @@ public class HomeServiceRequestController extends ServiceRequestController {
   public void initialize() throws SQLException {
     IdNumberHolder holder = IdNumberHolder.getInstance();
     String hospitalID = holder.getId();
+    String job = holder.getJob();
 
     SanitationRequest sr = new SanitationRequest();
 
     ArrayList<ServiceRequest> specificRequests = new ArrayList<>();
     specificRequests = sr.getServiceRequestsByID(hospitalID);
 
-    if (specificRequests.size() == 0) {
+    if (specificRequests.size() == 0 && job.equals("medical")) {
       pastSubmissions.setDisable(true);
     } else {
       pastSubmissions.setDisable(false);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -19,16 +20,16 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="usernameTextField" floatMode="ABOVE" prefHeight="16.0" prefWidth="247.0" promptText="Username">
+            <MFXTextField fx:id="usernameTextField" floatMode="ABOVE" prefHeight="36.0" prefWidth="247.0" promptText="Username" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </MFXTextField>
-            <MFXTextField fx:id="passwordTextField" floatMode="ABOVE" prefHeight="16.0" prefWidth="247.0" promptText="Password">
+            <MFXPasswordField fx:id="passwordTextField" floatMode="ABOVE" prefHeight="12.0" prefWidth="247.0" promptText="Password" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
-            </MFXTextField>
+            </MFXPasswordField>
             <Button fx:id="loginButton" defaultButton="true" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #224870;" text="Login" textFill="#d3e9f6" wrapText="true">
                <VBox.margin>
                   <Insets top="20.0" />

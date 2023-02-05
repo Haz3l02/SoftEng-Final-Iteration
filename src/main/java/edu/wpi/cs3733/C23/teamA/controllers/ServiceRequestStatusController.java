@@ -47,6 +47,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
 
   private String hospitalID;
+  private String job;
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
@@ -61,6 +62,15 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
     IdNumberHolder holder = IdNumberHolder.getInstance();
     hospitalID = holder.getId();
+    job = holder.getJob();
+
+    if (job.equals("medical")) {
+      statusBox.setDisable(true);
+      employeeBox.setDisable(true);
+    } else if (holder.getJob().equals("maintenance")) {
+      statusBox.setDisable(false);
+      employeeBox.setDisable(false);
+    }
 
     IDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
     formTypeCol.setCellValueFactory(new PropertyValueFactory<>("formType"));
@@ -71,8 +81,12 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
     SanitationRequest sr = new SanitationRequest();
 
-    ArrayList<ServiceRequest> specificRequests = new ArrayList<>();
-    specificRequests = sr.getServiceRequestsByID(hospitalID);
+    ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
+    if (job.equals("medical")) {
+      specificRequests = sr.getServiceRequestsByID(hospitalID);
+    } else {
+      specificRequests = sr.getServiceRequests();
+    }
 
     for (ServiceRequest bla : specificRequests) {
       ServiceRequestTableRow serviceReqNewRow =

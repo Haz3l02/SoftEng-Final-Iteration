@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.databases;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,12 +26,20 @@ public class Employee {
   }
 
   // Returns employeeID if correct, empty String is rejected
-  public String checkPass(String user, String pwd) throws SQLException {
+  public ArrayList<String> checkPass(String user, String pwd) throws SQLException {
+    ArrayList<String> info = new ArrayList<String>();
     String sql = "SELECT * FROM Employee where username = '" + user + "';";
     ResultSet rs = Adb.processQuery(sql);
     if (rs.next()) {
-      if (rs.getString("password").equals(pwd)) return rs.getString("employeeID");
+      if (rs.getString("password").equals(pwd)) {
+        info.add(rs.getString("employeeID"));
+        info.add(rs.getString("job"));
+        // return rs.getString("employeeID");
+        return info;
+      }
     }
-    return "";
+    info.add("");
+    info.add("");
+    return info;
   }
 }

@@ -71,7 +71,7 @@ public class ComputerController extends ServiceRequestController {
         IDNum.setText(editComputerRequest.getIdNum());
         devicesBox.setText(editComputerRequest.getDevice());
         deviceIDNum.setText(editComputerRequest.getDeviceID());
-        locBox.setText(editComputerRequest.getLocation());
+        locationBox.setText(editComputerRequest.getLocation());
         urgencyBox.setText(editComputerRequest.getUl());
         descBox.setText(editComputerRequest.getDescription());
       }
@@ -93,7 +93,7 @@ public class ComputerController extends ServiceRequestController {
   void submitRequest(ActionEvent event) throws IOException, SQLException {
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
-        || locBox.getText().equals("")
+        || locationBox.getText().equals("")
         || descBox.getText().equals("")
         || deviceIDNum.getText().equals("")
         || devicesBox.getValue() == null
@@ -106,7 +106,7 @@ public class ComputerController extends ServiceRequestController {
             newEdit.getRequestID(),
             nameBox.getText(),
             IDNum.getText(),
-            locBox.getText(),
+            locationBox.getText(),
             descBox.getText(),
             urgencyBox.getValue(),
             "Computer Request",
@@ -119,7 +119,7 @@ public class ComputerController extends ServiceRequestController {
             new ComputerRequest(
                 nameBox.getText(),
                 IDNum.getText(),
-                locBox.getText(),
+                locationBox.getText(),
                 descBox.getText(),
                 urgencyBox.getValue(),
                 "Computer Request",

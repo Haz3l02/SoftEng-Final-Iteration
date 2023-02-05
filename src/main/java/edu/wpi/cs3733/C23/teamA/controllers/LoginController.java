@@ -4,8 +4,10 @@ import edu.wpi.cs3733.C23.teamA.databases.Employee;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -15,7 +17,7 @@ import javafx.scene.text.Text;
 public class LoginController {
 
   @FXML MFXTextField usernameTextField;
-  @FXML MFXTextField passwordTextField;
+  @FXML MFXPasswordField passwordTextField;
   @FXML Text incorrectNotification;
   Employee employee = new Employee();
 
@@ -40,15 +42,17 @@ public class LoginController {
   @FXML
   public void login(ActionEvent event) throws SQLException {
 
-    String str = employee.checkPass(usernameTextField.getText(), passwordTextField.getText());
+    ArrayList<String> info =
+        employee.checkPass(usernameTextField.getText(), passwordTextField.getText());
 
-    if (str.equals("")) {
+    if (info.get(0).equals("")) {
       incorrectNotification.setVisible(true);
     } else {
       IdNumberHolder holder = IdNumberHolder.getInstance();
-      holder.setId(str);
+      holder.setId(info.get(0));
       holder.setUsername(usernameTextField.getText());
       holder.setPassword(passwordTextField.getText());
+      holder.setJob(info.get(1));
       Navigation.navigate(Screen.HOME);
     }
   }
