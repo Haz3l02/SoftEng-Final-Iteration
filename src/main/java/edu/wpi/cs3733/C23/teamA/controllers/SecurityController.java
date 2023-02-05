@@ -23,6 +23,8 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
+    reminder.setVisible(false);
+    reminderPane.setVisible(false);
     if (requestsBox != null) {
       ObservableList<String> requests =
           FXCollections.observableArrayList(
@@ -77,7 +79,8 @@ public class SecurityController extends ServiceRequestController {
         || descBox.getText().equals("")
         || requestsBox.getValue() == null
         || urgencyBox.getValue() == null) {
-      reminder.setText("Please fill out all fields in the form!");
+      reminder.setVisible(true);
+      reminderPane.setVisible(true);
     } else {
       SecurityRequest submission =
           new SecurityRequest(

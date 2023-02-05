@@ -26,6 +26,8 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
+    reminder.setVisible(false);
+    reminderPane.setVisible(false);
     if (devicesBox != null) {
       ObservableList<String> devices =
           FXCollections.observableArrayList(
@@ -98,7 +100,8 @@ public class ComputerController extends ServiceRequestController {
         || deviceIDNum.getText().equals("")
         || devicesBox.getValue() == null
         || urgencyBox.getValue() == null) {
-      reminder.setText("Please fill out all fields in the form!");
+      reminder.setVisible(true);
+      reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
         // something that submits it

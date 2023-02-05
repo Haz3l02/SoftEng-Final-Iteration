@@ -21,6 +21,8 @@ public class SanitationController extends ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
+    reminder.setVisible(false);
+    reminderPane.setVisible(false);
     if (categoryBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
       ObservableList<String> categories =
@@ -66,7 +68,8 @@ public class SanitationController extends ServiceRequestController {
         || descBox.getText().equals("")
         || categoryBox.getValue() == null
         || urgencyBox.getValue() == null) {
-      reminder.setText("Please fill out all fields in the form!");
+      reminder.setVisible(true);
+      reminderPane.setVisible(true);
     } else {
 
       SanitationRequest submission =

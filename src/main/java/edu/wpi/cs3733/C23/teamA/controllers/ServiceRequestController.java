@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
@@ -31,6 +32,7 @@ public abstract class ServiceRequestController {
   @FXML protected MFXComboBox<String> urgencyBox;
   @FXML protected MFXFilterComboBox<String> locationBox;
   @FXML protected Text reminder;
+  @FXML protected StackPane reminderPane;
 
   @FXML MFXButton backButton;
   private PopOver popup;
