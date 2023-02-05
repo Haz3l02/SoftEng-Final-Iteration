@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+// Class for Controller to call to add the map
 public class MapDraw {
 
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
