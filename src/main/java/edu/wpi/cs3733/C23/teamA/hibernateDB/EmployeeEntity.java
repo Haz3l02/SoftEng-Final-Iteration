@@ -1,10 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Entity
 @Table(name = "employee", catalog = "dba")
@@ -40,16 +39,13 @@ public class EmployeeEntity {
   @Setter
   private String name;
 
-
   @Column(name = "requests", nullable = false)
   @Getter
   @Setter
-  @OneToMany (mappedBy = "employee", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
   private Set<ServicerequestEntity> requests;
 
-
-
-  public EmployeeEntity addServiceRequest(ServicerequestEntity req){
+  public EmployeeEntity addServiceRequest(ServicerequestEntity req) {
     this.requests.add(req);
     return this;
   }

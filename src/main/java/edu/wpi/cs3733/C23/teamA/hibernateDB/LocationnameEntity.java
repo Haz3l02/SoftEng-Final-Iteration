@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "locationname", catalog = "dba")
 public class LocationnameEntity {
@@ -25,4 +27,11 @@ public class LocationnameEntity {
   @Getter
   @Setter
   private String locationtype;
+
+
+  @Column(name = "moves", nullable = false)
+  @Getter
+  @Setter
+  @OneToMany(mappedBy = "locationname", cascade = CascadeType.ALL)
+  private Set<MoveEntity> moves;
 }

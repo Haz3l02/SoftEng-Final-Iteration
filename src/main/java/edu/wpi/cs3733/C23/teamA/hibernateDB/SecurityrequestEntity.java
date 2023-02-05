@@ -8,9 +8,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "securityrequest", catalog = "dba")
-@PrimaryKeyJoinColumn (
-        name = "requestid_FK",
-        foreignKey = @ForeignKey(name = "requestid_FK"))
+@PrimaryKeyJoinColumn(name = "requestid_FK", foreignKey = @ForeignKey(name = "requestid_FK"))
 public class SecurityrequestEntity extends ServicerequestEntity {
 
   @Id
@@ -52,7 +50,7 @@ public class SecurityrequestEntity extends ServicerequestEntity {
       EmployeeEntity employee,
       String location,
       String description,
-      Urgency ul,
+      Urgency urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
@@ -65,7 +63,7 @@ public class SecurityrequestEntity extends ServicerequestEntity {
         employee,
         location,
         description,
-        ul,
+        urgency,
         requesttype,
         status,
         employeeassigned,
@@ -79,13 +77,13 @@ public class SecurityrequestEntity extends ServicerequestEntity {
       EmployeeEntity employee,
       String location,
       String description,
-      Urgency ul,
+      Urgency urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
       Assistance assistance,
       String secphone) {
-    super(name, employee, location, description, ul, requesttype, status, employeeassigned);
+    super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.assistance = assistance;
     this.secphone = secphone;
   }

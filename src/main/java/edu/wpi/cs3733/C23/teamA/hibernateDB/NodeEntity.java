@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "node", catalog = "dba")
 public class NodeEntity {
@@ -37,4 +39,17 @@ public class NodeEntity {
   @Getter
   @Setter
   private String building;
+
+  @Column(name = "moves", nullable = false)
+  @Getter
+  @Setter
+  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
+  private Set<MoveEntity> moves;
+
+
+  @Column(name = "edges", nullable = false)
+  @Getter
+  @Setter
+  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
+  private Set<EdgeEntity> edges;
 }

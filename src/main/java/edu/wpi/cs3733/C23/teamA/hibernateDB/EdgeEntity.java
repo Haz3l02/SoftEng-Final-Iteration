@@ -13,11 +13,15 @@ public class EdgeEntity {
   @Column(name = "node1", nullable = false, length = -1)
   @Getter
   @Setter
-  private String node1;
+  @ManyToOne
+  @JoinColumn(name = "nodeid")
+  private NodeEntity node1;
 
   @Id
   @Column(name = "node2", nullable = false, length = -1)
   @Getter
   @Setter
-  private String node2;
+  @ManyToOne
+  @JoinColumn(name = "nodeid")
+  private NodeEntity node2;
 }
