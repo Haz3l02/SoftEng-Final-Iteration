@@ -5,6 +5,9 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 @Entity
 @Table(name = "computerrequest", catalog = "dba")
@@ -89,5 +92,40 @@ public class ComputerrequestEntity extends ServicerequestEntity {
     super(name, employee, location, description, ul, requesttype, status, employeeassigned);
     this.deviceid = deviceid;
     this.device = device;
+  }
+
+  public void editComputerRequest(
+      int requestId,
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String ul,
+      String requestType,
+      String status,
+      String employeeAssigned,
+      String deviceID,
+      String device) {
+    // administrative stuff
+    SessionFactory sessionFactory = ADBSingletonClass.getSessionFactory();
+    Session session = sessionFactory.openSession();
+
+    Transaction tx = session.beginTransaction();
+
+    ComputerrequestEntity comRqst = session.load(ComputerrequestEntity.class, 1);
+    comRqst.setName(name);
+    comRqst.setName(idNum);
+    comRqst.setName(location);
+    comRqst.setName(description);
+    comRqst.setName(ul);
+    comRqst.setName(requestType);
+    comRqst.setName(status);
+    comRqst.setName(employeeAssigned);
+    comRqst.setName(description);
+    comRqst.setName(deviceID);
+    comRqst.setName(device);
+
+    tx.commit();
+    session.close();
   }
 }
