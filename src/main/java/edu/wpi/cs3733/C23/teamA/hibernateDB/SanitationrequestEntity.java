@@ -24,9 +24,9 @@ public class SanitationrequestEntity extends ServicerequestEntity {
   private Category category;
 
   public enum Category {
-    BIOHAZARD("Biohazard");
-    // SECURITY_ESCORT("Security Escort"),
-    // POTENTIAL_THREAT("Potential Threat");
+    BIOHAZARD("Biohazard"),
+    STANDARD("Standard"),
+    WONG("Wong");
 
     @NonNull public final String category;
 

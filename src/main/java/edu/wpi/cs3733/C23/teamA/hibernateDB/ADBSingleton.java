@@ -9,7 +9,7 @@ public enum ADBSingleton {
 
   Session session;
 
-  void DBSingleton() { // Should not be void, fix enum
+  ADBSingleton() { // Should not be void, fix enum
     try {
       SessionFactory sessionFactory =
           new Configuration()

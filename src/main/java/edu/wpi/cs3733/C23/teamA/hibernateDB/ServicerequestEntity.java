@@ -30,7 +30,7 @@ public class ServicerequestEntity {
   private String name;
 
   @ManyToOne
-  @JoinColumn(name = "employeeid", nullable = false)
+  @JoinColumn(name = "employeeid")
   @Setter
   @Getter
   private EmployeeEntity employee;
