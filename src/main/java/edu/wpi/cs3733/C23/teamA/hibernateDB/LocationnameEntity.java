@@ -26,6 +26,15 @@ public class LocationnameEntity {
   @Setter
   private String locationtype;
 
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) return false;
+    if (this == obj) return true;
+    if (this.getClass() != obj.getClass()) return false;
+    LocationnameEntity loc = (LocationnameEntity) obj;
+    return (this.longname.equals(loc.getLongname()));
+  }
+
   //  @Column(name = "moves", nullable = false)
   //  @Getter
   //  @Setter

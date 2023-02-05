@@ -5,20 +5,17 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 @Entity
 @Table(name = "computerrequest", catalog = "dba")
-@PrimaryKeyJoinColumn(name = "requestid_FK", foreignKey = @ForeignKey(name = "requestid_FK"))
+@PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
 public class ComputerrequestEntity extends ServicerequestEntity {
 
-  @Id
-  @Column(name = "requestid", nullable = false)
-  @Getter
-  @Setter
-  private int requestid;
+  //  @Id
+  //  @Column(name = "requestid", nullable = false)
+  //  @Getter
+  //  @Setter
+  //  private int requestid;
 
   @Basic
   @Column(name = "deviceid", nullable = false, length = -1)
@@ -95,7 +92,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
     this.device = device;
   }
 
-  public void editComputerRequest(
+  /*public void editComputerRequest(
       int requestId,
       String name,
       String idNum,
@@ -128,5 +125,5 @@ public class ComputerrequestEntity extends ServicerequestEntity {
 
     tx.commit();
     session.close();
-  }
+  }*/
 }

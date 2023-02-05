@@ -8,17 +8,17 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "securityrequest", catalog = "dba")
-@PrimaryKeyJoinColumn(name = "requestid_FK", foreignKey = @ForeignKey(name = "requestid_FK"))
+@PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
 public class SecurityrequestEntity extends ServicerequestEntity {
 
-  @Id
-  @Column(name = "requestid", nullable = false)
-  @Setter
-  @Getter
-  private int requestid;
+  //  @Id
+  //  @Column(name = "requestid", nullable = false)
+  //  @Setter
+  //  @Getter
+  //  private int requestid;
 
   @Basic
-  @Column(name = "request", nullable = false, length = -1)
+  @Column(name = "assistance", nullable = false, length = -1)
   @Setter
   @Getter
   @Enumerated(EnumType.STRING)

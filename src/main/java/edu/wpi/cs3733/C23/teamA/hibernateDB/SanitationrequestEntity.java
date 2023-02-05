@@ -8,14 +8,14 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "sanitationrequest", catalog = "dba")
-@PrimaryKeyJoinColumn(name = "requestid_FK", foreignKey = @ForeignKey(name = "requestid_FK"))
+@PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
 public class SanitationrequestEntity extends ServicerequestEntity {
 
-  @Id
-  @Column(name = "requestid", nullable = false)
-  @Setter
-  @Getter
-  private int requestid;
+  //  @Id
+  //  @Column(name = "requestid", nullable = false)
+  //  @Setter
+  //  @Getter
+  //  private int requestid;
 
   @Basic
   @Column(name = "category", nullable = false, length = -1)

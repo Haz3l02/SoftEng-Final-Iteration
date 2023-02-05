@@ -38,6 +38,15 @@ public class NodeEntity {
   @Setter
   private String building;
 
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) return false;
+    if (this == obj) return true;
+    if (this.getClass() != obj.getClass()) return false;
+    NodeEntity other = (NodeEntity) obj;
+    return nodeid.equals(other.getNodeid());
+  }
+
   //  @Column(name = "moves", nullable = false)
   //  @Getter
   //  @Setter

@@ -1,19 +1,24 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
 public class Main {
 
   public static void main(String[] args) {
 
     // AApp.launch(AApp.class, args);
-    /*
+
     Configuration configuration = new Configuration();
     configuration.configure("hibernate.cfg.xml");
     SessionFactory factory = configuration.buildSessionFactory();
     Session session = factory.openSession();
 
     Transaction tx = session.beginTransaction();
-
-     */
+    tx.commit();
+    session.close();
 
     // ComputerrequestEntity com = new ComputerrequestEntity();
 

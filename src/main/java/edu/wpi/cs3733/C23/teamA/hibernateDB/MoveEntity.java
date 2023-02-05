@@ -11,7 +11,6 @@ import lombok.Setter;
 public class MoveEntity {
 
   @Id
-  @Column(name = "node", nullable = false, length = -1)
   @Getter
   @Setter
   @ManyToOne
@@ -19,7 +18,6 @@ public class MoveEntity {
   private NodeEntity node;
 
   @Id
-  @Column(name = "locationname", nullable = false, length = -1)
   @Getter
   @Setter
   @ManyToOne
@@ -43,5 +41,21 @@ public class MoveEntity {
   public MoveEntity(NodeEntity node, LocationnameEntity locationname) {
     this.node = node;
     this.locationname = locationname;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) return false;
+    if (this == obj) return true;
+    if (this.getClass() != obj.getClass()) return false;
+    MoveEntity mo = (MoveEntity) obj;
+    return (this.locationname.equals(mo.locationname)
+        && this.movedate.equals(mo.movedate)
+        && this.node.equals(mo.node));
+  }
+
+  @Override
+  public int hashCode() {
+    return node.getXcoord() * node.getYcoord() + movedate.getNanos();
   }
 }
