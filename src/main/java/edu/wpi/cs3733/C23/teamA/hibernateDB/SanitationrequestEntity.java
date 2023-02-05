@@ -40,7 +40,7 @@ public class SanitationrequestEntity extends ServicerequestEntity {
   public SanitationrequestEntity(
       int requestid,
       String name,
-      String employeeid,
+      EmployeeEntity employee,
       String location,
       String description,
       Urgency ul,
@@ -52,7 +52,7 @@ public class SanitationrequestEntity extends ServicerequestEntity {
     super(
         requestid,
         name,
-        employeeid,
+        employee,
         location,
         description,
         ul,
@@ -65,7 +65,7 @@ public class SanitationrequestEntity extends ServicerequestEntity {
 
   public SanitationrequestEntity(
       String name,
-      String employeeid,
+      EmployeeEntity employee,
       String location,
       String description,
       Urgency ul,
@@ -73,7 +73,7 @@ public class SanitationrequestEntity extends ServicerequestEntity {
       Status status,
       String employeeassigned,
       Category category) {
-    super(name, employeeid, location, description, ul, requesttype, status, employeeassigned);
+    super(name, employee, location, description, ul, requesttype, status, employeeassigned);
     this.category = category;
   }
 }

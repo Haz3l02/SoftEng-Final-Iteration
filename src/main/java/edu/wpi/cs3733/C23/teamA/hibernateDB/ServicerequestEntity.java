@@ -9,6 +9,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
+@Table(name = "servicerequest", catalog = "dba")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServicerequestEntity {
   @TableGenerator(name = "yourTableGenerator", allocationSize = 1, initialValue = 1)
@@ -28,11 +29,11 @@ public class ServicerequestEntity {
   @Getter
   private String name;
 
-  @Basic
-  @Column(name = "employeeid", nullable = false, length = -1)
+  @ManyToOne
+  @JoinColumn(name = "employeeid", nullable = false)
   @Setter
   @Getter
-  private String employeeid;
+  private EmployeeEntity employee;
 
   @Basic
   @Column(name = "location", nullable = false, length = -1)
@@ -122,7 +123,7 @@ public class ServicerequestEntity {
   public ServicerequestEntity(
       int requestid,
       String name,
-      String employeeid,
+      EmployeeEntity employee,
       String location,
       String description,
       Urgency ul,
@@ -132,7 +133,7 @@ public class ServicerequestEntity {
       Date date) {
     this.requestid = requestid;
     this.name = name;
-    this.employeeid = employeeid;
+    this.employee = employee;
     this.location = location;
     this.description = description;
     this.ul = ul;
@@ -144,7 +145,7 @@ public class ServicerequestEntity {
 
   public ServicerequestEntity(
       String name,
-      String employeeid,
+      EmployeeEntity employee,
       String location,
       String description,
       Urgency ul,
@@ -152,7 +153,7 @@ public class ServicerequestEntity {
       Status status,
       String employeeassigned) {
     this.name = name;
-    this.employeeid = employeeid;
+    this.employee = employee;
     this.location = location;
     this.description = description;
     this.ul = ul;

@@ -46,7 +46,7 @@ public class SecurityrequestEntity extends ServicerequestEntity {
   public SecurityrequestEntity(
       int requestid,
       String name,
-      String employeeid,
+      EmployeeEntity employee,
       String location,
       String description,
       Urgency ul,
@@ -59,7 +59,7 @@ public class SecurityrequestEntity extends ServicerequestEntity {
     super(
         requestid,
         name,
-        employeeid,
+        employee,
         location,
         description,
         ul,
@@ -73,7 +73,7 @@ public class SecurityrequestEntity extends ServicerequestEntity {
 
   public SecurityrequestEntity(
       String name,
-      String employeeid,
+      EmployeeEntity employee,
       String location,
       String description,
       Urgency ul,
@@ -82,7 +82,7 @@ public class SecurityrequestEntity extends ServicerequestEntity {
       String employeeassigned,
       Assistance assistance,
       String secphone) {
-    super(name, employeeid, location, description, ul, requesttype, status, employeeassigned);
+    super(name, employee, location, description, ul, requesttype, status, employeeassigned);
     this.assistance = assistance;
     this.secphone = secphone;
   }

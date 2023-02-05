@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "employee", catalog = "dba")
 public class EmployeeEntity {
@@ -37,4 +39,18 @@ public class EmployeeEntity {
   @Getter
   @Setter
   private String name;
+
+
+  @Column(name = "requests", nullable = false)
+  @Getter
+  @Setter
+  @OneToMany (mappedBy = "employee", cascade = CascadeType.ALL)
+  private Set<ServicerequestEntity> requests;
+
+
+
+  public EmployeeEntity addServiceRequest(ServicerequestEntity req){
+    this.requests.add(req);
+    return this;
+  }
 }

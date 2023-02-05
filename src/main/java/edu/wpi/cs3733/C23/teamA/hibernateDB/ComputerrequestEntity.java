@@ -50,7 +50,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
   public ComputerrequestEntity(
       int requestid,
       String name,
-      String employeeid,
+      EmployeeEntity employee,
       String location,
       String description,
       Urgency ul,
@@ -63,7 +63,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
     super(
         requestid,
         name,
-        employeeid,
+        employee,
         location,
         description,
         ul,
@@ -77,7 +77,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
 
   public ComputerrequestEntity(
       String name,
-      String employeeid,
+      EmployeeEntity employee,
       String location,
       String description,
       Urgency ul,
@@ -86,7 +86,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
       String employeeassigned,
       String deviceid,
       Device device) {
-    super(name, employeeid, location, description, ul, requesttype, status, employeeassigned);
+    super(name, employee, location, description, ul, requesttype, status, employeeassigned);
     this.deviceid = deviceid;
     this.device = device;
   }
