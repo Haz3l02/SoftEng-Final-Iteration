@@ -1,10 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Entity
 @Table(name = "node", catalog = "dba")
@@ -45,7 +44,6 @@ public class NodeEntity {
   @Setter
   @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
   private Set<MoveEntity> moves;
-
 
   @Column(name = "edges", nullable = false)
   @Getter

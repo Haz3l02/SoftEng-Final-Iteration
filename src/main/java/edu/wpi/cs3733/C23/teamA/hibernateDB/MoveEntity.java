@@ -26,16 +26,13 @@ public class MoveEntity {
   @JoinColumn(name = "longname")
   private LocationnameEntity locationname;
 
-
   @Id
   @Column(name = "movedate", nullable = false)
   @Getter
   @Setter
   private Timestamp movedate;
 
-
-  public MoveEntity() {
-  }
+  public MoveEntity() {}
 
   public MoveEntity(NodeEntity node, LocationnameEntity locationname, Timestamp movedate) {
     this.node = node;
@@ -43,14 +40,8 @@ public class MoveEntity {
     this.movedate = movedate;
   }
 
-
   public MoveEntity(NodeEntity node, LocationnameEntity locationname) {
     this.node = node;
     this.locationname = locationname;
   }
-
-
-
 }
-
-

@@ -1,10 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Entity
 @Table(name = "locationname", catalog = "dba")
@@ -27,7 +26,6 @@ public class LocationnameEntity {
   @Getter
   @Setter
   private String locationtype;
-
 
   @Column(name = "moves", nullable = false)
   @Getter
