@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "securityrequest", schema = "public", catalog = "dba")
-public class SecurityrequestEntity {
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Table(name = "securityrequest", catalog = "dba")
+public class SecurityrequestEntity extends ServicerequestEntity {
+
   @Id
   @Column(name = "requestid", nullable = false)
   @Setter
@@ -15,13 +15,13 @@ public class SecurityrequestEntity {
   private int requestid;
 
   @Basic
-  @Column(name = "request", nullable = true, length = -1)
+  @Column(name = "request", nullable = false, length = -1)
   @Setter
   @Getter
   private String request;
 
   @Basic
-  @Column(name = "secphone", nullable = true, length = -1)
+  @Column(name = "secphone", nullable = false, length = -1)
   @Setter
   @Getter
   private String secphone;

@@ -1,44 +1,30 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "locationname", schema = "public", catalog = "dba")
+@Table(name = "locationname", catalog = "dba")
 public class LocationnameEntity {
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+
   @Id
   @Column(name = "longname", nullable = false, length = -1)
+  @Getter
+  @Setter
   private String longname;
 
   @Basic
-  @Column(name = "shortname", nullable = true, length = -1)
+  @Column(name = "shortname", nullable = false, length = -1)
+  @Getter
+  @Setter
   private String shortname;
 
   @Basic
-  @Column(name = "locationtype", nullable = true, length = -1)
+  @Column(name = "locationtype", nullable = false, length = -1)
+  @Getter
+  @Setter
   private String locationtype;
 
-  public String getLongname() {
-    return longname;
-  }
 
-  public void setLongname(String longname) {
-    this.longname = longname;
-  }
-
-  public String getShortname() {
-    return shortname;
-  }
-
-  public void setShortname(String shortname) {
-    this.shortname = shortname;
-  }
-
-  public String getLocationtype() {
-    return locationtype;
-  }
-
-  public void setLocationtype(String locationtype) {
-    this.locationtype = locationtype;
-  }
 }

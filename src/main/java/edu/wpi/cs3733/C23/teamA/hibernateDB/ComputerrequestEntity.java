@@ -1,44 +1,30 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "computerrequest", schema = "public", catalog = "dba")
-public class ComputerrequestEntity {
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Table(name = "computerrequest", catalog = "dba")
+public class ComputerrequestEntity extends ServicerequestEntity {
+
   @Id
   @Column(name = "requestid", nullable = false)
+  @Getter
+  @Setter
   private int requestid;
 
   @Basic
-  @Column(name = "deviceid", nullable = true, length = -1)
+  @Column(name = "deviceid", nullable = false, length = -1)
+  @Getter
+  @Setter
   private String deviceid;
 
   @Basic
-  @Column(name = "device", nullable = true, length = -1)
+  @Column(name = "device", nullable = false, length = -1)
+  @Getter
+  @Setter
   private String device;
 
-  public int getRequestid() {
-    return requestid;
-  }
 
-  public void setRequestid(int requestid) {
-    this.requestid = requestid;
-  }
-
-  public String getDeviceid() {
-    return deviceid;
-  }
-
-  public void setDeviceid(String deviceid) {
-    this.deviceid = deviceid;
-  }
-
-  public String getDevice() {
-    return device;
-  }
-
-  public void setDevice(String device) {
-    this.device = device;
-  }
 }

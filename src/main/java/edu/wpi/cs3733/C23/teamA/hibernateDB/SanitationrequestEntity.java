@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "sanitationrequest", schema = "public", catalog = "dba")
-public class SanitationrequestEntity {
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Table(name = "sanitationrequest", catalog = "dba")
+public class SanitationrequestEntity extends ServicerequestEntity {
+
   @Id
   @Column(name = "requestid", nullable = false)
   @Setter
@@ -15,7 +15,7 @@ public class SanitationrequestEntity {
   private int requestid;
 
   @Basic
-  @Column(name = "category", nullable = true, length = -1)
+  @Column(name = "category", nullable = false, length = -1)
   @Setter
   @Getter
   private String category;
