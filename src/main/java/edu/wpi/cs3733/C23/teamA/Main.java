@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity;
-
 public class Main {
 
   public static void main(String[] args) {
@@ -17,10 +15,10 @@ public class Main {
 
      */
 
-    ComputerrequestEntity com = new ComputerrequestEntity();
+    // ComputerrequestEntity com = new ComputerrequestEntity();
 
-    com.editComputerRequest(
-        3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
+    // com.editComputerRequest(
+    //   3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
     //    SanitationrequestEntity sanreq =
     //        new SanitationrequestEntity(
     //            "Clean",

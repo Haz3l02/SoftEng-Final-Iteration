@@ -15,7 +15,7 @@ public class MoveEntity {
   @Getter
   @Setter
   @ManyToOne
-  @JoinColumn(name = "nodeid")
+  @JoinColumn(name = "nodeid", foreignKey = @ForeignKey(name = "node_fk"))
   private NodeEntity node;
 
   @Id
@@ -23,7 +23,7 @@ public class MoveEntity {
   @Getter
   @Setter
   @ManyToOne
-  @JoinColumn(name = "longname")
+  @JoinColumn(name = "longname", foreignKey = @ForeignKey(name = "longname_fk"))
   private LocationnameEntity locationname;
 
   @Id

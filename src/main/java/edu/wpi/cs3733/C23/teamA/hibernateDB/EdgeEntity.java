@@ -14,7 +14,7 @@ public class EdgeEntity {
   @Getter
   @Setter
   @ManyToOne
-  @JoinColumn(name = "nodeid")
+  @JoinColumn(name = "nodeid", foreignKey = @ForeignKey(name = "node1_fk"))
   private NodeEntity node1;
 
   @Id
@@ -22,6 +22,6 @@ public class EdgeEntity {
   @Getter
   @Setter
   @ManyToOne
-  @JoinColumn(name = "nodeid")
+  @JoinColumn(name = "nodeid", foreignKey = @ForeignKey(name = "node2_fk"))
   private NodeEntity node2;
 }

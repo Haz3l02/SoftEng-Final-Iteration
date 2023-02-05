@@ -12,7 +12,7 @@
     <property name="default_schema">iterationone</property>
 
 
-    <property name="hbm2ddl.auto">update</property>
+    <property name="hbm2ddl.auto">create</property>
     <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity"/>
 <!--    <mapping resource="ComputerrequestEntity.hbm.xml"/>-->
     <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity"/>
