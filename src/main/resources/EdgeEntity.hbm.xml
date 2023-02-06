@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity" table="edge" schema="public" catalog="dba">
+        <composite-id mapped="true" class="edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntityPK">
+            <key-property name="node1">
+                <column name="node1" sql-type="text"/>
+            </key-property>
+            <key-property name="node2">
+                <column name="node2" sql-type="text"/>
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>
