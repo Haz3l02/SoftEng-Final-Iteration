@@ -80,7 +80,7 @@ public class PathfindingController extends ServiceRequestController {
 
     // clear the canvas w/ the drawn path; does NOT hide the map image
     gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
-    
+
     pathfindingSystem.drawPath(gc, path, SCALE_FACTOR);
   }
 
