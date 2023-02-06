@@ -1,10 +1,18 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -159,5 +167,18 @@ public class ServicerequestEntity {
     this.requesttype = requesttype;
     this.status = status;
     this.employeeassigned = employeeassigned;
+  }
+
+
+  public List<ServicerequestEntity> findAllService() {
+    Session session = ADBSingletonClass.getSessionFactory().openSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<ServicerequestEntity> cq = cb.createQuery(ServicerequestEntity.class);
+    Root<ServicerequestEntity> rootEntry = cq.from(ServicerequestEntity.class);
+    CriteriaQuery<ServicerequestEntity> all = cq.select(rootEntry);
+
+    TypedQuery<ServicerequestEntity> allQuery = session.createQuery(all);
+    session.close();
+    return allQuery.getResultList();
   }
 }
