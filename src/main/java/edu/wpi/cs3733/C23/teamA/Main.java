@@ -74,6 +74,9 @@ public class Main {
 
     tx.commit();
     session.close();
+    if (session.getTransaction().isActive()) {
+      System.out.println("active");
+    }
 
     //    com.editComputerRequest(
     //       3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");

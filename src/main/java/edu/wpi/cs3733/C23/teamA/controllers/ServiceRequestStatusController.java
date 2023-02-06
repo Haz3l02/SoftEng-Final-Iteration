@@ -88,6 +88,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
     ServiceRequest sr = new SanitationRequest();
+
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
@@ -127,6 +128,11 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     }
 
     serviceReqsTable.setItems(dbTableRowsModel);
+    tx.commit();
+    session.close();
+    if (session.getTransaction().isActive()) {
+      System.out.println("active");
+    }
   }
 
   @FXML
