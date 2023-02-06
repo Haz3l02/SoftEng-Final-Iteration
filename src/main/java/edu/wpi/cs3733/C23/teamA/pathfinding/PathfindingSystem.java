@@ -8,11 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 // Contains methods from AStar, DFS, PathInterpreter, and CSVReader
 public class PathfindingSystem {
 
-  private AStar astar;
-  private CSVReader csvreader;
-  private DFS dfs;
-  private MapDraw mapdraw;
-  private PathInterpreter pathinterpreter;
+  // none of the classes used here have attributes, so no objects
 
   public ArrayList<GraphNode> traverseAStar(GraphNode startNode, GraphNode endNode) {
     return AStar.traverse(startNode, endNode);

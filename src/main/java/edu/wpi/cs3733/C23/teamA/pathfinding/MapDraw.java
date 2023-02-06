@@ -13,7 +13,8 @@ public class MapDraw {
   // hospital image scale factor for our prototype (on-page - 250 x 170): 5% (0.05)
 
   /**
-   * @param node the GraphNode you want the scaled coordinates for
+   * @param xCoord the x-coordinate to scale
+   * @param yCoord the y-coordinate to scale
    * @param scaleFactor the scale factor for the coordinates and the image they are being placed on;
    *     for us, this is going to be 0.30 (subject to change)
    * @return an int array with the pair of new coordinates
