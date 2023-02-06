@@ -69,9 +69,9 @@ public class PathfindingController extends ServiceRequestController {
    *
    * @param path The path of GraphNodes returned by callAStar
    */
-  public void callMapDraw(ArrayList<GraphNode> path) {
+  private void callMapDraw(ArrayList<GraphNode> path) {
     gc = mapCanvas.getGraphicsContext2D();
-    MapDraw.drawShapes(gc, path, 0.05); // change the scale factor here!
+    MapDraw.drawPath(gc, path, 0.05); // change the scale factor here!
   }
 
   @FXML

@@ -17,7 +17,7 @@ public class MapDraw {
    *     for us, this is going to be 0.30 (subject to change)
    * @return an int array with the pair of new coordinates
    */
-  public static int[] scaleCoordinates(GraphNode node, double scaleFactor) {
+  private static int[] scaleCoordinates(GraphNode node, double scaleFactor) {
     // get the coordinates from the node
     double xCoord = node.getXCoord();
     double yCoord = node.getYCoord();
@@ -33,7 +33,7 @@ public class MapDraw {
     return scaledCoordinates;
   }
 
-  public static void drawShapes(GraphicsContext gc, ArrayList<GraphNode> path, double scaleFactor) {
+  public static void drawPath(GraphicsContext gc, ArrayList<GraphNode> path, double scaleFactor) {
     gc.setFill(Color.web("0x224870"));
     gc.setStroke(Color.web("0x224870"));
     gc.setLineWidth(2);
