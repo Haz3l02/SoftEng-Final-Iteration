@@ -1,16 +1,15 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
 import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
 import jakarta.persistence.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -41,7 +40,6 @@ public class Main {
                 response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
     System.out.println("\"" + quote + "\" -" + author);
     AApp.launch(AApp.class, args);
-
 
     // AApp.launch(AApp.class, args);
 
@@ -86,5 +84,6 @@ public class Main {
     //    session.persist(sanreq);
     //    tx.commit();
     //    session.close();
+
   }
 }

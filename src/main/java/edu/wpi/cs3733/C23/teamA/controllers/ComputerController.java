@@ -5,6 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusControlle
 import edu.wpi.cs3733.C23.teamA.databases.Move;
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCatagory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.ComputerRequest;
@@ -17,17 +18,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class ComputerController extends ServiceRequestController {
 
   @FXML private MFXTextField deviceIDNum;
   @FXML private MFXComboBox<String> devicesBox;
   private ComputerRequest submission = new ComputerRequest();
+  ServicerequestEntity.Urgency urgent;
+  ComputerrequestEntity.Device device;
 
   @FXML
   public void initialize() throws SQLException {
-    reminder.setVisible(false);
-    reminderPane.setVisible(false);
+    if (reminder != null) {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+    }
     if (devicesBox != null) {
       ObservableList<String> devices =
           FXCollections.observableArrayList(
@@ -100,7 +107,7 @@ public class ComputerController extends ServiceRequestController {
         || deviceIDNum.getText().equals("")
         || devicesBox.getValue() == null
         || urgencyBox.getValue() == null) {
-      reminder.setVisible(true);
+      // reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
@@ -118,20 +125,52 @@ public class ComputerController extends ServiceRequestController {
             deviceIDNum.getText(),
             devicesBox.getValue());
       } else {
-        ComputerRequest submission =
-            new ComputerRequest(
+        Session session = ADBSingletonClass.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
+        LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
+        switch (urgencyBox.getValue()) {
+          case "Low":
+            urgent = ServicerequestEntity.Urgency.LOW;
+          case "Medium":
+            urgent = ServicerequestEntity.Urgency.LOW;
+          case "High":
+            urgent = ServicerequestEntity.Urgency.LOW;
+          case "Extremely Urgent":
+            urgent = ServicerequestEntity.Urgency.LOW;
+        }
+        switch (devicesBox.getValue()) {
+          case "Desktop":
+            device = ComputerrequestEntity.Device.DESKTOP;
+          case "Tablet":
+            device = ComputerrequestEntity.Device.TABLET;
+          case "Laptop":
+            device = ComputerrequestEntity.Device.LAPTOP;
+          case "Monitor":
+            device = ComputerrequestEntity.Device.MONITOR;
+          case "Peripherals":
+            device = ComputerrequestEntity.Device.PERIPHERALS;
+          case "Kiosk":
+            device = ComputerrequestEntity.Device.KIOSK;
+          case "Printer":
+            device = ComputerrequestEntity.Device.PRINTER;
+        }
+        ComputerrequestEntity submission =
+            new ComputerrequestEntity(
                 nameBox.getText(),
-                IDNum.getText(),
+                person,
                 locationBox.getText(),
                 descBox.getText(),
-                urgencyBox.getValue(),
-                "Computer Request",
-                "Blank",
+                urgent,
+                ServicerequestEntity.RequestType.COMPUTER,
+                ServicerequestEntity.Status.BLANK,
                 "Unassigned",
                 deviceIDNum.getText(),
-                devicesBox.getValue());
-
-        submission.insert(); // *some db thing for getting the request in there*
+                device);
+        session.persist(submission);
+        tx.commit();
+        session.close();
+        // submission.insert(); // *some db thing for getting the request in there*
       }
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);

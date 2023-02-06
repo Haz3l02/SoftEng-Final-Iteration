@@ -23,8 +23,10 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
-    reminder.setVisible(false);
-    reminderPane.setVisible(false);
+    if (reminder != null) {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+    }
     if (requestsBox != null) {
       ObservableList<String> requests =
           FXCollections.observableArrayList(
