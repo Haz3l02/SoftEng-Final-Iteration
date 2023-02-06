@@ -127,7 +127,8 @@ public class ComputerController extends ServiceRequestController {
       } else {
         Session session = ADBSingletonClass.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
+        EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+        // IDNum.getText()
         LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
         switch (urgencyBox.getValue()) {
           case "Low":

@@ -1,8 +1,13 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity.getServiceByEmployee;
+
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.*;
@@ -16,6 +21,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +31,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class ServiceRequestStatusController extends ServiceRequestController {
 
@@ -79,24 +87,42 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
-    SanitationRequest sr = new SanitationRequest();
+    ServiceRequest sr = new SanitationRequest();
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
 
     ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
+    List<ServicerequestEntity> requests = new ArrayList<ServicerequestEntity>();
+
     if (job.equals("medical")) {
       specificRequests = sr.getServiceRequestsByID(hospitalID);
+      requests = getServiceByEmployee(hospitalID, session);
+
     } else {
       specificRequests = sr.getServiceRequests();
+      requests = getAllRecords(ServicerequestEntity.class, session);
     }
 
-    for (ServiceRequest bla : specificRequests) {
+    //    for (ServiceRequest bla : specificRequests) {
+    //      ServiceRequestTableRow serviceReqNewRow =
+    //          new ServiceRequestTableRow(
+    //              bla.getRequestID(),
+    //              bla.getRequestType(),
+    //              "date",
+    //              bla.getStatus(),
+    //              bla.getUl(),
+    //              bla.getEmployeeAssigned());
+    //      dbTableRowsModel.add(serviceReqNewRow);
+    //    }
+    for (ServicerequestEntity billy : requests) {
       ServiceRequestTableRow serviceReqNewRow =
           new ServiceRequestTableRow(
-              bla.getRequestID(),
-              bla.getRequestType(),
-              "date",
-              bla.getStatus(),
-              bla.getUl(),
-              bla.getEmployeeAssigned());
+              billy.getRequestid(),
+              billy.getRequesttype().toString(),
+              billy.getDate().toString(),
+              billy.getStatus().toString(),
+              billy.getUrgency().urgency,
+              billy.getEmployeeassigned());
       dbTableRowsModel.add(serviceReqNewRow);
     }
 
