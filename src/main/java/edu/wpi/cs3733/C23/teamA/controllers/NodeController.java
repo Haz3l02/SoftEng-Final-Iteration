@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,6 +31,7 @@ public class NodeController extends ServiceRequestController {
   @FXML public TableColumn<NodeEntity, Integer> yCol;
   @FXML public TableColumn<NodeEntity, String> floorCol;
   @FXML public TableColumn<NodeEntity, String> buildingCol;
+  @FXML public TableColumn<NodeEntity, String> deleteCol;
 
   @FXML public MFXButton refresh;
 
@@ -47,6 +50,26 @@ public class NodeController extends ServiceRequestController {
     yCol.setCellValueFactory(new PropertyValueFactory<>("ycoord"));
     floorCol.setCellValueFactory(new PropertyValueFactory<>("floor"));
     buildingCol.setCellValueFactory(new PropertyValueFactory<>("building"));
+    deleteCol.setCellFactory(
+        param -> {
+          final TableCell<NodeEntity, String> cell =
+              new TableCell<>() {
+                private final Button button = new Button("Delete");
+
+                {
+                  button.setOnAction(
+                      (ActionEvent e) -> {
+                        Transaction t = session.beginTransaction();
+                        NodeEntity n = getTableView().getItems().get(getIndex());
+                        session.remove(n);
+                        t.commit();
+                        reloadData();
+                      });
+                  setGraphic(button);
+                }
+              };
+          return cell;
+        });
     dbTable.setItems(dbTableRowsModel);
 
     editableColumns();
@@ -130,10 +153,12 @@ public class NodeController extends ServiceRequestController {
   }
 
   public void switchToEdgeScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.EDGE);
   }
 
   public void switchToMoveScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.DATABASE);
   }
 }

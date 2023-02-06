@@ -95,10 +95,12 @@ public class DatabaseController extends ServiceRequestController {
   }
 
   public void switchToEdgeScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.EDGE);
   }
 
   public void switchToNodeScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.NODE);
   }
 }
