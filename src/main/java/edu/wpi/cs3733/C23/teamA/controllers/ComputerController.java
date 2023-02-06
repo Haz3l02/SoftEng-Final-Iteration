@@ -134,11 +134,11 @@ public class ComputerController extends ServiceRequestController {
           case "Low":
             urgent = ServicerequestEntity.Urgency.LOW;
           case "Medium":
-            urgent = ServicerequestEntity.Urgency.LOW;
+            urgent = ServicerequestEntity.Urgency.MEDIUM;
           case "High":
-            urgent = ServicerequestEntity.Urgency.LOW;
+            urgent = ServicerequestEntity.Urgency.HIGH;
           case "Extremely Urgent":
-            urgent = ServicerequestEntity.Urgency.LOW;
+            urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
         }
         switch (devicesBox.getValue()) {
           case "Desktop":
