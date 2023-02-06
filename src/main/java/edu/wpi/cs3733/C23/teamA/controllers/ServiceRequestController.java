@@ -30,11 +30,14 @@ public abstract class ServiceRequestController {
   @FXML protected MFXComboBox<String> urgencyBox;
   @FXML protected Text reminder;
 
+  // for the timer
+  public volatile boolean stop = false;
+
   @FXML MFXButton backButton;
   private PopOver popup;
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, InterruptedException {
     // This statement blocks Pathfinding from being opened... is it important?
     // backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
@@ -53,6 +56,7 @@ public abstract class ServiceRequestController {
 
   @FXML
   public void switchToHomeServiceRequestScene(ActionEvent event) throws IOException {
+    stop = true;
     Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
   }
 
@@ -70,7 +74,7 @@ public abstract class ServiceRequestController {
     alert.setTitle("Logout");
     alert.setHeaderText("You are about to log out!");
     alert.setContentText("Unsubmitted information in the form will be lost!");
-
+    stop = true;
     if (alert.showAndWait().get() == ButtonType.OK) {
       System.out.println("You have successfully logged out!");
       Navigation.close(); // MAY NOT FUCKING WORK

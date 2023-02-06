@@ -4,259 +4,265 @@
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="613.0" style="-fx-background-color: bad1ea; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ComputerController">
-   <left>
-      <VBox prefHeight="41.0" prefWidth="640.0" BorderPane.alignment="CENTER">
-         <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Service Request" underline="true">
-               <font>
-                  <Font name="PT Sans" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Text>
-            <HBox prefHeight="26.0" prefWidth="626.0">
-               <VBox.margin>
-                  <Insets top="3.0" />
-               </VBox.margin>
+
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ComputerController">
+   <children>
+      <BorderPane layoutY="9.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="414.5" prefWidth="613.0" style="-fx-background-color: bad1ea; -fx-border-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox prefHeight="41.0" prefWidth="640.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
-                     <HBox.margin>
-                        <Insets top="2.0" />
-                     </HBox.margin>
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Service Request" underline="true">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="PT Sans" size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
                   </Text>
-                  <MFXTextField fx:id="nameBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.4" prefWidth="210.4" promptText="Enter your first and last name" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </MFXTextField>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Hospital ID Number:">
-                     <HBox.margin>
-                        <Insets left="20.0" top="2.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <MFXTextField fx:id="IDNum" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.4" prefWidth="154.0" promptText="Enter your ID number" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
+                  <HBox prefHeight="26.0" prefWidth="626.0">
+                     <VBox.margin>
+                        <Insets top="3.0" />
+                     </VBox.margin>
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+                           <HBox.margin>
+                              <Insets top="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <MFXTextField fx:id="nameBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.4" prefWidth="210.4" promptText="Enter your first and last name" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </MFXTextField>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Hospital ID Number:">
+                           <HBox.margin>
+                              <Insets left="20.0" top="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <MFXTextField fx:id="IDNum" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.4" prefWidth="154.0" promptText="Enter your ID number" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </MFXTextField>
+                     </children>
                      <padding>
-                        <Insets left="5.0" />
+                        <Insets top="10.0" />
                      </padding>
-                  </MFXTextField>
-               </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </HBox>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Info" underline="true">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-            </Text>
-            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="596.0">
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Devices: " wrappingWidth="61.21">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
+                  </HBox>
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Info" underline="true">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
                   </Text>
-                  <MFXComboBox id="devicesBox" fx:id="devicesBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="194.0" promptText="Desktop, Tablet, Labtop, Monitor" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                  </MFXComboBox>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Device ID Number:">
-                     <HBox.margin>
-                        <Insets left="20.0" right="5.0" top="2.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <MFXTextField fx:id="deviceIDNum" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="141.0" promptText="Enter device ID number" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                  <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="596.0">
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Devices: " wrappingWidth="61.21">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <MFXComboBox id="devicesBox" fx:id="devicesBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="194.0" promptText="Desktop, Tablet, Labtop, Monitor" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </MFXComboBox>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Device ID Number:">
+                           <HBox.margin>
+                              <Insets left="20.0" right="5.0" top="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <MFXTextField fx:id="deviceIDNum" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="141.0" promptText="Enter device ID number" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <padding>
+                              <Insets left="2.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </MFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="15.0" top="5.0" />
+                     </VBox.margin>
                      <padding>
-                        <Insets left="2.0" />
+                        <Insets bottom="5.0" left="-5.0" top="5.0" />
                      </padding>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </MFXTextField>
-               </children>
-               <VBox.margin>
-                  <Insets left="15.0" top="5.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="-5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="631.0">
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:">
-                     <HBox.margin>
-                        <Insets right="5.0" top="2.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <MFXTextField fx:id="locBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="238.0" promptText="enter floor number, room number/station" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font size="11.0" />
-                     </font>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="631.0">
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:">
+                           <HBox.margin>
+                              <Insets right="5.0" top="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <MFXTextField fx:id="locBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="238.0" promptText="enter floor number, room number/station" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                           <padding>
+                              <Insets left="2.0" />
+                           </padding>
+                        </MFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
                      <padding>
-                        <Insets left="2.0" />
+                        <Insets left="-5.0" />
                      </padding>
-                  </MFXTextField>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Issues:">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <MFXTextField fx:id="descBox" floatMode="DISABLED" prefHeight="22.0" prefWidth="478.0" promptText="Enter additional details of the issue" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="626.0">
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency:">
+                           <HBox.margin>
+                              <Insets left="12.0" right="5.0" top="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <MFXComboBox fx:id="urgencyBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="194.0" promptText="Low, Medium, High, Extremely.." style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </MFXComboBox>
+                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15;" wrappingWidth="77.21630859375">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="-5.0" top="5.0" />
+                     </padding>
+                  </HBox>
                </children>
-               <VBox.margin>
-                  <Insets left="15.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets left="-5.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+               <BorderPane.margin>
+                  <Insets left="10.0" top="10.0" />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+         <bottom>
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="42.0" prefWidth="591.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Issues:">
+                  <MFXButton fx:id="clear" buttonType="RAISED" onAction="#clearForm" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Clear" textFill="#d3e9f6">
                      <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <MFXTextField fx:id="descBox" floatMode="DISABLED" prefHeight="22.0" prefWidth="478.0" promptText="Enter additional details of the issue" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" />
-               </children>
-               <padding>
-                  <Insets top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets left="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="626.0">
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency:">
-                     <HBox.margin>
-                        <Insets left="12.0" right="5.0" top="2.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <MFXComboBox fx:id="urgencyBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="194.0" promptText="Low, Medium, High, Extremely.." style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                  </MFXComboBox>
-                  <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15;" wrappingWidth="77.21630859375">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets left="-5.0" top="5.0" />
-               </padding>
-            </HBox>
-         </children>
-         <BorderPane.margin>
-            <Insets left="10.0" top="10.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <bottom>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="42.0" prefWidth="591.0" BorderPane.alignment="CENTER">
-         <children>
-            <MFXButton fx:id="clear" buttonType="RAISED" onAction="#clearForm" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Clear" textFill="#d3e9f6">
-               <HBox.margin>
-                  <Insets bottom="10.0" right="10.0" />
-               </HBox.margin>
-            </MFXButton>
-            <MFXButton fx:id="submit" buttonType="RAISED" onAction="#submitRequest" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
-               <HBox.margin>
-                  <Insets bottom="10.0" right="10.0" />
-               </HBox.margin>
-            </MFXButton>
-            <MFXButton fx:id="cancel" buttonType="RAISED" onAction="#switchToHomeServiceRequestScene" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
-               <HBox.margin>
-                  <Insets bottom="10.0" right="10.0" />
-               </HBox.margin>
-            </MFXButton>
-         </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </HBox>
-   </bottom>
-   <top>
-      <HBox prefHeight="47.0" prefWidth="600.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: black; -fx-background-color: #224870;" BorderPane.alignment="CENTER">
-         <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false;" text="Brigham &amp; Women’s Hospital " wrappingWidth="392.1484375">
-               <font>
-                  <Font name="Arial Black" size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" top="5.0" />
-               </HBox.margin>
-            </Text>
-            <HBox alignment="CENTER" prefHeight="80.0" prefWidth="238.0">
-               <children>
-                  <MFXButton id="helpButton" fx:id="home" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="61.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
-                     <HBox.margin>
-                        <Insets right="5.0" top="5.0" />
+                        <Insets bottom="10.0" right="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton id="helpButton" fx:id="help" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="34.0" prefWidth="62.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Help" textFill="#122c34">
+                  <MFXButton fx:id="submit" buttonType="RAISED" onAction="#submitRequest" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
                      <HBox.margin>
-                        <Insets right="5.0" top="5.0" />
+                        <Insets bottom="10.0" right="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="35.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
+                  <MFXButton fx:id="cancel" buttonType="RAISED" onAction="#switchToHomeServiceRequestScene" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
-                        <Insets right="5.0" top="5.0" />
+                        <Insets bottom="10.0" right="10.0" />
                      </HBox.margin>
                   </MFXButton>
                </children>
-               <HBox.margin>
-                  <Insets left="5.0" right="10.0" top="5.0" />
-               </HBox.margin>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
             </HBox>
-         </children>
-         <BorderPane.margin>
-            <Insets top="-10.0" />
-         </BorderPane.margin>
-      </HBox>
-   </top>
-</BorderPane>
+         </bottom>
+         <top>
+            <HBox prefHeight="47.0" prefWidth="600.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: black; -fx-background-color: #224870;" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false;" text="Brigham &amp; Women’s Hospital " wrappingWidth="392.1484375">
+                     <font>
+                        <Font name="Arial Black" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="238.0">
+                     <children>
+                        <MFXButton id="helpButton" fx:id="home" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="61.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
+                           <HBox.margin>
+                              <Insets right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </MFXButton>
+                        <MFXButton id="helpButton" fx:id="help" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="34.0" prefWidth="62.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Help" textFill="#122c34">
+                           <HBox.margin>
+                              <Insets right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </MFXButton>
+                        <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="35.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
+                           <HBox.margin>
+                              <Insets right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </MFXButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets top="-10.0" />
+               </BorderPane.margin>
+            </HBox>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
