@@ -27,11 +27,11 @@ public class ADBSingletonClass {
 
 
 
-  public static <T> List<T> loadAllData(Class<T> type, Session session) {
+  public static <T> List<T> getAllRecords(Class<T> type, Session session) {
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<T> criteria = builder.createQuery(type);
     criteria.from(type);
-    List<T> data = session.createQuery(criteria).getResultList();
-    return data;
+    List<T> records = session.createQuery(criteria).getResultList();
+    return records;
   }
 }
