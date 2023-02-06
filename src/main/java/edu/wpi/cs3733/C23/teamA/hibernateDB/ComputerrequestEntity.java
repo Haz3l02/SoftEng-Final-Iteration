@@ -55,7 +55,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
       int requestid,
       String name,
       EmployeeEntity employee,
-      String location,
+      LocationnameEntity location,
       String description,
       Urgency urgency,
       RequestType requesttype,
@@ -82,7 +82,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
   public ComputerrequestEntity(
       String name,
       EmployeeEntity employee,
-      String location,
+      LocationnameEntity location,
       String description,
       Urgency urgency,
       RequestType requesttype,

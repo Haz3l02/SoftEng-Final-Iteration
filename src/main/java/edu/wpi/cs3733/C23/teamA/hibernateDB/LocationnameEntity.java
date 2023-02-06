@@ -35,6 +35,14 @@ public class LocationnameEntity {
     return (this.longname.equals(loc.getLongname()));
   }
 
+  public LocationnameEntity(String longname, String shortname, String locationtype) {
+    this.longname = longname;
+    this.shortname = shortname;
+    this.locationtype = locationtype;
+  }
+
+  public LocationnameEntity() {}
+
   //  @Column(name = "moves", nullable = false)
   //  @Getter
   //  @Setter

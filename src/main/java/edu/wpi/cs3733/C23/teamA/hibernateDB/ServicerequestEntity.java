@@ -35,11 +35,11 @@ public class ServicerequestEntity {
   @Getter
   private EmployeeEntity employee;
 
-  @Basic
-  @Column(name = "location", nullable = false, length = -1)
+  @ManyToOne
+  @JoinColumn(name = "location", foreignKey = @ForeignKey(name = "longname"))
   @Setter
   @Getter
-  private String location;
+  private LocationnameEntity location;
 
   @Basic
   @Column(name = "description", nullable = false, length = -1)
@@ -85,7 +85,6 @@ public class ServicerequestEntity {
     MEDIUM("Medium"),
     LOW("Low");
 
-    // FILL OUT TOMORROW WITH ISABELLA
     @NonNull public final String urgency;
 
     Urgency(@NonNull String urgency) {
@@ -124,7 +123,7 @@ public class ServicerequestEntity {
       int requestid,
       String name,
       EmployeeEntity employee,
-      String location,
+      LocationnameEntity location,
       String description,
       Urgency urgency,
       RequestType requesttype,
@@ -146,7 +145,7 @@ public class ServicerequestEntity {
   public ServicerequestEntity(
       String name,
       EmployeeEntity employee,
-      String location,
+      LocationnameEntity location,
       String description,
       Urgency urgency,
       RequestType requesttype,
