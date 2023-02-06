@@ -9,7 +9,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "servicerequest", catalog = "dba")
+@Table(name = "servicerequest", catalog = "teamadb")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServicerequestEntity {
   @TableGenerator(name = "yourTableGenerator", allocationSize = 1, initialValue = 1)

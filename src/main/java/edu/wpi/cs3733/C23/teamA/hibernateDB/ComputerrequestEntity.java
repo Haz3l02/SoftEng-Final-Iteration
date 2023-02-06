@@ -112,7 +112,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
 
-    ComputerrequestEntity comRqst = session.load(ComputerrequestEntity.class, 1);
+    ComputerrequestEntity comRqst = session.getReference(ComputerrequestEntity.class, requestId);
     comRqst.setName(name);
     comRqst.setName(idNum);
     comRqst.setName(location);

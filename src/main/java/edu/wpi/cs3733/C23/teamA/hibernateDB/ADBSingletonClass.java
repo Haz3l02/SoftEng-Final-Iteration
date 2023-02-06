@@ -12,10 +12,16 @@ public class ADBSingletonClass {
 
   public static synchronized SessionFactory getSessionFactory() {
     if (factory == null) {
-      Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
-      StandardServiceRegistryBuilder builder =
-          new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-      factory = configuration.buildSessionFactory(builder.build());
+      try {
+        Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
+        StandardServiceRegistryBuilder builder =
+            new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+        factory = configuration.buildSessionFactory(builder.build());
+      } catch (Throwable ex) {
+        System.err.println("Initial SessionFactory creation failed." + ex);
+        ex.printStackTrace();
+        throw new ExceptionInInitializerError(ex);
+      }
     }
     return factory;
   }
