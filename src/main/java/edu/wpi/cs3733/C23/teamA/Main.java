@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 public class Main {
 
   public static void main(String[] args) {
@@ -38,8 +40,10 @@ public class Main {
             "365",
             ComputerrequestEntity.Device.DESKTOP);
     session.persist(com);*/
+    List<ServicerequestEntity> reqs = getAllRecords(ServicerequestEntity.class, session);
 
-    for (ServicerequestEntity ser : getAllRecords(ServicerequestEntity.class, session)) {
+    for (ServicerequestEntity ser : reqs) {
+      System.out.println("Hi");
       System.out.println(ser.getRequestid());
     }
 
