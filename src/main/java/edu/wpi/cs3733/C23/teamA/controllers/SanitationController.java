@@ -3,9 +3,9 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.databases.Move;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,8 +14,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class SanitationController extends ServiceRequestController {
+
+  ServicerequestEntity.Urgency urgent;
+  SanitationrequestEntity.Category category;
 
   @FXML private MFXComboBox<String> categoryBox;
 
@@ -74,21 +79,46 @@ public class SanitationController extends ServiceRequestController {
       reminderPane.setVisible(true);
     } else {
 
-      SanitationRequest submission =
-          new SanitationRequest(
+      Session session = ADBSingletonClass.getSessionFactory().openSession();
+      Transaction tx = session.beginTransaction();
+      EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+      // IDNum.getText()
+      LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
+      switch (urgencyBox.getValue()) {
+        case "Low":
+          urgent = ServicerequestEntity.Urgency.LOW;
+        case "Medium":
+          urgent = ServicerequestEntity.Urgency.LOW;
+        case "High":
+          urgent = ServicerequestEntity.Urgency.LOW;
+        case "Extremely Urgent":
+          urgent = ServicerequestEntity.Urgency.LOW;
+      }
+      switch (categoryBox.getValue()) {
+        case "Standard":
+          category = SanitationrequestEntity.Category.STANDARD;
+        case "Bio-Hazard":
+          category = SanitationrequestEntity.Category.BIOHAZARD;
+        case "Wong":
+          category = SanitationrequestEntity.Category.WONG;
+      }
+      SanitationrequestEntity submission =
+          new SanitationrequestEntity(
               nameBox.getText(),
-              IDNum.getText(),
-              locationBox.getValue(),
+              person,
+              location,
               descBox.getText(),
-              categoryBox.getValue(),
-              urgencyBox.getValue(),
-              "Sanitation Request",
-              "Blank",
-              "Unassigned");
-
-      submission.insert(); // Adding to the database
-      switchToConfirmationScene(event);
+              urgent,
+              ServicerequestEntity.RequestType.SANITATION,
+              ServicerequestEntity.Status.BLANK,
+              "Unassigned",
+              category);
+      session.persist(submission);
+      tx.commit();
+      session.close();
+      // submission.insert(); // *some db thing for getting the request in there*
     }
+    switchToConfirmationScene(event);
   }
 
   @FXML

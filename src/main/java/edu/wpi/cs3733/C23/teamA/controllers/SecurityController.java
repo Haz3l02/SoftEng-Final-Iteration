@@ -6,7 +6,6 @@ import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.SecurityRequest;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
@@ -18,8 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
 public class SecurityController extends ServiceRequestController {
 
@@ -91,49 +88,49 @@ public class SecurityController extends ServiceRequestController {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
-        Session session = ADBSingletonClass.getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
-        EmployeeEntity person = session.get(EmployeeEntity.class, "123");
-        // IDNum.getText()
-        LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
-        switch (urgencyBox.getValue()) {
-          case "Low":
-            urgent = ServicerequestEntity.Urgency.LOW;
-          case "Medium":
-            urgent = ServicerequestEntity.Urgency.MEDIUM;
-          case "High":
-            urgent = ServicerequestEntity.Urgency.HIGH;
-          case "Extremely Urgent":
-            urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
-        }
-        switch (requestsBox.getValue()) {
-          case "Harassment":
-            assistance = SecurityrequestEntity.Assistance.HARASSMENT;
-          case "Security Escort":
-            assistance = SecurityrequestEntity.Assistance.SECURITY_ESCORT;
-          case "Potential Threat":
-            assistance = SecurityrequestEntity.Assistance.POTENTIAL_THREAT;
-        }
-      SecurityrequestEntity submission =
-                new SecurityrequestEntity(
-                        nameBox.getText(),
-                        person,
-                        location,
-                        descBox.getText(),
-                        urgent,
-                        ServicerequestEntity.RequestType.SECURITY,
-                        ServicerequestEntity.Status.BLANK,
-                        "Unassigned",
-                        assistance,phone.getText());
-        session.persist(submission);
-        tx.commit();
-        session.close();
-        // submission.insert(); // *some db thing for getting the request in there*
+      Session session = ADBSingletonClass.getSessionFactory().openSession();
+      Transaction tx = session.beginTransaction();
+      EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+      // IDNum.getText()
+      LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
+      switch (urgencyBox.getValue()) {
+        case "Low":
+          urgent = ServicerequestEntity.Urgency.LOW;
+        case "Medium":
+          urgent = ServicerequestEntity.Urgency.MEDIUM;
+        case "High":
+          urgent = ServicerequestEntity.Urgency.HIGH;
+        case "Extremely Urgent":
+          urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
       }
-
-      switchToConfirmationScene(event);
+      switch (requestsBox.getValue()) {
+        case "Harassment":
+          assistance = SecurityrequestEntity.Assistance.HARASSMENT;
+        case "Security Escort":
+          assistance = SecurityrequestEntity.Assistance.SECURITY_ESCORT;
+        case "Potential Threat":
+          assistance = SecurityrequestEntity.Assistance.POTENTIAL_THREAT;
+      }
+      SecurityrequestEntity submission =
+          new SecurityrequestEntity(
+              nameBox.getText(),
+              person,
+              location,
+              descBox.getText(),
+              urgent,
+              ServicerequestEntity.RequestType.SECURITY,
+              ServicerequestEntity.Status.BLANK,
+              "Unassigned",
+              assistance,
+              phone.getText());
+      session.persist(submission);
+      tx.commit();
+      session.close();
+      // submission.insert(); // *some db thing for getting the request in there*
     }
 
+    switchToConfirmationScene(event);
+  }
 
   @FXML
   void clearForm() {
