@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -15,9 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 public class NodeController extends ServiceRequestController {
 
@@ -32,40 +33,38 @@ public class NodeController extends ServiceRequestController {
   @FXML public MFXButton refresh;
 
   private Session session;
-  private SessionFactory sf;
   private List<NodeEntity> data;
 
   private ObservableList<NodeEntity> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-    Configuration configuration = new Configuration();
-    configuration.configure("hibernate.cfg.xml");
-    sf = configuration.buildSessionFactory();
-    session = sf.openSession();
+    session = getSessionFactory().openSession();
 
     reloadData();
+
     nodeCol.setCellValueFactory(new PropertyValueFactory<>("nodeid"));
     xCol.setCellValueFactory(new PropertyValueFactory<>("xcoord"));
     yCol.setCellValueFactory(new PropertyValueFactory<>("ycoord"));
     floorCol.setCellValueFactory(new PropertyValueFactory<>("floor"));
     buildingCol.setCellValueFactory(new PropertyValueFactory<>("building"));
     dbTable.setItems(dbTableRowsModel);
+
     editableColumns();
     dbTable.setEditable(true);
   }
 
+  /** Clear and retrieve all table rows again With hibernate only use once at start */
   public void reloadData() {
     dbTableRowsModel.clear();
     try {
-      data = session.createQuery("from NodeEntity ", NodeEntity.class).getResultList();
+      data = getAllRecords(NodeEntity.class, session);
+      dbTableRowsModel.addAll(data);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-    for (NodeEntity node : data) {
-      dbTableRowsModel.add(node);
-    }
   }
 
+  /** Set cells to respond to modification and try to commit changes to the database */
   public void editableColumns() {
     nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
     xCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -86,7 +85,6 @@ public class NodeController extends ServiceRequestController {
             refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
-          reloadData();
         });
     yCol.setOnEditCommit(
         e -> {
@@ -102,7 +100,6 @@ public class NodeController extends ServiceRequestController {
             refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
-          reloadData();
         });
     floorCol.setOnEditCommit(
         e -> {
@@ -116,7 +113,6 @@ public class NodeController extends ServiceRequestController {
             refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
-          reloadData();
         });
     buildingCol.setOnEditCommit(
         e -> {
@@ -130,7 +126,6 @@ public class NodeController extends ServiceRequestController {
             refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
-          reloadData();
         });
   }
 
