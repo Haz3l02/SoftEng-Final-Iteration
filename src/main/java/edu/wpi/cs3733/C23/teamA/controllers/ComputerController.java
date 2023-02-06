@@ -159,7 +159,7 @@ public class ComputerController extends ServiceRequestController {
             new ComputerrequestEntity(
                 nameBox.getText(),
                 person,
-                locationBox.getText(),
+                location,
                 descBox.getText(),
                 urgent,
                 ServicerequestEntity.RequestType.COMPUTER,
