@@ -118,20 +118,12 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: true;" text="Request Path" wrappingWidth="600.21630859375">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Text>
             <AnchorPane prefHeight="200.0" prefWidth="500.0">
                <children>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                  <StackPane layoutX="138.0" prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="mapImage" fitHeight="170.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
-                        <Canvas fx:id="mapCanvas" height="170.0" width="250.0" />
+                        <ImageView fx:id="mapImage" fitHeight="221.0" fitWidth="325.0" pickOnBounds="true" preserveRatio="true" />
+                        <Canvas fx:id="mapCanvas" height="221.0" width="325.0" />
                      </children>
                   </StackPane>
                </children>

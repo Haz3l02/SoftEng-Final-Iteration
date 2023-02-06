@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javafx.scene.canvas.GraphicsContext;
 
 // Contains methods from AStar, DFS, PathInterpreter, and CSVReader

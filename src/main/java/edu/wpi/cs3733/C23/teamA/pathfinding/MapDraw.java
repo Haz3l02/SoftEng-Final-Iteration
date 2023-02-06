@@ -71,7 +71,6 @@ public class MapDraw {
 
   public static void drawNodes(GraphicsContext gc, ArrayList<Node> allNodes, double scaleFactor) {
     gc.setFill(Color.web("0x224870"));
-    gc.setStroke(Color.web("0x224870"));
 
     // draw circle for each node
     for (Node n : allNodes) {
