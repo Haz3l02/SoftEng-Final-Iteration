@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 public class Main {
 
@@ -11,19 +12,19 @@ public class Main {
 
     // AApp.launch(AApp.class, args);
 
-    Configuration configuration = new Configuration();
-    configuration.configure("hibernate.cfg.xml");
-    SessionFactory factory = configuration.buildSessionFactory();
-    Session session = factory.openSession();
-
+    SessionFactory sessionFactory = ADBSingletonClass.getSessionFactory();
+    Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
+
+    ComputerrequestEntity com = new ComputerrequestEntity();
+    com.setRequestid(1);
+    session.merge(com);
+
     tx.commit();
     session.close();
 
-    // ComputerrequestEntity com = new ComputerrequestEntity();
-
-    // com.editComputerRequest(
-    //   3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
+    //    com.editComputerRequest(
+    //       3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
     //    SanitationrequestEntity sanreq =
     //        new SanitationrequestEntity(
     //            "Clean",
@@ -37,5 +38,7 @@ public class Main {
     //            SanitationrequestEntity.Category.BIOHAZARD);
     //
     //    session.persist(sanreq);
+    //    tx.commit();
+    //    session.close();
   }
 }
