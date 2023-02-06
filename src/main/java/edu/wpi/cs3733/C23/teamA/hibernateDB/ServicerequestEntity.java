@@ -3,6 +3,8 @@ package edu.wpi.cs3733.C23.teamA.hibernateDB;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.Getter;
@@ -173,5 +175,15 @@ public class ServicerequestEntity {
   //    List<ServicerequestEntity> data = session.createQuery(criteria).getResultList();
   //    return data;
   //  }
+
+  public static ArrayList<ServicerequestEntity> getServiceByEmployee(List<ServicerequestEntity> all, String id){
+    ArrayList<ServicerequestEntity> fin = new ArrayList<>();
+    for (ServicerequestEntity ser : all){
+      if (ser.getEmployee().getEmployeeid().equals(id)){
+        fin.add(ser);
+      }
+    }
+    return fin;
+  }
 
 }
