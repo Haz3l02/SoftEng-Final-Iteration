@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity.findAllService;
+
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import jakarta.persistence.*;
 import org.hibernate.Session;
@@ -21,7 +23,7 @@ public class Main {
     // LocationnameEntity loc =
     //    new LocationnameEntity("Anesthesia Conf Floor L1", "Conf C001L1", "CONF");
     // session.persist(loc);
-    EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+    /*EmployeeEntity person = session.get(EmployeeEntity.class, "123");
     LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
     ComputerrequestEntity com =
         new ComputerrequestEntity(
@@ -35,7 +37,11 @@ public class Main {
             "Harrison",
             "365",
             ComputerrequestEntity.Device.DESKTOP);
-    session.persist(com);
+    session.persist(com);*/
+
+//    for (ServicerequestEntity ser : findAllService()) {
+//      System.out.println(ser.getRequestid());
+//    }
 
     tx.commit();
     session.close();
