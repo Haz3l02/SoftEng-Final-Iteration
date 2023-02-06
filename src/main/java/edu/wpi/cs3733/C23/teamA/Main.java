@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.loadAllData;
+
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import jakarta.persistence.*;
 import java.io.IOException;
@@ -40,7 +43,7 @@ public class Main {
 
     // AApp.launch(AApp.class, args);
 
-    Session session = ADBSingletonClass.getSessionFactory().openSession();
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     // EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson
@@ -50,7 +53,7 @@ public class Main {
     // LocationnameEntity loc =
     //    new LocationnameEntity("Anesthesia Conf Floor L1", "Conf C001L1", "CONF");
     // session.persist(loc);
-    EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+    /*EmployeeEntity person = session.get(EmployeeEntity.class, "123");
     LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
     ComputerrequestEntity com =
         new ComputerrequestEntity(
@@ -64,7 +67,11 @@ public class Main {
             "Harrison",
             "365",
             ComputerrequestEntity.Device.DESKTOP);
-    session.persist(com);
+    session.persist(com);*/
+
+    for (ServicerequestEntity ser : loadAllData(ServicerequestEntity.class, session)) {
+      System.out.println(ser.getRequestid());
+    }
 
     tx.commit();
     session.close();
