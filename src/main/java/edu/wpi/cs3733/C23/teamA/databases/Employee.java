@@ -26,20 +26,12 @@ public class Employee {
   }
 
   // Returns employeeID if correct, empty String is rejected
-  public ArrayList<String> checkPass(String user, String pwd) throws SQLException {
-    ArrayList<String> info = new ArrayList<String>();
+  public String checkPass(String user, String pwd) throws SQLException {
     String sql = "SELECT * FROM Employee where username = '" + user + "';";
     ResultSet rs = Adb.processQuery(sql);
     if (rs.next()) {
-      if (rs.getString("password").equals(pwd)) {
-        info.add(rs.getString("employeeID"));
-        info.add(rs.getString("job"));
-        // return rs.getString("employeeID");
-        return info;
-      }
+      if (rs.getString("password").equals(pwd)) return rs.getString("employeeID");
     }
-    info.add("");
-    info.add("");
-    return info;
+    return "";
   }
 }

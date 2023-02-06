@@ -11,6 +11,7 @@ import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+// Testing class for database connection with PathfindingController
 public class DatabaseTest {
 
   static HashMap<String, GraphNode> graph = new HashMap<String, GraphNode>();
