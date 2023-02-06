@@ -17,7 +17,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table(name = "servicerequest")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServicerequestEntity {
-  @TableGenerator(name = "yourTableGenerator", allocationSize = 1, initialValue = 1)
+  @TableGenerator(name = "yourTableGenerator", allocationSize = 1, initialValue = 0)
   @GeneratedValue(
       strategy = GenerationType.TABLE,
       generator = "yourTableGenerator") // (strategy = GenerationType.AUTO,)
