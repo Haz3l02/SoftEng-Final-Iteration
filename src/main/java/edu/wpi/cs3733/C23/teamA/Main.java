@@ -15,20 +15,31 @@ public class Main {
 
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-
-    // EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson
+    //    EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson
     // Wong");
-    // session.persist(person);
+    //    session.persist(person);
 
-    // LocationnameEntity loc =
-    //    new LocationnameEntity("Anesthesia Conf Floor L1", "Conf C001L1", "CONF");
-    // session.persist(loc);
-    EmployeeEntity person = session.get(EmployeeEntity.class, "123");
-    /*LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
-    ComputerrequestEntity com =
+    EmployeeEntity person2 = session.get(EmployeeEntity.class, "123");
+
+    LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
+
+    SecurityrequestEntity sec =
+        new SecurityrequestEntity(
+            "Need backup",
+            person2,
+            loc,
+            "HELP",
+            ServicerequestEntity.Urgency.EXTREMELY_URGENT,
+            ServicerequestEntity.RequestType.SECURITY,
+            ServicerequestEntity.Status.BLANK,
+            "Wong",
+            SecurityrequestEntity.Assistance.HARASSMENT,
+            "911");
+    session.persist(sec);
+    /*ComputerrequestEntity com =
         new ComputerrequestEntity(
             "PC help",
-            person,
+            person2,
             loc,
             "Need help",
             ServicerequestEntity.Urgency.EXTREMELY_URGENT,
@@ -38,10 +49,12 @@ public class Main {
             "365",
             ComputerrequestEntity.Device.DESKTOP);
     session.persist(com);*/
-
-    for (ServicerequestEntity ser : getAllRecords(ServicerequestEntity.class, session)) {
-      System.out.println(ser.getRequestid());
-    }
+    //    List<ServicerequestEntity> reqs = getAllRecords(ServicerequestEntity.class, session);
+    //
+    //    for (ServicerequestEntity ser : reqs) {
+    //      System.out.println("Hi");
+    //      System.out.println(ser.getRequestid());
+    //    }
 
     tx.commit();
     session.close();

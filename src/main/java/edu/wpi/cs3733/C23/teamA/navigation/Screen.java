@@ -17,7 +17,8 @@ public enum Screen {
   EDGE("views/EdgeFXML.fxml"),
   PATHFINDING("views/PathfindingFXML.fxml"),
   SERVICE_REQUEST_STATUS("views/ServiceRequestStatusNewFXML.fxml"),
-  ID_INPUT("views/IDInputFXML.fxml");
+  ID_INPUT("views/IDInputFXML.fxml"),
+  MAP("views/MapFXML.fxml");
 
   private final String filename;
 
