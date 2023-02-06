@@ -2,13 +2,12 @@ package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-import java.util.List;
 
 public class ADBSingletonClass {
 
@@ -24,8 +23,6 @@ public class ADBSingletonClass {
     }
     return factory;
   }
-
-
 
   public static <T> List<T> getAllRecords(Class<T> type, Session session) {
     CriteriaBuilder builder = session.getCriteriaBuilder();

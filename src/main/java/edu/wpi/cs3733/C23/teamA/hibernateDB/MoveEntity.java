@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "move", catalog = "dba")
+@Table(name = "move")
 // @IdClass(MoveEntityPK.class)
 public class MoveEntity {
 

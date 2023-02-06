@@ -7,7 +7,6 @@ import lombok.Setter;
 @Entity
 @Table(
     name = "employee",
-    catalog = "dba",
     uniqueConstraints =
         @UniqueConstraint(
             name = "uk_emp_username",
@@ -65,6 +64,4 @@ public class EmployeeEntity {
   }
 
   public EmployeeEntity() {}
-
-
 }

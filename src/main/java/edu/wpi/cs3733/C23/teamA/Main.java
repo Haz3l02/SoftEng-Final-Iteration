@@ -1,11 +1,11 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.*;
+
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.*;
 
 public class Main {
 
@@ -23,8 +23,8 @@ public class Main {
     // LocationnameEntity loc =
     //    new LocationnameEntity("Anesthesia Conf Floor L1", "Conf C001L1", "CONF");
     // session.persist(loc);
-    /*EmployeeEntity person = session.get(EmployeeEntity.class, "123");
-    LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
+    EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+    /*LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
     ComputerrequestEntity com =
         new ComputerrequestEntity(
             "PC help",
