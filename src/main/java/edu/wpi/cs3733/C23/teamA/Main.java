@@ -1,9 +1,6 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import jakarta.persistence.*;
 import java.io.IOException;
 import java.net.URI;
@@ -49,12 +46,17 @@ public class Main {
     // EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson
     // Wong");
     // session.persist(person);
+
+    // LocationnameEntity loc =
+    //    new LocationnameEntity("Anesthesia Conf Floor L1", "Conf C001L1", "CONF");
+    // session.persist(loc);
     EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+    LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
     ComputerrequestEntity com =
         new ComputerrequestEntity(
             "PC help",
             person,
-            "There",
+            loc,
             "Need help",
             ServicerequestEntity.Urgency.EXTREMELY_URGENT,
             ServicerequestEntity.RequestType.COMPUTER,
