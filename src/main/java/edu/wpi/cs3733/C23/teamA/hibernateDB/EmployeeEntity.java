@@ -5,7 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "employee", catalog = "dba")
+@Table(
+    name = "employee",
+    catalog = "dba",
+    uniqueConstraints =
+        @UniqueConstraint(
+            name = "uk_emp_username",
+            columnNames = {"username"}))
 public class EmployeeEntity {
 
   @Id
@@ -15,7 +21,7 @@ public class EmployeeEntity {
   private String employeeid;
 
   @Basic
-  @Column(name = "username", nullable = false, length = -1, unique = true)
+  @Column(name = "username", nullable = false, length = -1)
   @Getter
   @Setter
   private String username;

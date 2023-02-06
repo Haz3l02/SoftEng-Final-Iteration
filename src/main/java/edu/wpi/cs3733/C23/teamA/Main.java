@@ -19,6 +19,7 @@ public class Main {
 
     // EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson
     // Wong");
+    // session.persist(person);
     EmployeeEntity person = session.get(EmployeeEntity.class, "123");
     ComputerrequestEntity com =
         new ComputerrequestEntity(
