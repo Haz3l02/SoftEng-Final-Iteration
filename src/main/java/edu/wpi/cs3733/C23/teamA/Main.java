@@ -1,8 +1,5 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.loadAllData;
-
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import jakarta.persistence.*;
 import java.io.IOException;
@@ -12,6 +9,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.*;
 
 public class Main {
 
@@ -69,7 +68,7 @@ public class Main {
             ComputerrequestEntity.Device.DESKTOP);
     session.persist(com);*/
 
-    for (ServicerequestEntity ser : loadAllData(ServicerequestEntity.class, session)) {
+    for (ServicerequestEntity ser : getAllRecords(ServicerequestEntity.class, session)) {
       System.out.println(ser.getRequestid());
     }
 

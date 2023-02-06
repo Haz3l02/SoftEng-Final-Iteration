@@ -14,6 +14,8 @@ import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+
 @Entity
 @Table(name = "servicerequest", catalog = "dba")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -176,7 +178,8 @@ public class ServicerequestEntity {
   //    return data;
   //  }
 
-  public static ArrayList<ServicerequestEntity> getServiceByEmployee(List<ServicerequestEntity> all, String id){
+  public static ArrayList<ServicerequestEntity> getServiceByEmployee(String id, Session session){
+    List<ServicerequestEntity> all = getAllRecords(ServicerequestEntity.class, session);
     ArrayList<ServicerequestEntity> fin = new ArrayList<>();
     for (ServicerequestEntity ser : all){
       if (ser.getEmployee().getEmployeeid().equals(id)){
