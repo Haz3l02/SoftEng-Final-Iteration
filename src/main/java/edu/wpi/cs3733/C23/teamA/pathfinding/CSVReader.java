@@ -16,10 +16,10 @@ public class CSVReader {
    * This will add nodes to a specified "graph" (HashMap<String>, Node) from a .csv file.
    *
    * @param path The "Path from Repository Root" for a Node .csv file.
-   * @param graph is the HashMap<String, Node> we want to add Nodes too.
+   * @param graph is the Graph with the HashMap<String, Node> we want to add Nodes too.
    * @throws IOException if the file cannot be found/read
    */
-  public static void readNodes(String path, HashMap<String, GraphNode> graph) throws IOException {
+  public static void readNodes(String path, Graph graph) throws IOException {
     // create a scanner to import the CSV
     Scanner csvScanner = new Scanner(new File(path));
     csvScanner.useDelimiter(",");
@@ -46,7 +46,7 @@ public class CSVReader {
                 entries[5],
                 entries[6],
                 entries[7]);
-        graph.put(entries[0], node);
+        graph.addNode(entries[0], node);
       } else {
         throw new InvalidPropertiesFormatException("Improper Number of Columns or Commas");
       }
@@ -64,7 +64,7 @@ public class CSVReader {
    *     for
    * @throws IOException if the file cannot be found/read
    */
-  public static void readEdges(String path, HashMap<String, GraphNode> graph) throws IOException {
+  public static void readEdges(String path, Graph graph) throws IOException {
     // create a scanner to import the CSV
     Scanner csvScanner = new Scanner(new File(path));
     csvScanner.useDelimiter(",");
@@ -82,8 +82,8 @@ public class CSVReader {
       // Making sure the correct number of entries exist (should have 3 columns)
       if (entries.length == 3) {
         // node with value entries[1] adds entries[2] to neighbors and vice versa
-        GraphNode node1 = graph.get(entries[1]);
-        GraphNode node2 = graph.get(entries[2]);
+        GraphNode node1 = graph.getGraph().get(entries[1]);
+        GraphNode node2 = graph.getGraph().get(entries[2]);
         node1.addNeighbor(node2);
         node2.addNeighbor(node1);
       } else {
