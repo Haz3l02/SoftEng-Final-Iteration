@@ -106,7 +106,7 @@ public class SecurityController extends ServiceRequestController {
       switch (requestsBox.getValue()) {
         case "Harassment":
           assistance = SecurityrequestEntity.Assistance.HARASSMENT;
-        case "Security Threat":
+        case "Security Escort":
           assistance = SecurityrequestEntity.Assistance.SECURITY_ESCORT;
         case "Potential Threat":
           assistance = SecurityrequestEntity.Assistance.POTENTIAL_THREAT;
