@@ -5,9 +5,12 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 @Entity
-@Table(name = "computerrequest", catalog = "dba")
+@Table(name = "computerrequest", catalog = "teamadb")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
 public class ComputerrequestEntity extends ServicerequestEntity {
 
@@ -92,7 +95,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
     this.device = device;
   }
 
-  /*public void editComputerRequest(
+  public void editComputerRequest(
       int requestId,
       String name,
       String idNum,
@@ -109,7 +112,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
 
-    ComputerrequestEntity comRqst = Adb.getInstance().load(ComputerrequestEntity.class, 1);
+    ComputerrequestEntity comRqst = session.load(ComputerrequestEntity.class, 1);
     comRqst.setName(name);
     comRqst.setName(idNum);
     comRqst.setName(location);
@@ -124,5 +127,5 @@ public class ComputerrequestEntity extends ServicerequestEntity {
 
     tx.commit();
     session.close();
-  }*/
+  }
 }

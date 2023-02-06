@@ -18,12 +18,13 @@ public class Main {
 
     ComputerrequestEntity com = new ComputerrequestEntity();
     com.setRequestid(1);
+    session.merge(com);
 
     tx.commit();
     session.close();
 
-    com.editComputerRequest(
-        3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
+    //    com.editComputerRequest(
+    //       3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
     //    SanitationrequestEntity sanreq =
     //        new SanitationrequestEntity(
     //            "Clean",
