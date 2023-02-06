@@ -129,7 +129,7 @@ public class ServicerequestEntity {
       int requestid,
       String name,
       EmployeeEntity employee,
-      String location,
+      LocationnameEntity location,
       String description,
       Urgency urgency,
       RequestType requesttype,
@@ -151,7 +151,7 @@ public class ServicerequestEntity {
   public ServicerequestEntity(
       String name,
       EmployeeEntity employee,
-      String location,
+      LocationnameEntity location,
       String description,
       Urgency urgency,
       RequestType requesttype,
