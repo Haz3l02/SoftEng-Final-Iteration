@@ -6,7 +6,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Scanner;
 
 /*
-This class can read CSVs given their path and puts the nodes or edges from
+This class can read CSVs and puts the nodes or edges from
 the csv into a graph. readEdges method should be run after the readNodes
 method using the same node names and graph
  */
