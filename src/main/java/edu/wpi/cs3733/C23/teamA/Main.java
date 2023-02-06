@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity.findAllService;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.loadAllData;
 
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import jakarta.persistence.*;
@@ -13,7 +14,7 @@ public class Main {
 
     // AApp.launch(AApp.class, args);
 
-    Session session = ADBSingletonClass.getSessionFactory().openSession();
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     // EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson
@@ -39,9 +40,9 @@ public class Main {
             ComputerrequestEntity.Device.DESKTOP);
     session.persist(com);*/
 
-//    for (ServicerequestEntity ser : findAllService()) {
-//      System.out.println(ser.getRequestid());
-//    }
+    for (ServicerequestEntity ser : loadAllData(ServicerequestEntity.class, session)) {
+      System.out.println(ser.getRequestid());
+    }
 
     tx.commit();
     session.close();
