@@ -4,7 +4,6 @@ import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity;
 import jakarta.persistence.*;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 public class Main {
@@ -13,8 +12,7 @@ public class Main {
 
     // AApp.launch(AApp.class, args);
 
-    SessionFactory sessionFactory = ADBSingletonClass.getSessionFactory();
-    Session session = sessionFactory.openSession();
+    Session session = ADBSingletonClass.getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson Wong");

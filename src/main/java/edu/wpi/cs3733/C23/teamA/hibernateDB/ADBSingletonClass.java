@@ -1,8 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
 public class ADBSingletonClass {
 
@@ -11,11 +12,10 @@ public class ADBSingletonClass {
   private ADBSingletonClass() {}
 
   public static synchronized SessionFactory getSessionFactory() {
+    StandardServiceRegistry registry;
     if (factory == null) {
-      Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
-      StandardServiceRegistryBuilder builder =
-          new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-      factory = configuration.buildSessionFactory(builder.build());
+      registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+      factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
     return factory;
   }
