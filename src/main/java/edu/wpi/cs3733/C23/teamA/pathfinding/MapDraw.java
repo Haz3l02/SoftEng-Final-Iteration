@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import edu.wpi.cs3733.C23.teamA.databases.Node;
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -17,10 +18,8 @@ public class MapDraw {
    *     for us, this is going to be 0.30 (subject to change)
    * @return an int array with the pair of new coordinates
    */
-  private static int[] scaleCoordinates(GraphNode node, double scaleFactor) {
+  private static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
     // get the coordinates from the node
-    double xCoord = node.getXCoord();
-    double yCoord = node.getYCoord();
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
     xCoord = Math.floor(xCoord * scaleFactor);
@@ -45,7 +44,8 @@ public class MapDraw {
     // set the prev values and draw the starting circle
     int size = path.size();
     if (size > 0) {
-      int[] updatedCoords = scaleCoordinates(path.get(0), scaleFactor);
+      int[] updatedCoords =
+          scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), scaleFactor);
       prevX = updatedCoords[0];
       prevY = updatedCoords[1];
       gc.fillOval(prevX - 4, prevY - 4, 8, 8); // starting circle
@@ -57,7 +57,7 @@ public class MapDraw {
 
     // get all node x and y coords to draw lines between them
     for (GraphNode g : path) {
-      int[] updatedCoords = scaleCoordinates(g, scaleFactor);
+      int[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), scaleFactor);
       currentX = updatedCoords[0];
       currentY = updatedCoords[1];
 
@@ -66,5 +66,16 @@ public class MapDraw {
       prevY = currentY;
     }
     gc.strokeOval(prevX - 2.5, prevY - 2.5, 5, 5); // ending open circle
+  }
+
+  public static void drawNodes(GraphicsContext gc, ArrayList<Node> allNodes, double scaleFactor) {
+    gc.setFill(Color.web("0x224870"));
+    gc.setStroke(Color.web("0x224870"));
+
+    // draw circle for each node
+    for (Node n : allNodes) {
+      int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
+      gc.fillOval(updatedCoords[0] - 2.5, updatedCoords[1] - 2.5, 5, 5);
+    }
   }
 }

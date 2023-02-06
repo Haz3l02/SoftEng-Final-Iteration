@@ -1,10 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
-import javafx.scene.canvas.GraphicsContext;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.canvas.GraphicsContext;
 
 // Contains methods from AStar, DFS, PathInterpreter, and CSVReader
 public class PathfindingSystem {
@@ -37,7 +36,7 @@ public class PathfindingSystem {
     CSVReader.readEdges(pathForEdges, graph);
   }
 
-  public void drawPath(GraphicsContext gc, ArrayList<GraphNode> path, double scaleFactor){
-      MapDraw.drawPath(gc, path, scaleFactor);
+  public void drawPath(GraphicsContext gc, ArrayList<GraphNode> path, double scaleFactor) {
+    MapDraw.drawPath(gc, path, scaleFactor);
   }
 }
