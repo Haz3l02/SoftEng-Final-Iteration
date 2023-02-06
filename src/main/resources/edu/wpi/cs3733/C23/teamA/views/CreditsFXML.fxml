@@ -47,7 +47,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Security: Isabella and Chris">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Security: Isabella and Izzy">
                <font>
                   <Font size="14.0" />
                </font>
@@ -57,6 +57,7 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pathfinding: Sarah and Audrey" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Home Page: Chris" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Landing Page: Chris" />
          </children>
       </VBox>
    </center>
