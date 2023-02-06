@@ -1,9 +1,8 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.*;
+
+import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -14,17 +13,23 @@ public class Main {
 
     // AApp.launch(AApp.class, args);
 
-    Session session = ADBSingletonClass.getSessionFactory().openSession();
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     // EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson
     // Wong");
+    // session.persist(person);
+
+    // LocationnameEntity loc =
+    //    new LocationnameEntity("Anesthesia Conf Floor L1", "Conf C001L1", "CONF");
+    // session.persist(loc);
     EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+    /*LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
     ComputerrequestEntity com =
         new ComputerrequestEntity(
             "PC help",
             person,
-            "There",
+            loc,
             "Need help",
             ServicerequestEntity.Urgency.EXTREMELY_URGENT,
             ServicerequestEntity.RequestType.COMPUTER,
@@ -32,7 +37,11 @@ public class Main {
             "Harrison",
             "365",
             ComputerrequestEntity.Device.DESKTOP);
-    session.persist(com);
+    session.persist(com);*/
+
+    for (ServicerequestEntity ser : getAllRecords(ServicerequestEntity.class, session)) {
+      System.out.println(ser.getRequestid());
+    }
 
     tx.commit();
     session.close();

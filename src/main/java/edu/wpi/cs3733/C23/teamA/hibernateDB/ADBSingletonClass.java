@@ -1,5 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import java.util.List;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -24,5 +28,13 @@ public class ADBSingletonClass {
       }
     }
     return factory;
+  }
+
+  public static <T> List<T> getAllRecords(Class<T> type, Session session) {
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<T> criteria = builder.createQuery(type);
+    criteria.from(type);
+    List<T> records = session.createQuery(criteria).getResultList();
+    return records;
   }
 }

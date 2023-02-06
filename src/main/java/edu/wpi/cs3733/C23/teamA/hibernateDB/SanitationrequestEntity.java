@@ -7,7 +7,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
-@Table(name = "sanitationrequest", catalog = "dba")
+@Table(name = "sanitationrequest")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
 public class SanitationrequestEntity extends ServicerequestEntity {
 
@@ -42,7 +42,7 @@ public class SanitationrequestEntity extends ServicerequestEntity {
       int requestid,
       String name,
       EmployeeEntity employee,
-      String location,
+      LocationnameEntity location,
       String description,
       Urgency urgency,
       RequestType requesttype,
@@ -67,7 +67,7 @@ public class SanitationrequestEntity extends ServicerequestEntity {
   public SanitationrequestEntity(
       String name,
       EmployeeEntity employee,
-      String location,
+      LocationnameEntity location,
       String description,
       Urgency urgency,
       RequestType requesttype,

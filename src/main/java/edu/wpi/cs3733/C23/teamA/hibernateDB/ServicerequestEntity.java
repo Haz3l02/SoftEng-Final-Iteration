@@ -1,15 +1,20 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "servicerequest", catalog = "teamadb")
+@Table(name = "servicerequest")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServicerequestEntity {
   @TableGenerator(name = "yourTableGenerator", allocationSize = 1, initialValue = 1)
@@ -35,11 +40,11 @@ public class ServicerequestEntity {
   @Getter
   private EmployeeEntity employee;
 
-  @Basic
-  @Column(name = "location", nullable = false, length = -1)
+  @ManyToOne
+  @JoinColumn(name = "location", foreignKey = @ForeignKey(name = "longname"))
   @Setter
   @Getter
-  private String location;
+  private LocationnameEntity location;
 
   @Basic
   @Column(name = "description", nullable = false, length = -1)
@@ -160,5 +165,25 @@ public class ServicerequestEntity {
     this.requesttype = requesttype;
     this.status = status;
     this.employeeassigned = employeeassigned;
+  }
+
+  //  public static List<ServicerequestEntity> findAllService() {
+  //    Session session = getSessionFactory().openSession();
+  //    CriteriaBuilder builder = session.getCriteriaBuilder();
+  //    CriteriaQuery<ServicerequestEntity> criteria = builder.createQuery(ServicerequestEntity);
+  //    //criteria.from();
+  //    List<ServicerequestEntity> data = session.createQuery(criteria).getResultList();
+  //    return data;
+  //  }
+
+  public static ArrayList<ServicerequestEntity> getServiceByEmployee(String id, Session session) {
+    List<ServicerequestEntity> all = getAllRecords(ServicerequestEntity.class, session);
+    ArrayList<ServicerequestEntity> fin = new ArrayList<>();
+    for (ServicerequestEntity ser : all) {
+      if (ser.getEmployee().getEmployeeid().equals(id)) {
+        fin.add(ser);
+      }
+    }
+    return fin;
   }
 }

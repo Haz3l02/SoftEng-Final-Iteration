@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "locationname", catalog = "dba")
+@Table(name = "locationname")
 public class LocationnameEntity {
 
   @Id
@@ -34,6 +34,14 @@ public class LocationnameEntity {
     LocationnameEntity loc = (LocationnameEntity) obj;
     return (this.longname.equals(loc.getLongname()));
   }
+
+  public LocationnameEntity(String longname, String shortname, String locationtype) {
+    this.longname = longname;
+    this.shortname = shortname;
+    this.locationtype = locationtype;
+  }
+
+  public LocationnameEntity() {}
 
   //  @Column(name = "moves", nullable = false)
   //  @Getter
