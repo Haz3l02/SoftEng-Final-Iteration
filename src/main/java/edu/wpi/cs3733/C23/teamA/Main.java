@@ -41,8 +41,7 @@ public class Main {
                 response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
     System.out.println("\"" + quote + "\" -" + author);
     AApp.launch(AApp.class, args);
-  }
-  public static void main(String[] args) {
+
 
     // AApp.launch(AApp.class, args);
 
