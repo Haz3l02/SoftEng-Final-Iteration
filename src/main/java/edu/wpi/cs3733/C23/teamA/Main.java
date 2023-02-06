@@ -4,16 +4,14 @@ import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.*;
 
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import jakarta.persistence.*;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class Main {
 
   public static void main(String[] args) {
 
-    // AApp.launch(AApp.class, args);
+    AApp.launch(AApp.class, args);
 
-    Session session = getSessionFactory().openSession();
+    /*Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     //    EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson
     // Wong");
@@ -56,8 +54,8 @@ public class Main {
     //      System.out.println(ser.getRequestid());
     //    }
 
-    tx.commit();
-    session.close();
+    // tx.commit();
+    // session.close();
 
     //    com.editComputerRequest(
     //       3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
