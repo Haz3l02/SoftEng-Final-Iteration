@@ -15,7 +15,7 @@ public class EmployeeEntity {
   private String employeeid;
 
   @Basic
-  @Column(name = "username", nullable = false, length = -1)
+  @Column(name = "username", nullable = false, length = -1, unique = true)
   @Getter
   @Setter
   private String username;
@@ -48,4 +48,15 @@ public class EmployeeEntity {
   //    this.requests.add(req);
   //    return this;
   //  }
+
+  public EmployeeEntity(
+      String employeeid, String username, String password, String job, String name) {
+    this.employeeid = employeeid;
+    this.username = username;
+    this.password = password;
+    this.job = job;
+    this.name = name;
+  }
+
+  public EmployeeEntity() {}
 }

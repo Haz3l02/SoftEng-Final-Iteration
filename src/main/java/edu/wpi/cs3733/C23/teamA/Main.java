@@ -1,7 +1,8 @@
 package edu.wpi.cs3733.C23.teamA;
 
 import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity;
+import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,9 +17,9 @@ public class Main {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
 
-    ComputerrequestEntity com = new ComputerrequestEntity();
-    com.setRequestid(1);
-    session.merge(com);
+    EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson Wong");
+    // ComputerrequestEntity com = new ComputerrequestEntity("PC help", );
+    session.persist(person);
 
     tx.commit();
     session.close();
