@@ -74,11 +74,11 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     hospitalID = holder.getId();
     job = holder.getJob();
 
-    if (job.equals("medical")) {
+    if (job.equals("Medical") || job.equals("medical")) {
       statusBox.setDisable(true);
       employeeBox.setDisable(true);
-      formTypeBox.setDisable(false);
-      dateBox.setDisable(false);
+      formTypeBox.setDisable(true);
+      dateBox.setDisable(true);
       urgencyBox.setDisable(false);
 
     } else {
@@ -104,7 +104,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     // ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
     List<ServicerequestEntity> requests = new ArrayList<ServicerequestEntity>();
 
-    if (job.equals("medical")) {
+    if (job.equals("medical") || job.equals("Medical")) {
       // specificRequests = sr.getServiceRequestsByID(hospitalID);
       requests = getServiceByEmployee(hospitalID, session);
 
@@ -144,7 +144,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
       urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
       employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
-      if (hospitalID.equals("123")) {
+      if (job.equals("Medical") || job.equals("medical")) {
         editForm.setVisible(true);
       }
     }

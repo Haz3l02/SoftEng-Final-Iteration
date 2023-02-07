@@ -9,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,6 +32,10 @@ public class SanitationController extends ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
+    IdNumberHolder holder = IdNumberHolder.getInstance();
+    String name = holder.getName();
+    String id = holder.getId();
+
     if (reminder != null) {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
@@ -62,6 +67,9 @@ public class SanitationController extends ServiceRequestController {
       }
 
       Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
+
+      nameBox.setText(name);
+      IDNum.setText(id);
 
       categoryBox.setItems(categories);
       urgencyBox.setItems(urgencies);
@@ -136,7 +144,7 @@ public class SanitationController extends ServiceRequestController {
 
         Session session = ADBSingletonClass.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+        EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
         // IDNum.getText()
         LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
         switch (urgencyBox.getValue()) {

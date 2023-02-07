@@ -9,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
@@ -32,6 +33,10 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
+    IdNumberHolder holder = IdNumberHolder.getInstance();
+    String name = holder.getName();
+    String id = holder.getId();
+
     if (reminder != null) {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
@@ -66,6 +71,9 @@ public class ComputerController extends ServiceRequestController {
       }
 
       Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
+
+      nameBox.setText(name);
+      IDNum.setText(id);
 
       devicesBox.setItems(devices);
       urgencyBox.setItems(urgencies);

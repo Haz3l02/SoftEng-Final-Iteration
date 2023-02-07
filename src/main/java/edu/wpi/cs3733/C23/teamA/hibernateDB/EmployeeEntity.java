@@ -79,6 +79,7 @@ public class EmployeeEntity {
       if (emp.getUsername().equals(user) && emp.getPassword().equals(pass)) {
         info.add(emp.getEmployeeid());
         info.add(emp.getJob());
+        info.add(emp.getName());
 
         tx.commit();
         session.close();
@@ -86,6 +87,7 @@ public class EmployeeEntity {
         return info;
       }
     }
+    info.add("");
     info.add("");
     info.add("");
     tx.commit();

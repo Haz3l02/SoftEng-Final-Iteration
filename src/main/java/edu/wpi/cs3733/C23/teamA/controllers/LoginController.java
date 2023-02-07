@@ -57,6 +57,7 @@ public class LoginController {
       holder.setUsername(usernameTextField.getText());
       holder.setPassword(passwordTextField.getText());
       holder.setJob(info.get(1));
+      holder.setName(info.get(2));
       // tx.commit();
       session.close();
       Navigation.navigate(Screen.HOME);
