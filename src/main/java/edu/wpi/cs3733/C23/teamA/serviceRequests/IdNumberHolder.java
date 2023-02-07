@@ -9,7 +9,7 @@ public final class IdNumberHolder {
   private String name;
   private static final IdNumberHolder INSTANCE = new IdNumberHolder();
 
-  private IdNumberHolder() {}
+  public IdNumberHolder() {}
 
   public static IdNumberHolder getInstance() {
     return INSTANCE;

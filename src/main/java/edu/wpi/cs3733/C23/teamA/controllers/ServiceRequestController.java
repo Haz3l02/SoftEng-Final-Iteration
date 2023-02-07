@@ -8,7 +8,6 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
-import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,14 +33,11 @@ public abstract class ServiceRequestController {
   @FXML protected Text reminder;
   @FXML protected StackPane reminderPane;
 
+  // for the timer
+  public volatile boolean stop = false;
+
   @FXML MFXButton backButton;
   private PopOver popup;
-
-  @FXML
-  public void initialize() throws SQLException {
-    // This statement blocks Pathfinding from being opened... is it important?
-    // backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-  }
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
@@ -58,6 +54,7 @@ public abstract class ServiceRequestController {
 
   @FXML
   public void switchToHomeServiceRequestScene(ActionEvent event) throws IOException {
+    stop = true;
     Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
   }
 
@@ -75,7 +72,7 @@ public abstract class ServiceRequestController {
     alert.setTitle("Logout");
     alert.setHeaderText("You are about to log out!");
     alert.setContentText("Unsubmitted information in the form will be lost!");
-
+    stop = true;
     if (alert.showAndWait().get() == ButtonType.OK) {
       System.out.println("You have successfully logged out!");
       Navigation.navigate(Screen.LOGIN);

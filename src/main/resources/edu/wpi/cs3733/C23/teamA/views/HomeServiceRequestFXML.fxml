@@ -15,6 +15,11 @@
 
 <AnchorPane prefWidth="604.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeServiceRequestController">
    <children>
+      <VBox prefHeight="200.0" prefWidth="604.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="39.21630859375" />
+         </children>
+      </VBox>
       <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="114.0">
          <children>
             <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: BAD1EA; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
@@ -36,6 +41,18 @@
                                     <Font size="14.0" />
                                  </font>
                               </Text>
+                              <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css">
+                                 <children>
+                                    <MFXButton onAction="#switchToIDInput" prefHeight="28.0" prefWidth="125.0" style="-fx-background-color: #2A4494;" text="Past Submissions" textFill="WHITE" />
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE" />
+                                    <MFXButton alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
+                                    <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
+                                    <MFXButton onAction="#switchToCredits" style="-fx-background-color: #2A4494;" text="Credits" textFill="WHITE" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="-20.0" left="-20.0" />
+                                 </VBox.margin>
+                              </HBox>
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -48,47 +65,29 @@
                   </SplitPane>
                </top>
                <center>
-                  <VBox alignment="TOP_CENTER" prefHeight="330.0" prefWidth="602.0" BorderPane.alignment="CENTER_LEFT">
+                  <VBox alignment="TOP_CENTER" prefHeight="330.0" prefWidth="732.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="424.0" style="-fx-background-color: #2A4494;">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="602.0" spacing="30.0">
                            <children>
-                              <MFXButton onAction="#switchToSanitation" prefHeight="28.0" prefWidth="144.0" style="-fx-background-color: #2A4494;" text="Sanitation Request" textFill="WHITE" />
-                              <MFXButton onAction="#switchToComputer" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: #2A4494;" text="Computer Request" textFill="WHITE" />
-                              <MFXButton onAction="#switchToSecurity" prefHeight="28.0" prefWidth="121.0" style="-fx-background-color: #2A4494;" text="Security Request" textFill="WHITE" />
-                              <MFXButton fx:id="pastSubmissions" onAction="#switchToServiceRequestStatus" prefHeight="28.0" prefWidth="121.0" style="-fx-background-color: #2A4494;" text="Past Submissions" textFill="WHITE" />
+                              <MFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#switchToSanitation" prefHeight="30.0" prefWidth="140.0" rippleColor="#c0cced" style="-fx-background-color: #D0F3F2;" styleClass="BioHaz_container" stylesheets="@../assets/BioHazSmallStyle.css" text="Sanitation Request" />
+                              <MFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#switchToComputer" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: #D0F3F2;" styleClass="Comp_container" stylesheets="@../assets/CompSmallStyle.css" text="Computer Request" />
+                              <MFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#switchToSecurity" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: #D0F3F2;" styleClass="Sec_container" stylesheets="@../assets/SecuritySmallStyle.css" text="Security Request" />
                            </children>
                         </HBox>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/helth.jpg" />
                            </image>
-                           <VBox.margin>
-                              <Insets left="150.0" top="25.0" />
-                           </VBox.margin>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meme of the Day!">
-                           <font>
-                              <Font name="Chalkduster" size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="150.0" />
-                           </VBox.margin>
-                        </Text>
                      </children>
                      <BorderPane.margin>
-                        <Insets />
+                        <Insets top="100.0" />
                      </BorderPane.margin>
                   </VBox>
                </center>
-               <right>
-                  <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="TOP_LEFT">
-                     <children>
-                        <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE" />
-                        <MFXButton alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
-                        <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
-                     </children>
-                  </HBox>
-               </right>
+               <bottom>
+                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </bottom>
             </BorderPane>
          </children>
       </StackPane>
