@@ -51,6 +51,8 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
+  ServicerequestEntity.Urgency urgent;
+  ServicerequestEntity.Status status;
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
 
@@ -206,10 +208,48 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
           serviceReqsTable.setItems(currentTableData);
           serviceReqsTable.refresh();
-
-          SanitationRequest bob = new SanitationRequest();
-          bob.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
-
+          Session session = getSessionFactory().openSession();
+          Transaction tx = session.beginTransaction();
+          ServicerequestEntity bob = session.get(ServicerequestEntity.class, "123");
+          //          if (statusBox != null) {
+          //            switch (statusBox.getValue()) {
+          //              case "Blank":
+          //                status = ServicerequestEntity.Status.BLANK;
+          //                break;
+          //              case "Processing":
+          //                status = ServicerequestEntity.Status.PROCESSING;
+          //                break;
+          //              case "Done":
+          //                status = ServicerequestEntity.Status.DONE;
+          //                break;
+          //              default:
+          //                status = ServicerequestEntity.Status.BLANK;
+          //                break;
+          //            }
+          //
+          //            bob.setStatus(status);
+          //          }
+          if (urgencyBox != null) {
+            switch (urgencyBox.getValue()) {
+              case "Low":
+                urgent = ServicerequestEntity.Urgency.LOW;
+                break;
+              case "Medium":
+                urgent = ServicerequestEntity.Urgency.MEDIUM;
+                break;
+              case "High":
+                urgent = ServicerequestEntity.Urgency.HIGH;
+                break;
+              case "Extremely Urgent":
+                urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+                break;
+            }
+            bob.setUrgency(urgent);
+          }
+          bob.setEmployeeassigned(employeeBox.getText());
+          // bob.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
+          tx.commit();
+          session.close();
           break;
         }
       }
