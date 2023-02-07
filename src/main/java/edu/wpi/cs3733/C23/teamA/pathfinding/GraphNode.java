@@ -26,7 +26,7 @@ public class GraphNode implements Comparable<GraphNode> {
 
   // attributes specifically for A* searching
   @Getter @Setter private double costFromStart; // g(x)
-  @Getter @Setter private double heurCostToEnd; // f(x)
+  @Getter @Setter private double heurCostToEnd; // h(x)
 
   @Getter @Setter
   private double score; // score (f(x)) = costFromStart (g(x)) + heurCostToEnd (h(x))

@@ -19,7 +19,9 @@ public enum Screen {
   PATHFINDING_MAP("views/PathfindingMapFXML.fxml"),
 
   SERVICE_REQUEST_STATUS("views/ServiceRequestStatusNewFXML.fxml"),
-  ID_INPUT("views/IDInputFXML.fxml");
+  ID_INPUT("views/IDInputFXML.fxml"),
+  NODE_MAP("views/NodeMapFXML.fxml"),
+  MAP_DISPLAY("views/PathDisplayFXML.fxml");
 
   private final String filename;
 
