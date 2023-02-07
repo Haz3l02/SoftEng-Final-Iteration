@@ -100,7 +100,7 @@ public class ComputerController extends ServiceRequestController {
       IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
       devicesBox.setText(editComputerRequest.getDevice().toString());
       deviceIDNum.setText(editComputerRequest.getDeviceid());
-      locationBox.setText(editComputerRequest.getLocation().toString());
+      locationBox.setText(editComputerRequest.getLocation().getLongname());
       urgencyBox.setText(editComputerRequest.getUrgency().urgency);
       descBox.setText(editComputerRequest.getDescription());
       // session.persist(submission);

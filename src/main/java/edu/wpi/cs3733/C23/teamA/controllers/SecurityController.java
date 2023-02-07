@@ -84,7 +84,7 @@ public class SecurityController extends ServiceRequestController {
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       requestsBox.setText(editRequest.getRequesttype().requesttype);
-      locationBox.setText(editRequest.getLocation().toString());
+      locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().urgency);
       descBox.setText(editRequest.getDescription());
       phone.setText(editRequest.getSecphone());

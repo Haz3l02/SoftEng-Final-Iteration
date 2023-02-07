@@ -84,7 +84,7 @@ public class SanitationController extends ServiceRequestController {
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       categoryBox.setText(editRequest.getCategory().category);
-      locationBox.setText(editRequest.getLocation().toString());
+      locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().urgency);
       descBox.setText(editRequest.getDescription());
       tx.commit();
