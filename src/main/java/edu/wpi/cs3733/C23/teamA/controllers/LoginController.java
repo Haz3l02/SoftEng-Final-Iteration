@@ -15,7 +15,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class LoginController {
 
@@ -45,11 +44,11 @@ public class LoginController {
   public void login(ActionEvent event) throws SQLException {
 
     Session session = ADBSingletonClass.getSessionFactory().openSession();
+    // Transaction tx = session.beginTransaction();
 
     ArrayList<String> info =
         EmployeeEntity.checkPass(usernameTextField.getText(), passwordTextField.getText(), session);
 
-    Transaction tx = session.beginTransaction();
     if (info.get(0).equals("")) {
       incorrectNotification.setVisible(true);
     } else {
@@ -58,11 +57,11 @@ public class LoginController {
       holder.setUsername(usernameTextField.getText());
       holder.setPassword(passwordTextField.getText());
       holder.setJob(info.get(1));
-      tx.commit();
+      // tx.commit();
       session.close();
       Navigation.navigate(Screen.HOME);
     }
-    tx.commit();
+    // tx.commit();
     session.close();
   }
 }

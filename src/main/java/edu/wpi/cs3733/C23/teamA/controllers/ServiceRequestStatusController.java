@@ -81,7 +81,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       dateBox.setDisable(false);
       urgencyBox.setDisable(false);
 
-    } else if (job.equals("maintenance")) {
+    } else {
       statusBox.setDisable(false);
       employeeBox.setDisable(false);
       formTypeBox.setDisable(true);
