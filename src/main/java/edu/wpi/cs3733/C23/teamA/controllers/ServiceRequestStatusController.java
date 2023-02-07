@@ -99,18 +99,17 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
-    //ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
+    // ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
     List<ServicerequestEntity> requests = new ArrayList<ServicerequestEntity>();
 
     if (job.equals("medical")) {
-      //specificRequests = sr.getServiceRequestsByID(hospitalID);
+      // specificRequests = sr.getServiceRequestsByID(hospitalID);
       requests = getServiceByEmployee(hospitalID, session);
 
     } else {
-      //specificRequests = sr.getServiceRequests();
+      // specificRequests = sr.getServiceRequests();
       requests = getAllRecords(ServicerequestEntity.class, session);
     }
-
 
     for (ServicerequestEntity billy : requests) {
       ServiceRequestTableRow serviceReqNewRow =
