@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+
 import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -14,9 +17,6 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.*;
 import oracle.ucp.common.waitfreepool.Tuple;
 import org.hibernate.Session;
-
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
 public class PathfindingController extends ServiceRequestController {
 
@@ -44,7 +44,8 @@ public class PathfindingController extends ServiceRequestController {
     allLongNames = new ArrayList<String>();
 
     Session session = getSessionFactory().openSession();
-    List<NodeEntity> allNodes = getAllRecords(NodeEntity.class, session); // get all nodes from Database
+    List<NodeEntity> allNodes =
+        getAllRecords(NodeEntity.class, session); // get all nodes from Database
 
     for (NodeEntity n : allNodes) {
       allNodeIDs.add(n.getNodeid()); // get nodeId

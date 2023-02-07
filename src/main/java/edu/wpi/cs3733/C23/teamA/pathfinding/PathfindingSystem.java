@@ -43,6 +43,10 @@ public class PathfindingSystem {
   }
 
   // Methods relating to Graph
+  public void getGraph() {
+    graph.getGraph();
+  }
+
   public void addNode(String nodeID, GraphNode node) {
     graph.addNode(nodeID, node);
   }
