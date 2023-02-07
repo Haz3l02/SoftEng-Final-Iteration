@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "node", catalog = "dba")
+@Table(name = "node")
 public class NodeEntity {
 
   @Id
