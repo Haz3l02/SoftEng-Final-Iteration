@@ -56,7 +56,7 @@ public class PathfindingMapController extends ServiceRequestController {
     }
 
     addFloorMapImage(
-        "src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/25% Scale/00_thelowerlevel1_unlabeled_25%.png"); // place the map on the page
+        "src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/20% Scale/00_thelowerlevel1_unlabeled_20%.png"); // place the map on the page
 
     // calls the function which makes and draws on the map
     generatePath(mapNodes.get1(), mapNodes.get2());
@@ -74,7 +74,7 @@ public class PathfindingMapController extends ServiceRequestController {
     gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
 
     // constant for map size/coordinate manipulation
-    double SCALE_FACTOR = 0.25;
+    double SCALE_FACTOR = 0.20;
     pathfindingSystem.drawPath(gc, path, SCALE_FACTOR);
   }
 
