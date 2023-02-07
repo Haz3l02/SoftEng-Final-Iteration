@@ -69,6 +69,6 @@ public class EmployeeEntity {
 
 
   public static String checkPass(String user, String pass){
-
+    return "blah";
   }
 }

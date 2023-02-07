@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXListView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -53,14 +52,8 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <SplitPane dividerPositions="0.1346153846153846" prefHeight="9999.0" prefWidth="600.0">
+            <SplitPane prefHeight="9999.0" prefWidth="600.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <MFXListView layoutX="-53.0" layoutY="-57.0" prefHeight="158.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <MFXButton fx:id="refresh" layoutX="14.0" layoutY="70.0" text=" " />
-                     </children>
-                  </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <TableView fx:id="dbTable" editable="true" layoutX="-36.0" layoutY="-38.0" prefHeight="237.0" prefWidth="514.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -70,6 +63,7 @@
                               <TableColumn fx:id="yCol" prefWidth="100.0" text="Y" />
                               <TableColumn fx:id="floorCol" prefWidth="100.0" text="Floor" />
                               <TableColumn fx:id="buildingCol" prefWidth="100.0" text="Building" />
+                              <TableColumn fx:id="deleteCol" prefWidth="75.0" text="Delete" />
                           </columns>
                         </TableView>
                      </children>
