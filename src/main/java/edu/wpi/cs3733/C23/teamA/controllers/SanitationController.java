@@ -106,7 +106,7 @@ public class SanitationController extends ServiceRequestController {
       switch (categoryBox.getValue()) {
         case "Standard":
           category = SanitationrequestEntity.Category.STANDARD;
-        case "Bio-Hazard":
+        case "Biohazard":
           category = SanitationrequestEntity.Category.BIOHAZARD;
         case "Wong":
           category = SanitationrequestEntity.Category.WONG;
@@ -126,8 +126,8 @@ public class SanitationController extends ServiceRequestController {
       tx.commit();
       session.close();
       // submission.insert(); // *some db thing for getting the request in there*
+      switchToConfirmationScene(event);
     }
-    switchToConfirmationScene(event);
   }
 
   @FXML

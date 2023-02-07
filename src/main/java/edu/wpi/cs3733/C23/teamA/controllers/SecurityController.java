@@ -86,7 +86,7 @@ public class SecurityController extends ServiceRequestController {
   }
 
   @FXML
-  public void submitRequest(ActionEvent event) throws IOException, SQLException {
+  void submitRequest(ActionEvent event) throws IOException, SQLException {
     if (nameBox.getText().equals("")
         || phone.getText().equals("")
         || IDNum.getText().equals("")
@@ -115,7 +115,7 @@ public class SecurityController extends ServiceRequestController {
       switch (requestsBox.getValue()) {
         case "Harassment":
           assistance = SecurityrequestEntity.Assistance.HARASSMENT;
-        case "Security Escort":
+        case "Security Threat":
           assistance = SecurityrequestEntity.Assistance.SECURITY_ESCORT;
         case "Potential Threat":
           assistance = SecurityrequestEntity.Assistance.POTENTIAL_THREAT;
@@ -136,9 +136,8 @@ public class SecurityController extends ServiceRequestController {
       tx.commit();
       session.close();
       // submission.insert(); // *some db thing for getting the request in there*
+      switchToConfirmationScene(event);
     }
-
-    switchToConfirmationScene(event);
   }
 
   @FXML

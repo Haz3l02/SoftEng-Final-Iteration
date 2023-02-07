@@ -44,9 +44,9 @@ public class Main {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
-    //ComputerrequestEntity per = session.get(ComputerrequestEntity.class, 2);
-    //per.setUrgency(ServicerequestEntity.Urgency.MEDIUM);
-   // per.setDevice(ComputerrequestEntity.Device.MONITOR);
+    // ComputerrequestEntity per = session.get(ComputerrequestEntity.class, 2);
+    // per.setUrgency(ServicerequestEntity.Urgency.MEDIUM);
+    // per.setDevice(ComputerrequestEntity.Device.MONITOR);
 
     tx.commit();
     session.close();
