@@ -17,10 +17,8 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table(name = "servicerequest", catalog = "dba")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServicerequestEntity {
-  @TableGenerator(name = "yourTableGenerator", allocationSize = 1, initialValue = 1)
-  @GeneratedValue(
-      strategy = GenerationType.TABLE,
-      generator = "yourTableGenerator") // (strategy = GenerationType.AUTO,)
+  //@TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)//, generator = "serviceseq")
   @Id
   @Cascade(org.hibernate.annotations.CascadeType.ALL)
   @Column(name = "requestid")

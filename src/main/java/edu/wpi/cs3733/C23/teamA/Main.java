@@ -38,63 +38,21 @@ public class Main {
                 response.body().indexOf("\"name\":\"", 0) + 8,
                 response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
     System.out.println("\"" + quote + "\" -" + author);
-    AApp.launch(AApp.class, args);
 
     // AApp.launch(AApp.class, args);
 
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
-    // EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson
-    // Wong");
-    // session.persist(person);
-
-    // LocationnameEntity loc =
-    //    new LocationnameEntity("Anesthesia Conf Floor L1", "Conf C001L1", "CONF");
-    // session.persist(loc);
-    /*EmployeeEntity person = session.get(EmployeeEntity.class, "123");
-    LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
-    ComputerrequestEntity com =
-        new ComputerrequestEntity(
-            "PC help",
-            person,
-            loc,
-            "Need help",
-            ServicerequestEntity.Urgency.EXTREMELY_URGENT,
-            ServicerequestEntity.RequestType.COMPUTER,
-            ServicerequestEntity.Status.BLANK,
-            "Harrison",
-            "365",
-            ComputerrequestEntity.Device.DESKTOP);
-    session.persist(com);*/
-
-    for (ServicerequestEntity ser : getAllRecords(ServicerequestEntity.class, session)) {
-      System.out.println(ser.getRequestid());
-    }
+    ComputerrequestEntity per = session.get(ComputerrequestEntity.class, 2);
+    per.setUrgency(ServicerequestEntity.Urgency.MEDIUM);
+    per.setDevice(ComputerrequestEntity.Device.MONITOR);
 
     tx.commit();
     session.close();
-    if (session.getTransaction().isActive()) {
-      System.out.println("active");
-    }
+    AApp.launch(AApp.class, args);
 
-    //    com.editComputerRequest(
-    //       3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
-    //    SanitationrequestEntity sanreq =
-    //        new SanitationrequestEntity(
-    //            "Clean",
-    //            "123",
-    //            "there",
-    //            "stuff",
-    //            ServicerequestEntity.Urgency.HIGH,
-    //            ServicerequestEntity.RequestType.SANITATION,
-    //            ServicerequestEntity.Status.BLANK,
-    //            "John",
-    //            SanitationrequestEntity.Category.BIOHAZARD);
-    //
-    //    session.persist(sanreq);
-    //    tx.commit();
-    //    session.close();
+    // getSessionFactory().close();
 
   }
 }

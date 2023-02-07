@@ -7,7 +7,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
-@Table(name = "securityrequest", catalog = "dba")
+@Table(name = "securityrequest")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
 public class SecurityrequestEntity extends ServicerequestEntity {
 
