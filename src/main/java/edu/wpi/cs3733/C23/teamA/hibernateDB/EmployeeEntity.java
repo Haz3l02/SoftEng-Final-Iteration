@@ -64,4 +64,11 @@ public class EmployeeEntity {
   }
 
   public EmployeeEntity() {}
+
+
+
+
+  public static String checkPass(String user, String pass){
+
+  }
 }

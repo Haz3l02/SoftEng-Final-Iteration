@@ -17,10 +17,8 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table(name = "servicerequest")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServicerequestEntity {
-  @TableGenerator(name = "service", allocationSize = 1, initialValue = 0)
-  @GeneratedValue(
-      strategy = GenerationType.TABLE,
-      generator = "serviceseq") // (strategy = GenerationType.AUTO,)
+  @TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
+  @GeneratedValue(strategy = GenerationType.TABLE, generator = "serviceseq")
   @Id
   @Cascade(org.hibernate.annotations.CascadeType.ALL)
   @Column(name = "requestid")
@@ -165,15 +163,6 @@ public class ServicerequestEntity {
     this.status = status;
     this.employeeassigned = employeeassigned;
   }
-
-  //  public static List<ServicerequestEntity> findAllService() {
-  //    Session session = getSessionFactory().openSession();
-  //    CriteriaBuilder builder = session.getCriteriaBuilder();
-  //    CriteriaQuery<ServicerequestEntity> criteria = builder.createQuery(ServicerequestEntity);
-  //    //criteria.from();
-  //    List<ServicerequestEntity> data = session.createQuery(criteria).getResultList();
-  //    return data;
-  //  }
 
   public static ArrayList<ServicerequestEntity> getServiceByEmployee(String id, Session session) {
     List<ServicerequestEntity> all = getAllRecords(ServicerequestEntity.class, session);
