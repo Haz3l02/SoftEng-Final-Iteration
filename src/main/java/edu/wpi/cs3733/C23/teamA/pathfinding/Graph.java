@@ -87,9 +87,7 @@ public class Graph {
    */
   public void prepGraphCSV() throws IOException {
     // add the CSV information to the graph
-    CSVReader.readNodes(
-        "src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/nodes.csv", this);
-    CSVReader.readEdges(
-        "src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/edges.csv", this);
+    CSVReader.readNodes("src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/nodes.csv", this);
+    CSVReader.readEdges("src/main/resources/edu/wpi/cs3733/C23/teamA/mapCSV/edges.csv", this);
   }
 }
