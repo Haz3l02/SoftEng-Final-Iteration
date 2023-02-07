@@ -31,10 +31,8 @@ public class PathfindingController extends ServiceRequestController {
 
   // objects needed for the maps
   private GraphicsContext gc;
-  private final double SCALE_FACTOR = 0.065; // constant for map size/coordinate manipulation
 
   // the PathfindingSystem which runs methods from classes in the pathfinding package
-  private PathfindingSystem pathfindingSystem;
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -61,68 +59,10 @@ public class PathfindingController extends ServiceRequestController {
     endNodeID.setItems(locations);
 
     // initialize the pathfindingSystem
-    pathfindingSystem = new PathfindingSystem();
+    PathfindingSystem pathfindingSystem = new PathfindingSystem();
 
-    addFloorMapImage(
-        "src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/25% Scale/00_thelowerlevel1_unlabeled_25%.png"); // place the map on the page
-  }
-
-  /**
-   * Draws a visual representation of the path given in mapCanvas on top of mapImage.
-   *
-   * @param path The path of GraphNodes returned by callAStar
-   */
-  private void callMapDraw(ArrayList<GraphNode> path) {
-    gc = mapCanvas.getGraphicsContext2D();
-
-    // clear the canvas w/ the drawn path; does NOT hide the map image
-    gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
-
-    pathfindingSystem.drawPath(gc, path, SCALE_FACTOR);
-  }
-
-  @FXML
-  /**
-   * Runs when the "Find Path" button is pressed, performing A* and displaying the path on the map.
-   */
-  public void generatePath() throws SQLException, RuntimeException {
-
-    int startIndex = startNodeID.getSelectedIndex(); // from User Input
-    int endIndex = endNodeID.getSelectedIndex(); // from User Input
-
-    if (startIndex == -1 || endIndex == -1) {
-      reminder.setText("Please select an option from all fields in the form!");
-      reminder.setVisible(true);
-    } else {
-      // create the graph hashMap where String is nodeId and GraphNode is the node
-      pathfindingSystem.prepGraphDB();
-    }
-
-    // get the IDs from the input combined w/ indexes
-    String sName = allNodeIDs.get(startIndex);
-    String eName = allNodeIDs.get(endIndex);
-
-    // run A*
-    GraphNode start = pathfindingSystem.getNode(sName);
-    GraphNode end = pathfindingSystem.getNode(eName);
-    ArrayList<GraphNode> path =
-        pathfindingSystem.traverseAStar(start, end); // makes a call to AStar
-
-    callMapDraw(path); // draw the path on top of the image
-
-    // print the path to the textField (if needed)
-    // pathDisplay.setText(pathfindingSystem.generatePathString(path));
-  }
-
-  /**
-   * Updates the mapImage asset to contain an image (which is supposed to be a floor map)
-   *
-   * @param pathName the path to the image to be added
-   */
-  private void addFloorMapImage(String pathName) {
-    File file = new File(pathName);
-    Image image = new Image(file.toURI().toString());
-    mapImage.setImage(image);
+    // addFloorMapImage("src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/25%
+    // Scale/00_thelowerlevel1_unlabeled_25%.png"); // place the map on the page
   }
 
   /** Method to clear the fields on the form on the UI page */
