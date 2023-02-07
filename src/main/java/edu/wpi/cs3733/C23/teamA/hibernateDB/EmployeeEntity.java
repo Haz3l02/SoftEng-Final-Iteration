@@ -73,11 +73,7 @@ public class EmployeeEntity {
     ArrayList<String> info = new ArrayList<String>();
     Transaction tx = session.beginTransaction();
     String hql =
-        "select * from employee emp where emp.username = '"
-            + user
-            + "' and emp.password = '"
-            + pass
-            + "'";
+            "from employee emp where emp.username = '" + user+ "'";
     Query query = session.createQuery(hql);
     final List<EmployeeEntity> emps = query.getResultList();
     for (EmployeeEntity emp : emps) {
