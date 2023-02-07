@@ -15,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 
 // import org.controlsfx.control.PopOver;
@@ -49,8 +48,9 @@ public abstract class ServiceRequestController {
   }
 
   /**
-   * If called from a button without the fxid:backButton then it shows the help popup
-   * If called from a button with that fxid, it hides the help popup
+   * If called from a button without the fxid:backButton then it shows the help popup If called from
+   * a button with that fxid, it hides the help popup
+   *
    * @param event
    * @throws IOException
    */
