@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.databases.Move;
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCatagory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
@@ -15,6 +16,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,10 +55,16 @@ public class ComputerController extends ServiceRequestController {
               UrgencyLevel.HIGH.getUrgency(),
               UrgencyLevel.EXTREMELY_URGENT.getUrgency());
 
-      ArrayList<Move> moves = Move.getAll();
+      Session session = getSessionFactory().openSession();
+      Transaction tx = session.beginTransaction();
+
+      List<LocationnameEntity> temp = new ArrayList<LocationnameEntity>();
+      temp = getAllRecords(LocationnameEntity.class, session);
+
+      // ArrayList<Move> moves = Move.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
-      for (Move move : moves) {
-        locations.add(move.getLongName());
+      for (LocationnameEntity move : temp) {
+        locations.add(move.getLongname());
       }
 
       devicesBox.setItems(devices);
