@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -68,7 +69,8 @@ public class EmployeeEntity {
 
   public EmployeeEntity() {}
 
-  public static String checkPass(String user, String pass, Session session) {
+  public static ArrayList<String> checkPass(String user, String pass, Session session) {
+    ArrayList<String> info = new ArrayList<String>();
     Transaction tx = session.beginTransaction();
     String hql =
         "select E.employeeid, E.username, E.password "
@@ -82,9 +84,20 @@ public class EmployeeEntity {
     final List<EmployeeEntity> emps = query.getResultList();
     for (EmployeeEntity emp : emps) {
       if (emp.getUsername().equals(user) && emp.getPassword().equals(pass)) {
-        return emp.getEmployeeid();
+        info.add(emp.getEmployeeid());
+        info.add(emp.getJob());
+
+        tx.commit();
+        session.close();
+
+        return info;
       }
     }
-    return "";
+    info.add("");
+    info.add("");
+    tx.commit();
+    session.close();
+
+    return info;
   }
 }

@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.databases.Employee;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -13,13 +14,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class LoginController {
 
   @FXML MFXTextField usernameTextField;
   @FXML MFXPasswordField passwordTextField;
   @FXML Text incorrectNotification;
-  Employee employee = new Employee();
+  EmployeeEntity employee = new EmployeeEntity();
 
   @FXML
   public void initialize() {
@@ -41,9 +44,12 @@ public class LoginController {
   @FXML
   public void login(ActionEvent event) throws SQLException {
 
-    ArrayList<String> info =
-        employee.checkPass(usernameTextField.getText(), passwordTextField.getText());
+    Session session = ADBSingletonClass.getSessionFactory().openSession();
 
+    ArrayList<String> info =
+        EmployeeEntity.checkPass(usernameTextField.getText(), passwordTextField.getText(), session);
+
+    Transaction tx = session.beginTransaction();
     if (info.get(0).equals("")) {
       incorrectNotification.setVisible(true);
     } else {
@@ -52,7 +58,11 @@ public class LoginController {
       holder.setUsername(usernameTextField.getText());
       holder.setPassword(passwordTextField.getText());
       holder.setJob(info.get(1));
+      tx.commit();
+      session.close();
       Navigation.navigate(Screen.HOME);
     }
+    tx.commit();
+    session.close();
   }
 }
