@@ -70,8 +70,7 @@ public class EmployeeEntity {
 
   public static String checkPass(String user, String pass, Session session) {
     Transaction tx = session.beginTransaction();
-    String hql =
-            "from employee emp where emp.username = '" + user+ "'";
+    String hql = "select emp from EmployeeEntity emp where emp.username = '" + user + "'";
     Query query = session.createQuery(hql);
     final List<EmployeeEntity> emps = query.getResultList();
     for (EmployeeEntity emp : emps) {
