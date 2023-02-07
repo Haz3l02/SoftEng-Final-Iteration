@@ -43,7 +43,7 @@
                               </Text>
                               <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css">
                                  <children>
-                                    <MFXButton onAction="#switchToIDInput" prefHeight="28.0" prefWidth="125.0" style="-fx-background-color: #2A4494;" text="Past Submissions" textFill="WHITE" />
+                                    <MFXButton fx:id="pastSubmissions" onAction="#switchToServiceRequestStatus" prefHeight="28.0" prefWidth="125.0" style="-fx-background-color: #2A4494;" text="Past Submissions" textFill="WHITE" />
                                     <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE" />
                                     <MFXButton alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
                                     <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />

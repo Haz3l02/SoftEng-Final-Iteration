@@ -3,8 +3,8 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity.getServiceByEmployee;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -15,10 +15,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import org.hibernate.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.controlsfx.control.PopOver;
+import org.hibernate.Session;
 
 public class HomeServiceRequestController extends ServiceRequestController {
 
@@ -68,6 +68,7 @@ public class HomeServiceRequestController extends ServiceRequestController {
   public void switchToServiceRequestStatus(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
   }
+
   public void switchToCredits(ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/CreditsFXML.fxml"));
     PopOver creditsPopUp = new PopOver(loader.load());
