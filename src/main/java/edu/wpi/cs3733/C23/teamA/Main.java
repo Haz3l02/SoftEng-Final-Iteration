@@ -68,25 +68,25 @@ public class Main {
             ComputerrequestEntity.Device.DESKTOP);
     session.persist(comp);*/
 
-    SecurityrequestEntity comp =
-        new SecurityrequestEntity(
-            "Security threat",
-            wong,
-            loc,
-            "loitering",
-            ServicerequestEntity.Urgency.LOW,
-            ServicerequestEntity.RequestType.SECURITY,
-            ServicerequestEntity.Status.BLANK,
-            "swag",
-            SecurityrequestEntity.Assistance.HARASSMENT,
-            "401-330-4830");
-    session.persist(comp);
-
-    tx.commit();
-    session.close();
-    if (session.getTransaction().isActive()) {
-      System.out.println("active");
-    }
+    //    SecurityrequestEntity comp =
+    //        new SecurityrequestEntity(
+    //            "Security threat",
+    //            wong,
+    //            loc,
+    //            "loitering",
+    //            ServicerequestEntity.Urgency.LOW,
+    //            ServicerequestEntity.RequestType.SECURITY,
+    //            ServicerequestEntity.Status.BLANK,
+    //            "swag",
+    //            SecurityrequestEntity.Assistance.HARASSMENT,
+    //            "401-330-4830");
+    //    session.persist(comp);
+    //
+    //    tx.commit();
+    //    session.close();
+    //    if (session.getTransaction().isActive()) {
+    //      System.out.println("active");
+    //    }
     AApp.launch(AApp.class, args);
 
     // getSessionFactory().close();

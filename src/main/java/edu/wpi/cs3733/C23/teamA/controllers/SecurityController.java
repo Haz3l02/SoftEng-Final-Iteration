@@ -13,6 +13,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,6 +59,8 @@ public class SecurityController extends ServiceRequestController {
       for (LocationnameEntity move : temp) {
         locations.add(move.getLongname());
       }
+
+      Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
 
       requestsBox.setItems(requests);
       urgencyBox.setItems(urgencies);
