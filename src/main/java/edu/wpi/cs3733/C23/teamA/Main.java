@@ -16,9 +16,40 @@ public class Main {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
-    //ComputerrequestEntity per = session.get(ComputerrequestEntity.class, 2);
-    //per.setUrgency(ServicerequestEntity.Urgency.MEDIUM);
-   // per.setDevice(ComputerrequestEntity.Device.MONITOR);
+    // EmployeeEntity wong = new EmployeeEntity("123", "staff", "staff", "Maintenance", "Wilson
+    // Wong");
+    // session.persist(wong);
+
+    EmployeeEntity wong = session.get(EmployeeEntity.class, "123");
+    LocationnameEntity loc = session.get(LocationnameEntity.class, "Ultrasound Floor L1");
+
+    /*ComputerrequestEntity comp =
+        new ComputerrequestEntity(
+            "Help",
+            wong,
+            loc,
+            "need help",
+            ServicerequestEntity.Urgency.LOW,
+            ServicerequestEntity.RequestType.COMPUTER,
+            ServicerequestEntity.Status.BLANK,
+            "John",
+            "My PC",
+            ComputerrequestEntity.Device.DESKTOP);
+    session.persist(comp);*/
+
+    SecurityrequestEntity comp =
+        new SecurityrequestEntity(
+            "Security threat",
+            wong,
+            loc,
+            "loitering",
+            ServicerequestEntity.Urgency.LOW,
+            ServicerequestEntity.RequestType.SECURITY,
+            ServicerequestEntity.Status.BLANK,
+            "swag",
+            SecurityrequestEntity.Assistance.HARASSMENT,
+            "401-330-4830");
+    session.persist(comp);
 
     tx.commit();
     session.close();
