@@ -23,7 +23,7 @@ public class ServicerequestEntity {
   @TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
   @GeneratedValue(
       strategy = GenerationType.TABLE,
-      generator = "serviceseq") // (strategy = GenerationType.AUTO,)
+      generator = "serviceseq")
   @Id
   @Cascade(org.hibernate.annotations.CascadeType.ALL)
   @Column(name = "requestid")
