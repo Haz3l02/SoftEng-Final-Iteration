@@ -119,10 +119,7 @@ public class SecurityController extends ServiceRequestController {
       switch (requestsBox.getValue()) {
         case "Harassment":
           assistance = SecurityrequestEntity.Assistance.HARASSMENT;
-<<<<<<< Updated upstream
-=======
           break;
->>>>>>> Stashed changes
         case "Security Threat":
           assistance = SecurityrequestEntity.Assistance.SECURITY_ESCORT;
           break;

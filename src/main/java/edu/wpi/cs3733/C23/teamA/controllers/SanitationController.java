@@ -110,12 +110,8 @@ public class SanitationController extends ServiceRequestController {
       switch (categoryBox.getValue()) {
         case "Standard":
           category = SanitationrequestEntity.Category.STANDARD;
-<<<<<<< Updated upstream
-        case "Biohazard":
-=======
           break;
-        case "Bio-Hazard":
->>>>>>> Stashed changes
+        case "Biohazard":
           category = SanitationrequestEntity.Category.BIOHAZARD;
           break;
         case "Wong":
