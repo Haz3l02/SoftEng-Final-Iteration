@@ -7,7 +7,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "node")
 public class NodeEntity {
-
   @Id
   @Column(name = "nodeid", nullable = false, length = -1)
   @Getter

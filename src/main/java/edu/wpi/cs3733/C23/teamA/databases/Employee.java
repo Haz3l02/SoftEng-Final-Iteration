@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import lombok.Getter;
 import lombok.Setter;
 
+@Deprecated
 public class Employee {
   @Getter private static final String tableName = "employee";
 
