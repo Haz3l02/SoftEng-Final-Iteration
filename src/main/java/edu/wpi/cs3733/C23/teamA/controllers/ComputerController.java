@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCatagory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -72,27 +73,33 @@ public class ComputerController extends ServiceRequestController {
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
 
-    if (newEdit.needEdits) {
-      String requestType =
-          (newEdit.getRequestType())
-              .substring(0, (newEdit.getRequestType().indexOf("Request")) - 1); // "Computer"
-      if (requestType.equals("Computer")) {
-        System.out.println("here");
-
-        ComputerRequest editComputerRequest = new ComputerRequest();
-        System.out.println("before switch here");
-        // editComputerRequest.getRequestID()
-        editComputerRequest = editComputerRequest.getComputerRequest(newEdit.getRequestID());
-        System.out.println("after switch here");
-        nameBox.setText(editComputerRequest.getName());
-        IDNum.setText(editComputerRequest.getIdNum());
-        devicesBox.setText(editComputerRequest.getDevice());
-        deviceIDNum.setText(editComputerRequest.getDeviceID());
-        locationBox.setText(editComputerRequest.getLocation());
-        urgencyBox.setText(editComputerRequest.getUl());
-        descBox.setText(editComputerRequest.getDescription());
-      }
+    if (newEdit.needEdits && newEdit.getRequestType().equals("COMPUTER")) {
+      //      String requestType =
+      //          (newEdit.getRequestType())
+      //              .substring(0, (newEdit.getRequestType().indexOf("Request")) - 1); //
+      // "Computer"
+      //      if (requestType.equals("Computer")) {
+      System.out.println("here");
+      Session session = getSessionFactory().openSession();
+      Transaction tx = session.beginTransaction();
+      ComputerrequestEntity editComputerRequest =
+          session.get(ComputerrequestEntity.class, newEdit.getRequestID());
+      System.out.println("before switch here");
+      // editComputerRequest.getRequestID()
+      // editComputerRequest = editComputerRequest.getComputerRequest(newEdit.getRequestID());
+      System.out.println("after switch here");
+      nameBox.setText(editComputerRequest.getName());
+      IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
+      devicesBox.setText(editComputerRequest.getDevice().toString());
+      deviceIDNum.setText(editComputerRequest.getDeviceid());
+      locationBox.setText(editComputerRequest.getLocation().toString());
+      urgencyBox.setText(editComputerRequest.getUrgency().urgency);
+      descBox.setText(editComputerRequest.getDescription());
+      // session.persist(submission);
+      tx.commit();
+      session.close();
     }
+    // }
     // Otherwise Initialize service requests as normal
   }
 
@@ -115,25 +122,55 @@ public class ComputerController extends ServiceRequestController {
         || deviceIDNum.getText().equals("")
         || devicesBox.getValue() == null
         || urgencyBox.getValue() == null) {
-      // reminder.setVisible(true);
+      reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
         // something that submits it
-        submission.updateComputerRequest(
-            newEdit.getRequestID(),
-            nameBox.getText(),
-            IDNum.getText(),
-            locationBox.getText(),
-            descBox.getText(),
-            urgencyBox.getValue(),
-            "Computer Request",
-            "Blank",
-            "Unassigned",
-            deviceIDNum.getText(),
-            devicesBox.getValue());
+        Session session = getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        switch (urgencyBox.getValue()) {
+          case "Low":
+            urgent = ServicerequestEntity.Urgency.LOW;
+          case "Medium":
+            urgent = ServicerequestEntity.Urgency.MEDIUM;
+          case "High":
+            urgent = ServicerequestEntity.Urgency.HIGH;
+          case "Extremely Urgent":
+            urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+        }
+        switch (devicesBox.getValue()) {
+          case "Desktop":
+            device = ComputerrequestEntity.Device.DESKTOP;
+          case "Tablet":
+            device = ComputerrequestEntity.Device.TABLET;
+          case "Laptop":
+            device = ComputerrequestEntity.Device.LAPTOP;
+          case "Monitor":
+            device = ComputerrequestEntity.Device.MONITOR;
+          case "Peripherals":
+            device = ComputerrequestEntity.Device.PERIPHERALS;
+          case "Kiosk":
+            device = ComputerrequestEntity.Device.KIOSK;
+          case "Printer":
+            device = ComputerrequestEntity.Device.PRINTER;
+        }
+        ComputerrequestEntity submission =
+            session.get(ComputerrequestEntity.class, newEdit.getRequestID());
+        submission.setName(nameBox.getText());
+        LocationnameEntity loc = session.get(LocationnameEntity.class, locationBox.getValue());
+        submission.setLocation(loc);
+        submission.setDescription(descBox.getText());
+        submission.setUrgency(urgent);
+        submission.setDevice(device);
+        submission.setDeviceid(deviceIDNum.getText());
+        System.out.println("made the new change");
+        // session.persist(submission);
+        // session.merge(submission);
+        tx.commit();
+        session.close();
       } else {
-        Session session = ADBSingletonClass.getSessionFactory().openSession();
+        Session session = getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         EmployeeEntity person = session.get(EmployeeEntity.class, "123");
         // IDNum.getText()
