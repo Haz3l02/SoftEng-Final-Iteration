@@ -2,7 +2,7 @@ package edu.wpi.cs3733.C23.teamA;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
+import edu.wpi.cs3733.C23.teamA.controllers.PathfindingMapController;
 import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import java.sql.SQLException;
@@ -17,7 +17,7 @@ public class DatabaseTest {
 
   @BeforeEach
   public void init() throws SQLException {
-    graph = PathfindingController.prepGraphDB();
+    graph = PathfindingMapController.prepGraphDB();
   }
 
   @Test
@@ -56,7 +56,7 @@ public class DatabaseTest {
 
   @Test /* Tests that proper node info from database (xcoord and ycoord) are added to the graph */
   public void testGraphMakerNode1() throws SQLException {
-    HashMap<String, GraphNode> graph = PathfindingController.prepGraphDB();
+    HashMap<String, GraphNode> graph = PathfindingMapController.prepGraphDB();
     boolean all1 = false;
     boolean all2 = false;
 

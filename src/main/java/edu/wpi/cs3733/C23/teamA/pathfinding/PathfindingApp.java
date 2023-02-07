@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
-import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
+// import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
+import edu.wpi.cs3733.C23.teamA.controllers.PathfindingMapController;
 import java.util.*;
 
 // The main class to run a pathfinding search using terminal line input
@@ -16,7 +17,7 @@ public class PathfindingApp {
 
     // try to initialize the graph
     try {
-      hospitalL1 = PathfindingController.prepGraphDB();
+      hospitalL1 = PathfindingMapController.prepGraphDB();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -25,7 +26,8 @@ public class PathfindingApp {
     String[] nodes = getInput(hospitalL1);
 
     // run A*
-    ArrayList<GraphNode> L1path = PathfindingController.callAStar(hospitalL1, nodes[0], nodes[1]);
+    ArrayList<GraphNode> L1path =
+        PathfindingMapController.callAStar(hospitalL1, nodes[0], nodes[1]);
 
     // print the final path, if found
     if (L1path == null) {

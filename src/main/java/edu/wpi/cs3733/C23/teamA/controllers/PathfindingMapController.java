@@ -2,11 +2,11 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.*;
 import javafx.scene.image.Image;
@@ -44,7 +44,7 @@ public class PathfindingMapController extends ServiceRequestController {
    * @throws SQLException
    */
   public void initialize() throws SQLException {
-    System.out.println(mapNodes.get1() + ", " + mapNodes.get2() + " initializing start");
+    mapNodes = NodeIndicesHolder.getInstance().getNodes();
     allNodeIDs = new ArrayList<>();
 
     List<Node> allNodes = Node.getAll(); // get all nodes from Database
@@ -53,41 +53,8 @@ public class PathfindingMapController extends ServiceRequestController {
       allNodeIDs.add(n.getNodeID()); // get nodeId
     }
 
-    System.out.println("initializing");
-    System.out.println(mapNodes == null);
-
-    Platform.runLater(
-        () -> {
-          try {
-            generatePath(mapNodes.get1(), mapNodes.get2());
-          } catch (SQLException e) {
-            throw new RuntimeException(e);
-          }
-        });
-
+    // calls the function which makes and draws on the map
     generatePath(mapNodes.get1(), mapNodes.get2());
-  }
-
-  // this receives the data from PathfindingController
-  void initData(Tuple<Integer, Integer> nodes) throws SQLException {
-    initialize();
-    System.out.println("initData start");
-    System.out.println(nodes.get1() + ", " + nodes.get2() + " initData input");
-
-    /*
-        allNodeIDs = new ArrayList<>();
-
-        List<Node> allNodes = Node.getAll(); // get all nodes from Database
-
-        for (Node n : allNodes) {
-          allNodeIDs.add(n.getNodeID()); // get nodeId
-        }
-    */
-    mapNodes = nodes;
-
-    System.out.println(mapNodes.get1() + ", " + mapNodes.get2() + " initData assigned to mapNodes");
-
-    // generatePath(nodes.get1(), nodes.get2());
   }
 
   /**
@@ -97,7 +64,7 @@ public class PathfindingMapController extends ServiceRequestController {
    */
   public void callMapDraw(ArrayList<GraphNode> path) {
     gc = mapCanvas.getGraphicsContext2D();
-    MapDraw.drawShapes(gc, path, 0.05); // change the scale factor here!
+    MapDraw.drawShapes(gc, path, 0.25); // change the scale factor here!
   }
 
   @FXML
@@ -105,9 +72,6 @@ public class PathfindingMapController extends ServiceRequestController {
    * Runs when the "Find Path" button is pressed, performing A* and displaying the path on the map.
    */
   public void generatePath(int startIndex, int endIndex) throws SQLException, RuntimeException {
-
-    // int startIndex = startNodeID.getSelectedIndex(); // from User Input
-    // int endIndex = endNodeID.getSelectedIndex(); // from User Input
 
     HashMap<String, GraphNode> hospitalL1 = null;
     if (startIndex == -1 || endIndex == -1) {
@@ -125,15 +89,11 @@ public class PathfindingMapController extends ServiceRequestController {
     // run A*
     ArrayList<GraphNode> path = callAStar(hospitalL1, sName, eName); // makes a call to AStar //
 
-    System.out.println("before addFloorMapImage");
-
     addFloorMapImage(
-        "src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/5% Scale/00_thelowerlevel1_unlabeled_5%.png"); // place the map on the page
+        "src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/25% Scale/00_thelowerlevel1_unlabeled_25%.png"); // place the map on the page
 
-    System.out.println("after addFloorMapImage");
     callMapDraw(path); // draw the path on top of the image
 
-    System.out.println("after callMapDraw");
     // print the path to the textField (if needed)
     // pathDisplay.setText(PathInterpreter.generatePathString(path));
   }

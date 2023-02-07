@@ -4,14 +4,13 @@ import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.*;
 import oracle.ucp.common.waitfreepool.Tuple;
 
@@ -72,48 +71,12 @@ public class PathfindingController extends ServiceRequestController {
     // gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
   }
 
-  public void goToMapScene(javafx.event.ActionEvent actionEvent) throws SQLException, IOException {
-    FXMLLoader loader =
-        new FXMLLoader(
-            getClass()
-                .getResource("resources/edu/wpi/cs3733/C23/teamA/views/PathfindingMapFXML.fxml"));
-    // var resource = AApp.class.getResource("PathfindingMapFXML.fxml");
-
-    System.out.println(loader.getLocation() == null);
-    // store node data in a tuple
+  public void goToMapScene(javafx.event.ActionEvent actionEvent) {
     Tuple<Integer, Integer> nodes =
         new Tuple<>(startNodeID.getSelectedIndex(), endNodeID.getSelectedIndex());
 
-    PathfindingMapController controller = new PathfindingMapController();
-    // Stage stage = new Stage();
-    // stage.setScene(new Scene(loader.load()));
-    // FXMLLoader loader = new FXMLLoader(resource);
-    // loader.setController(controller);
-    // loader.setLocation(resource);
+    NodeIndicesHolder.getInstance().setNodes(nodes);
 
-    // Parent pane = (Parent) loader.load();
     Navigation.navigate(Screen.PATHFINDING_MAP);
-
-    // System.out.println(loader.getController() == null);
-    System.out.println(loader.getLocation() == null);
-
-    controller = loader.getController();
-    // AApp.getRootPane().setCenter(loader.load());
-
-    // System.out.println(loader.getController() == null);
-    System.out.println(loader.getLocation() == null);
-
-    // NEED TO LOAD THE SCENE HERE
-
-    System.out.println("before calling initData");
-    controller.initData(nodes);
-    System.out.println("after calling initData");
-
-    // AApp.getRootPane().setCenter(loader.load());
-
-    // stage.show();
-    // Navigation.navigate(Screen.PATHFINDING_MAP);
-
-    // return stage;
   }
 }
