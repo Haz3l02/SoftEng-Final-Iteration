@@ -7,6 +7,7 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import java.sql.SQLException;
 import org.junit.jupiter.api.*; // notably, BeforeEach & Test
 
+// Testing class for database connection with PathfindingController
 public class DatabaseTest {
 
   private PathfindingSystem pathfindingSystem = new PathfindingSystem();

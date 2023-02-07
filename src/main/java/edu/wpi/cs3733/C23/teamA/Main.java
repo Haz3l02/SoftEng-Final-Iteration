@@ -1,11 +1,27 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.*;
+
+import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
+import jakarta.persistence.*;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 public class Main {
 
   public static void main(String[] args) {
-    AApp.launch(AApp.class, args);
+
+    // AApp.launch(AApp.class, args);
+
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+
+    //ComputerrequestEntity per = session.get(ComputerrequestEntity.class, 2);
+    //per.setUrgency(ServicerequestEntity.Urgency.MEDIUM);
+   // per.setDevice(ComputerrequestEntity.Device.MONITOR);
+
+    tx.commit();
+    session.close();
+    // getSessionFactory().close();
   }
-
-  // shortcut: psvm
-
 }
