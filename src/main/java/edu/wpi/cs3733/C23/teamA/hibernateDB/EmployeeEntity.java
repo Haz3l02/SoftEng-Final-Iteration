@@ -1,8 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 @Entity
 @Table(
@@ -65,7 +68,23 @@ public class EmployeeEntity {
 
   public EmployeeEntity() {}
 
-  public static String checkPass(String user, String pass) {
-    return "blah";
+  public static String checkPass(String user, String pass, Session session) {
+    Transaction tx = session.beginTransaction();
+    String hql =
+        "select E.employeeid, E.username, E.password "
+            + "from employee E"
+            + "where username = '"
+            + user
+            + "' and password = '"
+            + pass
+            + "'";
+    Query query = session.createQuery(hql);
+    final List<EmployeeEntity> emps = query.getResultList();
+    for (EmployeeEntity emp : emps) {
+      if (emp.getUsername().equals(user) && emp.getPassword().equals(pass)) {
+        return emp.getEmployeeid();
+      }
+    }
+    return "";
   }
 }
