@@ -53,7 +53,7 @@
                            <children>
                               <HBox prefHeight="31.0" prefWidth="1007.0">
                                  <children>
-                                    <MFXButton maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToServiceRequests" prefHeight="28.0" prefWidth="123.0" style="-fx-background-color: #2A4494;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+                                    <MFXButton maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" prefWidth="123.0" style="-fx-background-color: #2A4494;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
                                     <MFXButton onAction="#switchToPathfinding" style="-fx-background-color: #2A4494;" text="Pathfinding" textFill="WHITE" />
                                     <MFXButton onAction="#switchToDatabase" style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
                                  </children>
