@@ -4,6 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
+    <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="connection.driver_class">org.postgresql.Driver</property>
     <property name="connection.url">jdbc:postgresql://database.cs.wpi.edu:5432/teamadb</property>
     <property name="connection.username">teama</property>
@@ -12,7 +13,8 @@
     <property name="default_schema">iterationone</property>
 
 
-    <property name="hbm2ddl.auto">update</property>
+
+    <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity"/>
 <!--    <mapping resource="ComputerrequestEntity.hbm.xml"/>-->
     <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity"/>
