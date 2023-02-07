@@ -118,6 +118,7 @@ public class SanitationController extends ServiceRequestController {
           category = SanitationrequestEntity.Category.WONG;
           break;
       }
+
       SanitationrequestEntity submission =
           new SanitationrequestEntity(
               nameBox.getText(),
