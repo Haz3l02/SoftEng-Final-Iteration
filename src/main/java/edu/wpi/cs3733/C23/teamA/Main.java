@@ -15,46 +15,41 @@ public class Main {
 
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    //    EmployeeEntity person = new EmployeeEntity("123", "staff", "staff", "Medical", "Wilson
+
+    // EmployeeEntity wong = new EmployeeEntity("123", "staff", "staff", "Maintenance", "Wilson
     // Wong");
-    //    session.persist(person);
+    // session.persist(wong);
 
-    EmployeeEntity person2 = session.get(EmployeeEntity.class, "123");
+    EmployeeEntity wong = session.get(EmployeeEntity.class, "123");
+    LocationnameEntity loc = session.get(LocationnameEntity.class, "Ultrasound Floor L1");
 
-    LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
-
-    SecurityrequestEntity sec =
-        new SecurityrequestEntity(
-            "Need backup",
-            person2,
-            loc,
-            "HELP",
-            ServicerequestEntity.Urgency.EXTREMELY_URGENT,
-            ServicerequestEntity.RequestType.SECURITY,
-            ServicerequestEntity.Status.BLANK,
-            "Wong",
-            SecurityrequestEntity.Assistance.HARASSMENT,
-            "911");
-    session.persist(sec);
-    /*ComputerrequestEntity com =
+    /*ComputerrequestEntity comp =
         new ComputerrequestEntity(
-            "PC help",
-            person2,
+            "Help",
+            wong,
             loc,
-            "Need help",
-            ServicerequestEntity.Urgency.EXTREMELY_URGENT,
+            "need help",
+            ServicerequestEntity.Urgency.LOW,
             ServicerequestEntity.RequestType.COMPUTER,
             ServicerequestEntity.Status.BLANK,
-            "Harrison",
-            "365",
+            "John",
+            "My PC",
             ComputerrequestEntity.Device.DESKTOP);
-    session.persist(com);*/
-    //    List<ServicerequestEntity> reqs = getAllRecords(ServicerequestEntity.class, session);
-    //
-    //    for (ServicerequestEntity ser : reqs) {
-    //      System.out.println("Hi");
-    //      System.out.println(ser.getRequestid());
-    //    }
+    session.persist(comp);*/
+
+    SecurityrequestEntity comp =
+        new SecurityrequestEntity(
+            "Security threat",
+            wong,
+            loc,
+            "loitering",
+            ServicerequestEntity.Urgency.LOW,
+            ServicerequestEntity.RequestType.SECURITY,
+            ServicerequestEntity.Status.BLANK,
+            "swag",
+            SecurityrequestEntity.Assistance.HARASSMENT,
+            "401-330-4830");
+    session.persist(comp);
 
     tx.commit();
     session.close();
