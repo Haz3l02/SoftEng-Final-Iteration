@@ -9,7 +9,6 @@ import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.ComputerRequest;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
@@ -27,7 +26,6 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML private MFXTextField deviceIDNum;
   @FXML private MFXComboBox<String> devicesBox;
-  private ComputerRequest submission = new ComputerRequest();
   ServicerequestEntity.Urgency urgent;
   ComputerrequestEntity.Device device;
 
@@ -189,28 +187,39 @@ public class ComputerController extends ServiceRequestController {
         switch (urgencyBox.getValue()) {
           case "Low":
             urgent = ServicerequestEntity.Urgency.LOW;
+            break;
           case "Medium":
             urgent = ServicerequestEntity.Urgency.MEDIUM;
+            break;
           case "High":
             urgent = ServicerequestEntity.Urgency.HIGH;
+            break;
           case "Extremely Urgent":
             urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+            break;
         }
         switch (devicesBox.getValue()) {
           case "Desktop":
             device = ComputerrequestEntity.Device.DESKTOP;
+            break;
           case "Tablet":
             device = ComputerrequestEntity.Device.TABLET;
+            break;
           case "Laptop":
             device = ComputerrequestEntity.Device.LAPTOP;
+            break;
           case "Monitor":
             device = ComputerrequestEntity.Device.MONITOR;
+            break;
           case "Peripherals":
             device = ComputerrequestEntity.Device.PERIPHERALS;
+            break;
           case "Kiosk":
             device = ComputerrequestEntity.Device.KIOSK;
+            break;
           case "Printer":
             device = ComputerrequestEntity.Device.PRINTER;
+            break;
         }
         ComputerrequestEntity submission =
             new ComputerrequestEntity(
