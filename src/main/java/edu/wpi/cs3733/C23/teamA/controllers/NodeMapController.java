@@ -1,17 +1,21 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.databases.Node;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class NodeMapController {
+public class NodeMapController extends ServiceRequestController {
 
   @FXML private Canvas nodeMapCanvas; // to display the generated path
   @FXML private ImageView nodeMapImage;
@@ -21,7 +25,7 @@ public class NodeMapController {
   private GraphicsContext gc;
 
   // scaling constant
-  private final double SCALE_FACTOR = 0.09; // constant for map size/coordinate manipulation
+  private final double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
 
   public void initialize() {
     try {
@@ -48,5 +52,10 @@ public class NodeMapController {
     File file = new File(pathName);
     Image image = new Image(file.toURI().toString());
     nodeMapImage.setImage(image);
+  }
+
+  @FXML
+  public void switchToNodeScene(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.NODE);
   }
 }

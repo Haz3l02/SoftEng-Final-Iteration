@@ -31,6 +31,7 @@ public class PathfindingMapController extends ServiceRequestController {
 
   // a PathfindingSystem to run methods in the pathfinding package
   private static final PathfindingSystem pathfindingSystem = new PathfindingSystem();
+  private double SCALE_FACTOR = 0.15;
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -67,7 +68,6 @@ public class PathfindingMapController extends ServiceRequestController {
     gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
 
     // constant for map size/coordinate manipulation
-    double SCALE_FACTOR = 0.20;
     pathfindingSystem.drawPath(gc, path, SCALE_FACTOR);
   }
 

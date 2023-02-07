@@ -75,7 +75,7 @@ public class MapDraw {
     // draw circle for each node
     for (Node n : allNodes) {
       int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
-      gc.fillOval(updatedCoords[0] - 2.5, updatedCoords[1] - 2.5, 5, 5);
+      gc.fillOval(updatedCoords[0] - 4, updatedCoords[1] - 4, 8, 8);
     }
   }
 }
