@@ -79,7 +79,6 @@ public abstract class ServiceRequestController {
     if (alert.showAndWait().get() == ButtonType.OK) {
       System.out.println("You have successfully logged out!");
       Navigation.navigate(Screen.LOGIN);
-      // Navigation.close(); // MAY NOT FUCKING WORK
     }
   }
 }
