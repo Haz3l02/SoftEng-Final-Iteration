@@ -1,9 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
-import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,16 +13,12 @@ import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-
 @Entity
 @Table(name = "servicerequest", catalog = "dba")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServicerequestEntity {
-  @TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
-  @GeneratedValue(
-      strategy = GenerationType.TABLE,
-      generator = "serviceseq")
+  //@TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)//, generator = "serviceseq")
   @Id
   @Cascade(org.hibernate.annotations.CascadeType.ALL)
   @Column(name = "requestid")
@@ -178,15 +173,14 @@ public class ServicerequestEntity {
   //    return data;
   //  }
 
-  public static ArrayList<ServicerequestEntity> getServiceByEmployee(String id, Session session){
+  public static ArrayList<ServicerequestEntity> getServiceByEmployee(String id, Session session) {
     List<ServicerequestEntity> all = getAllRecords(ServicerequestEntity.class, session);
     ArrayList<ServicerequestEntity> fin = new ArrayList<>();
-    for (ServicerequestEntity ser : all){
-      if (ser.getEmployee().getEmployeeid().equals(id)){
+    for (ServicerequestEntity ser : all) {
+      if (ser.getEmployee().getEmployeeid().equals(id)) {
         fin.add(ser);
       }
     }
     return fin;
   }
-
 }

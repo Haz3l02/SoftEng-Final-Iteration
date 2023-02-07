@@ -16,8 +16,9 @@ public class Main {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
-    EmployeeEntity per = session.get(EmployeeEntity.class, "123");
-    per.setName("Wilson Wong");
+    ComputerrequestEntity per = session.get(ComputerrequestEntity.class, 2);
+    per.setUrgency(ServicerequestEntity.Urgency.MEDIUM);
+    per.setDevice(ComputerrequestEntity.Device.MONITOR);
 
     tx.commit();
     session.close();
