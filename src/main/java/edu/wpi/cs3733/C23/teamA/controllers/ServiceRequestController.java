@@ -62,9 +62,9 @@ public abstract class ServiceRequestController {
   void clearForm() {
     nameBox.clear();
     IDNum.clear();
-    locBox.clear();
     descBox.clear();
     urgencyBox.clear();
+    locationBox.clear();
   }
 
   public void logout(ActionEvent event) {
