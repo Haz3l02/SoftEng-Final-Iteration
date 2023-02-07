@@ -210,26 +210,27 @@ public class ServiceRequestStatusController extends ServiceRequestController {
           serviceReqsTable.refresh();
           Session session = getSessionFactory().openSession();
           Transaction tx = session.beginTransaction();
-          ServicerequestEntity bob = session.get(ServicerequestEntity.class, "123");
-          //          if (statusBox != null) {
-          //            switch (statusBox.getValue()) {
-          //              case "Blank":
-          //                status = ServicerequestEntity.Status.BLANK;
-          //                break;
-          //              case "Processing":
-          //                status = ServicerequestEntity.Status.PROCESSING;
-          //                break;
-          //              case "Done":
-          //                status = ServicerequestEntity.Status.DONE;
-          //                break;
-          //              default:
-          //                status = ServicerequestEntity.Status.BLANK;
-          //                break;
-          //            }
-          //
-          //            bob.setStatus(status);
-          //          }
-          if (urgencyBox != null) {
+          ServicerequestEntity billy = session.get(ServicerequestEntity.class, currentRowId);
+
+          if (statusBox != null && !statusBox.isDisabled()) {
+            switch (statusBox.getValue()) {
+              case "Blank":
+                status = ServicerequestEntity.Status.BLANK;
+                break;
+              case "Processing":
+                status = ServicerequestEntity.Status.PROCESSING;
+                break;
+              case "Done":
+                status = ServicerequestEntity.Status.DONE;
+                break;
+              default:
+                status = ServicerequestEntity.Status.BLANK;
+                break;
+            }
+
+            billy.setStatus(status);
+          }
+          if (urgencyBox != null && !urgencyBox.isDisabled()) {
             switch (urgencyBox.getValue()) {
               case "Low":
                 urgent = ServicerequestEntity.Urgency.LOW;
@@ -244,10 +245,10 @@ public class ServiceRequestStatusController extends ServiceRequestController {
                 urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
                 break;
             }
-            bob.setUrgency(urgent);
+            billy.setUrgency(urgent);
           }
-          bob.setEmployeeassigned(employeeBox.getText());
-          // bob.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
+          billy.setEmployeeassigned(employeeBox.getText());
+          // billy.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
           tx.commit();
           session.close();
           break;
