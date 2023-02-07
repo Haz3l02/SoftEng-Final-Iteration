@@ -27,7 +27,7 @@ public abstract class ServiceRequestController {
 
   @FXML protected MFXTextField nameBox;
   @FXML protected MFXTextField IDNum;
-  @FXML protected MFXTextField locBox;
+  @FXML protected MFXComboBox locBox;
   @FXML protected MFXTextField descBox;
   @FXML protected MFXComboBox<String> urgencyBox;
   @FXML protected MFXFilterComboBox<String> locationBox;

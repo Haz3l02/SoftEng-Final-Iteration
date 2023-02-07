@@ -103,18 +103,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       specificRequests = sr.getServiceRequests();
       requests = getAllRecords(ServicerequestEntity.class, session);
     }
-
-    //    for (ServiceRequest bla : specificRequests) {
-    //      ServiceRequestTableRow serviceReqNewRow =
-    //          new ServiceRequestTableRow(
-    //              bla.getRequestID(),
-    //              bla.getRequestType(),
-    //              "date",
-    //              bla.getStatus(),
-    //              bla.getUl(),
-    //              bla.getEmployeeAssigned());
-    //      dbTableRowsModel.add(serviceReqNewRow);
-    //    }
     for (ServicerequestEntity billy : requests) {
       ServiceRequestTableRow serviceReqNewRow =
           new ServiceRequestTableRow(
@@ -130,9 +118,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     serviceReqsTable.setItems(dbTableRowsModel);
     tx.commit();
     session.close();
-    if (session.getTransaction().isActive()) {
-      System.out.println("active");
-    }
   }
 
   @FXML
@@ -149,7 +134,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
       urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
       employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
-      if (hospitalID.equals("69420")) {
+      if (hospitalID.equals("123")) {
         editForm.setVisible(true);
       }
     }
