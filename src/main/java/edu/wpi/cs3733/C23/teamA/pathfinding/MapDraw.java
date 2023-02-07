@@ -66,7 +66,7 @@ public class MapDraw {
       prevX = currentX;
       prevY = currentY;
     }
-    gc.strokeOval(prevX - 8, prevY - 8, 16, 16); // ending open circle
+    gc.strokeOval(prevX - 6, prevY - 6, 12, 12); // ending open circle
   }
 
   public static void drawNodes(GraphicsContext gc, ArrayList<Node> allNodes, double scaleFactor) {

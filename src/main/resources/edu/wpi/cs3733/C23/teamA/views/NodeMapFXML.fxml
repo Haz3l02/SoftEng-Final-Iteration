@@ -10,19 +10,36 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-color: #BAD1EA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NodeMapController">
-   <top>
-      <HBox prefHeight="53.0" prefWidth="627.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: BLACK; -fx-background-color: #224870;" BorderPane.alignment="CENTER">
+<BorderPane maxHeight="-Infinity" prefHeight="100.0" style="-fx-background-color: #BAD1EA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NodeMapController">
+   <center>
+      <StackPane prefHeight="170.0" prefWidth="250.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375">
+            <ImageView fx:id="nodeMapImage" fitHeight="510" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
+            <Canvas fx:id="nodeMapCanvas" height="510" width="750.0" />
+         </children>
+      </StackPane>
+   </center>
+   <bottom>
+      <MFXButton buttonType="RAISED" cancelButton="true" onAction="#switchToNodeScene" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6" translateY="-10.0" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </MFXButton>
+   </bottom>
+   <top>
+      <BorderPane prefHeight="58.0" prefWidth="1012.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+         <left>
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
-               <HBox.margin>
-                  <Insets left="10.0" top="10.0" />
-               </HBox.margin>
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
             </Text>
-            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="232.0">
+         </left>
+         <right>
+            <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="58.0" prefWidth="213.0" BorderPane.alignment="CENTER">
                <children>
                   <MFXButton id="homeButton" fx:id="homeButton" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="61.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
                      <HBox.margin>
@@ -40,26 +57,8 @@
                      </HBox.margin>
                   </MFXButton>
                </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
             </HBox>
-         </children>
-      </HBox>
+         </right>
+      </BorderPane>
    </top>
-   <center>
-      <StackPane prefHeight="170.0" prefWidth="250.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="nodeMapImage" fitHeight="510" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
-            <Canvas fx:id="nodeMapCanvas" height="510" width="750.0" />
-         </children>
-      </StackPane>
-   </center>
-   <bottom>
-      <MFXButton buttonType="RAISED" cancelButton="true" onAction="#switchToNodeScene" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6" translateY="-10.0" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </MFXButton>
-   </bottom>
 </BorderPane>

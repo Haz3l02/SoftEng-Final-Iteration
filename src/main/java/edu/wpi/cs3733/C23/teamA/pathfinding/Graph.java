@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.pathfinding;
 import edu.wpi.cs3733.C23.teamA.databases.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import lombok.Getter;
 
@@ -59,25 +58,7 @@ public class Graph {
    * @throws SQLException
    */
   public void prepGraphDB() throws SQLException {
-    // Nodes
-    ArrayList<Node> allNodes = Node.getAll(); // gets all the nodes in db's node table
-    for (Node n : allNodes) {
-      // create the graph and add the nodes (id, xcoord, ycoord, longName)
-      GraphNode g =
-          new GraphNode(
-              n.getNodeID(), n.getXcoord(), n.getYcoord(), Move.mostRecentLoc(n.getNodeID()));
-      this.graph.put(n.getNodeID(), g);
-    }
-
-    // Edges
-    /* read through edge columns and add edges to correct node (bidirectional) */
-    ArrayList<Edge> allEdges = Edge.getAll(); // Gets list of all edges from database's edge table
-    for (Edge e : allEdges) {
-      GraphNode node1 = this.graph.get(e.getNode1());
-      GraphNode node2 = this.graph.get(e.getNode2());
-      node1.addNeighbor(node2);
-      node2.addNeighbor(node1);
-    }
+    DBReader.readDBOld(this);
   }
 
   /**

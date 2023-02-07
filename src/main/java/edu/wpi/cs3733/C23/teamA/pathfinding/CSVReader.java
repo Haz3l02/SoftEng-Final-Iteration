@@ -38,14 +38,7 @@ public class CSVReader {
         // Creates a node with this row and adds it to the graph HashMap
         GraphNode node =
             new GraphNode(
-                entries[0],
-                Integer.parseInt(entries[1]),
-                Integer.parseInt(entries[2]),
-                entries[3],
-                entries[4],
-                entries[5],
-                entries[6],
-                entries[7]);
+                entries[0], Integer.parseInt(entries[1]), Integer.parseInt(entries[2]), entries[6]);
         graph.addNode(entries[0], node);
       } else {
         throw new InvalidPropertiesFormatException("Improper Number of Columns or Commas");
