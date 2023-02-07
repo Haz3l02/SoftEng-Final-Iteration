@@ -15,7 +15,11 @@
 
 <AnchorPane prefWidth="604.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeServiceRequestController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="604.0" />
+      <VBox prefHeight="200.0" prefWidth="604.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="39.21630859375" />
+         </children>
+      </VBox>
       <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="114.0">
          <children>
             <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: BAD1EA; -fx-border-color: black; -fx-border-width: 1 1 1 1;">

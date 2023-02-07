@@ -54,16 +54,9 @@ public class HomeServiceRequestController extends ServiceRequestController {
     Navigation.navigate(Screen.ID_INPUT);
   }
 
-  @FXML
-  public void switchToServiceRequestStatus(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
-  }
-
-  @FXML
   public void switchToCredits(ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/CreditsFXML.fxml"));
-    PopOver popup = new PopOver(loader.load());
-    popup.show(((Node) event.getSource()).getScene().getWindow());
-    popup.detach();
+    PopOver creditsPopUp = new PopOver(loader.load());
+    creditsPopUp.show(((Node) event.getSource()).getScene().getWindow());
   }
 }

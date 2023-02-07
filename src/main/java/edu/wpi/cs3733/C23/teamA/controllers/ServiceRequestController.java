@@ -37,11 +37,14 @@ public abstract class ServiceRequestController {
   // for the timer
   public volatile boolean stop = false;
 
+  // for the timer
+  public volatile boolean stop = false;
+
   @FXML MFXButton backButton;
   private PopOver popup;
 
   @FXML
-  public void initialize() throws SQLException, InterruptedException, IOException {
+  public void initialize() throws SQLException, InterruptedException {
     // This statement blocks Pathfinding from being opened... is it important?
     // backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
