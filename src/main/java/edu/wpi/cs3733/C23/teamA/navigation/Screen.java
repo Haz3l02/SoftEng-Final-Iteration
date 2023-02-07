@@ -16,6 +16,8 @@ public enum Screen {
   NODE("views/NodeFXML.fxml"),
   EDGE("views/EdgeFXML.fxml"),
   PATHFINDING("views/PathfindingFXML.fxml"),
+  PATHFINDING_MAP("views/PathfindingMapFXML.fxml"),
+
   SERVICE_REQUEST_STATUS("views/ServiceRequestStatusNewFXML.fxml"),
   ID_INPUT("views/IDInputFXML.fxml"),
   NODE_MAP("views/NodeMapFXML.fxml"),

@@ -2,7 +2,7 @@ package edu.wpi.cs3733.C23.teamA;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
+import edu.wpi.cs3733.C23.teamA.controllers.PathfindingMapController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInterpreter;
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class AStarTest {
     testGraph2.put("b4", b4);
 
     // Hospital L1 Graph
-    graphL1 = PathfindingController.prepGraphCSV();
+    graphL1 = PathfindingMapController.prepGraphCSV();
   }
 
   @Test
@@ -57,7 +57,7 @@ public class AStarTest {
     a3.addNeighbor(a2);
 
     String[] correctPath = {"a1", "a2"};
-    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a2");
+    ArrayList<GraphNode> path = PathfindingMapController.callAStar(testGraph, "a1", "a2");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -73,7 +73,7 @@ public class AStarTest {
     a3.addNeighbor(a2);
 
     String[] correctPath = {"a1", "a3"};
-    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a3");
+    ArrayList<GraphNode> path = PathfindingMapController.callAStar(testGraph, "a1", "a3");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -93,7 +93,7 @@ public class AStarTest {
     a5.addNeighbor(a4);
 
     String[] correctPath = {"a1", "a3", "a4"};
-    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a4");
+    ArrayList<GraphNode> path = PathfindingMapController.callAStar(testGraph, "a1", "a4");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -115,7 +115,7 @@ public class AStarTest {
     a5.addNeighbor(a4);
 
     String[] correctPath = {"a2", "a1", "a5"};
-    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a2", "a5");
+    ArrayList<GraphNode> path = PathfindingMapController.callAStar(testGraph, "a2", "a5");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -137,7 +137,7 @@ public class AStarTest {
     a1.addNeighbor(a2);
 
     String[] correctPath = {"a2", "a1", "a5"};
-    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a2", "a5");
+    ArrayList<GraphNode> path = PathfindingMapController.callAStar(testGraph, "a2", "a5");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -151,7 +151,7 @@ public class AStarTest {
     a5.addNeighbor(a1);
 
     String[] correctPath = {"a1"};
-    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a1");
+    ArrayList<GraphNode> path = PathfindingMapController.callAStar(testGraph, "a1", "a1");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -163,7 +163,7 @@ public class AStarTest {
     // no neighboring nodes
 
     String[] correctPath = {"a1"};
-    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a1");
+    ArrayList<GraphNode> path = PathfindingMapController.callAStar(testGraph, "a1", "a1");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -178,7 +178,7 @@ public class AStarTest {
     a1.addNeighbor(a1);
 
     String[] correctPath = {"a1"};
-    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph, "a1", "a1");
+    ArrayList<GraphNode> path = PathfindingMapController.callAStar(testGraph, "a1", "a1");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -198,7 +198,7 @@ public class AStarTest {
     b3.addNeighbor(b1);
 
     String[] correctPath = {"b1", "b3", "b4"};
-    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph2, "b1", "b4");
+    ArrayList<GraphNode> path = PathfindingMapController.callAStar(testGraph2, "b1", "b4");
     System.out.println(PathInterpreter.generatePathString(path));
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
@@ -219,7 +219,7 @@ public class AStarTest {
     b3.addNeighbor(b1);
 
     String[] correctPath = {"b4", "b3", "b1"};
-    ArrayList<GraphNode> path = PathfindingController.callAStar(testGraph2, "b4", "b1");
+    ArrayList<GraphNode> path = PathfindingMapController.callAStar(testGraph2, "b4", "b1");
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);

@@ -2,7 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
@@ -40,8 +40,8 @@ public class IDInputController {
     } else {
       textNotification.setVisible(false);
       String id = idNumTextField.getText();
-      IdNumberHolder holder = IdNumberHolder.getInstance();
-      holder.setId(id);
+      NodeIndicesHolder holder = NodeIndicesHolder.getInstance();
+      // holder.setId(id);
       Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
     }
   }

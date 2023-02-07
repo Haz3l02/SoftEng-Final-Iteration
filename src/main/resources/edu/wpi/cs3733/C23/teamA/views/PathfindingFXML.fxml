@@ -61,7 +61,7 @@
                   <Insets bottom="10.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton id="findPathButton" fx:id="findPathButton" buttonType="RAISED" defaultButton="true" onAction="#generatePath" prefHeight="23.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Find Path" textFill="#d3e9f6">
+            <MFXButton id="findPathButton" fx:id="findPathButton" buttonType="RAISED" defaultButton="true" onAction="#goToMapScene" prefHeight="23.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Find Path" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </HBox.margin>
