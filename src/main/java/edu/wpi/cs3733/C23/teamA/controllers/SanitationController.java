@@ -75,6 +75,21 @@ public class SanitationController extends ServiceRequestController {
       urgencyBox.setItems(urgencies);
       locationBox.setItems(locations);
     }
+    if (newEdit.needEdits && newEdit.getRequestType().equals("SANITATION")) {
+
+      Session session = getSessionFactory().openSession();
+      Transaction tx = session.beginTransaction();
+      SanitationrequestEntity editRequest =
+          session.get(SanitationrequestEntity.class, newEdit.getRequestID());
+      nameBox.setText(editRequest.getName());
+      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      categoryBox.setText(editRequest.getCategory().category);
+      locationBox.setText(editRequest.getLocation().toString());
+      urgencyBox.setText(editRequest.getUrgency().urgency);
+      descBox.setText(editRequest.getDescription());
+      tx.commit();
+      session.close();
+    }
   }
 
   @FXML
@@ -188,8 +203,9 @@ public class SanitationController extends ServiceRequestController {
         tx.commit();
         session.close();
         // submission.insert(); // *some db thing for getting the request in there*
-        switchToConfirmationScene(event);
       }
+      newEdit.setNeedEdits(false);
+      switchToConfirmationScene(event);
     }
   }
 

@@ -75,6 +75,22 @@ public class SecurityController extends ServiceRequestController {
       urgencyBox.setItems(urgencies);
       locationBox.setItems(locations);
     }
+    if (newEdit.needEdits && newEdit.getRequestType().equals("SECURITY")) {
+
+      Session session = getSessionFactory().openSession();
+      Transaction tx = session.beginTransaction();
+      SecurityrequestEntity editRequest =
+          session.get(SecurityrequestEntity.class, newEdit.getRequestID());
+      nameBox.setText(editRequest.getName());
+      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      requestsBox.setText(editRequest.getRequesttype().requesttype);
+      locationBox.setText(editRequest.getLocation().toString());
+      urgencyBox.setText(editRequest.getUrgency().urgency);
+      descBox.setText(editRequest.getDescription());
+      phone.setText(editRequest.getSecphone());
+      tx.commit();
+      session.close();
+    }
   }
 
   @FXML
@@ -199,8 +215,9 @@ public class SecurityController extends ServiceRequestController {
         tx.commit();
         session.close();
         // submission.insert(); // *some db thing for getting the request in there*
-        switchToConfirmationScene(event);
       }
+      newEdit.setNeedEdits(false);
+      switchToConfirmationScene(event);
     }
   }
 

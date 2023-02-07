@@ -275,6 +275,19 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     clickedRow.getFormType();
     clickedRow.getID();
     newEdit = new EditTheForm(clickedRow.getID(), clickedRow.getFormType(), true);
-    Navigation.navigate(Screen.COMPUTER); // Change to specifci type
+    switch (clickedRow.getFormType()) {
+      case "COMPUTER":
+        Navigation.navigate(Screen.COMPUTER);
+        break;
+      case "SANITATION":
+        Navigation.navigate(Screen.SANITATION);
+        break;
+      case "SECURITY":
+        Navigation.navigate(Screen.SECURITY);
+        break;
+      default:
+        Navigation.navigate(Screen.HOME);
+        break;
+    }
   }
 }
