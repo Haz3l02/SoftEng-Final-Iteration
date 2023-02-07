@@ -58,7 +58,7 @@ public class Graph {
    * @throws SQLException
    */
   public void prepGraphDB() throws SQLException {
-    DBReader.readDBOld(this);
+    DBReader.readDB(this);
   }
 
   /**

@@ -1,6 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+
 import edu.wpi.cs3733.C23.teamA.databases.*;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
@@ -15,6 +19,7 @@ import javafx.scene.canvas.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import oracle.ucp.common.waitfreepool.Tuple;
+import org.hibernate.Session;
 
 /* This class has methods for pathfinding UI as well as methods to
 create a graph using nodes from database and method to call AStar
@@ -25,6 +30,7 @@ public class PathfindingMapController extends ServiceRequestController {
   @FXML private Canvas mapCanvas; // to display the generated path
   @FXML private ImageView mapImage;
 
+  private Session session = getSessionFactory().openSession();
   // Lists of Nodes and Node Data
 
   private List<String> allNodeIDs; // List of all Node IDs in specific order
@@ -43,12 +49,12 @@ public class PathfindingMapController extends ServiceRequestController {
     Tuple<Integer, Integer> mapNodes = NodeIndicesHolder.getInstance().getNodes();
     allNodeIDs = new ArrayList<>();
 
-    List<Node> allNodes = Node.getAll(); // get all nodes from Database
-
-    for (Node n : allNodes) {
-      allNodeIDs.add(n.getNodeID()); // get nodeId
+    List<NodeEntity> allNodes =
+        getAllRecords(NodeEntity.class, session); // get all nodes from Database
+    for (NodeEntity n : allNodes) {
+      allNodeIDs.add(n.getNodeid()); // get nodeId
     }
-
+    session.close();
     addFloorMapImage(
         "src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/20% Scale/00_thelowerlevel1_unlabeled_20%.png"); // place the map on the page
 

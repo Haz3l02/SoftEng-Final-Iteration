@@ -7,6 +7,7 @@ import edu.wpi.cs3733.C23.teamA.databases.Edge;
 import edu.wpi.cs3733.C23.teamA.databases.Move;
 import edu.wpi.cs3733.C23.teamA.databases.Node;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,7 +31,10 @@ public class DBReader {
       // create the graph and add the nodes (id, xcoord, ycoord, longName)
       GraphNode g =
           new GraphNode(
-              n.getNodeid(), n.getXcoord(), n.getYcoord(), Move.mostRecentLoc(n.getNodeid()));
+              n.getNodeid(),
+              n.getXcoord(),
+              n.getYcoord(),
+              MoveEntity.mostRecentLoc(n.getNodeid(), session));
       graph.addNode(n.getNodeid(), g);
     }
 

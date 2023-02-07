@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecor
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.databases.*;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -30,6 +31,7 @@ public class PathfindingController extends ServiceRequestController {
 
   // objects needed for the maps
   private GraphicsContext gc;
+  Session session = getSessionFactory().openSession();
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -49,7 +51,7 @@ public class PathfindingController extends ServiceRequestController {
 
     for (NodeEntity n : allNodes) {
       allNodeIDs.add(n.getNodeid()); // get nodeId
-      allLongNames.add(Move.mostRecentLoc(n.getNodeid())); // get longName
+      allLongNames.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
     }
     session.close();
 
@@ -72,6 +74,7 @@ public class PathfindingController extends ServiceRequestController {
   }
 
   public void goToMapScene(javafx.event.ActionEvent actionEvent) {
+    session.close();
     Tuple<Integer, Integer> nodes =
         new Tuple<>(startNodeID.getSelectedIndex(), endNodeID.getSelectedIndex());
 

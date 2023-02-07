@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import lombok.*;
 
+@Deprecated
 public class SecurityRequest extends ServiceRequest {
 
   @Getter private static final String tableName = "SecurityRequest";

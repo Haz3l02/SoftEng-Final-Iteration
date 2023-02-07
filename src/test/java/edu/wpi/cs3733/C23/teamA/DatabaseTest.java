@@ -1,20 +1,22 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.cs3733.C23.teamA.databases.*;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import java.sql.SQLException;
+import org.hibernate.Session;
 import org.junit.jupiter.api.*; // notably, BeforeEach & Test
 
 // Testing class for database connection with PathfindingController
 public class DatabaseTest {
+  Session session = getSessionFactory().openSession();
 
-  private PathfindingSystem pathfindingSystem = new PathfindingSystem();
-
-  @BeforeEach
+  @Test
   public void init() throws SQLException {
-    pathfindingSystem.prepGraphDB();
+    System.out.println(MoveEntity.mostRecentLoc("CCONF001L1", session));
   }
 
   // DATABASE STUFF WHICH IS MAYBE OUTDATED
