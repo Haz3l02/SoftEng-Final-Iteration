@@ -13,12 +13,16 @@ import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+
 @Entity
-@Table(name = "servicerequest")
+@Table(name = "servicerequest", catalog = "dba")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServicerequestEntity {
-  @TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
-  @GeneratedValue(strategy = GenerationType.TABLE, generator = "serviceseq")
+  //@TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
+  @GeneratedValue(
+      strategy = GenerationType.IDENTITY)
+//      generator = "serviceseq") // (strategy = GenerationType.AUTO,)
   @Id
   @Cascade(org.hibernate.annotations.CascadeType.ALL)
   @Column(name = "requestid")
@@ -174,4 +178,5 @@ public class ServicerequestEntity {
     }
     return fin;
   }
+
 }

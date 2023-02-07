@@ -62,8 +62,7 @@
                             <TableColumn prefWidth="100.0" text="X" fx:id="xCol" />
                               <TableColumn fx:id="yCol" prefWidth="100.0" text="Y" />
                               <TableColumn fx:id="floorCol" prefWidth="100.0" text="Floor" />
-                              <TableColumn fx:id="buildingCol" prefWidth="100.0" text="Building" />
-                              <TableColumn fx:id="deleteCol" prefWidth="75.0" text="Delete" />
+                              <TableColumn fx:id="buildingCol" prefWidth="105.0" text="Building" />
                           </columns>
                         </TableView>
                      </children>
@@ -96,6 +95,10 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </MFXButton>
+            <MFXButton buttonType="RAISED" onAction="#switchToMoveScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Move" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></MFXButton>
             <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
