@@ -184,7 +184,7 @@ public class ComputerController extends ServiceRequestController {
       } else {
         Session session = getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+        EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
         // IDNum.getText()
         LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
         switch (urgencyBox.getValue()) {

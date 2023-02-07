@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
@@ -100,53 +101,98 @@ public class SecurityController extends ServiceRequestController {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
-      Session session = ADBSingletonClass.getSessionFactory().openSession();
-      Transaction tx = session.beginTransaction();
-      EmployeeEntity person = session.get(EmployeeEntity.class, "123");
-      // IDNum.getText()
-      LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
-      switch (urgencyBox.getValue()) {
-        case "Low":
-          urgent = ServicerequestEntity.Urgency.LOW;
-          break;
-        case "Medium":
-          urgent = ServicerequestEntity.Urgency.MEDIUM;
-          break;
-        case "High":
-          urgent = ServicerequestEntity.Urgency.HIGH;
-          break;
-        case "Extremely Urgent":
-          urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
-          break;
+      if (newEdit.needEdits) {
+        // something that submits it
+        Session session = getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        switch (urgencyBox.getValue()) {
+          case "Low":
+            urgent = ServicerequestEntity.Urgency.LOW;
+            break;
+          case "Medium":
+            urgent = ServicerequestEntity.Urgency.MEDIUM;
+            break;
+          case "High":
+            urgent = ServicerequestEntity.Urgency.HIGH;
+            break;
+          case "Extremely Urgent":
+            urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+            break;
+        }
+        switch (requestsBox.getValue()) {
+          case "Harassment":
+            assistance = SecurityrequestEntity.Assistance.HARASSMENT;
+            break;
+          case "Security Threat":
+            assistance = SecurityrequestEntity.Assistance.SECURITY_ESCORT;
+            break;
+          case "Potential Threat":
+            assistance = SecurityrequestEntity.Assistance.POTENTIAL_THREAT;
+            break;
+        }
+
+        SecurityrequestEntity submission =
+            session.get(SecurityrequestEntity.class, newEdit.getRequestID());
+        submission.setName(nameBox.getText());
+        LocationnameEntity loc = session.get(LocationnameEntity.class, locationBox.getValue());
+        submission.setLocation(loc);
+        submission.setDescription(descBox.getText());
+        submission.setUrgency(urgent);
+        submission.setAssistance(assistance);
+        submission.setSecphone(phone.getText());
+
+        tx.commit();
+        session.close();
+      } else {
+
+        Session session = ADBSingletonClass.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+        // IDNum.getText()
+        LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
+        switch (urgencyBox.getValue()) {
+          case "Low":
+            urgent = ServicerequestEntity.Urgency.LOW;
+            break;
+          case "Medium":
+            urgent = ServicerequestEntity.Urgency.MEDIUM;
+            break;
+          case "High":
+            urgent = ServicerequestEntity.Urgency.HIGH;
+            break;
+          case "Extremely Urgent":
+            urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+            break;
+        }
+        switch (requestsBox.getValue()) {
+          case "Harassment":
+            assistance = SecurityrequestEntity.Assistance.HARASSMENT;
+            break;
+          case "Security Threat":
+            assistance = SecurityrequestEntity.Assistance.SECURITY_ESCORT;
+            break;
+          case "Potential Threat":
+            assistance = SecurityrequestEntity.Assistance.POTENTIAL_THREAT;
+            break;
+        }
+        SecurityrequestEntity submission =
+            new SecurityrequestEntity(
+                nameBox.getText(),
+                person,
+                location,
+                descBox.getText(),
+                urgent,
+                ServicerequestEntity.RequestType.SECURITY,
+                ServicerequestEntity.Status.BLANK,
+                "Unassigned",
+                assistance,
+                phone.getText());
+        session.persist(submission);
+        tx.commit();
+        session.close();
+        // submission.insert(); // *some db thing for getting the request in there*
+        switchToConfirmationScene(event);
       }
-      switch (requestsBox.getValue()) {
-        case "Harassment":
-          assistance = SecurityrequestEntity.Assistance.HARASSMENT;
-          break;
-        case "Security Threat":
-          assistance = SecurityrequestEntity.Assistance.SECURITY_ESCORT;
-          break;
-        case "Potential Threat":
-          assistance = SecurityrequestEntity.Assistance.POTENTIAL_THREAT;
-          break;
-      }
-      SecurityrequestEntity submission =
-          new SecurityrequestEntity(
-              nameBox.getText(),
-              person,
-              location,
-              descBox.getText(),
-              urgent,
-              ServicerequestEntity.RequestType.SECURITY,
-              ServicerequestEntity.Status.BLANK,
-              "Unassigned",
-              assistance,
-              phone.getText());
-      session.persist(submission);
-      tx.commit();
-      session.close();
-      // submission.insert(); // *some db thing for getting the request in there*
-      switchToConfirmationScene(event);
     }
   }
 
