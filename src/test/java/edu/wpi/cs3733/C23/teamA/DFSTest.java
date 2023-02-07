@@ -2,8 +2,7 @@ package edu.wpi.cs3733.C23.teamA;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.wpi.cs3733.C23.teamA.controllers.PathfindingMapController;
-import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +19,7 @@ public class DFSTest {
   static HashMap<String, GraphNode> testGraph = new HashMap<>();
 
   // test graph from Hospital L1 data
-  static HashMap<String, GraphNode> graph = new HashMap<>();
+  PathfindingSystem pathfindingSystem = new PathfindingSystem();
 
   @BeforeEach
   public void init() throws IOException {
@@ -33,7 +32,7 @@ public class DFSTest {
     testGraph.put("a6", a6);
 
     // Hospital L1 Graph
-    graph = PathfindingMapController.prepGraphCSV();
+    pathfindingSystem.prepGraphCSV();
   }
 
   @Test
@@ -42,7 +41,7 @@ public class DFSTest {
     a1.addNeighbor(a2);
 
     String[] correctPath = {"a1", "a2"};
-    ArrayList<GraphNode> path = PathfindingMapController.callDFS(testGraph, "a1", "a2");
+    ArrayList<GraphNode> path = DFS.traverse(a1, a2);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));
@@ -57,7 +56,7 @@ public class DFSTest {
     a3.addNeighbor(a5);
 
     String[] correctPath = {"a1", "a3", "a5"};
-    ArrayList<GraphNode> path = PathfindingMapController.callDFS(testGraph, "a1", "a5");
+    ArrayList<GraphNode> path = DFS.traverse(a1, a5);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));
@@ -74,7 +73,7 @@ public class DFSTest {
     a3.addNeighbor(a6);
 
     String[] correctPath = {"a1", "a2", "a4"};
-    ArrayList<GraphNode> path = PathfindingMapController.callDFS(testGraph, "a1", "a4");
+    ArrayList<GraphNode> path = DFS.traverse(a1, a4);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));
@@ -90,7 +89,7 @@ public class DFSTest {
     a2.addNeighbor(a4);
     a3.addNeighbor(a4);
 
-    ArrayList<GraphNode> shouldBeNull = PathfindingMapController.callDFS(testGraph, "a1", "a6");
+    ArrayList<GraphNode> shouldBeNull = DFS.traverse(a1, a6);
     assertTrue(shouldBeNull == null);
   }
 
@@ -104,7 +103,7 @@ public class DFSTest {
     a3.addNeighbor(a6);
 
     String[] correctPath = {"a1", "a2", "a4", "a5", "a6"};
-    ArrayList<GraphNode> path = PathfindingMapController.callDFS(testGraph, "a1", "a6");
+    ArrayList<GraphNode> path = DFS.traverse(a1, a6);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));
@@ -116,7 +115,7 @@ public class DFSTest {
     a5.addNeighbor(a2);
     a2.addNeighbor(a5);
 
-    ArrayList<GraphNode> shouldBeNull = PathfindingMapController.callDFS(testGraph, "a5", "a6");
+    ArrayList<GraphNode> shouldBeNull = DFS.traverse(a5, a6);
     assertTrue(shouldBeNull == null);
   }
 
@@ -129,7 +128,7 @@ public class DFSTest {
     a2.addNeighbor(a1);
 
     String[] correctPath = {"a2", "a1", "a4", "a5", "a6"};
-    ArrayList<GraphNode> path = PathfindingMapController.callDFS(testGraph, "a2", "a6");
+    ArrayList<GraphNode> path = DFS.traverse(a2, a6);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));
@@ -139,8 +138,10 @@ public class DFSTest {
   @Test
   public void roomToVendingPath() throws IOException {
     // call to readNodes and readEdges method to add in all the nodes and edges
-    ArrayList<GraphNode> roomVending =
-        PathfindingMapController.callDFS(graph, "CHALL003L1", "CHALL007L1");
+    GraphNode start = pathfindingSystem.getNode("CHALL003L1");
+    GraphNode end = pathfindingSystem.getNode("CHALL007L1");
+
+    ArrayList<GraphNode> roomVending = pathfindingSystem.traverseDFS(start, end);
     assertTrue(roomVending != null);
   }
 
@@ -149,8 +150,9 @@ public class DFSTest {
     // going from L1 Nuclear Medicine (CLABS003L1) to L1 Ultrasound (CLABS004L1)
     // these rooms are literally right across a hallaway from eachother.
     // If it didn't work, that would be BAD.
-    ArrayList<GraphNode> questionable =
-        PathfindingMapController.callDFS(graph, "CLABS003L1", "CLABS004L1");
+    GraphNode start = pathfindingSystem.getNode("CLABS003L1");
+    GraphNode end = pathfindingSystem.getNode("CLABS004L1");
+    ArrayList<GraphNode> questionable = pathfindingSystem.traverseDFS(start, end);
     assertTrue(questionable != null);
   }
 
@@ -158,12 +160,13 @@ public class DFSTest {
   public void questionableHospitalPath() throws IOException {
     // going from L1 Anesthesia Conference Room (CCONF001L1) to L1 Abrams Conference Room
     // (CCONF003L1)
-    ArrayList<GraphNode> questionable =
-        PathfindingMapController.callDFS(graph, "CCONF001L1", "CCONF003L1");
+    GraphNode start = pathfindingSystem.getNode("CCONF001L1");
+    GraphNode end = pathfindingSystem.getNode("CCONF003L1");
+    ArrayList<GraphNode> questionable = pathfindingSystem.traverseDFS(start, end);
     assertTrue(questionable != null);
   }
 
-  /* this test was true for the L1 nodes/edges, but is no longer true because paths are now multi-floor
+  /* this test was true for just the L1 nodes/edges, but is no longer true because paths are now multi-floor
   @Test
   public void shapiroPath() throws IOException {
     // going from L1 Shapiro Elevator (GELEV00QL1) to L1 Day Surgery Family Waiting (CDEPT002L1)
@@ -182,7 +185,7 @@ public class DFSTest {
     a1.addNeighbor(a1);
 
     String[] correctPath = {"a1"};
-    ArrayList<GraphNode> path = PathfindingMapController.callDFS(testGraph, "a1", "a1");
+    ArrayList<GraphNode> path = DFS.traverse(a1, a1);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));
@@ -194,7 +197,7 @@ public class DFSTest {
     // no neighbors
 
     String[] correctPath = {"a4"};
-    ArrayList<GraphNode> path = PathfindingMapController.callDFS(testGraph, "a4", "a4");
+    ArrayList<GraphNode> path = DFS.traverse(a4, a4);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));
@@ -208,7 +211,7 @@ public class DFSTest {
     a1.addNeighbor(a2);
 
     String[] correctPath = {"a2"};
-    ArrayList<GraphNode> path = PathfindingMapController.callDFS(testGraph, "a2", "a2");
+    ArrayList<GraphNode> path = DFS.traverse(a2, a2);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));

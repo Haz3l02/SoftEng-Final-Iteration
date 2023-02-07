@@ -18,13 +18,7 @@ import oracle.ucp.common.waitfreepool.Tuple;
 
 /* This class has methods for pathfinding UI as well as methods to
 create a graph using nodes from database and method to call AStar
-to obtain and later print the path
-
-Contains: input texts (startNodeID and endNodeID) and displayText (pathDisplay)
-Contains Methods: - generatePath   - prepGraphDB     - callDFS
-                  - prepGraphCSV   - callAStar       - clearForm
-                  - initialize     - addFloorMapImage   -
- */
+to obtain and later print the path */
 public class PathfindingMapController extends ServiceRequestController {
 
   // javaFX items
@@ -35,9 +29,8 @@ public class PathfindingMapController extends ServiceRequestController {
 
   private List<String> allNodeIDs; // List of all Node IDs in specific order
 
-  private final PathfindingSystem pathfindingSystem = new PathfindingSystem();
-
-  public PathfindingMapController() {}
+  // a PathfindingSystem to run methods in the pathfinding package
+  private static final PathfindingSystem pathfindingSystem = new PathfindingSystem();
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -65,7 +58,7 @@ public class PathfindingMapController extends ServiceRequestController {
   /**
    * Draws a visual representation of the path given in mapCanvas on top of mapImage.
    *
-   * @param path The path of GraphNodes returned by callAStar
+   * @param path The path of GraphNodes returned by callAStar, assumed not null
    */
   private void callMapDraw(ArrayList<GraphNode> path) {
     GraphicsContext gc = mapCanvas.getGraphicsContext2D();
@@ -105,10 +98,11 @@ public class PathfindingMapController extends ServiceRequestController {
     ArrayList<GraphNode> path =
         pathfindingSystem.traverseAStar(start, end); // makes a call to AStar
 
-    callMapDraw(path); // draw the path on top of the image
-
-    // print the path to the textField (if needed)
-    // pathDisplay.setText(pathfindingSystem.generatePathString(path));
+    // if a path was found, draw a path
+    if (path != null) {
+      callMapDraw(path); // draw the path on top of the image
+    }
+    // else: display something?
   }
 
   /**

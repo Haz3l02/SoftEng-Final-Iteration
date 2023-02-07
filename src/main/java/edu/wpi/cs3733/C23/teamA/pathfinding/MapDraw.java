@@ -49,7 +49,7 @@ public class MapDraw {
           scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), scaleFactor);
       prevX = updatedCoords[0];
       prevY = updatedCoords[1];
-      gc.fillOval(prevX - 4, prevY - 4, 8, 8); // starting circle
+      gc.fillOval(prevX - 6, prevY - 6, 12, 12); // starting circle
     }
 
     // current holders for coordinates
@@ -66,7 +66,7 @@ public class MapDraw {
       prevX = currentX;
       prevY = currentY;
     }
-    gc.strokeOval(prevX - 2.5, prevY - 2.5, 5, 5); // ending open circle
+    gc.strokeOval(prevX - 8, prevY - 8, 16, 16); // ending open circle
   }
 
   public static void drawNodes(GraphicsContext gc, ArrayList<Node> allNodes, double scaleFactor) {

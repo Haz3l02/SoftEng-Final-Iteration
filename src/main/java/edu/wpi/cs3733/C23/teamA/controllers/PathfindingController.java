@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.sql.SQLException;
@@ -13,11 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.*;
 import oracle.ucp.common.waitfreepool.Tuple;
-
-/* This class has methods for pathfinding UI as well as methods to
-create a graph using nodes from database and method to call AStar
-to obtain and later print the path
- */
 
 public class PathfindingController extends ServiceRequestController {
 
@@ -31,8 +25,6 @@ public class PathfindingController extends ServiceRequestController {
 
   // objects needed for the maps
   private GraphicsContext gc;
-
-  // the PathfindingSystem which runs methods from classes in the pathfinding package
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -57,12 +49,6 @@ public class PathfindingController extends ServiceRequestController {
     // populates the dropdown boxes
     startNodeID.setItems(locations);
     endNodeID.setItems(locations);
-
-    // initialize the pathfindingSystem
-    PathfindingSystem pathfindingSystem = new PathfindingSystem();
-
-    // addFloorMapImage("src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/25%
-    // Scale/00_thelowerlevel1_unlabeled_25%.png"); // place the map on the page
   }
 
   /** Method to clear the fields on the form on the UI page */
