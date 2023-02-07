@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.databases.*;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
@@ -12,6 +13,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.*;
 import oracle.ucp.common.waitfreepool.Tuple;
+import org.hibernate.Session;
+
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
 public class PathfindingController extends ServiceRequestController {
 
@@ -37,12 +42,15 @@ public class PathfindingController extends ServiceRequestController {
     // Database's list of longNames
     allNodeIDs = new ArrayList<String>();
     allLongNames = new ArrayList<String>();
-    List<Node> allNodes = Node.getAll(); // get all nodes from Database
 
-    for (Node n : allNodes) {
-      allNodeIDs.add(n.getNodeID()); // get nodeId
-      allLongNames.add(Move.mostRecentLoc(n.getNodeID())); // get longName
+    Session session = getSessionFactory().openSession();
+    List<NodeEntity> allNodes = getAllRecords(NodeEntity.class, session); // get all nodes from Database
+
+    for (NodeEntity n : allNodes) {
+      allNodeIDs.add(n.getNodeid()); // get nodeId
+      allLongNames.add(Move.mostRecentLoc(n.getNodeid())); // get longName
     }
+    session.close();
 
     // Add to front end
     ObservableList<String> locations = FXCollections.observableArrayList(allLongNames);
