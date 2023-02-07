@@ -75,9 +75,16 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     if (job.equals("medical")) {
       statusBox.setDisable(true);
       employeeBox.setDisable(true);
-    } else if (holder.getJob().equals("maintenance")) {
+      formTypeBox.setDisable(false);
+      dateBox.setDisable(false);
+      urgencyBox.setDisable(false);
+
+    } else if (job.equals("maintenance")) {
       statusBox.setDisable(false);
       employeeBox.setDisable(false);
+      formTypeBox.setDisable(true);
+      dateBox.setDisable(true);
+      urgencyBox.setDisable(true);
     }
 
     IDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
@@ -92,17 +99,19 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
-    ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
+    //ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
     List<ServicerequestEntity> requests = new ArrayList<ServicerequestEntity>();
 
     if (job.equals("medical")) {
-      specificRequests = sr.getServiceRequestsByID(hospitalID);
+      //specificRequests = sr.getServiceRequestsByID(hospitalID);
       requests = getServiceByEmployee(hospitalID, session);
 
     } else {
-      specificRequests = sr.getServiceRequests();
+      //specificRequests = sr.getServiceRequests();
       requests = getAllRecords(ServicerequestEntity.class, session);
     }
+
+
     for (ServicerequestEntity billy : requests) {
       ServiceRequestTableRow serviceReqNewRow =
           new ServiceRequestTableRow(
