@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXListView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -53,17 +52,11 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <SplitPane dividerPositions="0.1346153846153846" prefHeight="9999.0" prefWidth="600.0">
+            <SplitPane prefHeight="9999.0" prefWidth="600.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <MFXListView layoutX="-53.0" layoutY="-57.0" prefHeight="158.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <MFXButton fx:id="refresh" layoutX="14.0" layoutY="70.0" text=" " />
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <TableView fx:id="dbTable" editable="true" layoutX="-36.0" layoutY="-38.0" prefHeight="237.0" prefWidth="514.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="dbTable" editable="true" layoutX="-36.0" layoutY="-38.0" onMouseClicked="#rowClicked" prefHeight="237.0" prefWidth="514.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                             <TableColumn fx:id="nodeCol" prefWidth="100.0" text="Node" />
                             <TableColumn prefWidth="100.0" text="X" fx:id="xCol" />
@@ -82,7 +75,12 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <MFXButton buttonType="RAISED" onAction="#switchToMoveScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Move" textFill="#d3e9f6">
+            <MFXButton fx:id="view" buttonType="RAISED" onAction="#switchToMoveScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="View" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="delete" buttonType="RAISED" onAction="#delete" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Delete" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
@@ -97,6 +95,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </MFXButton>
+            <MFXButton buttonType="RAISED" onAction="#switchToMoveScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Move" textFill="#d3e9f6" />
          </children>
       </HBox>
    </bottom>

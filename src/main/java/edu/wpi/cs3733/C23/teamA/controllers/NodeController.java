@@ -29,9 +29,12 @@ public class NodeController extends ServiceRequestController {
   @FXML public TableColumn<NodeEntity, Integer> yCol;
   @FXML public TableColumn<NodeEntity, String> floorCol;
   @FXML public TableColumn<NodeEntity, String> buildingCol;
+  @FXML public MFXButton delete;
+  @FXML public MFXButton view;
 
   @FXML public MFXButton refresh;
 
+  public NodeEntity selected;
   private Session session;
   private List<NodeEntity> data;
 
@@ -51,6 +54,19 @@ public class NodeController extends ServiceRequestController {
 
     editableColumns();
     dbTable.setEditable(true);
+  }
+
+  public void rowClicked() {
+    selected = dbTable.getSelectionModel().getSelectedItem();
+  }
+
+  public void delete() {
+    if (selected != null) {
+      Transaction t = session.beginTransaction();
+      session.remove(selected);
+      t.commit();
+      reloadData();
+    }
   }
 
   /** Clear and retrieve all table rows again With hibernate only use once at start */
@@ -138,10 +154,12 @@ public class NodeController extends ServiceRequestController {
   }
 
   public void switchToEdgeScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.EDGE);
   }
 
   public void switchToMoveScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.DATABASE);
   }
 }

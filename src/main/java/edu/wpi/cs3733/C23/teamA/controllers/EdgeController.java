@@ -90,10 +90,12 @@ public class EdgeController extends ServiceRequestController {
   }
 
   public void switchToMoveScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.DATABASE);
   }
 
   public void switchToNodeScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.NODE);
   }
 }
