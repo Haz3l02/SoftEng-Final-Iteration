@@ -76,6 +76,10 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
+            <MFXButton buttonType="RAISED" onAction="#switchToMapScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Map" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></MFXButton>
             <MFXButton buttonType="RAISED" onAction="#switchToMoveScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Move" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />

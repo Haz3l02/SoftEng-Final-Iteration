@@ -39,6 +39,7 @@ public class NodeController extends ServiceRequestController {
   private List<NodeEntity> data;
 
   private ObservableList<NodeEntity> dbTableRowsModel = FXCollections.observableArrayList();
+
   /** runs on switching to this scene */
   public void initialize() {
     session = getSessionFactory().openSession();
@@ -160,5 +161,10 @@ public class NodeController extends ServiceRequestController {
   public void switchToMoveScene(ActionEvent event) {
     session.close();
     Navigation.navigate(Screen.DATABASE);
+  }
+
+  public void switchToMapScene(ActionEvent event) {
+    session.close();
+    Navigation.navigate(Screen.NODE_MAP);
   }
 }
