@@ -96,20 +96,31 @@ public class SanitationController extends ServiceRequestController {
       switch (urgencyBox.getValue()) {
         case "Low":
           urgent = ServicerequestEntity.Urgency.LOW;
+          break;
         case "Medium":
           urgent = ServicerequestEntity.Urgency.MEDIUM;
+          break;
         case "High":
           urgent = ServicerequestEntity.Urgency.HIGH;
+          break;
         case "Extremely Urgent":
           urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+          break;
       }
       switch (categoryBox.getValue()) {
         case "Standard":
           category = SanitationrequestEntity.Category.STANDARD;
+<<<<<<< Updated upstream
         case "Biohazard":
+=======
+          break;
+        case "Bio-Hazard":
+>>>>>>> Stashed changes
           category = SanitationrequestEntity.Category.BIOHAZARD;
+          break;
         case "Wong":
           category = SanitationrequestEntity.Category.WONG;
+          break;
       }
       SanitationrequestEntity submission =
           new SanitationrequestEntity(

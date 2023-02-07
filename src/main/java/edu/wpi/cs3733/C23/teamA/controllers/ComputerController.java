@@ -131,29 +131,41 @@ public class ComputerController extends ServiceRequestController {
         switch (urgencyBox.getValue()) {
           case "Low":
             urgent = ServicerequestEntity.Urgency.LOW;
+            break;
           case "Medium":
             urgent = ServicerequestEntity.Urgency.MEDIUM;
+            break;
           case "High":
             urgent = ServicerequestEntity.Urgency.HIGH;
+            break;
           case "Extremely Urgent":
             urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+            break;
         }
         switch (devicesBox.getValue()) {
           case "Desktop":
             device = ComputerrequestEntity.Device.DESKTOP;
+            break;
           case "Tablet":
             device = ComputerrequestEntity.Device.TABLET;
+            break;
           case "Laptop":
             device = ComputerrequestEntity.Device.LAPTOP;
+            break;
           case "Monitor":
             device = ComputerrequestEntity.Device.MONITOR;
+            break;
           case "Peripherals":
             device = ComputerrequestEntity.Device.PERIPHERALS;
+            break;
           case "Kiosk":
             device = ComputerrequestEntity.Device.KIOSK;
+            break;
           case "Printer":
             device = ComputerrequestEntity.Device.PRINTER;
+            break;
         }
+
         ComputerrequestEntity submission =
             session.get(ComputerrequestEntity.class, newEdit.getRequestID());
         submission.setName(nameBox.getText());

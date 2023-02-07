@@ -105,20 +105,30 @@ public class SecurityController extends ServiceRequestController {
       switch (urgencyBox.getValue()) {
         case "Low":
           urgent = ServicerequestEntity.Urgency.LOW;
+          break;
         case "Medium":
           urgent = ServicerequestEntity.Urgency.MEDIUM;
+          break;
         case "High":
           urgent = ServicerequestEntity.Urgency.HIGH;
+          break;
         case "Extremely Urgent":
           urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+          break;
       }
       switch (requestsBox.getValue()) {
         case "Harassment":
           assistance = SecurityrequestEntity.Assistance.HARASSMENT;
+<<<<<<< Updated upstream
+=======
+          break;
+>>>>>>> Stashed changes
         case "Security Threat":
           assistance = SecurityrequestEntity.Assistance.SECURITY_ESCORT;
+          break;
         case "Potential Threat":
           assistance = SecurityrequestEntity.Assistance.POTENTIAL_THREAT;
+          break;
       }
       SecurityrequestEntity submission =
           new SecurityrequestEntity(
