@@ -2,7 +2,6 @@ package edu.wpi.cs3733.C23.teamA.pathfinding;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Scanner;
 
@@ -83,8 +82,8 @@ public class CSVReader {
       // Making sure the correct number of entries exist (should have 3 columns)
       if (entries.length == 3) {
         // node with value entries[1] adds entries[2] to neighbors and vice versa
-        GraphNode node1 = graph.getGraph().get(entries[1]);
-        GraphNode node2 = graph.getGraph().get(entries[2]);
+        GraphNode node1 = graph.getNode(entries[1]);
+        GraphNode node2 = graph.getNode(entries[2]);
         node1.addNeighbor(node2);
         node2.addNeighbor(node1);
       } else {
