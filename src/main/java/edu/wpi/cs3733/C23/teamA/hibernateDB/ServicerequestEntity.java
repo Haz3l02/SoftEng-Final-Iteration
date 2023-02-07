@@ -1,9 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
-import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,16 +13,12 @@ import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-
 @Entity
-@Table(name = "servicerequest", catalog = "dba")
+@Table(name = "servicerequest")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServicerequestEntity {
-  @TableGenerator(name = "yourTableGenerator", allocationSize = 1, initialValue = 1)
-  @GeneratedValue(
-      strategy = GenerationType.TABLE,
-      generator = "yourTableGenerator") // (strategy = GenerationType.AUTO,)
+  @TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
+  @GeneratedValue(strategy = GenerationType.TABLE, generator = "serviceseq")
   @Id
   @Cascade(org.hibernate.annotations.CascadeType.ALL)
   @Column(name = "requestid")
@@ -169,24 +164,14 @@ public class ServicerequestEntity {
     this.employeeassigned = employeeassigned;
   }
 
-  //  public static List<ServicerequestEntity> findAllService() {
-  //    Session session = getSessionFactory().openSession();
-  //    CriteriaBuilder builder = session.getCriteriaBuilder();
-  //    CriteriaQuery<ServicerequestEntity> criteria = builder.createQuery(ServicerequestEntity);
-  //    //criteria.from();
-  //    List<ServicerequestEntity> data = session.createQuery(criteria).getResultList();
-  //    return data;
-  //  }
-
-  public static ArrayList<ServicerequestEntity> getServiceByEmployee(String id, Session session){
+  public static ArrayList<ServicerequestEntity> getServiceByEmployee(String id, Session session) {
     List<ServicerequestEntity> all = getAllRecords(ServicerequestEntity.class, session);
     ArrayList<ServicerequestEntity> fin = new ArrayList<>();
-    for (ServicerequestEntity ser : all){
-      if (ser.getEmployee().getEmployeeid().equals(id)){
+    for (ServicerequestEntity ser : all) {
+      if (ser.getEmployee().getEmployeeid().equals(id)) {
         fin.add(ser);
       }
     }
     return fin;
   }
-
 }

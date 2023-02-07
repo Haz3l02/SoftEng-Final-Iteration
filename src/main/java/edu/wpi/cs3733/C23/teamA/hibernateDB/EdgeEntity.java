@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "edge", catalog = "dba")
+@Table(name = "edge")
 // @IdClass(EdgeEntityPK.class)
 public class EdgeEntity {
 

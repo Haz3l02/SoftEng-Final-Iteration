@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 @Entity
-@Table(name = "computerrequest", catalog = "teamadb")
+@Table(name = "computerrequest")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
 public class ComputerrequestEntity extends ServicerequestEntity {
 
