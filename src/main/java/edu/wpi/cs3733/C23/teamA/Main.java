@@ -19,23 +19,24 @@ public class Main {
     // Wong");
     //    session.persist(person);
 
-    EmployeeEntity person2 = session.get(EmployeeEntity.class, "123");
-
-    LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor L1");
-
-    SecurityrequestEntity sec =
-        new SecurityrequestEntity(
-            "Need backup",
-            person2,
-            loc,
-            "HELP",
-            ServicerequestEntity.Urgency.EXTREMELY_URGENT,
-            ServicerequestEntity.RequestType.SECURITY,
-            ServicerequestEntity.Status.BLANK,
-            "Wong",
-            SecurityrequestEntity.Assistance.HARASSMENT,
-            "911");
-    session.persist(sec);
+    // EmployeeEntity person2 = session.getReference(EmployeeEntity.class, "123");
+    //
+    //    LocationnameEntity loc = session.get(LocationnameEntity.class, "Anesthesia Conf Floor
+    // L1");
+    //
+    //    SecurityrequestEntity sec =
+    //        new SecurityrequestEntity(
+    //            "Need backup",
+    //            person2,
+    //            loc,
+    //            "HELP",
+    //            ServicerequestEntity.Urgency.EXTREMELY_URGENT,
+    //            ServicerequestEntity.RequestType.SECURITY,
+    //            ServicerequestEntity.Status.BLANK,
+    //            "Wong",
+    //            SecurityrequestEntity.Assistance.HARASSMENT,
+    //            "911");
+    //    session.persist(sec);
     /*ComputerrequestEntity com =
         new ComputerrequestEntity(
             "PC help",

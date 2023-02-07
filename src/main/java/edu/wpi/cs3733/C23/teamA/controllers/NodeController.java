@@ -129,6 +129,14 @@ public class NodeController extends ServiceRequestController {
         });
   }
 
+  public void addTableColumns() {
+    nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    xCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+    yCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+    floorCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    buildingCol.setCellFactory(TextFieldTableCell.forTableColumn());
+  }
+
   public void switchToEdgeScene(ActionEvent event) {
     Navigation.navigate(Screen.EDGE);
   }
