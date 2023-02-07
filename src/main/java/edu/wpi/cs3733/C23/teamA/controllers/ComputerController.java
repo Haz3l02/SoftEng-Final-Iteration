@@ -26,8 +26,10 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
-    reminder.setVisible(false);
-    reminderPane.setVisible(false);
+    if (reminder != null) {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+    }
     if (devicesBox != null) {
       ObservableList<String> devices =
           FXCollections.observableArrayList(

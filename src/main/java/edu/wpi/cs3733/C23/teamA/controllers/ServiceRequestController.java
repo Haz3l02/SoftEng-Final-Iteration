@@ -41,7 +41,7 @@ public abstract class ServiceRequestController {
   private PopOver popup;
 
   @FXML
-  public void initialize() throws SQLException, InterruptedException {
+  public void initialize() throws SQLException, InterruptedException, IOException {
     // This statement blocks Pathfinding from being opened... is it important?
     // backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }

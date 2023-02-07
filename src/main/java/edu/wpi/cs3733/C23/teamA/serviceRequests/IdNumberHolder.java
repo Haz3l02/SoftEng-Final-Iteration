@@ -8,7 +8,7 @@ public final class IdNumberHolder {
   private String job;
   private static final IdNumberHolder INSTANCE = new IdNumberHolder();
 
-  private IdNumberHolder() {}
+  public IdNumberHolder() {}
 
   public static IdNumberHolder getInstance() {
     return INSTANCE;
