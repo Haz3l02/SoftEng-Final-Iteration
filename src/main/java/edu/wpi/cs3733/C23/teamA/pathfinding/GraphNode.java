@@ -32,38 +32,6 @@ public class GraphNode implements Comparable<GraphNode> {
   private double score; // score (f(x)) = costFromStart (g(x)) + heurCostToEnd (h(x))
 
   /**
-   * A Simple Node Constructor
-   *
-   * @param nodeID is a unique id name
-   */
-  public GraphNode(String nodeID) {
-    this.nodeID = nodeID;
-    visited = false;
-    neighbors = new ArrayList<GraphNode>();
-
-    costFromStart = Double.POSITIVE_INFINITY;
-    heurCostToEnd = Double.POSITIVE_INFINITY;
-    score = Double.POSITIVE_INFINITY;
-  }
-
-  /**
-   * @param nodeID
-   * @param xCoord
-   * @param yCoord
-   */
-  public GraphNode(String nodeID, int xCoord, int yCoord) {
-    this.nodeID = nodeID;
-    this.xCoord = xCoord;
-    this.yCoord = yCoord;
-    visited = false;
-    neighbors = new ArrayList<GraphNode>();
-
-    costFromStart = Double.POSITIVE_INFINITY;
-    heurCostToEnd = Double.POSITIVE_INFINITY;
-    score = Double.POSITIVE_INFINITY;
-  }
-
-  /**
    * @param nodeID
    * @param xCoord
    * @param yCoord
@@ -74,46 +42,6 @@ public class GraphNode implements Comparable<GraphNode> {
     this.xCoord = xCoord;
     this.yCoord = yCoord;
     this.longName = longName;
-    visited = false;
-    neighbors = new ArrayList<GraphNode>();
-
-    costFromStart = Double.POSITIVE_INFINITY;
-    heurCostToEnd = Double.POSITIVE_INFINITY;
-    score = Double.POSITIVE_INFINITY;
-  }
-
-  /**
-   * Node Constructor with all features in the original .csv file.
-   *
-   * @param nodeID is a unique id name
-   * @param xCoord is the x-coordinate (in pixels) on the image of the floor where the node is
-   *     located
-   * @param yCoord is the y-coordinate (in pixels) on the image of the floor where the node is
-   *     located
-   * @param floor is the floor where this node of located
-   * @param building is the building in which this node is located
-   * @param nodeType is the type of location (ELEV = elevator, SERV = service, etc.) at this node
-   * @param longName is the long name of the node
-   * @param shortName is the shortened name of the node (not the same as the ID)
-   */
-  public GraphNode(
-      String nodeID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName) {
-    this.nodeID = nodeID;
-    this.xCoord = xCoord;
-    this.yCoord = yCoord;
-    this.floor = floor;
-    this.building = building;
-    this.nodeType = nodeType;
-    this.longName = longName;
-    this.shortName = shortName;
-
     visited = false;
     parent = null;
     neighbors = new ArrayList<GraphNode>();
