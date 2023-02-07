@@ -38,7 +38,6 @@ public class Main {
                 response.body().indexOf("\"name\":\"", 0) + 8,
                 response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
     System.out.println("\"" + quote + "\" -" + author);
-    AApp.launch(AApp.class, args);
 
     // AApp.launch(AApp.class, args);
 
@@ -54,6 +53,9 @@ public class Main {
     if (session.getTransaction().isActive()) {
       System.out.println("active");
     }
+    AApp.launch(AApp.class, args);
+
+    // getSessionFactory().close();
 
     //    com.editComputerRequest(
     //       3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
