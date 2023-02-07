@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -55,15 +56,14 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Press esc or click off  the window to close this popup">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Text>
          </children>
       </VBox>
    </center>
+   <bottom>
+      <MFXButton fx:id="backButton" onAction="#switchToHelpScene" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
+      </MFXButton>
+   </bottom>
 </BorderPane>
