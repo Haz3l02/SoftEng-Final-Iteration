@@ -31,12 +31,15 @@ public abstract class ServiceRequestController {
   @FXML protected Text reminder;
 
   @FXML MFXButton backButton;
-  private PopOver popup;
+  private static PopOver popup;
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, IOException {
     // This statement blocks Pathfinding from being opened... is it important?
     // backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+
+    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
+    popup = new PopOver(loader.load());
   }
 
   @FXML
@@ -44,11 +47,25 @@ public abstract class ServiceRequestController {
     Navigation.navigate(Screen.HOME);
   }
 
+  /**
+   * If called from a button without the fxid:backButton then it shows the help popup If called from
+   * a button with that fxid, it hides the help popup
+   *
+   * @param event
+   * @throws IOException
+   */
   @FXML
   public void switchToHelpScene(ActionEvent event) throws IOException {
-    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
-    popup = new PopOver(loader.load());
-    popup.show(((Node) event.getSource()).getScene().getWindow());
+
+    if (!event.getSource().equals(backButton)) {
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(backButton)) {
+      popup.hide();
+    }
   }
 
   @FXML

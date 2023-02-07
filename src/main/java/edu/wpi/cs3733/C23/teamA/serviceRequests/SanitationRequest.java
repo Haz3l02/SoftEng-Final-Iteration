@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import lombok.*;
 
 // for new request
+@Deprecated
 public class SanitationRequest extends ServiceRequest {
   @Getter private static final String tableName = "SanitationRequest";
   @Getter @Setter String category; // sanitation

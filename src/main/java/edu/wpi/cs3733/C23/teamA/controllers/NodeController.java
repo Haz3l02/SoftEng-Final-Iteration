@@ -6,14 +6,15 @@ import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionF
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
@@ -29,16 +30,17 @@ public class NodeController extends ServiceRequestController {
   @FXML public TableColumn<NodeEntity, Integer> yCol;
   @FXML public TableColumn<NodeEntity, String> floorCol;
   @FXML public TableColumn<NodeEntity, String> buildingCol;
-  @FXML public MFXButton delete;
-  @FXML public MFXButton view;
+  @FXML public TextField newx;
+  @FXML public TextField newy;
 
-  @FXML public MFXButton refresh;
+  @FXML public Button submit;
 
   public NodeEntity selected;
   private Session session;
   private List<NodeEntity> data;
 
   private ObservableList<NodeEntity> dbTableRowsModel = FXCollections.observableArrayList();
+
   /** runs on switching to this scene */
   public void initialize() {
     session = getSessionFactory().openSession();
@@ -69,6 +71,24 @@ public class NodeController extends ServiceRequestController {
     }
   }
 
+  public void onSubmit() {
+    String x = newx.getText().trim();
+    String y = newy.getText().trim();
+    if (!x.isEmpty() && !y.isEmpty()) {
+      Transaction t = session.beginTransaction();
+      NodeEntity n = new NodeEntity();
+      n.setNodeid("L1X" + x + "Y" + y);
+      n.setXcoord(Integer.parseInt(x));
+      n.setYcoord(Integer.parseInt(y));
+      n.setFloor("L1");
+      n.setBuilding("BTM");
+      System.out.println(n.getNodeid());
+      session.persist(n);
+      t.commit();
+      reloadData();
+    }
+  }
+
   /** Clear and retrieve all table rows again With hibernate only use once at start */
   public void reloadData() {
     dbTableRowsModel.clear();
@@ -94,11 +114,9 @@ public class NodeController extends ServiceRequestController {
             if (e.getNewValue() >= 0 && e.getNewValue() < 9999) {
               Transaction t = session.beginTransaction();
               n.setXcoord(e.getNewValue());
-              session.persist(n);
               t.commit();
             }
           } catch (Exception ex) {
-            refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
         });
@@ -109,11 +127,9 @@ public class NodeController extends ServiceRequestController {
             if (e.getNewValue() >= 0 && e.getNewValue() < 9999) {
               Transaction t = session.beginTransaction();
               n.setYcoord(e.getNewValue());
-              session.persist(n);
               t.commit();
             }
           } catch (Exception ex) {
-            refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
         });
@@ -123,10 +139,8 @@ public class NodeController extends ServiceRequestController {
           try {
             Transaction t = session.beginTransaction();
             n.setFloor(e.getNewValue());
-            session.persist(n);
             t.commit();
           } catch (Exception ex) {
-            refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
         });
@@ -136,10 +150,8 @@ public class NodeController extends ServiceRequestController {
           try {
             Transaction t = session.beginTransaction();
             n.setBuilding(e.getNewValue());
-            session.persist(n);
             t.commit();
           } catch (Exception ex) {
-            refresh.setText("Invalid Input");
             ex.printStackTrace();
           }
         });
@@ -161,5 +173,10 @@ public class NodeController extends ServiceRequestController {
   public void switchToMoveScene(ActionEvent event) {
     session.close();
     Navigation.navigate(Screen.DATABASE);
+  }
+
+  public void switchToMapScene(ActionEvent event) {
+    session.close();
+    Navigation.navigate(Screen.NODE_MAP);
   }
 }

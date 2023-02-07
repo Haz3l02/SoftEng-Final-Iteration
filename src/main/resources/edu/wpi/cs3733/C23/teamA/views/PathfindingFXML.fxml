@@ -1,27 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" style="-fx-background-color: BAD1EA; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
-   <top>
-      <HBox prefHeight="53.0" prefWidth="627.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: BLACK; -fx-background-color: #224870;" BorderPane.alignment="CENTER">
+<BorderPane style="-fx-background-color: BAD1EA; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
+   <bottom>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="42.0" prefWidth="591.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375">
+            <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" onAction="#clearForm" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Reset" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets bottom="10.0" />
+               </HBox.margin>
+            </MFXButton>
+            <MFXButton id="findPathButton" fx:id="findPathButton" buttonType="RAISED" defaultButton="true" onAction="#goToMapScene" prefHeight="23.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Find Path" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </HBox.margin>
+            </MFXButton>
+            <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="23.0" prefWidth="86.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+               <HBox.margin>
+                  <Insets bottom="10.0" right="10.0" />
+               </HBox.margin>
+            </MFXButton>
+         </children>
+      </HBox>
+   </bottom>
+   <left>
+      <VBox style="-fx-background-color: BAD1EA; -fx-border-style: none;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: true;" text="Pathfinding Request Form" wrappingWidth="278.1484375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <HBox prefHeight="43.0" prefWidth="601.0">
+               <children>
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Starting Location:" wrappingWidth="112.79999542236328">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <MFXFilterComboBox fx:id="startNodeID" floatMode="DISABLED" prefHeight="32.0" prefWidth="176.0" text="Select Location...">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></MFXFilterComboBox>
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Ending Location:" wrappingWidth="108.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <MFXFilterComboBox fx:id="endNodeID" floatMode="DISABLED" prefHeight="32.0" prefWidth="187.0" text="Select Location..." />
+                  <Text fx:id="reminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
+                     <HBox.margin>
+                        <Insets left="20.0" top="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <AnchorPane prefHeight="200.0" prefWidth="500.0">
+               <children>
+                  <StackPane layoutX="138.0" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="mapImage" fitHeight="221.0" fitWidth="325.0" pickOnBounds="true" preserveRatio="true" />
+                        <Canvas fx:id="mapCanvas" height="221.0" width="325.0" />
+                     </children>
+                  </StackPane>
+               </children>
+            </AnchorPane>
+            <Text fx:id="pathDisplay" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0">
+               <VBox.margin>
+                  <Insets left="25.0" top="10.0" />
+               </VBox.margin>
+            </Text>
+         </children>
+         <BorderPane.margin>
+            <Insets left="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <padding>
+      <Insets top="10.0" />
+   </padding>
+   <top>
+      <BorderPane style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+         <left>
+            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
-               <HBox.margin>
-                  <Insets left="10.0" top="10.0" />
-               </HBox.margin>
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
             </Text>
-            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="232.0">
+         </left>
+         <right>
+            <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="58.0" prefWidth="213.0" BorderPane.alignment="CENTER">
                <children>
                   <MFXButton id="homeButton" fx:id="homeButton" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="61.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
                      <HBox.margin>
@@ -39,109 +137,11 @@
                      </HBox.margin>
                   </MFXButton>
                </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
             </HBox>
-         </children>
+         </right>
          <BorderPane.margin>
-            <Insets top="-10.0" />
+            <Insets top="-11.0" />
          </BorderPane.margin>
-      </HBox>
+      </BorderPane>
    </top>
-   <bottom>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="42.0" prefWidth="591.0" BorderPane.alignment="CENTER">
-         <children>
-            <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" onAction="#clearForm" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Clear" textFill="#d3e9f6">
-               <HBox.margin>
-                  <Insets bottom="10.0" />
-               </HBox.margin>
-            </MFXButton>
-            <MFXButton id="findPathButton" fx:id="findPathButton" buttonType="RAISED" defaultButton="true" onAction="#generatePath" prefHeight="23.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Find Path" textFill="#d3e9f6">
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </HBox.margin>
-            </MFXButton>
-            <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="23.0" prefWidth="86.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
-               <HBox.margin>
-                  <Insets bottom="10.0" right="10.0" />
-               </HBox.margin>
-            </MFXButton>
-         </children>
-      </HBox>
-   </bottom>
-   <left>
-      <VBox prefHeight="258.0" prefWidth="601.0" style="-fx-background-color: BAD1EA; -fx-border-style: none;" BorderPane.alignment="CENTER">
-         <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: true;" text="Pathfinding Request Form" wrappingWidth="278.1484375">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
-            <HBox prefHeight="40.0" prefWidth="474.0">
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Start NodeID:" wrappingWidth="91.01630020141602">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="10.0" top="5.0" />
-                     </HBox.margin>
-                  </Text>
-                  <MFXTextField fx:id="startNodeID" alignment="TOP_LEFT" floatMode="DISABLED" prefHeight="30.0" prefWidth="138.0" promptText="Enter Start Node" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
-                     <HBox.margin>
-                        <Insets left="-10.0" />
-                     </HBox.margin>
-                  </MFXTextField>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="End NodeID:" wrappingWidth="90.01629257202148">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" top="5.0" />
-                     </HBox.margin>
-                  </Text>
-                  <MFXTextField fx:id="endNodeID" alignment="TOP_LEFT" floatMode="DISABLED" prefHeight="30.0" prefWidth="134.0" promptText="Enter End Node" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
-                     <HBox.margin>
-                        <Insets left="-10.0" />
-                     </HBox.margin>
-                  </MFXTextField>
-                  <Text fx:id="reminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
-                     <HBox.margin>
-                        <Insets left="20.0" top="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: true;" text="Request Path" wrappingWidth="600.21630859375">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-            </Text>
-            <Text fx:id="pathDisplay" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0">
-               <VBox.margin>
-                  <Insets left="25.0" top="10.0" />
-               </VBox.margin>
-            </Text>
-         </children>
-         <BorderPane.margin>
-            <Insets left="10.0" top="10.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <padding>
-      <Insets top="10.0" />
-   </padding>
 </BorderPane>

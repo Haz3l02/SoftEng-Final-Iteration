@@ -2,7 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequest;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequestTableRow;
@@ -62,8 +62,8 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML
   public void initialize() throws SQLException {
 
-    IdNumberHolder holder = IdNumberHolder.getInstance();
-    hospitalID = holder.getId();
+    NodeIndicesHolder holder = NodeIndicesHolder.getInstance();
+    // hospitalID = holder.getId();
 
     IDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
     formTypeCol.setCellValueFactory(new PropertyValueFactory<>("formType"));

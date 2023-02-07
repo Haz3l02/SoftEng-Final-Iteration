@@ -40,6 +40,7 @@ public class AApp extends Application {
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
+    primaryStage.setMaximized(true);
     Navigation.navigate(Screen.HOME);
   }
 
