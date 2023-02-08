@@ -3,6 +3,12 @@ package edu.wpi.cs3733.C23.teamA.hibernateDB;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.w3c.dom.Node;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "node")
@@ -46,5 +52,10 @@ public class NodeEntity {
     return nodeid.equals(other.getNodeid());
   }
 
+  public static List<NodeEntity> getNodeOnFloor(String floor, Session session){
+    String hql = "select nod from NodeEntity nod where nod.floor = '" + floor + "'";
+    Query query = session.createQuery(hql);
+    return query.getResultList();
 
+  }
 }
