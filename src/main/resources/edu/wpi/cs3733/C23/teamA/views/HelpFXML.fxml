@@ -11,7 +11,7 @@
    <top>
       <HBox prefHeight="54.0" prefWidth="600.0" style="-fx-background-color: #224870; -fx-border-color: BLACK; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="479.1484375">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="479.1484375">
                <font>
                   <Font name="Arial Black" size="30.0" />
                </font>
@@ -26,7 +26,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Help" textAlignment="CENTER" underline="true">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Help" textAlignment="CENTER" underline="true">
                <font>
                   <Font size="24.0" />
                </font>
@@ -34,7 +34,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1. Click Service Request to access Service Request forms">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Click Service Request to access Service Request forms">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -42,7 +42,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2. Choose desired service request form to fill out">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Choose desired service request form to fill out">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -50,12 +50,12 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="3. Fill in all fields in service request form before submitting">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Fill in all fields in service request form before submitting">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Note: Database and Pathfinding don't connect to anything at this time">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Note: Database and Pathfinding don't connect to anything at this time">
                <font>
                   <Font size="14.0" />
                </font>

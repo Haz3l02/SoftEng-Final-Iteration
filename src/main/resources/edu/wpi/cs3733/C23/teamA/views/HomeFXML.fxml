@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,79 +13,95 @@
 
 <AnchorPane styleClass="BackDropStyle" stylesheets="@../assets/BackDropStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <children>
-      <StackPane layoutY="111.0" prefHeight="412.0" prefWidth="565.0" AnchorPane.bottomAnchor="-161.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="111.0">
+      <VBox alignment="BOTTOM_LEFT" layoutX="7.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="549.0">
          <children>
-            <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="364.0" prefWidth="565.0" style="-fx-background-color: BAD1EA;" StackPane.alignment="CENTER">
+            <Label fx:id="time" text="Label" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Text>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <StackPane layoutY="142.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="412.0" prefWidth="565.0" AnchorPane.bottomAnchor="-192.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="142.0">
+         <children>
+            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #D3E9F6;">
                <top>
-                  <SplitPane orientation="VERTICAL" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER_LEFT">
-                     <items>
-                        <VBox alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="549.0" style="-fx-background-color: #122C34; -fx-border-color: #122C34;" SplitPane.resizableWithParent="false">
-                           <children>
-                              <Label fx:id="time" text="Label" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
-                                 <font>
-                                    <Font name="Arial Black" size="24.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Text>
-                           </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </VBox>
-                     </items>
-                     <BorderPane.margin>
-                        <Insets />
-                     </BorderPane.margin>
-                  </SplitPane>
+                  <VBox alignment="CENTER" prefHeight="31.0" prefWidth="1008.0" style="-fx-background-color: #224870;" BorderPane.alignment="TOP_LEFT">
+                     <children>
+                        <BorderPane>
+                           <left>
+                              <HBox prefHeight="31.0" prefWidth="479.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <MFXButton maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" prefWidth="123.0" style="-fx-background-color: 224870;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                       <font>
+                                          <Font name="Kohinoor Bangla" size="13.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton onAction="#switchToPathfinding" style="-fx-background-color: 224870;" text="Pathfinding" textFill="WHITE">
+                                       <font>
+                                          <Font name="Kohinoor Bangla" size="13.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton onAction="#switchToDatabase" style="-fx-background-color: 224870;" text="Database" textFill="WHITE">
+                                       <font>
+                                          <Font name="Kohinoor Bangla" size="13.0" />
+                                       </font>
+                                    </MFXButton>
+                                 </children>
+                              </HBox>
+                           </left>
+                           <right>
+                              <HBox alignment="TOP_RIGHT" prefHeight="31.0" prefWidth="127.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <MFXButton onAction="#switchToHelpScene" prefHeight="27.0" prefWidth="52.0" style="-fx-background-color: #224870;" text="Help" textFill="WHITE">
+                                       <font>
+                                          <Font name="Kohinoor Bangla" size="13.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton cancelButton="true" onAction="#logout" prefHeight="26.0" style="-fx-background-color: 224870;" text="Logout" textFill="WHITE">
+                                       <font>
+                                          <Font name="Kohinoor Bangla" size="13.0" />
+                                       </font>
+                                    </MFXButton>
+                                 </children>
+                              </HBox>
+                           </right>
+                        </BorderPane>
+                     </children>
+                  </VBox>
                </top>
                <center>
-                  <BorderPane prefHeight="346.0" prefWidth="1006.0" BorderPane.alignment="CENTER">
-                     <top>
-                        <VBox alignment="CENTER" prefHeight="31.0" prefWidth="1008.0" style="-fx-background-color: #2A4494;" BorderPane.alignment="TOP_LEFT">
-                           <children>
-                              <HBox prefHeight="31.0" prefWidth="1007.0">
-                                 <children>
-                                    <MFXButton maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" prefWidth="123.0" style="-fx-background-color: #2A4494;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-                                    <MFXButton onAction="#switchToPathfinding" style="-fx-background-color: #2A4494;" text="Pathfinding" textFill="WHITE" />
-                                    <MFXButton onAction="#switchToDatabase" style="-fx-background-color: #2A4494;" text="Database" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="TOP_RIGHT" prefHeight="31.0" prefWidth="127.0">
-                                 <children>
-                                    <MFXButton onAction="#switchToHelpScene" prefHeight="27.0" prefWidth="52.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
-                                    <MFXButton cancelButton="true" onAction="#logout" prefHeight="26.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </top>
-                     <center>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="BOTTOM_LEFT">
-                           <children>
-                              <Label fx:id="welcome" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="20.0" prefWidth="120.0" text="Label">
-                                 <font>
-                                    <Font name="Arial Black" size="13.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="-150.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label fx:id="message" prefHeight="21.0" prefWidth="120.0" text="Label">
-                                 <font>
-                                    <Font name="Arial Black" size="13.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                     </center>
-                  </BorderPane>
+                  <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="466.0" prefWidth="606.0" spacing="10.0" BorderPane.alignment="BOTTOM_LEFT">
+                     <children>
+                        <Label fx:id="welcome" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="20.0" prefWidth="120.0" text="Label">
+                           <font>
+                              <Font name="Verdana" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" prefHeight="81.0" prefWidth="569.0" text="Label" wrapText="true">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
                </center>
             </BorderPane>
          </children>

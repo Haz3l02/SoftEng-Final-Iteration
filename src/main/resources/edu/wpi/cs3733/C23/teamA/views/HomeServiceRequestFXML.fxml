@@ -3,8 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,54 +11,76 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefWidth="604.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeServiceRequestController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeServiceRequestController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="604.0">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="615.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="39.21630859375" />
+            <VBox alignment="BOTTOM_LEFT" prefHeight="116.0" prefWidth="615.0" spacing="10.0" style="-fx-background-color: #FFFFFF00;">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
+                     <font>
+                        <Font name="Arial Black" size="24.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Page">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" />
+               </padding>
+            </VBox>
          </children>
       </VBox>
       <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-114.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="114.0">
          <children>
-            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: BAD1EA; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
+            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
                <padding>
                   <Insets bottom="-20.0" />
                </padding>
                <top>
                   <SplitPane orientation="VERTICAL" prefHeight="0.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                      <items>
-                        <VBox alignment="BOTTOM_LEFT" prefHeight="121.0" prefWidth="619.0" spacing="10.0" style="-fx-background-color: #122C34;">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital">
+                        <BorderPane style="-fx-background-color: #224870;">
+                           <left>
+                              <MFXButton fx:id="pastSubmissions" onAction="#switchToServiceRequestStatus" prefHeight="28.0" prefWidth="125.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Past Submissions" textFill="WHITE" BorderPane.alignment="CENTER">
                                  <font>
-                                    <Font name="Arial Black" size="24.0" />
+                                    <Font name="Kohinoor Bangla" size="13.0" />
                                  </font>
-                              </Text>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Page" underline="true">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Text>
-                              <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css">
+                              </MFXButton>
+                           </left>
+                           <right>
+                              <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="CENTER">
                                  <children>
-                                    <MFXButton fx:id="pastSubmissions" onAction="#switchToServiceRequestStatus" prefHeight="28.0" prefWidth="125.0" style="-fx-background-color: #2A4494;" text="Past Submissions" textFill="WHITE" />
-                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #2A4494;" text="Home" textFill="WHITE" />
-                                    <MFXButton alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #2A4494;" text="Logout" textFill="WHITE" />
-                                    <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #2A4494;" text="Help" textFill="WHITE" />
-                                    <MFXButton onAction="#switchToCredits" style="-fx-background-color: #2A4494;" text="Credits" textFill="WHITE" />
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="26.0" prefWidth="57.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Home" textFill="WHITE">
+                                       <font>
+                                          <Font name="Kohinoor Bangla" size="13.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="26.0" prefWidth="62.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Logout" textFill="WHITE">
+                                       <font>
+                                          <Font name="Kohinoor Bangla" size="13.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="26.0" prefWidth="55.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Help" textFill="WHITE">
+                                       <font>
+                                          <Font name="Kohinoor Bangla" size="13.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton onAction="#switchToCredits" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Credits" textFill="WHITE">
+                                       <font>
+                                          <Font name="Kohinoor Bangla" size="13.0" />
+                                       </font>
+                                    </MFXButton>
                                  </children>
-                                 <VBox.margin>
-                                    <Insets bottom="-20.0" left="-20.0" />
-                                 </VBox.margin>
                               </HBox>
-                           </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" />
-                           </padding>
-                        </VBox>
+                           </right>
+                        </BorderPane>
                      </items>
                   </SplitPane>
                </top>
@@ -69,16 +89,23 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="602.0" spacing="30.0">
                            <children>
-                              <MFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#switchToSanitation" prefHeight="30.0" prefWidth="140.0" rippleColor="#c0cced" style="-fx-background-color: #D0F3F2;" styleClass="BioHaz_container" stylesheets="@../assets/BioHazSmallStyle.css" text="Sanitation Request" />
-                              <MFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#switchToComputer" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: #D0F3F2;" styleClass="Comp_container" stylesheets="@../assets/CompSmallStyle.css" text="Computer Request" />
-                              <MFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#switchToSecurity" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: #D0F3F2;" styleClass="Sec_container" stylesheets="@../assets/SecuritySmallStyle.css" text="Security Request" />
+                              <MFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#switchToSanitation" prefHeight="30.0" prefWidth="140.0" rippleColor="#c0cced" style="-fx-background-color: #bad1ea;" styleClass="BioHaz_container" stylesheets="@../assets/BioHazSmallStyle.css" text="Sanitation Request">
+                                 <font>
+                                    <Font name="Kohinoor Bangla" size="13.0" />
+                                 </font>
+                              </MFXButton>
+                              <MFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#switchToComputer" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: #bad1ea;" styleClass="Comp_container" stylesheets="@../assets/CompSmallStyle.css" text="Computer Request">
+                                 <font>
+                                    <Font name="Kohinoor Bangla" size="13.0" />
+                                 </font>
+                              </MFXButton>
+                              <MFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#switchToSecurity" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: #bad1ea;" styleClass="Sec_container" stylesheets="@../assets/SecuritySmallStyle.css" text="Security Request">
+                                 <font>
+                                    <Font name="Kohinoor Bangla" size="13.0" />
+                                 </font>
+                              </MFXButton>
                            </children>
                         </HBox>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/helth.jpg" />
-                           </image>
-                        </ImageView>
                      </children>
                      <BorderPane.margin>
                         <Insets top="100.0" />

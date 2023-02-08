@@ -41,6 +41,8 @@ public class AApp extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
     Navigation.navigate(Screen.LOGIN);
+    primaryStage.setMinWidth(615);
+    primaryStage.setMinHeight(450);
   }
 
   @Override

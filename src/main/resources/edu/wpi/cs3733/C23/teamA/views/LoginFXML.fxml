@@ -13,11 +13,11 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.LoginController">
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="594.0" style="-fx-background-color: #BAD1EA;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="594.0" style="-fx-background-color: D3E9F6;" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham &amp; Women's Hospital" textAlignment="CENTER" wrappingWidth="507.90704345703125">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham &amp; Women's Hospital" textAlignment="CENTER" wrappingWidth="507.90704345703125">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Verdana" size="24.0" />
                </font>
             </Text>
             <MFXTextField fx:id="usernameTextField" floatMode="ABOVE" prefHeight="36.0" prefWidth="247.0" promptText="Username" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
@@ -35,12 +35,12 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
-            <Text fx:id="incorrectNotification" strokeType="OUTSIDE" strokeWidth="0.0" text="Incorrect Username or Password" textAlignment="CENTER" wrappingWidth="150.0">
+            <Text fx:id="incorrectNotification" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Incorrect Username or Password" textAlignment="CENTER" wrappingWidth="150.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
                <font>
-                  <Font size="18.0" />
+                  <Font name="Verdana" size="18.0" />
                </font>
             </Text>
          </children>
@@ -49,7 +49,7 @@
    <top>
       <HBox prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="385.0">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="385.0">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
@@ -59,10 +59,13 @@
             </Text>
             <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="215.0">
                <children>
-                  <MFXButton fx:id="exit" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="35.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Exit" textFill="#122c34">
+                  <MFXButton fx:id="exit" minHeight="-Infinity" onAction="#logout" prefHeight="28.0" prefWidth="65.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Exit" textFill="#122c34">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="13.0" />
+                     </font>
                   </MFXButton>
                </children>
                <HBox.margin>

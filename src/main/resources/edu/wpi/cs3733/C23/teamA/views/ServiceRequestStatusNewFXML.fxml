@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="613.0" style="-fx-background-color: BAD1EA; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="613.0" style="-fx-background-color: D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="611.0" BorderPane.alignment="CENTER">
          <children>
@@ -33,11 +33,17 @@
                <HBox.margin>
                   <Insets bottom="5.0" right="10.0" />
                </HBox.margin>
+               <font>
+                  <Font name="Kohinoor Bangla" size="13.0" />
+               </font>
             </MFXButton>
             <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeServiceRequestScene" prefHeight="30.0" prefWidth="86.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets bottom="5.0" right="10.0" />
                </HBox.margin>
+               <font>
+                  <Font name="Kohinoor Bangla" size="13.0" />
+               </font>
             </MFXButton>
          </children>
       </HBox>
@@ -48,7 +54,7 @@
    <top>
       <HBox prefHeight="37.0" prefWidth="611.0" style="-fx-background-color: #224870;" BorderPane.alignment="TOP_LEFT">
          <children>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="382.1484375">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="382.1484375">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
@@ -56,22 +62,31 @@
                   <Insets left="10.0" top="5.0" />
                </HBox.margin>
             </Text>
-            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="226.0">
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="219.0">
                <children>
-                  <MFXButton id="helpButton" fx:id="homeButton" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="61.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
+                  <MFXButton id="helpButton" fx:id="homeButton" buttonType="RAISED" minHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="28.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="13.0" />
+                     </font>
                   </MFXButton>
-                  <MFXButton id="helpButton" fx:id="helpButton" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="34.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Help" textFill="#122c34">
+                  <MFXButton id="helpButton" fx:id="helpButton" buttonType="RAISED" minHeight="-Infinity" onAction="#switchToHelpScene" prefHeight="28.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Help" textFill="#122c34">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="13.0" />
+                     </font>
                   </MFXButton>
-                  <MFXButton fx:id="logout" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="35.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
+                  <MFXButton fx:id="logout" minHeight="-Infinity" onAction="#logout" prefHeight="28.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="13.0" />
+                     </font>
                   </MFXButton>
                </children>
             </HBox>
@@ -98,36 +113,54 @@
                      <children>
                         <VBox layoutX="44.0" layoutY="38.0" prefHeight="275.5" prefWidth="145.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form Type" wrappingWidth="128.0790786743164" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form Type" wrappingWidth="128.0790786743164">
+                                 <font>
+                                    <Font name="Verdana" size="13.0" />
+                                 </font></Text>
                               <MFXComboBox fx:id="formTypeBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="130.0" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="128.0790786743164">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="Verdana" size="13.0" />
+                                 </font>
                               </Text>
                               <MFXTextField fx:id="dateBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="130.0" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" wrappingWidth="102.62251281738281">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="Verdana" size="13.0" />
+                                 </font>
                               </Text>
                               <MFXComboBox fx:id="statusBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="130.0" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency" wrappingWidth="128.0790786743164">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="Verdana" size="13.0" />
+                                 </font>
                               </Text>
                               <MFXComboBox fx:id="urgencyBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="130.0" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Assigned" wrappingWidth="128.0790786743164">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="Verdana" size="13.0" />
+                                 </font>
                               </Text>
                               <MFXComboBox fx:id="employeeBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="130.0" />
                               <MFXButton defaultButton="true" onAction="#submitEdit" prefHeight="12.0" prefWidth="126.0" style="-fx-background-color: #224870;" text="Submit" textFill="#d3e9f6">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="Kohinoor Bangla" size="13.0" />
+                                 </font>
                               </MFXButton>
                            </children>
                         </VBox>

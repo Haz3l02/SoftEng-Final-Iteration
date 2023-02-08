@@ -30,7 +30,7 @@ public class HomeController extends ServiceRequestController {
     dateAndTime();
     // IdNumberHolder userInfo = new IdNumberHolder();
     IdNumberHolder userInfo = IdNumberHolder.getInstance();
-    welcome.setText("Welcome " + userInfo.getUsername() + "!");
+    welcome.setText("Welcome " + userInfo.getName() + "!");
   }
 
   /*
