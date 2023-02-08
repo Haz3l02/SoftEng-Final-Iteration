@@ -19,14 +19,26 @@ public class EdgeEntity {
   @Getter
   @Setter
   @ManyToOne
-  @JoinColumn(name = "node1", foreignKey = @ForeignKey(name = "node1"))
+  @JoinColumn(
+      name = "node1",
+      foreignKey =
+          @ForeignKey(
+              name = "node1",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (node1) REFERENCES node(nodeid) ON UPDATE CASCADE ON DELETE CASCADE"))
   private NodeEntity node1;
 
   // @Id
   @Getter
   @Setter
   @ManyToOne
-  @JoinColumn(name = "node2", foreignKey = @ForeignKey(name = "node2"))
+  @JoinColumn(
+      name = "node2",
+      foreignKey =
+          @ForeignKey(
+              name = "node2",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (node2) REFERENCES node(nodeid) ON UPDATE CASCADE ON DELETE CASCADE"))
   private NodeEntity node2;
 
   public EdgeEntity(NodeEntity node1, NodeEntity node2, String edgeid) {

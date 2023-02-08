@@ -107,6 +107,26 @@ public class NodeController extends ServiceRequestController {
     yCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     floorCol.setCellFactory(TextFieldTableCell.forTableColumn());
     buildingCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    nodeCol.setOnEditCommit(
+        e -> {
+          NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          try {
+            Transaction t = session.beginTransaction();
+            session
+                .createMutationQuery(
+                    "update NodeEntity set nodeid = '"
+                        + e.getNewValue()
+                        + "' where nodeid ='"
+                        + n.getNodeid()
+                        + "'")
+                .executeUpdate();
+            n = session.get(NodeEntity.class, e.getNewValue());
+            session.persist(n);
+            t.commit();
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        });
     xCol.setOnEditCommit(
         e -> {
           NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
@@ -114,6 +134,7 @@ public class NodeController extends ServiceRequestController {
             if (e.getNewValue() >= 0 && e.getNewValue() < 9999) {
               Transaction t = session.beginTransaction();
               n.setXcoord(e.getNewValue());
+              session.persist(n);
               t.commit();
             }
           } catch (Exception ex) {
@@ -127,6 +148,7 @@ public class NodeController extends ServiceRequestController {
             if (e.getNewValue() >= 0 && e.getNewValue() < 9999) {
               Transaction t = session.beginTransaction();
               n.setYcoord(e.getNewValue());
+              session.persist(n);
               t.commit();
             }
           } catch (Exception ex) {
@@ -139,6 +161,7 @@ public class NodeController extends ServiceRequestController {
           try {
             Transaction t = session.beginTransaction();
             n.setFloor(e.getNewValue());
+            session.persist(n);
             t.commit();
           } catch (Exception ex) {
             ex.printStackTrace();
@@ -150,6 +173,7 @@ public class NodeController extends ServiceRequestController {
           try {
             Transaction t = session.beginTransaction();
             n.setBuilding(e.getNewValue());
+            session.persist(n);
             t.commit();
           } catch (Exception ex) {
             ex.printStackTrace();
