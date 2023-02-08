@@ -9,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,8 +42,10 @@ public class EdgeController extends ServiceRequestController {
     reloadData();
 
     edgeIDCol.setCellValueFactory(new PropertyValueFactory<>("edgeid"));
-    startNodeCol.setCellValueFactory(new PropertyValueFactory<>("node1"));
-    endNodeCol.setCellValueFactory(new PropertyValueFactory<>("node2"));
+    startNodeCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getNode1().getNodeid()));
+    endNodeCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getNode2().getNodeid()));
     dbTable.setItems(dbTableRowsModel);
 
     editableColumns();
