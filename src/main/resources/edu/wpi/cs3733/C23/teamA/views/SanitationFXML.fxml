@@ -2,10 +2,12 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -14,7 +16,19 @@
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="42.0" prefWidth="591.0" BorderPane.alignment="CENTER">
          <children>
-            <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" onAction="#clearForm" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Clear" textFill="#d3e9f6">
+            <StackPane fx:id="reminderPane" prefHeight="150.0" prefWidth="200.0" style="-fx-border-color: #122c34; -fx-border-width: 2 2 2 2;">
+               <HBox.margin>
+                  <Insets bottom="10.0" right="65.0" />
+               </HBox.margin>
+               <children>
+                  <Text fx:id="reminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Plese Fill In All Fields!">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </StackPane>
+            <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" onAction="#clearForm" prefHeight="22.0" prefWidth="80.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Reset" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets bottom="10.0" />
                </HBox.margin>
@@ -91,11 +105,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <MFXTextField fx:id="locBox" alignment="TOP_LEFT" floatMode="DISABLED" prefHeight="32.0" prefWidth="295.0" promptText="Enter the location where sanitation is needed" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
-                     <HBox.margin>
-                        <Insets left="-5.0" />
-                     </HBox.margin>
-                  </MFXTextField>
+                  <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" prefHeight="42.0" prefWidth="344.0" promptText="Enter location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" />
                   <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Category:" wrappingWidth="61.21630859375">
                      <font>
                         <Font size="14.0" />
@@ -115,7 +125,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="91.0" prefWidth="601.0">
                <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="77.21630859375">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="81.21630859375">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -145,11 +155,6 @@
                         <Insets left="-20.0" />
                      </HBox.margin>
                   </MFXComboBox>
-                  <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15;" translateX="155.0" wrappingWidth="77.21630859375">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
                </children>
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />

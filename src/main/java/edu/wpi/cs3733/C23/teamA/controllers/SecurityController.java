@@ -1,26 +1,40 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+
 import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.SecurityRequest;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class SecurityController extends ServiceRequestController {
 
   @FXML private MFXTextField phone;
   @FXML private MFXComboBox<String> requestsBox;
+  ServicerequestEntity.Urgency urgent;
+  SecurityrequestEntity.Assistance assistance;
 
   @FXML
-  public void initialize() {
+  public void initialize() throws SQLException {
+    if (reminder != null) {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+    }
     if (requestsBox != null) {
       ObservableList<String> requests =
           FXCollections.observableArrayList(
@@ -34,8 +48,23 @@ public class SecurityController extends ServiceRequestController {
               UrgencyLevel.HIGH.getUrgency(),
               UrgencyLevel.EXTREMELY_URGENT.getUrgency());
 
+      Session session = getSessionFactory().openSession();
+      Transaction tx = session.beginTransaction();
+
+      List<LocationnameEntity> temp = new ArrayList<LocationnameEntity>();
+      temp = getAllRecords(LocationnameEntity.class, session);
+
+      // ArrayList<Move> moves = Move.getAll();
+      ObservableList<String> locations = FXCollections.observableArrayList();
+      for (LocationnameEntity move : temp) {
+        locations.add(move.getLongname());
+      }
+
+      Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
+
       requestsBox.setItems(requests);
       urgencyBox.setItems(urgencies);
+      locationBox.setItems(locations);
     }
   }
 
@@ -60,31 +89,63 @@ public class SecurityController extends ServiceRequestController {
   }
 
   @FXML
-  public void submitRequest(ActionEvent event) throws IOException, SQLException {
+  void submitRequest(ActionEvent event) throws IOException, SQLException {
     if (nameBox.getText().equals("")
         || phone.getText().equals("")
         || IDNum.getText().equals("")
-        || locBox.getText().equals("")
+        || locationBox.getText().equals("")
         || descBox.getText().equals("")
         || requestsBox.getValue() == null
         || urgencyBox.getValue() == null) {
-      reminder.setText("Please fill out all fields in the form!");
+      reminder.setVisible(true);
+      reminderPane.setVisible(true);
     } else {
-      SecurityRequest submission =
-          new SecurityRequest(
+      Session session = ADBSingletonClass.getSessionFactory().openSession();
+      Transaction tx = session.beginTransaction();
+      EmployeeEntity person = session.get(EmployeeEntity.class, "123");
+      // IDNum.getText()
+      LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
+      switch (urgencyBox.getValue()) {
+        case "Low":
+          urgent = ServicerequestEntity.Urgency.LOW;
+          break;
+        case "Medium":
+          urgent = ServicerequestEntity.Urgency.MEDIUM;
+          break;
+        case "High":
+          urgent = ServicerequestEntity.Urgency.HIGH;
+          break;
+        case "Extremely Urgent":
+          urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+          break;
+      }
+      switch (requestsBox.getValue()) {
+        case "Harassment":
+          assistance = SecurityrequestEntity.Assistance.HARASSMENT;
+          break;
+        case "Security Threat":
+          assistance = SecurityrequestEntity.Assistance.SECURITY_ESCORT;
+          break;
+        case "Potential Threat":
+          assistance = SecurityrequestEntity.Assistance.POTENTIAL_THREAT;
+          break;
+      }
+      SecurityrequestEntity submission =
+          new SecurityrequestEntity(
               nameBox.getText(),
-              IDNum.getText(),
-              locBox.getText(),
+              person,
+              location,
               descBox.getText(),
-              urgencyBox.getValue(),
-              "Security Request",
-              "Blank",
+              urgent,
+              ServicerequestEntity.RequestType.SECURITY,
+              ServicerequestEntity.Status.BLANK,
               "Unassigned",
-              requestsBox.getValue(),
+              assistance,
               phone.getText());
-
-      submission.insert(); // *some db thing for getting the request in there*
-
+      session.persist(submission);
+      tx.commit();
+      session.close();
+      // submission.insert(); // *some db thing for getting the request in there*
       switchToConfirmationScene(event);
     }
   }

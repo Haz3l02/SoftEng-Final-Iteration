@@ -140,8 +140,64 @@ public class ComputerRequest extends ServiceRequest {
               rs.getString("status"),
               rs.getString("employeeAssigned"),
               rs.getString("deviceID"),
-              rs.getString("devices")));
+              rs.getString("device")));
     }
     return fin;
+  }
+
+  public ComputerRequest getComputerRequest(int id) throws SQLException {
+    System.out.println("here");
+    String sql =
+        "SELECT * FROM "
+            + "ComputerRequest join ServiceRequest "
+            + "on ComputerRequest.requestID = ServiceRequest.requestID "
+            + "where ServiceRequest.requestID = "
+            + id
+            + ";";
+    System.out.println("here0");
+    ResultSet rs = Adb.processQuery(sql);
+    System.out.println("here1");
+
+    rs.next();
+    System.out.println("here2");
+
+    return new ComputerRequest(
+        rs.getInt("requestID"),
+        rs.getString("name"),
+        rs.getString("idNum"),
+        rs.getString("location"),
+        rs.getString("description"),
+        rs.getString("ul"),
+        rs.getString("requestType"),
+        rs.getString("status"),
+        rs.getString("employeeAssigned"),
+        rs.getString("deviceID"),
+        rs.getString("device"));
+  }
+
+  public void updateComputerRequest(
+      int requestId,
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String ul,
+      String requestType,
+      String status,
+      String employeeAssigned,
+      String deviceID,
+      String device)
+      throws SQLException {
+    updateServiceRequest(
+        requestId, name, idNum, location, description, ul, requestType, status, employeeAssigned);
+    String sql =
+        "update computerrequest set deviceId = '"
+            + deviceID
+            + "', device = '"
+            + device
+            + "' where requestID = "
+            + requestId
+            + ";";
+    Adb.processUpdate(sql);
   }
 }
