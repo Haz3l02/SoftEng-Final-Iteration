@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
+@Deprecated
 public class Node {
   @Getter private static final String tableName = "node";
   @Setter @Getter private String nodeID;

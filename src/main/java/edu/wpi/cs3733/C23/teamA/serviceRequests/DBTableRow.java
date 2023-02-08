@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.serviceRequests;
 import lombok.Getter;
 import lombok.Setter;
 
+@Deprecated
 public class DBTableRow {
 
   @Getter @Setter private String node;

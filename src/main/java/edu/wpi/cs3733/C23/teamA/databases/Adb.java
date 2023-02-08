@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.databases;
 
 import java.sql.*;
 
+@Deprecated
 public class Adb {
   private Connection connection;
   private static Adb db;

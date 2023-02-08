@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA;
 
+<<<<<<< HEAD
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.*;
 
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
@@ -110,5 +111,10 @@ public class Main {
     //    session.close();
 
     // getSessionFactory().close();
+=======
+public class Main {
+  public static void main(String[] args) {
+    AApp.launch(AApp.class, args);
+>>>>>>> 961e483c4bc70f6c6c0c7d4e10d00d74abc8a8bc
   }
 }

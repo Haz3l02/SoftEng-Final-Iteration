@@ -7,7 +7,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "node")
 public class NodeEntity {
-
   @Id
   @Column(name = "nodeid", nullable = false, length = -1)
   @Getter
@@ -47,15 +46,5 @@ public class NodeEntity {
     return nodeid.equals(other.getNodeid());
   }
 
-  //  @Column(name = "moves", nullable = false)
-  //  @Getter
-  //  @Setter
-  //  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
-  //  private Set<MoveEntity> moves;
-  //
-  //  @Column(name = "edges", nullable = false)
-  //  @Getter
-  //  @Setter
-  //  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
-  //  private Set<EdgeEntity> edges;
+
 }

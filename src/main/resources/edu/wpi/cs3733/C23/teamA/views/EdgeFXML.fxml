@@ -65,6 +65,7 @@
                      <children>
                         <TableView fx:id="dbTable" editable="true" layoutX="-36.0" layoutY="-38.0" prefHeight="237.0" prefWidth="514.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
+                              <TableColumn fx:id="edgeIDCol" prefWidth="100.0" text="Edge ID" />
                             <TableColumn fx:id="startNodeCol" prefWidth="100.0" text="Start Node" />
                             <TableColumn fx:id="endNodeCol" prefWidth="100.0" text="End Node" />
                           </columns>

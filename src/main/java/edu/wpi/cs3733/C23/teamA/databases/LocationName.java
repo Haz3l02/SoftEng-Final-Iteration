@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
+@Deprecated
 public class LocationName {
   @Getter private static final String tableName = "locationname";
   @Setter @Getter private String longName;

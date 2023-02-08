@@ -10,8 +10,12 @@ import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+<<<<<<< HEAD
 import edu.wpi.cs3733.C23.teamA.serviceRequests.*;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+=======
+import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
+>>>>>>> 961e483c4bc70f6c6c0c7d4e10d00d74abc8a8bc
 import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequest;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequestTableRow;
@@ -70,6 +74,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML
   public void initialize() throws SQLException {
 
+<<<<<<< HEAD
     IdNumberHolder holder = IdNumberHolder.getInstance();
     hospitalID = holder.getId();
     job = holder.getJob();
@@ -88,6 +93,10 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       dateBox.setDisable(true);
       urgencyBox.setDisable(true);
     }
+=======
+    NodeIndicesHolder holder = NodeIndicesHolder.getInstance();
+    // hospitalID = holder.getId();
+>>>>>>> 961e483c4bc70f6c6c0c7d4e10d00d74abc8a8bc
 
     IDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
     formTypeCol.setCellValueFactory(new PropertyValueFactory<>("formType"));
