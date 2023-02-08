@@ -8,21 +8,34 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane style="-fx-background-color: #bad1ea;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingMapController">
    <center>
-      <AnchorPane prefHeight="510" prefWidth="750">
+      <VBox alignment="CENTER">
          <children>
-            <StackPane prefHeight="510" prefWidth="750" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Text fx:id="pathMapText" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Text>
+            <AnchorPane prefHeight="510" prefWidth="750">
                <children>
-                  <ImageView fx:id="mapImage" fitHeight="510" fitWidth="750" pickOnBounds="true" preserveRatio="true" />
-                  <Canvas fx:id="mapCanvas" height="510" width="750" />
+                  <StackPane prefHeight="510" prefWidth="750" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fx:id="mapImage" fitHeight="510" fitWidth="750" pickOnBounds="true" preserveRatio="true" />
+                        <Canvas fx:id="mapCanvas" height="510" width="750" />
+                     </children>
+                  </StackPane>
                </children>
-            </StackPane>
+            </AnchorPane>
          </children>
-      </AnchorPane>
+      </VBox>
    </center>
    <bottom>
       <MFXButton buttonType="RAISED" cancelButton="true" onAction="#switchToPathfindingScene" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6" BorderPane.alignment="CENTER">

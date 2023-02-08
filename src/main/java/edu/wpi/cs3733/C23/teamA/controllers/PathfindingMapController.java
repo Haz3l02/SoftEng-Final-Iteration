@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import oracle.ucp.common.waitfreepool.Tuple;
 import org.hibernate.Session;
 
@@ -27,6 +28,7 @@ to obtain and later print the path */
 public class PathfindingMapController extends ServiceRequestController {
 
   // javaFX items
+  @FXML private Text pathMapText;
   @FXML private Canvas mapCanvas; // to display the generated path
   @FXML private ImageView mapImage;
 
@@ -72,6 +74,7 @@ public class PathfindingMapController extends ServiceRequestController {
 
     // clear the canvas w/ the drawn path; does NOT hide the map image
     gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
+    pathMapText.setText("");
 
     // constant for map size/coordinate manipulation
     pathfindingSystem.drawPath(gc, path, SCALE_FACTOR);
@@ -106,9 +109,12 @@ public class PathfindingMapController extends ServiceRequestController {
 
     // if a path was found, draw a path
     if (path != null) {
+      pathMapText.setText("Path Between " + sName + " and " + eName + ".");
       callMapDraw(path); // draw the path on top of the image
     }
-    // else: display something?
+    else {
+      pathMapText.setText("No Path Found Between " + sName + " and " + eName + ".");
+    }
   }
 
   /**
