@@ -18,7 +18,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NodeController">
    <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" style="-fx-background-color: #BAD1EA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" >
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" >
          <top>
             <BorderPane prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
                <left>
@@ -34,17 +34,17 @@
                <right>
                   <HBox alignment="CENTER" prefHeight="81.0" prefWidth="230.0" BorderPane.alignment="CENTER">
                      <children>
-                        <MFXButton buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="66.0" style="-fx-background-color: #BAD1EA;" text="Home" textFill="#224870">
+                        <MFXButton buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="66.0" style="-fx-background-color: #D3E9F6;" text="Home" textFill="#224870">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </MFXButton>
-                        <MFXButton buttonType="RAISED" onAction="#switchToHelpScene" prefHeight="36.0" prefWidth="62.0" style="-fx-background-color: #BAD1EA;" text="Help" textFill="#224870">
+                        <MFXButton buttonType="RAISED" onAction="#switchToHelpScene" prefHeight="36.0" prefWidth="62.0" style="-fx-background-color: #D3E9F6;" text="Help" textFill="#224870">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </MFXButton>
-                        <MFXButton buttonType="RAISED" onAction="#logout" prefHeight="36.0" prefWidth="71.0" style="-fx-background-color: #BAD1EA;" text="Logout" textFill="#224870" />
+                        <MFXButton buttonType="RAISED" onAction="#logout" prefHeight="36.0" prefWidth="71.0" style="-fx-background-color: #D3E9F6;" text="Logout" textFill="#224870" />
                      </children>
                   </HBox>
                </right>

@@ -79,10 +79,9 @@
                            <children>
                               <TableView fx:id="dbTable" editable="true" layoutX="-36.0" layoutY="-38.0" prefHeight="237.0" prefWidth="514.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn fx:id="nodeCol" prefWidth="100.0" text="Node" />
-                                  <TableColumn fx:id="locNameCol" prefWidth="100.0" text="Location Name" />
-                                    <TableColumn fx:id="moveCol" prefWidth="100.0" text="Move" />
-                                    <TableColumn fx:id="edgeDataCol" prefWidth="100.0" text="Edge Data" />
+                                  <TableColumn fx:id="nodeCol" prefWidth="185.59997099637985" text="Node" />
+                                  <TableColumn fx:id="locNameCol" prefWidth="149.6000213623047" text="Location Name" />
+                                    <TableColumn fx:id="moveCol" minWidth="0.0" prefWidth="152.00003051757812" text="Move" />
                                 </columns>
                               </TableView>
                            </children>
