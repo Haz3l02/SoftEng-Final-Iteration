@@ -16,7 +16,7 @@
    <center>
       <VBox alignment="CENTER">
          <children>
-            <Text fx:id="pathMapText" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+            <Text fx:id="pathMapText" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="584.6667633056641">
                <font>
                   <Font size="18.0" />
                </font>
