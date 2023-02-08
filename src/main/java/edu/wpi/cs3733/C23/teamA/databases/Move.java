@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
+@Deprecated
 public class Move {
 
   private static final String tableName = "move";

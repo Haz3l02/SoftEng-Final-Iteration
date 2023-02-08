@@ -1,11 +1,15 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.databases.Edge;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+
+import edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,41 +17,88 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class EdgeController extends ServiceRequestController {
 
-  @FXML private TableView<Edge> dbTable;
+  @FXML private TableView<EdgeEntity> dbTable;
 
-  @FXML public TableColumn<Edge, String> startNodeCol;
-  @FXML public TableColumn<Edge, String> endNodeCol;
+  @FXML public TableColumn<EdgeEntity, String> edgeIDCol;
+  @FXML public TableColumn<EdgeEntity, String> startNodeCol;
+  @FXML public TableColumn<EdgeEntity, String> endNodeCol;
 
   @FXML public MFXButton refresh;
 
-  private ArrayList<Edge> data;
+  private Session session;
+  private List<EdgeEntity> data;
 
-  private ObservableList<Edge> dbTableRowsModel = FXCollections.observableArrayList();
+  private ObservableList<EdgeEntity> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-    {
-      try {
-        data = Edge.getAll();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
-    for (Edge row : data) {
-      dbTableRowsModel.add(row);
-    }
-    startNodeCol.setCellValueFactory(new PropertyValueFactory<>("node1"));
-    endNodeCol.setCellValueFactory(new PropertyValueFactory<>("node2"));
+    session = getSessionFactory().openSession();
+
+    reloadData();
+
+    edgeIDCol.setCellValueFactory(new PropertyValueFactory<>("edgeid"));
+    startNodeCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getNode1().getNodeid()));
+    endNodeCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getNode2().getNodeid()));
     dbTable.setItems(dbTableRowsModel);
+
+    editableColumns();
+    dbTable.setEditable(true);
+  }
+
+  // Loads data from the database into the list
+  public void reloadData() {
+    dbTableRowsModel.clear();
+    try {
+      data = getAllRecords(EdgeEntity.class, session);
+      dbTableRowsModel.addAll(data);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void editableColumns() {
+    startNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    endNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    startNodeCol.setOnEditCommit(
+        e -> {
+          EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          try {
+            Transaction t = session.beginTransaction();
+            n.setNode1(session.get(NodeEntity.class, e.getNewValue()));
+            session.persist(n);
+            t.commit();
+          } catch (Exception ex) {
+            refresh.setText("Invalid Node: Refresh");
+          }
+        });
+    endNodeCol.setOnEditCommit(
+        e -> {
+          EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          try {
+            Transaction t = session.beginTransaction();
+            n.setNode2(session.get(NodeEntity.class, e.getNewValue()));
+            session.persist(n);
+            t.commit();
+          } catch (Exception ex) {
+            refresh.setText("Invalid Node: Refresh");
+          }
+        });
   }
 
   public void switchToMoveScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.DATABASE);
   }
 
   public void switchToNodeScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.NODE);
   }
 }

@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import java.io.IOException;
@@ -38,11 +40,15 @@ public class AApp extends Application {
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
-    Navigation.navigate(Screen.HOME);
+    primaryStage.setMaximized(true);
+    Navigation.navigate(Screen.LOGIN);
+    primaryStage.setMinWidth(615);
+    primaryStage.setMinHeight(450);
   }
 
   @Override
   public void stop() {
+    getSessionFactory().close();
     log.info("Shutting Down");
   }
 }

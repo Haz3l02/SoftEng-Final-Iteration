@@ -4,6 +4,7 @@ import java.awt.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@Deprecated
 public class ServiceRequestTableRow {
 
   @Getter @Setter private int ID;

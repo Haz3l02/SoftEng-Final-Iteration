@@ -1,11 +1,16 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.databases.Move;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+
+import edu.wpi.cs3733.C23.teamA.hibernateDB.LocationnameEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,75 +19,89 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class DatabaseController extends ServiceRequestController {
 
-  @FXML private TableView<Move> dbTable;
+  @FXML private TableView<MoveEntity> dbTable;
 
-  @FXML public TableColumn<Move, String> nodeCol;
-  @FXML public TableColumn<Move, String> locNameCol;
-  @FXML public TableColumn<Move, String> moveCol;
+  @FXML public TableColumn<MoveEntity, String> nodeCol;
+  @FXML public TableColumn<MoveEntity, String> locNameCol;
+  @FXML public TableColumn<MoveEntity, String> moveCol;
 
   @FXML public MFXButton refresh;
 
-  private ArrayList<Move> data;
-
-  private ObservableList<Move> dbTableRowsModel = FXCollections.observableArrayList();
+  private List<MoveEntity> data;
+  private Session session;
+  private ObservableList<MoveEntity> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-    {
-      try {
-        data = Move.getAll();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
-    for (Move row : data) {
-      row.getConnections();
-      dbTableRowsModel.add(row);
-    }
-    nodeCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
-    locNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
-    moveCol.setCellValueFactory(new PropertyValueFactory<>("moveDate"));
+    session = getSessionFactory().openSession();
+
+    reloadData();
+
+    nodeCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getNode().getNodeid()));
+    locNameCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getLocationname().getLongname()));
+    moveCol.setCellValueFactory(new PropertyValueFactory<>("movedate"));
     dbTable.setItems(dbTableRowsModel);
+
     editableColumns();
     dbTable.setEditable(true);
   }
 
-  public void reloadPage() {}
+  /** Clear and retrieve all table rows again With hibernate only use once at start */
+  public void reloadData() {
+    dbTableRowsModel.clear();
+    try {
+      data = getAllRecords(MoveEntity.class, session);
+      dbTableRowsModel.addAll(data);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
+  /** Set cells to respond to modification and try to commit changes to the database */
   public void editableColumns() {
     nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
     nodeCol.setOnEditCommit(
         e -> {
-          Move n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow()).getNode();
           try {
-            n.setNodeID(e.getNewValue());
-            n.update();
-          } catch (SQLException ex) {
+            Transaction t = session.beginTransaction();
+            n.setNodeid(e.getNewValue());
+            session.persist(n);
+            t.commit();
+          } catch (Exception ex) {
+            ex.printStackTrace();
             refresh.setText("Invalid Node: Refresh");
           }
-          dbTable.refresh();
         });
     locNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
     locNameCol.setOnEditCommit(
         e -> {
-          Move n = e.getTableView().getItems().get(e.getTablePosition().getRow());
+          LocationnameEntity n =
+              e.getTableView().getItems().get(e.getTablePosition().getRow()).getLocationname();
           try {
-            n.setLongName(e.getNewValue());
-            n.update();
-          } catch (SQLException ex) {
+            Transaction t = session.beginTransaction();
+            n.setLongname(e.getNewValue());
+            session.persist(n);
+            t.commit();
+          } catch (Exception ex) {
             refresh.setText("Invalid Location: Refresh");
           }
-          dbTable.refresh();
         });
   }
 
   public void switchToEdgeScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.EDGE);
   }
 
   public void switchToNodeScene(ActionEvent event) {
+    session.close();
     Navigation.navigate(Screen.NODE);
   }
 }

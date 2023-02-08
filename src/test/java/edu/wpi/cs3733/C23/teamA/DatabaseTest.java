@@ -1,25 +1,26 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static org.junit.jupiter.api.Assertions.*;
 
-import edu.wpi.cs3733.C23.teamA.controllers.PathfindingController;
 import edu.wpi.cs3733.C23.teamA.databases.*;
-import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
+import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.hibernate.Session;
+import org.junit.jupiter.api.*; // notably, BeforeEach & Test
 
+// Testing class for database connection with PathfindingController
 public class DatabaseTest {
+  Session session = getSessionFactory().openSession();
 
-  static HashMap<String, GraphNode> graph = new HashMap<String, GraphNode>();
-
-  @BeforeEach
+  @Test
   public void init() throws SQLException {
-    graph = PathfindingController.prepGraphDB();
+    System.out.println(MoveEntity.mostRecentLoc("CCONF001L1", session));
   }
 
+  // DATABASE STUFF WHICH IS MAYBE OUTDATED
+  /*
   @Test
   public void testPrint() throws SQLException, ClassNotFoundException {
     new Adb();
@@ -30,7 +31,7 @@ public class DatabaseTest {
     System.out.println(Move.mostRecentLoc("L1X2665Y1043"));
   }
 
-  @Test /* Tests that the proper edges from database are added to the graph */
+  @Test // Tests that the proper edges from database are added to the graph
   public void testGraphMakerEdge1() {
     ArrayList<GraphNode> neighbors = graph.get("L1X2065Y1284").getNeighbors();
     boolean correct =
@@ -54,9 +55,9 @@ public class DatabaseTest {
     assertTrue(correct);
   }
 
-  @Test /* Tests that proper node info from database (xcoord and ycoord) are added to the graph */
+  @Test // Tests that proper node info from database (xcoord and ycoord) are added to the graph
   public void testGraphMakerNode1() throws SQLException {
-    HashMap<String, GraphNode> graph = PathfindingController.prepGraphDB();
+    HashMap<String, GraphNode> graph = PathfindingMapController.prepGraphDB();
     boolean all1 = false;
     boolean all2 = false;
 
@@ -71,4 +72,5 @@ public class DatabaseTest {
 
     assertTrue(all1 & all2);
   }
+   */
 }

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity" table="servicerequest" schema="public"
+           catalog="dba">
+        <id name="requestid">
+            <column name="requestid" sql-type="integer"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="text" not-null="true"/>
+        </property>
+        <property name="idnum">
+            <column name="idnum" sql-type="text" not-null="true"/>
+        </property>
+        <property name="location">
+            <column name="location" sql-type="text" not-null="true"/>
+        </property>
+        <property name="description">
+            <column name="description" sql-type="text" not-null="true"/>
+        </property>
+        <property name="ul">
+            <column name="ul" sql-type="text" not-null="true"/>
+        </property>
+        <property name="requesttype">
+            <column name="requesttype" sql-type="text" not-null="true"/>
+        </property>
+        <property name="status">
+            <column name="status" sql-type="text" not-null="true"/>
+        </property>
+        <property name="employeeassigned">
+            <column name="employeeassigned" sql-type="text" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
