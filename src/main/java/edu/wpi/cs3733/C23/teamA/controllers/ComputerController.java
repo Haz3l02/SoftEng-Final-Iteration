@@ -1,14 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-<<<<<<< HEAD
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.enums.DevicesCatagory;
-=======
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
->>>>>>> 961e483c4bc70f6c6c0c7d4e10d00d74abc8a8bc
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;

@@ -111,8 +111,7 @@ public class PathfindingMapController extends ServiceRequestController {
     if (path != null) {
       pathMapText.setText("Path Between " + sName + " and " + eName + ".");
       callMapDraw(path); // draw the path on top of the image
-    }
-    else {
+    } else {
       pathMapText.setText("No Path Found Between " + sName + " and " + eName + ".");
     }
   }

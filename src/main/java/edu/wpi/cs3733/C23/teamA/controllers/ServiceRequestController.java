@@ -60,12 +60,6 @@ public abstract class ServiceRequestController {
    */
   @FXML
   public void switchToHelpScene(ActionEvent event) throws IOException {
-<<<<<<< HEAD
-    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
-    popup = new PopOver(loader.load());
-    popup.show(((Node) event.getSource()).getScene().getWindow());
-    popup.detach();
-=======
 
     if (!event.getSource().equals(backButton)) {
       FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
@@ -76,7 +70,6 @@ public abstract class ServiceRequestController {
     if (event.getSource().equals(backButton)) {
       popup.hide();
     }
->>>>>>> 961e483c4bc70f6c6c0c7d4e10d00d74abc8a8bc
   }
 
   @FXML

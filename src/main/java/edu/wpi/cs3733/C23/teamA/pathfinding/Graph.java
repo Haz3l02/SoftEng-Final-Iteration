@@ -7,7 +7,7 @@ import java.util.HashMap;
 import lombok.Getter;
 
 public class Graph {
-  @Getter HashMap<String, GraphNode> graph; // NO SETTER!
+  @Getter private HashMap<String, GraphNode> graph; // NO SETTER!
 
   // Constructor
   public Graph() {

@@ -92,7 +92,7 @@
                   </StackPane>
                </children>
             </AnchorPane>
-            <Text fx:id="pathDisplay" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0">
+            <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
                </VBox.margin>

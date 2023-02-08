@@ -28,11 +28,6 @@ public class PathfindingSystem {
     return DFS.traverse(startNode, endNode);
   }
 
-  // PathInterpreter
-  public ArrayList<GraphNode> getPath(GraphNode startNode, GraphNode endNode) {
-    return PathInterpreter.getPath(startNode, endNode);
-  }
-
   public String generatePathString(ArrayList<GraphNode> path) {
     return PathInterpreter.generatePathString(path);
   }

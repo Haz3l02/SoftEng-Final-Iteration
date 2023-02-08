@@ -1,7 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
-import edu.wpi.cs3733.C23.teamA.databases.Node;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -69,11 +70,11 @@ public class MapDraw {
     gc.strokeOval(prevX - 6, prevY - 6, 12, 12); // ending open circle
   }
 
-  public static void drawNodes(GraphicsContext gc, ArrayList<Node> allNodes, double scaleFactor) {
+  public static void drawNodes(GraphicsContext gc, List<NodeEntity> allNodes, double scaleFactor) {
     gc.setFill(Color.web("0x224870"));
 
     // draw circle for each node
-    for (Node n : allNodes) {
+    for (NodeEntity n : allNodes) {
       int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
       gc.fillOval(updatedCoords[0] - 4, updatedCoords[1] - 4, 8, 8);
     }
