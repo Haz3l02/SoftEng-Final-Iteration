@@ -125,7 +125,7 @@ public class ComputerController extends ServiceRequestController {
   void submitRequest(ActionEvent event) throws IOException, SQLException {
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
-        || locationBox.getText().equals("")
+        || locationBox.getValue() == null
         || descBox.getText().equals("")
         || deviceIDNum.getText().equals("")
         || devicesBox.getValue() == null

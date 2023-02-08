@@ -107,7 +107,7 @@ public class SanitationController extends ServiceRequestController {
 
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
-        || locationBox.getValue().equals("")
+        || locationBox.getValue() == null
         || descBox.getText().equals("")
         || categoryBox.getValue() == null
         || urgencyBox.getValue() == null) {

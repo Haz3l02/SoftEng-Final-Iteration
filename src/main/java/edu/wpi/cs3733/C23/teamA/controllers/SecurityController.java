@@ -118,7 +118,7 @@ public class SecurityController extends ServiceRequestController {
     if (nameBox.getText().equals("")
         || phone.getText().equals("")
         || IDNum.getText().equals("")
-        || locationBox.getText().equals("")
+        || locationBox.getValue() == null
         || descBox.getText().equals("")
         || requestsBox.getValue() == null
         || urgencyBox.getValue() == null) {

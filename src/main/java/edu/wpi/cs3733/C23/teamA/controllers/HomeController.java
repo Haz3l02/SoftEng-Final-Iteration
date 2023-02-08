@@ -25,7 +25,7 @@ public class HomeController extends ServiceRequestController {
   @FXML private Label welcome = new Label("hello");
 
   @FXML
-  public void initialize() throws InterruptedException, IOException {
+  public void initialize() throws IOException, InterruptedException {
     grabQuote();
     dateAndTime();
     // IdNumberHolder userInfo = new IdNumberHolder();
