@@ -32,7 +32,7 @@ public class PathfindingMapController extends ServiceRequestController {
   @FXML private Canvas mapCanvas; // to display the generated path
   @FXML private ImageView mapImage;
 
-  private Session session = getSessionFactory().openSession();
+  private Session session;
   // Lists of Nodes and Node Data
 
   private List<String> allNodeIDs; // List of all Node IDs in specific order
@@ -50,7 +50,7 @@ public class PathfindingMapController extends ServiceRequestController {
   public void initialize() throws SQLException {
     Tuple<Integer, Integer> mapNodes = NodeIndicesHolder.getInstance().getNodes();
     allNodeIDs = new ArrayList<>();
-
+    session = getSessionFactory().openSession();
     List<NodeEntity> allNodes =
         getAllRecords(NodeEntity.class, session); // get all nodes from Database
     for (NodeEntity n : allNodes) {
