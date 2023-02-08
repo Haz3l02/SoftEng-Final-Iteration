@@ -15,14 +15,26 @@ public class MoveEntity {
   @Getter
   @Setter
   @ManyToOne
-  @JoinColumn(name = "nodeid", foreignKey = @ForeignKey(name = "node_fk"))
+  @JoinColumn(
+      name = "nodeid",
+      foreignKey =
+          @ForeignKey(
+              name = "node_fk",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (nodeid) REFERENCES node(nodeid) ON UPDATE CASCADE ON DELETE CASCADE"))
   private NodeEntity node;
 
   @Id
   @Getter
   @Setter
   @ManyToOne
-  @JoinColumn(name = "longname", foreignKey = @ForeignKey(name = "longname_fk"))
+  @JoinColumn(
+      name = "longname",
+      foreignKey =
+          @ForeignKey(
+              name = "longname_fk",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (longname) REFERENCES locationname(longname) ON UPDATE CASCADE ON DELETE CASCADE"))
   private LocationnameEntity locationname;
 
   @Id
