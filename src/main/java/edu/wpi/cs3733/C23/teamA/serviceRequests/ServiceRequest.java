@@ -74,6 +74,26 @@ public class ServiceRequest {
     Adb.processUpdate(sql);
   }
 
+  public ArrayList<ServiceRequest> getServiceRequests() throws SQLException {
+    ArrayList<ServiceRequest> fin = new ArrayList<>();
+    String sql = "SELECT * FROM " + "ServiceRequest " + ";";
+    ResultSet rs = Adb.processQuery(sql);
+    while (rs.next()) {
+      fin.add(
+          new ServiceRequest(
+              rs.getInt("requestID"),
+              rs.getString("name"),
+              rs.getString("idNum"),
+              rs.getString("location"),
+              rs.getString("description"),
+              rs.getString("ul"),
+              rs.getString("requestType"),
+              rs.getString("status"),
+              rs.getString("employeeAssigned")));
+    }
+    return fin;
+  }
+
   public ArrayList<ServiceRequest> getServiceRequestsByID(String id) throws SQLException {
     ArrayList<ServiceRequest> fin = new ArrayList<>();
     String sql = "SELECT * FROM " + "ServiceRequest " + "where idNum = '" + id + "';";
@@ -92,5 +112,39 @@ public class ServiceRequest {
               rs.getString("employeeAssigned")));
     }
     return fin;
+  }
+
+  public void updateServiceRequest(
+      int requestId,
+      String name,
+      String idNum,
+      String location,
+      String description,
+      String ul,
+      String requestType,
+      String status,
+      String employeeAssigned)
+      throws SQLException {
+    String sql =
+        "update servicerequest set name = '"
+            + name
+            + "', idNum = '"
+            + idNum
+            + "', location = '"
+            + location
+            + "', description = '"
+            + description
+            + "', ul = '"
+            + ul
+            + "', requestType = '"
+            + requestType
+            + "', status = '"
+            + status
+            + "', employeeAssigned = '"
+            + employeeAssigned
+            + "' where requestID = "
+            + requestId
+            + ";";
+    Adb.processUpdate(sql);
   }
 }

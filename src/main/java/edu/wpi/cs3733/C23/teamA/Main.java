@@ -1,7 +1,120 @@
 package edu.wpi.cs3733.C23.teamA;
 
+<<<<<<< HEAD
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.*;
+
+import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
+import jakarta.persistence.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+public class Main {
+
+  public static void main(String[] args) throws IOException, InterruptedException {
+    HttpRequest request =
+        HttpRequest.newBuilder()
+            .uri(URI.create("https://quotes15.p.rapidapi.com/quotes/random/"))
+            .header("X-RapidAPI-Key", "d4914e733dmshdd1ec11f2fb2c05p1452d7jsn0a66c1b7ff90")
+            .header("X-RapidAPI-Host", "quotes15.p.rapidapi.com")
+            .method("GET", HttpRequest.BodyPublishers.noBody())
+            .build();
+    HttpResponse<String> response =
+        HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+    String quote =
+        response
+            .body()
+            .substring(
+                response.body().indexOf("\"content\":\"", 0) + 11,
+                response.body().indexOf("\"", response.body().indexOf("\"content\":\"") + 15));
+    String author =
+        response
+            .body()
+            .substring(
+                response.body().indexOf("\"name\":\"", 0) + 8,
+                response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
+    System.out.println("\"" + quote + "\" -" + author);
+
+    // AApp.launch(AApp.class, args);
+
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+
+    // ComputerrequestEntity per = session.get(ComputerrequestEntity.class, 2);
+    // per.setUrgency(ServicerequestEntity.Urgency.MEDIUM);
+    // per.setDevice(ComputerrequestEntity.Device.MONITOR);
+    // EmployeeEntity wong = new EmployeeEntity("123", "staff", "staff", "Maintenance", "Wilson
+    // Wong");
+    // session.persist(wong);
+
+    EmployeeEntity wong = session.get(EmployeeEntity.class, "123");
+    LocationnameEntity loc = session.get(LocationnameEntity.class, "Ultrasound Floor L1");
+
+    /*ComputerrequestEntity comp =
+        new ComputerrequestEntity(
+            "Help",
+            wong,
+            loc,
+            "need help",
+            ServicerequestEntity.Urgency.LOW,
+            ServicerequestEntity.RequestType.COMPUTER,
+            ServicerequestEntity.Status.BLANK,
+            "John",
+            "My PC",
+            ComputerrequestEntity.Device.DESKTOP);
+    session.persist(comp);*/
+
+    //    SecurityrequestEntity comp =
+    //        new SecurityrequestEntity(
+    //            "Security threat",
+    //            wong,
+    //            loc,
+    //            "loitering",
+    //            ServicerequestEntity.Urgency.LOW,
+    //            ServicerequestEntity.RequestType.SECURITY,
+    //            ServicerequestEntity.Status.BLANK,
+    //            "swag",
+    //            SecurityrequestEntity.Assistance.HARASSMENT,
+    //            "401-330-4830");
+    //    session.persist(comp);
+    //
+    //    tx.commit();
+    //    session.close();
+    //    if (session.getTransaction().isActive()) {
+    //      System.out.println("active");
+    //    }
+    AApp.launch(AApp.class, args);
+
+    // getSessionFactory().close();
+
+    //    com.editComputerRequest(
+    //       3, "jay", "bruh", "bruh", "burhbruh", "HIGH", "bruh", "bruh", "john", "bruh", "bruh");
+    //    SanitationrequestEntity sanreq =
+    //        new SanitationrequestEntity(
+    //            "Clean",
+    //            "123",
+    //            "there",
+    //            "stuff",
+    //            ServicerequestEntity.Urgency.HIGH,
+    //            ServicerequestEntity.RequestType.SANITATION,
+    //            ServicerequestEntity.Status.BLANK,
+    //            "John",
+    //            SanitationrequestEntity.Category.BIOHAZARD);
+    //
+    //    session.persist(sanreq);
+    //    tx.commit();
+    //    session.close();
+
+    // getSessionFactory().close();
+=======
 public class Main {
   public static void main(String[] args) {
     AApp.launch(AApp.class, args);
+>>>>>>> 961e483c4bc70f6c6c0c7d4e10d00d74abc8a8bc
   }
 }

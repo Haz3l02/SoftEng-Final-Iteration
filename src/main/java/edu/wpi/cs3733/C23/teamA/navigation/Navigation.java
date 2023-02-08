@@ -19,6 +19,19 @@ public class Navigation {
       e.printStackTrace();
     }
   }
+  //  public static void edit(final Screen screen, String requestID, String requestType) {
+  //    String screeeeen = requestType.substring(0, requestType.indexOf("Request"));//"Sanitation"
+  //    screeeeen = screeeeen;;
+  //    final String filename = Screen.screeeeen.getFilename();
+  //
+  //    try {
+  //      final var resource = AApp.class.getResource(filename);
+  //      final FXMLLoader loader = new FXMLLoader(resource);
+  //      AApp.getRootPane().setCenter(loader.load());
+  //    } catch (IOException | NullPointerException e) {
+  //      e.printStackTrace();
+  //    }
+  //  }
 
   public static void close() {
     Platform.exit();
