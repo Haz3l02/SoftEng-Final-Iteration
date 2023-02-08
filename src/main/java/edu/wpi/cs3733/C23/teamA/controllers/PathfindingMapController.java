@@ -58,7 +58,7 @@ public class PathfindingMapController extends ServiceRequestController {
     }
     session.close();
     addFloorMapImage(
-        "src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/20% Scale/00_thelowerlevel1_unlabeled_20%.png"); // place the map on the page
+        "src/main/resources/edu/wpi/cs3733/C23/teamA/assets/unlabeledMaps/20% Scale/00_thelowerlevel1_unlabeled_20%.png"); // place the map on the page
 
     // calls the function which makes and draws on the map
     generatePath(mapNodes.get1(), mapNodes.get2());

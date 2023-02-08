@@ -35,7 +35,7 @@ public class NodeMapController extends ServiceRequestController {
     session.close();
     // Add Image
     addFloorMapImage(
-        "src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/25% Scale/00_thelowerlevel1_unlabeled_25%.png");
+        "src/main/resources/edu/wpi/cs3733/C23/teamA/assets/unlabeledMaps/25% Scale/00_thelowerlevel1_unlabeled_25%.png");
 
     // Add nodes as circles
     gc = nodeMapCanvas.getGraphicsContext2D();
