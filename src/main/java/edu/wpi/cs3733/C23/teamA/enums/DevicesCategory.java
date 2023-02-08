@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.enums;
 
-public enum DevicesCatagory {
+public enum DevicesCategory {
   DESKTOP("Desktop"),
   TABLET("Tablet"),
   LAPTOP("Laptop"),
@@ -11,7 +11,7 @@ public enum DevicesCatagory {
 
   private final String devices;
 
-  DevicesCatagory(String devices) {
+  DevicesCategory(String devices) {
     this.devices = devices;
   }
 

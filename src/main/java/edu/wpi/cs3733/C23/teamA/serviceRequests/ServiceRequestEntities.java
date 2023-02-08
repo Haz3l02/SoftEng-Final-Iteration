@@ -4,6 +4,7 @@ import edu.wpi.cs3733.C23.teamA.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 
+@Deprecated
 public abstract class ServiceRequestEntities {
   @Getter @Setter private String name;
   @Getter @Setter private String IDNum;

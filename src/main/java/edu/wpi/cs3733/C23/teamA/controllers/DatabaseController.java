@@ -75,6 +75,7 @@ public class DatabaseController extends ServiceRequestController {
             session.persist(n);
             t.commit();
           } catch (Exception ex) {
+            ex.printStackTrace();
             refresh.setText("Invalid Node: Refresh");
           }
         });

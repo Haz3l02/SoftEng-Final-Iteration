@@ -1,13 +1,14 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.Session;
 
 @Entity
 @Table(name = "node")
 public class NodeEntity {
-
   @Id
   @Column(name = "nodeid", nullable = false, length = -1)
   @Getter
@@ -47,15 +48,9 @@ public class NodeEntity {
     return nodeid.equals(other.getNodeid());
   }
 
-  //  @Column(name = "moves", nullable = false)
-  //  @Getter
-  //  @Setter
-  //  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
-  //  private Set<MoveEntity> moves;
-  //
-  //  @Column(name = "edges", nullable = false)
-  //  @Getter
-  //  @Setter
-  //  @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
-  //  private Set<EdgeEntity> edges;
+  public static List<NodeEntity> getNodeOnFloor(String floor, Session session) {
+    String hql = "select nod from NodeEntity nod where nod.floor = '" + floor + "'";
+    Query query = session.createQuery(hql);
+    return query.getResultList();
+  }
 }

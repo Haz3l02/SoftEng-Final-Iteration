@@ -88,6 +88,8 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       dateBox.setDisable(true);
       urgencyBox.setDisable(true);
     }
+    // NodeIndicesHolder holder = NodeIndicesHolder.getInstance();
+    // hospitalID = holder.getId();
 
     IDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
     formTypeCol.setCellValueFactory(new PropertyValueFactory<>("formType"));

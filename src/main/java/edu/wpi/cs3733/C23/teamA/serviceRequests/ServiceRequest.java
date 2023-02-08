@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
+@Deprecated
 public class ServiceRequest {
   @Getter @Setter int requestID;
   @Getter @Setter String name;
