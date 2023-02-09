@@ -11,17 +11,6 @@ import org.hibernate.Transaction;
 public class Main {
 
   public static void main(String[] args) throws IOException, InterruptedException {
-
-    // AApp.launch(AApp.class, args);
-
-    Session session = getSessionFactory().openSession();
-    Transaction tx = session.beginTransaction();
-
-    EmployeeEntity wong = session.get(EmployeeEntity.class, "123");
-    LocationnameEntity loc = session.get(LocationnameEntity.class, "Ultrasound Floor L1");
-    tx.commit();
-    session.close();
-
     AApp.launch(AApp.class, args);
   }
 }
