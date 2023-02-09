@@ -19,10 +19,22 @@
          </font>
       </MFXButton>
    </bottom>
+   <center>
+      <AnchorPane prefHeight="510.0" prefWidth="750.0">
+         <children>
+            <StackPane prefHeight="510.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="nodeMapImage" fitHeight="510" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
+                  <Canvas fx:id="nodeMapCanvas" height="510" width="750.0" />
+               </children>
+            </StackPane>
+         </children>
+      </AnchorPane>
+   </center>
    <top>
-      <BorderPane prefHeight="58.0" prefWidth="1012.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+      <BorderPane prefWidth="611.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
          <left>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375" BorderPane.alignment="CENTER">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
@@ -54,16 +66,4 @@
          </right>
       </BorderPane>
    </top>
-   <center>
-      <AnchorPane prefHeight="510.0" prefWidth="750.0">
-         <children>
-            <StackPane prefHeight="510.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fx:id="nodeMapImage" fitHeight="510" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
-                  <Canvas fx:id="nodeMapCanvas" height="510" width="750.0" />
-               </children>
-            </StackPane>
-         </children>
-      </AnchorPane>
-   </center>
 </BorderPane>
