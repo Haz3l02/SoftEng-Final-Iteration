@@ -40,12 +40,10 @@ public class AApp extends Application {
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
-<<<<<<< HEAD
-    Navigation.navigate(Screen.LOGIN);
-=======
     primaryStage.setMaximized(true);
-    Navigation.navigate(Screen.HOME);
->>>>>>> 961e483c4bc70f6c6c0c7d4e10d00d74abc8a8bc
+    Navigation.navigate(Screen.LOGIN);
+    primaryStage.setMinWidth(615);
+    primaryStage.setMinHeight(450);
   }
 
   @Override

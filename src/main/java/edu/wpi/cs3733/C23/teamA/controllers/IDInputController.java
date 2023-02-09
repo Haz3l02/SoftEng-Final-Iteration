@@ -1,16 +1,17 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+
+import edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
+import org.hibernate.Session;
 
 public class IDInputController {
   @FXML public MFXTextField idNumTextField;
@@ -27,20 +28,17 @@ public class IDInputController {
   }
 
   @FXML
-  public void submitButtonPressed(ActionEvent event)
-      throws IOException, SQLException, InterruptedException {
+  public void submitButtonPressed(ActionEvent event) {
+    Session session = getSessionFactory().openSession();
 
-    ServiceRequest sr = new ServiceRequest();
-
-    ArrayList<ServiceRequest> specificRequests = new ArrayList<>();
-    specificRequests = sr.getServiceRequestsByID(idNumTextField.getText());
+    ArrayList<ServiceRequestEntity> specificRequests = new ArrayList<>();
+    specificRequests =
+        ServiceRequestEntity.getServiceRequestsByID(idNumTextField.getText(), session);
     if (specificRequests.size() == 0) {
       textNotification.setVisible(true);
     } else {
       textNotification.setVisible(false);
-      String id = idNumTextField.getText();
-      NodeIndicesHolder holder = NodeIndicesHolder.getInstance();
-      // holder.setId(id);
+      session.close();
       Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
     }
   }

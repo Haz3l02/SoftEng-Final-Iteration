@@ -1,15 +1,16 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
-import java.util.*;
+import java.util.Date;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
-@Table(name = "sanitationrequest")
+@Table(name = "securityrequest", catalog = "teamadb")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
-public class SanitationrequestEntity extends ServicerequestEntity {
+public class SecurityRequestEntity extends ServiceRequestEntity {
 
   //  @Id
   //  @Column(name = "requestid", nullable = false)
@@ -18,37 +19,32 @@ public class SanitationrequestEntity extends ServicerequestEntity {
   //  private int requestid;
 
   @Basic
-  @Column(name = "category", nullable = false, length = -1)
+  @Column(name = "assistance", nullable = false, length = -1)
   @Setter
   @Getter
   @Enumerated(EnumType.STRING)
-  private Category category;
+  private RequestCategory assistance;
 
-  public enum Category {
-    BIOHAZARD("Biohazard"),
-    STANDARD("Standard"),
-    WONG("Wong");
+  @Basic
+  @Column(name = "secphone", nullable = false, length = -1)
+  @Setter
+  @Getter
+  private String secphone;
 
-    @NonNull public final String category;
+  public SecurityRequestEntity() {}
 
-    Category(@NonNull String category) {
-      this.category = category;
-    }
-  }
-
-  public SanitationrequestEntity() {}
-
-  public SanitationrequestEntity(
+  public SecurityRequestEntity(
       int requestid,
       String name,
       EmployeeEntity employee,
-      LocationnameEntity location,
+      LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Category category,
+      RequestCategory assistance,
+      String secphone,
       Date date) {
     super(
         requestid,
@@ -61,20 +57,23 @@ public class SanitationrequestEntity extends ServicerequestEntity {
         status,
         employeeassigned,
         date);
-    this.category = category;
+    this.assistance = assistance;
+    this.secphone = secphone;
   }
 
-  public SanitationrequestEntity(
+  public SecurityRequestEntity(
       String name,
       EmployeeEntity employee,
-      LocationnameEntity location,
+      LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Category category) {
+      RequestCategory assistance,
+      String secphone) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
-    this.category = category;
+    this.assistance = assistance;
+    this.secphone = secphone;
   }
 }

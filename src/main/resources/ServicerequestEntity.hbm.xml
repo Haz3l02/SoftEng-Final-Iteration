@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity" table="servicerequest" schema="public"
+    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity" table="servicerequest" schema="public"
            catalog="dba">
         <id name="requestid">
             <column name="requestid" sql-type="integer"/>

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-color: BAD1EA; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
+<BorderPane style="-fx-background-color: D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="42.0" prefWidth="591.0" BorderPane.alignment="CENTER">
          <children>
@@ -36,18 +36,18 @@
       </HBox>
    </bottom>
    <left>
-      <VBox style="-fx-background-color: BAD1EA; -fx-border-style: none;" BorderPane.alignment="CENTER">
+      <VBox style="-fx-background-color: D3E9F6; -fx-border-style: none;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: true;" text="Pathfinding Request Form" wrappingWidth="278.1484375">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Pathfinding Request Form" wrappingWidth="278.1484375">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Verdana" size="18.0" />
                </font>
             </Text>
             <HBox prefHeight="43.0" prefWidth="601.0">
                <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Starting Location:" wrappingWidth="112.79999542236328">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Starting Location:" wrappingWidth="119.99993896484375">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Verdana" size="13.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
@@ -57,9 +57,9 @@
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin></MFXFilterComboBox>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Ending Location:" wrappingWidth="108.0">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Ending Location:" wrappingWidth="116.0">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Verdana" size="13.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" top="5.0" />
@@ -92,7 +92,7 @@
                   </StackPane>
                </children>
             </AnchorPane>
-            <Text fx:id="pathDisplay" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0">
+            <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
                </VBox.margin>

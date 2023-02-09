@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -18,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import oracle.ucp.common.waitfreepool.Tuple;
 import org.hibernate.Session;
 
@@ -27,10 +27,11 @@ to obtain and later print the path */
 public class PathfindingMapController extends ServiceRequestController {
 
   // javaFX items
+  @FXML private Text pathMapText;
   @FXML private Canvas mapCanvas; // to display the generated path
   @FXML private ImageView mapImage;
 
-  private Session session = getSessionFactory().openSession();
+  private Session session;
   // Lists of Nodes and Node Data
 
   private List<String> allNodeIDs; // List of all Node IDs in specific order
@@ -48,7 +49,7 @@ public class PathfindingMapController extends ServiceRequestController {
   public void initialize() throws SQLException {
     Tuple<Integer, Integer> mapNodes = NodeIndicesHolder.getInstance().getNodes();
     allNodeIDs = new ArrayList<>();
-
+    session = getSessionFactory().openSession();
     List<NodeEntity> allNodes =
         getAllRecords(NodeEntity.class, session); // get all nodes from Database
     for (NodeEntity n : allNodes) {
@@ -56,7 +57,7 @@ public class PathfindingMapController extends ServiceRequestController {
     }
     session.close();
     addFloorMapImage(
-        "src/main/resources/edu/wpi/cs3733/C23/teamA/unlabeledMaps/20% Scale/00_thelowerlevel1_unlabeled_20%.png"); // place the map on the page
+        "src/main/resources/edu/wpi/cs3733/C23/teamA/assets/unlabeledMaps/20% Scale/00_thelowerlevel1_unlabeled_20%.png"); // place the map on the page
 
     // calls the function which makes and draws on the map
     generatePath(mapNodes.get1(), mapNodes.get2());
@@ -72,6 +73,7 @@ public class PathfindingMapController extends ServiceRequestController {
 
     // clear the canvas w/ the drawn path; does NOT hide the map image
     gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
+    pathMapText.setText("");
 
     // constant for map size/coordinate manipulation
     pathfindingSystem.drawPath(gc, path, SCALE_FACTOR);
@@ -106,9 +108,11 @@ public class PathfindingMapController extends ServiceRequestController {
 
     // if a path was found, draw a path
     if (path != null) {
+      pathMapText.setText("Path Between " + sName + " and " + eName + ".");
       callMapDraw(path); // draw the path on top of the image
+    } else {
+      pathMapText.setText("No Path Found Between " + sName + " and " + eName + ".");
     }
-    // else: display something?
   }
 
   /**

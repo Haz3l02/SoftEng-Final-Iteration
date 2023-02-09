@@ -34,11 +34,14 @@ public abstract class ServiceRequestController {
   @FXML protected Text reminder;
   @FXML protected StackPane reminderPane;
 
+  // for the timer
+  public volatile boolean stop = false;
+
   @FXML MFXButton backButton;
   private static PopOver popup;
 
   @FXML
-  public void initialize() throws SQLException, IOException {
+  public void initialize() throws SQLException, IOException, InterruptedException {
     // This statement blocks Pathfinding from being opened... is it important?
     // backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
@@ -60,12 +63,6 @@ public abstract class ServiceRequestController {
    */
   @FXML
   public void switchToHelpScene(ActionEvent event) throws IOException {
-<<<<<<< HEAD
-    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
-    popup = new PopOver(loader.load());
-    popup.show(((Node) event.getSource()).getScene().getWindow());
-    popup.detach();
-=======
 
     if (!event.getSource().equals(backButton)) {
       FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
@@ -76,11 +73,11 @@ public abstract class ServiceRequestController {
     if (event.getSource().equals(backButton)) {
       popup.hide();
     }
->>>>>>> 961e483c4bc70f6c6c0c7d4e10d00d74abc8a8bc
   }
 
   @FXML
   public void switchToHomeServiceRequestScene(ActionEvent event) throws IOException {
+    stop = true;
     Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
   }
 
@@ -88,9 +85,9 @@ public abstract class ServiceRequestController {
   void clearForm() {
     nameBox.clear();
     IDNum.clear();
-    locBox.clear();
     descBox.clear();
     urgencyBox.clear();
+    locationBox.clear();
   }
 
   public void logout(ActionEvent event) {
@@ -98,11 +95,10 @@ public abstract class ServiceRequestController {
     alert.setTitle("Logout");
     alert.setHeaderText("You are about to log out!");
     alert.setContentText("Unsubmitted information in the form will be lost!");
-
+    stop = true;
     if (alert.showAndWait().get() == ButtonType.OK) {
       System.out.println("You have successfully logged out!");
       Navigation.navigate(Screen.LOGIN);
-      // Navigation.close(); // MAY NOT FUCKING WORK
     }
   }
 }

@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
-import edu.wpi.cs3733.C23.teamA.databases.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import lombok.Getter;
 
 public class Graph {
-  @Getter HashMap<String, GraphNode> graph; // NO SETTER!
+  @Getter private HashMap<String, GraphNode> graph; // NO SETTER!
 
   // Constructor
   public Graph() {

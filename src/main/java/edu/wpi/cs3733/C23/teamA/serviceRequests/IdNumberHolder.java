@@ -6,9 +6,10 @@ public final class IdNumberHolder {
   private String password;
   private String idNumber;
   private String job;
+  private String name;
   private static final IdNumberHolder INSTANCE = new IdNumberHolder();
 
-  private IdNumberHolder() {}
+  public IdNumberHolder() {}
 
   public static IdNumberHolder getInstance() {
     return INSTANCE;
@@ -36,6 +37,14 @@ public final class IdNumberHolder {
 
   public String getPassword() {
     return this.password;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return this.name;
   }
 
   public void setJob(String job) {

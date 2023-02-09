@@ -13,13 +13,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" style="-fx-background-color: #BAD1EA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.EdgeController">
+<BorderPane style="-fx-background-color: D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.EdgeController">
    <top>
-      <BorderPane prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="51.0" prefWidth="630.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
          <left>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="326.13671875" BorderPane.alignment="CENTER">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="389.13671875" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="34.0" />
+                  <Font name="Arial Black" size="24.0" />
                </font>
                <BorderPane.margin>
                   <Insets left="10.0" />
@@ -27,19 +27,28 @@
             </Text>
          </left>
          <right>
-            <HBox alignment="CENTER" prefHeight="81.0" prefWidth="230.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="51.0" prefWidth="216.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="66.0" style="-fx-background-color: #BAD1EA;" text="Home" textFill="#224870">
+                  <MFXButton buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="28.0" style="-fx-background-color: D3E9F6;" text="Home" textFill="#122c34">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="13.0" />
+                     </font>
                   </MFXButton>
-                  <MFXButton buttonType="RAISED" onAction="#switchToHelpScene" prefHeight="36.0" prefWidth="62.0" style="-fx-background-color: #BAD1EA;" text="Help" textFill="#224870">
+                  <MFXButton buttonType="RAISED" onAction="#switchToHelpScene" prefHeight="28.0" style="-fx-background-color: D3E9F6;" text="Help" textFill="#122c34">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="13.0" />
+                     </font>
                   </MFXButton>
-                  <MFXButton buttonType="RAISED" onAction="#logout" prefHeight="36.0" prefWidth="71.0" style="-fx-background-color: #BAD1EA;" text="Logout" textFill="#224870" />
+                  <MFXButton buttonType="RAISED" onAction="#logout" prefHeight="28.0" style="-fx-background-color: D3E9F6;" text="Logout" textFill="#122c34">
+                     <font>
+                        <Font name="Kohinoor Bangla" size="13.0" />
+                     </font></MFXButton>
                </children>
             </HBox>
          </right>
@@ -50,7 +59,7 @@
          <children>
             <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Edge Data" wrappingWidth="201.13671875">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Verdana" size="18.0" />
                </font>
             </Text>
             <SplitPane dividerPositions="0.1346153846153846" prefHeight="9999.0" prefWidth="600.0">
@@ -80,20 +89,29 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <MFXButton buttonType="RAISED" onAction="#switchToMoveScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Move" textFill="#d3e9f6">
+            <MFXButton buttonType="RAISED" onAction="#switchToMoveScene" style="-fx-background-color: #224870;" text="Move" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
+               <font>
+                  <Font name="Kohinoor Bangla" size="13.0" />
+               </font>
             </MFXButton>
-            <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToNodeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Node" textFill="#d3e9f6">
+            <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToNodeScene" style="-fx-background-color: #224870;" text="Node" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
+               <font>
+                  <Font name="Kohinoor Bangla" size="13.0" />
+               </font>
             </MFXButton>
-            <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+            <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToHomeScene" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
+               <font>
+                  <Font name="Kohinoor Bangla" size="13.0" />
+               </font>
             </MFXButton>
          </children>
       </HBox>
