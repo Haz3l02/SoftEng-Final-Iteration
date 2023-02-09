@@ -35,7 +35,7 @@ public class MoveEntity {
               name = "longname_fk",
               foreignKeyDefinition =
                   "FOREIGN KEY (longname) REFERENCES locationname(longname) ON UPDATE CASCADE ON DELETE CASCADE"))
-  private LocationnameEntity locationname;
+  private LocationNameEntity locationname;
 
   @Id
   @Column(name = "movedate", nullable = false)
@@ -45,13 +45,13 @@ public class MoveEntity {
 
   public MoveEntity() {}
 
-  public MoveEntity(NodeEntity node, LocationnameEntity locationname, Timestamp movedate) {
+  public MoveEntity(NodeEntity node, LocationNameEntity locationname, Timestamp movedate) {
     this.node = node;
     this.locationname = locationname;
     this.movedate = movedate;
   }
 
-  public MoveEntity(NodeEntity node, LocationnameEntity locationname) {
+  public MoveEntity(NodeEntity node, LocationNameEntity locationname) {
     this.node = node;
     this.locationname = locationname;
   }

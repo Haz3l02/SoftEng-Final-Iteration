@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity" table="computerrequest" schema="public"
+    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerRequestEntity" table="computerrequest" schema="public"
            catalog="dba">
         <id name="requestid">
             <column name="requestid" sql-type="integer"/>

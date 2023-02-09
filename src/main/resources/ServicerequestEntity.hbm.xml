@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity" table="servicerequest" schema="public"
+    <class name="edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity" table="servicerequest" schema="public"
            catalog="dba">
         <id name="requestid">
             <column name="requestid" sql-type="integer"/>
@@ -24,13 +24,13 @@
         <property name="ul">
             <column name="ul" sql-type="text" not-null="true"/>
         </property>
-        <property name="requesttype">
+        <property name="getRequestType">
             <column name="requesttype" sql-type="text" not-null="true"/>
         </property>
         <property name="status">
             <column name="status" sql-type="text" not-null="true"/>
         </property>
-        <property name="employeeassigned">
+        <property name="getEmployeeAssigned">
             <column name="employeeassigned" sql-type="text" not-null="true"/>
         </property>
     </class>

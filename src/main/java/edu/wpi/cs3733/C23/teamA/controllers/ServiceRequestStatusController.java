@@ -2,26 +2,28 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity.getServiceByEmployee;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity.getServiceByEmployee;
 
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.*;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequest;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequestTableRow;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,15 +36,17 @@ import javafx.scene.text.Text;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.swing.text.DateFormatter;
+
 public class ServiceRequestStatusController extends ServiceRequestController {
 
-  @FXML private TableView<ServiceRequestTableRow> serviceReqsTable;
-  @FXML public TableColumn<ServiceRequestTableRow, Integer> IDCol;
-  @FXML public TableColumn<ServiceRequestTableRow, String> formTypeCol;
-  @FXML public TableColumn<ServiceRequestTableRow, String> dateCol;
-  @FXML public TableColumn<ServiceRequestTableRow, String> statusCol;
-  @FXML public TableColumn<ServiceRequestTableRow, String> urgencyCol;
-  @FXML public TableColumn<ServiceRequestTableRow, String> employeeAssignedCol;
+  @FXML private TableView<ServiceRequestEntity> serviceReqsTable;
+  @FXML public TableColumn<ServiceRequestEntity, Integer> IDCol;
+  @FXML public TableColumn<ServiceRequestEntity, String> formTypeCol;
+  @FXML public TableColumn<ServiceRequestEntity, String> dateCol;
+  @FXML public TableColumn<ServiceRequestEntity, String> statusCol;
+  @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
+  @FXML public TableColumn<ServiceRequestEntity, String> employeeAssignedCol;
 
   // text boxes for editing
   @FXML public MFXComboBox<String> formTypeBox;
@@ -51,8 +55,8 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
-  ServicerequestEntity.Urgency urgent;
-  ServicerequestEntity.Status status;
+  ServiceRequestEntity.Urgency urgent;
+  ServiceRequestEntity.Status status;
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
 
@@ -64,7 +68,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     Navigation.navigate(Screen.HOME);
   }
 
-  private ObservableList<ServiceRequestTableRow> dbTableRowsModel =
+  private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
 
   @FXML
@@ -74,7 +78,8 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     hospitalID = holder.getId();
     job = holder.getJob();
 
-    if (job.equals("Medical") || job.equals("medical")) {
+    // Assign permissions to differentiate between medical and non-medical staff
+    if (job.equalsIgnoreCase("medical")) {
       statusBox.setDisable(true);
       employeeBox.setDisable(true);
       formTypeBox.setDisable(true);
@@ -88,23 +93,19 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       dateBox.setDisable(true);
       urgencyBox.setDisable(true);
     }
-    // NodeIndicesHolder holder = NodeIndicesHolder.getInstance();
-    // hospitalID = holder.getId();
 
-    IDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-    formTypeCol.setCellValueFactory(new PropertyValueFactory<>("formType"));
+    IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+    formTypeCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
     dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
     statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
-    ServiceRequest sr = new SanitationRequest();
-
     Session session = getSessionFactory().openSession();
-    Transaction tx = session.beginTransaction();
 
     // ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
-    List<ServicerequestEntity> requests = new ArrayList<ServicerequestEntity>();
+    List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
     if (job.equals("medical") || job.equals("Medical")) {
       // specificRequests = sr.getServiceRequestsByID(hospitalID);
@@ -112,36 +113,25 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
     } else {
       // specificRequests = sr.getServiceRequests();
-      requests = getAllRecords(ServicerequestEntity.class, session);
+      requests = getAllRecords(ServiceRequestEntity.class, session);
     }
 
-    for (ServicerequestEntity billy : requests) {
-      ServiceRequestTableRow serviceReqNewRow =
-          new ServiceRequestTableRow(
-              billy.getRequestid(),
-              billy.getRequesttype().toString(),
-              billy.getDate().toString(),
-              billy.getStatus().toString(),
-              billy.getUrgency().urgency,
-              billy.getEmployeeassigned());
-      dbTableRowsModel.add(serviceReqNewRow);
-    }
+    dbTableRowsModel.addAll(requests);
 
     serviceReqsTable.setItems(dbTableRowsModel);
-    tx.commit();
     session.close();
   }
 
   @FXML
   public void rowClicked(MouseEvent event) {
 
-    ServiceRequestTableRow clickedServiceReqTableRow =
+    ServiceRequestEntity clickedServiceReqTableRow =
         serviceReqsTable.getSelectionModel().getSelectedItem();
 
     if (clickedServiceReqTableRow != null) {
 
-      IDBoxSaver.setText(String.valueOf(clickedServiceReqTableRow.getID()));
-      formTypeBox.setText(String.valueOf(clickedServiceReqTableRow.getFormType()));
+      IDBoxSaver.setText(String.valueOf(clickedServiceReqTableRow.getRequestid()));
+      formTypeBox.setText(String.valueOf(clickedServiceReqTableRow.getRequestType()));
       dateBox.setText(String.valueOf(clickedServiceReqTableRow.getDate()));
       statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
       urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
@@ -188,7 +178,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   }
 
   @FXML
-  public void submitEdit(ActionEvent event) throws IOException, SQLException {
+  public void submitEdit(ActionEvent event) throws IOException, SQLException, ParseException {
 
     if (!statusBox.getText().trim().isEmpty()
         && !dateBox.getText().trim().isEmpty()
@@ -196,37 +186,34 @@ public class ServiceRequestStatusController extends ServiceRequestController {
         && !urgencyBox.getText().trim().isEmpty()
         && !employeeBox.getText().trim().isEmpty()) {
 
-      ObservableList<ServiceRequestTableRow> currentTableData = serviceReqsTable.getItems();
+      ObservableList<ServiceRequestEntity> currentTableData = serviceReqsTable.getItems();
       int currentRowId = Integer.parseInt(IDBoxSaver.getText());
 
-      for (ServiceRequestTableRow SRTable : currentTableData) {
-        if (SRTable.getID() == currentRowId) {
-          SRTable.setID(Integer.parseInt(IDBoxSaver.getText()));
-          SRTable.setFormType(formTypeBox.getText());
-          SRTable.setDate(dateBox.getText());
-          SRTable.setStatus(statusBox.getText());
-          SRTable.setUrgency(urgencyBox.getText());
+      for (ServiceRequestEntity SRTable : currentTableData) {
+        if (SRTable.getRequestid() == currentRowId) {
+          SRTable.setRequestid(Integer.parseInt(IDBoxSaver.getText()));
+          SRTable.setRequestType(ServiceRequestEntity.RequestType.valueOf(formTypeBox.getText()));
+          SRTable.setDate(DateFormat.getDateInstance().parse(dateBox.getText()));
+          SRTable.setStatus(ServiceRequestEntity.Status.valueOf(statusBox.getText()));
+          SRTable.setUrgency(ServiceRequestEntity.Urgency.valueOf(urgencyBox.getText()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
           serviceReqsTable.setItems(currentTableData);
           serviceReqsTable.refresh();
           Session session = getSessionFactory().openSession();
           Transaction tx = session.beginTransaction();
-          ServicerequestEntity billy = session.get(ServicerequestEntity.class, currentRowId);
+          ServiceRequestEntity billy = session.get(ServiceRequestEntity.class, currentRowId);
 
           if (statusBox != null && !statusBox.isDisabled()) {
             switch (statusBox.getValue()) {
-              case "Blank":
-                status = ServicerequestEntity.Status.BLANK;
-                break;
               case "Processing":
-                status = ServicerequestEntity.Status.PROCESSING;
+                status = ServiceRequestEntity.Status.PROCESSING;
                 break;
               case "Done":
-                status = ServicerequestEntity.Status.DONE;
+                status = ServiceRequestEntity.Status.DONE;
                 break;
               default:
-                status = ServicerequestEntity.Status.BLANK;
+                status = ServiceRequestEntity.Status.BLANK;
                 break;
             }
 
@@ -235,21 +222,21 @@ public class ServiceRequestStatusController extends ServiceRequestController {
           if (urgencyBox != null && !urgencyBox.isDisabled()) {
             switch (urgencyBox.getValue()) {
               case "Low":
-                urgent = ServicerequestEntity.Urgency.LOW;
+                urgent = ServiceRequestEntity.Urgency.LOW;
                 break;
               case "Medium":
-                urgent = ServicerequestEntity.Urgency.MEDIUM;
+                urgent = ServiceRequestEntity.Urgency.MEDIUM;
                 break;
               case "High":
-                urgent = ServicerequestEntity.Urgency.HIGH;
+                urgent = ServiceRequestEntity.Urgency.HIGH;
                 break;
               case "Extremely Urgent":
-                urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+                urgent = ServiceRequestEntity.Urgency.EXTREMELY_URGENT;
                 break;
             }
             billy.setUrgency(urgent);
           }
-          billy.setEmployeeassigned(employeeBox.getText());
+          billy.setEmployeeAssigned(employeeBox.getText());
           // billy.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
           tx.commit();
           session.close();
@@ -263,7 +250,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   public void submitRequest(ActionEvent event) throws IOException {}
 
   public void clearEdits(ActionEvent event) {
-
     IDBoxSaver.setText("");
     formTypeBox.clear();
     dateBox.clear();
@@ -273,11 +259,10 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   }
 
   public void editForm(ActionEvent event) {
-    ServiceRequestTableRow clickedRow = serviceReqsTable.getSelectionModel().getSelectedItem();
-    clickedRow.getFormType();
-    clickedRow.getID();
-    newEdit = new EditTheForm(clickedRow.getID(), clickedRow.getFormType(), true);
-    switch (clickedRow.getFormType()) {
+    ServiceRequestEntity clickedRow = serviceReqsTable.getSelectionModel().getSelectedItem();
+    newEdit =
+        new EditTheForm(clickedRow.getRequestid(), clickedRow.getRequestType().requestType, true);
+    switch (clickedRow.getRequestType().requestType) {
       case "COMPUTER":
         Navigation.navigate(Screen.COMPUTER);
         break;

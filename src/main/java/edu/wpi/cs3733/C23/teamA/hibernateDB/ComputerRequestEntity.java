@@ -12,7 +12,7 @@ import org.hibernate.Transaction;
 @Entity
 @Table(name = "computerrequest")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
-public class ComputerrequestEntity extends ServicerequestEntity {
+public class ComputerRequestEntity extends ServiceRequestEntity {
 
   //  @Id
   //  @Column(name = "requestid", nullable = false)
@@ -49,13 +49,13 @@ public class ComputerrequestEntity extends ServicerequestEntity {
     }
   }
 
-  public ComputerrequestEntity() {}
+  public ComputerRequestEntity() {}
 
-  public ComputerrequestEntity(
+  public ComputerRequestEntity(
       int requestid,
       String name,
       EmployeeEntity employee,
-      LocationnameEntity location,
+      LocationNameEntity location,
       String description,
       Urgency urgency,
       RequestType requesttype,
@@ -79,10 +79,10 @@ public class ComputerrequestEntity extends ServicerequestEntity {
     this.device = device;
   }
 
-  public ComputerrequestEntity(
+  public ComputerRequestEntity(
       String name,
       EmployeeEntity employee,
-      LocationnameEntity location,
+      LocationNameEntity location,
       String description,
       Urgency urgency,
       RequestType requesttype,
@@ -112,7 +112,7 @@ public class ComputerrequestEntity extends ServicerequestEntity {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
 
-    ComputerrequestEntity comRqst = session.load(ComputerrequestEntity.class, 1);
+    ComputerRequestEntity comRqst = session.load(ComputerRequestEntity.class, 1);
     comRqst.setName(name);
     comRqst.setName(idNum);
     comRqst.setName(location);

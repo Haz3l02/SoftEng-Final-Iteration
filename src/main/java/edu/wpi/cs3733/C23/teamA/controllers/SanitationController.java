@@ -25,8 +25,8 @@ import org.hibernate.Transaction;
 
 public class SanitationController extends ServiceRequestController {
 
-  ServicerequestEntity.Urgency urgent;
-  SanitationrequestEntity.Category category;
+  ServiceRequestEntity.Urgency urgent;
+  SanitationRequestEntity.Category category;
 
   @FXML private MFXComboBox<String> categoryBox;
 
@@ -57,12 +57,12 @@ public class SanitationController extends ServiceRequestController {
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();
 
-      List<LocationnameEntity> temp = new ArrayList<LocationnameEntity>();
-      temp = getAllRecords(LocationnameEntity.class, session);
+      List<LocationNameEntity> temp = new ArrayList<LocationNameEntity>();
+      temp = getAllRecords(LocationNameEntity.class, session);
 
       // ArrayList<Move> moves = Move.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
-      for (LocationnameEntity move : temp) {
+      for (LocationNameEntity move : temp) {
         locations.add(move.getLongname());
       }
 
@@ -79,8 +79,8 @@ public class SanitationController extends ServiceRequestController {
 
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();
-      SanitationrequestEntity editRequest =
-          session.get(SanitationrequestEntity.class, newEdit.getRequestID());
+      SanitationRequestEntity editRequest =
+          session.get(SanitationRequestEntity.class, newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       categoryBox.setText(editRequest.getCategory().category);
@@ -120,34 +120,34 @@ public class SanitationController extends ServiceRequestController {
         Transaction tx = session.beginTransaction();
         switch (urgencyBox.getValue()) {
           case "Low":
-            urgent = ServicerequestEntity.Urgency.LOW;
+            urgent = ServiceRequestEntity.Urgency.LOW;
             break;
           case "Medium":
-            urgent = ServicerequestEntity.Urgency.MEDIUM;
+            urgent = ServiceRequestEntity.Urgency.MEDIUM;
             break;
           case "High":
-            urgent = ServicerequestEntity.Urgency.HIGH;
+            urgent = ServiceRequestEntity.Urgency.HIGH;
             break;
           case "Extremely Urgent":
-            urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+            urgent = ServiceRequestEntity.Urgency.EXTREMELY_URGENT;
             break;
         }
         switch (categoryBox.getValue()) {
           case "Standard":
-            category = SanitationrequestEntity.Category.STANDARD;
+            category = SanitationRequestEntity.Category.STANDARD;
             break;
           case "Biohazard":
-            category = SanitationrequestEntity.Category.BIOHAZARD;
+            category = SanitationRequestEntity.Category.BIOHAZARD;
             break;
           case "Wong":
-            category = SanitationrequestEntity.Category.WONG;
+            category = SanitationRequestEntity.Category.WONG;
             break;
         }
 
-        SanitationrequestEntity submission =
-            session.get(SanitationrequestEntity.class, newEdit.getRequestID());
+        SanitationRequestEntity submission =
+            session.get(SanitationRequestEntity.class, newEdit.getRequestID());
         submission.setName(nameBox.getText());
-        LocationnameEntity loc = session.get(LocationnameEntity.class, locationBox.getValue());
+        LocationNameEntity loc = session.get(LocationNameEntity.class, locationBox.getValue());
         submission.setLocation(loc);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
@@ -161,42 +161,42 @@ public class SanitationController extends ServiceRequestController {
         Transaction tx = session.beginTransaction();
         EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
         // IDNum.getText()
-        LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
+        LocationNameEntity location = session.get(LocationNameEntity.class, locationBox.getText());
         switch (urgencyBox.getValue()) {
           case "Low":
-            urgent = ServicerequestEntity.Urgency.LOW;
+            urgent = ServiceRequestEntity.Urgency.LOW;
             break;
           case "Medium":
-            urgent = ServicerequestEntity.Urgency.MEDIUM;
+            urgent = ServiceRequestEntity.Urgency.MEDIUM;
             break;
           case "High":
-            urgent = ServicerequestEntity.Urgency.HIGH;
+            urgent = ServiceRequestEntity.Urgency.HIGH;
             break;
           case "Extremely Urgent":
-            urgent = ServicerequestEntity.Urgency.EXTREMELY_URGENT;
+            urgent = ServiceRequestEntity.Urgency.EXTREMELY_URGENT;
             break;
         }
         switch (categoryBox.getValue()) {
           case "Standard":
-            category = SanitationrequestEntity.Category.STANDARD;
+            category = SanitationRequestEntity.Category.STANDARD;
             break;
           case "Biohazard":
-            category = SanitationrequestEntity.Category.BIOHAZARD;
+            category = SanitationRequestEntity.Category.BIOHAZARD;
             break;
           case "Wong":
-            category = SanitationrequestEntity.Category.WONG;
+            category = SanitationRequestEntity.Category.WONG;
             break;
         }
 
-        SanitationrequestEntity submission =
-            new SanitationrequestEntity(
+        SanitationRequestEntity submission =
+            new SanitationRequestEntity(
                 nameBox.getText(),
                 person,
                 location,
                 descBox.getText(),
                 urgent,
-                ServicerequestEntity.RequestType.SANITATION,
-                ServicerequestEntity.Status.BLANK,
+                ServiceRequestEntity.RequestType.SANITATION,
+                ServiceRequestEntity.Status.BLANK,
                 "Unassigned",
                 category);
         session.persist(submission);

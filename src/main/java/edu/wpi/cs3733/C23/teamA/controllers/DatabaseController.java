@@ -3,7 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.LocationnameEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -82,7 +82,7 @@ public class DatabaseController extends ServiceRequestController {
     locNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
     locNameCol.setOnEditCommit(
         e -> {
-          LocationnameEntity n =
+          LocationNameEntity n =
               e.getTableView().getItems().get(e.getTablePosition().getRow()).getLocationname();
           try {
             Transaction t = session.beginTransaction();

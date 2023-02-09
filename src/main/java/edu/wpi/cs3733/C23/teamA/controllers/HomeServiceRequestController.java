@@ -1,14 +1,13 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity.getServiceByEmployee;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity.getServiceByEmployee;
 
 import edu.wpi.cs3733.C23.teamA.Main;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,9 +30,7 @@ public class HomeServiceRequestController extends ServiceRequestController {
     String job = holder.getJob();
     Session session = getSessionFactory().openSession();
 
-    SanitationRequest sr = new SanitationRequest();
-
-    ArrayList<ServicerequestEntity> specificRequests = new ArrayList<ServicerequestEntity>();
+    ArrayList<ServiceRequestEntity> specificRequests = new ArrayList<ServiceRequestEntity>();
     specificRequests = getServiceByEmployee(hospitalID, session);
     session.close();
 

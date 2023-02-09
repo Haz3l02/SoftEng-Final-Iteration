@@ -43,17 +43,17 @@
                            <left>
                               <HBox prefHeight="31.0" prefWidth="479.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <MFXButton maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" prefWidth="123.0" style="-fx-background-color: 224870;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                    <MFXButton maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" prefWidth="123.0" style="-fx-background-color: #224870;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                        <font>
                                           <Font name="Kohinoor Bangla" size="13.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton onAction="#switchToPathfinding" style="-fx-background-color: 224870;" text="Pathfinding" textFill="WHITE">
+                                    <MFXButton onAction="#switchToPathfinding" style="-fx-background-color: #224870;" text="Pathfinding" textFill="WHITE">
                                        <font>
                                           <Font name="Kohinoor Bangla" size="13.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton onAction="#switchToDatabase" style="-fx-background-color: 224870;" text="Database" textFill="WHITE">
+                                    <MFXButton onAction="#switchToDatabase" style="-fx-background-color: #224870;" text="Database" textFill="WHITE">
                                        <font>
                                           <Font name="Kohinoor Bangla" size="13.0" />
                                        </font>
@@ -69,7 +69,7 @@
                                           <Font name="Kohinoor Bangla" size="13.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton cancelButton="true" onAction="#logout" prefHeight="26.0" style="-fx-background-color: 224870;" text="Logout" textFill="WHITE">
+                                    <MFXButton cancelButton="true" onAction="#logout" prefHeight="26.0" style="-fx-background-color: #224870;" text="Logout" textFill="WHITE">
                                        <font>
                                           <Font name="Kohinoor Bangla" size="13.0" />
                                        </font>
