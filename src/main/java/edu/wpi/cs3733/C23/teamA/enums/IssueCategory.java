@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.enums;
 
+import java.util.ArrayList;
+
 public enum IssueCategory {
   STANDARD("Standard"),
   BIOHAZARD("Biohazard"),
@@ -13,5 +15,13 @@ public enum IssueCategory {
 
   public String getIssue() {
     return issue;
+  }
+
+  public static ArrayList<String> issueList() {
+    ArrayList<String> issues = new ArrayList<String>();
+    for (IssueCategory issue : values()) {
+      issues.add(issue.getIssue());
+    }
+    return issues;
   }
 }

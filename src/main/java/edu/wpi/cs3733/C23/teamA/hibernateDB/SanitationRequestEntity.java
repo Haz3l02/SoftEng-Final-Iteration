@@ -1,15 +1,16 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.util.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
 @Table(name = "sanitationrequest")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
-public class SanitationrequestEntity extends ServicerequestEntity {
+public class SanitationRequestEntity extends ServiceRequestEntity {
 
   //  @Id
   //  @Column(name = "requestid", nullable = false)
@@ -22,33 +23,21 @@ public class SanitationrequestEntity extends ServicerequestEntity {
   @Setter
   @Getter
   @Enumerated(EnumType.STRING)
-  private Category category;
+  private IssueCategory category;
 
-  public enum Category {
-    BIOHAZARD("Biohazard"),
-    STANDARD("Standard"),
-    WONG("Wong");
+  public SanitationRequestEntity() {}
 
-    @NonNull public final String category;
-
-    Category(@NonNull String category) {
-      this.category = category;
-    }
-  }
-
-  public SanitationrequestEntity() {}
-
-  public SanitationrequestEntity(
+  public SanitationRequestEntity(
       int requestid,
       String name,
       EmployeeEntity employee,
-      LocationnameEntity location,
+      LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Category category,
+      IssueCategory category,
       Date date) {
     super(
         requestid,
@@ -64,16 +53,16 @@ public class SanitationrequestEntity extends ServicerequestEntity {
     this.category = category;
   }
 
-  public SanitationrequestEntity(
+  public SanitationRequestEntity(
       String name,
       EmployeeEntity employee,
-      LocationnameEntity location,
+      LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Category category) {
+      IssueCategory category) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.category = category;
   }

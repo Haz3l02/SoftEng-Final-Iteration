@@ -15,23 +15,23 @@
 
 
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerrequestEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerRequestEntity"/>
 <!--    <mapping resource="ComputerrequestEntity.hbm.xml"/>-->
     <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity"/>
 <!--    <mapping resource="EdgeEntity.hbm.xml"/>-->
     <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity"/>
 <!--    <mapping resource="EmployeeEntity.hbm.xml"/>-->
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.LocationnameEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.LocationNameEntity"/>
 <!--    <mapping resource="LocationnameEntity.hbm.xml"/>-->
     <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity"/>
 <!--    <mapping resource="MoveEntity.hbm.xml"/>-->
     <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity"/>
 <!--    <mapping resource="NodeEntity.hbm.xml"/>-->
 <!--    <mapping resource="SanitationrequestEntity.hbm.xml"/>-->
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.SanitationrequestEntity"/>
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.SecurityrequestEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.SanitationRequestEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.SecurityRequestEntity"/>
 <!--    <mapping resource="SecurityrequestEntity.hbm.xml"/>-->
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity"/>
 <!--    <mapping resource="ServicerequestEntity.hbm.xml"/>-->
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->

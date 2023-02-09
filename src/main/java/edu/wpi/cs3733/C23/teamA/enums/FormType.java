@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.enums;
 
+import java.util.ArrayList;
+
 public enum FormType {
   SANITATION("Sanitation Request"),
   COMPUTER("Computer Request"),
@@ -13,5 +15,13 @@ public enum FormType {
 
   public String getFormType() {
     return formType;
+  }
+
+  public static ArrayList<String> typeList() {
+    ArrayList<String> types = new ArrayList<String>();
+    for (FormType type : values()) {
+      types.add(type.getFormType());
+    }
+    return types;
   }
 }
