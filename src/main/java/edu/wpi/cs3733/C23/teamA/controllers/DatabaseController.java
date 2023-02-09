@@ -44,7 +44,7 @@ public class DatabaseController extends ServiceRequestController {
     nodeCol.setCellValueFactory(
         param -> new SimpleStringProperty(param.getValue().getNode().getNodeid()));
     locNameCol.setCellValueFactory(
-        param -> new SimpleStringProperty(param.getValue().getLocationname().getLongname()));
+        param -> new SimpleStringProperty(param.getValue().getLocationName().getLongname()));
     moveCol.setCellValueFactory(new PropertyValueFactory<>("movedate"));
     dbTable.setItems(dbTableRowsModel);
 
@@ -83,7 +83,7 @@ public class DatabaseController extends ServiceRequestController {
     locNameCol.setOnEditCommit(
         e -> {
           LocationNameEntity n =
-              e.getTableView().getItems().get(e.getTablePosition().getRow()).getLocationname();
+              e.getTableView().getItems().get(e.getTablePosition().getRow()).getLocationName();
           try {
             Transaction t = session.beginTransaction();
             n.setLongname(e.getNewValue());

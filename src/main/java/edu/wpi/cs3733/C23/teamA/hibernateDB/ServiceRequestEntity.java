@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,7 +53,7 @@ public class ServiceRequestEntity {
   @Setter
   @Getter
   @Enumerated(EnumType.STRING)
-  private Urgency urgency;
+  private UrgencyLevel urgency;
 
   @Basic
   @Column(name = "requesttype", nullable = false, length = -1)
@@ -79,19 +80,6 @@ public class ServiceRequestEntity {
   @Column(nullable = false)
   @CreationTimestamp
   private Date date;
-
-  public enum Urgency {
-    EXTREMELY_URGENT("Extremely urgent"),
-    HIGH("High"),
-    MEDIUM("Medium"),
-    LOW("Low");
-
-    @NonNull public final String urgency;
-
-    Urgency(@NonNull String urgency) {
-      this.urgency = urgency;
-    }
-  }
 
   public enum RequestType {
     SECURITY("Security"),
@@ -126,7 +114,7 @@ public class ServiceRequestEntity {
       EmployeeEntity employee,
       LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requestType,
       Status status,
       String employeeAssigned,
@@ -148,7 +136,7 @@ public class ServiceRequestEntity {
       EmployeeEntity employee,
       LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requestType,
       Status status,
       String employeeAssigned) {

@@ -19,9 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -35,8 +33,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import javax.swing.text.DateFormatter;
 
 public class ServiceRequestStatusController extends ServiceRequestController {
 
@@ -55,7 +51,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
-  ServiceRequestEntity.Urgency urgent;
+  UrgencyLevel urgent;
   ServiceRequestEntity.Status status;
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
@@ -107,7 +103,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     // ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
     List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
-    if (job.equals("medical") || job.equals("Medical")) {
+    if (job.equalsIgnoreCase("medical")) {
       // specificRequests = sr.getServiceRequestsByID(hospitalID);
       requests = getServiceByEmployee(hospitalID, session);
 
@@ -141,22 +137,12 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       }
     }
 
-    ObservableList<String> statuses =
-        FXCollections.observableArrayList(
-            Status.BLANK.getStatus(), Status.PROCESSING.getStatus(), Status.DONE.getStatus());
+    ObservableList<String> statuses = FXCollections.observableArrayList(Status.statusList());
 
     ObservableList<String> urgencies =
-        FXCollections.observableArrayList(
-            UrgencyLevel.LOW.getUrgency(),
-            UrgencyLevel.MEDIUM.getUrgency(),
-            UrgencyLevel.HIGH.getUrgency(),
-            UrgencyLevel.EXTREMELY_URGENT.getUrgency());
+        FXCollections.observableArrayList(UrgencyLevel.urgencyList());
 
-    ObservableList<String> formTypes =
-        FXCollections.observableArrayList(
-            FormType.SANITATION.getFormType(),
-            FormType.COMPUTER.getFormType(),
-            FormType.SECURITY.getFormType());
+    ObservableList<String> formTypes = FXCollections.observableArrayList(FormType.typeList());
 
     ObservableList<String> employees =
         FXCollections.observableArrayList(
@@ -195,7 +181,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
           SRTable.setRequestType(ServiceRequestEntity.RequestType.valueOf(formTypeBox.getText()));
           SRTable.setDate(DateFormat.getDateInstance().parse(dateBox.getText()));
           SRTable.setStatus(ServiceRequestEntity.Status.valueOf(statusBox.getText()));
-          SRTable.setUrgency(ServiceRequestEntity.Urgency.valueOf(urgencyBox.getText()));
+          SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
           serviceReqsTable.setItems(currentTableData);
@@ -205,39 +191,14 @@ public class ServiceRequestStatusController extends ServiceRequestController {
           ServiceRequestEntity billy = session.get(ServiceRequestEntity.class, currentRowId);
 
           if (statusBox != null && !statusBox.isDisabled()) {
-            switch (statusBox.getValue()) {
-              case "Processing":
-                status = ServiceRequestEntity.Status.PROCESSING;
-                break;
-              case "Done":
-                status = ServiceRequestEntity.Status.DONE;
-                break;
-              default:
-                status = ServiceRequestEntity.Status.BLANK;
-                break;
-            }
-
+            status = ServiceRequestEntity.Status.valueOf(statusBox.getValue());
             billy.setStatus(status);
           }
           if (urgencyBox != null && !urgencyBox.isDisabled()) {
-            switch (urgencyBox.getValue()) {
-              case "Low":
-                urgent = ServiceRequestEntity.Urgency.LOW;
-                break;
-              case "Medium":
-                urgent = ServiceRequestEntity.Urgency.MEDIUM;
-                break;
-              case "High":
-                urgent = ServiceRequestEntity.Urgency.HIGH;
-                break;
-              case "Extremely Urgent":
-                urgent = ServiceRequestEntity.Urgency.EXTREMELY_URGENT;
-                break;
-            }
+            urgent = UrgencyLevel.valueOf(urgencyBox.getValue());
             billy.setUrgency(urgent);
           }
           billy.setEmployeeAssigned(employeeBox.getText());
-          // billy.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
           tx.commit();
           session.close();
           break;
@@ -247,7 +208,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   }
 
   @FXML
-  public void submitRequest(ActionEvent event) throws IOException {}
+  public void submitRequest(ActionEvent event) {}
 
   public void clearEdits(ActionEvent event) {
     IDBoxSaver.setText("");

@@ -1,13 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.util.Date;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 @Entity
 @Table(name = "computerrequest")
@@ -31,23 +29,7 @@ public class ComputerRequestEntity extends ServiceRequestEntity {
   @Getter
   @Setter
   @Enumerated(EnumType.STRING)
-  private Device device;
-
-  public enum Device {
-    DESKTOP("Desktop"),
-    TABLET("Tablet"),
-    LAPTOP("Laptop"),
-    PERIPHERALS("Peripherals"),
-    KIOSK("Kiosk"),
-    MONITOR("Monitor"),
-    PRINTER("Printer");
-
-    @NonNull public final String device;
-
-    Device(@NonNull String device) {
-      this.device = device;
-    }
-  }
+  private DevicesCategory device;
 
   public ComputerRequestEntity() {}
 
@@ -57,12 +39,12 @@ public class ComputerRequestEntity extends ServiceRequestEntity {
       EmployeeEntity employee,
       LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
       String deviceid,
-      Device device,
+      DevicesCategory device,
       Date date) {
     super(
         requestid,
@@ -84,48 +66,14 @@ public class ComputerRequestEntity extends ServiceRequestEntity {
       EmployeeEntity employee,
       LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
       String deviceid,
-      Device device) {
+      DevicesCategory device) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.deviceid = deviceid;
     this.device = device;
-  }
-
-  public void editComputerRequest(
-      int requestId,
-      String name,
-      String idNum,
-      String location,
-      String description,
-      String ul,
-      String requestType,
-      String status,
-      String employeeAssigned,
-      String deviceID,
-      String device) {
-    // administrative stuff
-    SessionFactory sessionFactory = ADBSingletonClass.getSessionFactory();
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
-
-    ComputerRequestEntity comRqst = session.load(ComputerRequestEntity.class, 1);
-    comRqst.setName(name);
-    comRqst.setName(idNum);
-    comRqst.setName(location);
-    comRqst.setName(description);
-    comRqst.setName(ul);
-    comRqst.setName(requestType);
-    comRqst.setName(status);
-    comRqst.setName(employeeAssigned);
-    comRqst.setName(description);
-    comRqst.setName(deviceID);
-    comRqst.setName(device);
-
-    tx.commit();
-    session.close();
   }
 }

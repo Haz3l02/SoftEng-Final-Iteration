@@ -14,7 +14,6 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -28,8 +27,9 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML private MFXTextField phone;
   @FXML private MFXComboBox<String> requestsBox;
-  ServiceRequestEntity.Urgency urgent;
-  SecurityRequestEntity.Assistance assistance;
+
+  UrgencyLevel urgent;
+  RequestCategory assistance;
 
   @FXML
   public void initialize() throws SQLException {
@@ -43,22 +43,12 @@ public class SecurityController extends ServiceRequestController {
     }
     if (requestsBox != null) {
       ObservableList<String> requests =
-          FXCollections.observableArrayList(
-              RequestCategory.HARASSMENT.getRequest(),
-              RequestCategory.SECURITY_ESCORT.getRequest(),
-              RequestCategory.POTENTIAL_THREAT.getRequest());
+          FXCollections.observableArrayList(RequestCategory.categoryList());
       ObservableList<String> urgencies =
-          FXCollections.observableArrayList(
-              UrgencyLevel.LOW.getUrgency(),
-              UrgencyLevel.MEDIUM.getUrgency(),
-              UrgencyLevel.HIGH.getUrgency(),
-              UrgencyLevel.EXTREMELY_URGENT.getUrgency());
+          FXCollections.observableArrayList(UrgencyLevel.urgencyList());
 
       Session session = getSessionFactory().openSession();
-      Transaction tx = session.beginTransaction();
-
-      List<LocationNameEntity> temp = new ArrayList<LocationNameEntity>();
-      temp = getAllRecords(LocationNameEntity.class, session);
+      List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
 
       // ArrayList<Move> moves = Move.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
@@ -85,7 +75,7 @@ public class SecurityController extends ServiceRequestController {
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       requestsBox.setText(editRequest.getRequestType().requestType);
       locationBox.setText(editRequest.getLocation().getLongname());
-      urgencyBox.setText(editRequest.getUrgency().urgency);
+      urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       phone.setText(editRequest.getSecphone());
       tx.commit();
@@ -94,12 +84,12 @@ public class SecurityController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToConfirmationScene(ActionEvent event) throws IOException {
+  public void switchToConfirmationScene(ActionEvent event) {
     Navigation.navigate(Screen.SECURITY_CONFIRMATION);
   }
 
   @FXML
-  public void switchToSecurityScene(ActionEvent event) throws IOException {
+  public void switchToSecurityScene(ActionEvent event) {
     Navigation.navigate(Screen.SECURITY);
   }
 
@@ -109,12 +99,12 @@ public class SecurityController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToHomeServiceRequestScene(ActionEvent event) throws IOException {
+  public void switchToHomeServiceRequestScene(ActionEvent event) {
     Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
   }
 
   @FXML
-  void submitRequest(ActionEvent event) throws IOException, SQLException {
+  void submitRequest(ActionEvent event) {
     if (nameBox.getText().equals("")
         || phone.getText().equals("")
         || IDNum.getText().equals("")
@@ -127,33 +117,12 @@ public class SecurityController extends ServiceRequestController {
     } else {
       if (newEdit.needEdits) {
         // something that submits it
+
         Session session = getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        switch (urgencyBox.getValue()) {
-          case "Low":
-            urgent = ServiceRequestEntity.Urgency.LOW;
-            break;
-          case "Medium":
-            urgent = ServiceRequestEntity.Urgency.MEDIUM;
-            break;
-          case "High":
-            urgent = ServiceRequestEntity.Urgency.HIGH;
-            break;
-          case "Extremely Urgent":
-            urgent = ServiceRequestEntity.Urgency.EXTREMELY_URGENT;
-            break;
-        }
-        switch (requestsBox.getValue()) {
-          case "Harassment":
-            assistance = SecurityRequestEntity.Assistance.HARASSMENT;
-            break;
-          case "Security Threat":
-            assistance = SecurityRequestEntity.Assistance.SECURITY_ESCORT;
-            break;
-          case "Potential Threat":
-            assistance = SecurityRequestEntity.Assistance.POTENTIAL_THREAT;
-            break;
-        }
+
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+        assistance = RequestCategory.value(requestsBox.getValue().toUpperCase());
 
         SecurityRequestEntity submission =
             session.get(SecurityRequestEntity.class, newEdit.getRequestID());
@@ -164,41 +133,16 @@ public class SecurityController extends ServiceRequestController {
         submission.setUrgency(urgent);
         submission.setAssistance(assistance);
         submission.setSecphone(phone.getText());
-
-        tx.commit();
-        session.close();
       } else {
-
-        Session session = ADBSingletonClass.getSessionFactory().openSession();
+        Session session = getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
+
         EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
-        // IDNum.getText()
         LocationNameEntity location = session.get(LocationNameEntity.class, locationBox.getText());
-        switch (urgencyBox.getValue()) {
-          case "Low":
-            urgent = ServiceRequestEntity.Urgency.LOW;
-            break;
-          case "Medium":
-            urgent = ServiceRequestEntity.Urgency.MEDIUM;
-            break;
-          case "High":
-            urgent = ServiceRequestEntity.Urgency.HIGH;
-            break;
-          case "Extremely Urgent":
-            urgent = ServiceRequestEntity.Urgency.EXTREMELY_URGENT;
-            break;
-        }
-        switch (requestsBox.getValue()) {
-          case "Harassment":
-            assistance = SecurityRequestEntity.Assistance.HARASSMENT;
-            break;
-          case "Security Threat":
-            assistance = SecurityRequestEntity.Assistance.SECURITY_ESCORT;
-            break;
-          case "Potential Threat":
-            assistance = SecurityRequestEntity.Assistance.POTENTIAL_THREAT;
-            break;
-        }
+
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+        assistance = RequestCategory.value(requestsBox.getValue());
+
         SecurityRequestEntity submission =
             new SecurityRequestEntity(
                 nameBox.getText(),
@@ -214,8 +158,8 @@ public class SecurityController extends ServiceRequestController {
         session.persist(submission);
         tx.commit();
         session.close();
-        // submission.insert(); // *some db thing for getting the request in there*
       }
+
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

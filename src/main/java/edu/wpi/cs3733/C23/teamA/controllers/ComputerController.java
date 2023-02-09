@@ -12,9 +12,7 @@ import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -28,8 +26,8 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML private MFXTextField deviceIDNum;
   @FXML private MFXComboBox<String> devicesBox;
-  ServiceRequestEntity.Urgency urgent;
-  ComputerRequestEntity.Device device;
+  UrgencyLevel urgent;
+  DevicesCategory device;
 
   @FXML
   public void initialize() throws SQLException {
@@ -43,26 +41,12 @@ public class ComputerController extends ServiceRequestController {
     }
     if (devicesBox != null) {
       ObservableList<String> devices =
-          FXCollections.observableArrayList(
-              DevicesCategory.DESKTOP.getDevices(),
-              DevicesCategory.TABLET.getDevices(),
-              DevicesCategory.LAPTOP.getDevices(),
-              DevicesCategory.MONITOR.getDevices(),
-              DevicesCategory.PERIPHERALS.getDevices(),
-              DevicesCategory.KIOSK.getDevices(),
-              DevicesCategory.PRINTER.getDevices());
+          FXCollections.observableArrayList(DevicesCategory.deviceList());
       ObservableList<String> urgencies =
-          FXCollections.observableArrayList(
-              UrgencyLevel.LOW.getUrgency(),
-              UrgencyLevel.MEDIUM.getUrgency(),
-              UrgencyLevel.HIGH.getUrgency(),
-              UrgencyLevel.EXTREMELY_URGENT.getUrgency());
+          FXCollections.observableArrayList(UrgencyLevel.urgencyList());
 
       Session session = getSessionFactory().openSession();
-      Transaction tx = session.beginTransaction();
-
-      List<LocationNameEntity> temp = new ArrayList<LocationNameEntity>();
-      temp = getAllRecords(LocationNameEntity.class, session);
+      List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
 
       // ArrayList<Move> moves = Move.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
@@ -101,7 +85,7 @@ public class ComputerController extends ServiceRequestController {
       devicesBox.setText(editComputerRequest.getDevice().toString());
       deviceIDNum.setText(editComputerRequest.getDeviceid());
       locationBox.setText(editComputerRequest.getLocation().getLongname());
-      urgencyBox.setText(editComputerRequest.getUrgency().urgency);
+      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency());
       descBox.setText(editComputerRequest.getDescription());
       // session.persist(submission);
       tx.commit();
@@ -112,17 +96,17 @@ public class ComputerController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToConfirmationScene(ActionEvent event) throws IOException {
+  public void switchToConfirmationScene(ActionEvent event) {
     Navigation.navigate(Screen.COMPUTER_CONFIRMATION);
   }
 
   @FXML
-  public void switchToComputerScene(ActionEvent event) throws IOException {
+  public void switchToComputerScene(ActionEvent event) {
     Navigation.navigate(Screen.COMPUTER);
   }
 
   @FXML
-  void submitRequest(ActionEvent event) throws IOException, SQLException {
+  void submitRequest(ActionEvent event) {
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null
@@ -133,47 +117,12 @@ public class ComputerController extends ServiceRequestController {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
+      Session session = getSessionFactory().openSession();
+      Transaction tx = session.beginTransaction();
       if (newEdit.needEdits) {
-        // something that submits it
-        Session session = getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
-        switch (urgencyBox.getValue()) {
-          case "Low":
-            urgent = ServiceRequestEntity.Urgency.LOW;
-            break;
-          case "Medium":
-            urgent = ServiceRequestEntity.Urgency.MEDIUM;
-            break;
-          case "High":
-            urgent = ServiceRequestEntity.Urgency.HIGH;
-            break;
-          case "Extremely Urgent":
-            urgent = ServiceRequestEntity.Urgency.EXTREMELY_URGENT;
-            break;
-        }
-        switch (devicesBox.getValue()) {
-          case "Desktop":
-            device = ComputerRequestEntity.Device.DESKTOP;
-            break;
-          case "Tablet":
-            device = ComputerRequestEntity.Device.TABLET;
-            break;
-          case "Laptop":
-            device = ComputerRequestEntity.Device.LAPTOP;
-            break;
-          case "Monitor":
-            device = ComputerRequestEntity.Device.MONITOR;
-            break;
-          case "Peripherals":
-            device = ComputerRequestEntity.Device.PERIPHERALS;
-            break;
-          case "Kiosk":
-            device = ComputerRequestEntity.Device.KIOSK;
-            break;
-          case "Printer":
-            device = ComputerRequestEntity.Device.PRINTER;
-            break;
-        }
+
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+        device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());
 
         ComputerRequestEntity submission =
             session.get(ComputerRequestEntity.class, newEdit.getRequestID());
@@ -184,54 +133,14 @@ public class ComputerController extends ServiceRequestController {
         submission.setUrgency(urgent);
         submission.setDevice(device);
         submission.setDeviceid(deviceIDNum.getText());
-        System.out.println("made the new change");
-        // session.persist(submission);
-        // session.merge(submission);
-        tx.commit();
-        session.close();
       } else {
-        Session session = getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
+
         EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
-        // IDNum.getText()
         LocationNameEntity location = session.get(LocationNameEntity.class, locationBox.getText());
-        switch (urgencyBox.getValue()) {
-          case "Low":
-            urgent = ServiceRequestEntity.Urgency.LOW;
-            break;
-          case "Medium":
-            urgent = ServiceRequestEntity.Urgency.MEDIUM;
-            break;
-          case "High":
-            urgent = ServiceRequestEntity.Urgency.HIGH;
-            break;
-          case "Extremely Urgent":
-            urgent = ServiceRequestEntity.Urgency.EXTREMELY_URGENT;
-            break;
-        }
-        switch (devicesBox.getValue()) {
-          case "Desktop":
-            device = ComputerRequestEntity.Device.DESKTOP;
-            break;
-          case "Tablet":
-            device = ComputerRequestEntity.Device.TABLET;
-            break;
-          case "Laptop":
-            device = ComputerRequestEntity.Device.LAPTOP;
-            break;
-          case "Monitor":
-            device = ComputerRequestEntity.Device.MONITOR;
-            break;
-          case "Peripherals":
-            device = ComputerRequestEntity.Device.PERIPHERALS;
-            break;
-          case "Kiosk":
-            device = ComputerRequestEntity.Device.KIOSK;
-            break;
-          case "Printer":
-            device = ComputerRequestEntity.Device.PRINTER;
-            break;
-        }
+
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+        device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());
+
         ComputerRequestEntity submission =
             new ComputerRequestEntity(
                 nameBox.getText(),
@@ -245,10 +154,10 @@ public class ComputerController extends ServiceRequestController {
                 deviceIDNum.getText(),
                 device);
         session.persist(submission);
-        tx.commit();
-        session.close();
-        // submission.insert(); // *some db thing for getting the request in there*
       }
+      tx.commit();
+      session.close();
+
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.util.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
@@ -22,19 +23,7 @@ public class SanitationRequestEntity extends ServiceRequestEntity {
   @Setter
   @Getter
   @Enumerated(EnumType.STRING)
-  private Category category;
-
-  public enum Category {
-    BIOHAZARD("Biohazard"),
-    STANDARD("Standard"),
-    WONG("Wong");
-
-    @NonNull public final String category;
-
-    Category(@NonNull String category) {
-      this.category = category;
-    }
-  }
+  private IssueCategory category;
 
   public SanitationRequestEntity() {}
 
@@ -44,11 +33,11 @@ public class SanitationRequestEntity extends ServiceRequestEntity {
       EmployeeEntity employee,
       LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Category category,
+      IssueCategory category,
       Date date) {
     super(
         requestid,
@@ -69,11 +58,11 @@ public class SanitationRequestEntity extends ServiceRequestEntity {
       EmployeeEntity employee,
       LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Category category) {
+      IssueCategory category) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.category = category;
   }

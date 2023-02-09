@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.util.Date;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
@@ -22,25 +23,13 @@ public class SecurityRequestEntity extends ServiceRequestEntity {
   @Setter
   @Getter
   @Enumerated(EnumType.STRING)
-  private Assistance assistance;
+  private RequestCategory assistance;
 
   @Basic
   @Column(name = "secphone", nullable = false, length = -1)
   @Setter
   @Getter
   private String secphone;
-
-  public enum Assistance {
-    HARASSMENT("Harassment"),
-    SECURITY_ESCORT("Security Escort"),
-    POTENTIAL_THREAT("Potential Threat");
-
-    @NonNull public final String assistance;
-
-    Assistance(@NonNull String assistance) {
-      this.assistance = assistance;
-    }
-  }
 
   public SecurityRequestEntity() {}
 
@@ -50,11 +39,11 @@ public class SecurityRequestEntity extends ServiceRequestEntity {
       EmployeeEntity employee,
       LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Assistance assistance,
+      RequestCategory assistance,
       String secphone,
       Date date) {
     super(
@@ -77,11 +66,11 @@ public class SecurityRequestEntity extends ServiceRequestEntity {
       EmployeeEntity employee,
       LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Assistance assistance,
+      RequestCategory assistance,
       String secphone) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.assistance = assistance;
