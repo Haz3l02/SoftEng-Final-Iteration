@@ -24,13 +24,13 @@
         <property name="ul">
             <column name="ul" sql-type="text" not-null="true"/>
         </property>
-        <property name="getRequestType">
+        <property name="requesttype">
             <column name="requesttype" sql-type="text" not-null="true"/>
         </property>
         <property name="status">
             <column name="status" sql-type="text" not-null="true"/>
         </property>
-        <property name="getEmployeeAssigned">
+        <property name="employeeassigned">
             <column name="employeeassigned" sql-type="text" not-null="true"/>
         </property>
     </class>
