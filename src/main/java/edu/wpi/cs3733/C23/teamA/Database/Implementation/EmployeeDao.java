@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
+
 public class EmployeeDao {
 
   public static void writeToCSV(List<EmployeeEntity> emps) throws IOException {
@@ -34,14 +36,15 @@ public class EmployeeDao {
     fileWriter.close();
   }
 
-  public static ArrayList<String> checkPass(String user, String pass, Session session) {
+  public static ArrayList<String> checkPass(EmployeeEntity employee) {
+    Session session = getSessionFactory().openSession();
     ArrayList<String> info = new ArrayList<String>();
     Transaction tx = session.beginTransaction();
-    String hql = "select emp from EmployeeEntity emp where emp.username = '" + user + "'";
+    String hql = "select emp from EmployeeEntity emp where emp.username = '" + employee.getUsername() + "'";
     Query query = session.createQuery(hql);
     final List<EmployeeEntity> emps = query.getResultList();
     for (EmployeeEntity emp : emps) {
-      if (emp.getUsername().equals(user) && emp.getPassword().equals(pass)) {
+      if (emp.getUsername().equals(employee.getUsername()) && emp.getPassword().equals(employee.getPassword())) {
         info.add(emp.getEmployeeid());
         info.add(emp.getJob());
         info.add(emp.getName());
@@ -61,45 +64,48 @@ public class EmployeeDao {
     return info;
   }
 
-  public static void addEmployee(String username, String password,
-                                 String job, String name, Session session) {
+  public static void add(EmployeeEntity emp) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     String hql = "insert into EmployeeEntity (username, password, job, name) values ('"
-            + username
+            + emp.getUsername()
             + "', '"
-            + password
+            + emp.getPassword()
             + "', '"
-            + job
+            + emp.getJob()
             + "', '"
-            + name
+            + emp.getName()
             + "')";
     Query query = session.createQuery(hql, EmployeeEntity.class);
     query.executeUpdate();
     tx.commit();
+    session.close();
   }
 
-  public void updateEmployee(String employeeid, String username, String password,
-                             String job, String name, Session session) {
+  public void update(EmployeeEntity emp) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     String hql = "update EmployeeEntity set username=:u, password=:p, job=:j, name=:n " +
             "where employeeid=:e";
     Query query = session.createQuery(hql, EmployeeEntity.class);
-    query.setParameter("u",username);
-    query.setParameter("p",password);
-    query.setParameter("j", job);
-    query.setParameter("n", name);
-    query.setParameter("e", employeeid);
+    query.setParameter("u",emp.getUsername());
+    query.setParameter("p",emp.getPassword());
+    query.setParameter("j", emp.getJob());
+    query.setParameter("n", emp.getName());
+    query.setParameter("e", emp.getEmployeeid());
     query.executeUpdate();
     tx.commit();
+    session.close();
   }
 
-  public void deleteEmployee(String employeeid, Session session) {
+  public void delete(EmployeeEntity emp) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    String hql = "DELETE FROM EmployeeEntity WHERE employeeid = "+ employeeid;
+    String hql = "DELETE FROM EmployeeEntity WHERE employeeid = '"+ emp.getEmployeeid() + "'";
     Query query = session.createQuery(hql, EmployeeEntity.class);
     query.executeUpdate();
     session.persist(EmployeeEntity.class);
     tx.commit();
-
+    session.close();
   }
 }
