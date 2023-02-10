@@ -95,4 +95,46 @@ public class EmployeeEntity {
 
     return info;
   }
+
+  public static void addEmployee(String username, String password,
+                                 String job, String name, Session session) {
+    Transaction tx = session.beginTransaction();
+    String hql = "insert into EmployeeEntity (username, password, job, name) values ('"
+                + username
+                + "', '"
+                + password
+                + "', '"
+                + job
+                + "', '"
+                + name
+                + "')";
+    Query query = session.createNativeQuery(hql, EmployeeEntity.class);
+    query.executeUpdate();
+    tx.commit();
+  }
+
+  public void updateEmployee(String employeeid, String username, String password,
+                             String job, String name, Session session) {
+    Transaction tx = session.beginTransaction();
+    String hql = "update EmployeeEntity set username=:u, password=:p, job=:j, name=:n " +
+            "where employeeid=:e";
+    Query query = session.createQuery(hql, EmployeeEntity.class);
+    query.setParameter("u",username);
+    query.setParameter("p",password);
+    query.setParameter("j", job);
+    query.setParameter("n", name);
+    query.setParameter("e", employeeid);
+    query.executeUpdate();
+    tx.commit();
+  }
+
+  public void deleteEmployee(String employeeid, Session session) {
+    Transaction tx = session.beginTransaction();
+    String hql = "DELETE FROM EmployeeEntity WHERE employeeid = "+ employeeid;
+    Query query = session.createQuery(hql, EmployeeEntity.class);
+    query.executeUpdate();
+    session.persist(EmployeeEntity.class);
+    tx.commit();
+
+  }
 }
