@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -79,7 +80,7 @@ public class ServiceRequestEntity {
   @Getter
   @Column(nullable = false)
   @CreationTimestamp
-  private Date date;
+  private Timestamp date;
 
   public enum RequestType {
     SECURITY("Security"),
@@ -91,18 +92,6 @@ public class ServiceRequestEntity {
 
     RequestType(@NonNull String requestType) {
       this.requestType = requestType;
-    }
-  }
-
-  public enum Status {
-    BLANK("Blank"),
-    PROCESSING("Processing"),
-    DONE("Done");
-
-    @NonNull public final String status;
-
-    Status(@NonNull String status) {
-      this.status = status;
     }
   }
 
@@ -118,7 +107,7 @@ public class ServiceRequestEntity {
       RequestType requestType,
       Status status,
       String employeeAssigned,
-      Date date) {
+      Timestamp date) {
     this.requestid = requestid;
     this.name = name;
     this.employee = employee;

@@ -51,51 +51,6 @@
    <padding>
       <Insets top="10.0" />
    </padding>
-   <top>
-      <HBox prefHeight="37.0" prefWidth="611.0" style="-fx-background-color: #224870;" BorderPane.alignment="TOP_LEFT">
-         <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="382.1484375">
-               <font>
-                  <Font name="Arial Black" size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" top="5.0" />
-               </HBox.margin>
-            </Text>
-            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="219.0">
-               <children>
-                  <MFXButton id="helpButton" fx:id="homeButton" buttonType="RAISED" minHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="28.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Kohinoor Bangla" size="13.0" />
-                     </font>
-                  </MFXButton>
-                  <MFXButton id="helpButton" fx:id="helpButton" buttonType="RAISED" minHeight="-Infinity" onAction="#switchToHelpScene" prefHeight="28.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Help" textFill="#122c34">
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Kohinoor Bangla" size="13.0" />
-                     </font>
-                  </MFXButton>
-                  <MFXButton fx:id="logout" minHeight="-Infinity" onAction="#logout" prefHeight="28.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Kohinoor Bangla" size="13.0" />
-                     </font>
-                  </MFXButton>
-               </children>
-            </HBox>
-         </children>
-         <BorderPane.margin>
-            <Insets top="-10.0" />
-         </BorderPane.margin>
-      </HBox>
-   </top>
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -170,11 +125,11 @@
                         <TableView fx:id="serviceReqsTable" editable="true" layoutX="-199.0" layoutY="14.0" onMouseClicked="#rowClicked" prefHeight="241.0" prefWidth="462.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                               <TableColumn fx:id="IDCol" minWidth="0.0" prefWidth="0.0" text="ID" />
-                            <TableColumn fx:id="formTypeCol" prefWidth="130.3999786376953" text="Form Type" />
-                              <TableColumn fx:id="dateCol" prefWidth="56.659881591796875" text="Date" />
-                              <TableColumn fx:id="statusCol" prefWidth="68.94076538085938" text="Status" />
-                              <TableColumn fx:id="urgencyCol" prefWidth="78.75567626953125" text="Urgency" />
-                              <TableColumn fx:id="employeeAssignedCol" prefWidth="121.74432373046875" text="Employee Assigned" />
+                            <TableColumn fx:id="formTypeCol" prefWidth="87.20000916719437" text="Form Type" />
+                              <TableColumn fx:id="dateCol" prefWidth="111.19996643066406" text="Date" />
+                              <TableColumn fx:id="statusCol" prefWidth="59.20008850097656" text="Status" />
+                              <TableColumn fx:id="urgencyCol" prefWidth="64.7999267578125" text="Urgency" />
+                              <TableColumn fx:id="employeeAssignedCol" prefWidth="136.80001831054688" text="Employee Assigned" />
                           </columns>
                         </TableView>
                      </children>
@@ -184,4 +139,39 @@
          </children>
       </VBox>
    </center>
+   <top>
+      <BorderPane prefWidth="611.0" style="-fx-background-color: #224870;" translateY="-14.0" BorderPane.alignment="CENTER">
+         <left>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
+            </Text>
+         </left>
+         <right>
+            <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="58.0" prefWidth="213.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MFXButton id="homeButton" fx:id="homeButton" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="61.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton id="helpButton" fx:id="helpButton" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="34.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Help" textFill="#122c34">
+                     <HBox.margin>
+                        <Insets right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="35.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
+                     <HBox.margin>
+                        <Insets right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+            </HBox>
+         </right>
+      </BorderPane>
+   </top>
 </BorderPane>

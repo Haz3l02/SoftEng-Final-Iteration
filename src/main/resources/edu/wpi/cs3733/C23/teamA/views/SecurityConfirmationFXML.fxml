@@ -16,7 +16,7 @@
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToHomeScene" prefHeight="28.0" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>

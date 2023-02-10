@@ -109,7 +109,7 @@
    <top>
       <BorderPane style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
          <left>
-            <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375" BorderPane.alignment="CENTER">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
