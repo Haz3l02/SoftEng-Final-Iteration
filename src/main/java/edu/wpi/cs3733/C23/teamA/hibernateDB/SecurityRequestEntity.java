@@ -1,15 +1,17 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
 @Table(name = "securityrequest")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
-public class SecurityrequestEntity extends ServicerequestEntity {
+public class SecurityRequestEntity extends ServiceRequestEntity {
 
   //  @Id
   //  @Column(name = "requestid", nullable = false)
@@ -22,7 +24,7 @@ public class SecurityrequestEntity extends ServicerequestEntity {
   @Setter
   @Getter
   @Enumerated(EnumType.STRING)
-  private Assistance assistance;
+  private RequestCategory assistance;
 
   @Basic
   @Column(name = "secphone", nullable = false, length = -1)
@@ -30,33 +32,21 @@ public class SecurityrequestEntity extends ServicerequestEntity {
   @Getter
   private String secphone;
 
-  public enum Assistance {
-    HARASSMENT("Harassment"),
-    SECURITY_ESCORT("Security Escort"),
-    POTENTIAL_THREAT("Potential Threat");
+  public SecurityRequestEntity() {}
 
-    @NonNull public final String assistance;
-
-    Assistance(@NonNull String assistance) {
-      this.assistance = assistance;
-    }
-  }
-
-  public SecurityrequestEntity() {}
-
-  public SecurityrequestEntity(
+  public SecurityRequestEntity(
       int requestid,
       String name,
       EmployeeEntity employee,
-      LocationnameEntity location,
+      LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Assistance assistance,
+      RequestCategory assistance,
       String secphone,
-      Date date) {
+      Timestamp date) {
     super(
         requestid,
         name,
@@ -72,16 +62,16 @@ public class SecurityrequestEntity extends ServicerequestEntity {
     this.secphone = secphone;
   }
 
-  public SecurityrequestEntity(
+  public SecurityRequestEntity(
       String name,
       EmployeeEntity employee,
-      LocationnameEntity location,
+      LocationNameEntity location,
       String description,
-      Urgency urgency,
+      UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Assistance assistance,
+      RequestCategory assistance,
       String secphone) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.assistance = assistance;

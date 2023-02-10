@@ -3,8 +3,8 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.hibernateDB.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.LocationnameEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -49,7 +49,7 @@ public class DatabaseController extends MenuController {
     nodeCol.setCellValueFactory(
         param -> new SimpleStringProperty(param.getValue().getNode().getNodeid()));
     locNameCol.setCellValueFactory(
-        param -> new SimpleStringProperty(param.getValue().getLocationname().getLongname()));
+        param -> new SimpleStringProperty(param.getValue().getLocationName().getLongname()));
     moveCol.setCellValueFactory(new PropertyValueFactory<>("movedate"));
     dbTable.setItems(dbTableRowsModel);
 
@@ -87,8 +87,8 @@ public class DatabaseController extends MenuController {
     locNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
     locNameCol.setOnEditCommit(
         e -> {
-          LocationnameEntity n =
-              e.getTableView().getItems().get(e.getTablePosition().getRow()).getLocationname();
+          LocationNameEntity n =
+              e.getTableView().getItems().get(e.getTablePosition().getRow()).getLocationName();
           try {
             Transaction t = session.beginTransaction();
             n.setLongname(e.getNewValue());

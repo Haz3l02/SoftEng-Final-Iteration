@@ -3,14 +3,10 @@ package edu.wpi.cs3733.C23.teamA.pathfinding;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.databases.Edge;
-import edu.wpi.cs3733.C23.teamA.databases.Move;
-import edu.wpi.cs3733.C23.teamA.databases.Node;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -58,26 +54,26 @@ public class DBReader {
    * @param graph a Graph object
    * @throws SQLException
    */
-  public static void readDBOld(Graph graph) throws SQLException {
+  /*public static void readDBOld(Graph graph) throws SQLException {
 
-    // Nodes
-    ArrayList<Node> allNodes = Node.getAll();
-    for (Node n : allNodes) {
-      // create the graph and add the nodes (id, xcoord, ycoord, longName)
-      GraphNode g =
-          new GraphNode(
-              n.getNodeID(), n.getXcoord(), n.getYcoord(), Move.mostRecentLoc(n.getNodeID()));
-      graph.addNode(n.getNodeID(), g);
-    }
-
-    // Edges
-    /* read through edge columns and add edges to correct node (bidirectional) */
-    ArrayList<Edge> allEdges = Edge.getAll(); // Gets list of all edges from database's edge table
+      // Nodes
+      ArrayList<Node> allNodes = Node.getAll();
+      for (Node n : allNodes) {
+        // create the graph and add the nodes (id, xcoord, ycoord, longName)
+        GraphNode g =
+            new GraphNode(
+                n.getNodeID(), n.getXcoord(), n.getYcoord(), Move.mostRecentLoc(n.getNodeID()));
+        graph.addNode(n.getNodeID(), g);
+      }
+  /*
+      // Edges
+      /* read through edge columns and add edges to correct node (bidirectional) */
+  /*ArrayList<Edge> allEdges = Edge.getAll(); // Gets list of all edges from database's edge table
     for (Edge e : allEdges) {
       GraphNode node1 = graph.getNode(e.getNode1());
       GraphNode node2 = graph.getNode(e.getNode2());
       node1.addNeighbor(node2);
       node2.addNeighbor(node1);
     }
-  }
+  }*/
 }

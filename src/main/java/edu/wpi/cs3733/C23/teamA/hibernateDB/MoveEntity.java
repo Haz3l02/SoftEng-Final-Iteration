@@ -35,7 +35,7 @@ public class MoveEntity {
               name = "longname_fk",
               foreignKeyDefinition =
                   "FOREIGN KEY (longname) REFERENCES locationname(longname) ON UPDATE CASCADE ON DELETE CASCADE"))
-  private LocationnameEntity locationname;
+  private LocationNameEntity locationName;
 
   @Id
   @Column(name = "movedate", nullable = false)
@@ -45,15 +45,15 @@ public class MoveEntity {
 
   public MoveEntity() {}
 
-  public MoveEntity(NodeEntity node, LocationnameEntity locationname, Timestamp movedate) {
+  public MoveEntity(NodeEntity node, LocationNameEntity locationName, Timestamp movedate) {
     this.node = node;
-    this.locationname = locationname;
+    this.locationName = locationName;
     this.movedate = movedate;
   }
 
-  public MoveEntity(NodeEntity node, LocationnameEntity locationname) {
+  public MoveEntity(NodeEntity node, LocationNameEntity locationName) {
     this.node = node;
-    this.locationname = locationname;
+    this.locationName = locationName;
   }
 
   @Override
@@ -62,7 +62,7 @@ public class MoveEntity {
     if (this == obj) return true;
     if (this.getClass() != obj.getClass()) return false;
     MoveEntity mo = (MoveEntity) obj;
-    return (this.locationname.equals(mo.locationname)
+    return (this.locationName.equals(mo.locationName)
         && this.movedate.equals(mo.movedate)
         && this.node.equals(mo.node));
   }
@@ -77,7 +77,7 @@ public class MoveEntity {
                 MoveEntity.class)
             .setMaxResults(1)
             .getSingleResult();
-    return move.getLocationname().getLongname();
+    return move.getLocationName().getLongname();
   }
 
   @Override

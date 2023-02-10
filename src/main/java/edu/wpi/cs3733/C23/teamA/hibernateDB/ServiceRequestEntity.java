@@ -1,11 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-
+import edu.wpi.cs3733.C23.teamA.enums.Status;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -16,7 +15,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @Table(name = "servicerequest", catalog = "dba")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class ServicerequestEntity {
+public class ServiceRequestEntity {
   // @TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
   @GeneratedValue(strategy = GenerationType.IDENTITY) // , generator = "serviceseq")
   @Id
@@ -42,7 +41,7 @@ public class ServicerequestEntity {
   @JoinColumn(name = "location", foreignKey = @ForeignKey(name = "longname"))
   @Setter
   @Getter
-  private LocationnameEntity location;
+  private LocationNameEntity location;
 
   @Basic
   @Column(name = "description", nullable = false, length = -1)
@@ -55,14 +54,14 @@ public class ServicerequestEntity {
   @Setter
   @Getter
   @Enumerated(EnumType.STRING)
-  private Urgency urgency;
+  private UrgencyLevel urgency;
 
   @Basic
   @Column(name = "requesttype", nullable = false, length = -1)
   @Setter
   @Getter
   @Enumerated(EnumType.STRING)
-  private RequestType requesttype;
+  private RequestType requestType;
 
   @Basic
   @Column(name = "status", nullable = false, length = -1)
@@ -75,25 +74,13 @@ public class ServicerequestEntity {
   @Column(name = "employeeassigned", nullable = false, length = -1)
   @Setter
   @Getter
-  private String employeeassigned;
+  private String employeeAssigned;
 
+  @Setter
   @Getter
   @Column(nullable = false)
   @CreationTimestamp
-  private Date date;
-
-  public enum Urgency {
-    EXTREMELY_URGENT("Extremely urgent"),
-    HIGH("High"),
-    MEDIUM("Medium"),
-    LOW("Low");
-
-    @NonNull public final String urgency;
-
-    Urgency(@NonNull String urgency) {
-      this.urgency = urgency;
-    }
-  }
+  private Timestamp date;
 
   public enum RequestType {
     SECURITY("Security"),
@@ -101,86 +88,69 @@ public class ServicerequestEntity {
     SANITATION("Sanitation");
 
     // FILL OUT TOMORROW WITH ISABELLA
-    @NonNull public final String requesttype;
+    @NonNull public final String requestType;
 
-    RequestType(@NonNull String requesttype) {
-      this.requesttype = requesttype;
+    RequestType(@NonNull String requestType) {
+      this.requestType = requestType;
     }
   }
 
-  public enum Status {
-    BLANK("Blank"),
-    PROCESSING("Processing"),
-    DONE("Done");
+  public ServiceRequestEntity() {}
 
-    @NonNull public final String status;
-
-    Status(@NonNull String status) {
-      this.status = status;
-    }
-  }
-
-  public ServicerequestEntity() {}
-
-  public ServicerequestEntity(
+  public ServiceRequestEntity(
       int requestid,
       String name,
       EmployeeEntity employee,
-      LocationnameEntity location,
+      LocationNameEntity location,
       String description,
-      Urgency urgency,
-      RequestType requesttype,
+      UrgencyLevel urgency,
+      RequestType requestType,
       Status status,
-      String employeeassigned,
-      Date date) {
+      String employeeAssigned,
+      Timestamp date) {
     this.requestid = requestid;
     this.name = name;
     this.employee = employee;
     this.location = location;
     this.description = description;
     this.urgency = urgency;
-    this.requesttype = requesttype;
+    this.requestType = requestType;
     this.status = status;
-    this.employeeassigned = employeeassigned;
+    this.employeeAssigned = employeeAssigned;
     this.date = date;
   }
 
-  public ServicerequestEntity(
+  public ServiceRequestEntity(
       String name,
       EmployeeEntity employee,
-      LocationnameEntity location,
+      LocationNameEntity location,
       String description,
-      Urgency urgency,
-      RequestType requesttype,
+      UrgencyLevel urgency,
+      RequestType requestType,
       Status status,
-      String employeeassigned) {
+      String employeeAssigned) {
     this.name = name;
     this.employee = employee;
     this.location = location;
     this.description = description;
     this.urgency = urgency;
-    this.requesttype = requesttype;
+    this.requestType = requestType;
     this.status = status;
-    this.employeeassigned = employeeassigned;
+    this.employeeAssigned = employeeAssigned;
   }
 
-  //  public static List<ServicerequestEntity> findAllService() {
-  //    Session session = getSessionFactory().openSession();
-  //    CriteriaBuilder builder = session.getCriteriaBuilder();
-  //    CriteriaQuery<ServicerequestEntity> criteria = builder.createQuery(ServicerequestEntity);
-  //    //criteria.from();
-  //    List<ServicerequestEntity> data = session.createQuery(criteria).getResultList();
-  //    return data;
-  //  }
+  public static ArrayList<ServiceRequestEntity> getServiceByEmployee(String id, Session session) {
+    return (ArrayList<ServiceRequestEntity>)
+        session
+            .createQuery("From ServiceRequestEntity where employee ='" + id + "'")
+            .getResultList();
+  }
 
-  public static ArrayList<ServicerequestEntity> getServiceByEmployee(String id, Session session) {
-    List<ServicerequestEntity> all = getAllRecords(ServicerequestEntity.class, session);
-    ArrayList<ServicerequestEntity> fin = new ArrayList<>();
-    for (ServicerequestEntity ser : all) {
-      if (ser.getEmployee().getEmployeeid().equals(id)) {
-        fin.add(ser);
-      }
-    }
-    return fin;
+  public static ArrayList<ServiceRequestEntity> getServiceRequestsByID(
+      String text, Session session) {
+    return (ArrayList<ServiceRequestEntity>)
+        session
+            .createQuery("From ServiceRequestEntity where requestid ='" + text + "'")
+            .getResultList();
   }
 }

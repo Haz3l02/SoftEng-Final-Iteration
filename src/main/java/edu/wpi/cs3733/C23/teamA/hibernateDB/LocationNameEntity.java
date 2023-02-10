@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "locationname")
-public class LocationnameEntity {
+public class LocationNameEntity {
 
   @Id
   @Column(name = "longname", nullable = false, length = -1)
@@ -31,17 +31,17 @@ public class LocationnameEntity {
     if (obj == null) return false;
     if (this == obj) return true;
     if (this.getClass() != obj.getClass()) return false;
-    LocationnameEntity loc = (LocationnameEntity) obj;
+    LocationNameEntity loc = (LocationNameEntity) obj;
     return (this.longname.equals(loc.getLongname()));
   }
 
-  public LocationnameEntity(String longname, String shortname, String locationtype) {
+  public LocationNameEntity(String longname, String shortname, String locationtype) {
     this.longname = longname;
     this.shortname = shortname;
     this.locationtype = locationtype;
   }
 
-  public LocationnameEntity() {}
+  public LocationNameEntity() {}
 
   //  @Column(name = "moves", nullable = false)
   //  @Getter
