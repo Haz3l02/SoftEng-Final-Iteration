@@ -22,7 +22,7 @@ public enum RequestCategory {
       case "Security Threat":
         return SECURITY_THREAT;
       default:
-        return null;
+        return POTENTIAL_THREAT;
     }
   }
 

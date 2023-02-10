@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,7 +46,7 @@ public class ComputerRequestEntity extends ServiceRequestEntity {
       String employeeassigned,
       String deviceid,
       DevicesCategory device,
-      Date date) {
+      Timestamp date) {
     super(
         requestid,
         name,
