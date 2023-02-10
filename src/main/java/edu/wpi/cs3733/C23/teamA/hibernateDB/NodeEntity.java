@@ -53,4 +53,16 @@ public class NodeEntity {
     Query query = session.createQuery(hql);
     return query.getResultList();
   }
+
+  public NodeEntity() {
+  }
+
+
+  public NodeEntity(String nodeid, Integer xcoord, Integer ycoord, String floor, String building) {
+    this.nodeid = nodeid;
+    this.xcoord = xcoord;
+    this.ycoord = ycoord;
+    this.floor = floor;
+    this.building = building;
+  }
 }

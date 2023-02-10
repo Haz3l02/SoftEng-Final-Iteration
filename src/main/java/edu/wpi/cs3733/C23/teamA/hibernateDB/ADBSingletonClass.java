@@ -4,12 +4,18 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.*;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Scanner;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
+import static java.lang.Integer.parseInt;
 
 public class ADBSingletonClass {
 
@@ -34,37 +40,53 @@ public class ADBSingletonClass {
     return records;
   }
 
-  public static void readFromCSV(Session session) throws SQLException, IOException {
-    //    SessionImplementor sessImpl = (SessionImplementor) session;
-    //    Connection conn = null;
-    //    conn = sessImpl.getJdbcConnectionAccess().obtainConnection();
-    //    CopyManager copyManager = new CopyManager((BaseConnection) conn);
-    //    File tf =File.createTempFile("employee", ".csv");
-    //    String tempPath =tf.getParent();
-    //    File tempFile = new File(tempPath + File.separator + "employee.csv");
-    //    FileReader fileReader = new FileReader(tempFile);
-    //    copyManager.copyIn("copy testdata (col1, col2, col3) from  STDIN with csv", fileReader );
+  public static void rewriteNodesEdgesMoves(Session session) throws FileNotFoundException {
+    //TODO DELETE EXISTING TABLES
+    File nodes = new File("node.csv");
+    File edges = new File("edge.csv");
+    File moves = new File("move.csv");
+    Transaction tx = session.beginTransaction();
+    Scanner read = new Scanner(nodes);
+    int count = 0;
+    read.nextLine();
+
+    while (read.hasNextLine()){
+      String[] b =  read.nextLine().split(",");
+      session.persist(new NodeEntity(b[0], parseInt(b[1]), parseInt(b[2]), b[3], b[4]));
+      count++;
+      if (count%20==0) {
+        session.flush();
+        session.clear();
+      }
+    }
+
+
+    read = new Scanner(edges);
+    read.nextLine();
+    while (read.hasNextLine()){
+      String[] b =  read.nextLine().split(",");
+      session.persist(new EdgeEntity(session.get(NodeEntity.class, b[1]), session.get(NodeEntity.class, b[2]), b[0]));
+      count++;
+      if (count%20==0) {
+        session.flush();
+        session.clear();
+      }
+    }
+
+
+    read = new Scanner(moves);
+    read.nextLine();
+    while (read.hasNextLine()){
+      String[] b =  read.nextLine().split(",");
+      session.persist(new MoveEntity(session.get(NodeEntity.class, b[2]), session.get(LocationNameEntity.class, b[1]), Timestamp.valueOf(b[0])));
+      count++;
+      if (count%20==0) {
+        session.flush();
+        session.clear();
+      }
+    }
+
 
   }
-
-  //  public static void writeToCSV(List<EmployeeEntity> items, String filename) throws IOException
-  // {
-  //    PrintWriter writer =
-  //        new PrintWriter(new BufferedWriter(new FileWriter("D:/Users/" + filename)));
-  //    Iterator it = ((java.util.List) items).iterator();
-  //    while (it.hasNext()) {
-  //      Object o = (Object) it.next();
-  //      EmployeeEntity e = (EmployeeEntity) o;
-  //      System.out.println("Employee ID : " + e.getEmployeeid());
-  //      System.out.println("Employee Job : " + e.getJob());
-  //      System.out.println("Employee Name : " + e.getName());
-  //      System.out.println("Employee Password : " + e.getPassword());
-  //      System.out.println("Employee Username : " + e.getUsername());
-  //      System.out.println("----------------------");
-  //      writer.println(e.getEmployeeid());
-  //    }
-  //
-  //    writer.close();
-  //  }
 
 }
