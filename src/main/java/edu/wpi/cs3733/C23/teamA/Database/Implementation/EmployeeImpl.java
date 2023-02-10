@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class EmployeeDao {
+public class EmployeeImpl {
 
   public static void writeToCSV(List<EmployeeEntity> emps) throws IOException {
     File csvFile = new File("employees.csv");
