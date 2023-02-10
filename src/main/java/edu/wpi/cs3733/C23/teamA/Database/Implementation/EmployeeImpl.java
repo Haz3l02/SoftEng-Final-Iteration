@@ -40,7 +40,7 @@ public class EmployeeImpl {
     ArrayList<String> info = new ArrayList<String>();
     Transaction tx = session.beginTransaction();
     String hql = "select emp from EmployeeEntity emp where emp.username = '" + username + "'";
-    Query query = session.createQuery(hql);
+    Query query = session.createQuery(hql, EmployeeEntity.class);
     final List<EmployeeEntity> emps = query.getResultList();
     for (EmployeeEntity emp : emps) {
       if (emp.getUsername().equals(username) && emp.getPassword().equals(password)) {
