@@ -54,7 +54,7 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
                <children>
-                  <MFXButton alignment="CENTER" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" onAction="#switchToEdgeScene" prefHeight="28.0" prefWidth="80.0" style="-fx-background-color: #224870;" text="Edges" textFill="#d3e9f6">
+                  <MFXButton alignment="CENTER" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" onAction="#switchToEdgeScene" prefHeight="36.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Edges" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -62,7 +62,7 @@
                         <Font name="Kohinoor Bangla" size="13.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton alignment="CENTER" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" onAction="#switchToNodeScene" prefHeight="28.0" prefWidth="80.0" style="-fx-background-color: #224870;" text="Nodes" textFill="#d3e9f6">
+                  <MFXButton alignment="CENTER" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Nodes" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -70,7 +70,7 @@
                         <Font name="Kohinoor Bangla" size="13.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="cancel" alignment="CENTER" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="28.0" prefWidth="80.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+                  <MFXButton fx:id="cancel" alignment="CENTER" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="36.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>

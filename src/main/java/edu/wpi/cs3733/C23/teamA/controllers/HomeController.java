@@ -16,10 +16,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HomeController extends ServiceRequestController {
+public class HomeController extends MenuController {
 
-  //  @FXML MFXButton navigateButton;
-  //  @FXML Text textNotification;
+
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
@@ -32,19 +31,10 @@ public class HomeController extends ServiceRequestController {
     IdNumberHolder userInfo = IdNumberHolder.getInstance();
     welcome.setText("Welcome " + userInfo.getName() + "!");
   }
-
-  /*
-  @FXML
-  public void switchToIDInput(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.ID_INPUT);
-  }
-
-   */
-
   @FXML
   public void switchToDatabase(ActionEvent event) throws IOException {
     stop = true;
-    Navigation.navigate(Screen.DATABASE);
+    Navigation.navigate(Screen.HOME_DATABASE);
   }
 
   @FXML
@@ -101,7 +91,6 @@ public class HomeController extends ServiceRequestController {
             .substring(
                 response.body().indexOf("\"name\":\"", 0) + 8,
                 response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
-    // System.out.println("\"" + quote + "\" -" + author);
     message.setText("\"" + quote + "\" -" + author);
   }
 }

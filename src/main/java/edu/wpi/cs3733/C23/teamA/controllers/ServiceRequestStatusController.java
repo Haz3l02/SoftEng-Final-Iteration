@@ -12,6 +12,7 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.*;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequestTableRow;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -34,7 +35,7 @@ import javafx.scene.text.Text;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ServiceRequestStatusController extends ServiceRequestController {
+public class ServiceRequestStatusController extends MenuController {
 
   @FXML private TableView<ServiceRequestEntity> serviceReqsTable;
   @FXML public TableColumn<ServiceRequestEntity, Integer> IDCol;
@@ -99,16 +100,11 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
     Session session = getSessionFactory().openSession();
-
-    // ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
     List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
     if (job.equalsIgnoreCase("medical")) {
-      // specificRequests = sr.getServiceRequestsByID(hospitalID);
       requests = getServiceByEmployee(hospitalID, session);
-
     } else {
-      // specificRequests = sr.getServiceRequests();
       requests = getAllRecords(ServiceRequestEntity.class, session);
     }
 

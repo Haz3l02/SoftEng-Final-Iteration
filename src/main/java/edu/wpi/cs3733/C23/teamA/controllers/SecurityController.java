@@ -24,7 +24,7 @@ import javafx.fxml.FXML;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class SecurityController extends ServiceRequestController {
+public class SecurityController extends MenuController {
 
   @FXML private MFXTextField phone;
   @FXML private MFXComboBox<String> requestsBox;
@@ -51,7 +51,6 @@ public class SecurityController extends ServiceRequestController {
       Session session = getSessionFactory().openSession();
       List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
 
-      // ArrayList<Move> moves = Move.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationNameEntity move : temp) {
         locations.add(move.getLongname());

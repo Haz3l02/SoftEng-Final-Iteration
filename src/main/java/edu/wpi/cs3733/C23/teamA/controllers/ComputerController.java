@@ -23,7 +23,7 @@ import javafx.fxml.FXML;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ComputerController extends ServiceRequestController {
+public class ComputerController extends MenuController {
 
   @FXML private MFXTextField deviceIDNum;
   @FXML private MFXComboBox<String> devicesBox;
@@ -49,7 +49,6 @@ public class ComputerController extends ServiceRequestController {
       Session session = getSessionFactory().openSession();
       List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
 
-      // ArrayList<Move> moves = Move.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationNameEntity move : temp) {
         locations.add(move.getLongname());
@@ -67,26 +66,16 @@ public class ComputerController extends ServiceRequestController {
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
 
     if (newEdit.needEdits && newEdit.getRequestType().equals("COMPUTER")) {
-      //      String requestType =
-      //          (newEdit.getRequestType())
-      //              .substring(0, (newEdit.getRequestType().indexOf("Request")) - 1); //
-      // "Computer"
-      //      if (requestType.equals("Computer")) {
-      System.out.println("here");
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();
       ComputerRequestEntity editComputerRequest =
           session.get(ComputerRequestEntity.class, newEdit.getRequestID());
-      System.out.println("before switch here");
-      // editComputerRequest.getRequestID()
-      // editComputerRequest = editComputerRequest.getComputerRequest(newEdit.getRequestID());
-      System.out.println("after switch here");
       nameBox.setText(editComputerRequest.getName());
       IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
       devicesBox.setText(editComputerRequest.getDevice().toString());
       deviceIDNum.setText(editComputerRequest.getDeviceid());
       locationBox.setText(editComputerRequest.getLocation().getLongname());
-      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency());
+      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency());//Double check
       descBox.setText(editComputerRequest.getDescription());
       // session.persist(submission);
       tx.commit();
