@@ -36,15 +36,14 @@ public class EmployeeImpl {
     fileWriter.close();
   }
 
-  public static ArrayList<String> checkPass(EmployeeEntity employee) {
-    Session session = getSessionFactory().openSession();
+  public static ArrayList<String> checkPass(String username, String password, Session session) {
     ArrayList<String> info = new ArrayList<String>();
     Transaction tx = session.beginTransaction();
-    String hql = "select emp from EmployeeEntity emp where emp.username = '" + employee.getUsername() + "'";
+    String hql = "select emp from EmployeeEntity emp where emp.username = '" + username + "'";
     Query query = session.createQuery(hql);
     final List<EmployeeEntity> emps = query.getResultList();
     for (EmployeeEntity emp : emps) {
-      if (emp.getUsername().equals(employee.getUsername()) && emp.getPassword().equals(employee.getPassword())) {
+      if (emp.getUsername().equals(username) && emp.getPassword().equals(password)) {
         info.add(emp.getEmployeeid());
         info.add(emp.getJob());
         info.add(emp.getName());
