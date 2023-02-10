@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public enum RequestCategory {
   HARASSMENT("Harassment"),
   POTENTIAL_THREAT("Potential Threat"),
-  SECURITY_THREAT("Security Threat");
+  SECURITY_THREAT("Security Threat"),
+  SECURITY_ESCORT("Security Escort");
 
   private final String request;
 
