@@ -9,14 +9,11 @@ public interface IDatabaseAPI<T, G> {
 
     public void importFromCSV(String filename);
 
-    public void expertToCSV(String filename);
+    public void exportToCSV(String filename);
 
     //public void update(String ID, T obj, G attributes);
 
     public void delete(T obj);
-
-
-
 
 
 

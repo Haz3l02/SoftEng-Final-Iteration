@@ -16,6 +16,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 import org.hibernate.Session;
 
+import static edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl.checkPass;
+
 public class LoginController {
 
   @FXML MFXTextField usernameTextField;
@@ -47,7 +49,7 @@ public class LoginController {
     // Transaction tx = session.beginTransaction();
 
     ArrayList<String> info =
-        EmployeeEntity.checkPass(usernameTextField.getText(), passwordTextField.getText(), session);
+        checkPass(usernameTextField.getText(), passwordTextField.getText());
 
     if (info.get(0).equals("")) {
       incorrectNotification.setVisible(true);
