@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.hibernateDB;
+package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;

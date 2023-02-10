@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;

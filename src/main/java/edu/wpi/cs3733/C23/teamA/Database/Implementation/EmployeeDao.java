@@ -1,4 +1,6 @@
-package edu.wpi.cs3733.C23.teamA.hibernateDB;
+package edu.wpi.cs3733.C23.teamA.Database.Implementation;
+
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,7 +9,7 @@ import java.util.List;
 
 public class EmployeeDao {
 
-  public static void writeEmployeeToCSV(List<EmployeeEntity> emps) throws IOException {
+  public static void writeToCSV(List<EmployeeEntity> emps) throws IOException {
     File csvFile = new File("employees.csv");
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("employeeid,job,name,password,username\n");

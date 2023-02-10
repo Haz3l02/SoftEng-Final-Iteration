@@ -1,11 +1,10 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
-import static org.junit.jupiter.api.Assertions.*;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.databases.*;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.pathfinding.*;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
+
 import java.sql.SQLException;
 import org.hibernate.Session;
 import org.junit.jupiter.api.*; // notably, BeforeEach & Test
