@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public enum RequestCategory {
   HARASSMENT("Harassment"),
   POTENTIAL_THREAT("Potential Threat"),
-  SECURITY_THREAT("Security Threat");
+  SECURITY_ESCORT("Security Escort");
 
   private final String request;
 
@@ -19,8 +19,8 @@ public enum RequestCategory {
         return HARASSMENT;
       case "Potential Threat":
         return POTENTIAL_THREAT;
-      case "Security Threat":
-        return SECURITY_THREAT;
+      case "Security Escort":
+        return SECURITY_ESCORT;
       default:
         return POTENTIAL_THREAT;
     }

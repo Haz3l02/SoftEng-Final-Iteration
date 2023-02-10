@@ -65,7 +65,7 @@ public class SecurityController extends MenuController {
       urgencyBox.setItems(urgencies);
       locationBox.setItems(locations);
     }
-    if (newEdit.needEdits && newEdit.getRequestType().equals("SECURITY")) {
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Security")) {
 
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();

@@ -65,7 +65,7 @@ public class ComputerController extends MenuController {
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
 
-    if (newEdit.needEdits && newEdit.getRequestType().equals("COMPUTER")) {
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Computer")) {
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();
       ComputerRequestEntity editComputerRequest =
@@ -75,7 +75,7 @@ public class ComputerController extends MenuController {
       devicesBox.setText(editComputerRequest.getDevice().toString());
       deviceIDNum.setText(editComputerRequest.getDeviceid());
       locationBox.setText(editComputerRequest.getLocation().getLongname());
-      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency());//Double check
+      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editComputerRequest.getDescription());
       // session.persist(submission);
       tx.commit();

@@ -64,7 +64,7 @@ public class SanitationController extends MenuController {
       urgencyBox.setItems(urgencies);
       locationBox.setItems(locations);
     }
-    if (newEdit.needEdits && newEdit.getRequestType().equals("SANITATION")) {
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Sanitation")) {
 
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();

@@ -18,7 +18,6 @@ import javafx.scene.control.Label;
 
 public class HomeController extends MenuController {
 
-
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
@@ -31,6 +30,7 @@ public class HomeController extends MenuController {
     IdNumberHolder userInfo = IdNumberHolder.getInstance();
     welcome.setText("Welcome " + userInfo.getName() + "!");
   }
+
   @FXML
   public void switchToDatabase(ActionEvent event) throws IOException {
     stop = true;

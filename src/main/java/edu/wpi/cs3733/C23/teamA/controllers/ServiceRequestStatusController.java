@@ -12,7 +12,6 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.*;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequestTableRow;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -220,13 +219,13 @@ public class ServiceRequestStatusController extends MenuController {
     newEdit =
         new EditTheForm(clickedRow.getRequestid(), clickedRow.getRequestType().requestType, true);
     switch (clickedRow.getRequestType().requestType) {
-      case "COMPUTER":
+      case "Computer":
         Navigation.navigate(Screen.COMPUTER);
         break;
-      case "SANITATION":
+      case "Sanitation":
         Navigation.navigate(Screen.SANITATION);
         break;
-      case "SECURITY":
+      case "Security":
         Navigation.navigate(Screen.SECURITY);
         break;
       default:
