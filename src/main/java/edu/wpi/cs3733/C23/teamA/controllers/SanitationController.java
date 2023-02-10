@@ -26,7 +26,7 @@ import javafx.fxml.FXML;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class SanitationController extends ServiceRequestController {
+public class SanitationController extends MenuController {
 
   UrgencyLevel urgent;
   IssueCategory category;
@@ -53,7 +53,6 @@ public class SanitationController extends ServiceRequestController {
       Session session = getSessionFactory().openSession();
       List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
 
-      // ArrayList<Move> moves = Move.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationNameEntity move : temp) {
         locations.add(move.getLongname());
@@ -68,7 +67,7 @@ public class SanitationController extends ServiceRequestController {
       urgencyBox.setItems(urgencies);
       locationBox.setItems(locations);
     }
-    if (newEdit.needEdits && newEdit.getRequestType().equals("SANITATION")) {
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Sanitation")) {
 
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();

@@ -22,7 +22,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class DatabaseController extends ServiceRequestController {
+public class DatabaseController extends MenuController {
 
   @FXML private TableView<MoveEntity> dbTable;
 
@@ -103,5 +103,20 @@ public class DatabaseController extends ServiceRequestController {
   public void switchToNodeScene(ActionEvent event) {
     session.close();
     Navigation.navigate(Screen.NODE);
+  }
+
+  public void switchToMapScene(ActionEvent event) {
+    session.close();
+    Navigation.navigate(Screen.NODE_MAP);
+  }
+
+  public void switchToMoveScene(ActionEvent event) {
+    session.close();
+    Navigation.navigate(Screen.DATABASE);
+  }
+
+  public void switchToHomeDatabaseScene(ActionEvent event) {
+    session.close();
+    Navigation.navigate(Screen.HOME_DATABASE);
   }
 }

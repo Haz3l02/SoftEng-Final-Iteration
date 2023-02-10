@@ -1,15 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,7 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.hibernate.Session;
 
-public class NodeMapController extends ServiceRequestController {
+public class NodeMapController extends MenuController {
 
   @FXML private Canvas nodeMapCanvas; // to display the generated path
   @FXML private ImageView nodeMapImage;
@@ -51,10 +47,5 @@ public class NodeMapController extends ServiceRequestController {
     File file = new File(pathName);
     Image image = new Image(file.toURI().toString());
     nodeMapImage.setImage(image);
-  }
-
-  @FXML
-  public void switchToNodeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.NODE);
   }
 }

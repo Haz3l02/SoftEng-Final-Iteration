@@ -34,7 +34,7 @@ import javafx.scene.text.Text;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ServiceRequestStatusController extends ServiceRequestController {
+public class ServiceRequestStatusController extends MenuController {
 
   @FXML private TableView<ServiceRequestEntity> serviceReqsTable;
   @FXML public TableColumn<ServiceRequestEntity, Integer> IDCol;
@@ -99,16 +99,11 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
     Session session = getSessionFactory().openSession();
-
-    // ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
     List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
     if (job.equalsIgnoreCase("medical")) {
-      // specificRequests = sr.getServiceRequestsByID(hospitalID);
       requests = getServiceByEmployee(hospitalID, session);
-
     } else {
-      // specificRequests = sr.getServiceRequests();
       requests = getAllRecords(ServiceRequestEntity.class, session);
     }
 
@@ -224,13 +219,13 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     newEdit =
         new EditTheForm(clickedRow.getRequestid(), clickedRow.getRequestType().requestType, true);
     switch (clickedRow.getRequestType().requestType) {
-      case "COMPUTER":
+      case "Computer":
         Navigation.navigate(Screen.COMPUTER);
         break;
-      case "SANITATION":
+      case "Sanitation":
         Navigation.navigate(Screen.SANITATION);
         break;
-      case "SECURITY":
+      case "Security":
         Navigation.navigate(Screen.SECURITY);
         break;
       default:

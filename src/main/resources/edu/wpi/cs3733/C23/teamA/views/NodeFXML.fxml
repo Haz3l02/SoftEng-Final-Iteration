@@ -59,21 +59,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton buttonType="RAISED" onAction="#switchToMapScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Map" textFill="#d3e9f6">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin></MFXButton>
-                  <MFXButton buttonType="RAISED" onAction="#switchToMoveScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Move" textFill="#d3e9f6">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToEdgeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Edge" textFill="#d3e9f6">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+                  <MFXButton alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="38.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>

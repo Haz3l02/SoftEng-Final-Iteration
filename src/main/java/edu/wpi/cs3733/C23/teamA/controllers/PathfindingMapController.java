@@ -24,7 +24,7 @@ import org.hibernate.Session;
 /* This class has methods for pathfinding UI as well as methods to
 create a graph using nodes from database and method to call AStar
 to obtain and later print the path */
-public class PathfindingMapController extends ServiceRequestController {
+public class PathfindingMapController extends MenuController {
 
   // javaFX items
   @FXML private Text pathMapText;

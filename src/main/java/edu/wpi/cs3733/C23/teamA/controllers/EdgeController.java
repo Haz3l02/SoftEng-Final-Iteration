@@ -21,7 +21,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class EdgeController extends ServiceRequestController {
+public class EdgeController extends MenuController {
 
   @FXML private TableView<EdgeEntity> dbTable;
 
@@ -97,8 +97,8 @@ public class EdgeController extends ServiceRequestController {
     Navigation.navigate(Screen.DATABASE);
   }
 
-  public void switchToNodeScene(ActionEvent event) {
+  public void switchToMapScene(ActionEvent event) {
     session.close();
-    Navigation.navigate(Screen.NODE);
+    Navigation.navigate(Screen.NODE_MAP);
   }
 }

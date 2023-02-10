@@ -58,11 +58,9 @@ public class LoginController {
       holder.setPassword(passwordTextField.getText());
       holder.setJob(info.get(1));
       holder.setName(info.get(2));
-      // tx.commit();
       session.close();
       Navigation.navigate(Screen.HOME);
     }
-    // tx.commit();
     session.close();
   }
 }

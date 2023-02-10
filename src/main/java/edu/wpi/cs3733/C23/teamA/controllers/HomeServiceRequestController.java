@@ -19,7 +19,7 @@ import javafx.scene.Node;
 import org.controlsfx.control.PopOver;
 import org.hibernate.Session;
 
-public class HomeServiceRequestController extends ServiceRequestController {
+public class HomeServiceRequestController extends MenuController {
 
   @FXML MFXButton pastSubmissions;
 
@@ -54,11 +54,6 @@ public class HomeServiceRequestController extends ServiceRequestController {
   @FXML
   public void switchToComputer(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.COMPUTER);
-  }
-
-  @FXML
-  public void switchToIDInput(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.ID_INPUT);
   }
 
   @FXML
