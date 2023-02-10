@@ -13,7 +13,7 @@ import java.util.List;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-public class EmployeeDao {
+public class EmployeeImpl {
 
   public static void writeToCSV(List<EmployeeEntity> emps) throws IOException {
     File csvFile = new File("employees.csv");
@@ -21,16 +21,16 @@ public class EmployeeDao {
     fileWriter.write("employeeid,job,name,password,username\n");
     for (EmployeeEntity emp : emps) {
       fileWriter.write(
-          emp.getEmployeeid()
-              + ","
-              + emp.getJob()
-              + ","
-              + emp.getName()
-              + ","
-              + emp.getPassword()
-              + ","
-              + emp.getUsername()
-              + "\n");
+              emp.getEmployeeid()
+                      + ","
+                      + emp.getJob()
+                      + ","
+                      + emp.getName()
+                      + ","
+                      + emp.getPassword()
+                      + ","
+                      + emp.getUsername()
+                      + "\n");
     }
 
     fileWriter.close();
