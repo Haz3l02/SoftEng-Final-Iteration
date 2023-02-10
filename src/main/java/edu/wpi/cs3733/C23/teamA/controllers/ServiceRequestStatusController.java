@@ -17,7 +17,7 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
   UrgencyLevel urgent;
-  ServiceRequestEntity.Status status;
+  Status status;
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
 
@@ -132,7 +132,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
       urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
       employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
-      if (job.equals("Medical") || job.equals("medical")) {
+      if (job.equalsIgnoreCase("medical")) {
         editForm.setVisible(true);
       }
     }
@@ -179,9 +179,9 @@ public class ServiceRequestStatusController extends ServiceRequestController {
         if (SRTable.getRequestid() == currentRowId) {
           SRTable.setRequestid(Integer.parseInt(IDBoxSaver.getText()));
           SRTable.setRequestType(ServiceRequestEntity.RequestType.valueOf(formTypeBox.getText()));
-          SRTable.setDate(DateFormat.getDateInstance().parse(dateBox.getText()));
-          SRTable.setStatus(ServiceRequestEntity.Status.valueOf(statusBox.getText()));
-          SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText()));
+          SRTable.setDate(Timestamp.valueOf(dateBox.getText()));
+          SRTable.setStatus(Status.valueOf(statusBox.getText()));
+          SRTable.setUrgency(UrgencyLevel.value(urgencyBox.getText()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
           serviceReqsTable.setItems(currentTableData);
@@ -191,11 +191,11 @@ public class ServiceRequestStatusController extends ServiceRequestController {
           ServiceRequestEntity billy = session.get(ServiceRequestEntity.class, currentRowId);
 
           if (statusBox != null && !statusBox.isDisabled()) {
-            status = ServiceRequestEntity.Status.valueOf(statusBox.getValue());
+            status = Status.valueOf(statusBox.getValue());
             billy.setStatus(status);
           }
           if (urgencyBox != null && !urgencyBox.isDisabled()) {
-            urgent = UrgencyLevel.valueOf(urgencyBox.getValue());
+            urgent = UrgencyLevel.value(urgencyBox.getValue());
             billy.setUrgency(urgent);
           }
           billy.setEmployeeAssigned(employeeBox.getText());
