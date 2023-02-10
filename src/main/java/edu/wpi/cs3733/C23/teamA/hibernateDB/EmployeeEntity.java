@@ -24,7 +24,7 @@ public class EmployeeEntity {
   private String employeeid;
 
   @Basic
-  @Column(name = "username", nullable = false, length = -1)
+  @Column(name = "username", nullable = false, length = -1, unique = true)
   @Getter
   @Setter
   private String username;
