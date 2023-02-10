@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.AApp;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -11,9 +12,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import net.kurobako.gesturefx.GesturePane;
 import org.hibernate.Session;
 
 public class LoginController {
@@ -21,11 +25,20 @@ public class LoginController {
   @FXML MFXTextField usernameTextField;
   @FXML MFXPasswordField passwordTextField;
   @FXML Text incorrectNotification;
+  @FXML private GesturePane pane;
   EmployeeEntity employee = new EmployeeEntity();
 
+  //  File file = new File(pathName);
+  //  Image image = new Image(file.toURI().toString());
+  //    nodeMapImage.setImage(image);
   @FXML
   public void initialize() {
-    incorrectNotification.setVisible(false);
+    Node node = new ImageView(AApp.class.getResource("BackDrop.jpg").toExternalForm());
+    System.out.println(node);
+    this.pane.setContent(node);
+
+    this.pane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+    //    incorrectNotification.setVisible(false);
   }
 
   @FXML

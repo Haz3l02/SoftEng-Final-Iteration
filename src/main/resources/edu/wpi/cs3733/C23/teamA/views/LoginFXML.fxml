@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import net.kurobako.gesturefx.GesturePane?>
 
 <BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.LoginController">
    <center>
@@ -42,6 +43,7 @@
                   <Font name="Verdana" size="18.0" />
                </font>
             </Text>
+            <GesturePane fx:id="pane" />
          </children>
       </VBox>
    </center>
