@@ -5,6 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecor
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -130,7 +131,7 @@ public class SanitationController extends ServiceRequestController {
         // IDNum.getText()
         LocationNameEntity location = session.get(LocationNameEntity.class, locationBox.getText());
 
-        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
         category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
 
         SanitationRequestEntity submission =
@@ -141,7 +142,7 @@ public class SanitationController extends ServiceRequestController {
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.SANITATION,
-                ServiceRequestEntity.Status.BLANK,
+                Status.BLANK,
                 "Unassigned",
                 category);
         session.persist(submission);

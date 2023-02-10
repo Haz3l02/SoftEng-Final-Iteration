@@ -5,6 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecor
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -149,7 +150,7 @@ public class ComputerController extends ServiceRequestController {
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.COMPUTER,
-                ServiceRequestEntity.Status.BLANK,
+                Status.BLANK,
                 "Unassigned",
                 deviceIDNum.getText(),
                 device);
