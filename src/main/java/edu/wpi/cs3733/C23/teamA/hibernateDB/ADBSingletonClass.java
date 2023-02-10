@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.hibernateDB;
 
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.*;
@@ -41,7 +42,22 @@ public class ADBSingletonClass {
   }
 
   public static void rewriteNodesEdgesMoves(Session session) throws FileNotFoundException {
-    //TODO DELETE EXISTING TABLES
+
+    String hql = "delete from MoveEntity";
+    Query q = session.createQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from EdgeEntity";
+    q = session.createQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from NodeEntity";
+    q = session.createQuery(hql);
+    q.executeUpdate();
+
+
+
+
     File nodes = new File("node.csv");
     File edges = new File("edge.csv");
     File moves = new File("move.csv");
