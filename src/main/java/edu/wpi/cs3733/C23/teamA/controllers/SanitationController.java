@@ -23,7 +23,7 @@ import javafx.fxml.FXML;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class SanitationController extends ServiceRequestController {
+public class SanitationController extends MenuController {
 
   ServicerequestEntity.Urgency urgent;
   SanitationrequestEntity.Category category;
@@ -60,7 +60,6 @@ public class SanitationController extends ServiceRequestController {
       List<LocationnameEntity> temp = new ArrayList<LocationnameEntity>();
       temp = getAllRecords(LocationnameEntity.class, session);
 
-      // ArrayList<Move> moves = Move.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationnameEntity move : temp) {
         locations.add(move.getLongname());

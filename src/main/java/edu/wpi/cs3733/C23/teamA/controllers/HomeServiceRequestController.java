@@ -8,7 +8,6 @@ import edu.wpi.cs3733.C23.teamA.hibernateDB.ServicerequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,7 +19,7 @@ import javafx.scene.Node;
 import org.controlsfx.control.PopOver;
 import org.hibernate.Session;
 
-public class HomeServiceRequestController extends ServiceRequestController {
+public class HomeServiceRequestController extends MenuController {
 
   @FXML MFXButton pastSubmissions;
 
@@ -30,8 +29,6 @@ public class HomeServiceRequestController extends ServiceRequestController {
     String hospitalID = holder.getId();
     String job = holder.getJob();
     Session session = getSessionFactory().openSession();
-
-    SanitationRequest sr = new SanitationRequest();
 
     ArrayList<ServicerequestEntity> specificRequests = new ArrayList<ServicerequestEntity>();
     specificRequests = getServiceByEmployee(hospitalID, session);
@@ -57,11 +54,6 @@ public class HomeServiceRequestController extends ServiceRequestController {
   @FXML
   public void switchToComputer(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.COMPUTER);
-  }
-
-  @FXML
-  public void switchToIDInput(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.ID_INPUT);
   }
 
   @FXML

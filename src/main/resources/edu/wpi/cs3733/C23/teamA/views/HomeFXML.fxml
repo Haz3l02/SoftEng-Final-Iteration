@@ -15,7 +15,7 @@
    <children>
       <VBox alignment="BOTTOM_LEFT" layoutX="7.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="549.0">
          <children>
-            <Label fx:id="time" text="Label" textFill="WHITE">
+            <Label fx:id="time" text="Today's Date: " textFill="WHITE">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>

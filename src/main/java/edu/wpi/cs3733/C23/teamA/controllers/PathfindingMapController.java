@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.databases.*;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -25,7 +24,7 @@ import org.hibernate.Session;
 /* This class has methods for pathfinding UI as well as methods to
 create a graph using nodes from database and method to call AStar
 to obtain and later print the path */
-public class PathfindingMapController extends ServiceRequestController {
+public class PathfindingMapController extends MenuController {
 
   // javaFX items
   @FXML private Text pathMapText;

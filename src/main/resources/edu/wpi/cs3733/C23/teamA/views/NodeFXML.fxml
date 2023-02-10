@@ -21,9 +21,9 @@
          <top>
             <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
                <left>
-                  <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="326.13671875" BorderPane.alignment="CENTER">
+                  <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="376.53668212890625" BorderPane.alignment="CENTER">
                      <font>
-                        <Font size="34.0" />
+                        <Font name="Arial Black" size="24.0" />
                      </font>
                      <BorderPane.margin>
                         <Insets left="10.0" />
@@ -90,21 +90,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton buttonType="RAISED" onAction="#switchToMapScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Map" textFill="#d3e9f6">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin></MFXButton>
-                  <MFXButton buttonType="RAISED" onAction="#switchToMoveScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Move" textFill="#d3e9f6">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToEdgeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Edge" textFill="#d3e9f6">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToHomeScene" prefHeight="38.0" prefWidth="60.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+                  <MFXButton alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="38.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>

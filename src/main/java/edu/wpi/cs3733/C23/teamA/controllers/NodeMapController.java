@@ -17,7 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.hibernate.Session;
 
-public class NodeMapController extends ServiceRequestController {
+public class NodeMapController extends MenuController {
 
   @FXML private Canvas nodeMapCanvas; // to display the generated path
   @FXML private ImageView nodeMapImage;
@@ -53,8 +53,4 @@ public class NodeMapController extends ServiceRequestController {
     nodeMapImage.setImage(image);
   }
 
-  @FXML
-  public void switchToNodeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.NODE);
-  }
 }

@@ -62,7 +62,7 @@
                   <Insets left="10.0" top="5.0" />
                </HBox.margin>
             </Text>
-            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="219.0">
+            <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="219.0">
                <children>
                   <MFXButton id="helpButton" fx:id="homeButton" buttonType="RAISED" minHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="28.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
                      <HBox.margin>
@@ -97,7 +97,7 @@
       </HBox>
    </top>
    <center>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
             <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Form Submissions" wrappingWidth="195.21630859375">
                <font>
@@ -107,11 +107,11 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Text>
-            <SplitPane dividerPositions="0.2438423645320197" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="275.0" prefWidth="611.0">
+            <SplitPane dividerPositions="0.2438423645320197" maxHeight="1.7976931348623157E308" prefHeight="275.0" prefWidth="607.0">
               <items>
-                  <AnchorPane maxHeight="-Infinity" prefHeight="309.0" prefWidth="145.0">
+                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="309.0" prefWidth="145.0">
                      <children>
-                        <VBox layoutX="44.0" layoutY="38.0" prefHeight="275.5" prefWidth="145.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox layoutX="44.0" layoutY="38.0" prefWidth="145.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form Type" wrappingWidth="128.0790786743164">
                                  <font>
@@ -165,16 +165,16 @@
                            </children>
                         </VBox>
                      </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="237.0" prefWidth="458.0">
+                <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="237.0" prefWidth="458.0">
                      <children>
-                        <TableView fx:id="serviceReqsTable" editable="true" layoutX="-199.0" layoutY="14.0" onMouseClicked="#rowClicked" prefHeight="241.0" prefWidth="462.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="serviceReqsTable" editable="true" layoutX="-199.0" layoutY="14.0" onMouseClicked="#rowClicked" prefWidth="462.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                               <TableColumn fx:id="IDCol" minWidth="0.0" prefWidth="0.0" text="ID" />
-                            <TableColumn fx:id="formTypeCol" prefWidth="130.3999786376953" text="Form Type" />
-                              <TableColumn fx:id="dateCol" prefWidth="56.659881591796875" text="Date" />
-                              <TableColumn fx:id="statusCol" prefWidth="68.94076538085938" text="Status" />
-                              <TableColumn fx:id="urgencyCol" prefWidth="78.75567626953125" text="Urgency" />
-                              <TableColumn fx:id="employeeAssignedCol" prefWidth="121.74432373046875" text="Employee Assigned" />
+                            <TableColumn fx:id="formTypeCol" prefWidth="87.20000916719437" text="Form Type" />
+                              <TableColumn fx:id="dateCol" prefWidth="111.19996643066406" text="Date" />
+                              <TableColumn fx:id="statusCol" prefWidth="59.20008850097656" text="Status" />
+                              <TableColumn fx:id="urgencyCol" prefWidth="64.7999267578125" text="Urgency" />
+                              <TableColumn fx:id="employeeAssignedCol" prefWidth="136.80001831054688" text="Employee Assigned" />
                           </columns>
                         </TableView>
                      </children>

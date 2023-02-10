@@ -24,7 +24,7 @@ import javafx.fxml.FXML;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ComputerController extends ServiceRequestController {
+public class ComputerController extends MenuController {
 
   @FXML private MFXTextField deviceIDNum;
   @FXML private MFXComboBox<String> devicesBox;
@@ -64,7 +64,6 @@ public class ComputerController extends ServiceRequestController {
       List<LocationnameEntity> temp = new ArrayList<LocationnameEntity>();
       temp = getAllRecords(LocationnameEntity.class, session);
 
-      // ArrayList<Move> moves = Move.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationnameEntity move : temp) {
         locations.add(move.getLongname());
@@ -82,20 +81,11 @@ public class ComputerController extends ServiceRequestController {
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
 
     if (newEdit.needEdits && newEdit.getRequestType().equals("COMPUTER")) {
-      //      String requestType =
-      //          (newEdit.getRequestType())
-      //              .substring(0, (newEdit.getRequestType().indexOf("Request")) - 1); //
-      // "Computer"
-      //      if (requestType.equals("Computer")) {
-      System.out.println("here");
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();
       ComputerrequestEntity editComputerRequest =
           session.get(ComputerrequestEntity.class, newEdit.getRequestID());
-      System.out.println("before switch here");
-      // editComputerRequest.getRequestID()
-      // editComputerRequest = editComputerRequest.getComputerRequest(newEdit.getRequestID());
-      System.out.println("after switch here");
+
       nameBox.setText(editComputerRequest.getName());
       IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
       devicesBox.setText(editComputerRequest.getDevice().toString());
@@ -184,16 +174,12 @@ public class ComputerController extends ServiceRequestController {
         submission.setUrgency(urgent);
         submission.setDevice(device);
         submission.setDeviceid(deviceIDNum.getText());
-        System.out.println("made the new change");
-        // session.persist(submission);
-        // session.merge(submission);
         tx.commit();
         session.close();
       } else {
         Session session = getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
-        // IDNum.getText()
         LocationnameEntity location = session.get(LocationnameEntity.class, locationBox.getText());
         switch (urgencyBox.getValue()) {
           case "Low":

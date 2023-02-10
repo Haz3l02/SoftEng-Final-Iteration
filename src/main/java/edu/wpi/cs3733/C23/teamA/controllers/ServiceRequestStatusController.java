@@ -12,8 +12,6 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.*;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.SanitationRequest;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequest;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.ServiceRequestTableRow;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -34,7 +32,7 @@ import javafx.scene.text.Text;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ServiceRequestStatusController extends ServiceRequestController {
+public class ServiceRequestStatusController extends MenuController {
 
   @FXML private TableView<ServiceRequestTableRow> serviceReqsTable;
   @FXML public TableColumn<ServiceRequestTableRow, Integer> IDCol;
@@ -88,8 +86,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       dateBox.setDisable(true);
       urgencyBox.setDisable(true);
     }
-    // NodeIndicesHolder holder = NodeIndicesHolder.getInstance();
-    // hospitalID = holder.getId();
 
     IDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
     formTypeCol.setCellValueFactory(new PropertyValueFactory<>("formType"));
@@ -98,20 +94,14 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
-    ServiceRequest sr = new SanitationRequest();
 
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-
-    // ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
     List<ServicerequestEntity> requests = new ArrayList<ServicerequestEntity>();
 
     if (job.equals("medical") || job.equals("Medical")) {
-      // specificRequests = sr.getServiceRequestsByID(hospitalID);
       requests = getServiceByEmployee(hospitalID, session);
-
     } else {
-      // specificRequests = sr.getServiceRequests();
       requests = getAllRecords(ServicerequestEntity.class, session);
     }
 
@@ -250,7 +240,6 @@ public class ServiceRequestStatusController extends ServiceRequestController {
             billy.setUrgency(urgent);
           }
           billy.setEmployeeassigned(employeeBox.getText());
-          // billy.updateStatusEmployee(currentRowId, statusBox.getText(), employeeBox.getText());
           tx.commit();
           session.close();
           break;

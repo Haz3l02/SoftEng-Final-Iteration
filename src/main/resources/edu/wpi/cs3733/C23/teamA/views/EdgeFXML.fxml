@@ -89,29 +89,20 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <MFXButton buttonType="RAISED" onAction="#switchToMoveScene" style="-fx-background-color: #224870;" text="Move" textFill="#d3e9f6">
+            <MFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToMapScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Map" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
-               <font>
-                  <Font name="Kohinoor Bangla" size="13.0" />
-               </font>
             </MFXButton>
-            <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToNodeScene" style="-fx-background-color: #224870;" text="Node" textFill="#d3e9f6">
+            <MFXButton buttonType="RAISED" onAction="#switchToMoveScene" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Move" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
-               <font>
-                  <Font name="Kohinoor Bangla" size="13.0" />
-               </font>
             </MFXButton>
-            <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToHomeScene" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
+            <MFXButton alignment="CENTER" buttonType="RAISED" onAction="#switchToHomeDatabaseScene" prefHeight="38.0" prefWidth="68.0" style="-fx-background-color: #224870;" text="Cancel" textFill="#d3e9f6">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
-               <font>
-                  <Font name="Kohinoor Bangla" size="13.0" />
-               </font>
             </MFXButton>
          </children>
       </HBox>
