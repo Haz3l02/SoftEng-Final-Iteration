@@ -1,20 +1,19 @@
 package edu.wpi.cs3733.C23.teamA.Database.API;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public interface IDatabaseAPI<T, G> {
-    public List<T> getAll();
+  public List<T> getAll();
 
-    public void add(Object obj);
+  public void add(T obj);
 
-    public void importFromCSV(String filename);
+  public void importFromCSV(String filename) throws FileNotFoundException;
 
-    public void exportToCSV(String filename);
+  public void exportToCSV(String filename) throws IOException;
 
-    //public void update(String ID, T obj, G attributes);
+  public void update(G ID, T obj);
 
-    public void delete(T obj);
-
-
-
+  public void delete(T obj);
 }

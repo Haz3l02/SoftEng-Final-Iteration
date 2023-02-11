@@ -1,12 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 @Entity
 @Table(
@@ -68,6 +64,4 @@ public class EmployeeEntity {
   }
 
   public EmployeeEntity() {}
-
-
 }
