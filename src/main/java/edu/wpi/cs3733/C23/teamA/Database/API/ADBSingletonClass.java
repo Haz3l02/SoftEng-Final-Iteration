@@ -1,18 +1,14 @@
 package edu.wpi.cs3733.C23.teamA.Database.API;
 
-import static java.lang.Integer.parseInt;
-
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.*;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -60,68 +56,20 @@ public class ADBSingletonClass {
     hql = "delete from LocationNameEntity";
     q = session.createQuery(hql);
     q.executeUpdate();
+    tx.commit();
 
     File nodes = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/nodes.csv");
     File edges = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/edges.csv");
     File moves = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/move.csv");
     File locationname =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/locationname.csv");
-    Scanner read = new Scanner(nodes);
-    int count = 0;
-    read.nextLine();
-
-    while (read.hasNextLine()) {
-      String[] b = read.nextLine().split(",");
-      session.persist(new NodeEntity(b[0], parseInt(b[1]), parseInt(b[2]), b[3], b[4]));
-      count++;
-      if (count % 20 == 0) {
-        session.flush();
-        session.clear();
-      }
-    }
-
-    read = new Scanner(edges);
-    read.nextLine();
-    while (read.hasNextLine()) {
-      String[] b = read.nextLine().split(",");
-      session.persist(
-          new EdgeEntity(
-              session.get(NodeEntity.class, b[1]), session.get(NodeEntity.class, b[2]), b[0]));
-      count++;
-      if (count % 20 == 0) {
-        session.flush();
-        session.clear();
-      }
-    }
-
-    read = new Scanner(locationname);
-    read.nextLine();
-    while (read.hasNextLine()) {
-      String[] b = read.nextLine().split(",");
-      session.persist(new LocationNameEntity(b[1], b[2], b[0]));
-      count++;
-      if (count % 20 == 0) {
-        session.flush();
-        session.clear();
-      }
-    }
-
-    read = new Scanner(moves);
-    read.nextLine();
-    while (read.hasNextLine()) {
-      String[] b = read.nextLine().split(",");
-      session.persist(
-          new MoveEntity(
-              session.get(NodeEntity.class, b[0]),
-              session.get(LocationNameEntity.class, b[1]),
-              Timestamp.valueOf((b[2]))));
-      count++;
-      if (count % 20 == 0) {
-        session.flush();
-        session.clear();
-      }
-    }
-    tx.commit();
-    session.close();
+    NodeImpl node = new NodeImpl();
+    EdgeImpl edge = new EdgeImpl();
+    LocationNameImpl location = new LocationNameImpl();
+    MoveImpl move = new MoveImpl();
+    node.importFromCSV();
+    edge.importFromCSV();
+    location.importFromCSV();
+    move.importFromCSV();
   }
 }
