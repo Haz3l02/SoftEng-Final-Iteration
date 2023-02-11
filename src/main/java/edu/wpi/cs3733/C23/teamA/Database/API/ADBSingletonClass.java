@@ -39,7 +39,19 @@ public class ADBSingletonClass {
     return records;
   }
 
-  public static void rewriteNodesEdgesMoves(Session session) throws FileNotFoundException {
+  public static void rewriteNodesEdgesMoves(Session session) throws IOException {
+    NodeImpl node = new NodeImpl();
+    EdgeImpl edge = new EdgeImpl();
+    LocationNameImpl location = new LocationNameImpl();
+    MoveImpl move = new MoveImpl();
+
+    // Backing up tables to /CSVBackup in /Database
+    node.exportToCSV();
+    edge.exportToCSV();
+    location.exportToCSV();
+    move.exportToCSV();
+
+    // Dropping tables
     Transaction tx = session.beginTransaction();
     String hql = "delete from MoveEntity";
     Query q = session.createQuery(hql);
@@ -58,15 +70,7 @@ public class ADBSingletonClass {
     q.executeUpdate();
     tx.commit();
 
-    File nodes = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/nodes.csv");
-    File edges = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/edges.csv");
-    File moves = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/move.csv");
-    File locationname =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/locationname.csv");
-    NodeImpl node = new NodeImpl();
-    EdgeImpl edge = new EdgeImpl();
-    LocationNameImpl location = new LocationNameImpl();
-    MoveImpl move = new MoveImpl();
+    // Pulling csvs into tables
     node.importFromCSV();
     edge.importFromCSV();
     location.importFromCSV();

@@ -25,13 +25,14 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, St
     return records;
   }
 
-  public void exportToCSV(String filename) throws IOException {
+  public void exportToCSV() throws IOException {
     List<ServiceRequestEntity> sers = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File csvFile =
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/servicerequest.csv");
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write(
         "requestid,date,description,employeeassigned,name,requestype,status,urgency,employeeid,location\n");

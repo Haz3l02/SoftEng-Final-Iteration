@@ -25,13 +25,13 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     return records;
   }
 
-  public void exportToCSV(String filename) throws IOException {
+  public void exportToCSV() throws IOException {
     List<NodeEntity> nods = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/nodes.csv");
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("node,xcoord,ycoord,building,floor\n");
     for (NodeEntity nod : nods) {
@@ -53,10 +53,10 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   public void importFromCSV() throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
 
-    File nod = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/nodes.csv");
+    File node = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/nodes.csv");
 
     Transaction tx = session.beginTransaction();
-    Scanner read = new Scanner(nod);
+    Scanner read = new Scanner(node);
     int count = 0;
     read.nextLine();
 

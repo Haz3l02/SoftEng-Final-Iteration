@@ -1,16 +1,16 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.rewriteNodesEdgesMoves;
 import static edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl.checkPass;
 
-import edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
@@ -45,7 +45,7 @@ public class LoginController {
   }
 
   @FXML
-  public void login(ActionEvent event) throws SQLException, FileNotFoundException {
+  public void login(ActionEvent event) throws SQLException, IOException {
 
     Session session = getSessionFactory().openSession();
     // Transaction tx = session.beginTransaction();
@@ -61,7 +61,7 @@ public class LoginController {
       holder.setPassword(passwordTextField.getText());
       holder.setJob(info.get(1));
       holder.setName(info.get(2));
-      ADBSingletonClass.rewriteNodesEdgesMoves(session);
+      rewriteNodesEdgesMoves(session);
       session.close();
       Navigation.navigateHome(Screen.HOME);
     }

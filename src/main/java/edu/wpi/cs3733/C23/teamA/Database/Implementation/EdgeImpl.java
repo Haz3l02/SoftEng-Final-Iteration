@@ -26,18 +26,24 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     return records;
   }
 
-  public void exportToCSV(String filename) throws IOException {
+  public void exportToCSV() throws IOException {
     Session session = getSessionFactory().openSession();
     List<EdgeEntity> edges = getAllRecords(EdgeEntity.class, session);
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/edges.csv");
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("edgeid, node1, node2\n");
     for (EdgeEntity edge : edges) {
-      fileWriter.write(edge.getEdgeid() + ", " + edge.getNode1() + ", " + edge.getNode2() + "\n");
+      fileWriter.write(
+          edge.getEdgeid()
+              + ", "
+              + edge.getNode1().getNodeid()
+              + ", "
+              + edge.getNode2().getNodeid()
+              + "\n");
     }
     fileWriter.close();
   }

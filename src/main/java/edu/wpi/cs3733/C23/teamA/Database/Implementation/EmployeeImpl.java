@@ -28,13 +28,14 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     return records;
   }
 
-  public void exportToCSV(String filename) throws IOException {
+  public void exportToCSV() throws IOException {
     List<EmployeeEntity> emps = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File csvFile =
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/employee.csv");
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("employeeid,job,name,password,username\n");
     for (EmployeeEntity emp : emps) {

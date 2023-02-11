@@ -30,18 +30,23 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, String> {
     return records;
   }
 
-  public void exportToCSV(String filename) throws IOException {
+  public void exportToCSV() throws IOException {
     List<MoveEntity> movs = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/move.csv");
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("movedate,longname,nodeid\n");
     for (MoveEntity mov : movs) {
       fileWriter.write(
-          mov.getMovedate() + "," + mov.getLocationName() + "," + mov.getNode() + "\n");
+          mov.getMovedate()
+              + ","
+              + mov.getLocationName().getLongname()
+              + ","
+              + mov.getNode().getNodeid()
+              + "\n");
     }
     fileWriter.close();
   }
@@ -51,10 +56,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, String> {
   // can't recognize class as string
   public void importFromCSV() throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
-
-    //     String hql = "delete from EmployeeEntity";
-    //     Query q = session.createQuery(hql);
-    //     q.executeUpdate();
 
     File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/move.csv");
 

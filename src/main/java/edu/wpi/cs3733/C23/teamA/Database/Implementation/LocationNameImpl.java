@@ -16,7 +16,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String> {
-
   // done
   public List<LocationNameEntity> getAll() {
     Session session = getSessionFactory().openSession();
@@ -27,13 +26,14 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     return records;
   }
 
-  public void exportToCSV(String filename) throws IOException {
+  public void exportToCSV() throws IOException {
     List<LocationNameEntity> locs = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File csvFile =
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/locationname.csv");
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("longname, locationtype, shortname\n");
     for (LocationNameEntity loc : locs) {
@@ -45,10 +45,6 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
 
   public void importFromCSV() throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
-
-    //     String hql = "delete from EmployeeEntity";
-    //     Query q = session.createQuery(hql);
-    //     q.executeUpdate();
 
     File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/locationname.csv");
 

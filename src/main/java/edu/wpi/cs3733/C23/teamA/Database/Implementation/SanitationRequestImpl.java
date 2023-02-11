@@ -24,7 +24,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     return records;
   }
 
-  public void exportToCSV(String filename) throws IOException {}
+  public void exportToCSV() throws IOException {}
 
   public void importFromCSV() throws FileNotFoundException {}
 
