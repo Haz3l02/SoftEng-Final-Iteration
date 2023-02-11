@@ -201,13 +201,13 @@
                                 </HBox>
                                 <StackPane prefHeight="510.0" prefWidth="754.0">
                                     <children>
-                              <TabPane prefHeight="329.0" prefWidth="787.0" tabClosingPolicy="UNAVAILABLE">
+                              <TabPane prefHeight="430.0" prefWidth="687.0" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
                                     <Tab text="L2">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="mapImage" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="floorL2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
                                                 <Canvas fx:id="mapCanvas" height="456.0" width="754.0" />
                                              </children>
                                           </AnchorPane>
@@ -217,7 +217,7 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="mapImage1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="floorL1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
                                                 <Canvas fx:id="mapCanvas1" height="456.0" width="754.0" />
                                              </children>
                                           </AnchorPane>
@@ -227,7 +227,7 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="mapImage2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="floorF1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
                                                 <Canvas fx:id="mapCanvas2" height="456.0" width="754.0" />
                                              </children>
                                           </AnchorPane>
@@ -237,7 +237,7 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="mapImage3" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="floorF2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
                                                 <Canvas fx:id="mapCanvas3" height="456.0" width="754.0" />
                                              </children>
                                           </AnchorPane>
@@ -247,7 +247,7 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="mapImage4" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="floorF3" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
                                                 <Canvas fx:id="mapCanvas4" height="456.0" width="754.0" />
                                              </children>
                                           </AnchorPane>
