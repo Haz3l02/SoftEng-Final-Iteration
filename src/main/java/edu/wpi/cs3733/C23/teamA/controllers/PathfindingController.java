@@ -181,7 +181,7 @@ public class PathfindingController extends MenuController {
     gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
 
     // constant for map size/coordinate manipulation
-    pathfindingSystem.drawPath(gc, path, 1);
+    pathfindingSystem.drawPath(gc, path, SCALE_FACTOR);
   }
 
   /**
