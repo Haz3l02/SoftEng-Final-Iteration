@@ -5,6 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecor
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -22,7 +23,7 @@ import javafx.fxml.FXML;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class SanitationController extends ServiceRequestController {
+public class SanitationController extends MenuController {
 
   UrgencyLevel urgent;
   IssueCategory category;
@@ -49,7 +50,6 @@ public class SanitationController extends ServiceRequestController {
       Session session = getSessionFactory().openSession();
       List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
 
-      // ArrayList<Move> moves = Move.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationNameEntity move : temp) {
         locations.add(move.getLongname());
@@ -64,7 +64,7 @@ public class SanitationController extends ServiceRequestController {
       urgencyBox.setItems(urgencies);
       locationBox.setItems(locations);
     }
-    if (newEdit.needEdits && newEdit.getRequestType().equals("SANITATION")) {
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Sanitation")) {
 
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();
@@ -130,7 +130,7 @@ public class SanitationController extends ServiceRequestController {
         // IDNum.getText()
         LocationNameEntity location = session.get(LocationNameEntity.class, locationBox.getText());
 
-        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
         category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
 
         SanitationRequestEntity submission =
@@ -141,7 +141,7 @@ public class SanitationController extends ServiceRequestController {
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.SANITATION,
-                ServiceRequestEntity.Status.BLANK,
+                Status.BLANK,
                 "Unassigned",
                 category);
         session.persist(submission);

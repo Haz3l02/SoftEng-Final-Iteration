@@ -19,7 +19,7 @@ import javafx.scene.text.Text;
 import oracle.ucp.common.waitfreepool.Tuple;
 import org.hibernate.Session;
 
-public class PathfindingController extends ServiceRequestController {
+public class PathfindingController extends MenuController {
 
   // javaFX items
   @FXML private MFXFilterComboBox<String> startNodeID; // field to enter startNode

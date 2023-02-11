@@ -21,7 +21,7 @@ import org.controlsfx.control.PopOver;
 
 // import org.controlsfx.control.PopOver;
 
-public abstract class ServiceRequestController {
+public abstract class MenuController {
   // protected HashMap<String, SanitationRequest> requests = new HashMap<String,
   // SanitationRequest>();
 
@@ -90,6 +90,10 @@ public abstract class ServiceRequestController {
     descBox.clear();
     urgencyBox.clear();
     locationBox.clear();
+  }
+
+  public void switchToHomeDatabaseScene(ActionEvent event) {
+    Navigation.navigate(Screen.HOME_DATABASE);
   }
 
   public void logout(ActionEvent event) {

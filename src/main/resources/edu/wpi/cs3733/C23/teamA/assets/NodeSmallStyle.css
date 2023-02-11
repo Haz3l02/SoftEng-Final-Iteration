@@ -1,0 +1,7 @@
+.Node_container {
+    -fx-graphic: url(node.png);
+    -fx-graphic-size: 20;
+    -fx-graphic-text-gap: 1;
+    /*-fx-background-position: center;*/
+    /*-fx-background-repeat: no-repeat;*/
+}

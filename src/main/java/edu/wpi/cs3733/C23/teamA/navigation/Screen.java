@@ -21,6 +21,7 @@ public enum Screen {
   ID_INPUT("views/IDInputFXML.fxml"),
   LOGIN("views/LoginFXML.fxml"),
   NODE_MAP("views/NodeMapFXML.fxml"),
+  HOME_DATABASE("views/HomeDatabaseFXML.fxml"),
   MAP_DISPLAY("views/PathDisplayFXML.fxml");
 
   private final String filename;

@@ -31,6 +31,8 @@ public class GraphNode implements Comparable<GraphNode> {
   @Getter @Setter
   private double score; // score (f(x)) = costFromStart (g(x)) + heurCostToEnd (h(x))
 
+  @Getter private double penalty; // distance penalty to encourage/discourage A*
+
   /**
    * @param nodeID
    * @param xCoord
@@ -49,6 +51,24 @@ public class GraphNode implements Comparable<GraphNode> {
     costFromStart = Double.POSITIVE_INFINITY;
     heurCostToEnd = Double.POSITIVE_INFINITY;
     score = Double.POSITIVE_INFINITY;
+    penalty = 0;
+  }
+
+  public GraphNode(String nodeID, int xCoord, int yCoord, String longName, String nodeType) {
+    this.nodeID = nodeID;
+    this.xCoord = xCoord;
+    this.yCoord = yCoord;
+    this.longName = longName;
+    this.nodeType = nodeType;
+
+    visited = false;
+    parent = null;
+    neighbors = new ArrayList<GraphNode>();
+
+    costFromStart = Double.POSITIVE_INFINITY;
+    heurCostToEnd = Double.POSITIVE_INFINITY;
+    score = Double.POSITIVE_INFINITY;
+    penalty = 0;
   }
 
   /**
