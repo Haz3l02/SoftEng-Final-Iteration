@@ -114,6 +114,16 @@ public class PathfindingController extends MenuController {
   // TODO: function to initialize PathfindingSystem with a different algorithm depending on which
   // one is selected in the dropdown
 
+  @FXML
+  public void setPathfindingAlgorithm(ActionEvent event) {
+
+    /*
+    pathfindingSystem =
+        new PathfindingSystem();
+
+     */
+  }
+
   // TODO: function to get an ObservableList of locations based on floor and some stuff to do that
   // when a floor is picked in dropdown
 
