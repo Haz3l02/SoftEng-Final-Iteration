@@ -4,34 +4,47 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import static java.lang.Integer.parseInt;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.MutationQuery;
+import org.w3c.dom.Node;
 
 public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   // done
 
-  public List<NodeEntity> getAll() {
+
+  private ArrayList<NodeEntity> nodes;
+
+  public NodeImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<NodeEntity> criteria = builder.createQuery(NodeEntity.class);
     criteria.from(NodeEntity.class);
     List<NodeEntity> records = session.createQuery(criteria).getResultList();
-    return records;
+    session.close();
+    nodes = (ArrayList)records;
   }
 
-  public void exportToCSV() throws IOException {
+  public List<NodeEntity> getAll() {
+    return nodes;
+  }
+
+  public void exportToCSV(String filename) throws IOException {
     List<NodeEntity> nods = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/nodes.csv");
+    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("node,xcoord,ycoord,building,floor\n");
     for (NodeEntity nod : nods) {
@@ -50,10 +63,15 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     fileWriter.close();
   }
 
-  public void importFromCSV() throws FileNotFoundException {
+  public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
 
-    File node = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/nodes.csv");
+    String hql = "delete from NodeEntity ";
+    MutationQuery q = session.createMutationQuery(hql);
+    q.executeUpdate();
+    nodes.clear();
+
+    File node = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/"+filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(node);
@@ -64,6 +82,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
       String[] b = read.nextLine().split(",");
       session.persist(new NodeEntity(b[0], parseInt(b[1]), parseInt(b[2]), b[3], b[4]));
       count++;
+      nodes.add(session.get(NodeEntity.class, b[0]));
       if (count % 20 == 0) {
         session.flush();
         session.clear();
@@ -77,7 +96,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(n);
-
+    nodes.add(n);
     tx.commit();
     session.close();
   }
@@ -86,10 +105,35 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(n);
-
+    for (NodeEntity nod : nodes){
+      if (nod.equals(n)){
+        nodes.remove(nod);
+      }
+    }
     tx.commit();
     session.close();
   }
 
-  public void update(String ID, NodeEntity obj) {}
+  public void update(String ID, NodeEntity obj) {
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+
+    NodeEntity n = session.get(NodeEntity.class, ID);
+
+    n.setBuilding(obj.getBuilding());
+    n.setXcoord(obj.getXcoord());
+    n.setYcoord(obj.getYcoord());
+    n.setFloor(obj.getFloor());
+
+
+    for (NodeEntity nod : nodes){
+      if (nod.equals(obj)){
+        nodes.remove(obj);
+      }
+    }
+
+    nodes.add(n);
+    tx.commit();
+    session.close();
+  }
 }

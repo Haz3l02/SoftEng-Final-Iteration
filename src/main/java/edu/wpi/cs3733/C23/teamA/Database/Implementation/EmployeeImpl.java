@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -16,26 +17,34 @@ import java.util.List;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.MutationQuery;
 
 public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
-  public List<EmployeeEntity> getAll() {
+  private ArrayList<EmployeeEntity> employees;
+
+  public EmployeeImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EmployeeEntity> criteria = builder.createQuery(EmployeeEntity.class);
     criteria.from(EmployeeEntity.class);
     List<EmployeeEntity> records = session.createQuery(criteria).getResultList();
-    return records;
+    session.close();
+    employees = (ArrayList) records;
   }
 
-  public void exportToCSV() throws IOException {
+  public List<EmployeeEntity> getAll() {
+    return employees;
+  }
+
+  public void exportToCSV(String filename) throws IOException {
     List<EmployeeEntity> emps = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/employee.csv");
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("employeeid,job,name,password,username\n");
     for (EmployeeEntity emp : emps) {
@@ -54,7 +63,29 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     fileWriter.close();
   }
 
-  public void update(String ID, EmployeeEntity obj) {}
+  public void update(String ID, EmployeeEntity obj) {
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+
+    EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
+
+    emp.setJob(obj.getJob());
+    emp.setUsername(obj.getUsername());
+    emp.setPassword(obj.getPassword());
+    emp.setName(obj.getName());
+
+    for (EmployeeEntity em : employees){
+      if (em.getEmployeeid().equals(emp.getEmployeeid())){
+        employees.remove(em);
+      }
+    }
+
+    employees.add(emp);
+    tx.commit();
+    session.close();
+
+
+  }
 
   public static ArrayList<String> checkPass(String user, String pass) {
     Session session = getSessionFactory().openSession();
@@ -88,19 +119,19 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(e);
-
+    employees.add(e);
     tx.commit();
     session.close();
   }
 
-  public void importFromCSV() throws FileNotFoundException {
+  public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
 
     String hql = "delete from EmployeeEntity";
-    Query q = session.createQuery(hql);
+    MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
-
-    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/employee.csv");
+    employees.clear();
+    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/"+ filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(emps);
@@ -110,6 +141,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");
       session.persist(new EmployeeEntity(b[0], b[4], b[3], b[1], b[2]));
+      employees.add(session.get(EmployeeEntity.class, b[0]));
       //      count++;
       //      if (count % 20 == 0) {
       //        session.flush();
@@ -120,25 +152,16 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     session.close();
   }
 
-  /*public void update(String employeeid, String username, String password,
-                             String job, String name, Session session) {
-    Transaction tx = session.beginTransaction();
-    String hql = "update EmployeeEntity set username=:u, password=:p, job=:j, name=:n " +
-            "where employeeid=:e";
-    Query query = session.createQuery(hql, EmployeeEntity.class);
-    query.setParameter("u",username);
-    query.setParameter("p",password);
-    query.setParameter("j", job);
-    query.setParameter("n", name);
-    query.setParameter("e", employeeid);
-    query.executeUpdate();
-    tx.commit();
-  }*/
 
   public void delete(EmployeeEntity e) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(e);
+    for (EmployeeEntity emp : employees){
+      if (emp.getEmployeeid().equals(e.getEmployeeid())){
+        employees.remove(emp);
+      }
+    }
 
     tx.commit();
     session.close();

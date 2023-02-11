@@ -45,35 +45,13 @@ public class ADBSingletonClass {
     LocationNameImpl location = new LocationNameImpl();
     MoveImpl move = new MoveImpl();
 
-    // Backing up tables to /CSVBackup in /Database
-    node.exportToCSV();
-    edge.exportToCSV();
-    location.exportToCSV();
-    move.exportToCSV();
 
-    // Dropping tables
-    Transaction tx = session.beginTransaction();
-    String hql = "delete from MoveEntity";
-    Query q = session.createQuery(hql);
-    q.executeUpdate();
 
-    hql = "delete from EdgeEntity";
-    q = session.createQuery(hql);
-    q.executeUpdate();
-
-    hql = "delete from NodeEntity";
-    q = session.createQuery(hql);
-    q.executeUpdate();
-
-    hql = "delete from LocationNameEntity";
-    q = session.createQuery(hql);
-    q.executeUpdate();
-    tx.commit();
 
     // Pulling csvs into tables
-    node.importFromCSV();
-    edge.importFromCSV();
-    location.importFromCSV();
-    move.importFromCSV();
+    node.importFromCSV("node.csv");
+    edge.importFromCSV("edge.csv");
+    location.importFromCSV("location.csv");
+    move.importFromCSV("move.csv");
   }
 }

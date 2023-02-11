@@ -23,9 +23,9 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     return records;
   }
 
-  public void exportToCSV() throws IOException {}
+  public void exportToCSV(String filename) throws IOException {}
 
-  public void importFromCSV() throws FileNotFoundException {}
+  public void importFromCSV(String filename) throws FileNotFoundException {}
 
   public void add(SecurityRequestEntity s) {
     Session session = getSessionFactory().openSession();

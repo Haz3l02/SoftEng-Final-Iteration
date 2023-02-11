@@ -25,7 +25,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, St
     return records;
   }
 
-  public void exportToCSV() throws IOException {
+  public void exportToCSV(String filename) throws IOException {
     List<ServiceRequestEntity> sers = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
@@ -52,7 +52,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, St
     fileWriter.close();
   }
 
-  public void importFromCSV() throws FileNotFoundException {}
+  public void importFromCSV(String filename) throws FileNotFoundException {}
 
   public void add(ServiceRequestEntity s) {
     Session session = getSessionFactory().openSession();

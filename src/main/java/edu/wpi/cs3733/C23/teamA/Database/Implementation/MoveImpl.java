@@ -13,30 +13,41 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.MutationQuery;
 
-public class MoveImpl implements IDatabaseAPI<MoveEntity, String> {
+public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
+
+  private ArrayList<MoveEntity> moves;
   // done except importCSV
-  public List<MoveEntity> getAll() {
+
+
+  public MoveImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
-    return records;
+    session.close();
+    moves = (ArrayList)records;
   }
 
-  public void exportToCSV() throws IOException {
+  public List<MoveEntity> getAll() {
+    return moves;
+  }
+
+  public void exportToCSV(String filename) throws IOException {
     List<MoveEntity> movs = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/move.csv");
+    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("movedate,longname,nodeid\n");
     for (MoveEntity mov : movs) {
@@ -54,10 +65,15 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, String> {
   // does not work
   // different node types
   // can't recognize class as string
-  public void importFromCSV() throws FileNotFoundException {
+  public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
 
-    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/move.csv");
+
+    String hql = "delete from MoveEntity ";
+    MutationQuery q = session.createMutationQuery(hql);
+    q.executeUpdate();
+    moves.clear();
+    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/"+filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);
@@ -66,12 +82,15 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, String> {
 
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");
-      session.persist(
-          new MoveEntity(
+      MoveEntity mov = new MoveEntity(
               session.get(NodeEntity.class, b[0]),
               session.get(LocationNameEntity.class, b[1]),
-              Timestamp.valueOf(b[2])));
+              Timestamp.valueOf(b[2]));
+      session.persist(
+          mov);
+
       count++;
+      moves.add(mov);
       if (count % 20 == 0) {
         session.flush();
         session.clear();
@@ -85,7 +104,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(m);
-
+    moves.add(m);
     tx.commit();
     session.close();
   }
@@ -94,10 +113,18 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(m);
+    for (MoveEntity mov : moves){
+      if (mov.equals(m)){
+        moves.remove(mov);
+      }
+    }
+
 
     tx.commit();
     session.close();
   }
 
-  public void update(String ID, MoveEntity obj) {}
+  public void update(List<String> ID, MoveEntity obj) {
+
+  }
 }
