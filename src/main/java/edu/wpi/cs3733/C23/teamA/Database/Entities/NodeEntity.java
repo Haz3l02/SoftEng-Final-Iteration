@@ -54,9 +54,7 @@ public class NodeEntity {
     return query.getResultList();
   }
 
-  public NodeEntity() {
-  }
-
+  public NodeEntity() {}
 
   public NodeEntity(String nodeid, Integer xcoord, Integer ycoord, String floor, String building) {
     this.nodeid = nodeid;

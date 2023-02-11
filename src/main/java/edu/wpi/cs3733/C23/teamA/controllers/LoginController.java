@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl.checkPass;
+
 import edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -15,8 +17,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 import org.hibernate.Session;
-
-import static edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl.checkPass;
 
 public class LoginController {
 
@@ -48,8 +48,7 @@ public class LoginController {
     Session session = ADBSingletonClass.getSessionFactory().openSession();
     // Transaction tx = session.beginTransaction();
 
-    ArrayList<String> info =
-        checkPass(usernameTextField.getText(), passwordTextField.getText());
+    ArrayList<String> info = checkPass(usernameTextField.getText(), passwordTextField.getText());
 
     if (info.get(0).equals("")) {
       incorrectNotification.setVisible(true);

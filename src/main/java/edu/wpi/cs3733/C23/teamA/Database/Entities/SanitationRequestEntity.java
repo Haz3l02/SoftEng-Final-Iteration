@@ -5,7 +5,6 @@ import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
-
 import lombok.Getter;
 import lombok.Setter;
 
