@@ -78,6 +78,7 @@ public class MenuController {
     Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
   }
 
+
   public void switchToHomeDatabaseScene(ActionEvent event) {
     Navigation.navigateHome(Screen.HOME_DATABASE);
   }
