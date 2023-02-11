@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.SplitPane?>
@@ -14,21 +15,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1344.0" style="-fx-background-color: D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
     <bottom>
-        <HBox alignment="TOP_RIGHT" prefHeight="57.0" prefWidth="1406.0" BorderPane.alignment="CENTER">
+        <HBox alignment="TOP_RIGHT" prefHeight="79.0" prefWidth="1342.0" BorderPane.alignment="CENTER">
             <children>
-                <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="40.0" prefWidth="230.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 45;" text="Back" textFill="#d3e9f6">
+                <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="70.0" prefWidth="180.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Back" textFill="#d3e9f6">
                     <HBox.margin>
                         <Insets bottom="10.0" right="10.0" />
                     </HBox.margin>
                     <font>
-                        <Font size="18.0" />
+                        <Font size="25.0" />
                     </font>
                 </MFXButton>
-                <MFXButton id="findPathButton" fx:id="findPathButton1" buttonType="RAISED" defaultButton="true" onAction="#goToMapScene" prefHeight="40.0" prefWidth="230.0" rippleAnimateShadow="true" rippleColor="#420a55" style="-fx-background-color: #F6BD3A; -fx-background-radius: 45;" text="Find Path" textFill="#224870">
+                <MFXButton id="findPathButton" buttonType="RAISED" defaultButton="true" onAction="#generatePath" prefHeight="70.0" prefWidth="180.0" rippleAnimateShadow="true" rippleColor="#420a55" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-color: black; -fx-border-radius: 15;" text="Find Path" textFill="#224870">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="25.0" />
                     </font>
                     <HBox.margin>
                         <Insets bottom="10.0" right="10.0" />
@@ -38,13 +39,13 @@
         </HBox>
     </bottom>
     <center>
-        <SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="576.0" prefWidth="1419.0" style="-fx-background-color: D3E9F6;" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="588.0" prefWidth="1342.0" style="-fx-background-color: D3E9F6; -fx-border-color: d3e9f6;" stylesheets="@../assets/PathfindingStyle.css" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane prefHeight="717.0" prefWidth="441.0">
                     <children>
-                        <VBox layoutX="-2.0" layoutY="40.0" prefHeight="697.0" prefWidth="413.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox layoutX="-2.0" layoutY="40.0" prefHeight="697.0" prefWidth="413.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                             <children>
-                                <VBox fillWidth="false" minHeight="-Infinity" prefHeight="299.0" prefWidth="492.0" style="-fx-background-color: #4EA5D9; -fx-background-radius: 20; -fx-border-radius: 20;">
+                                <VBox fillWidth="false" minHeight="-Infinity" prefHeight="299.0" prefWidth="492.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
                                     <children>
                                         <VBox prefHeight="55.0" prefWidth="445.0">
                                             <children>
@@ -68,7 +69,7 @@
                                         </Text>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="startNodeID1" floatMode="DISABLED" prefHeight="32.0" prefWidth="181.0" text="Select Floor...">
+                                                <MFXFilterComboBox fx:id="startFloorBox" floatMode="DISABLED" prefHeight="32.0" prefWidth="181.0" text="Select Floor...">
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
@@ -76,7 +77,7 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="startNodeID" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
+                                                <MFXFilterComboBox fx:id="startLocBox" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
@@ -96,7 +97,7 @@
                                         </Text>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="startNodeID11" floatMode="DISABLED" prefHeight="32.0" prefWidth="183.0" text="Select Floor...">
+                                                <MFXFilterComboBox fx:id="endFloorBox" floatMode="DISABLED" prefHeight="32.0" prefWidth="183.0" text="Select Floor...">
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
@@ -104,7 +105,7 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="endNodeID" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
+                                                <MFXFilterComboBox fx:id="endLocBox" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
@@ -124,7 +125,7 @@
                                         </Text>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="endNodeID1" floatMode="DISABLED" prefHeight="33.0" prefWidth="248.0" text="Select Algorithm">
+                                                <MFXFilterComboBox fx:id="algosBox" floatMode="DISABLED" onAction="#setPathfindingAlgorithm" prefHeight="33.0" prefWidth="198.0" text="Select Algorithm">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
@@ -144,7 +145,7 @@
                                         <Insets />
                                     </VBox.margin>
                                 </VBox>
-                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="354.0" prefWidth="453.0" style="-fx-background-color: #4EA5D9; -fx-background-radius: 20; -fx-border-radius: 20;">
+                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="489.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
                                     <VBox.margin>
                                         <Insets top="20.0" />
                                     </VBox.margin>
@@ -157,7 +158,7 @@
                                                 <Insets left="10.0" />
                                             </VBox.margin>
                                         </Text>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Directions on how to get to your destination go here... " wrappingWidth="329.4289741516113">
+                                        <Text fx:id="pathMapText" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions on how to get to your destination go here... " wrappingWidth="455.1600532531738">
                                             <font>
                                                 <Font name="Verdana" size="18.0" />
                                             </font>
@@ -174,9 +175,9 @@
                   <Insets right="10.0" />
                </padding>
                 </AnchorPane>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="674.0" prefWidth="836.0" style="-fx-background-color: #4EA5D9; -fx-background-radius: 20; -fx-border-radius: 20;">
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="827.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
                     <children>
-                        <VBox layoutX="1.0" layoutY="40.0" prefHeight="669.0" prefWidth="797.0" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="0.0">
+                        <VBox layoutX="1.0" layoutY="40.0" prefHeight="555.0" prefWidth="797.0" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <HBox prefHeight="44.0" prefWidth="1063.0">
                                     <VBox.margin>
@@ -191,10 +192,10 @@
                                         <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0" />
                                     </children>
                                 </HBox>
-                                <StackPane prefHeight="518.0" prefWidth="748.0" style="-fx-background-color: green;">
+                                <StackPane prefHeight="510.0" prefWidth="754.0">
                                     <children>
-                                        <ImageView fx:id="mapImage" fitHeight="541.0" fitWidth="713.0" pickOnBounds="true" preserveRatio="true" />
-                                        <Canvas fx:id="mapCanvas" height="513.0" width="723.0" />
+                                        <ImageView fx:id="mapImage" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
+                                        <Canvas fx:id="mapCanvas" height="456.0" width="754.0" />
                                     </children>
                                     <VBox.margin>
                                         <Insets bottom="20.0" left="20.0" right="10.0" top="10.0" />
@@ -208,9 +209,13 @@
                     </padding>
                 </AnchorPane>
             </items>
-            <padding>
-                <Insets left="10.0" right="10.0" />
-            </padding>
+         <styleClass>
+            <String fx:value="split-pane-divider" />
+            <String fx:value="split-pane" />
+         </styleClass>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
         </SplitPane>
     </center>
 </BorderPane>
