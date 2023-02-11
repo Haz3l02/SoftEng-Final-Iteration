@@ -3,6 +3,9 @@ package edu.wpi.cs3733.C23.teamA.navigation;
 public enum Screen {
   ROOT("views/Root.fxml"),
   HOME("views/HomeFXML.fxml"),
+  HOME_MAINTENANCE("views/HomeMaintenanceFXML.fxml"),
+  HOME_ADMIN("views/HomeAdminFXML.fxml"),
+  HOME_EMPLOYEE("views/HomeEmployeeFXML.fxml"),
   COMPUTER_CONFIRMATION("views/ComputerConfirmationFXML.fxml"),
   SANITATION_CONFIRMATION("views/SanitationConfirmationFXML.fxml"),
   SECURITY_CONFIRMATION("views/SecurityConfirmationFXML.fxml"),
@@ -17,7 +20,7 @@ public enum Screen {
   EDGE("views/EdgeFXML.fxml"),
   PATHFINDING("views/PathfindingNewFXML.fxml"),
   PATHFINDING_MAP("views/PathfindingMapFXML.fxml"),
-  SERVICE_REQUEST_STATUS("views/ServiceRequestStatusNewFXML.fxml"),
+  SERVICE_REQUEST_STATUS("views/ServiceRequestStatusSMALLFXML.fxml"),
   ID_INPUT("views/IDInputFXML.fxml"),
   LOGIN("views/LoginFXML.fxml"),
   NODE_MAP("views/NodeMapFXML.fxml"),
