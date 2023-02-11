@@ -95,11 +95,11 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
 
-    // String hql = "delete from EmployeeEntity cascade";
-    // Query q = session.createQuery(hql);
-    // q.executeUpdate();
+    //     String hql = "delete from EmployeeEntity";
+    //     Query q = session.createQuery(hql);
+    //     q.executeUpdate();
 
-    File emps = new File(filename);
+    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(emps);
@@ -115,6 +115,8 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
       //        session.clear();
       //      }
     }
+    tx.commit();
+    session.close();
   }
 
   /*public void update(String employeeid, String username, String password,
