@@ -19,7 +19,7 @@ public enum Screen {
   PATHFINDING_MAP("views/PathfindingMapFXML.fxml"),
   SERVICE_REQUEST_STATUS("views/ServiceRequestStatusNewFXML.fxml"),
   ID_INPUT("views/IDInputFXML.fxml"),
-  LOGIN("views/LoginFXML.fxml"),
+  LOGIN("views/Login2FXML.fxml"),
   NODE_MAP("views/NodeMapFXML.fxml"),
   HOME_DATABASE("views/HomeDatabaseFXML.fxml"),
   MAP_DISPLAY("views/PathDisplayFXML.fxml");
