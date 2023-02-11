@@ -85,7 +85,7 @@ public class MenuController {
 
   @FXML
   void clearForm() {
-    //nameBox.clear();
+    // nameBox.clear();
     // IDNum.clear();
     descBox.clear();
     urgencyBox.clear();
