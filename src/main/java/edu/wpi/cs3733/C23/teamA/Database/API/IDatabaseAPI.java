@@ -9,9 +9,9 @@ public interface IDatabaseAPI<T, G> {
 
   public void add(T obj);
 
-  public void importFromCSV() throws FileNotFoundException;
+  public void importFromCSV(String filename) throws FileNotFoundException;
 
-  public void exportToCSV() throws IOException;
+  public void exportToCSV(String filename) throws IOException;
 
   public void update(G ID, T obj);
 
