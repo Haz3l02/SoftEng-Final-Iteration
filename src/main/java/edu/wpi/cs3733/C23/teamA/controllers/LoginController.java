@@ -63,7 +63,7 @@ public class LoginController {
       holder.setName(info.get(2));
       ADBSingletonClass.rewriteNodesEdgesMoves(session);
       session.close();
-      Navigation.navigate(Screen.HOME);
+      Navigation.navigateHome(Screen.HOME);
     }
     session.close();
   }

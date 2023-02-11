@@ -34,7 +34,7 @@ public class HomeController extends MenuController {
   @FXML
   public void switchToDatabase(ActionEvent event) throws IOException {
     stop = true;
-    Navigation.navigate(Screen.HOME_DATABASE);
+    Navigation.navigateHome(Screen.HOME_DATABASE);
   }
 
   @FXML
