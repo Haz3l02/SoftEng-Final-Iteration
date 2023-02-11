@@ -9,16 +9,19 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -30,14 +33,37 @@ public class DatabaseController extends MenuController {
   @FXML public TableColumn<MoveEntity, String> locNameCol;
   @FXML public TableColumn<MoveEntity, String> moveCol;
 
-  @FXML public MFXButton refresh;
+  @FXML public MFXComboBox<String> nodeBox;
+  @FXML public MFXComboBox<String> locationBox;
+  @FXML public DatePicker dateBox;
+  @FXML public MFXButton submit;
 
+  // List of all Node IDs in specific order
+  private List<String> allNodeIDs;
+  private List<String> allLongNames; // List of corresponding long names in order
   private List<MoveEntity> data;
+  private List<NodeEntity> nodes;
   private Session session;
+  private MoveEntity row;
   private ObservableList<MoveEntity> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
     session = getSessionFactory().openSession();
+
+    nodes = getAllRecords(NodeEntity.class, session); // get all nodes from Database
+    allNodeIDs = new ArrayList<>();
+    allLongNames = new ArrayList<>();
+
+    for (NodeEntity n : nodes) {
+      allNodeIDs.add(n.getNodeid()); // get nodeId
+      allLongNames.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
+    }
+
+    ObservableList<String> nodes = FXCollections.observableArrayList(allNodeIDs);
+    ObservableList<String> locationNames = FXCollections.observableArrayList(allLongNames);
+
+    nodeBox.setItems(nodes);
+    locationBox.setItems(locationNames);
 
     reloadData();
 
@@ -63,9 +89,24 @@ public class DatabaseController extends MenuController {
     }
   }
 
+  public void submitEdit(ActionEvent event) {
+    if (!nodeBox.getText().trim().isBlank()
+        || !locationBox.getText().trim().isBlank()
+        || !dateBox.getValue().toString().isEmpty()) {
+      Transaction t = session.beginTransaction();
+      MoveEntity newMove = new MoveEntity();
+      newMove.setNode(session.get(NodeEntity.class, nodeBox.getText()));
+      newMove.setLocationName(session.get(LocationNameEntity.class, locationBox.getText()));
+      newMove.setMovedate(Timestamp.valueOf(dateBox.getValue().atStartOfDay()));
+      session.persist(newMove);
+      t.commit();
+    }
+    reloadData();
+  }
+
   /** Set cells to respond to modification and try to commit changes to the database */
   public void editableColumns() {
-    nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    /*nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
     nodeCol.setOnEditCommit(
         e -> {
           NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow()).getNode();
@@ -76,7 +117,6 @@ public class DatabaseController extends MenuController {
             t.commit();
           } catch (Exception ex) {
             ex.printStackTrace();
-            refresh.setText("Invalid Node: Refresh");
           }
         });
     locNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -90,9 +130,9 @@ public class DatabaseController extends MenuController {
             session.persist(n);
             t.commit();
           } catch (Exception ex) {
-            refresh.setText("Invalid Location: Refresh");
+            ex.printStackTrace();
           }
-        });
+        });*/
   }
 
   public void switchToEdgeScene(ActionEvent event) {
@@ -119,4 +159,6 @@ public class DatabaseController extends MenuController {
     session.close();
     Navigation.navigate(Screen.HOME_DATABASE);
   }
+
+  public void submit(ActionEvent actionEvent) {}
 }
