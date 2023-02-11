@@ -59,7 +59,7 @@ public class LoginController {
       holder.setJob(info.get(1));
       holder.setName(info.get(2));
       session.close();
-      Navigation.navigate(Screen.HOME);
+      Navigation.navigateHome(Screen.HOME);
     }
     session.close();
   }
