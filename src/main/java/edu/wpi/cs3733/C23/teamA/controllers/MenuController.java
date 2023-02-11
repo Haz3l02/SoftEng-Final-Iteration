@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
@@ -48,7 +49,14 @@ public class MenuController {
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigateHome(Screen.HOME);
+    IdNumberHolder holder = IdNumberHolder.getInstance();
+    if (holder.getJob().equalsIgnoreCase("Maintenance")) {
+      Navigation.navigateHome(Screen.HOME_MAINTENANCE);
+    } else if (holder.getJob().equalsIgnoreCase("Admin")) {
+      Navigation.navigateHome(Screen.HOME_ADMIN);
+    } else {
+      Navigation.navigateHome(Screen.HOME_EMPLOYEE);
+    }
   }
 
   /**
