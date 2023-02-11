@@ -181,6 +181,14 @@ public class NodeController extends MenuController {
         });
   }
 
+  public void addTableColumns() {
+    nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    xCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+    yCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+    floorCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    buildingCol.setCellFactory(TextFieldTableCell.forTableColumn());
+  }
+
   public void switchToEdgeScene(ActionEvent event) {
     session.close();
     Navigation.navigate(Screen.EDGE);

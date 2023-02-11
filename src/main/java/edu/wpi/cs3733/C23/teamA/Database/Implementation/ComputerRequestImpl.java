@@ -1,34 +1,27 @@
 package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 
-import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ComputerRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.List;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestImpl, Integer> {
+public class ComputerRequestImpl {
+    public void add(ComputerRequestEntity c) {
+        Session session = getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        session.persist(c);
 
-    public List<ComputerRequestImpl> getAll() {
-        return null;
+        tx.commit();
+        session.close();
     }
+    public void delete(ComputerRequestEntity c) {
+        Session session = getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        session.delete(c);
 
-    public void add(ComputerRequestImpl obj) {
-
-    }
-
-    public void importFromCSV(String filename) throws FileNotFoundException {
-
-    }
-
-    public void exportToCSV(String filename) throws IOException {
-
-    }
-
-    public void update(Integer ID, ComputerRequestImpl obj) {
-
-    }
-
-    public void delete(ComputerRequestImpl obj) {
-
+        tx.commit();
+        session.close();
     }
 }
