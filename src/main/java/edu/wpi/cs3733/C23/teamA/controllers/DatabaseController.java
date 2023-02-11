@@ -72,10 +72,11 @@ public class DatabaseController extends MenuController {
     locNameCol.setCellValueFactory(
         param -> new SimpleStringProperty(param.getValue().getLocationName().getLongname()));
     moveCol.setCellValueFactory(new PropertyValueFactory<>("movedate"));
+
     dbTable.setItems(dbTableRowsModel);
 
-    editableColumns();
-    dbTable.setEditable(true);
+    dbTable.getSortOrder().add(moveCol);
+    dbTable.sort();
   }
 
   /** Clear and retrieve all table rows again With hibernate only use once at start */
@@ -87,6 +88,7 @@ public class DatabaseController extends MenuController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    dbTable.sort();
   }
 
   public void submitEdit(ActionEvent event) {
@@ -102,37 +104,6 @@ public class DatabaseController extends MenuController {
       t.commit();
     }
     reloadData();
-  }
-
-  /** Set cells to respond to modification and try to commit changes to the database */
-  public void editableColumns() {
-    /*nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    nodeCol.setOnEditCommit(
-        e -> {
-          NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow()).getNode();
-          try {
-            Transaction t = session.beginTransaction();
-            n.setNodeid(e.getNewValue());
-            session.persist(n);
-            t.commit();
-          } catch (Exception ex) {
-            ex.printStackTrace();
-          }
-        });
-    locNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    locNameCol.setOnEditCommit(
-        e -> {
-          LocationNameEntity n =
-              e.getTableView().getItems().get(e.getTablePosition().getRow()).getLocationName();
-          try {
-            Transaction t = session.beginTransaction();
-            n.setLongname(e.getNewValue());
-            session.persist(n);
-            t.commit();
-          } catch (Exception ex) {
-            ex.printStackTrace();
-          }
-        });*/
   }
 
   public void switchToEdgeScene(ActionEvent event) {
