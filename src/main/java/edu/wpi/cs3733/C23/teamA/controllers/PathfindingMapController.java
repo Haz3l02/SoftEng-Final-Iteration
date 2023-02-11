@@ -7,6 +7,7 @@ import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
+import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
 import java.io.File;
 import java.io.IOException;

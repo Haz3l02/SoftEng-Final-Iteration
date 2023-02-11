@@ -3,6 +3,8 @@ package edu.wpi.cs3733.C23.teamA.pathfinding;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.IAlgorithmStrategy;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +15,8 @@ public class PathfindingSystem {
 
   // attributes
   Graph graph;
-  @Setter @Getter IAlgorithmStrategy algorithmStrategy;
+  @Setter @Getter
+  IAlgorithmStrategy algorithmStrategy;
 
   // constructor
   public PathfindingSystem(IAlgorithmStrategy algorithmStrategy) {
@@ -26,6 +29,7 @@ public class PathfindingSystem {
     return algorithmStrategy.traverse(startNode, endNode);
   }
 
+  // PathInterpreter
   public String generatePathString(ArrayList<GraphNode> path) {
     return PathInterpreter.generatePathString(path);
   }

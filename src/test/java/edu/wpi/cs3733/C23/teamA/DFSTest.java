@@ -6,6 +6,8 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.DFS;
 import org.junit.jupiter.api.*; // notably, BeforeEach & Test
 
 public class DFSTest {

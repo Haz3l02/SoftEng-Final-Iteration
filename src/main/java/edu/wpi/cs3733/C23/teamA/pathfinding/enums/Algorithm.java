@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding.enums;
 
-import edu.wpi.cs3733.C23.teamA.pathfinding.AStar;
-import edu.wpi.cs3733.C23.teamA.pathfinding.BFS;
-import edu.wpi.cs3733.C23.teamA.pathfinding.DFS;
-import edu.wpi.cs3733.C23.teamA.pathfinding.IAlgorithmStrategy;
+import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
+import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.BFS;
+import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.DFS;
+import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.IAlgorithmStrategy;
 
 public enum Algorithm {
   // listed in order of best --> worst
