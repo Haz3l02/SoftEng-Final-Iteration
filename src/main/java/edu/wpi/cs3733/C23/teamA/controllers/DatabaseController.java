@@ -116,20 +116,8 @@ public class DatabaseController extends MenuController {
     Navigation.navigate(Screen.NODE);
   }
 
-  public void switchToMapScene(ActionEvent event) {
-    session.close();
-    Navigation.navigate(Screen.NODE_MAP);
-  }
-
-  public void switchToMoveScene(ActionEvent event) {
-    session.close();
-    Navigation.navigate(Screen.DATABASE);
-  }
-
   public void switchToHomeDatabaseScene(ActionEvent event) {
     session.close();
     Navigation.navigate(Screen.HOME_DATABASE);
   }
-
-  public void submit(ActionEvent actionEvent) {}
 }
