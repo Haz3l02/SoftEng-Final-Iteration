@@ -27,6 +27,7 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
+    super.initialize();
     if (devicesBox != null) {
       ObservableList<String> devices =
           FXCollections.observableArrayList(DevicesCategory.deviceList());

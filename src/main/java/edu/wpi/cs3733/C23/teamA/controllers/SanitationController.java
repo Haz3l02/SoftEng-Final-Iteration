@@ -27,7 +27,7 @@ public class SanitationController extends ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
-
+    super.initialize();
     if (categoryBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
       ObservableList<String> categories =
