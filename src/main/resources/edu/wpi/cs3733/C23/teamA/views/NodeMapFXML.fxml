@@ -2,7 +2,6 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -59,9 +58,8 @@
                      <children>
                         <StackPane fx:id="sPane" prefHeight="858.0" prefWidth="904.0" style="-fx-background-color: blue;">
                            <children>
-                              <ImageView fx:id="nodeMapImage" fitHeight="546.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
-                              <AnchorPane fx:id="nodeAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="750.0" />
-                              <Canvas fx:id="nodeMapCanvas" height="510" width="750" />
+                              <ImageView fx:id="nodeMapImage" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
+                              <AnchorPane fx:id="nodeAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                            </children>
                         </StackPane>
                         <GesturePane fx:id="gPane" prefHeight="949.0" prefWidth="904.0" />
