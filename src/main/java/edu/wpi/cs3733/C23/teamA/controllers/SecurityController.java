@@ -28,7 +28,7 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   public void initialize() throws SQLException {
-
+    super.initialize();
     if (requestsBox != null) {
       ObservableList<String> requests =
           FXCollections.observableArrayList(RequestCategory.categoryList());

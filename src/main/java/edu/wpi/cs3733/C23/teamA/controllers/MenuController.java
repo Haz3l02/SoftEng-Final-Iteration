@@ -22,8 +22,6 @@ import org.controlsfx.control.PopOver;
 // import org.controlsfx.control.PopOver;
 
 public class MenuController {
-  // protected HashMap<String, SanitationRequest> requests = new HashMap<String,
-  // SanitationRequest>();
 
   @FXML protected MFXTextField nameBox;
   @FXML protected MFXTextField IDNum;
@@ -77,7 +75,6 @@ public class MenuController {
     stop = true;
     Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
   }
-
 
   public void switchToHomeDatabaseScene(ActionEvent event) {
     Navigation.navigateHome(Screen.HOME_DATABASE);
