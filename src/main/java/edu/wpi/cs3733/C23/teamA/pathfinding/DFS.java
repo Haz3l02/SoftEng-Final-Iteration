@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class DFS {
+public class DFS implements IAlgorithmStrategy {
 
   /**
    * The traverse method uses a Depth First Search Algorithm to go from the startNode to the endNode

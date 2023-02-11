@@ -5,7 +5,7 @@ import java.util.*;
 /*
 Class that runs an A star graph search algorithm
  */
-public class AStar {
+public class AStar implements IAlgorithmStrategy {
 
   /**
    * Uses the A* algorithm to find the shortest path between startNode and endNode, with the
@@ -23,7 +23,7 @@ public class AStar {
 
     // set the scoring values for the open list
     startNode.setCostFromStart(0.0); // g(x) = 0, since it's the start
-    startNode.setHeurCostToEnd(pythagThrm(startNode, endNode)); // h(x)
+    startNode.setHeurCostToEnd(getDirectDistance(startNode, endNode)); // h(x)
     startNode.setScore(
         startNode.getCostFromStart() + startNode.getHeurCostToEnd()); // f(x) = g(x) + h(x)
 
@@ -44,7 +44,7 @@ public class AStar {
       for (GraphNode n : current.getNeighbors()) {
 
         // compute g(x) for the successor
-        double tentativeGScore = current.getCostFromStart() + pythagThrm(current, n);
+        double tentativeGScore = current.getCostFromStart() + getDirectDistance(current, n);
 
         //
         if (tentativeGScore < n.getCostFromStart()) {
@@ -53,7 +53,7 @@ public class AStar {
 
           // set attributes of n
           n.setCostFromStart(tentativeGScore);
-          n.setHeurCostToEnd(pythagThrm(n, endNode));
+          n.setHeurCostToEnd(getDirectDistance(n, endNode));
           n.setScore(n.getCostFromStart() + n.getHeurCostToEnd());
 
           // if n is not in the set, add it (can happen multiple times for a node)
@@ -76,7 +76,7 @@ public class AStar {
    * @param b The second node to find the direct distance between
    * @return the direct distance between the two nodes, in the form of a singular line between them
    */
-  private static double pythagThrm(GraphNode a, GraphNode b) {
+  private static double getDirectDistance(GraphNode a, GraphNode b) {
     // x and y coordinates of a
     int aX = a.getXCoord();
     int aY = a.getYCoord();

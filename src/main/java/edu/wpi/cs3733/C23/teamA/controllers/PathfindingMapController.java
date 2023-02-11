@@ -104,7 +104,7 @@ public class PathfindingMapController extends MenuController {
     GraphNode start = pathfindingSystem.getNode(sName);
     GraphNode end = pathfindingSystem.getNode(eName);
     ArrayList<GraphNode> path =
-        pathfindingSystem.traverseAStar(start, end); // makes a call to AStar
+        pathfindingSystem.runPathfinding(start, end); // makes a call to AStar
 
     // if a path was found, draw a path
     if (path != null) {

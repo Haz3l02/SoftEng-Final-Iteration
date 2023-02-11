@@ -141,7 +141,7 @@ public class DFSTest {
     GraphNode start = pathfindingSystem.getNode("CHALL003L1");
     GraphNode end = pathfindingSystem.getNode("CHALL007L1");
 
-    ArrayList<GraphNode> roomVending = pathfindingSystem.traverseDFS(start, end);
+    ArrayList<GraphNode> roomVending = pathfindingSystem.runPathfinding(start, end);
     assertTrue(roomVending != null);
   }
 
@@ -152,7 +152,7 @@ public class DFSTest {
     // If it didn't work, that would be BAD.
     GraphNode start = pathfindingSystem.getNode("CLABS003L1");
     GraphNode end = pathfindingSystem.getNode("CLABS004L1");
-    ArrayList<GraphNode> questionable = pathfindingSystem.traverseDFS(start, end);
+    ArrayList<GraphNode> questionable = pathfindingSystem.runPathfinding(start, end);
     assertTrue(questionable != null);
   }
 
@@ -162,7 +162,7 @@ public class DFSTest {
     // (CCONF003L1)
     GraphNode start = pathfindingSystem.getNode("CCONF001L1");
     GraphNode end = pathfindingSystem.getNode("CCONF003L1");
-    ArrayList<GraphNode> questionable = pathfindingSystem.traverseDFS(start, end);
+    ArrayList<GraphNode> questionable = pathfindingSystem.runPathfinding(start, end);
     assertTrue(questionable != null);
   }
 
@@ -185,7 +185,7 @@ public class DFSTest {
     a1.addNeighbor(a1);
 
     String[] correctPath = {"a1"};
-    ArrayList<GraphNode> path = DFS.traverse(a1, a1);
+    ArrayList<GraphNode> path = pathfindingSystem.runPathfinding(a1, a1);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));
@@ -197,7 +197,7 @@ public class DFSTest {
     // no neighbors
 
     String[] correctPath = {"a4"};
-    ArrayList<GraphNode> path = DFS.traverse(a4, a4);
+    ArrayList<GraphNode> path = pathfindingSystem.runPathfinding(a4, a4);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));
@@ -211,7 +211,7 @@ public class DFSTest {
     a1.addNeighbor(a2);
 
     String[] correctPath = {"a2"};
-    ArrayList<GraphNode> path = DFS.traverse(a2, a2);
+    ArrayList<GraphNode> path = pathfindingSystem.runPathfinding(a2, a2);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertTrue(current.getNodeID().equals(correctPath[i]));
