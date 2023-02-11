@@ -9,7 +9,7 @@ public class Main {
 
     // AApp.launch(AApp.class, args);
 
-    new EmployeeImpl().exportToCSV("employee.csv");
-    // new EmployeeImpl().importFromCSV("employee.csv");
+    // new EmployeeImpl().exportToCSV("employee.csv");
+    new EmployeeImpl().importFromCSV("employee.csv");
   }
 }
