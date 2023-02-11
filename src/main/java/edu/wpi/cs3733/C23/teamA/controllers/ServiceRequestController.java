@@ -37,6 +37,10 @@ public abstract class ServiceRequestController {
   // for the timer
   public volatile boolean stop = false;
 
+  public void setStop(Boolean cond) {
+    this.stop = cond;
+  }
+
   @FXML MFXButton backButton;
   private static PopOver popup;
 
