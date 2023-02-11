@@ -32,7 +32,13 @@ public class ServiceRequestEntity {
   private String name;
 
   @ManyToOne
-  @JoinColumn(name = "employeeid", foreignKey = @ForeignKey(name = "employeeid"))
+  @JoinColumn(
+      name = "employeeid",
+      foreignKey =
+          @ForeignKey(
+              name = "employeeid",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (employeeid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
   @Setter
   @Getter
   private EmployeeEntity employee;
