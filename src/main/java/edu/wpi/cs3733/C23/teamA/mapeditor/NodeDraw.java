@@ -2,6 +2,8 @@ package edu.wpi.cs3733.C23.teamA.mapeditor;
 
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import java.util.List;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -44,6 +46,20 @@ public class NodeDraw {
               + "-fx-border-color: '013A75'; "
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
+
+      EventHandler<MouseEvent> eventHandler =
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+              System.out.println("Hello World");
+              nodeGraphic.setStyle(
+                  "-fx-background-color: 'red'; "
+                      + "-fx-background-radius: 12.5; "
+                      + "-fx-border-color: '013A75'; "
+                      + "-fx-border-width: 1;"
+                      + "-fx-border-radius: 12.5");
+            }
+          };
 
       nodeAnchor.getChildren().add(nodeGraphic);
     }
