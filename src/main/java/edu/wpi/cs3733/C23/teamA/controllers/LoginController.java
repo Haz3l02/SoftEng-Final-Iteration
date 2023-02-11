@@ -44,8 +44,6 @@ public class LoginController {
   public void login(ActionEvent event) throws SQLException {
 
     Session session = ADBSingletonClass.getSessionFactory().openSession();
-    // Transaction tx = session.beginTransaction();
-
     ArrayList<String> info =
         EmployeeEntity.checkPass(usernameTextField.getText(), passwordTextField.getText(), session);
 
