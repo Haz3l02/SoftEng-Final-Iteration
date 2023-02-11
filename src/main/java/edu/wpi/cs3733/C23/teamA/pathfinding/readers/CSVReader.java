@@ -2,7 +2,6 @@ package edu.wpi.cs3733.C23.teamA.pathfinding.readers;
 
 import edu.wpi.cs3733.C23.teamA.pathfinding.Graph;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;

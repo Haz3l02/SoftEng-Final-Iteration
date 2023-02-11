@@ -6,11 +6,10 @@ import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionF
 import edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
-import java.sql.SQLException;
-import java.util.List;
-
 import edu.wpi.cs3733.C23.teamA.pathfinding.Graph;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import java.sql.SQLException;
+import java.util.List;
 import org.hibernate.Session;
 
 public class DBReader {
