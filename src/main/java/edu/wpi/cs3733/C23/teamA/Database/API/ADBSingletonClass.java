@@ -44,7 +44,7 @@ public class ADBSingletonClass {
   }
 
   public static void rewriteNodesEdgesMoves(Session session) throws FileNotFoundException {
-
+    Transaction tx = session.beginTransaction();
     String hql = "delete from MoveEntity";
     Query q = session.createQuery(hql);
     q.executeUpdate();
@@ -57,10 +57,15 @@ public class ADBSingletonClass {
     q = session.createQuery(hql);
     q.executeUpdate();
 
-    File nodes = new File("node.csv");
-    File edges = new File("edge.csv");
-    File moves = new File("move.csv");
-    Transaction tx = session.beginTransaction();
+    hql = "delete from LocationNameEntity";
+    q = session.createQuery(hql);
+    q.executeUpdate();
+
+    File nodes = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/nodes.csv");
+    File edges = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/edges.csv");
+    File moves = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/move.csv");
+    File locationname =
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/locationname.csv");
     Scanner read = new Scanner(nodes);
     int count = 0;
     read.nextLine();
@@ -89,20 +94,34 @@ public class ADBSingletonClass {
       }
     }
 
-    read = new Scanner(moves);
+    read = new Scanner(locationname);
     read.nextLine();
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");
-      session.persist(
-          new MoveEntity(
-              session.get(NodeEntity.class, b[2]),
-              session.get(LocationNameEntity.class, b[1]),
-              Timestamp.valueOf(b[0])));
+      session.persist(new LocationNameEntity(b[1], b[2], b[0]));
       count++;
       if (count % 20 == 0) {
         session.flush();
         session.clear();
       }
     }
+
+    read = new Scanner(moves);
+    read.nextLine();
+    while (read.hasNextLine()) {
+      String[] b = read.nextLine().split(",");
+      session.persist(
+          new MoveEntity(
+              session.get(NodeEntity.class, b[0]),
+              session.get(LocationNameEntity.class, b[1]),
+              Timestamp.valueOf((b[2]))));
+      count++;
+      if (count % 20 == 0) {
+        session.flush();
+        session.clear();
+      }
+    }
+    tx.commit();
+    session.close();
   }
 }

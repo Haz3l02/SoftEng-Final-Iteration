@@ -57,7 +57,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
   public static ArrayList<String> checkPass(String user, String pass) {
     Session session = getSessionFactory().openSession();
-    ArrayList<String> info = new ArrayList<String>();
+    ArrayList<String> info = new ArrayList<>();
     Transaction tx = session.beginTransaction();
     String hql = "select emp from EmployeeEntity emp where emp.username = '" + user + "'";
     Query query = session.createQuery(hql);
