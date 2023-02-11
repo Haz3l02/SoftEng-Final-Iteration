@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
@@ -23,15 +22,15 @@ import javafx.fxml.FXML;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ComputerController extends MenuController {
+public class ComputerController extends ServiceRequestController {
 
   @FXML private MFXTextField deviceIDNum;
   @FXML private MFXComboBox<String> devicesBox;
-  UrgencyLevel urgent;
   DevicesCategory device;
 
   @FXML
   public void initialize() throws SQLException {
+    super.initialize();
     if (devicesBox != null) {
       ObservableList<String> devices =
           FXCollections.observableArrayList(DevicesCategory.deviceList());

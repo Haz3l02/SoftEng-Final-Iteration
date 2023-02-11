@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
@@ -23,16 +22,14 @@ import javafx.fxml.FXML;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class SanitationController extends MenuController {
-
-  UrgencyLevel urgent;
+public class SanitationController extends ServiceRequestController {
   IssueCategory category;
 
   @FXML private MFXComboBox<String> categoryBox;
 
   @FXML
   public void initialize() throws SQLException {
-
+    super.initialize();
     if (categoryBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
       ObservableList<String> categories =
