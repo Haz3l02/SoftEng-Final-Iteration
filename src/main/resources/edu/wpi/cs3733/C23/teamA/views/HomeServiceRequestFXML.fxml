@@ -149,7 +149,7 @@
                                     </ImageView>
                                  </graphic>
                               </MFXButton>
-                              <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" onAction="#switchToSanitation" prefHeight="170.0" prefWidth="556.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Audio/Speaker Request" textAlignment="CENTER" wrapText="true">
+                              <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" onAction="#switchToSanitation" prefHeight="170.0" prefWidth="556.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Audio/Visual Request" textAlignment="CENTER" wrapText="true">
                                  <font>
                                     <Font size="45.0" />
                                  </font>
