@@ -229,7 +229,7 @@ public class ServiceRequestStatusController extends MenuController {
         Navigation.navigate(Screen.SECURITY);
         break;
       default:
-        Navigation.navigate(Screen.HOME);
+        Navigation.navigateHome(Screen.HOME);
         break;
     }
   }

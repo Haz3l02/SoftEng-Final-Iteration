@@ -77,6 +77,7 @@ public class ComputerController extends MenuController {
       locationBox.setText(editComputerRequest.getLocation().getLongname());
       urgencyBox.setText(editComputerRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editComputerRequest.getDescription());
+
       // session.persist(submission);
       tx.commit();
       session.close();

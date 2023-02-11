@@ -21,7 +21,7 @@ import org.controlsfx.control.PopOver;
 
 // import org.controlsfx.control.PopOver;
 
-public abstract class MenuController {
+public class MenuController {
   // protected HashMap<String, SanitationRequest> requests = new HashMap<String,
   // SanitationRequest>();
 
@@ -51,7 +51,7 @@ public abstract class MenuController {
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME);
+    Navigation.navigateHome(Screen.HOME);
   }
 
   /**
@@ -78,7 +78,7 @@ public abstract class MenuController {
   @FXML
   public void switchToHomeServiceRequestScene(ActionEvent event) throws IOException {
     stop = true;
-    Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
+    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
   }
 
   @FXML
@@ -91,7 +91,7 @@ public abstract class MenuController {
   }
 
   public void switchToHomeDatabaseScene(ActionEvent event) {
-    Navigation.navigate(Screen.HOME_DATABASE);
+    Navigation.navigateHome(Screen.HOME_DATABASE);
   }
 
   public void logout(ActionEvent event) {
@@ -102,7 +102,7 @@ public abstract class MenuController {
     stop = true;
     if (alert.showAndWait().get() == ButtonType.OK) {
       System.out.println("You have successfully logged out!");
-      Navigation.navigate(Screen.LOGIN);
+      Navigation.navigateHome(Screen.LOGIN);
     }
   }
 }
