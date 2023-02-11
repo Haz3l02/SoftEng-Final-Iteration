@@ -44,7 +44,13 @@ public class ServiceRequestEntity {
   private EmployeeEntity employee;
 
   @ManyToOne
-  @JoinColumn(name = "location", foreignKey = @ForeignKey(name = "longname"))
+  @JoinColumn(
+      name = "location",
+      foreignKey =
+          @ForeignKey(
+              name = "longname",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (location) REFERENCES locationname(longname) ON UPDATE CASCADE ON DELETE CASCADE"))
   @Setter
   @Getter
   private LocationNameEntity location;

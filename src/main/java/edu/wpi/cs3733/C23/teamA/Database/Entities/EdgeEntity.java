@@ -47,6 +47,12 @@ public class EdgeEntity {
     this.edgeid = edgeid;
   }
 
+  public EdgeEntity(NodeEntity node1, NodeEntity node2) {
+    this.node1 = node1;
+    this.node2 = node2;
+    this.edgeid = node1.getNodeid() + "_" + node2.getNodeid();
+  }
+
   public EdgeEntity() {}
 
   @Override
