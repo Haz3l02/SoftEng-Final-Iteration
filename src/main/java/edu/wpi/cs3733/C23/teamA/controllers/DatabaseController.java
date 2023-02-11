@@ -117,6 +117,6 @@ public class DatabaseController extends MenuController {
 
   public void switchToHomeDatabaseScene(ActionEvent event) {
     session.close();
-    Navigation.navigate(Screen.HOME_DATABASE);
+    Navigation.navigateHome(Screen.HOME_DATABASE);
   }
 }

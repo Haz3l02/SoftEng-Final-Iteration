@@ -95,12 +95,12 @@ public class SecurityController extends MenuController {
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME);
+    Navigation.navigateHome(Screen.HOME);
   }
 
   @FXML
   public void switchToHomeServiceRequestScene(ActionEvent event) {
-    Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
+    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
   }
 
   @FXML
