@@ -23,7 +23,20 @@ public enum Algorithm {
     return dropText;
   }
 
-  public IAlgorithmStrategy getAlgorithm() {
+  public String getEnumName() {
+    return enumName;
+  }
+
+  private IAlgorithmStrategy getAlgorithm() {
     return algorithm;
+  }
+
+  public static IAlgorithmStrategy fromString(String dropText) {
+    for (Algorithm a : Algorithm.values()) {
+      if (a.getDropText().equals(dropText)) {
+        return a.getAlgorithm();
+      }
+    }
+    return null;
   }
 }

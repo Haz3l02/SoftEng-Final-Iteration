@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
@@ -40,7 +39,11 @@ public class PathfindingController extends MenuController {
 
   @FXML private Text pathMapText;
   @FXML private Canvas mapCanvas; // to display the generated path
-  @FXML private ImageView mapImage;
+  @FXML private ImageView floorL2;
+  @FXML private ImageView floorL1;
+  @FXML private ImageView floorF1;
+  @FXML private ImageView floorF2;
+  @FXML private ImageView floorF3;
 
   private Session session;
 
@@ -49,6 +52,7 @@ public class PathfindingController extends MenuController {
 
   // objects needed for the maps
   private GraphicsContext gc;
+  private double SCALE_FACTOR = 0.14;
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -58,42 +62,50 @@ public class PathfindingController extends MenuController {
    */
   public void initialize() throws SQLException {
 
+    // startLocBox.setDisable(true);
+    // endLocBox.setDisable(true);
     // Database's list of longNames
-    allNodeIDs = new ArrayList<String>();
-    allLongNames = new ArrayList<String>();
+    // allNodeIDs = new ArrayList<String>();
+    // allLongNames = new ArrayList<String>();
 
-    Session session = getSessionFactory().openSession();
-    allNodes = getAllRecords(NodeEntity.class, session); // get all nodes from Database
+    // Session session = getSessionFactory().openSession();
+    // allNodes = getAllRecords(NodeEntity.class, session); // get all nodes from Database
 
+    /*
     for (NodeEntity n : allNodes) {
       allNodeIDs.add(n.getNodeid()); // get nodeId
       allLongNames.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
     }
-    session.close();
+
+     */
+    // session.close();
 
     // Add to front end
-    ObservableList<String> locations = FXCollections.observableArrayList(allLongNames);
+    // ObservableList<String> locations = FXCollections.observableArrayList(allLongNames);
     ObservableList<String> floors =
         FXCollections.observableArrayList(
-            Floor.L1.getTableString(),
-            Floor.L2.getTableString(),
-            Floor.F1.getTableString(),
-            Floor.F2.getTableString(),
-            Floor.F3.getTableString());
+            Floor.L1.getExtendedString(),
+            Floor.L2.getExtendedString(),
+            Floor.F1.getExtendedString(),
+            Floor.F2.getExtendedString(),
+            Floor.F3.getExtendedString());
     ObservableList<String> algos =
         FXCollections.observableArrayList(
             Algorithm.ASTAR.getDropText(),
             Algorithm.BFS.getDropText(),
             Algorithm.DFS.getDropText());
     // populates the dropdown boxes
-    startLocBox.setItems(locations);
-    endLocBox.setItems(locations);
+    // startLocBox.setItems(locations);
+    // endLocBox.setItems(locations);
     startFloorBox.setItems(floors);
     endFloorBox.setItems(floors);
     algosBox.setItems(algos);
 
-    addFloorMapImage(
-        "src/main/resources/edu/wpi/cs3733/C23/teamA/assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png");
+    addFloorMapImage(HospitalMaps.L2.getFilename(), floorL2);
+    addFloorMapImage(HospitalMaps.L1.getFilename(), floorL1);
+    addFloorMapImage(HospitalMaps.F1.getFilename(), floorF1);
+    addFloorMapImage(HospitalMaps.F2.getFilename(), floorF2);
+    addFloorMapImage(HospitalMaps.F3.getFilename(), floorF3);
   }
 
   /** Method to clear the fields on the form on the UI page */
@@ -108,31 +120,64 @@ public class PathfindingController extends MenuController {
     errorMessage.setText("");
 
     // clear the canvas w/ the drawn path; does NOT hide the map image
-    gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
+    // gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
   }
-
-  // TODO: function to initialize PathfindingSystem with a different algorithm depending on which
-  // one is selected in the dropdown
 
   @FXML
   public void setPathfindingAlgorithm(ActionEvent event) {
 
-    /*
-    pathfindingSystem =
-        new PathfindingSystem();
-
-     */
+    pathfindingSystem = new PathfindingSystem(Algorithm.fromString(algosBox.getValue()));
   }
 
   // TODO: function to get an ObservableList of locations based on floor and some stuff to do that
   // when a floor is picked in dropdown
+
+  @FXML
+  public void fillLocationBoxes(ActionEvent event) throws Exception {
+
+    Floor floor = null;
+
+    if (event.getSource() == startFloorBox) {
+      floor = Floor.valueOf(startFloorBox.getText());
+    }
+    if (event.getSource().equals(endFloorBox)) {
+      floor = Floor.valueOf(endFloorBox.getText());
+    } else {
+      System.out.println("ERROR");
+    }
+
+    Session session = getSessionFactory().openSession();
+    List<NodeEntity> allNodesFloor =
+        NodeEntity.getNodeOnFloor(floor.getTableString(), session); // get all nodes from Database
+
+    ArrayList<String> idsFloor = new ArrayList<>();
+    ArrayList<String> namesFloor = new ArrayList<>();
+
+    for (NodeEntity n : allNodesFloor) {
+      idsFloor.add(n.getNodeid()); // get nodeId
+      namesFloor.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
+    }
+    session.close();
+
+    ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
+
+    if (event.getSource() == startFloorBox) {
+      startLocBox.setItems(locs);
+      startLocBox.setDisable(false);
+    }
+    if (event.getSource().equals(endFloorBox)) {
+      endLocBox.setItems(locs);
+      endLocBox.setDisable(false);
+    } else {
+      System.out.println("ERROR");
+    }
+  }
 
   private void callMapDraw(ArrayList<GraphNode> path) {
     GraphicsContext gc = mapCanvas.getGraphicsContext2D();
 
     // clear the canvas w/ the drawn path; does NOT hide the map image
     gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
-    pathMapText.setText("");
 
     // constant for map size/coordinate manipulation
     pathfindingSystem.drawPath(gc, path, 1);
@@ -167,7 +212,7 @@ public class PathfindingController extends MenuController {
 
     // if a path was found, draw a path
     if (path != null) {
-      pathMapText.setText("Path Between " + sName + " and " + eName + ".");
+      pathMapText.setText(pathfindingSystem.generatePathString(path));
       callMapDraw(path); // draw the path on top of the image
     } else {
       pathMapText.setText("No Path Found Between " + sName + " and " + eName + ".");
@@ -179,10 +224,10 @@ public class PathfindingController extends MenuController {
    *
    * @param pathName the path to the image to be added
    */
-  private void addFloorMapImage(String pathName) {
+  private void addFloorMapImage(String pathName, ImageView iv) {
     File file = new File(pathName);
     Image image = new Image(file.toURI().toString());
-    mapImage.setImage(image);
+    iv.setImage(image); // this does not work
   }
 
   /*
