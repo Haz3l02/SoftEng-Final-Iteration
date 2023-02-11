@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="950.0" minWidth="1920.0" prefHeight="907.0" prefWidth="1920.0" style="-fx-background-color: D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
+    <bottom>
+        <HBox alignment="TOP_RIGHT" prefHeight="53.0" prefWidth="1918.0" BorderPane.alignment="CENTER">
+            <children>
+                <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="40.0" prefWidth="230.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 45;" text="Back" textFill="#d3e9f6">
+                    <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" />
+                    </HBox.margin>
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </MFXButton>
+                <MFXButton id="findPathButton" fx:id="findPathButton1" buttonType="RAISED" defaultButton="true" onAction="#goToMapScene" prefHeight="40.0" prefWidth="230.0" rippleAnimateShadow="true" rippleColor="#420a55" style="-fx-background-color: #F6BD3A; -fx-background-radius: 45;" text="Find Path" textFill="#224870">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" />
+                    </HBox.margin>
+                </MFXButton>
+            </children>
+        </HBox>
+    </bottom>
+    <center>
+        <SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="858.0" prefWidth="1918.0" BorderPane.alignment="CENTER">
+            <items>
+                <AnchorPane prefHeight="885.0" prefWidth="566.0">
+                    <children>
+                        <VBox layoutX="-5.0" prefHeight="842.0" prefWidth="546.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                            <children>
+                                <VBox fillWidth="false" prefHeight="338.0" prefWidth="546.0" style="-fx-background-color: #4EA5D9; -fx-background-radius: 20; -fx-border-radius: 20;">
+                                    <children>
+                                        <VBox prefHeight="55.0" prefWidth="1920.0">
+                                            <children>
+                                                <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Pathfinding" wrappingWidth="278.1484375">
+                                                    <font>
+                                                        <Font name="Verdana" size="36.0" />
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets left="10.0" />
+                                                    </VBox.margin>
+                                                </Text>
+                                            </children>
+                                        </VBox>
+                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Starting Location:" wrappingWidth="230.66659545898438">
+                                            <font>
+                                                <Font name="Verdana" size="18.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets left="10.0" />
+                                            </VBox.margin>
+                                        </Text>
+                                        <HBox>
+                                            <children>
+                                                <MFXFilterComboBox fx:id="startNodeID" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </MFXFilterComboBox>
+                                                <MFXFilterComboBox fx:id="startNodeID1" floatMode="DISABLED" prefHeight="32.0" prefWidth="181.0" text="Select Floor...">
+                                                    <HBox.margin>
+                                                        <Insets left="10.0" />
+                                                    </HBox.margin>
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </MFXFilterComboBox>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Ending Location:" wrappingWidth="193.3333282470703">
+                                            <font>
+                                                <Font name="Verdana" size="18.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets left="10.0" />
+                                            </VBox.margin>
+                                        </Text>
+                                        <HBox>
+                                            <children>
+                                                <MFXFilterComboBox fx:id="endNodeID" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </MFXFilterComboBox>
+                                                <MFXFilterComboBox fx:id="startNodeID11" floatMode="DISABLED" prefHeight="32.0" prefWidth="183.0" text="Select Floor...">
+                                                    <HBox.margin>
+                                                        <Insets left="10.0" />
+                                                    </HBox.margin>
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </MFXFilterComboBox>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Algorithm" wrappingWidth="116.0">
+                                            <font>
+                                                <Font name="Verdana" size="18.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets left="10.0" />
+                                            </VBox.margin>
+                                        </Text>
+                                        <HBox>
+                                            <children>
+                                                <MFXFilterComboBox fx:id="endNodeID1" floatMode="DISABLED" prefHeight="33.0" prefWidth="248.0" text="Select Algorithm">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </MFXFilterComboBox>
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                                            </padding>
+                                        </HBox>
+                                        <Text fx:id="reminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
+                                            <font>
+                                                <Font size="10.0" />
+                                            </font>
+                                        </Text>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                </VBox>
+                                <VBox prefHeight="487.0" prefWidth="546.0" style="-fx-background-color: #4EA5D9; -fx-background-radius: 20; -fx-border-radius: 20;">
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                    <children>
+                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions" wrappingWidth="212.8151092529297">
+                                            <font>
+                                                <Font name="Verdana" size="36.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets left="10.0" />
+                                            </VBox.margin>
+                                        </Text>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Directions on how to get to your destination go here... " wrappingWidth="518.1367073059082">
+                                            <font>
+                                                <Font name="Verdana" size="18.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets left="10.0" />
+                                            </VBox.margin>
+                                        </Text>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="886.0" prefWidth="1332.0" style="-fx-background-color: #4EA5D9; -fx-background-radius: 20; -fx-border-radius: 20;">
+                    <children>
+                        <VBox layoutX="1.0" layoutY="50.0" prefHeight="750.0" prefWidth="1281.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
+                            <children>
+                                <HBox>
+                                    <VBox.margin>
+                                        <Insets left="20.0" />
+                                    </VBox.margin>
+                                    <children>
+                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map" wrappingWidth="278.1484375">
+                                            <font>
+                                                <Font name="Verdana" size="36.0" />
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0" />
+                                    </children>
+                                </HBox>
+                                <StackPane prefHeight="265.0" prefWidth="862.0" style="-fx-background-color: green;">
+                                    <children>
+                                        <ImageView fx:id="mapImage" fitHeight="689.0" fitWidth="1190.0" pickOnBounds="true" preserveRatio="true" />
+                                        <Canvas fx:id="mapCanvas" height="529.0" width="962.0" />
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="20.0" left="20.0" right="10.0" top="10.0" />
+                                    </VBox.margin>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets right="10.0" top="10.0" />
+                    </padding>
+                </AnchorPane>
+            </items>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </SplitPane>
+    </center>
+</BorderPane>

@@ -50,5 +50,6 @@ public class AApp extends Application {
   public void stop() {
     getSessionFactory().close();
     log.info("Shutting Down");
+    System.exit(0);
   }
 }
