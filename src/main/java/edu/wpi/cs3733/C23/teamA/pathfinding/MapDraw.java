@@ -1,10 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 // Class for Controller to call to add the map
 public class MapDraw {
@@ -76,7 +78,12 @@ public class MapDraw {
     // draw circle for each node
     for (NodeEntity n : allNodes) {
       int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
-      gc.fillOval(updatedCoords[0] - 4, updatedCoords[1] - 4, 8, 8);
+      // gc.fillOval(updatedCoords[0] - 4, updatedCoords[1] - 4, 8, 8);
+      Circle nodePoint = new Circle();
+
+      nodePoint.setCenterX(updatedCoords[0] - 4);
+      nodePoint.setCenterY(updatedCoords[1] - 4);
+      nodePoint.setRadius(8);
     }
   }
 }
