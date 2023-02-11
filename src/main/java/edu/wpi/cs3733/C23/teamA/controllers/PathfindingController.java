@@ -8,6 +8,7 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Algorithm;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.HospitalMaps;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.io.File;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ import javafx.scene.canvas.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import org.hibernate.Session;
+import org.hibernate.Session; // remove later
 
 public class PathfindingController extends MenuController {
 

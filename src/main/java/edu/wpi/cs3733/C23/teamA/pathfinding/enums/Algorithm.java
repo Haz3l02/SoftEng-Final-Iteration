@@ -7,15 +7,17 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.IAlgorithmStrategy;
 
 public enum Algorithm {
   // listed in order of best --> worst
-  ASTAR("A* (\"A-Star\")", new AStar()),
-  BFS("Breadth-First Search", new BFS()),
-  DFS("Depth-First Search", new DFS());
+  ASTAR("A* (\"A-Star\")", "ASTAR", new AStar()),
+  BFS("Breadth-First Search", "BFS", new BFS()),
+  DFS("Depth-First Search", "DFS", new DFS());
 
   private final String dropText;
+  private final String enumName;
   private final IAlgorithmStrategy algorithm;
 
-  Algorithm(String dropText, IAlgorithmStrategy algorithm) {
+  Algorithm(String dropText, String enumName, IAlgorithmStrategy algorithm) {
     this.dropText = dropText;
+    this.enumName = enumName;
     this.algorithm = algorithm;
   }
 

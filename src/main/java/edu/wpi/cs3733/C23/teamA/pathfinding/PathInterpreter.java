@@ -62,7 +62,7 @@ public class PathInterpreter {
     // make a stringBuilder object to get a giant string
     StringBuilder sb = new StringBuilder();
 
-    sb.append("Path from " + startName + " to " + endName + ":\n");
+    sb.append("Path from " + startName + " to " + endName + ":\n\n");
 
     int numNodes = path.size();
 
@@ -72,7 +72,7 @@ public class PathInterpreter {
 
       if (longName != null) {
         if (i == 0) {
-          sb.append("Start at " + longName + "\n");
+          sb.append("Starting at " + longName + ":\n");
         } else if (i == 1) {
           sb.append("Go toward " + longName + "\n");
         } else {
@@ -81,7 +81,7 @@ public class PathInterpreter {
         }
       }
     }
-    sb.append("You have reached " + endName + "\n");
+    sb.append("You have reached " + endName + ".\n");
 
     // return the built string
     return sb.toString();
@@ -109,7 +109,7 @@ public class PathInterpreter {
     if (Math.PI - epsilon > changeInAngle && changeInAngle > epsilon) {
       direction = "Turn left ";
     } else if (-Math.PI - epsilon > changeInAngle) {
-      direction = "Turn left";
+      direction = "Turn left ";
     } else if (changeInAngle >= -epsilon && changeInAngle <= epsilon) {
       direction = "Continue straight ";
     } else if (-Math.PI + epsilon < changeInAngle && changeInAngle < -epsilon) {
@@ -119,7 +119,7 @@ public class PathInterpreter {
     } else { // Dir = pi or -pi
       direction = "Turn all of the way around ";
     }
-    direction = direction + "and go to " + end.getLongName() + '\n';
+    direction = direction + "and go to " + end.getLongName() + ".\n";
 
     return direction;
   }
