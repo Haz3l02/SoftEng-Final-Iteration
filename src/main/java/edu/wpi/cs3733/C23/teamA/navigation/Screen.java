@@ -2,7 +2,8 @@ package edu.wpi.cs3733.C23.teamA.navigation;
 
 public enum Screen {
   ROOT("views/Root.fxml"),
-  HOME("views/HomeMaintenanceFXML.fxml"),
+  HOME("views/HomeFXML.fxml"),
+  HOME_MAINTENANCE("views/HomeMaintenanceFXML.fxml"),
   COMPUTER_CONFIRMATION("views/ComputerConfirmationFXML.fxml"),
   SANITATION_CONFIRMATION("views/SanitationConfirmationFXML.fxml"),
   SECURITY_CONFIRMATION("views/SecurityConfirmationFXML.fxml"),
