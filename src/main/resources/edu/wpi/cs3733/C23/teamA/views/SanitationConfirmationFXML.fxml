@@ -16,7 +16,7 @@
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToHomeScene" prefHeight="28.0" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
@@ -44,17 +44,17 @@
       </VBox>
    </center>
    <top>
-      <VBox prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: #224870; -fx-border-style: solid; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER">
-         <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham &amp; Women's Hospital" wrappingWidth="385.0">
+      <BorderPane prefWidth="611.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+         <left>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
-               <VBox.margin>
-                  <Insets left="10.0" top="10.0" />
-               </VBox.margin>
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
             </Text>
-         </children>
-      </VBox>
+         </left>
+      </BorderPane>
    </top>
 </BorderPane>

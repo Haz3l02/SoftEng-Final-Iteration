@@ -1,12 +1,8 @@
-package edu.wpi.cs3733.C23.teamA.hibernateDB;
+package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 @Entity
 @Table(
@@ -24,7 +20,7 @@ public class EmployeeEntity {
   private String employeeid;
 
   @Basic
-  @Column(name = "username", nullable = false, length = -1)
+  @Column(name = "username", nullable = false, length = -1, unique = true)
   @Getter
   @Setter
   private String username;
@@ -68,31 +64,4 @@ public class EmployeeEntity {
   }
 
   public EmployeeEntity() {}
-
-  public static ArrayList<String> checkPass(String user, String pass, Session session) {
-    ArrayList<String> info = new ArrayList<String>();
-    Transaction tx = session.beginTransaction();
-    String hql = "select emp from EmployeeEntity emp where emp.username = '" + user + "'";
-    Query query = session.createQuery(hql);
-    final List<EmployeeEntity> emps = query.getResultList();
-    for (EmployeeEntity emp : emps) {
-      if (emp.getUsername().equals(user) && emp.getPassword().equals(pass)) {
-        info.add(emp.getEmployeeid());
-        info.add(emp.getJob());
-        info.add(emp.getName());
-
-        tx.commit();
-        session.close();
-
-        return info;
-      }
-    }
-    info.add("");
-    info.add("");
-    info.add("");
-    tx.commit();
-    session.close();
-
-    return info;
-  }
 }

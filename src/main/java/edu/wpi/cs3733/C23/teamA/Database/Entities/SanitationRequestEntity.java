@@ -1,9 +1,10 @@
-package edu.wpi.cs3733.C23.teamA.hibernateDB;
+package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
-import java.util.*;
+import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,7 +39,7 @@ public class SanitationRequestEntity extends ServiceRequestEntity {
       Status status,
       String employeeassigned,
       IssueCategory category,
-      Date date) {
+      Timestamp date) {
     super(
         requestid,
         name,

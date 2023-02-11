@@ -1,0 +1,7 @@
+.HomePageStyle{
+    -fx-background-image: url(HomePageCroppedImage.jpg);
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+
+}

@@ -1,10 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -21,7 +21,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class EdgeController extends ServiceRequestController {
+public class EdgeController extends MenuController {
 
   @FXML private TableView<EdgeEntity> dbTable;
 
@@ -97,8 +97,8 @@ public class EdgeController extends ServiceRequestController {
     Navigation.navigate(Screen.DATABASE);
   }
 
-  public void switchToNodeScene(ActionEvent event) {
+  public void switchToMapScene(ActionEvent event) {
     session.close();
-    Navigation.navigate(Screen.NODE);
+    Navigation.navigate(Screen.NODE_MAP);
   }
 }

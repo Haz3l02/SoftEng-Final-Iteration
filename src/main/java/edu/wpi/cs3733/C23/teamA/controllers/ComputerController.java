@@ -1,20 +1,20 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ComputerRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,67 +26,30 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML private MFXTextField deviceIDNum;
   @FXML private MFXComboBox<String> devicesBox;
-  UrgencyLevel urgent;
   DevicesCategory device;
 
   @FXML
   public void initialize() throws SQLException {
-    IdNumberHolder holder = IdNumberHolder.getInstance();
-    String name = holder.getName();
-    String id = holder.getId();
-
-    if (reminder != null) {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-    }
+    super.initialize();
     if (devicesBox != null) {
       ObservableList<String> devices =
           FXCollections.observableArrayList(DevicesCategory.deviceList());
-      ObservableList<String> urgencies =
-          FXCollections.observableArrayList(UrgencyLevel.urgencyList());
-
-      Session session = getSessionFactory().openSession();
-      List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
-
-      // ArrayList<Move> moves = Move.getAll();
-      ObservableList<String> locations = FXCollections.observableArrayList();
-      for (LocationNameEntity move : temp) {
-        locations.add(move.getLongname());
-      }
-
-      Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
-
-      nameBox.setText(name);
-      IDNum.setText(id);
-
       devicesBox.setItems(devices);
-      urgencyBox.setItems(urgencies);
-      locationBox.setItems(locations);
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
-
-    if (newEdit.needEdits && newEdit.getRequestType().equals("COMPUTER")) {
-      //      String requestType =
-      //          (newEdit.getRequestType())
-      //              .substring(0, (newEdit.getRequestType().indexOf("Request")) - 1); //
-      // "Computer"
-      //      if (requestType.equals("Computer")) {
-      System.out.println("here");
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Computer")) {
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();
       ComputerRequestEntity editComputerRequest =
           session.get(ComputerRequestEntity.class, newEdit.getRequestID());
-      System.out.println("before switch here");
-      // editComputerRequest.getRequestID()
-      // editComputerRequest = editComputerRequest.getComputerRequest(newEdit.getRequestID());
-      System.out.println("after switch here");
       nameBox.setText(editComputerRequest.getName());
       IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
       devicesBox.setText(editComputerRequest.getDevice().toString());
       deviceIDNum.setText(editComputerRequest.getDeviceid());
       locationBox.setText(editComputerRequest.getLocation().getLongname());
-      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency());
+      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editComputerRequest.getDescription());
+
       // session.persist(submission);
       tx.commit();
       session.close();
@@ -98,11 +61,6 @@ public class ComputerController extends ServiceRequestController {
   @FXML
   public void switchToConfirmationScene(ActionEvent event) {
     Navigation.navigate(Screen.COMPUTER_CONFIRMATION);
-  }
-
-  @FXML
-  public void switchToComputerScene(ActionEvent event) {
-    Navigation.navigate(Screen.COMPUTER);
   }
 
   @FXML
@@ -149,7 +107,7 @@ public class ComputerController extends ServiceRequestController {
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.COMPUTER,
-                ServiceRequestEntity.Status.BLANK,
+                Status.BLANK,
                 "Unassigned",
                 deviceIDNum.getText(),
                 device);

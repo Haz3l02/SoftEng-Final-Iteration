@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
@@ -24,7 +24,7 @@ import org.hibernate.Session;
 /* This class has methods for pathfinding UI as well as methods to
 create a graph using nodes from database and method to call AStar
 to obtain and later print the path */
-public class PathfindingMapController extends ServiceRequestController {
+public class PathfindingMapController extends MenuController {
 
   // javaFX items
   @FXML private Text pathMapText;
@@ -37,7 +37,7 @@ public class PathfindingMapController extends ServiceRequestController {
   private List<String> allNodeIDs; // List of all Node IDs in specific order
 
   // a PathfindingSystem to run methods in the pathfinding package
-  private static final PathfindingSystem pathfindingSystem = new PathfindingSystem();
+  private static PathfindingSystem pathfindingSystem;
   private double SCALE_FACTOR = 0.15;
 
   /**
@@ -47,8 +47,11 @@ public class PathfindingMapController extends ServiceRequestController {
    * @throws SQLException
    */
   public void initialize() throws SQLException {
+    // tuple stuff (this will get deleted once it's all on one page again)
     Tuple<Integer, Integer> mapNodes = NodeIndicesHolder.getInstance().getNodes();
     allNodeIDs = new ArrayList<>();
+
+    // open a session to grab stuff (again, will hopefully not be needed later)
     session = getSessionFactory().openSession();
     List<NodeEntity> allNodes =
         getAllRecords(NodeEntity.class, session); // get all nodes from Database
@@ -56,8 +59,14 @@ public class PathfindingMapController extends ServiceRequestController {
       allNodeIDs.add(n.getNodeid()); // get nodeId
     }
     session.close();
+
+    // add the floor map image
     addFloorMapImage(
-        "src/main/resources/edu/wpi/cs3733/C23/teamA/assets/unlabeledMaps/20% Scale/00_thelowerlevel1_unlabeled_20%.png"); // place the map on the page
+        "src/main/resources/edu/wpi/cs3733/C23/teamA/assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png"); // place the map on the page
+
+    // initialize the pathfindingSystem (WILL BE DONE IN A DROPDOWN LATER)
+    pathfindingSystem =
+        new PathfindingSystem(new AStar()); // the "new AStar()" will be what changes
 
     // calls the function which makes and draws on the map
     generatePath(mapNodes.get1(), mapNodes.get2());
@@ -104,7 +113,7 @@ public class PathfindingMapController extends ServiceRequestController {
     GraphNode start = pathfindingSystem.getNode(sName);
     GraphNode end = pathfindingSystem.getNode(eName);
     ArrayList<GraphNode> path =
-        pathfindingSystem.traverseAStar(start, end); // makes a call to AStar
+        pathfindingSystem.runPathfinding(start, end); // makes a call to AStar
 
     // if a path was found, draw a path
     if (path != null) {

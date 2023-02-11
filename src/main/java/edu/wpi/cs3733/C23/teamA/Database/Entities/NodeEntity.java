@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.hibernateDB;
+package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -52,5 +52,15 @@ public class NodeEntity {
     String hql = "select nod from NodeEntity nod where nod.floor = '" + floor + "'";
     Query query = session.createQuery(hql);
     return query.getResultList();
+  }
+
+  public NodeEntity() {}
+
+  public NodeEntity(String nodeid, Integer xcoord, Integer ycoord, String floor, String building) {
+    this.nodeid = nodeid;
+    this.xcoord = xcoord;
+    this.ycoord = ycoord;
+    this.floor = floor;
+    this.building = building;
   }
 }

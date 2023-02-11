@@ -15,23 +15,23 @@
 
 
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.ComputerRequestEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.ComputerRequestEntity"/>
 <!--    <mapping resource="ComputerrequestEntity.hbm.xml"/>-->
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity"/>
 <!--    <mapping resource="EdgeEntity.hbm.xml"/>-->
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity"/>
 <!--    <mapping resource="EmployeeEntity.hbm.xml"/>-->
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.LocationNameEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity"/>
 <!--    <mapping resource="LocationnameEntity.hbm.xml"/>-->
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity"/>
 <!--    <mapping resource="MoveEntity.hbm.xml"/>-->
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity"/>
 <!--    <mapping resource="NodeEntity.hbm.xml"/>-->
 <!--    <mapping resource="SanitationrequestEntity.hbm.xml"/>-->
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.SanitationRequestEntity"/>
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.SecurityRequestEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity"/>
 <!--    <mapping resource="SecurityrequestEntity.hbm.xml"/>-->
-    <mapping class="edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity"/>
 <!--    <mapping resource="ServicerequestEntity.hbm.xml"/>-->
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->

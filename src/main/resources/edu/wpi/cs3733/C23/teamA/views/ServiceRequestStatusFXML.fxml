@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="950.0" prefWidth="1920.0" style="-fx-background-color: D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
+   <bottom>
+      <HBox alignment="CENTER_LEFT" prefWidth="611.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+               <children>
+                  <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#clearEdits" prefHeight="50.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Clear Edits" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0">
+               <children>
+                  <MFXButton id="helpButton" fx:id="submitButton" buttonType="RAISED" onAction="#submitRequest" prefHeight="25.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Select All" textFill="#d3e9f6" visible="false">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
+                  <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+                  <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton id="helpButton" fx:id="editForm" buttonType="RAISED" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#editForm" prefHeight="50.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15;" text="Edit" textFill="#224870">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" left="15.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <padding>
+      <Insets top="10.0" />
+   </padding>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Form Submissions">
+               <font>
+                  <Font size="40.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Text>
+            <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" prefHeight="750.0" prefWidth="611.0">
+              <items>
+                  <VBox maxWidth="-Infinity" prefHeight="500.0" prefWidth="405.0" spacing="10.0" style="-fx-background-color: D3E9F6;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form Type">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                        <MFXComboBox fx:id="formTypeBox" floatMode="ABOVE" prefHeight="55.0" prefWidth="390.0" style="-fx-background-radius: 15;">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXComboBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="128.0790786743164">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                        <MFXTextField fx:id="dateBox" floatMode="ABOVE" prefHeight="55.0" prefWidth="390.0" style="-fx-background-radius: 15;">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXTextField>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" wrappingWidth="102.62251281738281">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                        <MFXComboBox fx:id="statusBox" floatMode="ABOVE" prefHeight="55.0" prefWidth="390.0" style="-fx-background-radius: 15;">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXComboBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency" wrappingWidth="128.0790786743164">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                        <MFXComboBox fx:id="urgencyBox" floatMode="ABOVE" prefHeight="55.0" prefWidth="390.0" style="-fx-background-radius: 15;">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXComboBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Assigned">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                        <MFXComboBox fx:id="employeeBox" floatMode="ABOVE" prefHeight="55.0" prefWidth="390.0" style="-fx-background-radius: 15;">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXComboBox>
+                        <MFXButton buttonType="RAISED" defaultButton="true" onAction="#submitEdit" prefHeight="65.0" prefWidth="390.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15;" text="Submit" textFill="#224870">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </VBox>
+                  <TableView fx:id="serviceReqsTable" editable="true" onMouseClicked="#rowClicked" prefHeight="650.0" prefWidth="462.0" style="-fx-background-color: d3e9f6;">
+                    <columns>
+                        <TableColumn fx:id="IDCol" minWidth="0.0" prefWidth="0.0" text="ID" />
+                      <TableColumn fx:id="formTypeCol" prefWidth="322.0" text="Form Type" />
+                        <TableColumn fx:id="dateCol" prefWidth="266.0" text="Date" />
+                        <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="271.0" text="Status" />
+                        <TableColumn fx:id="urgencyCol" minWidth="7.0" prefWidth="254.0" text="Urgency" />
+                        <TableColumn fx:id="employeeAssignedCol" minWidth="0.0" prefWidth="378.0" text="Employee Assigned" />
+                    </columns>
+                  </TableView>
+              </items>
+               <VBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </VBox.margin>
+            </SplitPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
