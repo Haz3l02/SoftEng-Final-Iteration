@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class DFS {
+public class DFS implements IAlgorithmStrategy {
 
   /**
    * The traverse method uses a Depth First Search Algorithm to go from the startNode to the endNode
@@ -15,7 +15,7 @@ public class DFS {
    * @return an ArrayList containing the nodes in the path from startNode to endNode, or null if
    *     there isn't one.
    */
-  public static ArrayList<GraphNode> traverse(GraphNode startNode, GraphNode endNode) {
+  public ArrayList<GraphNode> traverse(GraphNode startNode, GraphNode endNode) {
     // first, check if the starting and ending nodes are the same
 
     // initialize the stack and add the starting node to it

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
+import lombok.Getter;
+import lombok.Setter;
 
 // Contains methods from AStar, DFS, PathInterpreter, CSVReader, and Graph, with a Graph object.
 // NOTE: for JavaDoc comments, view the other classes. This is a Facade class.
@@ -11,21 +13,17 @@ public class PathfindingSystem {
 
   // attributes
   Graph graph;
+  @Setter @Getter IAlgorithmStrategy algorithmStrategy;
 
   // constructor
-  public PathfindingSystem() {
+  public PathfindingSystem(IAlgorithmStrategy algorithmStrategy) {
+    this.algorithmStrategy = algorithmStrategy; // AStar, DFS, or BFS
     graph = new Graph();
   }
 
-  // Methods relating to multiple Static Classes
-  // AStar
-  public ArrayList<GraphNode> traverseAStar(GraphNode startNode, GraphNode endNode) {
-    return AStar.traverse(startNode, endNode);
-  }
-
-  // DFS
-  public ArrayList<GraphNode> traverseDFS(GraphNode startNode, GraphNode endNode) {
-    return DFS.traverse(startNode, endNode);
+  // run pathfinding using the System
+  public ArrayList<GraphNode> runPathfinding(GraphNode startNode, GraphNode endNode) {
+    return algorithmStrategy.traverse(startNode, endNode);
   }
 
   public String generatePathString(ArrayList<GraphNode> path) {
