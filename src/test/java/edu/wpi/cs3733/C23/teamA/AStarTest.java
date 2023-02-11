@@ -3,11 +3,10 @@ package edu.wpi.cs3733.C23.teamA;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
+import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import org.junit.jupiter.api.*; // notably, BeforeEach & Test
 
 // Testing class for AStar Algorithm
