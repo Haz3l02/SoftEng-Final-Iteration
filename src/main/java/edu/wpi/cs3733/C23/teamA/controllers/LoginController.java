@@ -65,8 +65,10 @@ public class LoginController {
       session.close();
       if (holder.getJob().equalsIgnoreCase("Maintenance")) {
         Navigation.navigateHome(Screen.HOME_MAINTENANCE);
+      } else if (holder.getJob().equalsIgnoreCase("Admin")) {
+        Navigation.navigateHome(Screen.HOME_ADMIN);
       } else {
-        Navigation.navigateHome(Screen.HOME);
+        Navigation.navigateHome(Screen.HOME_EMPLOYEE);
       }
     }
     session.close();
