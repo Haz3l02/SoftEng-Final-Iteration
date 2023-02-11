@@ -42,11 +42,6 @@ public class MenuController {
 
   @FXML
   public void initialize() throws SQLException, IOException, InterruptedException {
-    // This statement blocks Pathfinding from being opened... is it important?
-    // backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-
-    // this maybe could not be here but idk it might not work and doens't seem to break anything
-    // /shrug
     FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
     popup = new PopOver(loader.load());
   }
@@ -83,14 +78,6 @@ public class MenuController {
     Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
   }
 
-  @FXML
-  void clearForm() {
-    //nameBox.clear();
-    // IDNum.clear();
-    descBox.clear();
-    urgencyBox.clear();
-    locationBox.clear();
-  }
 
   public void switchToHomeDatabaseScene(ActionEvent event) {
     Navigation.navigateHome(Screen.HOME_DATABASE);
