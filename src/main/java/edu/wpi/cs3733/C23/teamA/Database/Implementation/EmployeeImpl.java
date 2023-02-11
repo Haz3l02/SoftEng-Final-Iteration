@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -44,7 +43,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     //    }
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("employeeid,job,name,password,username\n");
     for (EmployeeEntity emp : emps) {
@@ -74,8 +73,8 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     emp.setPassword(obj.getPassword());
     emp.setName(obj.getName());
 
-    for (EmployeeEntity em : employees){
-      if (em.getEmployeeid().equals(emp.getEmployeeid())){
+    for (EmployeeEntity em : employees) {
+      if (em.getEmployeeid().equals(emp.getEmployeeid())) {
         employees.remove(em);
       }
     }
@@ -83,8 +82,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     employees.add(emp);
     tx.commit();
     session.close();
-
-
   }
 
   public static ArrayList<String> checkPass(String user, String pass) {
@@ -131,7 +128,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     employees.clear();
-    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/"+ filename);
+    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(emps);
@@ -152,13 +149,12 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     session.close();
   }
 
-
   public void delete(EmployeeEntity e) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(e);
-    for (EmployeeEntity emp : employees){
-      if (emp.getEmployeeid().equals(e.getEmployeeid())){
+    for (EmployeeEntity emp : employees) {
+      if (emp.getEmployeeid().equals(e.getEmployeeid())) {
         employees.remove(emp);
       }
     }
