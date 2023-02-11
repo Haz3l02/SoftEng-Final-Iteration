@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="HomePageStyle" stylesheets="@../assets/HomePageStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeDatabaseController">
+<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="HomePageStyle" stylesheets="@../assets/HomePageStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <children>
       <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
          <children>
@@ -24,9 +24,9 @@
                   <Insets bottom="-20.0" />
                </padding>
                <center>
-                  <VBox alignment="TOP_CENTER" prefHeight="297.0" prefWidth="1307.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
+                  <VBox alignment="TOP_CENTER" prefHeight="297.0" prefWidth="1307.0" spacing="20.0" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="44.0" prefWidth="1254.0" spacing="30.0">
+                        <HBox alignment="CENTER" prefHeight="44.0" prefWidth="1254.0">
                            <children>
                               <Label fx:id="welcome" text="Label">
                                  <font>
@@ -40,7 +40,7 @@
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="265.0" prefWidth="1339.0">
                            <children>
-                              <VBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="284.0" prefWidth="450.0" style="-fx-background-color: F6BD3A; -fx-background-radius: 20 20 20 20;">
+                              <VBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="284.0" prefWidth="499.0" style="-fx-background-color: F6BD3A; -fx-background-radius: 20 20 20 20;">
                                  <children>
                                     <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Tasks" textAlignment="CENTER" wrappingWidth="281.9296875">
                                        <font>
@@ -59,12 +59,12 @@
                                     </TableView>
                                  </children>
                                  <HBox.margin>
-                                    <Insets left="50.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </VBox>
                               <HBox alignment="TOP_CENTER" prefHeight="282.0" prefWidth="66.0">
                                  <children>
-                                    <Line endX="-92.72621154785156" endY="229.82046508789062" fill="#122b33" startX="-92.72474670410156" startY="-29.679534912109375" stroke="#122c34" strokeLineCap="ROUND" strokeLineJoin="ROUND" style="-fx-stroke-width: 15;">
+                                    <Line endX="-92.72621154785156" endY="229.82046508789062" fill="#122b33" startX="-92.72474670410156" startY="-29.679534912109375" stroke="#122c34" strokeLineCap="ROUND" strokeLineJoin="ROUND" style="-fx-stroke-width: 10;">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
@@ -74,7 +74,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </HBox>
-                              <VBox prefHeight="185.0" prefWidth="492.0">
+                              <VBox prefHeight="284.0" prefWidth="676.0">
                                  <children>
                                     <StackPane prefHeight="120.0" prefWidth="492.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15;">
                                        <VBox.margin>
@@ -92,7 +92,7 @@
                                                       </Text>
                                                    </children>
                                                 </VBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="482.0">
+                                                <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="536.0">
                                                    <children>
                                                       <Label fx:id="message" text="Label">
                                                          <font>
@@ -141,7 +141,7 @@
                               </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets left="35.0" />
+                              <Insets />
                            </VBox.margin>
                         </HBox>
                      </children>
@@ -166,11 +166,6 @@
                                        </font>
                                     </MFXButton>
                                     <MFXButton maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="64.0" prefWidth="108.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Help" textFill="WHITE" underline="true">
-                                       <font>
-                                          <Font size="25.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#switchToCredits" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Credits" textFill="WHITE" underline="true">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
