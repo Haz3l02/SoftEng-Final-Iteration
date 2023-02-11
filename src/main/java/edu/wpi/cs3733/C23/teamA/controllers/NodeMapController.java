@@ -16,7 +16,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import net.kurobako.gesturefx.GesturePane;
 import org.hibernate.Session;
@@ -50,6 +52,36 @@ public class NodeMapController extends ServiceRequestController {
     // Add nodes as circles
     // gc = nodeMapCanvas.getGraphicsContext2D();
     NodeDraw.drawNodes(allNodes, 0.16, nodeAnchor);
+
+    // Pane
+
+    nodeAnchor.setOnMouseClicked(
+        e -> {
+          double x = e.getX();
+          double y = e.getY();
+          System.out.println(x);
+          System.out.println(" " + y);
+          if (e.getButton() == MouseButton.PRIMARY) {
+
+            final Pane nodeGraphic = new Pane();
+
+            /* Set the style of the node */
+            nodeGraphic.setPrefSize(4, 4);
+            nodeGraphic.setLayoutX(x - 4);
+            nodeGraphic.setLayoutY(y - 4);
+            nodeGraphic.setStyle(
+                "-fx-background-color: '#F6BD38'; "
+                    + "-fx-background-radius: 12.5; "
+                    + "-fx-border-color: '013A75'; "
+                    + "-fx-border-width: 1;"
+                    + "-fx-border-radius: 12.5");
+
+            nodeAnchor.getChildren().add(nodeGraphic);
+
+          } else if (e.getButton() == MouseButton.SECONDARY) {
+
+          }
+        });
   }
 
   /**
