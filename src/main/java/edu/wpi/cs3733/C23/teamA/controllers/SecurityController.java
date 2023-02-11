@@ -13,13 +13,10 @@ import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,36 +34,11 @@ public class SecurityController extends MenuController {
 
   @FXML
   public void initialize() throws SQLException {
-    IdNumberHolder holder = IdNumberHolder.getInstance();
-    String name = holder.getName();
-    String id = holder.getId();
 
-    if (reminder != null) {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-    }
     if (requestsBox != null) {
       ObservableList<String> requests =
           FXCollections.observableArrayList(RequestCategory.categoryList());
-      ObservableList<String> urgencies =
-          FXCollections.observableArrayList(UrgencyLevel.urgencyList());
-
-      Session session = getSessionFactory().openSession();
-      List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
-
-      ObservableList<String> locations = FXCollections.observableArrayList();
-      for (LocationNameEntity move : temp) {
-        locations.add(move.getLongname());
-      }
-
-      Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
-
-      nameBox.setText(name);
-      IDNum.setText(id);
-
       requestsBox.setItems(requests);
-      urgencyBox.setItems(urgencies);
-      locationBox.setItems(locations);
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Security")) {
 
@@ -92,18 +64,8 @@ public class SecurityController extends MenuController {
   }
 
   @FXML
-  public void switchToSecurityScene(ActionEvent event) {
-    Navigation.navigate(Screen.SECURITY);
-  }
-
-  @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
     Navigation.navigateHome(Screen.HOME);
-  }
-
-  @FXML
-  public void switchToHomeServiceRequestScene(ActionEvent event) {
-    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
   }
 
   @FXML
