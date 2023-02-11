@@ -17,7 +17,7 @@ public class AStar implements IAlgorithmStrategy {
    * @return an ArrayList containing the nodes in the path from startNode to endNode, or null if
    *     there isn't one.
    */
-  public static ArrayList<GraphNode> traverse(GraphNode startNode, GraphNode endNode) {
+  public ArrayList<GraphNode> traverse(GraphNode startNode, GraphNode endNode) {
     // initialize open and closed lists
     Queue<GraphNode> open = new PriorityQueue<>();
 
