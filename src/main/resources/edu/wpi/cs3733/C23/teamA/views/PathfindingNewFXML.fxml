@@ -10,6 +10,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -18,6 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import net.kurobako.gesturefx.GesturePane?>
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
     <bottom>
@@ -208,7 +210,7 @@
                 </AnchorPane>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="827.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
                     <children>
-                        <VBox layoutX="1.0" layoutY="40.0" prefHeight="555.0" prefWidth="797.0" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                        <VBox layoutX="1.0" layoutY="40.0" prefHeight="561.0" prefWidth="787.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <HBox prefHeight="44.0" prefWidth="1063.0">
                                     <VBox.margin>
@@ -225,24 +227,42 @@
                                 </HBox>
                                 <StackPane prefHeight="510.0" prefWidth="754.0">
                                     <children>
-                              <TabPane prefHeight="476.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+                              <TabPane prefHeight="476.0" prefWidth="634.0" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
-                                    <Tab text="L2">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <ImageView fx:id="floorL2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
-                                                <Canvas fx:id="mapCanvas" height="456.0" width="754.0" />
-                                             </children>
-                                          </AnchorPane>
-                                      </content>
-                                    </Tab>
                                     <Tab text="L1">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="floorL1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
-                                                <Canvas fx:id="mapCanvas1" height="456.0" width="754.0" />
+                                                <StackPane>
+                                                   <children>
+                                                      <ImageView fx:id="floorL1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Canvas fx:id="mapCanvas1" height="456.0" width="754.0" />
+                                                   </children>
+                                                </StackPane>
+                                                <GesturePane />
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
+                                    <Tab text="L2">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <StackPane>
+                                                   <children>
+                                                      <ImageView fx:id="floorL2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/unlabeledMaps/00_thelowerlevel2_unlabeled.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Canvas fx:id="mapCanvas" height="456.0" width="754.0" />
+                                                   </children>
+                                                </StackPane>
+                                                <GesturePane />
                                              </children>
                                           </AnchorPane>
                                       </content>
@@ -251,8 +271,17 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="floorF1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
-                                                <Canvas fx:id="mapCanvas2" height="456.0" width="754.0" />
+                                                <StackPane>
+                                                   <children>
+                                                      <ImageView fx:id="floorF1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Canvas fx:id="mapCanvas2" height="456.0" width="754.0" />
+                                                   </children>
+                                                </StackPane>
+                                                <GesturePane layoutX="10.0" layoutY="10.0" />
                                              </children>
                                           </AnchorPane>
                                     </content>
@@ -261,8 +290,17 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="floorF2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
-                                                <Canvas fx:id="mapCanvas3" height="456.0" width="754.0" />
+                                                <StackPane>
+                                                   <children>
+                                                      <ImageView fx:id="floorF2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Canvas fx:id="mapCanvas3" height="456.0" width="754.0" />
+                                                   </children>
+                                                </StackPane>
+                                                <GesturePane layoutX="10.0" layoutY="10.0" />
                                              </children>
                                           </AnchorPane>
                                     </content>
@@ -271,8 +309,17 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="floorF3" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true" />
-                                                <Canvas fx:id="mapCanvas4" height="456.0" width="754.0" />
+                                                <StackPane>
+                                                   <children>
+                                                      <ImageView fx:id="floorF3" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Canvas fx:id="mapCanvas4" height="456.0" width="754.0" />
+                                                   </children>
+                                                </StackPane>
+                                                <GesturePane layoutX="10.0" layoutY="10.0" />
                                              </children>
                                           </AnchorPane>
                                       </content>
