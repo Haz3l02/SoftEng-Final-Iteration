@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -130,11 +131,16 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     session.close();
   }
 
-  public void delete(EdgeEntity e) {
+  public void delete(String e) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    edges.remove(e);
-    session.remove(e);
+    ListIterator<EdgeEntity> li = edges.listIterator();
+    while (li.hasNext()){
+      if (li.next().getEdgeid().equals(e)){
+        li.remove();
+      }
+    }
+    session.remove(session.get(EdgeEntity.class, e));
     tx.commit();
     session.close();
   }
@@ -150,9 +156,9 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
         newEdge = new EdgeEntity(n.getNode1(), m.getNode2());
         System.out.println(newEdge.getEdgeid());
         session.merge(newEdge);
-        delete(m);
+        delete(m.getEdgeid());
       }
-      delete(n);
+      delete(n.getEdgeid());
     }
     tx.commit();
     session.close();
@@ -162,16 +168,19 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
+    ListIterator<EdgeEntity> li = edges.listIterator();
+    while (li.hasNext()){
+      if (li.next().getEdgeid().equals(s)){
+        li.remove();
+      }
+    }
+
+
     EdgeEntity edg = session.get(EdgeEntity.class, s);
 
     edg.setNode1(obj.getNode1());
     edg.setNode2(obj.getNode2());
 
-    for (EdgeEntity edge : edges) {
-      if (edge.getEdgeid().equals(s)) {
-        edges.remove(edge);
-      }
-    }
 
     edges.add(edg);
 

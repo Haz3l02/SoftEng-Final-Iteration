@@ -4,16 +4,19 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import static java.lang.Integer.parseInt;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
+import org.w3c.dom.Node;
 
 public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   // done
@@ -98,10 +101,15 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     session.close();
   }
 
-  public void delete(NodeEntity n) {
+  public void delete(String n) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    nodes.remove(n);
+    ListIterator<NodeEntity> li = nodes.listIterator();
+    while (li.hasNext()){
+      if (li.next().getNodeid().equals(n)){
+        li.remove();
+      }
+    }
     session.remove(n);
     tx.commit();
     session.close();
@@ -111,6 +119,14 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
+
+    ListIterator<NodeEntity> li = nodes.listIterator();
+    while (li.hasNext()){
+      if (li.next().getNodeid().equals(ID)){
+        li.remove();
+      }
+    }
+
     NodeEntity n = session.get(NodeEntity.class, ID);
 
     n.setBuilding(obj.getBuilding());
@@ -118,11 +134,6 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     n.setYcoord(obj.getYcoord());
     n.setFloor(obj.getFloor());
 
-    for (NodeEntity nod : nodes) {
-      if (nod.equals(obj)) {
-        nodes.remove(obj);
-      }
-    }
 
     nodes.add(n);
     tx.commit();

@@ -102,11 +102,17 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
     session.close();
   }
 
-  public void delete(ComputerRequestEntity c) {
+  public void delete(Integer c) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.delete(c);
-    new ServiceRequestImpl().delete(session.get(ServiceRequestEntity.class, c.getRequestid()));
+    session.delete(session.get(ComputerRequestEntity.class, c));
+    new ServiceRequestImpl().delete(session.get(ServiceRequestEntity.class, c));
+
+    for (ComputerRequestEntity comp : comprequests){
+      if (comp.getRequestid()==c){
+        comprequests.remove(comp);
+      }
+    }
 
     tx.commit();
     session.close();

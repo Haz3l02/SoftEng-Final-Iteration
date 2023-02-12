@@ -81,15 +81,15 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     session.close();
   }
 
-  public void delete(ServiceRequestEntity s) {
+  public void delete(Integer s) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.remove(s);
-    for (ServiceRequestEntity ser : services) {
-      if (ser.getRequestid()==s.getRequestid()) {
-        services.remove(ser);
-      }
-    }
+//    for (ServiceRequestEntity ser : services) {
+//      if (ser.getRequestid()==s.getRequestid()) {
+//        services.remove(ser);
+//      }
+//    }
     tx.commit();
     session.close();
   }

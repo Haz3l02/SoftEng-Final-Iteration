@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -66,10 +67,15 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
+    ListIterator<EmployeeEntity> li = employees.listIterator();
+    while (li.hasNext()){
+      if (li.next().getEmployeeid().equals(ID)){
+        li.remove();
+      }
+    }
+
     EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
-    employees.remove(emp);
-
-
+    emp.setEmployeeid(obj.getEmployeeid());
     emp.setJob(obj.getJob());
     emp.setUsername(obj.getUsername());
     emp.setPassword(obj.getPassword());
@@ -146,11 +152,19 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     session.close();
   }
 
-  public void delete(EmployeeEntity e) {
+  public void delete(String e) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.delete(e);
-    employees.remove(e);
+
+    ListIterator<EmployeeEntity> li = employees.listIterator();
+    while (li.hasNext()){
+      if (li.next().getEmployeeid().equals(e)){
+        li.remove();
+      }
+    }
+
+    session.delete(session.get(EmployeeEntity.class, e));
+
 
     tx.commit();
     session.close();

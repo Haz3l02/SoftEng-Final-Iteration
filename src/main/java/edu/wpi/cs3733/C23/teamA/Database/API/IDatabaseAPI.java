@@ -15,5 +15,5 @@ public interface IDatabaseAPI<T, G> {
 
   public void update(G ID, T obj);
 
-  public void delete(T obj);
+  public void delete(G obj);
 }
