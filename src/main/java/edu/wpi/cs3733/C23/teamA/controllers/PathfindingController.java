@@ -62,27 +62,6 @@ public class PathfindingController extends MenuController {
    * @throws SQLException
    */
   public void initialize() throws SQLException {
-
-    // startLocBox.setDisable(true);
-    // endLocBox.setDisable(true);
-    // Database's list of longNames
-    // allNodeIDs = new ArrayList<String>();
-    // allLongNames = new ArrayList<String>();
-
-    // Session session = getSessionFactory().openSession();
-    // allNodes = getAllRecords(NodeEntity.class, session); // get all nodes from Database
-
-    /*
-    for (NodeEntity n : allNodes) {
-      allNodeIDs.add(n.getNodeid()); // get nodeId
-      allLongNames.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
-    }
-
-     */
-    // session.close();
-
-    // Add to front end
-    // ObservableList<String> locations = FXCollections.observableArrayList(allLongNames);
     ObservableList<String> floors =
         FXCollections.observableArrayList(
             Floor.L1.getExtendedString(),
@@ -95,9 +74,8 @@ public class PathfindingController extends MenuController {
             Algorithm.ASTAR.getDropText(),
             Algorithm.BFS.getDropText(),
             Algorithm.DFS.getDropText());
+
     // populates the dropdown boxes
-    // startLocBox.setItems(locations);
-    // endLocBox.setItems(locations);
     startFloorBox.setItems(floors);
     endFloorBox.setItems(floors);
     algosBox.setItems(algos);
@@ -119,9 +97,6 @@ public class PathfindingController extends MenuController {
     endFloorBox.clear();
     algosBox.clear();
     errorMessage.setText("");
-
-    // clear the canvas w/ the drawn path; does NOT hide the map image
-    // gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
   }
 
   @FXML
@@ -139,10 +114,10 @@ public class PathfindingController extends MenuController {
     Floor floor = null;
 
     if (event.getSource() == startFloorBox) {
-      floor = Floor.valueOf(startFloorBox.getText());
+      floor = Floor.valueOf(Floor.fromString(startFloorBox.getText()));
     }
     if (event.getSource().equals(endFloorBox)) {
-      floor = Floor.valueOf(endFloorBox.getText());
+      floor = Floor.valueOf(Floor.fromString(endFloorBox.getText()));
     } else {
       System.out.println("ERROR");
     }
