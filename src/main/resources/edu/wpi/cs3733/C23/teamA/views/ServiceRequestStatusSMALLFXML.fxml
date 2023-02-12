@@ -27,6 +27,19 @@
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
+                  <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImportPopup" prefHeight="60.0" prefWidth="180.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Import CSV" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExportPopup" prefHeight="60.0" prefWidth="180.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Export CSV" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0" spacing="10.0">

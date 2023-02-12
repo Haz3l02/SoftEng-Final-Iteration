@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecor
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity.getServiceByEmployee;
 
+import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -26,11 +27,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import org.controlsfx.control.PopOver;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -51,6 +56,9 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
+  @FXML private MFXTextField fileNameField;
+  @FXML private Text reminder;
+  @FXML private StackPane reminderPane;
   UrgencyLevel urgent;
   Status status;
 
@@ -58,6 +66,8 @@ public class ServiceRequestStatusController extends MenuController {
 
   private String hospitalID;
   private String job;
+
+  private static PopOver popup;
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
@@ -80,6 +90,8 @@ public class ServiceRequestStatusController extends MenuController {
     IdNumberHolder holder = IdNumberHolder.getInstance();
     hospitalID = holder.getId();
     job = holder.getJob();
+    //    reminder.setVisible(false);
+    //    reminderPane.setVisible(false);
 
     // Assign permissions to differentiate between medical and non-medical staff
     if (job.equalsIgnoreCase("medical")) {
@@ -238,6 +250,65 @@ public class ServiceRequestStatusController extends MenuController {
       default:
         Navigation.navigateHome(Screen.HOME);
         break;
+    }
+  }
+
+  //  @FXML
+  //  void clearForm(ActionEvent event) {
+  //    fileNameField.clear();
+  //  }
+
+  @FXML
+  public void switchToImportPopup(ActionEvent event) throws IOException {
+    if (!event.getSource().equals(backButton)) {
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ImportCSVFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(backButton)) {
+      popup.hide();
+    }
+  }
+
+  @FXML
+  public void importCSV(ActionEvent event) {
+    //    if (fileNameField.getText().equals("")) {
+    //      reminder.setVisible(true);
+    //      reminderPane.setVisible(true);
+    //    } else {
+    //      reminder.setVisible(false);
+    //      reminderPane.setVisible(false);
+    //
+    //      // FUNCTION CALL TO IMPORT CSV
+    //
+    //    }
+  }
+
+  @FXML
+  public void switchToExportPopup(ActionEvent event) throws IOException {
+    if (!event.getSource().equals(backButton)) {
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ExportCSVFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(backButton)) {
+      popup.hide();
+    }
+  }
+
+  @FXML
+  public void exportCSV(ActionEvent event) {
+    if (fileNameField.getText().equals("")) {
+      reminder.setVisible(true);
+      reminderPane.setVisible(true);
+    } else {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+
+      // FUNCTION CALL TO EXPORT CSV
+
     }
   }
 }
