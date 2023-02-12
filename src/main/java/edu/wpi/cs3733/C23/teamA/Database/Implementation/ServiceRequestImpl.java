@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.ListIterator;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -97,6 +99,14 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   public void update(Integer ID, ServiceRequestEntity obj) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
+
+    ListIterator<ServiceRequestEntity> li = services.listIterator();
+    while (li.hasNext()){
+      if (li.next().getRequestid()==ID){
+        li.remove();
+      }
+    }
+
     ServiceRequestEntity ser = session.get(ServiceRequestEntity.class, ID);
     ser.setName(obj.getName());
     ser.setDate(obj.getDate());
@@ -108,13 +118,34 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     ser.setUrgency(obj.getUrgency());
     ser.setStatus(obj.getStatus());
 
-    for (ServiceRequestEntity se : services) {
-      if (se.getRequestid()==obj.getRequestid()) {
-        services.remove(se);
-      }
-    }
     services.add(ser);
     tx.commit();
     session.close();
+  }
+
+  public void addToList(ServiceRequestEntity ser){
+    services.add(ser);
+  }
+
+  public void removeFromList(Integer ID){
+    ListIterator<ServiceRequestEntity> li = services.listIterator();
+    while (li.hasNext()){
+      if (li.next().getRequestid()==ID){
+        li.remove();
+      }
+    }
+  }
+
+
+
+
+  public void updateList(Integer ID, ServiceRequestEntity ser){
+    ListIterator<ServiceRequestEntity> li = services.listIterator();
+    while (li.hasNext()){
+      if (li.next().getRequestid()==ID){
+        li.remove();
+        li.add(ser);
+      }
+    }
   }
 }

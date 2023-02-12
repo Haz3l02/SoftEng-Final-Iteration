@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, Integer> {
   private List<ComputerRequestEntity> comprequests;
@@ -50,7 +51,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
             c.getEmployeeAssigned(),
             c.getDate()
             );
-    new ServiceRequestImpl().add(ser);
+    new ServiceRequestImpl().addToList(ser);
     tx.commit();
     session.close();
   }
@@ -70,8 +71,14 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
+    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    while (li.hasNext()){
+      if (li.next().getRequestid()==ID){
+        li.remove();
+      }
+    }
+
     ComputerRequestEntity c = session.get(ComputerRequestEntity.class, ID);
-    comprequests.remove(c);
 
     c.setDevice(obj.getDevice());
     c.setDeviceid(obj.getDeviceid());
@@ -95,7 +102,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
             obj.getStatus(),
             obj.getEmployeeAssigned(),
             obj.getDate());
-    new ServiceRequestImpl().update(ID, ser);
+    new ServiceRequestImpl().updateList(ID, ser);
     comprequests.add(c);
 
     tx.commit();
@@ -106,14 +113,14 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(session.get(ComputerRequestEntity.class, c));
-    new ServiceRequestImpl().delete(session.get(ServiceRequestEntity.class, c));
 
-    for (ComputerRequestEntity comp : comprequests){
-      if (comp.getRequestid()==c){
-        comprequests.remove(comp);
+    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    while (li.hasNext()){
+      if (li.next().getRequestid()==c){
+        li.remove();
       }
     }
-
+    new ServiceRequestImpl().removeFromList(c);
     tx.commit();
     session.close();
   }
