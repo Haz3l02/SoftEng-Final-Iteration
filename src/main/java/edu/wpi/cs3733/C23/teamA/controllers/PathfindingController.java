@@ -115,9 +115,6 @@ public class PathfindingController extends MenuController {
     // System.out.println(navDate);
   }
 
-  // TODO: function to get an ObservableList of locations based on floor and some stuff to do that
-  // when a floor is picked in dropdown
-
   @FXML
   public void fillStartLocationBox() {
 
@@ -183,17 +180,14 @@ public class PathfindingController extends MenuController {
     pathfindingSystem.drawPath(gc, path, SCALE_FACTOR);
   }
 
-  /**
-   * Runs when the "Find Path" button is pressed, performing pathfinding and displaying the path on
-   * the map.
-   */
   @FXML
   public void generatePath(ActionEvent event) throws SQLException, RuntimeException {
 
     int startIndex = startLocBox.getSelectedIndex();
     int endIndex = endLocBox.getSelectedIndex();
+    int algIndex = algosBox.getSelectedIndex();
 
-    if (startIndex == -1 || endIndex == -1) {
+    if (startIndex == -1 || endIndex == -1 || algIndex == -1) {
       reminder.setText("Please select an option from all fields in the form!");
       reminder.setVisible(true);
     } else {
