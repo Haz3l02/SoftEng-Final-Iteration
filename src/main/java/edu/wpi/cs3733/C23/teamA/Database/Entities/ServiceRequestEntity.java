@@ -13,7 +13,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "servicerequest", catalog = "teamadb")
+@Table(name = "servicerequest")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServiceRequestEntity {
   // @TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
@@ -44,7 +44,13 @@ public class ServiceRequestEntity {
   private EmployeeEntity employee;
 
   @ManyToOne
-  @JoinColumn(name = "location", foreignKey = @ForeignKey(name = "longname"))
+  @JoinColumn(
+      name = "location",
+      foreignKey =
+          @ForeignKey(
+              name = "longname",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (location) REFERENCES locationname(longname) ON UPDATE CASCADE ON DELETE NULL"))
   @Setter
   @Getter
   private LocationNameEntity location;

@@ -21,7 +21,7 @@ import org.hibernate.query.MutationQuery;
 
 public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
-  private ArrayList<EmployeeEntity> employees;
+  private List<EmployeeEntity> employees;
 
   public EmployeeImpl() {
     Session session = getSessionFactory().openSession();
@@ -30,7 +30,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     criteria.from(EmployeeEntity.class);
     List<EmployeeEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    employees = (ArrayList) records;
+    employees = records;
   }
 
   public List<EmployeeEntity> getAll() {
@@ -68,8 +68,8 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     Transaction tx = session.beginTransaction();
 
     ListIterator<EmployeeEntity> li = employees.listIterator();
-    while (li.hasNext()) {
-      if (li.next().getEmployeeid().equals(ID)) {
+    while (li.hasNext()){
+      if (li.next().getEmployeeid().equals(ID)){
         li.remove();
       }
     }
@@ -80,6 +80,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     emp.setUsername(obj.getUsername());
     emp.setPassword(obj.getPassword());
     emp.setName(obj.getName());
+
 
     employees.add(emp);
     tx.commit();
@@ -156,14 +157,14 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     Transaction tx = session.beginTransaction();
 
     ListIterator<EmployeeEntity> li = employees.listIterator();
-    while (li.hasNext()) {
-      if (li.next().getEmployeeid().equals(e)) {
+    while (li.hasNext()){
+      if (li.next().getEmployeeid().equals(e)){
         li.remove();
-        System.out.println("treu");
       }
     }
 
     session.delete(session.get(EmployeeEntity.class, e));
+
 
     tx.commit();
     session.close();
