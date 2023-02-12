@@ -13,18 +13,18 @@ public enum Screen {
   SANITATION("views/SanitationFXML.fxml"),
   SECURITY("views/SecurityFXML.fxml"),
   HELP("views/HelpFXML.fxml"),
-  HOME_SERVICE_REQUEST("views/HomeServiceRequestFXML.fxml"),
+  HOME_SERVICE_REQUEST("views/HomeServiceRequestSMALLFXML.fxml"),
   SERVICE_REQUEST("views/ServiceRequest.fxml"),
   DATABASE("views/DatabaseFXML.fxml"),
   NODE("views/NodeFXML.fxml"),
   EDGE("views/EdgeFXML.fxml"),
-  PATHFINDING("views/PathfindingFXML.fxml"),
+  PATHFINDING("views/PathfindingNewFXML.fxml"),
   PATHFINDING_MAP("views/PathfindingMapFXML.fxml"),
   SERVICE_REQUEST_STATUS("views/ServiceRequestStatusSMALLFXML.fxml"),
   ID_INPUT("views/IDInputFXML.fxml"),
   LOGIN("views/LoginFXML.fxml"),
   NODE_MAP("views/NodeMapFXML.fxml"),
-  HOME_DATABASE("views/HomeDatabaseFXML.fxml"),
+  HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
   MAP_DISPLAY("views/PathDisplayFXML.fxml");
 
   private final String filename;
