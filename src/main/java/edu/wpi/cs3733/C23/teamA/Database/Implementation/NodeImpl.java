@@ -6,6 +6,7 @@ import static java.lang.Integer.parseInt;
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.*;
@@ -138,5 +139,15 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     nodes.add(n);
     tx.commit();
     session.close();
+  }
+
+
+
+  public NodeEntity get(String ID){
+
+    for (NodeEntity ser : nodes){
+      if (ser.getNodeid().equals(ID)) return ser;
+    }
+    return null;
   }
 }

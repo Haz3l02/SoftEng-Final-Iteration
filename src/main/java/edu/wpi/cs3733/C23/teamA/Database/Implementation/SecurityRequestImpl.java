@@ -115,4 +115,25 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     tx.commit();
     session.close();
   }
+
+
+
+
+  public void removeFromList(Integer s){
+    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+    while (li.hasNext()){
+      if (li.next().getRequestid()==s){
+        li.remove();
+      }
+    }
+  }
+
+
+  public SecurityRequestEntity get(Integer ID){
+
+    for (SecurityRequestEntity ser : secrequests){
+      if (ser.getRequestid()==ID) return ser;
+    }
+    return null;
+  }
 }

@@ -68,8 +68,6 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    Session session = getSessionFactory().openSession();
-    List<EdgeEntity> edges = getAllRecords(EdgeEntity.class, session);
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
@@ -77,18 +75,17 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write("edgeid, node1, node2\n");
+    fileWriter.write("edgeid,node1,node2\n");
     for (EdgeEntity edge : edges) {
       fileWriter.write(
           edge.getEdgeid()
-              + ", "
+              + ","
               + edge.getNode1().getNodeid()
-              + ", "
+              + ","
               + edge.getNode2().getNodeid()
               + "\n");
     }
     fileWriter.close();
-    session.close();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
@@ -186,5 +183,14 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
 
     tx.commit();
     session.close();
+  }
+
+
+  public EdgeEntity get(String ID){
+
+    for (EdgeEntity ser : edges){
+      if (ser.getEdgeid().equals(ID)) return ser;
+    }
+    return null;
   }
 }

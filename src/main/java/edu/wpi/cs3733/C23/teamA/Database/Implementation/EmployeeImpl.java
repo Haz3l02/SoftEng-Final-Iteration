@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -38,7 +39,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    List<EmployeeEntity> emps = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
@@ -47,7 +47,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("employeeid,job,name,password,username\n");
-    for (EmployeeEntity emp : emps) {
+    for (EmployeeEntity emp : employees) {
       fileWriter.write(
           emp.getEmployeeid()
               + ","
@@ -169,4 +169,13 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     tx.commit();
     session.close();
   }
+
+  public EmployeeEntity get(String ID){
+
+    for (EmployeeEntity ser : employees){
+      if (ser.getEmployeeid().equals(ID)) return ser;
+    }
+    return null;
+  }
+
 }
