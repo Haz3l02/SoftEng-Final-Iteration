@@ -118,4 +118,24 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     tx.commit();
     session.close();
   }
+
+
+  public void removeFromList(Integer s){
+    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
+    while (li.hasNext()){
+      if (li.next().getRequestid()==s){
+        li.remove();
+      }
+    }
+  }
+
+
+
+  public SanitationRequestEntity get(Integer ID){
+
+    for (SanitationRequestEntity ser : sanrequests){
+      if (ser.getRequestid()==ID) return ser;
+    }
+    return null;
+  }
 }

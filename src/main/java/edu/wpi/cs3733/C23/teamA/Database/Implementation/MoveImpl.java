@@ -41,7 +41,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    List<MoveEntity> movs = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
@@ -50,7 +49,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("movedate,longname,nodeid\n");
-    for (MoveEntity mov : movs) {
+    for (MoveEntity mov : moves) {
       fileWriter.write(
           mov.getMovedate()
               + ","
@@ -124,4 +123,14 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void update(List<String> ID, MoveEntity obj) {}
+
+
+
+  public MoveEntity get(List<String> ID){
+
+    for (MoveEntity m : moves){
+      if (m.getNode().equals(ID.get(0)) && m.getLocationName().equals(ID.get(1)) && m.getMovedate().equals(ID.get(2))) return m;
+    }
+    return null;
+  }
 }

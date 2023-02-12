@@ -3,7 +3,9 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -11,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -86,12 +89,17 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   public void delete(Integer s) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.remove(s);
-//    for (ServiceRequestEntity ser : services) {
-//      if (ser.getRequestid()==s.getRequestid()) {
-//        services.remove(ser);
-//      }
-//    }
+    new ComputerRequestImpl().removeFromList(s);
+    new SanitationRequestImpl().removeFromList(s);
+    new SecurityRequestImpl().removeFromList(s);
+
+    session.delete(session.get(ServiceRequestEntity.class, s));
+    ListIterator<ServiceRequestEntity> li = services.listIterator();
+    while (li.hasNext()){
+      if (li.next().getRequestid()==s){
+        li.remove();
+      }
+    }
     tx.commit();
     session.close();
   }
@@ -147,5 +155,27 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
         li.add(ser);
       }
     }
+  }
+
+
+
+  public ArrayList<ServiceRequestEntity> getAllByEmployee(String id){
+    ArrayList<ServiceRequestEntity> fin = new ArrayList<ServiceRequestEntity>();
+    for (ServiceRequestEntity ser : services){
+      if (ser.getEmployee().getEmployeeid().equals(id)){
+        fin.add(ser);
+      }
+    }
+    return fin;
+  }
+
+
+
+  public ServiceRequestEntity get(Integer ID){
+
+    for (ServiceRequestEntity ser : services){
+      if (ser.getRequestid()==ID) return ser;
+    }
+    return null;
   }
 }

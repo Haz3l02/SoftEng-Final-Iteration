@@ -5,6 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -39,7 +40,6 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void exportToCSV(String filename) throws IOException {
-    List<LocationNameEntity> locs = getAll();
     //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
     //      filename+=".csv";
     //    }
@@ -47,8 +47,8 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write("longname, locationtype, shortname\n");
-    for (LocationNameEntity loc : locs) {
+    fileWriter.write("longname,locationtype,shortname\n");
+    for (LocationNameEntity loc : locations) {
       fileWriter.write(
           loc.getLongname() + "," + loc.getLocationtype() + "," + loc.getShortname() + "\n");
     }
@@ -132,5 +132,14 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     locations.add(l);
     tx.commit();
     session.close();
+  }
+
+
+  public LocationNameEntity get(String ID){
+
+    for (LocationNameEntity ser : locations){
+      if (ser.getLongname().equals(ID)) return ser;
+    }
+    return null;
   }
 }
