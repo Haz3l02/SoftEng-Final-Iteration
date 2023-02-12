@@ -4,14 +4,13 @@ import edu.wpi.cs3733.C23.teamA.controllers.NodeMapController;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import java.util.List;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class NodeDraw {
 
-  static Node previousNode = null;
+  static Pane previousNode = null;
   static NodeEntity selectNode = null;
 
   private static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
@@ -38,13 +37,13 @@ public class NodeDraw {
       Pane nodeGraphic = new Pane();
 
       /* Set the style of the node */
-      nodeGraphic.setPrefSize(4, 4);
+      nodeGraphic.setPrefSize(5, 5);
       nodeGraphic.setLayoutX(updatedCoords[0] - 2);
       nodeGraphic.setLayoutY(updatedCoords[1] - 2);
       nodeGraphic.setStyle(
-          "-fx-background-color: '#F6BD38'; "
+          "-fx-background-color: '#224870'; "
               + "-fx-background-radius: 12.5; "
-              + "-fx-border-color: '013A75'; "
+              + "-fx-border-color: '#224870'; "
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
 
@@ -58,16 +57,16 @@ public class NodeDraw {
                 if (!previousNode.equals(nodeGraphic)) {
 
                   previousNode.setStyle(
-                      "-fx-background-color: '#F6BD38'; "
+                      "-fx-background-color: '#224870'; "
                           + "-fx-background-radius: 12.5; "
-                          + "-fx-border-color: '013A75'; "
+                          + "-fx-border-color: '#224870'; "
                           + "-fx-border-width: 1;"
-                          + "-fx-border-radius: 12.5");
+                          + "-fx-border-radius: 13.5");
                 }
               }
 
               nodeGraphic.setStyle(
-                  "-fx-background-color: 'green'; "
+                  "-fx-background-color: '#D3E9F6'; "
                       + "-fx-background-radius: 12.5; "
                       + "-fx-border-color: '#224870'; "
                       + "-fx-border-width: 1;"
