@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>NodeMapFXML.fxml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #bababa;}
+.s2 { color: #6a8759;}
+.s3 { color: #a9b7c6;}
+.s4 { color: #6d9cbe;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+NodeMapFXML.fxml</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;?</span><span class="s1">xml version</span><span class="s2">=&quot;1.0&quot; </span><span class="s1">encoding</span><span class="s2">=&quot;UTF-8&quot;</span><span class="s0">?&gt;</span>
+
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">io.github.palexdev.materialfx.controls.MFXButton</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.geometry.Insets</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.canvas.Canvas</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.image.ImageView</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.layout.AnchorPane</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.layout.BorderPane</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.layout.HBox</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.layout.StackPane</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.text.Font</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.text.Text</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">net.kurobako.gesturefx.GesturePane</span><span class="s0">?&gt;</span>
+
+<span class="s0">&lt;BorderPane </span><span class="s1">style</span><span class="s2">=&quot;-fx-background-color: #D3E9F6;&quot; </span><span class="s1">xmlns</span><span class="s2">=&quot;http://javafx.com/javafx/19&quot; </span><span class="s1">xmlns:fx</span><span class="s2">=&quot;http://javafx.com/fxml/1&quot; </span><span class="s1">fx:controller</span><span class="s2">=&quot;edu.wpi.cs3733.C23.teamA.controllers.NodeMapController&quot;</span><span class="s0">&gt;</span>
+   <span class="s0">&lt;bottom&gt;</span>
+      <span class="s0">&lt;MFXButton </span><span class="s1">buttonType</span><span class="s2">=&quot;RAISED&quot; </span><span class="s1">cancelButton</span><span class="s2">=&quot;true&quot; </span><span class="s1">onAction</span><span class="s2">=&quot;#switchToNodeScene&quot; </span><span class="s1">prefHeight</span><span class="s2">=&quot;37.0&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;100.0&quot; </span><span class="s1">rippleColor</span><span class="s2">=&quot;#c0cced&quot; </span><span class="s1">style</span><span class="s2">=&quot;-fx-background-color: #224870;&quot; </span><span class="s1">text</span><span class="s2">=&quot;Back&quot; </span><span class="s1">textFill</span><span class="s2">=&quot;#d3e9f6&quot; </span><span class="s1">translateY</span><span class="s2">=&quot;-10.0&quot; </span><span class="s1">BorderPane.alignment</span><span class="s2">=&quot;CENTER&quot;</span><span class="s0">&gt;</span>
+         <span class="s0">&lt;font&gt;</span>
+            <span class="s0">&lt;Font </span><span class="s1">size</span><span class="s2">=&quot;24.0&quot; </span><span class="s0">/&gt;</span>
+         <span class="s0">&lt;/font&gt;</span>
+      <span class="s0">&lt;/MFXButton&gt;</span>
+   <span class="s0">&lt;/bottom&gt;</span>
+   <span class="s0">&lt;top&gt;</span>
+      <span class="s0">&lt;BorderPane </span><span class="s1">prefHeight</span><span class="s2">=&quot;58.0&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;1012.0&quot; </span><span class="s1">style</span><span class="s2">=&quot;-fx-background-color: #224870;&quot; </span><span class="s1">BorderPane.alignment</span><span class="s2">=&quot;CENTER&quot;</span><span class="s0">&gt;</span>
+         <span class="s0">&lt;left&gt;</span>
+            <span class="s0">&lt;Text </span><span class="s1">fill</span><span class="s2">=&quot;#d3e9f6&quot; </span><span class="s1">strokeType</span><span class="s2">=&quot;OUTSIDE&quot; </span><span class="s1">strokeWidth</span><span class="s2">=&quot;0.0&quot; </span><span class="s1">style</span><span class="s2">=&quot;-fx-underline: false; -fx-border-width: 0 0 2 0;&quot; </span><span class="s1">text</span><span class="s2">=&quot;Brigham </span><span class="s4">&amp;amp; </span><span class="s2">Women's Hospital&quot; </span><span class="s1">wrappingWidth</span><span class="s2">=&quot;384.1484375&quot; </span><span class="s1">BorderPane.alignment</span><span class="s2">=&quot;CENTER&quot;</span><span class="s0">&gt;</span>
+               <span class="s0">&lt;font&gt;</span>
+                  <span class="s0">&lt;Font </span><span class="s1">name</span><span class="s2">=&quot;Arial Black&quot; </span><span class="s1">size</span><span class="s2">=&quot;24.0&quot; </span><span class="s0">/&gt;</span>
+               <span class="s0">&lt;/font&gt;</span>
+               <span class="s0">&lt;BorderPane.margin&gt;</span>
+                  <span class="s0">&lt;Insets </span><span class="s1">left</span><span class="s2">=&quot;10.0&quot; </span><span class="s0">/&gt;</span>
+               <span class="s0">&lt;/BorderPane.margin&gt;</span>
+            <span class="s0">&lt;/Text&gt;</span>
+         <span class="s0">&lt;/left&gt;</span>
+         <span class="s0">&lt;right&gt;</span>
+            <span class="s0">&lt;HBox </span><span class="s1">alignment</span><span class="s2">=&quot;CENTER_RIGHT&quot; </span><span class="s1">minHeight</span><span class="s2">=&quot;-Infinity&quot; </span><span class="s1">minWidth</span><span class="s2">=&quot;-Infinity&quot; </span><span class="s1">nodeOrientation</span><span class="s2">=&quot;LEFT_TO_RIGHT&quot; </span><span class="s1">prefHeight</span><span class="s2">=&quot;58.0&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;213.0&quot; </span><span class="s1">BorderPane.alignment</span><span class="s2">=&quot;CENTER&quot;</span><span class="s0">&gt;</span>
+               <span class="s0">&lt;children&gt;</span>
+                  <span class="s0">&lt;MFXButton </span><span class="s1">id</span><span class="s2">=&quot;homeButton&quot; </span><span class="s1">fx:id</span><span class="s2">=&quot;homeButton&quot; </span><span class="s1">buttonType</span><span class="s2">=&quot;RAISED&quot; </span><span class="s1">onAction</span><span class="s2">=&quot;#switchToHomeScene&quot; </span><span class="s1">prefHeight</span><span class="s2">=&quot;34.0&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;61.0&quot; </span><span class="s1">rippleColor</span><span class="s2">=&quot;#c0cced&quot; </span><span class="s1">style</span><span class="s2">=&quot;-fx-background-color: #d3e9f6;&quot; </span><span class="s1">text</span><span class="s2">=&quot;Home&quot; </span><span class="s1">textFill</span><span class="s2">=&quot;#122c34&quot;</span><span class="s0">&gt;</span>
+                     <span class="s0">&lt;HBox.margin&gt;</span>
+                        <span class="s0">&lt;Insets </span><span class="s1">left</span><span class="s2">=&quot;5.0&quot; </span><span class="s1">right</span><span class="s2">=&quot;5.0&quot; </span><span class="s1">top</span><span class="s2">=&quot;5.0&quot; </span><span class="s0">/&gt;</span>
+                     <span class="s0">&lt;/HBox.margin&gt;</span>
+                  <span class="s0">&lt;/MFXButton&gt;</span>
+                  <span class="s0">&lt;MFXButton </span><span class="s1">id</span><span class="s2">=&quot;helpButton&quot; </span><span class="s1">fx:id</span><span class="s2">=&quot;helpButton&quot; </span><span class="s1">buttonType</span><span class="s2">=&quot;RAISED&quot; </span><span class="s1">minHeight</span><span class="s2">=&quot;-Infinity&quot; </span><span class="s1">minWidth</span><span class="s2">=&quot;-Infinity&quot; </span><span class="s1">onAction</span><span class="s2">=&quot;#switchToHelpScene&quot; </span><span class="s1">prefHeight</span><span class="s2">=&quot;34.0&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;64.0&quot; </span><span class="s1">rippleColor</span><span class="s2">=&quot;#c0cced&quot; </span><span class="s1">style</span><span class="s2">=&quot;-fx-background-color: #d3e9f6;&quot; </span><span class="s1">text</span><span class="s2">=&quot;Help&quot; </span><span class="s1">textFill</span><span class="s2">=&quot;#122c34&quot;</span><span class="s0">&gt;</span>
+                     <span class="s0">&lt;HBox.margin&gt;</span>
+                        <span class="s0">&lt;Insets </span><span class="s1">right</span><span class="s2">=&quot;5.0&quot; </span><span class="s1">top</span><span class="s2">=&quot;5.0&quot; </span><span class="s0">/&gt;</span>
+                     <span class="s0">&lt;/HBox.margin&gt;</span>
+                  <span class="s0">&lt;/MFXButton&gt;</span>
+                  <span class="s0">&lt;MFXButton </span><span class="s1">minHeight</span><span class="s2">=&quot;-Infinity&quot; </span><span class="s1">minWidth</span><span class="s2">=&quot;-Infinity&quot; </span><span class="s1">onAction</span><span class="s2">=&quot;#logout&quot; </span><span class="s1">prefHeight</span><span class="s2">=&quot;35.0&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;64.0&quot; </span><span class="s1">rippleColor</span><span class="s2">=&quot;#c0cced&quot; </span><span class="s1">style</span><span class="s2">=&quot;-fx-background-color: #d3e9f6;&quot; </span><span class="s1">text</span><span class="s2">=&quot;Logout&quot; </span><span class="s1">textFill</span><span class="s2">=&quot;#122c34&quot;</span><span class="s0">&gt;</span>
+                     <span class="s0">&lt;HBox.margin&gt;</span>
+                        <span class="s0">&lt;Insets </span><span class="s1">right</span><span class="s2">=&quot;5.0&quot; </span><span class="s1">top</span><span class="s2">=&quot;5.0&quot; </span><span class="s0">/&gt;</span>
+                     <span class="s0">&lt;/HBox.margin&gt;</span>
+                  <span class="s0">&lt;/MFXButton&gt;</span>
+               <span class="s0">&lt;/children&gt;</span>
+            <span class="s0">&lt;/HBox&gt;</span>
+         <span class="s0">&lt;/right&gt;</span>
+      <span class="s0">&lt;/BorderPane&gt;</span>
+   <span class="s0">&lt;/top&gt;</span>
+   <span class="s0">&lt;center&gt;</span>
+      <span class="s0">&lt;AnchorPane </span><span class="s1">prefHeight</span><span class="s2">=&quot;510.0&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;750.0&quot;</span><span class="s0">&gt;</span>
+         <span class="s0">&lt;children&gt;</span>
+            <span class="s0">&lt;StackPane </span><span class="s1">prefHeight</span><span class="s2">=&quot;510.0&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;750.0&quot; </span><span class="s1">AnchorPane.bottomAnchor</span><span class="s2">=&quot;0.0&quot; </span><span class="s1">AnchorPane.leftAnchor</span><span class="s2">=&quot;0.0&quot; </span><span class="s1">AnchorPane.rightAnchor</span><span class="s2">=&quot;0.0&quot; </span><span class="s1">AnchorPane.topAnchor</span><span class="s2">=&quot;0.0&quot;</span><span class="s0">&gt;</span>
+               <span class="s0">&lt;children&gt;</span>
+                  <span class="s0">&lt;ImageView </span><span class="s1">fx:id</span><span class="s2">=&quot;nodeMapImage&quot; </span><span class="s1">fitHeight</span><span class="s2">=&quot;510&quot; </span><span class="s1">fitWidth</span><span class="s2">=&quot;750.0&quot; </span><span class="s1">pickOnBounds</span><span class="s2">=&quot;true&quot; </span><span class="s1">preserveRatio</span><span class="s2">=&quot;true&quot; </span><span class="s0">/&gt;</span>
+                  <span class="s0">&lt;Canvas </span><span class="s1">fx:id</span><span class="s2">=&quot;nodeMapCanvas&quot; </span><span class="s1">height</span><span class="s2">=&quot;510&quot; </span><span class="s1">width</span><span class="s2">=&quot;750.0&quot; </span><span class="s0">/&gt;</span>
+               <span class="s0">&lt;/children&gt;</span>
+            <span class="s0">&lt;/StackPane&gt;</span>
+         <span class="s0">&lt;/children&gt;</span>
+      <span class="s0">&lt;/AnchorPane&gt;</span>
+   <span class="s0">&lt;/center&gt;</span>
+   <span class="s0">&lt;left&gt;</span>
+      <span class="s0">&lt;GesturePane </span><span class="s1">BorderPane.alignment</span><span class="s2">=&quot;CENTER&quot; </span><span class="s0">/&gt;</span>
+   <span class="s0">&lt;/left&gt;</span>
+<span class="s0">&lt;/BorderPane&gt;</span>
+</pre>
+</body>
+</html>

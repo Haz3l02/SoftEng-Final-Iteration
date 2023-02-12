@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>NodeMapController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+.s5 { color: #629755; font-style: italic;}
+.s6 { color: #629755; font-weight: bold; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+NodeMapController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">edu.wpi.cs3733.C23.teamA.controllers</span><span class="s0">;</span>
+
+<span class="s0">import static </span><span class="s1">edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">edu.wpi.cs3733.C23.teamA.navigation.Navigation</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">edu.wpi.cs3733.C23.teamA.navigation.Screen</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.File</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.IOException</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.event.ActionEvent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.fxml.FXML</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.scene.canvas.Canvas</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.scene.canvas.GraphicsContext</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.scene.image.Image</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.scene.image.ImageView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.hibernate.Session</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">NodeMapController </span><span class="s0">extends </span><span class="s1">ServiceRequestController {</span>
+
+  <span class="s1">@FXML </span><span class="s0">private </span><span class="s1">Canvas nodeMapCanvas</span><span class="s0">; </span><span class="s2">// to display the generated path</span>
+  <span class="s1">@FXML </span><span class="s0">private </span><span class="s1">ImageView nodeMapImage</span><span class="s0">;</span>
+
+  
+
+  <span class="s2">// Lists of Nodes and Node Data</span>
+  <span class="s0">private </span><span class="s1">List&lt;NodeEntity&gt; allNodes</span><span class="s0">;</span>
+  <span class="s0">private </span><span class="s1">GraphicsContext gc</span><span class="s0">;</span>
+
+  <span class="s2">// scaling constant</span>
+  <span class="s0">private final double </span><span class="s1">SCALE_FACTOR = </span><span class="s3">0.15</span><span class="s0">; </span><span class="s2">// constant for map size/coordinate manipulation</span>
+
+  <span class="s0">public void </span><span class="s1">initialize() {</span>
+    <span class="s1">Session session = getSessionFactory().openSession()</span><span class="s0">;</span>
+    <span class="s1">allNodes = NodeEntity.getNodeOnFloor(</span><span class="s4">&quot;L1&quot;</span><span class="s0">, </span><span class="s1">session)</span><span class="s0">; </span><span class="s2">// get all nodes from Database</span>
+    <span class="s1">session.close()</span><span class="s0">;</span>
+    <span class="s2">// Add Image</span>
+    <span class="s1">addFloorMapImage(</span>
+        <span class="s4">&quot;src/main/resources/edu/wpi/cs3733/C23/teamA/assets/unlabeledMaps/25% Scale/00_thelowerlevel1_unlabeled_25%.png&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s2">// Add nodes as circles</span>
+    <span class="s1">gc = nodeMapCanvas.getGraphicsContext2D()</span><span class="s0">;</span>
+    <span class="s1">MapDraw.drawNodes(gc</span><span class="s0">, </span><span class="s1">allNodes</span><span class="s0">, </span><span class="s1">SCALE_FACTOR)</span><span class="s0">;</span>
+  <span class="s1">}</span>
+
+  <span class="s5">/**</span>
+   <span class="s5">* Updates the mapImage asset to contain an image (which is supposed to be a floor map)</span>
+   <span class="s5">*</span>
+   <span class="s5">* </span><span class="s6">@param </span><span class="s5">pathName the path to the image to be added</span>
+   <span class="s5">*/</span>
+  <span class="s0">private void </span><span class="s1">addFloorMapImage(String pathName) {</span>
+    <span class="s1">File file = </span><span class="s0">new </span><span class="s1">File(pathName)</span><span class="s0">;</span>
+    <span class="s1">Image image = </span><span class="s0">new </span><span class="s1">Image(file.toURI().toString())</span><span class="s0">;</span>
+    <span class="s1">nodeMapImage.setImage(image)</span><span class="s0">;</span>
+  <span class="s1">}</span>
+
+  <span class="s1">@FXML</span>
+  <span class="s0">public void </span><span class="s1">switchToNodeScene(ActionEvent event) </span><span class="s0">throws </span><span class="s1">IOException {</span>
+    <span class="s1">Navigation.navigate(Screen.NODE)</span><span class="s0">;</span>
+  <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
