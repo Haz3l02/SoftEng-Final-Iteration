@@ -1,7 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl.checkPass;
+
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -46,10 +48,10 @@ public class LoginController {
   @FXML
   public void login(ActionEvent event) throws SQLException, InterruptedException {
 
-    Session session = ADBSingletonClass.getSessionFactory().openSession();
+    Session session = getSessionFactory().openSession();
+    // Transaction tx = session.beginTransaction();
 
-    ArrayList<String> info =
-        EmployeeEntity.checkPass(usernameTextField.getText(), passwordTextField.getText(), session);
+    ArrayList<String> info = checkPass(usernameTextField.getText(), passwordTextField.getText());
 
     if (info.get(0).equals("")) {
       incorrectNotification.setVisible(true);

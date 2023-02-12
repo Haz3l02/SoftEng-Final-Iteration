@@ -31,6 +31,7 @@ dependencies {
             // You may comment out the database dependency you do not use
             'org.xerial:sqlite-jdbc:3.30.1',
             'org.hibernate:hibernate-core:6.1.6.Final',
+            'jakarta.persistence:jakarta.persistence-api:3.1.0',
             'org.apache.derby:derbyclient:10.16.1.1',
             'org.apache.derby:derby:10.16.1.1',
             'org.apache.derby:derbytools:10.16.1.1',

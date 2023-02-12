@@ -1,12 +1,15 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -20,7 +23,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class SanitationController extends ServiceRequestController {
-
   IssueCategory category;
 
   @FXML private MFXComboBox<String> categoryBox;

@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.hibernateDB;
+package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -13,7 +13,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "servicerequest", catalog = "dba")
+@Table(name = "servicerequest")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ServiceRequestEntity {
   // @TableGenerator(name = "serviceseq", allocationSize = 1, initialValue = 0)
@@ -32,13 +32,25 @@ public class ServiceRequestEntity {
   private String name;
 
   @ManyToOne
-  @JoinColumn(name = "employeeid", foreignKey = @ForeignKey(name = "employeeid"))
+  @JoinColumn(
+      name = "employeeid",
+      foreignKey =
+          @ForeignKey(
+              name = "employeeid",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (employeeid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
   @Setter
   @Getter
   private EmployeeEntity employee;
 
   @ManyToOne
-  @JoinColumn(name = "location", foreignKey = @ForeignKey(name = "longname"))
+  @JoinColumn(
+      name = "location",
+      foreignKey =
+          @ForeignKey(
+              name = "longname",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (location) REFERENCES locationname(longname) ON UPDATE CASCADE ON DELETE NULL"))
   @Setter
   @Getter
   private LocationNameEntity location;

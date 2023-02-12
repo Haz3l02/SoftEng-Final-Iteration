@@ -16,7 +16,7 @@ public enum Screen {
   HOME_SERVICE_REQUEST("views/HomeServiceRequestSMALLFXML.fxml"),
   SERVICE_REQUEST("views/ServiceRequest.fxml"),
   DATABASE("views/DatabaseFXML.fxml"),
-  NODE("views/NodeFXML.fxml"),
+  NODE("views/NodeSMALLFXML.fxml"),
   EDGE("views/EdgeFXML.fxml"),
   PATHFINDING("views/PathfindingNewFXML.fxml"),
   PATHFINDING_MAP("views/PathfindingMapFXML.fxml"),
@@ -24,6 +24,8 @@ public enum Screen {
   ID_INPUT("views/IDInputFXML.fxml"),
   LOGIN("views/LoginFXML.fxml"),
   NODE_MAP("views/NodeMapFXML.fxml"),
+  HOME_DATABASE("views/HomeDatabaseFXML.fxml"),
+  EMPLOYEE("views/EmployeeFXML.fxml"),
   HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
   MAP_DISPLAY("views/PathDisplayFXML.fxml");
 
