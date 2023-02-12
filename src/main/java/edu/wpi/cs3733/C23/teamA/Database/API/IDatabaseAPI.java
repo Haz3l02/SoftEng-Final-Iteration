@@ -17,6 +17,5 @@ public interface IDatabaseAPI<T, G> {
 
   public void delete(G obj);
 
-
   public T get(G ID);
 }

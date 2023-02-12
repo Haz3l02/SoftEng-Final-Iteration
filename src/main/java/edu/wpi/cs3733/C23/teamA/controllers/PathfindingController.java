@@ -3,8 +3,8 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
@@ -42,16 +42,21 @@ public class PathfindingController extends MenuController {
    */
   public void initialize() throws SQLException {
 
+    LocationNameImpl table = new LocationNameImpl();
     // Database's list of longNames
     allNodeIDs = new ArrayList<String>();
-    allLongNames = new ArrayList<String>();
+    allLongNames =
+        table.getAll().stream()
+            .map(locationNameEntity -> locationNameEntity.getLongname())
+            .toList();
+
+    table.closeSession();
 
     Session session = getSessionFactory().openSession();
     allNodes = getAllRecords(NodeEntity.class, session); // get all nodes from Database
 
     for (NodeEntity n : allNodes) {
       allNodeIDs.add(n.getNodeid()); // get nodeId
-      allLongNames.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
     }
     session.close();
 

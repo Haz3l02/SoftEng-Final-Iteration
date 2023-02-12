@@ -4,7 +4,6 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -68,8 +67,8 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     Transaction tx = session.beginTransaction();
 
     ListIterator<EmployeeEntity> li = employees.listIterator();
-    while (li.hasNext()){
-      if (li.next().getEmployeeid().equals(ID)){
+    while (li.hasNext()) {
+      if (li.next().getEmployeeid().equals(ID)) {
         li.remove();
       }
     }
@@ -80,7 +79,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     emp.setUsername(obj.getUsername());
     emp.setPassword(obj.getPassword());
     emp.setName(obj.getName());
-
 
     employees.add(emp);
     tx.commit();
@@ -157,25 +155,23 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     Transaction tx = session.beginTransaction();
 
     ListIterator<EmployeeEntity> li = employees.listIterator();
-    while (li.hasNext()){
-      if (li.next().getEmployeeid().equals(e)){
+    while (li.hasNext()) {
+      if (li.next().getEmployeeid().equals(e)) {
         li.remove();
       }
     }
 
     session.delete(session.get(EmployeeEntity.class, e));
 
-
     tx.commit();
     session.close();
   }
 
-  public EmployeeEntity get(String ID){
+  public EmployeeEntity get(String ID) {
 
-    for (EmployeeEntity ser : employees){
+    for (EmployeeEntity ser : employees) {
       if (ser.getEmployeeid().equals(ID)) return ser;
     }
     return null;
   }
-
 }

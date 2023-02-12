@@ -13,26 +13,22 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
 public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
-
+  private Session session;
   private List<MoveEntity> moves;
   // done except importCSV
-
   public MoveImpl() {
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
-    session.close();
     moves = records;
   }
 
@@ -65,8 +61,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   // different node types
   // can't recognize class as string
   public void importFromCSV(String filename) throws FileNotFoundException {
-    Session session = getSessionFactory().openSession();
-
     String hql = "delete from MoveEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
@@ -95,42 +89,72 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
       }
     }
     tx.commit();
-    session.close();
   }
 
   public void add(MoveEntity m) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(m);
     moves.add(m);
     tx.commit();
-    session.close();
   }
 
   public void delete(List<String> m) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     ListIterator<MoveEntity> li = moves.listIterator();
-    while (li.hasNext()){
-      if (li.next().getNode().equals(m.get(0))&&li.next().getLocationName().equals(m.get(1))&&li.next().getMovedate().equals(m.get(2))){
+    while (li.hasNext()) {
+      if (li.next().getNode().equals(m.get(0))
+          && li.next().getLocationName().equals(m.get(1))
+          && li.next().getMovedate().equals(m.get(2))) {
         li.remove();
       }
     }
 
-    //session.delete()
+    // session.delete()
     tx.commit();
-    session.close();
+  }
+
+  /**
+   * Find the location of the node on or immediately before a specific date
+   *
+   * @param id ID of Node
+   * @param date Date for finding the location
+   */
+  public MoveEntity locationOnDate(String id, LocalDate date) {
+    Timestamp convertDate = Timestamp.valueOf(date.atStartOfDay());
+    List<MoveEntity> ids =
+        moves.stream()
+            .filter(
+                moveEntity ->
+                    moveEntity.getNode().getNodeid().equals(id)
+                        && (moveEntity.getMovedate().compareTo(convertDate) == 0
+                            || moveEntity.getMovedate().compareTo(convertDate) == 1))
+            .toList();
+    return ids.get(0);
+  }
+
+  public LocationNameEntity mostRecentLoc(String id) {
+    List<MoveEntity> ids =
+        new ArrayList<>(
+            moves.stream()
+                .filter(moveEntity -> moveEntity.getNode().getNodeid().equals(id))
+                .toList());
+    ids.sort(Comparator.comparing(MoveEntity::getMovedate));
+    return ids.isEmpty() ? null : ids.get(0).getLocationName();
   }
 
   public void update(List<String> ID, MoveEntity obj) {}
 
+  public MoveEntity get(List<String> ID) {
 
-
-  public MoveEntity get(List<String> ID){
-
-    for (MoveEntity m : moves){
-      if (m.getNode().equals(ID.get(0)) && m.getLocationName().equals(ID.get(1)) && m.getMovedate().equals(ID.get(2))) return m;
+    for (MoveEntity m : moves) {
+      if (m.getNode().equals(ID.get(0))
+          && m.getLocationName().equals(ID.get(1))
+          && m.getMovedate().equals(ID.get(2))) return m;
     }
     return null;
+  }
+
+  public void closeSession() {
+    session.close();
   }
 }

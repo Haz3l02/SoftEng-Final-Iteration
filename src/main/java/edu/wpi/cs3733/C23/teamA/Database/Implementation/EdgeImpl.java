@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
@@ -22,6 +21,7 @@ import org.hibernate.query.MutationQuery;
 
 public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
   private List<EdgeEntity> edges;
+  private Session session;
 
   public EdgeImpl() {
     Session session = getSessionFactory().openSession();
@@ -132,8 +132,8 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     ListIterator<EdgeEntity> li = edges.listIterator();
-    while (li.hasNext()){
-      if (li.next().getEdgeid().equals(e)){
+    while (li.hasNext()) {
+      if (li.next().getEdgeid().equals(e)) {
         li.remove();
       }
     }
@@ -142,6 +142,13 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     session.close();
   }
 
+  /**
+   * Delete the node and link the edges involving the node back together. It functions by making new
+   * edges from the node going to node e to the node going away from node e. Every edge that
+   * connects to the node e's edge will be repaired like this.
+   *
+   * @param e NodeEntity that must be deleted.
+   */
   public void collapseNode(NodeEntity e) {
     EdgeEntity newEdge;
     Session session = getSessionFactory().openSession();
@@ -166,18 +173,16 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     Transaction tx = session.beginTransaction();
 
     ListIterator<EdgeEntity> li = edges.listIterator();
-    while (li.hasNext()){
-      if (li.next().getEdgeid().equals(s)){
+    while (li.hasNext()) {
+      if (li.next().getEdgeid().equals(s)) {
         li.remove();
       }
     }
-
 
     EdgeEntity edg = session.get(EdgeEntity.class, s);
 
     edg.setNode1(obj.getNode1());
     edg.setNode2(obj.getNode2());
-
 
     edges.add(edg);
 
@@ -185,12 +190,15 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     session.close();
   }
 
+  public EdgeEntity get(String ID) {
 
-  public EdgeEntity get(String ID){
-
-    for (EdgeEntity ser : edges){
+    for (EdgeEntity ser : edges) {
       if (ser.getEdgeid().equals(ID)) return ser;
     }
     return null;
+  }
+
+  public void closeSession() {
+    session.close();
   }
 }

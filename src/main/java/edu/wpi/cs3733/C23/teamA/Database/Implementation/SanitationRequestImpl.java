@@ -3,9 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.ComputerRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -13,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -25,7 +22,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<SanitationRequestEntity> criteria =
-            builder.createQuery(SanitationRequestEntity.class);
+        builder.createQuery(SanitationRequestEntity.class);
     criteria.from(SanitationRequestEntity.class);
     sanrequests = session.createQuery(criteria).getResultList();
     session.close();
@@ -34,8 +31,6 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
   public List<SanitationRequestEntity> getAll() {
     return sanrequests;
   }
-
-
 
   public void exportToCSV(String filename) throws IOException {}
 
@@ -46,7 +41,9 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     Transaction tx = session.beginTransaction();
     session.persist(c);
     sanrequests.add(c);
-    ServiceRequestEntity ser = new ServiceRequestEntity(c.getRequestid(),
+    ServiceRequestEntity ser =
+        new ServiceRequestEntity(
+            c.getRequestid(),
             c.getName(),
             c.getEmployee(),
             c.getLocation(),
@@ -55,8 +52,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
             c.getRequestType(),
             c.getStatus(),
             c.getEmployeeAssigned(),
-            c.getDate()
-    );
+            c.getDate());
     new ServiceRequestImpl().addToList(ser);
     tx.commit();
     session.close();
@@ -68,8 +64,8 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     session.delete(session.get(SanitationRequestEntity.class, c));
 
     ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
-    while (li.hasNext()){
-      if (li.next().getRequestid()==c){
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == c) {
         li.remove();
       }
     }
@@ -83,8 +79,8 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     Transaction tx = session.beginTransaction();
 
     ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
-    while (li.hasNext()){
-      if (li.next().getRequestid()==ID){
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == ID) {
         li.remove();
       }
     }
@@ -102,7 +98,9 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     c.setUrgency(obj.getUrgency());
     c.setStatus(obj.getStatus());
 
-    ServiceRequestEntity ser = new ServiceRequestEntity(ID,
+    ServiceRequestEntity ser =
+        new ServiceRequestEntity(
+            ID,
             obj.getName(),
             obj.getEmployee(),
             obj.getLocation(),
@@ -119,22 +117,19 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     session.close();
   }
 
-
-  public void removeFromList(Integer s){
+  public void removeFromList(Integer s) {
     ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
-    while (li.hasNext()){
-      if (li.next().getRequestid()==s){
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == s) {
         li.remove();
       }
     }
   }
 
+  public SanitationRequestEntity get(Integer ID) {
 
-
-  public SanitationRequestEntity get(Integer ID){
-
-    for (SanitationRequestEntity ser : sanrequests){
-      if (ser.getRequestid()==ID) return ser;
+    for (SanitationRequestEntity ser : sanrequests) {
+      if (ser.getRequestid() == ID) return ser;
     }
     return null;
   }

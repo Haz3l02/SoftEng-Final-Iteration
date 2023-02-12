@@ -6,6 +6,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -49,14 +50,18 @@ public class DatabaseController extends MenuController {
   /** runs on switching to this scene */
   public void initialize() {
     session = getSessionFactory().openSession();
+    LocationNameImpl table = new LocationNameImpl();
 
     nodes = getAllRecords(NodeEntity.class, session); // get all nodes from Database
     allNodeIDs = new ArrayList<>();
-    allLongNames = new ArrayList<>();
+    allLongNames =
+        table.getAll().stream()
+            .map(locationNameEntity -> locationNameEntity.getLongname())
+            .toList();
+    table.closeSession();
 
     for (NodeEntity n : nodes) {
       allNodeIDs.add(n.getNodeid()); // get nodeId
-      allLongNames.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
     }
 
     ObservableList<String> nodes = FXCollections.observableArrayList(allNodeIDs);

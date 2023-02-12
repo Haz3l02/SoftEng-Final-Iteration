@@ -1,10 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import jakarta.persistence.*;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Session;
 
 @Entity
 @Table(name = "node")
@@ -46,12 +44,6 @@ public class NodeEntity {
     if (this.getClass() != obj.getClass()) return false;
     NodeEntity other = (NodeEntity) obj;
     return nodeid.equals(other.getNodeid());
-  }
-
-  public static List<NodeEntity> getNodeOnFloor(String floor, Session session) {
-    String hql = "select nod from NodeEntity nod where nod.floor = '" + floor + "'";
-    Query query = session.createQuery(hql);
-    return query.getResultList();
   }
 
   public NodeEntity() {}
