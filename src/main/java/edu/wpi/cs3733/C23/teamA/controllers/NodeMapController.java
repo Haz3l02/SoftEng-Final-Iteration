@@ -14,10 +14,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 import org.hibernate.Session;
 
@@ -28,7 +32,13 @@ public class NodeMapController extends ServiceRequestController {
   @FXML private GesturePane gPane;
   @FXML StackPane sPane;
 
+  @FXML Label loc;
+  @FXML Label XCord;
+  @FXML Label YCord;
+
   @FXML AnchorPane nodeAnchor;
+
+  @Setter NodeEntity selectedNode = null;
 
   // Lists of Nodes and Node Data
   private List<NodeEntity> allNodes;
@@ -49,39 +59,39 @@ public class NodeMapController extends ServiceRequestController {
 
     // Add nodes as circles
     // gc = nodeMapCanvas.getGraphicsContext2D();
-    NodeDraw.drawNodes(allNodes, 0.15, nodeAnchor);
+    NodeDraw.drawNodes(allNodes, 0.15, nodeAnchor, this);
+
+    if (selectedNode != null) {
+      loc.setText(selectedNode.getNodeid());
+    }
 
     // Pane
 
-    //        nodeAnchor.setOnMouseClicked(
-    //            e -> {
-    //              double x = e.getX();
-    //              double y = e.getY();
-    //              System.out.println(x);
-    //              System.out.println(" " + y);
-    //              if (e.getButton() == MouseButton.PRIMARY) {
-    //
-    //                final Pane nodeGraphic = new Pane();
-    //
-    //                /* Set the style of the node */
-    //                nodeGraphic.setPrefSize(4, 4);
-    //                nodeGraphic.setLayoutX(x - 4);
-    //                nodeGraphic.setLayoutY(y - 4);
-    //                nodeGraphic.setStyle(
-    //                    "-fx-background-color: '#F6BD38'; "
-    //                        + "-fx-background-radius: 12.5; "
-    //                        + "-fx-border-color: '013A75'; "
-    //                        + "-fx-border-width: 1;"
-    //                        + "-fx-border-radius: 12.5");
-    //
-    //                nodeAnchor.getChildren().add(nodeGraphic);
-    //
-    //              } else if (e.getButton() == MouseButton.SECONDARY) {
-    //
-    //              }
+    nodeAnchor.setOnMouseClicked(
+        e -> {
+          double x = e.getX();
+          double y = e.getY();
 
+          if (e.getButton() == MouseButton.PRIMARY) {
+
+          } else if (e.getButton() == MouseButton.SECONDARY) {
+            final Pane nodeGraphic = new Pane();
+
+            /* Set the style of the node */
+            nodeGraphic.setPrefSize(4, 4);
+            nodeGraphic.setLayoutX(x - 4);
+            nodeGraphic.setLayoutY(y - 4);
+            nodeGraphic.setStyle(
+                "-fx-background-color: '#F6BD38'; "
+                    + "-fx-background-radius: 12.5; "
+                    + "-fx-border-color: '013A75'; "
+                    + "-fx-border-width: 1;"
+                    + "-fx-border-radius: 12.5");
+
+            nodeAnchor.getChildren().add(nodeGraphic);
+          }
+        });
   }
-
   /**
    * Updates the mapImage asset to contain an image (which is supposed to be a floor map)
    *
@@ -103,5 +113,17 @@ public class NodeMapController extends ServiceRequestController {
   @FXML
   public void switchToNodeScene(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.NODE);
+  }
+
+  public void setLoc(String location) {
+    this.loc.setText(location);
+  }
+
+  public void setXCord(String x) {
+    this.XCord.setText(x);
+  }
+
+  public void setYCord(String y) {
+    this.YCord.setText(y);
   }
 }

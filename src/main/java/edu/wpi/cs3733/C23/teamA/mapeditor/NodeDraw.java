@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.mapeditor;
 
+import edu.wpi.cs3733.C23.teamA.controllers.NodeMapController;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -11,6 +12,7 @@ import javafx.scene.layout.Pane;
 public class NodeDraw {
 
   static Node previousNode = null;
+  static NodeEntity selectNode = null;
 
   private static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
     // get the coordinates from the node
@@ -27,7 +29,7 @@ public class NodeDraw {
   }
 
   public static void drawNodes(
-      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
+      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NodeMapController nmc) {
     // gc.setFill(Color.web("0x224870"));
 
     // draw circle for each node
@@ -48,15 +50,13 @@ public class NodeDraw {
 
       EventHandler<MouseEvent> eventHandler =
           new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent event) {
-              System.out.println("Hello World");
 
               if ((previousNode != null)) {
-                System.out.println("made it");
+
                 if (!previousNode.equals(nodeGraphic)) {
-                  System.out.println("setting yellow");
+
                   previousNode.setStyle(
                       "-fx-background-color: '#F6BD38'; "
                           + "-fx-background-radius: 12.5; "
@@ -67,13 +67,18 @@ public class NodeDraw {
               }
 
               nodeGraphic.setStyle(
-                  "-fx-background-color: 'red'; "
+                  "-fx-background-color: 'green'; "
                       + "-fx-background-radius: 12.5; "
-                      + "-fx-border-color: 'red'; "
+                      + "-fx-border-color: 'yellow'; "
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 12.5");
 
               previousNode = nodeGraphic;
+              selectNode = n;
+              System.out.println(n.getXcoord());
+              nmc.setLoc(n.getNodeid());
+              nmc.setXCord(n.getXcoord().toString());
+              nmc.setYCord(n.getYcoord().toString());
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
