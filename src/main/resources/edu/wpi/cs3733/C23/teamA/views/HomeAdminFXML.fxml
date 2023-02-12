@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="HomePageStyle" stylesheets="@../assets/HomePageStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
+   <children>
+      <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
+         <children>
+            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
+               <padding>
+                  <Insets bottom="-20.0" />
+               </padding>
+               <center>
+                  <VBox alignment="TOP_CENTER" prefHeight="297.0" prefWidth="1307.0" spacing="20.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="44.0" prefWidth="1254.0">
+                           <children>
+                              <Label fx:id="welcome" text="Label" textFill="#122c34">
+                                 <font>
+                                    <Font name="Verdana" size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="265.0" prefWidth="1339.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="284.0" prefWidth="499.0" style="-fx-background-color: F6BD3A; -fx-background-radius: 20 20 20 20;">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="63.0" prefWidth="499.0" style="-fx-background-color: #224870; -fx-background-radius: 15 15 0 0;">
+                                       <children>
+                                          <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Unassigned Tasks" wrappingWidth="370.1331024169922">
+                                             <font>
+                                                <Font size="48.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                    <TableView minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="182.0" prefWidth="499.0" style="-fx-background-color: F6BD3A;">
+                                       <columns>
+                                          <TableColumn prefWidth="455.0" text="Request Type" />
+                                          <TableColumn prefWidth="199.0" text="Location" />
+                                          <TableColumn prefWidth="199.0" text="Urgency" />
+                                       </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                              <HBox alignment="TOP_CENTER" prefHeight="282.0" prefWidth="66.0">
+                                 <children>
+                                    <Line endX="-92.72621154785156" endY="229.82046508789062" fill="#122b33" startX="-92.72474670410156" startY="-29.679534912109375" stroke="#122c34" strokeLineCap="ROUND" strokeLineJoin="ROUND" style="-fx-stroke-width: 10;">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Line>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </HBox>
+                              <VBox prefHeight="284.0" prefWidth="676.0">
+                                 <children>
+                                    <StackPane prefHeight="120.0" prefWidth="492.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15;">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <VBox alignment="CENTER" prefHeight="54.0" prefWidth="492.0" style="-fx-border-color: #122c34; -fx-border-width: 0 0 2 0; -fx-background-color: #224870; -fx-background-radius: 15 15 0 0;">
+                                                   <children>
+                                                      <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Quote of the Day!" textAlignment="CENTER">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </VBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="536.0">
+                                                   <children>
+                                                      <Label fx:id="message" text="Label" textFill="#122c34">
+                                                         <font>
+                                                            <Font name="Verdana" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane prefHeight="160.0" prefWidth="492.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15;">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <VBox alignment="CENTER" prefHeight="42.0" prefWidth="492.0" style="-fx-border-color: #122c34; -fx-border-width: 0 0 2 0; -fx-background-color: #224870; -fx-background-radius: 15 15 0 0;">
+                                                   <children>
+                                                      <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Weather" textAlignment="CENTER">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </VBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="482.0">
+                                                   <children>
+                                                      <Label fx:id="time" text="Label" textFill="#122c34">
+                                                         <font>
+                                                            <Font name="Verdana" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                  </VBox>
+               </center>
+               <bottom>
+                  <HBox prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </bottom>
+               <top>
+                  <SplitPane orientation="VERTICAL" prefHeight="91.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+                     <items>
+                        <BorderPane prefHeight="0.0" prefWidth="1372.0" style="-fx-background-color: #224870;">
+                           <right>
+                              <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="64.0" prefWidth="110.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6" underline="true">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="64.0" prefWidth="108.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Help" textFill="#d3e9f6" underline="true">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="64.0" prefWidth="116.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Logout" textFill="#d3e9f6" underline="true">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </MFXButton>
+                                 </children>
+                              </HBox>
+                           </right>
+                           <left>
+                              <HBox alignment="CENTER_LEFT" prefHeight="89.0" prefWidth="418.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="64.0" prefWidth="320.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Service Request Systems" textFill="#d3e9f6" underline="true">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToPathfinding" prefHeight="64.0" prefWidth="158.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Navigation" textFill="#d3e9f6" underline="true">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToDatabase" prefHeight="64.0" prefWidth="145.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Database" textFill="#d3e9f6" underline="true">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </MFXButton>
+                                 </children>
+                              </HBox>
+                           </left>
+                        </BorderPane>
+                     </items>
+                  </SplitPane>
+               </top>
+            </BorderPane>
+         </children>
+      </StackPane>
+      <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="283.0" prefWidth="676.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Birgham Women's Hospital" textAlignment="RIGHT" textOrigin="BOTTOM">
+               <font>
+                  <Font name="Arial Black" size="45.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </Text>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

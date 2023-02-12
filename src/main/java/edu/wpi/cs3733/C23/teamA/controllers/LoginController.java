@@ -5,6 +5,7 @@ import edu.wpi.cs3733.C23.teamA.hibernateDB.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
@@ -21,6 +22,8 @@ public class LoginController {
   @FXML MFXTextField usernameTextField;
   @FXML MFXPasswordField passwordTextField;
   @FXML Text incorrectNotification;
+
+  @FXML MFXButton loginButton;
   EmployeeEntity employee = new EmployeeEntity();
 
   @FXML
@@ -36,21 +39,22 @@ public class LoginController {
 
     if (alert.showAndWait().get() == ButtonType.OK) {
       System.out.println("You have successfully logged out!");
-      Navigation.close(); // MAY NOT FUCKING WORK
+      Navigation.close();
     }
   }
 
   @FXML
-  public void login(ActionEvent event) throws SQLException {
+  public void login(ActionEvent event) throws SQLException, InterruptedException {
 
     Session session = ADBSingletonClass.getSessionFactory().openSession();
-    // Transaction tx = session.beginTransaction();
 
     ArrayList<String> info =
         EmployeeEntity.checkPass(usernameTextField.getText(), passwordTextField.getText(), session);
 
     if (info.get(0).equals("")) {
       incorrectNotification.setVisible(true);
+      usernameTextField.clear();
+      passwordTextField.clear();
     } else {
       IdNumberHolder holder = IdNumberHolder.getInstance();
       holder.setId(info.get(0));
@@ -59,7 +63,13 @@ public class LoginController {
       holder.setJob(info.get(1));
       holder.setName(info.get(2));
       session.close();
-      Navigation.navigateHome(Screen.HOME);
+      if (holder.getJob().equalsIgnoreCase("Maintenance")) {
+        Navigation.navigateHome(Screen.HOME_MAINTENANCE);
+      } else if (holder.getJob().equalsIgnoreCase("Admin")) {
+        Navigation.navigateHome(Screen.HOME_ADMIN);
+      } else {
+        Navigation.navigateHome(Screen.HOME_EMPLOYEE);
+      }
     }
     session.close();
   }
