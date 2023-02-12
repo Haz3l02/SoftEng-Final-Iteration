@@ -4,8 +4,6 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import static java.lang.Integer.parseInt;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -16,11 +14,9 @@ import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
-import org.w3c.dom.Node;
 
 public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   // done
-
 
   private ArrayList<NodeEntity> nodes;
 
@@ -31,7 +27,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     criteria.from(NodeEntity.class);
     List<NodeEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    nodes = (ArrayList)records;
+    nodes = (ArrayList) records;
   }
 
   public List<NodeEntity> getAll() {
@@ -44,7 +40,8 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     //      filename+=".csv";
     //    }
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
+    File csvFile =
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("node,xcoord,ycoord,building,floor\n");
     for (NodeEntity nod : nods) {
@@ -71,7 +68,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     q.executeUpdate();
     nodes.clear();
 
-    File node = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/"+filename);
+    File node = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(node);
@@ -105,8 +102,8 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(n);
-    for (NodeEntity nod : nodes){
-      if (nod.equals(n)){
+    for (NodeEntity nod : nodes) {
+      if (nod.equals(n)) {
         nodes.remove(nod);
       }
     }
@@ -125,9 +122,8 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     n.setYcoord(obj.getYcoord());
     n.setFloor(obj.getFloor());
 
-
-    for (NodeEntity nod : nodes){
-      if (nod.equals(obj)){
+    for (NodeEntity nod : nodes) {
+      if (nod.equals(obj)) {
         nodes.remove(obj);
       }
     }

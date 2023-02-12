@@ -22,10 +22,8 @@ import org.hibernate.query.MutationQuery;
 
 public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
-
   private ArrayList<MoveEntity> moves;
   // done except importCSV
-
 
   public MoveImpl() {
     Session session = getSessionFactory().openSession();
@@ -34,7 +32,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    moves = (ArrayList)records;
+    moves = (ArrayList) records;
   }
 
   public List<MoveEntity> getAll() {
@@ -47,7 +45,8 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     //      filename+=".csv";
     //    }
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
+    File csvFile =
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("movedate,longname,nodeid\n");
     for (MoveEntity mov : movs) {
@@ -68,12 +67,11 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
 
-
     String hql = "delete from MoveEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     moves.clear();
-    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/"+filename);
+    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);
@@ -82,12 +80,12 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");
-      MoveEntity mov = new MoveEntity(
+      MoveEntity mov =
+          new MoveEntity(
               session.get(NodeEntity.class, b[0]),
               session.get(LocationNameEntity.class, b[1]),
               Timestamp.valueOf(b[2]));
-      session.persist(
-          mov);
+      session.persist(mov);
 
       count++;
       moves.add(mov);
@@ -113,18 +111,15 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(m);
-    for (MoveEntity mov : moves){
-      if (mov.equals(m)){
+    for (MoveEntity mov : moves) {
+      if (mov.equals(m)) {
         moves.remove(mov);
       }
     }
-
 
     tx.commit();
     session.close();
   }
 
-  public void update(List<String> ID, MoveEntity obj) {
-
-  }
+  public void update(List<String> ID, MoveEntity obj) {}
 }

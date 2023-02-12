@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: red;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.EmployeeController">
+   <children>
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+         <center>
+            <VBox prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Creation">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <SplitPane dividerPositions="0.5" prefHeight="9999.0" prefWidth="600.0">
+                     <items>
+                        <VBox maxWidth="-Infinity" prefHeight="500.0" spacing="10.0" style="-fx-background-color: D3E9F6;">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                                 <font>
+                                    <Font name="Verdana" size="20.0" />
+                                 </font>
+                              </Text>
+                              <MFXTextField fx:id="nameBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </MFXTextField>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Employee ID">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Verdana" size="20.0" />
+                                 </font>
+                              </Text>
+                              <MFXTextField fx:id="IDNumBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </MFXTextField>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Verdana" size="20.0" />
+                                 </font>
+                              </Text>
+                              <MFXTextField fx:id="usernameBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </MFXTextField>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Verdana" size="20.0" />
+                                 </font>
+                              </Text>
+                              <MFXTextField fx:id="passwordBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </MFXTextField>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Type">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Verdana" size="20.0" />
+                                 </font>
+                              </Text>
+                              <MFXComboBox fx:id="jobBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </MFXComboBox>
+                              <MFXButton fx:id="createEmployee" buttonType="RAISED" defaultButton="true" onAction="#createEmployee" prefHeight="50.0" prefWidth="250.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15;" text="Create Employee" textFill="#224870">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                           <padding>
+                              <Insets right="15.0" />
+                           </padding>
+                        </VBox>
+                        <TableView fx:id="employeeTable" editable="true" onMouseClicked="#rowClicked" prefHeight="253.0" prefWidth="527.0" style="-fx-background-color: d3e9f6;">
+                           <columns>
+                              <TableColumn fx:id="nameCol" prefWidth="281.0" text="Name" />
+                              <TableColumn fx:id="employeeCol" prefWidth="131.0" text="Employee ID" />
+                              <TableColumn fx:id="usernameCol" prefWidth="271.0" text="Username" />
+                              <TableColumn fx:id="passwordCol" prefWidth="167.0" text="Password" />
+                              <TableColumn fx:id="jobCol" prefWidth="223.0" text="Job Type" />
+                           </columns>
+                        </TableView>
+                     </items>
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </VBox.margin>
+                  </SplitPane>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <HBox alignment="CENTER_LEFT" prefWidth="611.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+                     <children>
+                        <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#clearEdits" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textFill="#d3e9f6">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0" spacing="10.0">
+                     <children>
+                        <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+                        <MFXButton id="helpButton" fx:id="submitButton" buttonType="RAISED" onAction="#submitRequest" prefHeight="25.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Select All" textFill="#d3e9f6" visible="false">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </MFXButton>
+                        <MFXButton id="cancelButton" fx:id="deleteButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#delete" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15;" text="Delete" textFill="#d3e9f6">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabase" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton id="cancelButton" fx:id="editButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#submitEdit" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: f6bd3a; -fx-background-radius: 15;" text="Edit" textFill="#d3e9f6">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" />
+               </BorderPane.margin>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>
