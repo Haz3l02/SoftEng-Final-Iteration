@@ -56,6 +56,7 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
+  @FXML private MFXButton cancel;
   @FXML private MFXTextField fileNameField;
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
@@ -85,51 +86,56 @@ public class ServiceRequestStatusController extends MenuController {
       FXCollections.observableArrayList();
 
   @FXML
-  public void initialize() throws SQLException {
-
+  public void initialize() throws SQLException, IOException {
+    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
+    popup = new PopOver(loader.load());
     IdNumberHolder holder = IdNumberHolder.getInstance();
     hospitalID = holder.getId();
     job = holder.getJob();
-    //    reminder.setVisible(false);
-    //    reminderPane.setVisible(false);
+    if (reminder != null) {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+    }
 
     // Assign permissions to differentiate between medical and non-medical staff
-    if (job.equalsIgnoreCase("medical")) {
-      statusBox.setDisable(true);
-      employeeBox.setDisable(true);
-      formTypeBox.setDisable(true);
-      dateBox.setDisable(true);
-      urgencyBox.setDisable(false);
+    if (statusBox != null) {
+      if (job.equalsIgnoreCase("medical")) {
+        statusBox.setDisable(true);
+        employeeBox.setDisable(true);
+        formTypeBox.setDisable(true);
+        dateBox.setDisable(true);
+        urgencyBox.setDisable(false);
 
-    } else {
-      statusBox.setDisable(false);
-      employeeBox.setDisable(false);
-      formTypeBox.setDisable(true);
-      dateBox.setDisable(true);
-      urgencyBox.setDisable(true);
+      } else {
+        statusBox.setDisable(false);
+        employeeBox.setDisable(false);
+        formTypeBox.setDisable(true);
+        dateBox.setDisable(true);
+        urgencyBox.setDisable(true);
+      }
+
+      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+      formTypeCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
+      dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+      statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+      urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
+      employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
+
+      Session session = getSessionFactory().openSession();
+      List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
+
+      if (job.equalsIgnoreCase("medical")) {
+        requests = getServiceByEmployee(hospitalID, session);
+      } else {
+        requests = getAllRecords(ServiceRequestEntity.class, session);
+      }
+
+      dbTableRowsModel.addAll(requests);
+
+      serviceReqsTable.setItems(dbTableRowsModel);
+      session.close();
     }
-
-    IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
-    formTypeCol.setCellValueFactory(
-        param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-    dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-    statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
-    urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
-    employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
-
-    Session session = getSessionFactory().openSession();
-    List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
-
-    if (job.equalsIgnoreCase("medical")) {
-      requests = getServiceByEmployee(hospitalID, session);
-    } else {
-      requests = getAllRecords(ServiceRequestEntity.class, session);
-    }
-
-    dbTableRowsModel.addAll(requests);
-
-    serviceReqsTable.setItems(dbTableRowsModel);
-    session.close();
   }
 
   @FXML
@@ -253,47 +259,54 @@ public class ServiceRequestStatusController extends MenuController {
     }
   }
 
-  //  @FXML
-  //  void clearForm(ActionEvent event) {
-  //    fileNameField.clear();
-  //  }
+  @FXML
+  void clearForm(ActionEvent event) {
+    fileNameField.clear();
+  }
 
   @FXML
   public void switchToImportPopup(ActionEvent event) throws IOException {
-    if (!event.getSource().equals(backButton)) {
+    if (!event.getSource().equals(cancel)) {
       FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ImportCSVFXML.fxml"));
       popup = new PopOver(loader.load());
       popup.show(((Node) event.getSource()).getScene().getWindow());
     }
 
-    if (event.getSource().equals(backButton)) {
+    if (event.getSource().equals(cancel)) {
       popup.hide();
     }
   }
 
   @FXML
   public void importCSV(ActionEvent event) {
-    //    if (fileNameField.getText().equals("")) {
-    //      reminder.setVisible(true);
-    //      reminderPane.setVisible(true);
-    //    } else {
-    //      reminder.setVisible(false);
-    //      reminderPane.setVisible(false);
-    //
-    //      // FUNCTION CALL TO IMPORT CSV
-    //
-    //    }
+    if (fileNameField.getText().equals("")) {
+      reminder.setVisible(true);
+      reminderPane.setVisible(true);
+    } else {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+
+      System.out.println(fileNameField.getText());
+
+      // FUNCTION CALL TO IMPORT CSV
+
+    }
+  }
+
+  @FXML
+  public void close(ActionEvent event) {
+    popup.hide();
   }
 
   @FXML
   public void switchToExportPopup(ActionEvent event) throws IOException {
-    if (!event.getSource().equals(backButton)) {
+    if (!event.getSource().equals(cancel)) {
       FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ExportCSVFXML.fxml"));
       popup = new PopOver(loader.load());
       popup.show(((Node) event.getSource()).getScene().getWindow());
     }
 
-    if (event.getSource().equals(backButton)) {
+    if (event.getSource().equals(cancel)) {
       popup.hide();
     }
   }

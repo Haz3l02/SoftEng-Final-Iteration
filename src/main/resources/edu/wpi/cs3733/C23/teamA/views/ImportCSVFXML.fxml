@@ -19,7 +19,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="818.0">
                      <children>
-                        <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                        <MFXButton fx:id="reset" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -49,7 +49,7 @@
                               <Insets right="30.0" />
                            </HBox.margin>
                         </StackPane>
-                        <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                        <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#close" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
                            <HBox.margin>
                               <Insets right="30.0" />
                            </HBox.margin>
@@ -57,7 +57,7 @@
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="submit" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Import" textFill="#224870">
+                        <MFXButton fx:id="submit" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#importCSV" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Import" textFill="#224870">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
