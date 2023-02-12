@@ -69,7 +69,7 @@
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Systems ">
                                  <font>
-                                    <Font name="Arial Narrow" size="40.0" />
+                                    <Font name="Arial" size="40.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="15.0" />
@@ -89,7 +89,7 @@
                                  <graphic>
                                     <ImageView fitHeight="125.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../OneDrive%20-%20Worcester%20Polytechnic%20Institute%20(wpi.edu)/Pictures/noun-spray-4351673.png" />
+                                          <Image url="@../assets/icons/sprayBottle.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -101,7 +101,7 @@
                                  <graphic>
                                     <ImageView fitHeight="125.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../OneDrive%20-%20Worcester%20Polytechnic%20Institute%20(wpi.edu)/Pictures/noun-computer-2787331.png" />
+                                          <Image url="@../assets/icons/computer_two.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -113,7 +113,7 @@
                                  <graphic>
                                     <ImageView fitHeight="125.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../OneDrive%20-%20Worcester%20Polytechnic%20Institute%20(wpi.edu)/Pictures/noun-police-3883315.png" />
+                                          <Image url="@../assets/icons/security.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -127,12 +127,12 @@
                            <children>
                               <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" onAction="#switchToSanitation" prefHeight="135.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Patient Transportation" textAlignment="CENTER" wrapText="true">
                                  <font>
-                                    <Font size="33.0" />
+                                    <Font size="30.0" />
                                  </font>
                                  <graphic>
                                     <ImageView fitHeight="125.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../Downloads/noun-wheelchair-5463449.png" />
+                                          <Image url="@../assets/icons/wheelchair.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -144,7 +144,7 @@
                                  <graphic>
                                     <ImageView fitHeight="125.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../Downloads/noun-wheelchair-5463449.png" />
+                                          <Image url="@../assets/icons/placeholder.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -156,7 +156,7 @@
                                  <graphic>
                                     <ImageView fitHeight="125.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../Downloads/noun-speaker-1024704.png" />
+                                          <Image url="@../assets/icons/speaker.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

@@ -73,7 +73,7 @@
                                         </Text>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="startFloorBox" floatMode="DISABLED" onAction="#fillStartLocationBox" prefHeight="32.0" prefWidth="181.0" text="Select Floor...">
+                                                <MFXFilterComboBox fx:id="startFloorBox" floatMode="DISABLED" onAction="#fillStartLocationBox" prefHeight="32.0" prefWidth="181.0" promptText="Select Floor...">
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
@@ -81,7 +81,7 @@
                                                         <Font size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
+                                                <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" promptText="Select Location...">
                                                     <font>
                                                         <Font size="14.0" />
                                                     </font>
@@ -101,7 +101,7 @@
                                         </Text>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="endFloorBox" floatMode="DISABLED" onAction="#fillEndLocationBox" prefHeight="32.0" prefWidth="183.0" text="Select Floor...">
+                                                <MFXFilterComboBox fx:id="endFloorBox" floatMode="DISABLED" onAction="#fillEndLocationBox" prefHeight="32.0" prefWidth="183.0" promptText="Select Floor...">
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
@@ -109,7 +109,7 @@
                                                         <Font size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="endLocBox" disable="true" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
+                                                <MFXFilterComboBox fx:id="endLocBox" disable="true" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" promptText="Select Location...">
                                                     <font>
                                                         <Font size="14.0" />
                                                     </font>
@@ -141,15 +141,18 @@
                               </HBox>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="algosBox" floatMode="DISABLED" onAction="#setPathfindingAlgorithm" prefHeight="38.0" prefWidth="198.0" text="Select Algorithm...">
+                                                <MFXFilterComboBox fx:id="algosBox" floatMode="DISABLED" onAction="#setPathfindingAlgorithm" prefHeight="38.0" prefWidth="198.0" promptText="Select Algorithm...">
                                                     <font>
                                                         <Font size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                    <MFXDatePicker>
+                                    <MFXDatePicker fx:id="navDatePicker" onAction="#setNavigationDate" promptText="Select Date...">
                                        <HBox.margin>
                                           <Insets left="15.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
                                     </MFXDatePicker>
                                             </children>
                                             <padding>

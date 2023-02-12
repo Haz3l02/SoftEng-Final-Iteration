@@ -9,17 +9,18 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Algorithm;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.HospitalMaps;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.io.File;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.text.Text;
 import org.hibernate.Session; // remove later
 
@@ -31,25 +32,29 @@ public class PathfindingController extends MenuController {
   @FXML private MFXFilterComboBox<String> startFloorBox;
   @FXML private MFXFilterComboBox<String> endFloorBox;
   @FXML private MFXFilterComboBox<String> algosBox;
+  @FXML private MFXDatePicker navDatePicker;
   @FXML private Text errorMessage;
 
-  // Lists of Nodes and Node Data
-  private List<String> allNodeIDs; // List of all Node IDs in specific order
-  private List<String> allLongNames; // List of corresponding long names in order
-  private List<NodeEntity> allNodes;
-
   @FXML private Text pathMapText;
-  @FXML private Canvas mapCanvas; // to display the generated path
+  @FXML private Canvas mapCanvas;
   @FXML private ImageView floorL2;
   @FXML private ImageView floorL1;
   @FXML private ImageView floorF1;
   @FXML private ImageView floorF2;
   @FXML private ImageView floorF3;
 
+  // Lists of Nodes and Node Data
+  private List<String> allNodeIDs; // List of all Node IDs in specific order
+  private List<String> allLongNames; // List of corresponding long names in order
+  private List<NodeEntity> allNodes;
+
   private Session session;
 
   // a PathfindingSystem to run methods in the pathfinding package
   private static PathfindingSystem pathfindingSystem;
+
+  // the date of navigation
+  private LocalDate navDate;
 
   // objects needed for the maps
   private GraphicsContext gc;
@@ -104,13 +109,19 @@ public class PathfindingController extends MenuController {
     pathfindingSystem = new PathfindingSystem(Algorithm.fromString(algosBox.getValue()));
   }
 
+  @FXML
+  public void setNavigationDate(ActionEvent event) {
+    navDate = navDatePicker.getValue();
+    // System.out.println(navDate);
+  }
+
   // TODO: function to get an ObservableList of locations based on floor and some stuff to do that
   // when a floor is picked in dropdown
 
   @FXML
   public void fillStartLocationBox() {
 
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
 
     List<NodeEntity> allNodesStartFloor =
@@ -129,12 +140,13 @@ public class PathfindingController extends MenuController {
 
     startLocBox.setItems(locs);
     startLocBox.setDisable(false);
+    startLocBox.clear();
   }
 
   @FXML
   public void fillEndLocationBox() {
 
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     Floor floor = Floor.valueOf(Floor.fromString(endFloorBox.getValue()));
 
     List<NodeEntity> allNodesEndFloor =
@@ -153,8 +165,14 @@ public class PathfindingController extends MenuController {
 
     endLocBox.setItems(locs);
     endLocBox.setDisable(false);
+    endLocBox.clear();
   }
 
+  /**
+   * Given a path, draw it on mapCanvas.
+   *
+   * @param path the path that you want to be drawn
+   */
   private void callMapDraw(ArrayList<GraphNode> path) {
     GraphicsContext gc = mapCanvas.getGraphicsContext2D();
 

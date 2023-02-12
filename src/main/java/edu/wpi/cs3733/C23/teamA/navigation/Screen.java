@@ -13,7 +13,7 @@ public enum Screen {
   SANITATION("views/SanitationFXML.fxml"),
   SECURITY("views/SecurityFXML.fxml"),
   HELP("views/HelpFXML.fxml"),
-  HOME_SERVICE_REQUEST("views/HomeServiceRequestFXML.fxml"),
+  HOME_SERVICE_REQUEST("views/HomeServiceRequestSMALLFXML.fxml"),
   SERVICE_REQUEST("views/ServiceRequest.fxml"),
   DATABASE("views/DatabaseFXML.fxml"),
   NODE("views/NodeFXML.fxml"),
@@ -24,7 +24,7 @@ public enum Screen {
   ID_INPUT("views/IDInputFXML.fxml"),
   LOGIN("views/LoginFXML.fxml"),
   NODE_MAP("views/NodeMapFXML.fxml"),
-  HOME_DATABASE("views/HomeDatabaseFXML.fxml"),
+  HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
   MAP_DISPLAY("views/PathDisplayFXML.fxml");
 
   private final String filename;
