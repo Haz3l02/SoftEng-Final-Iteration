@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -21,7 +20,7 @@ import org.hibernate.query.MutationQuery;
 
 public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
-  private ArrayList<EmployeeEntity> employees;
+  private List<EmployeeEntity> employees;
 
   public EmployeeImpl() {
     Session session = getSessionFactory().openSession();
@@ -30,7 +29,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     criteria.from(EmployeeEntity.class);
     List<EmployeeEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    employees = (ArrayList) records;
+    employees = records;
   }
 
   public List<EmployeeEntity> getAll() {
@@ -44,7 +43,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     //    }
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("employeeid,job,name,password,username\n");
     for (EmployeeEntity emp : emps) {
@@ -68,23 +67,18 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     Transaction tx = session.beginTransaction();
 
     EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
+    employees.remove(emp);
+
 
     emp.setJob(obj.getJob());
     emp.setUsername(obj.getUsername());
     emp.setPassword(obj.getPassword());
     emp.setName(obj.getName());
 
-    for (EmployeeEntity em : employees){
-      if (em.getEmployeeid().equals(emp.getEmployeeid())){
-        employees.remove(em);
-      }
-    }
 
     employees.add(emp);
     tx.commit();
     session.close();
-
-
   }
 
   public static ArrayList<String> checkPass(String user, String pass) {
@@ -131,7 +125,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     employees.clear();
-    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/"+ filename);
+    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(emps);
@@ -152,16 +146,11 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     session.close();
   }
 
-
   public void delete(EmployeeEntity e) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(e);
-    for (EmployeeEntity emp : employees){
-      if (emp.getEmployeeid().equals(e.getEmployeeid())){
-        employees.remove(emp);
-      }
-    }
+    employees.remove(e);
 
     tx.commit();
     session.close();

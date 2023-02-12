@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -21,7 +20,7 @@ import org.hibernate.query.MutationQuery;
 public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String> {
   // done
 
-  private ArrayList<LocationNameEntity> locations;
+  private List<LocationNameEntity> locations;
 
   public LocationNameImpl() {
     Session session = getSessionFactory().openSession();
@@ -30,7 +29,7 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     criteria.from(LocationNameEntity.class);
     List<LocationNameEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    locations=(ArrayList)records;
+    locations = records;
   }
 
   public List<LocationNameEntity> getAll() {
@@ -44,7 +43,7 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     //    }
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("longname, locationtype, shortname\n");
     for (LocationNameEntity loc : locs) {
@@ -57,13 +56,12 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
 
-
     String hql = "delete from LocationNameEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     locations.clear();
 
-    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/"+filename);
+    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);
@@ -97,11 +95,7 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(l);
-    for (LocationNameEntity loc : locations){
-      if (loc.getLongname().equals(l.getLongname())){
-        locations.remove(loc);
-      }
-    }
+    locations.remove(l);
 
     tx.commit();
     session.close();
@@ -112,20 +106,15 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     Transaction tx = session.beginTransaction();
 
     LocationNameEntity l = session.get(LocationNameEntity.class, ID);
+    locations.remove(l);
+
 
     l.setLocationtype(location.getLocationtype());
     l.setShortname(location.getShortname());
 
 
-    for (LocationNameEntity loc : locations){
-      if (loc.getLongname().equals(ID)){
-        locations.remove(loc);
-      }
-    }
-
     locations.add(l);
     tx.commit();
     session.close();
-
   }
 }
