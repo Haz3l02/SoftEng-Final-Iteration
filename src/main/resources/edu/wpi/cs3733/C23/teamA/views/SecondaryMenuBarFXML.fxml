@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="75.0" maxWidth="1920.0" minHeight="75.0" minWidth="1920.0" prefHeight="75.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MenuController">
+   <children>
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1920.0" minWidth="1920.0" prefHeight="75.0" prefWidth="1573.0" style="-fx-background-color: #224870;">
+         <left>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Arial Black" size="40.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
+            </Text>
+         </left>
+         <right>
+            <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="58.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MFXButton id="homeButton" fx:id="homeButton" depthLevel="LEVEL0" onAction="#switchToHomeScene" prefHeight="34.0" prefWidth="138.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6; -fx-background-color: #224870;" text="Home" textFill="#d3e9f6" underline="true">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton id="homeButton" fx:id="helpButton" depthLevel="LEVEL0" onAction="#switchToHelpScene" prefWidth="138.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6; -fx-background-color: #224870;" text="Help" textFill="#d3e9f6" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton id="homeButton" fx:id="logout" depthLevel="LEVEL0" onAction="#logout" prefHeight="34.0" prefWidth="138.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6; -fx-background-color: #224870;" text="Logout" textFill="#d3e9f6" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </HBox>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

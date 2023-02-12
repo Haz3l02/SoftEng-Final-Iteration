@@ -48,9 +48,7 @@ public class AApp extends Application {
 
   @Override
   public void stop() {
-    // ServiceRequestController.setStop(true);
     getSessionFactory().close();
     log.info("Shutting Down");
-    System.exit(0);
   }
 }

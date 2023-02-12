@@ -21,7 +21,7 @@ import javafx.util.converter.IntegerStringConverter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class NodeController extends ServiceRequestController {
+public class NodeController extends MenuController {
 
   @FXML private TableView<NodeEntity> dbTable;
 

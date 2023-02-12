@@ -12,21 +12,24 @@ import org.junit.jupiter.api.*; // notably, BeforeEach & Test
 public class AStarTest {
 
   // test nodes
-  final GraphNode a1 = new GraphNode("a1", 4, -3);
-  final GraphNode a2 = new GraphNode("a2", 0, 5);
-  final GraphNode a3 = new GraphNode("a3", -4, -3);
-  final GraphNode a4 = new GraphNode("a4", -3, 4);
-  final GraphNode a5 = new GraphNode("a5", 3, 4);
+  final GraphNode a1 = new GraphNode("a1", 4, -3, "a1");
+  final GraphNode a2 = new GraphNode("a2", 0, 5, "a2");
+  final GraphNode a3 = new GraphNode("a3", -4, -3, "a3");
+  final GraphNode a4 = new GraphNode("a4", -3, 4, "a4");
+  final GraphNode a5 = new GraphNode("a5", 3, 4, "a5");
   static HashMap<String, GraphNode> testGraph = new HashMap<>();
 
-  final GraphNode b1 = new GraphNode("b1", 0, 0);
-  final GraphNode b2 = new GraphNode("b2", -1, 3);
-  final GraphNode b3 = new GraphNode("b3", 1, 2);
-  final GraphNode b4 = new GraphNode("b4", 0, 4);
+  final GraphNode b1 = new GraphNode("b1", 0, 0, "b1");
+  final GraphNode b2 = new GraphNode("b2", -1, 3, "b2");
+  final GraphNode b3 = new GraphNode("b3", 1, 2, "b3");
+  final GraphNode b4 = new GraphNode("b4", 0, 4, "b4");
+
   static HashMap<String, GraphNode> testGraph2 = new HashMap<>();
+  PathfindingSystem astar = new PathfindingSystem(new AStar());
 
   @BeforeEach
   public void init() throws IOException {
+
     // Test Nodes
     testGraph.put("a1", a1);
     testGraph.put("a2", a2);
@@ -49,7 +52,7 @@ public class AStarTest {
     a3.addNeighbor(a2);
 
     String[] correctPath = {"a1", "a2"};
-    ArrayList<GraphNode> path = AStar.traverse(a1, a2);
+    ArrayList<GraphNode> path = astar.runPathfinding(a1, a2);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -65,7 +68,7 @@ public class AStarTest {
     a3.addNeighbor(a2);
 
     String[] correctPath = {"a1", "a3"};
-    ArrayList<GraphNode> path = AStar.traverse(a1, a3);
+    ArrayList<GraphNode> path = astar.runPathfinding(a1, a3);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -85,7 +88,7 @@ public class AStarTest {
     a5.addNeighbor(a4);
 
     String[] correctPath = {"a1", "a3", "a4"};
-    ArrayList<GraphNode> path = AStar.traverse(a1, a4);
+    ArrayList<GraphNode> path = astar.runPathfinding(a1, a4);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -107,7 +110,7 @@ public class AStarTest {
     a5.addNeighbor(a4);
 
     String[] correctPath = {"a2", "a1", "a5"};
-    ArrayList<GraphNode> path = AStar.traverse(a2, a5);
+    ArrayList<GraphNode> path = astar.runPathfinding(a2, a5);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -129,7 +132,7 @@ public class AStarTest {
     a1.addNeighbor(a2);
 
     String[] correctPath = {"a2", "a1", "a5"};
-    ArrayList<GraphNode> path = AStar.traverse(a2, a5);
+    ArrayList<GraphNode> path = astar.runPathfinding(a2, a5);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -143,7 +146,7 @@ public class AStarTest {
     a5.addNeighbor(a1);
 
     String[] correctPath = {"a1"};
-    ArrayList<GraphNode> path = AStar.traverse(a1, a1);
+    ArrayList<GraphNode> path = astar.runPathfinding(a1, a1);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -155,7 +158,7 @@ public class AStarTest {
     // no neighboring nodes
 
     String[] correctPath = {"a1"};
-    ArrayList<GraphNode> path = AStar.traverse(a1, a1);
+    ArrayList<GraphNode> path = astar.runPathfinding(a1, a1);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -170,7 +173,7 @@ public class AStarTest {
     a1.addNeighbor(a1);
 
     String[] correctPath = {"a1"};
-    ArrayList<GraphNode> path = AStar.traverse(a1, a1);
+    ArrayList<GraphNode> path = astar.runPathfinding(a1, a1);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
@@ -190,7 +193,7 @@ public class AStarTest {
     b3.addNeighbor(b1);
 
     String[] correctPath = {"b1", "b3", "b4"};
-    ArrayList<GraphNode> path = AStar.traverse(b1, b4);
+    ArrayList<GraphNode> path = astar.runPathfinding(b1, b4);
     System.out.println(PathInterpreter.generatePathString(path));
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
@@ -211,7 +214,7 @@ public class AStarTest {
     b3.addNeighbor(b1);
 
     String[] correctPath = {"b4", "b3", "b1"};
-    ArrayList<GraphNode> path = AStar.traverse(b4, b1);
+    ArrayList<GraphNode> path = astar.runPathfinding(b4, b1);
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);

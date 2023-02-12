@@ -17,7 +17,7 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ import javafx.scene.text.Text;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ServiceRequestStatusController extends ServiceRequestController {
+public class ServiceRequestStatusController extends MenuController {
 
   @FXML private TableView<ServiceRequestEntity> serviceReqsTable;
   @FXML public TableColumn<ServiceRequestEntity, Integer> IDCol;
@@ -52,7 +52,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
   UrgencyLevel urgent;
-  ServiceRequestEntity.Status status;
+  Status status;
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
 
@@ -61,7 +61,14 @@ public class ServiceRequestStatusController extends ServiceRequestController {
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME);
+    IdNumberHolder holder = IdNumberHolder.getInstance();
+    if (holder.getJob().equalsIgnoreCase("Maintenance")) {
+      Navigation.navigateHome(Screen.HOME_MAINTENANCE);
+    } else if (holder.getJob().equalsIgnoreCase("Admin")) {
+      Navigation.navigateHome(Screen.HOME_ADMIN);
+    } else {
+      Navigation.navigateHome(Screen.HOME_EMPLOYEE);
+    }
   }
 
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
@@ -99,16 +106,11 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
     Session session = getSessionFactory().openSession();
-
-    // ArrayList<ServiceRequest> specificRequests = new ArrayList<ServiceRequest>();
     List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
     if (job.equalsIgnoreCase("medical")) {
-      // specificRequests = sr.getServiceRequestsByID(hospitalID);
       requests = getServiceByEmployee(hospitalID, session);
-
     } else {
-      // specificRequests = sr.getServiceRequests();
       requests = getAllRecords(ServiceRequestEntity.class, session);
     }
 
@@ -132,7 +134,7 @@ public class ServiceRequestStatusController extends ServiceRequestController {
       statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
       urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
       employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
-      if (job.equals("Medical") || job.equals("medical")) {
+      if (job.equalsIgnoreCase("medical")) {
         editForm.setVisible(true);
       }
     }
@@ -179,9 +181,9 @@ public class ServiceRequestStatusController extends ServiceRequestController {
         if (SRTable.getRequestid() == currentRowId) {
           SRTable.setRequestid(Integer.parseInt(IDBoxSaver.getText()));
           SRTable.setRequestType(ServiceRequestEntity.RequestType.valueOf(formTypeBox.getText()));
-          SRTable.setDate(DateFormat.getDateInstance().parse(dateBox.getText()));
-          SRTable.setStatus(ServiceRequestEntity.Status.valueOf(statusBox.getText()));
-          SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText()));
+          SRTable.setDate(Timestamp.valueOf(dateBox.getText()));
+          SRTable.setStatus(Status.valueOf(statusBox.getText()));
+          SRTable.setUrgency(UrgencyLevel.value(urgencyBox.getText()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
           serviceReqsTable.setItems(currentTableData);
@@ -191,11 +193,11 @@ public class ServiceRequestStatusController extends ServiceRequestController {
           ServiceRequestEntity billy = session.get(ServiceRequestEntity.class, currentRowId);
 
           if (statusBox != null && !statusBox.isDisabled()) {
-            status = ServiceRequestEntity.Status.valueOf(statusBox.getValue());
+            status = Status.valueOf(statusBox.getValue());
             billy.setStatus(status);
           }
           if (urgencyBox != null && !urgencyBox.isDisabled()) {
-            urgent = UrgencyLevel.valueOf(urgencyBox.getValue());
+            urgent = UrgencyLevel.value(urgencyBox.getValue());
             billy.setUrgency(urgent);
           }
           billy.setEmployeeAssigned(employeeBox.getText());
@@ -224,17 +226,17 @@ public class ServiceRequestStatusController extends ServiceRequestController {
     newEdit =
         new EditTheForm(clickedRow.getRequestid(), clickedRow.getRequestType().requestType, true);
     switch (clickedRow.getRequestType().requestType) {
-      case "COMPUTER":
+      case "Computer":
         Navigation.navigate(Screen.COMPUTER);
         break;
-      case "SANITATION":
+      case "Sanitation":
         Navigation.navigate(Screen.SANITATION);
         break;
-      case "SECURITY":
+      case "Security":
         Navigation.navigate(Screen.SECURITY);
         break;
       default:
-        Navigation.navigate(Screen.HOME);
+        Navigation.navigateHome(Screen.HOME);
         break;
     }
   }

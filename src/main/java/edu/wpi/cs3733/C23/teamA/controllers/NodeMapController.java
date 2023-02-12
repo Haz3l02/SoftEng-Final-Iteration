@@ -6,10 +6,9 @@ import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -25,7 +24,7 @@ import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 import org.hibernate.Session;
 
-public class NodeMapController extends ServiceRequestController {
+public class NodeMapController extends MenuController {
 
   @FXML private Canvas nodeMapCanvas; // to display the generated path
   @FXML private ImageView nodeMapImage;

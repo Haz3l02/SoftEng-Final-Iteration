@@ -1,21 +1,18 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,45 +24,17 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML private MFXTextField phone;
   @FXML private MFXComboBox<String> requestsBox;
-
-  UrgencyLevel urgent;
   RequestCategory assistance;
 
   @FXML
   public void initialize() throws SQLException {
-    IdNumberHolder holder = IdNumberHolder.getInstance();
-    String name = holder.getName();
-    String id = holder.getId();
-
-    if (reminder != null) {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-    }
+    super.initialize();
     if (requestsBox != null) {
       ObservableList<String> requests =
           FXCollections.observableArrayList(RequestCategory.categoryList());
-      ObservableList<String> urgencies =
-          FXCollections.observableArrayList(UrgencyLevel.urgencyList());
-
-      Session session = getSessionFactory().openSession();
-      List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
-
-      // ArrayList<Move> moves = Move.getAll();
-      ObservableList<String> locations = FXCollections.observableArrayList();
-      for (LocationNameEntity move : temp) {
-        locations.add(move.getLongname());
-      }
-
-      Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
-
-      nameBox.setText(name);
-      IDNum.setText(id);
-
       requestsBox.setItems(requests);
-      urgencyBox.setItems(urgencies);
-      locationBox.setItems(locations);
     }
-    if (newEdit.needEdits && newEdit.getRequestType().equals("SECURITY")) {
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Security")) {
 
       Session session = getSessionFactory().openSession();
       Transaction tx = session.beginTransaction();
@@ -89,18 +58,8 @@ public class SecurityController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToSecurityScene(ActionEvent event) {
-    Navigation.navigate(Screen.SECURITY);
-  }
-
-  @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME);
-  }
-
-  @FXML
-  public void switchToHomeServiceRequestScene(ActionEvent event) {
-    Navigation.navigate(Screen.HOME_SERVICE_REQUEST);
+    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
   }
 
   @FXML
@@ -121,7 +80,7 @@ public class SecurityController extends ServiceRequestController {
         Session session = getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
-        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue().toUpperCase());
 
         SecurityRequestEntity submission =
@@ -133,6 +92,11 @@ public class SecurityController extends ServiceRequestController {
         submission.setUrgency(urgent);
         submission.setAssistance(assistance);
         submission.setSecphone(phone.getText());
+
+        session.persist(submission);
+
+        tx.commit();
+        session.close();
       } else {
         Session session = getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
@@ -140,7 +104,7 @@ public class SecurityController extends ServiceRequestController {
         EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
         LocationNameEntity location = session.get(LocationNameEntity.class, locationBox.getText());
 
-        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue());
 
         SecurityRequestEntity submission =
@@ -151,7 +115,7 @@ public class SecurityController extends ServiceRequestController {
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.SECURITY,
-                ServiceRequestEntity.Status.BLANK,
+                Status.BLANK,
                 "Unassigned",
                 assistance,
                 phone.getText());

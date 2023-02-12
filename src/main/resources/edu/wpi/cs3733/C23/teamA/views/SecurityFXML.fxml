@@ -13,6 +13,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<!---->
+
 <AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SecurityController">
    <children>
       <BorderPane layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="615.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -40,7 +42,7 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Text>
-                        <MFXTextField fx:id="nameBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="184.0" promptText="Enter your first and last name" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                        <MFXTextField fx:id="nameBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="184.0" promptText="Enter your first and last name" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                            <HBox.margin>
                               <Insets top="-5.0" />
                            </HBox.margin>
@@ -63,7 +65,7 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Text>
-                        <MFXTextField fx:id="IDNum" alignment="CENTER" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" promptText="Enter your BWH ID" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                        <MFXTextField fx:id="IDNum" alignment="CENTER" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" promptText="Enter your BWH ID" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                            <HBox.margin>
                               <Insets left="2.0" top="-5.0" />
                            </HBox.margin>
@@ -218,52 +220,39 @@
             </HBox>
          </bottom>
          <top>
-            <HBox prefHeight="56.0" prefWidth="613.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: black; -fx-background-color: #224870;" BorderPane.alignment="CENTER">
-               <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false;" text="Brigham &amp; Women’s Hospital " wrappingWidth="392.1484375">
+            <BorderPane prefWidth="611.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+               <left>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="384.1484375" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Arial Black" size="24.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets left="10.0" top="15.0" />
-                     </HBox.margin>
+                     <BorderPane.margin>
+                        <Insets left="10.0" />
+                     </BorderPane.margin>
                   </Text>
-                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="238.0">
+               </left>
+               <right>
+                  <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="58.0" prefWidth="213.0" BorderPane.alignment="CENTER">
                      <children>
-                        <MFXButton id="helpButton" fx:id="home" buttonType="RAISED" minHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="28.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
+                        <MFXButton id="homeButton" fx:id="homeButton" buttonType="RAISED" prefHeight="34.0" prefWidth="61.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Home" textFill="#122c34">
                            <HBox.margin>
-                              <Insets right="5.0" top="5.0" />
+                              <Insets left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
-                           <font>
-                              <Font name="Kohinoor Bangla" size="13.0" />
-                           </font>
                         </MFXButton>
-                        <MFXButton id="helpButton" fx:id="help" buttonType="RAISED" minHeight="-Infinity" onAction="#switchToHelpScene" prefHeight="28.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Help" textFill="#122c34">
+                        <MFXButton id="helpButton" fx:id="helpButton" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Help" textFill="#122c34">
                            <HBox.margin>
                               <Insets right="5.0" top="5.0" />
                            </HBox.margin>
-                           <font>
-                              <Font name="Kohinoor Bangla" size="13.0" />
-                           </font>
                         </MFXButton>
-                        <MFXButton minHeight="-Infinity" onAction="#logout" prefHeight="28.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
+                        <MFXButton minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="64.0" rippleColor="#c0cced" style="-fx-background-color: #d3e9f6;" text="Logout" textFill="#122c34">
                            <HBox.margin>
                               <Insets right="5.0" top="5.0" />
                            </HBox.margin>
-                           <font>
-                              <Font name="Kohinoor Bangla" size="13.0" />
-                           </font>
                         </MFXButton>
                      </children>
-                     <HBox.margin>
-                        <Insets left="5.0" right="10.0" top="5.0" />
-                     </HBox.margin>
                   </HBox>
-               </children>
-               <BorderPane.margin>
-                  <Insets top="-10.0" />
-               </BorderPane.margin>
-            </HBox>
+               </right>
+            </BorderPane>
          </top>
       </BorderPane>
    </children>
