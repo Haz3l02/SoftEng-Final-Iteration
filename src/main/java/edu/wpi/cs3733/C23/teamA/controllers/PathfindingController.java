@@ -104,6 +104,12 @@ public class PathfindingController extends MenuController {
     errorMessage.setText("");
   }
 
+  /**
+   * Updates pathfindingSystem with a new PathfindingSystem object with the algorithm selected in
+   * the dropdown
+   *
+   * @param event
+   */
   @FXML
   public void setPathfindingAlgorithm(ActionEvent event) {
     pathfindingSystem = new PathfindingSystem(Algorithm.fromString(algosBox.getValue()));
