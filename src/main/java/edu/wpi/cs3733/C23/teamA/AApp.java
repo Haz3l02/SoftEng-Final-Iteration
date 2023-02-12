@@ -41,7 +41,7 @@ public class AApp extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
     primaryStage.setMaximized(true);
-    Navigation.navigate(Screen.NODE);
+    Navigation.navigate(Screen.NODE_MAP);
     primaryStage.setMinWidth(615);
     primaryStage.setMinHeight(450);
   }
@@ -50,5 +50,6 @@ public class AApp extends Application {
   public void stop() {
     getSessionFactory().close();
     log.info("Shutting Down");
+    System.exit(0);
   }
 }

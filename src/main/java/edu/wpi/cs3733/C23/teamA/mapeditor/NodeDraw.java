@@ -69,9 +69,9 @@ public class NodeDraw {
               nodeGraphic.setStyle(
                   "-fx-background-color: 'green'; "
                       + "-fx-background-radius: 12.5; "
-                      + "-fx-border-color: 'yellow'; "
+                      + "-fx-border-color: '#224870'; "
                       + "-fx-border-width: 1;"
-                      + "-fx-border-radius: 12.5");
+                      + "-fx-border-radius: 13.5");
 
               previousNode = nodeGraphic;
               selectNode = n;
