@@ -4,6 +4,8 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllReco
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -71,9 +73,10 @@ public class NodeController extends MenuController {
 
   public void delete() {
     if (selected != null) {
-      Transaction t = session.beginTransaction();
-      session.remove(selected);
-      t.commit();
+      EdgeImpl edge = new EdgeImpl();
+      NodeImpl node = new NodeImpl();
+      edge.collapseNode(selected);
+      node.delete(selected);
       reloadData();
     }
   }
