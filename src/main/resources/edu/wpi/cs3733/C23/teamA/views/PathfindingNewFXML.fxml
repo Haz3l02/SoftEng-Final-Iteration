@@ -227,99 +227,99 @@
                                 </HBox>
                                 <StackPane prefHeight="510.0" prefWidth="754.0">
                                     <children>
-                              <TabPane prefHeight="476.0" prefWidth="634.0" tabClosingPolicy="UNAVAILABLE">
+                              <TabPane prefHeight="476.0" prefWidth="634.0" style="-fx-background-color: #224870;" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
-                                    <Tab text="L1">
+                                    <Tab text="Lower Level One">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <StackPane>
+                                                <StackPane fx:id="floorL1Stack">
                                                    <children>
                                                       <ImageView fx:id="floorL1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="mapCanvas1" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorL1Canvas" height="456.0" width="754.0" />
                                                    </children>
                                                 </StackPane>
-                                                <GesturePane />
+                                                <GesturePane fx:id="floorL1gPane" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                       </content>
                                     </Tab>
-                                    <Tab text="L2">
+                                    <Tab text="Lower Level Two">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <StackPane>
+                                                <StackPane fx:id="floorL2Stack">
                                                    <children>
                                                       <ImageView fx:id="floorL2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/00_thelowerlevel2_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="mapCanvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorL2Canvas" height="456.0" width="754.0" />
                                                    </children>
                                                 </StackPane>
-                                                <GesturePane />
+                                                <GesturePane fx:id="floorL2gPane" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                       </content>
                                     </Tab>
-                                  <Tab text="F1">
+                                  <Tab text="Floor One">
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <StackPane>
+                                                <StackPane fx:id="floorF1Stack">
                                                    <children>
                                                       <ImageView fx:id="floorF1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="mapCanvas2" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorF1Canvas" height="456.0" width="754.0" />
                                                    </children>
                                                 </StackPane>
-                                                <GesturePane layoutX="10.0" layoutY="10.0" />
+                                                <GesturePane fx:id="floorF1gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                     </content>
                                   </Tab>
-                                  <Tab text="F2">
+                                  <Tab text="Floor Two">
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <StackPane>
+                                                <StackPane fx:id="floorF2Stack">
                                                    <children>
                                                       <ImageView fx:id="floorF2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="mapCanvas3" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorF2Canvas" height="456.0" width="754.0" />
                                                    </children>
                                                 </StackPane>
-                                                <GesturePane layoutX="10.0" layoutY="10.0" />
+                                                <GesturePane fx:id="floorF2gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                     </content>
                                   </Tab>
-                                    <Tab text="F3">
+                                    <Tab text="Floor Three">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <StackPane>
+                                                <StackPane fx:id="floorF3Stack">
                                                    <children>
                                                       <ImageView fx:id="floorF3" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="mapCanvas4" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorF3Canvas" height="456.0" width="754.0" />
                                                    </children>
                                                 </StackPane>
-                                                <GesturePane layoutX="10.0" layoutY="10.0" />
+                                                <GesturePane fx:id="floorF3gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                       </content>
