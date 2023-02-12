@@ -18,7 +18,7 @@ import org.hibernate.query.MutationQuery;
 public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   // done
 
-  private List<NodeEntity> nodes;
+  private ArrayList<NodeEntity> nodes;
 
   public NodeImpl() {
     Session session = getSessionFactory().openSession();
@@ -27,7 +27,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     criteria.from(NodeEntity.class);
     List<NodeEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    nodes = records;
+    nodes = (ArrayList) records;
   }
 
   public List<NodeEntity> getAll() {
@@ -101,8 +101,8 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   public void delete(NodeEntity n) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.delete(n);
     nodes.remove(n);
+    session.remove(n);
     tx.commit();
     session.close();
   }
@@ -112,14 +112,17 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     Transaction tx = session.beginTransaction();
 
     NodeEntity n = session.get(NodeEntity.class, ID);
-    nodes.remove(n);
-
 
     n.setBuilding(obj.getBuilding());
     n.setXcoord(obj.getXcoord());
     n.setYcoord(obj.getYcoord());
     n.setFloor(obj.getFloor());
 
+    for (NodeEntity nod : nodes) {
+      if (nod.equals(obj)) {
+        nodes.remove(obj);
+      }
+    }
 
     nodes.add(n);
     tx.commit();

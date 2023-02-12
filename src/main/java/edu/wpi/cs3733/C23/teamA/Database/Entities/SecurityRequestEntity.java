@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "securityrequest")
+@Table(name = "securityrequest", catalog = "teamadb")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
 public class SecurityRequestEntity extends ServiceRequestEntity {
 

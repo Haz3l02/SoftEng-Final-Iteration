@@ -44,7 +44,7 @@
                                  <children>
                                     <VBox alignment="CENTER" prefHeight="63.0" prefWidth="499.0" style="-fx-background-color: #224870; -fx-background-radius: 15 15 0 0;">
                                        <children>
-                                          <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Tasks" wrappingWidth="292.3665008544922">
+                                          <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Unassigned Tasks" wrappingWidth="370.1331024169922">
                                              <font>
                                                 <Font size="48.0" />
                                              </font>
@@ -190,7 +190,12 @@
                                           <Font size="25.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="64.0" prefWidth="188.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Assignments" textFill="#d3e9f6" underline="true">
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToPathfinding" prefHeight="64.0" prefWidth="158.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Navigation" textFill="#d3e9f6" underline="true">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToDatabase" prefHeight="64.0" prefWidth="145.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Database" textFill="#d3e9f6" underline="true">
                                        <font>
                                           <Font size="25.0" />
                                        </font>

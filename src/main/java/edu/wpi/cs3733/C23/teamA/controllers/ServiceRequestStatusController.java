@@ -61,7 +61,14 @@ public class ServiceRequestStatusController extends MenuController {
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME);
+    IdNumberHolder holder = IdNumberHolder.getInstance();
+    if (holder.getJob().equalsIgnoreCase("Maintenance")) {
+      Navigation.navigateHome(Screen.HOME_MAINTENANCE);
+    } else if (holder.getJob().equalsIgnoreCase("Admin")) {
+      Navigation.navigateHome(Screen.HOME_ADMIN);
+    } else {
+      Navigation.navigateHome(Screen.HOME_EMPLOYEE);
+    }
   }
 
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
