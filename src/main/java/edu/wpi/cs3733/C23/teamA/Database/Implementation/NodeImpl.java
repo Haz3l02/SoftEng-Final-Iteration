@@ -101,12 +101,8 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   public void delete(NodeEntity n) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.delete(n);
-    for (NodeEntity nod : nodes) {
-      if (nod.equals(n)) {
-        nodes.remove(nod);
-      }
-    }
+    nodes.remove(n);
+    session.remove(n);
     tx.commit();
     session.close();
   }

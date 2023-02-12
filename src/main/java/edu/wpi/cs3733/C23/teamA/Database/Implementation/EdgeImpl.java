@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -21,15 +20,16 @@ import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
 public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
-  private ArrayList<EdgeEntity> edges;
+  private List<EdgeEntity> edges;
 
   public EdgeImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
+    criteria.from(EdgeEntity.class);
     List<EdgeEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    edges = (ArrayList) records;
+    edges = records;
   }
 
   public List<EdgeEntity> getAll() {
@@ -133,14 +133,8 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
   public void delete(EdgeEntity e) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-
-    session.delete(e);
-    for (EdgeEntity edge : edges) {
-      if (edge.getEdgeid().equals(e.getEdgeid())) {
-        edges.remove(edge);
-      }
-    }
-
+    edges.remove(e);
+    session.remove(e);
     tx.commit();
     session.close();
   }
