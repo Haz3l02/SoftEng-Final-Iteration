@@ -70,7 +70,7 @@
                         </MFXButton>
                      </bottom>
                      <top>
-                        <VBox prefHeight="200.0" prefWidth="177.0" spacing="20.0" BorderPane.alignment="TOP_LEFT">
+                        <VBox prefHeight="200.0" prefWidth="177.0" spacing="20.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;" BorderPane.alignment="TOP_LEFT">
                            <children>
                               <HBox spacing="20.0">
                                  <children>
@@ -94,6 +94,9 @@
                            <BorderPane.margin>
                               <Insets top="30.0" />
                            </BorderPane.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" top="10.0" />
+                           </padding>
                         </VBox>
                      </top>
                   </BorderPane>
