@@ -15,9 +15,9 @@
 
 <!---->
 
-<AnchorPane prefHeight="714.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ComputerController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="714.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ComputerController">
    <children>
-      <BorderPane prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;">
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="714.0" prefWidth="1450.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;">
          <top>
             <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
                <children>
@@ -143,7 +143,7 @@
                                     <Font name="Kohinoor Bangla" size="14.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets top="30.0" />
+                                    <Insets top="20.0" />
                                  </VBox.margin>
                               </MFXFilterComboBox>
                               <MFXComboBox id="devicesBox" fx:id="devicesBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Desktop, Tablet, Labtop, Monitor" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
@@ -151,7 +151,7 @@
                                     <Font name="Kohinoor Bangla" size="14.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets top="20.0" />
+                                    <Insets top="30.0" />
                                  </VBox.margin>
                               </MFXComboBox>
                               <MFXComboBox fx:id="urgencyBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High, Extremely High" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
@@ -191,7 +191,7 @@
                            <children>
                               <MFXTextField fx:id="deviceIDNum" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter device ID number" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                                  <VBox.margin>
-                                    <Insets top="30.0" />
+                                    <Insets top="28.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font name="Kohinoor Bangla" size="14.0" />

@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -18,74 +19,6 @@
 <AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SanitationController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;">
-         <bottom>
-            <HBox alignment="CENTER" prefHeight="88.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="818.0">
-                     <children>
-                        <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <font>
-                              <Font name="Kohinoor Bangla" size="25.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="1100.0">
-                     <children>
-                        <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #122c34; -fx-border-width: 2 2 2 2;">
-                           <children>
-                              <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Verdana" size="25.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                           <HBox.margin>
-                              <Insets right="30.0" />
-                           </HBox.margin>
-                        </StackPane>
-                        <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
-                           <HBox.margin>
-                              <Insets right="30.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="Kohinoor Bangla" size="25.0" />
-                           </font>
-                        </MFXButton>
-                        <MFXButton fx:id="submit" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Submit" textFill="#224870">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <font>
-                              <Font name="Kohinoor Bangla" size="25.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets right="30.0" />
-                     </padding>
-                  </HBox>
-               </children>
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-               <padding>
-                  <Insets bottom="20.0" />
-               </padding>
-            </HBox>
-         </bottom>
          <top>
             <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
                <children>
@@ -198,7 +131,19 @@
                               <Insets left="15.0" />
                            </opaqueInsets>
                            <children>
-                              <MFXFilterComboBox fx:id="locationBox" />
+                              <MFXFilterComboBox fx:id="locationBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select location" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                                 <textFill>
+                                    <Color red="0.43529412150382996" green="0.4313725531101227" blue="0.4313725531101227" opacity="0.8700000047683716" />
+                                 </textFill>
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="8.0" left="5.0" />
+                                 </padding></MFXFilterComboBox>
                               <MFXComboBox fx:id="urgencyBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High, Extremely High" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                                  <font>
                                     <Font name="Kohinoor Bangla" size="14.0" />
@@ -227,7 +172,7 @@
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets top="30.0" />
+                                    <Insets top="20.0" />
                                  </VBox.margin>
                               </Text>
                            </children>
@@ -238,6 +183,9 @@
                                  <font>
                                     <Font name="Kohinoor Bangla" size="14.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
                               </MFXComboBox>
                            </children>
                            <padding>
@@ -255,6 +203,71 @@
                </BorderPane.margin>
             </VBox>
          </top>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="88.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="818.0">
+                     <children>
+                        <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="1100.0">
+                     <children>
+                        <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #122c34; -fx-border-width: 2 2 2 2;">
+                           <children>
+                              <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Verdana" size="25.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </StackPane>
+                        <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="submit" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Submit" textFill="#224870">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="30.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+            </HBox>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>
