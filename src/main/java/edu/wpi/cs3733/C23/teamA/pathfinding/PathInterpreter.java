@@ -72,9 +72,9 @@ public class PathInterpreter {
 
       if (longName != null) {
         if (i == 0) {
-          sb.append("Starting at " + longName + ":\n");
+          sb.append("Start at " + longName + ".\n");
         } else if (i == 1) {
-          sb.append("Go toward " + longName + "\n");
+          sb.append("Go toward " + longName + ".\n");
         } else {
           String direction = getDirection(path.get(i - 2), path.get(i - 1), path.get(i));
           sb.append(direction);
@@ -96,6 +96,8 @@ public class PathInterpreter {
     int by = middle.getYCoord();
     int cx = end.getXCoord();
     int cy = end.getYCoord();
+
+    // todo: add some kind of check for the same coordinates; if any pair has the same ones?
 
     // distance between the first and second graphNodes
     int dist = (int) Math.sqrt(Math.pow(bx - ax, 2) + Math.pow(by - ay, 2)) / 3;

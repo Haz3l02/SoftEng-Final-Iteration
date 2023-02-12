@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import java.lang.String?>
@@ -30,7 +31,7 @@
                         <Font size="25.0" />
                     </font>
                 </MFXButton>
-                <MFXButton id="findPathButton" buttonType="RAISED" defaultButton="true" onAction="#generatePath" prefHeight="70.0" prefWidth="180.0" rippleAnimateShadow="true" rippleColor="#420a55" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-color: black; -fx-border-radius: 15;" text="Find Path" textFill="#224870">
+                <MFXButton id="findPathButton" buttonType="RAISED" defaultButton="true" onAction="#generatePath" prefHeight="70.0" prefWidth="180.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-color: black; -fx-border-radius: 15;" text="Find Path" textFill="#224870">
                     <font>
                         <Font size="25.0" />
                     </font>
@@ -72,17 +73,17 @@
                                         </Text>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="startFloorBox" floatMode="DISABLED" onAction="#fillLocationBoxes" prefHeight="32.0" prefWidth="181.0" text="Select Floor...">
+                                                <MFXFilterComboBox fx:id="startFloorBox" floatMode="DISABLED" onAction="#fillStartLocationBox" prefHeight="32.0" prefWidth="181.0" text="Select Floor...">
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
                                                     <font>
-                                                        <Font size="18.0" />
+                                                        <Font size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="startLocBox" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
+                                                <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
                                                     <font>
-                                                        <Font size="18.0" />
+                                                        <Font size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                             </children>
@@ -100,17 +101,17 @@
                                         </Text>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="endFloorBox" floatMode="DISABLED" onAction="#fillLocationBoxes" prefHeight="32.0" prefWidth="183.0" text="Select Floor...">
+                                                <MFXFilterComboBox fx:id="endFloorBox" floatMode="DISABLED" onAction="#fillEndLocationBox" prefHeight="32.0" prefWidth="183.0" text="Select Floor...">
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
                                                     <font>
-                                                        <Font size="18.0" />
+                                                        <Font size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="endLocBox" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
+                                                <MFXFilterComboBox fx:id="endLocBox" disable="true" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" text="Select Location...">
                                                     <font>
-                                                        <Font size="18.0" />
+                                                        <Font size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                             </children>
@@ -118,21 +119,38 @@
                                                 <Insets bottom="10.0" left="10.0" top="10.0" />
                                             </VBox.margin>
                                         </HBox>
-                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Algorithm" wrappingWidth="116.0">
-                                            <font>
-                                                <Font name="Verdana" size="18.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets left="10.0" />
-                                            </VBox.margin>
-                                        </Text>
+                              <HBox>
+                                 <children>
+                                              <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Algorithm" wrappingWidth="116.0">
+                                                  <font>
+                                                      <Font name="Verdana" size="18.0" />
+                                                  </font>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                              </Text>
+                                    <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Navigation Date" wrappingWidth="162.0">
+                                       <font>
+                                          <Font name="Verdana" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="100.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                 </children>
+                              </HBox>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="algosBox" floatMode="DISABLED" onAction="#setPathfindingAlgorithm" prefHeight="33.0" prefWidth="198.0" text="Select Algorithm">
+                                                <MFXFilterComboBox fx:id="algosBox" floatMode="DISABLED" onAction="#setPathfindingAlgorithm" prefHeight="38.0" prefWidth="198.0" text="Select Algorithm...">
                                                     <font>
-                                                        <Font size="18.0" />
+                                                        <Font size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
+                                    <MFXDatePicker>
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </MFXDatePicker>
                                             </children>
                                             <padding>
                                                 <Insets bottom="10.0" left="10.0" top="10.0" />
@@ -142,6 +160,9 @@
                                             <font>
                                                 <Font size="10.0" />
                                             </font>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" />
+                                 </VBox.margin>
                                         </Text>
                                     </children>
                                     <VBox.margin>
@@ -165,7 +186,7 @@
                                  <content>
                                               <Text fx:id="pathMapText" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions on how to get to your destination go here... " wrappingWidth="452.5592842102051">
                                                   <font>
-                                                      <Font name="Verdana" size="16.0" />
+                                                      <Font name="Verdana" size="14.0" />
                                                   </font>
                                               </Text>
                                  </content>
@@ -201,7 +222,7 @@
                                 </HBox>
                                 <StackPane prefHeight="510.0" prefWidth="754.0">
                                     <children>
-                              <TabPane prefHeight="430.0" prefWidth="687.0" tabClosingPolicy="UNAVAILABLE">
+                              <TabPane prefHeight="476.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
                                     <Tab text="L2">
                                       <content>

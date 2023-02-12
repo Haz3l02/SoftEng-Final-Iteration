@@ -75,14 +75,14 @@ public class PathfindingInterpreterTest {
 
     String pathString = PathInterpreter.generatePathString(path);
     StringBuilder output = new StringBuilder();
-    output.append("Path from " + "a1" + " to " + "a9" + ":\n");
-    output.append("Start at " + "a1" + "\n");
-    output.append("Go toward " + "a2" + "\n");
-    output.append("Turn right and go to a3\n");
-    output.append("Turn left and go to a9\n");
-    output.append("You have reached " + "a9" + "\n");
+    output.append("Path from " + "a1" + " to " + "a9" + ":\n\n");
+    output.append("Start at " + "a1" + ".\n");
+    output.append("Go toward " + "a2" + ".\n");
+    output.append("Turn right and go to a3.\n");
+    output.append("Turn left and go to a9.\n");
+    output.append("You have reached " + "a9" + ".\n");
 
-    assertEquals(pathString.toString(), output.toString());
+    assertEquals(pathString, output.toString());
   }
 
   @Test
@@ -96,13 +96,13 @@ public class PathfindingInterpreterTest {
 
     String pathString = PathInterpreter.generatePathString(path);
     StringBuilder output = new StringBuilder();
-    output.append("Path from " + "a8" + " to " + "a3" + ":\n");
-    output.append("Start at " + "a8" + "\n");
-    output.append("Go toward " + "a1" + "\n");
-    output.append("Continue straight and go to a2\n");
-    output.append("Turn right and go to a6\n");
-    output.append("Turn left and go to a3\n");
-    output.append("You have reached " + "a3" + "\n");
-    assertEquals(pathString.toString(), output.toString());
+    output.append("Path from " + "a8" + " to " + "a3" + ":\n\n");
+    output.append("Start at " + "a8" + ".\n");
+    output.append("Go toward " + "a1" + ".\n");
+    output.append("Continue straight and go to a2.\n");
+    output.append("Turn right and go to a6.\n");
+    output.append("Turn left and go to a3.\n");
+    output.append("You have reached " + "a3" + ".\n");
+    assertEquals(pathString, output.toString());
   }
 }

@@ -101,7 +101,6 @@ public class PathfindingController extends MenuController {
 
   @FXML
   public void setPathfindingAlgorithm(ActionEvent event) {
-
     pathfindingSystem = new PathfindingSystem(Algorithm.fromString(algosBox.getValue()));
   }
 
@@ -109,27 +108,18 @@ public class PathfindingController extends MenuController {
   // when a floor is picked in dropdown
 
   @FXML
-  public void fillLocationBoxes(ActionEvent event) throws Exception {
-
-    Floor floor = null;
-
-    if (event.getSource() == startFloorBox) {
-      floor = Floor.valueOf(Floor.fromString(startFloorBox.getText()));
-    }
-    if (event.getSource().equals(endFloorBox)) {
-      floor = Floor.valueOf(Floor.fromString(endFloorBox.getText()));
-    } else {
-      System.out.println("ERROR");
-    }
+  public void fillStartLocationBox() {
 
     Session session = getSessionFactory().openSession();
-    List<NodeEntity> allNodesFloor =
+    Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
+
+    List<NodeEntity> allNodesStartFloor =
         NodeEntity.getNodeOnFloor(floor.getTableString(), session); // get all nodes from Database
 
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
 
-    for (NodeEntity n : allNodesFloor) {
+    for (NodeEntity n : allNodesStartFloor) {
       idsFloor.add(n.getNodeid()); // get nodeId
       namesFloor.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
     }
@@ -137,16 +127,32 @@ public class PathfindingController extends MenuController {
 
     ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
 
-    if (event.getSource() == startFloorBox) {
-      startLocBox.setItems(locs);
-      startLocBox.setDisable(false);
+    startLocBox.setItems(locs);
+    startLocBox.setDisable(false);
+  }
+
+  @FXML
+  public void fillEndLocationBox() {
+
+    Session session = getSessionFactory().openSession();
+    Floor floor = Floor.valueOf(Floor.fromString(endFloorBox.getValue()));
+
+    List<NodeEntity> allNodesEndFloor =
+        NodeEntity.getNodeOnFloor(floor.getTableString(), session); // get all nodes from Database
+
+    ArrayList<String> idsFloor = new ArrayList<>();
+    ArrayList<String> namesFloor = new ArrayList<>();
+
+    for (NodeEntity n : allNodesEndFloor) {
+      idsFloor.add(n.getNodeid()); // get nodeId
+      namesFloor.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
     }
-    if (event.getSource().equals(endFloorBox)) {
-      endLocBox.setItems(locs);
-      endLocBox.setDisable(false);
-    } else {
-      System.out.println("ERROR");
-    }
+    session.close();
+
+    ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
+
+    endLocBox.setItems(locs);
+    endLocBox.setDisable(false);
   }
 
   private void callMapDraw(ArrayList<GraphNode> path) {
@@ -160,7 +166,8 @@ public class PathfindingController extends MenuController {
   }
 
   /**
-   * Runs when the "Find Path" button is pressed, performing A* and displaying the path on the map.
+   * Runs when the "Find Path" button is pressed, performing pathfinding and displaying the path on
+   * the map.
    */
   @FXML
   public void generatePath(ActionEvent event) throws SQLException, RuntimeException {
@@ -184,7 +191,8 @@ public class PathfindingController extends MenuController {
     GraphNode start = pathfindingSystem.getNode(sName);
     GraphNode end = pathfindingSystem.getNode(eName);
     ArrayList<GraphNode> path =
-        pathfindingSystem.runPathfinding(start, end); // makes a call to AStar
+        pathfindingSystem.runPathfinding(
+            start, end); // makes a call to the algorithm that was selected
 
     // if a path was found, draw a path
     if (path != null) {
@@ -205,20 +213,4 @@ public class PathfindingController extends MenuController {
     Image image = new Image(file.toURI().toString());
     iv.setImage(image); // this does not work
   }
-
-  /*
-  public void goToMapScene(javafx.event.ActionEvent actionEvent) {
-    Tuple<Integer, Integer> nodeIndices =
-        new Tuple<>(startLocBox.getSelectedIndex(), endLocBox.getSelectedIndex());
-
-    if (nodeIndices.get1() == -1 || nodeIndices.get2() == -1) {
-      errorMessage.setText("Have not selected a location in both drop downs");
-    } else {
-      errorMessage.setText("");
-      NodeIndicesHolder.getInstance().setNodes(nodeIndices);
-      Navigation.navigate(Screen.PATHFINDING_MAP);
-    }
-  }
-
-   */
 }
