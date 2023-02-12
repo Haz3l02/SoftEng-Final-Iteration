@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -197,14 +198,7 @@
                               <Insets left="15.0" />
                            </opaqueInsets>
                            <children>
-                              <MFXComboBox id="devicesBox" fx:id="locationBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select location " style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
-                                 <font>
-                                    <Font name="Kohinoor Bangla" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </MFXComboBox>
+                              <MFXFilterComboBox fx:id="locationBox" />
                               <MFXComboBox fx:id="urgencyBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High, Extremely High" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                                  <font>
                                     <Font name="Kohinoor Bangla" size="14.0" />
@@ -240,14 +234,11 @@
                         </VBox>
                         <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="380.0">
                            <children>
-                              <MFXTextField fx:id="categoryBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select type of sanitation" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
-                                 <VBox.margin>
-                                    <Insets top="30.0" />
-                                 </VBox.margin>
+                              <MFXComboBox fx:id="categoryBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High, Extremely High" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                                  <font>
                                     <Font name="Kohinoor Bangla" size="14.0" />
                                  </font>
-                              </MFXTextField>
+                              </MFXComboBox>
                            </children>
                            <padding>
                               <Insets left="30.0" />

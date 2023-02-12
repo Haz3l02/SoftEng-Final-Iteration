@@ -244,11 +244,11 @@
                               <Insets left="30.0" />
                            </padding>
                            <children>
-                              <MFXFilterComboBox fx:id="requestsBox" floatMode="ABOVE" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                              <MFXComboBox fx:id="requestsBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High, Extremely High" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                                  <font>
                                     <Font name="Kohinoor Bangla" size="14.0" />
                                  </font>
-                              </MFXFilterComboBox>
+                              </MFXComboBox>
                            </children>
                         </VBox>
                      </children>
