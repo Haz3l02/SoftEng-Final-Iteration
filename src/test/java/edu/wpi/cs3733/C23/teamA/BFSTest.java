@@ -2,9 +2,9 @@ package edu.wpi.cs3733.C23.teamA;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.wpi.cs3733.C23.teamA.pathfinding.BFS;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
+import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.BFS;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;

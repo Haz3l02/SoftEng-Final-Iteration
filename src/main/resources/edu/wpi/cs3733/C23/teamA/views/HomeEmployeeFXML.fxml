@@ -212,7 +212,7 @@
       </StackPane>
       <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="283.0" prefWidth="676.0">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Birgham Women's Hospital" textAlignment="RIGHT" textOrigin="BOTTOM">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham and Women's Hospital" textAlignment="RIGHT" textOrigin="BOTTOM">
                <font>
                   <Font name="Arial Black" size="45.0" />
                </font>

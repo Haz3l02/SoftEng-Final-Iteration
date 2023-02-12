@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import edu.wpi.cs3733.C23.teamA.pathfinding.readers.CSVReader;
+import edu.wpi.cs3733.C23.teamA.pathfinding.readers.DBReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
