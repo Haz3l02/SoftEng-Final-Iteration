@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -12,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,7 +22,7 @@ import org.hibernate.query.MutationQuery;
 public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String> {
   // done
 
-  private ArrayList<LocationNameEntity> locations;
+  private List<LocationNameEntity> locations;
 
   public LocationNameImpl() {
     Session session = getSessionFactory().openSession();
@@ -29,7 +31,7 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     criteria.from(LocationNameEntity.class);
     List<LocationNameEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    locations = (ArrayList) records;
+    locations = records;
   }
 
   public List<LocationNameEntity> getAll() {
@@ -91,13 +93,15 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     session.close();
   }
 
-  public void delete(LocationNameEntity l) {
+  public void delete(String l) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.delete(l);
-    for (LocationNameEntity loc : locations) {
-      if (loc.getLongname().equals(l.getLongname())) {
-        locations.remove(loc);
+    session.delete(session.get(LocationNameEntity.class, l));
+
+    ListIterator<LocationNameEntity> li = locations.listIterator();
+    while (li.hasNext()){
+      if (li.next().getLongname().equals(l)){
+        li.remove();
       }
     }
 
@@ -109,22 +113,24 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
+
+    ListIterator<LocationNameEntity> li = locations.listIterator();
+    while (li.hasNext()){
+      if (li.next().getLongname().equals(ID)){
+        li.remove();
+      }
+    }
+
     LocationNameEntity l = session.get(LocationNameEntity.class, ID);
+
+
 
     l.setLocationtype(location.getLocationtype());
     l.setShortname(location.getShortname());
 
-    for (LocationNameEntity loc : locations) {
-      if (loc.getLongname().equals(ID)) {
-        locations.remove(loc);
-      }
-    }
 
     locations.add(l);
     tx.commit();
     session.close();
   }
-
-  @Override
-  public void delete(String obj) {}
 }

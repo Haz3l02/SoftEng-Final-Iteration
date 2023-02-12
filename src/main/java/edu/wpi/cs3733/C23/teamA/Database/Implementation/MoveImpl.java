@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -22,7 +23,7 @@ import org.hibernate.query.MutationQuery;
 
 public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
-  private ArrayList<MoveEntity> moves;
+  private List<MoveEntity> moves;
   // done except importCSV
 
   public MoveImpl() {
@@ -32,7 +33,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    moves = (ArrayList) records;
+    moves = records;
   }
 
   public List<MoveEntity> getAll() {
@@ -107,22 +108,20 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     session.close();
   }
 
-  public void delete(MoveEntity m) {
+  public void delete(List<String> m) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.delete(m);
-    for (MoveEntity mov : moves) {
-      if (mov.equals(m)) {
-        moves.remove(mov);
+    ListIterator<MoveEntity> li = moves.listIterator();
+    while (li.hasNext()){
+      if (li.next().getNode().equals(m.get(0))&&li.next().getLocationName().equals(m.get(1))&&li.next().getMovedate().equals(m.get(2))){
+        li.remove();
       }
     }
 
+    //session.delete()
     tx.commit();
     session.close();
   }
 
   public void update(List<String> ID, MoveEntity obj) {}
-
-  @Override
-  public void delete(List<String> obj) {}
 }

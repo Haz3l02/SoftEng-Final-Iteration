@@ -7,19 +7,21 @@ import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
 public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
-  private ArrayList<EdgeEntity> edges;
+  private List<EdgeEntity> edges;
 
   public EdgeImpl() {
     Session session = getSessionFactory().openSession();
@@ -28,11 +30,41 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     criteria.from(EdgeEntity.class);
     List<EdgeEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    edges = (ArrayList) records;
+    edges = records;
   }
 
   public List<EdgeEntity> getAll() {
     return edges;
+  }
+
+  /**
+   * Finds connecting edges (edges that go to a certain node and all edges that come from that
+   * nodea)
+   *
+   * @param e
+   * @return Hashmap of all edges that go to a node (node2 is the node) and a List of Edges that
+   *     come from the node (node1 is the node)
+   */
+  public HashMap<EdgeEntity, List<EdgeEntity>> nodeVectors(NodeEntity e) {
+    HashMap<EdgeEntity, List<EdgeEntity>> vectors = new HashMap<>();
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
+    Root<EdgeEntity> item = criteria.from(EdgeEntity.class);
+
+    // Find edge that goes to node e
+    criteria.select(item).where(builder.equal(item.get("node2"), e));
+    List<EdgeEntity> records = session.createQuery(criteria).getResultList();
+    for (EdgeEntity r : records) {
+      vectors.put(
+          r,
+          session
+              .createQuery( // Find all edges that leave node e
+                  criteria.select(item).where(builder.equal(item.get("node1"), e)))
+              .getResultList());
+    }
+    session.close();
+    return vectors;
   }
 
   public void exportToCSV(String filename) throws IOException {
@@ -56,6 +88,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
               + "\n");
     }
     fileWriter.close();
+    session.close();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
@@ -98,17 +131,35 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     session.close();
   }
 
-  public void delete(EdgeEntity e) {
+  public void delete(String e) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-
-    session.delete(e);
-    for (EdgeEntity edge : edges) {
-      if (edge.getEdgeid().equals(e.getEdgeid())) {
-        edges.remove(edge);
+    ListIterator<EdgeEntity> li = edges.listIterator();
+    while (li.hasNext()){
+      if (li.next().getEdgeid().equals(e)){
+        li.remove();
       }
     }
+    session.remove(session.get(EdgeEntity.class, e));
+    tx.commit();
+    session.close();
+  }
 
+  public void collapseNode(NodeEntity e) {
+    EdgeEntity newEdge;
+    Session session = getSessionFactory().openSession();
+    HashMap<EdgeEntity, List<EdgeEntity>> vec = nodeVectors(e);
+    Transaction tx = session.beginTransaction();
+    for (EdgeEntity n : vec.keySet()) { // n - > e
+      List<EdgeEntity> edges = vec.get(n);
+      for (EdgeEntity m : edges) { // e - > m
+        newEdge = new EdgeEntity(n.getNode1(), m.getNode2());
+        System.out.println(newEdge.getEdgeid());
+        session.merge(newEdge);
+        delete(m.getEdgeid());
+      }
+      delete(n.getEdgeid());
+    }
     tx.commit();
     session.close();
   }
@@ -117,23 +168,23 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
+    ListIterator<EdgeEntity> li = edges.listIterator();
+    while (li.hasNext()){
+      if (li.next().getEdgeid().equals(s)){
+        li.remove();
+      }
+    }
+
+
     EdgeEntity edg = session.get(EdgeEntity.class, s);
 
     edg.setNode1(obj.getNode1());
     edg.setNode2(obj.getNode2());
 
-    for (EdgeEntity edge : edges) {
-      if (edge.getEdgeid().equals(s)) {
-        edges.remove(edge);
-      }
-    }
 
     edges.add(edg);
 
     tx.commit();
     session.close();
   }
-
-  @Override
-  public void delete(String obj) {}
 }
