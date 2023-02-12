@@ -133,4 +133,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     tx.commit();
     session.close();
   }
+
+  @Override
+  public void delete(String obj) {}
 }

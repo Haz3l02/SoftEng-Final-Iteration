@@ -122,4 +122,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void update(List<String> ID, MoveEntity obj) {}
+
+  @Override
+  public void delete(List<String> obj) {}
 }

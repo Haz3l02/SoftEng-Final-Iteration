@@ -47,4 +47,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
   }
 
   public void update(String ID, SanitationRequestEntity obj) {}
+
+  @Override
+  public void delete(String obj) {}
 }

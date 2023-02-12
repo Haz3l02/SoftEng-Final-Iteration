@@ -132,4 +132,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     tx.commit();
     session.close();
   }
+
+  @Override
+  public void delete(String obj) {}
 }

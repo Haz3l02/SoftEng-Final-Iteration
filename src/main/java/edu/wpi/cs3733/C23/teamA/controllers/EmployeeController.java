@@ -112,31 +112,16 @@ public class EmployeeController {
             passwordBox.getText(),
             jobBox.getText(),
             nameBox.getText());
+
     employee.add(theEmployee);
     reloadData();
   }
 
   @FXML
   public void delete(ActionEvent event) {
-
-    ObservableList<EmployeeEntity> currentTableData = employeeTable.getItems();
-
-    String currentRowId = IDNumBox.getId();
-
-    for (EmployeeEntity employees : currentTableData) {
-      if (employees.getEmployeeid() == currentRowId) {
-
-        employees.setName(nameBox.getText());
-        employees.setUsername(usernameBox.getText());
-        employees.setPassword(passwordBox.getText());
-        employees.setJob(jobBox.getValue().toString());
-        employees.setEmployeeid(IDNumBox.getText());
-
-        employee.delete(employees);
-        reloadData();
-        break;
-      }
-    }
+    String currentRowId = IDNumBox.getText();
+    employee.delete(currentRowId);
+    reloadData();
   }
 
   public void reloadData() {
@@ -155,32 +140,23 @@ public class EmployeeController {
     if (!IDNumBox.getText().trim().isEmpty()
         && !nameBox.getText().trim().isEmpty()
         && !usernameBox.getText().trim().isEmpty()
-        && !passwordBox.getText().trim().isEmpty()
-        && !jobBox.getText().trim().isEmpty()) {
+        && !passwordBox.getText().trim().isEmpty()) {
 
       ObservableList<EmployeeEntity> currentTableData = employeeTable.getItems();
 
-      String currentRowId = IDNumBox.getId();
+      String currentRowId = IDNumBox.getText();
 
       for (EmployeeEntity employees : currentTableData) {
-        if (employees.getEmployeeid() == currentRowId) {
+        if (employees.getEmployeeid().equals(currentRowId)) {
 
           employees.setName(nameBox.getText());
           employees.setUsername(usernameBox.getText());
           employees.setPassword(passwordBox.getText());
-          employees.setJob(jobBox.getValue().toString());
+          employees.setJob(Job.value(jobBox.getValue()).getJob());
           employees.setEmployeeid(IDNumBox.getText());
-          System.out.println("update");
           employee.update(currentRowId, employees);
-
           employeeTable.setItems(currentTableData);
           reloadData();
-
-          //                    if (statusBox != null && !statusBox.isDisabled()) {
-          //                        status = Status.valueOf(statusBox.getValue());
-          //                        billy.setStatus(status);
-          //                    }
-
           break;
         }
       }
@@ -196,6 +172,7 @@ public class EmployeeController {
     usernameBox.clear();
     passwordBox.clear();
     jobBox.clear();
+
     createEmployee.setVisible(true);
   }
 }

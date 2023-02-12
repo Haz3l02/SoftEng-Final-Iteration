@@ -46,4 +46,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
   }
 
   public void update(String ID, SecurityRequestEntity obj) {}
+
+  @Override
+  public void delete(String obj) {}
 }

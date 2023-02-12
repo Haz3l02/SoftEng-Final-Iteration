@@ -73,4 +73,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, St
   }
 
   public void update(String ID, ServiceRequestEntity obj) {}
+
+  @Override
+  public void delete(String obj) {}
 }

@@ -124,4 +124,7 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     tx.commit();
     session.close();
   }
+
+  @Override
+  public void delete(String obj) {}
 }

@@ -6,6 +6,8 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,8 +33,12 @@ public class NodeController extends MenuController {
   @FXML public TableColumn<NodeEntity, String> floorCol;
   @FXML public TableColumn<NodeEntity, String> buildingCol;
   @FXML public TextField newx;
-  @FXML public TextField newy;
 
+  @FXML public TextField newy;
+  @FXML public MFXTextField xBox;
+  @FXML public MFXTextField yBox;
+  @FXML public MFXComboBox floorBox;
+  @FXML public MFXComboBox buildingBox;
   @FXML public Button submit;
 
   public NodeEntity selected;
@@ -55,6 +61,7 @@ public class NodeController extends MenuController {
     dbTable.setItems(dbTableRowsModel);
 
     editableColumns();
+
     dbTable.setEditable(true);
   }
 
@@ -72,16 +79,19 @@ public class NodeController extends MenuController {
   }
 
   public void onSubmit() {
-    String x = newx.getText().trim();
-    String y = newy.getText().trim();
+    String x = xBox.getText().trim();
+    String y = yBox.getText().trim();
+    String floor = floorBox.getValue().toString();
+    String building = buildingBox.getValue().toString();
+
     if (!x.isEmpty() && !y.isEmpty()) {
       Transaction t = session.beginTransaction();
       NodeEntity n = new NodeEntity();
       n.setNodeid("L1X" + x + "Y" + y);
       n.setXcoord(Integer.parseInt(x));
       n.setYcoord(Integer.parseInt(y));
-      n.setFloor("L1");
-      n.setBuilding("BTM");
+      n.setFloor(floor);
+      n.setBuilding(building);
       System.out.println(n.getNodeid());
       session.persist(n);
       t.commit();
