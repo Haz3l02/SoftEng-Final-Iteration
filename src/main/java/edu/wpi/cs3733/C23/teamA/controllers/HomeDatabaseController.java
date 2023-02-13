@@ -26,6 +26,10 @@ public class HomeDatabaseController extends MenuController {
     Navigation.navigate(Screen.DATABASE);
   }
 
+  public void switchToEmployeeScene(ActionEvent event) {
+    Navigation.navigate(Screen.EMPLOYEE);
+  }
+
   public void switchToCredits(ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/CreditsFXML.fxml"));
     PopOver creditsPopUp = new PopOver(loader.load());

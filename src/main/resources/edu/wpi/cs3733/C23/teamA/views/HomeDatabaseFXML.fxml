@@ -110,7 +110,7 @@
                                                       </ImageView>
                                                    </graphic>
                                                 </MFXButton>
-                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeScene" prefHeight="170.0" prefWidth="556.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Employee Records" textAlignment="CENTER" wrapText="true">
+                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" minWidth="-Infinity" onAction="#switchToEmployeeScene" prefHeight="170.0" prefWidth="556.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Employee Records" textAlignment="CENTER" wrapText="true">
                                                    <font>
                                                       <Font size="50.0" />
                                                    </font>
@@ -187,7 +187,7 @@
       </StackPane>
       <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="225.0" prefWidth="100.0">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Birgham Women's Hospital" textAlignment="RIGHT" textOrigin="BOTTOM">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham and Women's Hospital" textAlignment="RIGHT" textOrigin="BOTTOM">
                <font>
                   <Font name="Arial Black" size="45.0" />
                </font>

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.IAlgorithmStrategy;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class PathfindingSystem {
     return algorithmStrategy.traverse(startNode, endNode);
   }
 
+  // PathInterpreter
   public String generatePathString(ArrayList<GraphNode> path) {
     return PathInterpreter.generatePathString(path);
   }
