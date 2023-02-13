@@ -1,19 +1,18 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
+import static java.lang.String.valueOf;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
@@ -25,111 +24,173 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import javafx.scene.input.MouseEvent;
 
 public class MoveController extends MenuController {
 
-    @FXML private TableView<MoveEntity> dbTable;
+  @FXML private TableView<MoveEntity> dbTable;
 
-    @FXML public TableColumn<MoveEntity, String> nodeCol;
-    @FXML public TableColumn<MoveEntity, String> moveCol;
-    @FXML public TableColumn<MoveEntity, String> moveDateCol;
+  @FXML public TableColumn<MoveEntity, String> nodeCol;
+  @FXML public TableColumn<MoveEntity, String> moveCol;
+  @FXML public TableColumn<MoveEntity, String> moveDateCol;
 
-    @FXML public MFXComboBox<String> nodeBox;
-    @FXML public MFXComboBox<String> locationBox;
-    @FXML public DatePicker dateBox;
-    @FXML public MFXButton submit;
+  @FXML public MFXFilterComboBox<String> nodeBox;
+  @FXML public MFXFilterComboBox<String> locationBox;
+  @FXML public DatePicker dateBox;
+  @FXML public MFXButton submit;
+  @FXML private MFXButton editButton;
+  @FXML private MFXButton deleteButton;
+  @FXML private MFXButton createMove;
 
-    // List of all Node IDs in specific order
-    private List<String> allNodeIDs;
-    private List<String> allLongNames; // List of corresponding long names in order
-    private List<MoveEntity> data;
-    private List<NodeEntity> nodes;
-    private Session session;
-    private MoveEntity row;
-    private ObservableList<MoveEntity> dbTableRowsModel = FXCollections.observableArrayList();
-    MoveImpl moveImpl = new MoveImpl();
-    List<MoveEntity> moveData = new ArrayList<>();
-    /** runs on switching to this scene */
-    public void initialize() {
-        moveData = moveImpl.getAll();
+  // List of all Node IDs in specific order
+  private List<String> allNodeID;
+  private List<String> allLongNames; // List of corresponding long names in order
 
-        allNodeIDs = new ArrayList<>();
-        allLongNames = new ArrayList<>();
+  private ObservableList<MoveEntity> dbTableRowsModel = FXCollections.observableArrayList();
+  MoveImpl moveImpl = new MoveImpl();
+  List<MoveEntity> moveData = new ArrayList<>();
 
-        for (NodeEntity n : nodes) {
-            allNodeIDs.add(n.getNodeid()); // get nodeId
-            allLongNames.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
+  /** runs on switching to this scene */
+  public void initialize() {
+    moveData = moveImpl.getAll();
+
+    allNodeID = moveImpl.getNodeID();
+    allLongNames = moveImpl.getLocationName();
+
+    ObservableList<String> nodes = FXCollections.observableArrayList(allNodeID);
+    ObservableList<String> locationNames = FXCollections.observableArrayList(allLongNames);
+
+    nodeBox.setItems(nodes);
+    locationBox.setItems(locationNames);
+
+    nodeCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getNode().getNodeid()));
+    moveCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getLocationName().getLongname()));
+    moveDateCol.setCellValueFactory(new PropertyValueFactory<>("movedate"));
+
+    dbTableRowsModel.addAll(moveData);
+    dbTable.setItems(dbTableRowsModel);
+  }
+
+  /** Clear and retrieve all table rows again With hibernate only use once at start */
+  public void reloadData() {
+    dbTableRowsModel.clear();
+    try {
+      moveData = moveImpl.getAll();
+      dbTableRowsModel.addAll(moveData);
+      clearEdits();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @FXML
+  public void delete(ActionEvent event) {
+    List<String> moveIDs = new ArrayList<>();
+    moveIDs.add(nodeBox.getValue());
+    moveIDs.add(locationBox.getValue());
+    moveIDs.add(dateBox.getValue().toString());
+    moveImpl.delete(moveIDs);
+    reloadData();
+  }
+
+  @FXML
+  public void createMove(ActionEvent event) {
+    NodeImpl nodeimpl = new NodeImpl();
+    LocationNameImpl location = new LocationNameImpl();
+    LocationNameEntity loc = location.get(locationBox.getValue());
+    long bill = 90;
+    Timestamp theTime = new Timestamp(bill);
+
+    MoveEntity theMove = new MoveEntity(nodeimpl.get(nodeBox.getValue()), loc, theTime);
+
+    moveImpl.add(theMove);
+    reloadData();
+  }
+
+  public void submitEdit(ActionEvent event) {
+    if (!nodeBox.getText().trim().isBlank()
+        || !locationBox.getText().trim().isBlank()
+        || !dateBox.getValue().toString().isEmpty()) {
+
+      ObservableList<MoveEntity> currentTableData = dbTable.getItems();
+
+      String moveDate = dateBox.getValue().toString();
+      String nodeID = nodeBox.getValue();
+      String theLocation = locationBox.getValue();
+
+      for (MoveEntity move : currentTableData) {
+        if (move.getMovedate().toString().equals(moveDate)
+            && move.getLocationName().getLongname().equals(theLocation)
+            && move.getNode().getNodeid().equals(nodeID)) {
+          List<String> moveID = new ArrayList<>();
+          moveID.add(nodeID);
+          moveID.add(theLocation);
+          moveID.add(moveDate);
+
+          NodeImpl nodeimpl = new NodeImpl();
+          LocationNameImpl location = new LocationNameImpl();
+          LocationNameEntity loc = location.get(locationBox.getValue());
+
+          move.setNode(nodeimpl.get(nodeBox.getValue()));
+          move.setLocationName(loc);
+          long bill = 90;
+          Timestamp theTime = new Timestamp(bill);
+          move.setMovedate(theTime);
+
+          moveImpl.update(moveID, move);
+          dbTable.setItems(currentTableData);
+          reloadData();
+          break;
         }
+      }
+    }
+  }
 
-        ObservableList<String> nodes = FXCollections.observableArrayList(allNodeIDs);
-        ObservableList<String> locationNames = FXCollections.observableArrayList(allLongNames);
+  public void switchToEdgeScene(ActionEvent event) {
+    Navigation.navigate(Screen.EDGE);
+  }
 
-        nodeBox.setItems(nodes);
-        locationBox.setItems(locationNames);
+  public void switchToNodeScene(ActionEvent event) {
+    Navigation.navigate(Screen.NODE);
+  }
 
-        reloadData();
+  public void switchToHomeDatabaseScene(ActionEvent event) {
 
-        nodeCol.setCellValueFactory(
-                param -> new SimpleStringProperty(param.getValue().getNode().getNodeid()));
-        moveCol.setCellValueFactory(
-                param -> new SimpleStringProperty(param.getValue().getLocationName().getLongname()));
-        moveDateCol.setCellValueFactory(new PropertyValueFactory<>("movedate"));
+    Navigation.navigateHome(Screen.HOME_DATABASE);
+  }
 
-        dbTable.setItems(dbTableRowsModel);
+  public void clearEdits() {
+    nameBox.clear();
+    locationBox.clear();
 
-        dbTable.getSortOrder().add(moveCol);
-        dbTable.sort();
+    //        createEmployee.setVisible(true);
+    //        editButton.setDisable(true);
+  }
+
+  @FXML
+  public void rowClicked(MouseEvent event) {
+
+    MoveEntity clickedMoveTableRow = dbTable.getSelectionModel().getSelectedItem();
+    // Time date;
+    LocalDate newDate = null;
+    // newDate.atStartOfDay();
+    // Time time = new Time(2, 1, 1);
+
+    if (clickedMoveTableRow != null) {
+      nodeBox.setText(valueOf(clickedMoveTableRow.getNode().getNodeid()));
+      locationBox.setText(valueOf(clickedMoveTableRow.getLocationName().getLongname()));
+      dateBox.setValue(newDate);
+      editButton.setDisable(false);
+      deleteButton.setDisable(false);
+      createMove.setVisible(false);
     }
 
-    /** Clear and retrieve all table rows again With hibernate only use once at start */
-    public void reloadData() {
-        dbTableRowsModel.clear();
-        try {
-            data = getAllRecords(MoveEntity.class, session);
-            dbTableRowsModel.addAll(data);
-            clearEdits();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        dbTable.sort();
-    }
+    ObservableList<String> node = FXCollections.observableArrayList(allNodeID);
+    ObservableList<String> location = FXCollections.observableArrayList(allLongNames);
 
-    public void submitEdit(ActionEvent event) {
-        if (!nodeBox.getText().trim().isBlank()
-                || !locationBox.getText().trim().isBlank()
-                || !dateBox.getValue().toString().isEmpty()) {
-            Transaction t = session.beginTransaction();
-            MoveEntity newMove = new MoveEntity();
-            newMove.setNode(session.get(NodeEntity.class, nodeBox.getText()));
-            newMove.setLocationName(session.get(LocationNameEntity.class, locationBox.getText()));
-            newMove.setMovedate(Timestamp.valueOf(dateBox.getValue().atStartOfDay()));
-            session.persist(newMove);
-            t.commit();
-        }
-        reloadData();
-    }
-
-    public void switchToEdgeScene(ActionEvent event) {
-        session.close();
-        Navigation.navigate(Screen.EDGE);
-    }
-
-    public void switchToNodeScene(ActionEvent event) {
-        session.close();
-        Navigation.navigate(Screen.NODE);
-    }
-
-    public void switchToHomeDatabaseScene(ActionEvent event) {
-        session.close();
-        Navigation.navigateHome(Screen.HOME_DATABASE);
-    }
-    public void clearEdits() {
-        nameBox.clear();
-        locationBox.clear();
-
-//        createEmployee.setVisible(true);
-//        editButton.setDisable(true);
-    }
+    nodeBox.setItems(node);
+    locationBox.setItems(location);
+  }
 }

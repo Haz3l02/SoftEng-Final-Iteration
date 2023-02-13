@@ -144,19 +144,6 @@ public class ServiceRequestStatusController extends MenuController {
         FXCollections.observableArrayList(UrgencyLevel.urgencyList());
 
     ObservableList<String> formTypes = FXCollections.observableArrayList(FormType.typeList());
-    //
-    //    ObservableList<String> employees =
-    //        FXCollections.observableArrayList(
-    //            "Izzy",
-    //            "Isabella",
-    //            "Andrei",
-    //            "Harrison",
-    //            "John",
-    //            "Chris",
-    //            "Steve",
-    //            "Hazel",
-    //            "Audrey",
-    //            "Sarah");
     EmployeeImpl theEmployee = new EmployeeImpl();
 
     ObservableList<String> maintenance =
