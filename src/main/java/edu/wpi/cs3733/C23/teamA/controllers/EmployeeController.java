@@ -107,7 +107,7 @@ public class EmployeeController {
             IDNumBox.getText(),
             usernameBox.getText(),
             passwordBox.getText(),
-            jobBox.getText(),
+            jobBox.getValue(),
             nameBox.getText());
 
     employee.add(theEmployee);
@@ -126,6 +126,7 @@ public class EmployeeController {
     try {
       employeeData = employee.getAll();
       dbTableRowsModel.addAll(employeeData);
+      clearEdits();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -163,7 +164,7 @@ public class EmployeeController {
   @FXML
   public void submitRequest(ActionEvent event) {}
 
-  public void clearEdits(ActionEvent event) {
+  public void clearEdits() {
     nameBox.clear();
     IDNumBox.clear();
     usernameBox.clear();

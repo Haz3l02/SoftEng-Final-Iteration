@@ -174,4 +174,14 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     }
     return null;
   }
+
+  public ArrayList<String> getListOf(String job) {
+    ArrayList<String> info = new ArrayList<>();
+    for (EmployeeEntity ser : employees) {
+      if (ser.getJob().equals(job)) {
+        info.add(ser.getName());
+      }
+    }
+    return info;
+  }
 }

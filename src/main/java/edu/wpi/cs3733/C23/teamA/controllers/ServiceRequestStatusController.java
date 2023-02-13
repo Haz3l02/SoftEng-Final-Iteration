@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
@@ -143,24 +144,28 @@ public class ServiceRequestStatusController extends MenuController {
         FXCollections.observableArrayList(UrgencyLevel.urgencyList());
 
     ObservableList<String> formTypes = FXCollections.observableArrayList(FormType.typeList());
+    //
+    //    ObservableList<String> employees =
+    //        FXCollections.observableArrayList(
+    //            "Izzy",
+    //            "Isabella",
+    //            "Andrei",
+    //            "Harrison",
+    //            "John",
+    //            "Chris",
+    //            "Steve",
+    //            "Hazel",
+    //            "Audrey",
+    //            "Sarah");
+    EmployeeImpl theEmployee = new EmployeeImpl();
 
-    ObservableList<String> employees =
-        FXCollections.observableArrayList(
-            "Izzy",
-            "Isabella",
-            "Andrei",
-            "Harrison",
-            "John",
-            "Chris",
-            "Steve",
-            "Hazel",
-            "Audrey",
-            "Sarah");
+    ObservableList<String> maintenance =
+        FXCollections.observableArrayList(theEmployee.getListOf("Maintenance"));
 
     statusBox.setItems(statuses);
     urgencyBox.setItems(urgencies);
     formTypeBox.setItems(formTypes);
-    employeeBox.setItems(employees);
+    employeeBox.setItems(maintenance);
   }
 
   @FXML
@@ -179,6 +184,7 @@ public class ServiceRequestStatusController extends MenuController {
         serviceRequestData = serviceRequestImpl.getAll();
       }
       dbTableRowsModel.addAll(serviceRequestData);
+      clearEdits();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -208,25 +214,6 @@ public class ServiceRequestStatusController extends MenuController {
           serviceRequestImpl.update(currentRowId, SRTable);
           reloadData();
           break;
-          //          serviceReqsTable.setItems(currentTableData);
-          //          serviceReqsTable.refresh();
-          //          Session session = getSessionFactory().openSession();
-          //          Transaction tx = session.beginTransaction();
-          //          ServiceRequestEntity billy = session.get(ServiceRequestEntity.class,
-          // currentRowId);
-          //
-          //          if (statusBox != null && !statusBox.isDisabled()) {
-          //            status = Status.valueOf(statusBox.getValue());
-          //            billy.setStatus(status);
-          //          }
-          //          if (urgencyBox != null && !urgencyBox.isDisabled()) {
-          //            urgent = UrgencyLevel.value(urgencyBox.getValue());
-          //            billy.setUrgency(urgent);
-          //          }
-          //          billy.setEmployeeAssigned(employeeBox.getText());
-          //          tx.commit();
-          //          session.close();
-
         }
       }
     }
@@ -235,7 +222,7 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML
   public void submitRequest(ActionEvent event) {}
 
-  public void clearEdits(ActionEvent event) {
+  public void clearEdits() {
     IDBoxSaver.setText("");
     formTypeBox.clear();
     dateBox.clear();
