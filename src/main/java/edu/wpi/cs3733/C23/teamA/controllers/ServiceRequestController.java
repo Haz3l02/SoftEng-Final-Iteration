@@ -82,6 +82,11 @@ public abstract class ServiceRequestController extends MenuController {
   }
 
   @FXML
+  public void switchToPatientTransportScene(ActionEvent event) {
+    Navigation.navigate(Screen.PATIENT_TRANSPORT);
+  }
+
+  @FXML
   public void switchToHomeServiceRequestScene(ActionEvent event) {
     Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
   }

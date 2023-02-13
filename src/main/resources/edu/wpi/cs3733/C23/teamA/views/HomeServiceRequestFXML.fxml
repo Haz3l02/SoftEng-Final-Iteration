@@ -125,7 +125,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="602.0" spacing="50.0">
                            <children>
-                              <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" onAction="#switchToSanitation" prefHeight="170.0" prefWidth="556.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Patient Transportation" textAlignment="CENTER" wrapText="true">
+                              <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" onAction="#switchToPatientTransport" prefHeight="170.0" prefWidth="556.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Patient Transportation" textAlignment="CENTER" wrapText="true">
                                  <font>
                                     <Font size="45.0" />
                                  </font>
