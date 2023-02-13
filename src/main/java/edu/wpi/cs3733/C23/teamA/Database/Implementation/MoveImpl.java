@@ -13,7 +13,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -117,7 +123,15 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
         li.remove();
       }
     }
-    session.remove(get(m));
+
+    session.delete(session.find
+            (MoveEntity.class,
+                    new MoveEntity(
+                            session.get(NodeEntity.class, m.get(0)),
+                            session.get(LocationNameEntity.class, m.get(1)),
+                            LocalDate.parse(m.get(2)))));
+
+    // session.delete()
     tx.commit();
   }
 
@@ -159,7 +173,29 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
   public void update(List<String> ID, MoveEntity obj) {
     Transaction tx = session.beginTransaction();
-    session.merge(obj);
+    MoveEntity mov = session.find
+            (MoveEntity.class,
+                    new MoveEntity(
+                            session.get(NodeEntity.class, ID.get(0)),
+                            session.get(LocationNameEntity.class, ID.get(1)),
+                            LocalDate.parse(ID.get(2))));
+    mov.setLocationName(obj.getLocationName());
+    mov.setNode(obj.getNode());
+    mov.setMovedate(obj.getMovedate());
+
+
+    ListIterator<MoveEntity> li = moves.listIterator();
+    while (li.hasNext()) {
+      if (li.next().getNode().equals(ID.get(0))
+              && li.next().getLocationName().equals(ID.get(1))
+              && li.next().getMovedate().equals(ID.get(2))) {
+        li.remove();
+      }
+    }
+    moves.add(mov);
+
+
+
     tx.commit();
   }
 
