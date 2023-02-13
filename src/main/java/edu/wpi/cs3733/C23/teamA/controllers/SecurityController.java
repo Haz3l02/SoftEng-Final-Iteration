@@ -78,7 +78,7 @@ public class SecurityController extends ServiceRequestController {
     } else {
       if (newEdit.needEdits) {
         // something that submits it
-        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue().toUpperCase());
 
         SecurityRequestEntity submission = secI.get(newEdit.getRequestID());
@@ -96,7 +96,7 @@ public class SecurityController extends ServiceRequestController {
         EmployeeEntity person = employeeI.get(IDNum.getText());
         LocationNameEntity location = locationI.get(locationBox.getText());
 
-        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue());
 
         SecurityRequestEntity submission =

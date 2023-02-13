@@ -176,7 +176,7 @@ public class ServiceRequestStatusController extends MenuController {
           SRTable.setRequestType(ServiceRequestEntity.RequestType.valueOf(formTypeBox.getText()));
           SRTable.setDate(Timestamp.valueOf(dateBox.getText()));
           SRTable.setStatus(Status.valueOf(statusBox.getText()));
-          SRTable.setUrgency(UrgencyLevel.value(urgencyBox.getText()));
+          SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
           serviceReqsTable.setItems(currentTableData);
@@ -189,7 +189,7 @@ public class ServiceRequestStatusController extends MenuController {
             billy.setStatus(status);
           }
           if (urgencyBox != null && !urgencyBox.isDisabled()) {
-            urgent = UrgencyLevel.value(urgencyBox.getValue());
+            urgent = UrgencyLevel.valueOf(urgencyBox.getValue());
             billy.setUrgency(urgent);
           }
           billy.setEmployeeAssigned(employeeBox.getText());
@@ -200,6 +200,8 @@ public class ServiceRequestStatusController extends MenuController {
       }
     }
   }
+
+  @FXML public void delete(ActionEvent event) {}
 
   @FXML
   public void submitRequest(ActionEvent event) {}

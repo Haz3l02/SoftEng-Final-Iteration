@@ -12,7 +12,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import net.kurobako.gesturefx.GesturePane;
-import org.hibernate.Session;
 
 public class NodeMapController extends MenuController {
 

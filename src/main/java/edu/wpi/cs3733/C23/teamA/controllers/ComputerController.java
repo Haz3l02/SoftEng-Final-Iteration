@@ -76,7 +76,7 @@ public class ComputerController extends ServiceRequestController {
         ComputerRequestEntity submission = compI.get(newEdit.getRequestID());
         LocationNameEntity loc = locationI.get(locationBox.getValue());
 
-        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());
 
         submission.setName(nameBox.getText());
@@ -89,7 +89,7 @@ public class ComputerController extends ServiceRequestController {
         EmployeeEntity person = employeeI.get(IDNum.getText());
         LocationNameEntity location = locationI.get(locationBox.getText());
 
-        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());
 
         ComputerRequestEntity submission =

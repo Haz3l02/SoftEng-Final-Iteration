@@ -185,7 +185,7 @@ public class NodeController extends MenuController {
   }
 
   public void switchToMoveScene(ActionEvent event) {
-    Navigation.navigate(Screen.DATABASE);
+    Navigation.navigate(Screen.MOVE);
   }
 
   public void switchToMapScene(ActionEvent event) {

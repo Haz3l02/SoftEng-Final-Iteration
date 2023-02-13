@@ -6,7 +6,7 @@ public enum UrgencyLevel {
   LOW("Low"),
   MEDIUM("Medium"),
   HIGH("High"),
-  EXTREMELY_URGENT("Extremely");
+  EXTREMELY("Extremely");
 
   private final String urgency;
 
@@ -17,21 +17,6 @@ public enum UrgencyLevel {
   public String getUrgency() {
     return urgency;
   }
-
-  //  public static UrgencyLevel value(String str) {
-  //    switch (str) {
-  //      case "Low":
-  //        return LOW;
-  //      case "Medium":
-  //        return MEDIUM;
-  //      case "High":
-  //        return HIGH;
-  //      case "Extremely Urgent":
-  //        return EXTREMELY_URGENT;
-  //      default:
-  //        return LOW;
-  //    }
-  //  }
 
   public static ArrayList<String> urgencyList() {
     ArrayList<String> urgencies = new ArrayList<String>();

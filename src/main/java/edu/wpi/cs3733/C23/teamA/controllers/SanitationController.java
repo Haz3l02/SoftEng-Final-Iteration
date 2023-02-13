@@ -71,7 +71,7 @@ public class SanitationController extends ServiceRequestController {
       if (newEdit.needEdits) {
         // something that submits it
 
-        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
 
         SanitationRequestEntity submission = sanI.get(newEdit.getRequestID());
@@ -86,7 +86,7 @@ public class SanitationController extends ServiceRequestController {
         // IDNum.getText()
         LocationNameEntity location = locationI.get(locationBox.getText());
 
-        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
 
         SanitationRequestEntity submission =
