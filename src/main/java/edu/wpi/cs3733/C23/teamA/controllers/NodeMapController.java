@@ -2,25 +2,22 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 import org.hibernate.Session;
@@ -31,10 +28,6 @@ public class NodeMapController extends MenuController {
   @FXML private ImageView nodeMapImage;
   @FXML private GesturePane gPane;
   @FXML StackPane sPane;
-
-  @FXML Label loc;
-  @FXML Label XCord;
-  @FXML Label YCord;
 
   // Anchor panes
   @FXML AnchorPane nodeAnchorL1;
@@ -57,25 +50,28 @@ public class NodeMapController extends MenuController {
   @FXML GesturePane gestureF2;
   @FXML GesturePane gestureF3;
 
-  @FXML Canvas canvasL1;
-  private GraphicsContext gc;
+  @FXML MFXTextField XCord;
+  @FXML MFXTextField YCord;
+
+  @FXML VBox fieldBox;
 
   @Setter NodeEntity selectedNode = null;
 
   // Lists of Nodes and Node Data
   private List<NodeEntity> allNodes;
-  private List<EdgeEntity> allEdges;
 
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
 
   public void initialize() {
 
+    makeNewNodeID("L1", 344, 400);
+
     initializeFloorMap("L1", nodeAnchorL1, stackL1, gestureL1);
-    //    initializeFloorMap("L2", nodeAnchorL2, stackL2, gestureL2);
-    //    initializeFloorMap("1", nodeAnchorF1, stackF1, gestureF1);
-    //    initializeFloorMap("2", nodeAnchorF2, stackF2, gestureF2);
-    //    initializeFloorMap("3", nodeAnchorF3, stackF3, gestureF3);
+    initializeFloorMap("L2", nodeAnchorL2, stackL2, gestureL2);
+    initializeFloorMap("1", nodeAnchorF1, stackF1, gestureF1);
+    initializeFloorMap("2", nodeAnchorF2, stackF2, gestureF2);
+    initializeFloorMap("3", nodeAnchorF3, stackF3, gestureF3);
   }
   /**
    * Attaches the gesturepane with the stackpane and reads and adds all the nodes on a floor to the
@@ -84,51 +80,54 @@ public class NodeMapController extends MenuController {
   private void initializeFloorMap(
       String floor, AnchorPane nodeAnchor, StackPane stack, GesturePane gesture) {
     // Get all nodes on floor names floor
-    Session session = getSessionFactory().openSession();
-    allNodes = NodeEntity.getNodeOnFloor(floor, session); // get all nodes from Database
-    session.close();
+    NodeImpl nodeimpl =  new NodeImpl();
+    allNodes = nodeimpl.getAll();
 
-    EdgeImpl edgeObj = new EdgeImpl();
-    allEdges = edgeObj.getAll(); // get all nodes from Database
-    GraphicsContext gc = canvasL1.getGraphicsContext2D();
 
     // Add nodes as circles
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, nodeAnchor, this);
-    // Add edges as lines
-    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gc);
 
     Node node = stack;
     gesture.setContent(node);
     gesture.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+    System.out.println("Assigned the stackPane to gesture");
 
-    nodeAnchor.setOnMouseClicked(
-        e -> {
-          int x = (int) e.getX();
-          int y = (int) e.getY();
-
-          if (e.getButton() == MouseButton.PRIMARY) {
-
-          } else if (e.getButton() == MouseButton.SECONDARY) {
-            final Pane nodeGraphic = new Pane();
-
-            /* Set the style of the node */
-            nodeGraphic.setPrefSize(4, 4);
-            nodeGraphic.setLayoutX(x - 4);
-            nodeGraphic.setLayoutY(y - 4);
-            nodeGraphic.setStyle(
-                "-fx-background-color: '#F6BD38'; "
-                    + "-fx-background-radius: 12.5; "
-                    + "-fx-border-color: '013A75'; "
-                    + "-fx-border-width: 1;"
-                    + "-fx-border-radius: 12.5");
-
-            nodeAnchor.getChildren().add(nodeGraphic);
-          }
-
-          NodeEntity n = new NodeEntity();
-          n.setXcoord(x);
-          n.setYcoord(y);
-        });
+    //    nodeAnchor.setOnMouseClicked(
+    //        e -> {
+    //          int x = (int) e.getX();
+    //          int y = (int) e.getY();
+    //
+    //          if (e.getButton() == MouseButton.PRIMARY) {
+    //
+    //          } else if (e.getButton() == MouseButton.SECONDARY) {
+    //            final Pane nodeGraphic = new Pane();
+    //
+    //            /* Set the style of the node */
+    //            nodeGraphic.setPrefSize(4, 4);
+    //            nodeGraphic.setLayoutX(x - 4);
+    //            nodeGraphic.setLayoutY(y - 4);
+    //            nodeGraphic.setStyle(
+    //                "-fx-background-color: '#F6BD38'; "
+    //                    + "-fx-background-radius: 12.5; "
+    //                    + "-fx-border-color: '013A75'; "
+    //                    + "-fx-border-width: 1;"
+    //                    + "-fx-border-radius: 12.5");
+    //
+    //            nodeAnchor.getChildren().add(nodeGraphic);
+    //          }
+    //
+    //          NodeEntity n = new NodeEntity();
+    //          n.setNodeid(makeNewNodeID(floor, x, y));
+    //          n.setXcoord(x);
+    //          n.setYcoord(y);
+    //          n.setFloor(floor);
+    //          n.setBuilding("Tower");
+    //          NodeImpl newNode = new NodeImpl();
+    //          newNode.add(n);
+    //
+    //          // initialize();
+    //
+    //        });
   }
 
   @FXML
@@ -136,15 +135,44 @@ public class NodeMapController extends MenuController {
     Navigation.navigate(Screen.NODE);
   }
 
-  public void setLoc(String location) {
-    this.loc.setText(location);
+  public String makeNewNodeID(String floor, int x, int y) {
+    String xCoord = String.format("%04d", x);
+    String yCoord = String.format("%04d", y);
+
+    return (floor + "X" + xCoord + "Y" + yCoord);
   }
 
-  public void setXCord(String x) {
-    this.XCord.setText(x);
+  public static String toString(char[] a) {
+    // Creating object of String class
+    String string = new String(a);
+
+    return string;
   }
 
-  public void setYCord(String y) {
-    this.YCord.setText(y);
+  public void deleteSelectedNode(ActionEvent event) throws IOException {
+    NodeEntity currentNode = NodeDraw.getSelected();
+    String id = currentNode.getNodeid();
+    System.out.println(id);
+    NodeImpl newNode = new NodeImpl();
+    newNode.delete(id);
+    //initialize();
+  }
+
+  public void addNode(ActionEvent event) {
+    NodeEntity newNode = new NodeEntity();
+    fieldBox.setStyle("-fx-background-color: '013A75'; ");
+    newNode.setXcoord(Integer.parseInt(XCord.getText()));
+    newNode.setYcoord(Integer.parseInt(YCord.getText()));
+
+    System.out.println("X: " + newNode.getXcoord());
+    System.out.println("Y: " + newNode.getYcoord());
+  }
+
+  public void setXCord(String xLoc) {
+    this.XCord.setText(xLoc);
+  }
+
+  public void setYCord(String yLoc) {
+    this.YCord.setText(yLoc);
   }
 }

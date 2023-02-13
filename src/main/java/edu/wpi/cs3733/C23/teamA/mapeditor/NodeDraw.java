@@ -17,6 +17,10 @@ public class NodeDraw {
   static Pane previousNode = null;
   static NodeEntity selectNode = null;
 
+  public static NodeEntity getSelected() {
+    return selectNode;
+  }
+
   private static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
     // get the coordinates from the node
 
@@ -80,7 +84,6 @@ public class NodeDraw {
               selectNode = n;
 
               System.out.println(n.getXcoord());
-              nmc.setLoc(n.getNodeid());
               nmc.setXCord(n.getXcoord().toString());
               nmc.setYCord(n.getYcoord().toString());
             }

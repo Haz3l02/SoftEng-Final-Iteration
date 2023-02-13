@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -22,40 +22,24 @@
    <children>
       <BorderPane prefHeight="803.0" prefWidth="1012.0" style="-fx-background-color: #D3E9F6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <SplitPane dividerPositions="0.15587846763540292" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.844059405940594" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <items>
-                  <BorderPane prefHeight="200.0" prefWidth="261.0" style="-fx-background-color: #d3e9f6;">
-                     <bottom>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#switchToNodeScene" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6" BorderPane.alignment="CENTER">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <BorderPane.margin>
-                              <Insets bottom="200.0" />
-                           </BorderPane.margin>
-                        </MFXButton>
-                     </bottom>
+                  <BorderPane prefHeight="200.0" prefWidth="99.0" style="-fx-background-color: F6BD3A;">
                      <top>
-                        <VBox prefHeight="200.0" prefWidth="177.0" spacing="20.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;" BorderPane.alignment="TOP_LEFT">
+                        <VBox fx:id="fieldBox" prefHeight="200.0" prefWidth="177.0" spacing="20.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;" BorderPane.alignment="TOP_LEFT">
                            <children>
-                              <HBox spacing="20.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location" />
-                                    <Label fx:id="loc" style="-fx-background-color: white;" text="                                   " />
-                                 </children>
-                              </HBox>
-                              <HBox spacing="20.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X Cord" />
-                                    <Label fx:id="XCord" style="-fx-background-color: white;" text="                                   " />
-                                 </children>
-                              </HBox>
-                              <HBox spacing="20.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y Cord" />
-                                    <Label fx:id="YCord" style="-fx-background-color: white;" text="                                   " />
-                                 </children>
-                              </HBox>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X Cord" />
+                              <MFXTextField fx:id="XCord" maxWidth="1.7976931348623157E308" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y Cord" />
+                              <MFXTextField fx:id="YCord" maxWidth="1.7976931348623157E308" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building" />
+                              <MFXComboBox maxWidth="1.7976931348623157E308" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floor" />
+                              <MFXComboBox maxWidth="1.7976931348623157E308">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin>
+                              </MFXComboBox>
                            </children>
                            <BorderPane.margin>
                               <Insets top="30.0" />
@@ -65,8 +49,37 @@
                            </padding>
                         </VBox>
                      </top>
+                     <bottom>
+                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#switchToNodeScene" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <BorderPane.margin>
+                              <Insets bottom="80.0" />
+                           </BorderPane.margin>
+                        </MFXButton>
+                     </bottom>
+                     <center>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Delete Node" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </MFXButton>
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#addNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Add Node" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets top="10.0" />
+                           </BorderPane.margin>
+                        </VBox>
+                     </center>
                   </BorderPane>
-                  <VBox prefHeight="561.0" prefWidth="787.0" style="-fx-background-color: #d3e9f6;">
+                  <VBox prefHeight="561.0" prefWidth="200.0" style="-fx-background-color: #d3e9f6;">
                      <children>
                         <HBox prefHeight="44.0" prefWidth="1063.0">
                            <VBox.margin>
@@ -83,7 +96,7 @@
                         </HBox>
                         <StackPane prefHeight="510.0" prefWidth="754.0">
                            <children>
-                              <TabPane prefHeight="476.0" prefWidth="634.0" style="-fx-background-color: #224870;" tabClosingPolicy="UNAVAILABLE">
+                              <TabPane prefHeight="510.0" prefWidth="760.0" style="-fx-background-color: #224870;" tabClosingPolicy="UNAVAILABLE">
                                  <tabs>
                                     <Tab text="Lower Level One">
                                        <content>
@@ -97,7 +110,6 @@
                                                          </image>
                                                       </ImageView>
                                                       <AnchorPane fx:id="nodeAnchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
-                                                      <Canvas fx:id="canvasL1" height="510.0" width="750.0" />
                                                    </children>
                                                 </StackPane>
                                                 <GesturePane fx:id="gestureL1" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
