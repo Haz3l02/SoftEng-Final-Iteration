@@ -158,23 +158,23 @@
                   <HBox prefWidth="200.0" BorderPane.alignment="CENTER" />
                </bottom>
                <top>
-                  <SplitPane orientation="VERTICAL" prefHeight="91.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+                  <SplitPane orientation="VERTICAL" prefHeight="60.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
                      <items>
-                        <BorderPane prefHeight="0.0" prefWidth="1372.0" style="-fx-background-color: #224870;">
+                        <BorderPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" prefWidth="1372.0" style="-fx-background-color: #224870;">
                            <right>
-                              <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="CENTER">
+                              <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="CENTER">
                                  <children>
-                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="64.0" prefWidth="110.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6" underline="true">
+                                    <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="60.0" prefWidth="110.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6" underline="true">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="64.0" prefWidth="108.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Help" textFill="#d3e9f6" underline="true">
+                                    <MFXButton maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHelpScene" prefHeight="60.0" prefWidth="108.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Help" textFill="#d3e9f6" underline="true">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="64.0" prefWidth="116.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Logout" textFill="#d3e9f6" underline="true">
+                                    <MFXButton alignment="CENTER_RIGHT" cancelButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#logout" prefHeight="60.0" prefWidth="116.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Logout" textFill="#d3e9f6" underline="true">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
@@ -183,14 +183,14 @@
                               </HBox>
                            </right>
                            <left>
-                              <HBox alignment="CENTER_LEFT" prefHeight="89.0" prefWidth="418.0" BorderPane.alignment="CENTER">
+                              <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="55.0" prefWidth="508.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="64.0" prefWidth="320.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Service Request Systems" textFill="#d3e9f6" underline="true">
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="60.0" prefWidth="320.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Service Request Systems" textFill="#d3e9f6" underline="true">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="64.0" prefWidth="188.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Assignments" textFill="#d3e9f6" underline="true">
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="60.0" prefWidth="188.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Assignments" textFill="#d3e9f6" underline="true">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
