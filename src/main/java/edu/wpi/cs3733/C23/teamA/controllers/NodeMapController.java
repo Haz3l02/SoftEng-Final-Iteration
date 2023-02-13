@@ -2,7 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
