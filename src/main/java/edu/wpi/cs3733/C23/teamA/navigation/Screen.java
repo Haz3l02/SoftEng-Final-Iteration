@@ -25,7 +25,8 @@ public enum Screen {
   LOGIN("views/LoginFXML.fxml"),
   NODE_MAP("views/NodeMapFXML.fxml"),
   HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
-  MAP_DISPLAY("views/PathDisplayFXML.fxml");
+  MAP_DISPLAY("views/PathDisplayFXML.fxml"),
+  PATIENT_TRANSPORT("views/PatientTransportFXML.fxml");
 
   private final String filename;
 
