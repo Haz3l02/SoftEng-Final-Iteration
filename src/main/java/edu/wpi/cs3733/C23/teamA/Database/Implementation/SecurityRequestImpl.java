@@ -34,6 +34,13 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
   }
 
   public void exportToCSV(String filename) throws IOException {
+    if (filename.length()>4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    }
+    else
+      filename+=".csv";
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
@@ -45,7 +52,15 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     fileWriter.close();
   }
 
-  public void importFromCSV(String filename) throws FileNotFoundException {}
+  public void importFromCSV(String filename) throws FileNotFoundException {
+    if (filename.length()>4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    }
+    else
+      filename+=".csv";
+  }
 
   public void add(SecurityRequestEntity c) {
     Transaction tx = session.beginTransaction();
