@@ -1,13 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByEmployee;
-import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByEmployeeAssigned;
-
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
+import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -38,8 +33,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class ServiceRequestStatusController extends MenuController {
 
@@ -122,25 +115,26 @@ public class ServiceRequestStatusController extends MenuController {
         urgencyBox.setDisable(true);
       }
 
-    IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
-    formTypeCol.setCellValueFactory(
-        param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-    dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-    statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
-    urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
-    employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
-    ServiceRequestImpl servI = new ServiceRequestImpl();
-    List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
+      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+      formTypeCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
+      dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+      statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+      urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
+      employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
+      ServiceRequestImpl servI = new ServiceRequestImpl();
+      List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
-    if (job.equalsIgnoreCase("medical")) {
-      requests = servI.getAllByEmployee(hospitalID);
-    } else {
-      requests = servI.getAll();
+      if (job.equalsIgnoreCase("medical")) {
+        requests = servI.getAllByEmployee(hospitalID);
+      } else {
+        requests = servI.getAll();
+      }
+      dbTableRowsModel.addAll(requests);
+      servI.closeSession();
+
+      serviceReqsTable.setItems(dbTableRowsModel);
     }
-    dbTableRowsModel.addAll(requests);
-    servI.closeSession();
-
-    serviceReqsTable.setItems(dbTableRowsModel);
   }
 
   @FXML

@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -189,13 +188,18 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     session.close();
   }
 
-
-
-  public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned(){
+  public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
-    for (ServiceRequestEntity ser : services){
-      if (ser.getEmployeeAssigned().equals("Unassigned"))
-              sers.add(ser);
+    for (ServiceRequestEntity ser : services) {
+      if (ser.getEmployeeAssigned().equals("Unassigned")) sers.add(ser);
+    }
+    return sers;
+  }
+
+  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(String name) {
+    ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
+    for (ServiceRequestEntity ser : services) {
+      if (ser.getEmployeeAssigned().equals(name)) sers.add(ser);
     }
     return sers;
   }

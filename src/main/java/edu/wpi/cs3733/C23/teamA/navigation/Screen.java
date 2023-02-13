@@ -27,7 +27,8 @@ public enum Screen {
   HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
   EMPLOYEE("views/EmployeeFXML.fxml"),
   // HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
-  MAP_DISPLAY("views/PathDisplayFXML.fxml");
+  MAP_DISPLAY("views/PathDisplayFXML.fxml"),
+  PATIENT_TRANSPORT("PatientTransportFXML");
 
   private final String filename;
 

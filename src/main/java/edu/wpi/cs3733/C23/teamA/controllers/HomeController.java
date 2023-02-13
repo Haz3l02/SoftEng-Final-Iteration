@@ -1,14 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByEmployeeAssigned;
-import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByUnassigned;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
-import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -44,6 +42,8 @@ public class HomeController extends MenuController {
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
 
+  private ServiceRequestImpl sri = new ServiceRequestImpl();
+
   @FXML
   public void initialize() throws IOException, InterruptedException {
     grabQuote();
@@ -61,7 +61,7 @@ public class HomeController extends MenuController {
       Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
-      requests = getServiceByEmployeeAssigned(userInfo.getName(), session);
+      requests = sri.getServiceRequestByAssigned(userInfo.getName());
 
       dbTableRowsModel.addAll(requests);
 
@@ -77,7 +77,7 @@ public class HomeController extends MenuController {
       Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
-      requests = getServiceByUnassigned(session);
+      requests = sri.getServiceRequestByUnassigned();
 
       dbTableRowsModel.addAll(requests);
 
