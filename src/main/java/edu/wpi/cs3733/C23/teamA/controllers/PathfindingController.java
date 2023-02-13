@@ -1,14 +1,17 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Algorithm;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.HospitalMaps;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.io.File;
@@ -30,14 +33,13 @@ import org.hibernate.Session; // remove later
 public class PathfindingController extends MenuController {
 
   // javaFX items
-  @FXML private MFXFilterComboBox<String> startLocBox; // field to enter startNode
-  @FXML private MFXFilterComboBox<String> endLocBox; // field to enter endNode
+  @FXML private MFXFilterComboBox<String> startNodeID; // field to enter startNode
+  @FXML private MFXFilterComboBox<String> endNodeID; // field to enter endNode
   @FXML private MFXFilterComboBox<String> startFloorBox;
   @FXML private MFXFilterComboBox<String> endFloorBox;
   @FXML private MFXFilterComboBox<String> algosBox;
   @FXML private MFXDatePicker navDatePicker;
   @FXML private Text errorMessage;
-
   @FXML private Text pathMapText;
 
   // canvases
@@ -111,12 +113,32 @@ public class PathfindingController extends MenuController {
     endFloorBox.setItems(floors);
     algosBox.setItems(algos);
 
+    LocationNameImpl table = new LocationNameImpl();
+    // Database's list of longNames
+    allNodeIDs = new ArrayList<String>();
+    allLongNames =
+        table.getAll().stream()
+            .map(locationNameEntity -> locationNameEntity.getLongname())
+            .toList();
+
+    table.closeSession();
+
     // add the map images (also already done in SceneBuilder)
     addFloorMapImage(HospitalMaps.L2.getFilename(), floorL2);
     addFloorMapImage(HospitalMaps.L1.getFilename(), floorL1);
     addFloorMapImage(HospitalMaps.F1.getFilename(), floorF1);
     addFloorMapImage(HospitalMaps.F2.getFilename(), floorF2);
     addFloorMapImage(HospitalMaps.F3.getFilename(), floorF3);
+
+    for (NodeEntity n : allNodes) {
+      allNodeIDs.add(n.getNodeid()); // get nodeId
+    }
+
+    // Add to front end
+    ObservableList<String> locations = FXCollections.observableArrayList(allLongNames);
+    // populates the dropdown boxes
+    startNodeID.setItems(locations);
+    endNodeID.setItems(locations);
 
     // prepare the gesture panes
     Node nodeL1 = floorL1Stack;

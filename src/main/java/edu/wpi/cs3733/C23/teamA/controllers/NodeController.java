@@ -1,9 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import java.util.List;
@@ -64,9 +66,12 @@ public class NodeController extends MenuController {
 
   public void delete() {
     if (selected != null) {
-      Transaction t = session.beginTransaction();
-      session.remove(selected);
-      t.commit();
+      EdgeImpl edge = new EdgeImpl();
+      NodeImpl node = new NodeImpl();
+      edge.collapseNode(selected);
+      node.delete(selected.getNodeid());
+      edge.closeSession();
+      node.closeSession();
       reloadData();
     }
   }
@@ -179,6 +184,14 @@ public class NodeController extends MenuController {
             ex.printStackTrace();
           }
         });
+  }
+
+  public void addTableColumns() {
+    nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    xCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+    yCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+    floorCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    buildingCol.setCellFactory(TextFieldTableCell.forTableColumn());
   }
 
   public void switchToEdgeScene(ActionEvent event) {

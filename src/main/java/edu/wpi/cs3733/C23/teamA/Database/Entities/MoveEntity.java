@@ -1,10 +1,9 @@
-package edu.wpi.cs3733.C23.teamA.hibernateDB;
+package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Session;
 
 @Entity
 @Table(name = "move")
@@ -65,19 +64,6 @@ public class MoveEntity {
     return (this.locationName.equals(mo.locationName)
         && this.movedate.equals(mo.movedate)
         && this.node.equals(mo.node));
-  }
-
-  public static String mostRecentLoc(String nodeID, Session session) {
-    MoveEntity move =
-        session
-            .createQuery(
-                "select mov from MoveEntity mov where mov.node = '"
-                    + nodeID
-                    + "' order by mov.movedate desc",
-                MoveEntity.class)
-            .setMaxResults(1)
-            .getSingleResult();
-    return move.getLocationName().getLongname();
   }
 
   @Override

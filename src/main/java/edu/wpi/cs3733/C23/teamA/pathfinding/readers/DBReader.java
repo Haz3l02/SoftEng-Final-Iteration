@@ -1,13 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding.readers;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.pathfinding.Graph;
-import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.Session;
@@ -32,7 +30,7 @@ public class DBReader {
               n.getNodeid(),
               n.getXcoord(),
               n.getYcoord(),
-              MoveEntity.mostRecentLoc(n.getNodeid(), session));
+              new MoveImpl().mostRecentLoc(n.getNodeid()).getLongname());
       graph.addNode(n.getNodeid(), g);
     }
 

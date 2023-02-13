@@ -1,10 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -22,7 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.hibernate.Session;
 
-public abstract class ServiceRequestController {
+public abstract class ServiceRequestController extends MenuController {
 
   @FXML protected MFXTextField nameBox;
   @FXML protected MFXTextField IDNum;
@@ -31,7 +31,7 @@ public abstract class ServiceRequestController {
   @FXML protected MFXFilterComboBox<String> locationBox;
   @FXML protected Text reminder;
   @FXML protected StackPane reminderPane;
-  UrgencyLevel urgent;
+  protected UrgencyLevel urgent;
 
   @FXML
   public void initialize() throws SQLException {
