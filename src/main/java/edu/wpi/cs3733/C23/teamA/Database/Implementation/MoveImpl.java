@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 import org.hibernate.Session;
@@ -79,7 +78,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
           new MoveEntity(
               session.get(NodeEntity.class, b[0]),
               session.get(LocationNameEntity.class, b[1]),
-              Timestamp.valueOf(b[2]));
+              LocalDate.parse(b[2]));
       session.persist(mov);
 
       count++;
@@ -97,10 +96,10 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     for (MoveEntity n :
         moves.stream().filter(moveEntity -> moveEntity.getNode().equals(m.getNode())).toList()) {
-      tracking.add(n.getMovedate().toLocalDateTime().toLocalDate());
+      tracking.add(n.getMovedate());
     }
     System.out.println(tracking);
-    if (Collections.frequency(tracking, m.getMovedate().toLocalDateTime().toLocalDate()) < 2) {
+    if (Collections.frequency(tracking, m.getMovedate()) < 2) {
       Transaction tx = session.beginTransaction();
       session.persist(m);
       moves.add(m);
@@ -114,14 +113,11 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     Transaction tx = session.beginTransaction();
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
-      if (li.next().getNode().equals(m.get(0))
-          && li.next().getLocationName().equals(m.get(1))
-          && li.next().getMovedate().equals(m.get(2))) {
+      if (li.next().equals(get(m))) {
         li.remove();
       }
     }
-
-    // session.delete()
+    session.remove(get(m));
     tx.commit();
   }
 
@@ -132,14 +128,13 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
    * @param date Date for finding the location
    */
   public MoveEntity locationOnDate(String id, LocalDate date) {
-    Timestamp convertDate = Timestamp.valueOf(date.atStartOfDay());
     List<MoveEntity> ids =
         moves.stream()
             .filter(
                 moveEntity ->
                     moveEntity.getNode().getNodeid().equals(id)
-                        && (moveEntity.getMovedate().compareTo(convertDate) == 0
-                            || moveEntity.getMovedate().compareTo(convertDate) == 1))
+                        && (moveEntity.getMovedate().compareTo(date) == 0
+                            || moveEntity.getMovedate().compareTo(date) == 1))
             .toList();
     return ids.get(0);
   }

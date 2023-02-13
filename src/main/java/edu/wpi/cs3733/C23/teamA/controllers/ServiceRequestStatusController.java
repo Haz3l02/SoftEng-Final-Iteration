@@ -201,7 +201,8 @@ public class ServiceRequestStatusController extends MenuController {
     }
   }
 
-  @FXML public void delete(ActionEvent event) {}
+  @FXML
+  public void delete(ActionEvent event) {}
 
   @FXML
   public void submitRequest(ActionEvent event) {}
