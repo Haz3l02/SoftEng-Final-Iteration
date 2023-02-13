@@ -5,15 +5,19 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IDatabaseAPI<T, G> {
-  public List<T> getAll();
+  List<T> getAll();
 
-  public void add(T obj);
+  void add(T obj);
 
-  public void importFromCSV(String filename) throws FileNotFoundException;
+  void importFromCSV(String filename) throws FileNotFoundException;
 
-  public void exportToCSV(String filename) throws IOException;
+  void exportToCSV(String filename) throws IOException;
 
-  public void update(G ID, T obj);
+  void update(G ID, T obj);
 
-  public void delete(G obj);
+  void delete(G obj);
+
+  T get(G ID);
+
+  void closeSession();
 }

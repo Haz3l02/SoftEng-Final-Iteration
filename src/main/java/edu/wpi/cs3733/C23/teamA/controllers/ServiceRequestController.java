@@ -1,9 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -20,7 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import org.hibernate.Session;
 
 public abstract class ServiceRequestController extends MenuController {
 
@@ -44,9 +41,8 @@ public abstract class ServiceRequestController extends MenuController {
       reminderPane.setVisible(false);
       ObservableList<String> urgencies =
           FXCollections.observableArrayList(UrgencyLevel.urgencyList());
-
-      Session session = getSessionFactory().openSession();
-      List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
+      LocationNameImpl locationI = new LocationNameImpl();
+      List<LocationNameEntity> temp = locationI.getAll();
 
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationNameEntity move : temp) {
@@ -60,7 +56,6 @@ public abstract class ServiceRequestController extends MenuController {
 
       urgencyBox.setItems(urgencies);
       locationBox.setItems(locations);
-      session.close();
     }
   }
 
@@ -84,6 +79,11 @@ public abstract class ServiceRequestController extends MenuController {
   @FXML
   public void switchToComputerScene(ActionEvent event) {
     Navigation.navigate(Screen.COMPUTER);
+  }
+
+  @FXML
+  public void switchToPatientTransportScene(ActionEvent event) {
+    Navigation.navigate(Screen.PATIENT_TRANSPORT);
   }
 
   @FXML

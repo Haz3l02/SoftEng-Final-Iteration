@@ -17,7 +17,7 @@ public enum Job {
     switch (str) {
       case "Medical":
         return MEDICAL;
-      case "Potential Threat":
+      case "Maintenance":
         return MAINTENANCE;
       case "ADMIN":
         return ADMIN;

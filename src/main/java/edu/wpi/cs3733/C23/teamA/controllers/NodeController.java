@@ -1,15 +1,10 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,8 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class NodeController extends MenuController {
 
@@ -35,24 +28,17 @@ public class NodeController extends MenuController {
   @FXML public TableColumn<NodeEntity, String> floorCol;
   @FXML public TableColumn<NodeEntity, String> buildingCol;
   @FXML public TextField newx;
-
   @FXML public TextField newy;
-  @FXML public MFXTextField xBox;
-  @FXML public MFXTextField yBox;
-  @FXML public MFXComboBox floorBox;
-  @FXML public MFXComboBox buildingBox;
+
   @FXML public Button submit;
 
-  public NodeEntity selected;
-  private Session session;
+  private NodeEntity selected;
   private List<NodeEntity> data;
 
   private ObservableList<NodeEntity> dbTableRowsModel = FXCollections.observableArrayList();
 
   /** runs on switching to this scene */
   public void initialize() {
-    session = getSessionFactory().openSession();
-
     reloadData();
 
     nodeCol.setCellValueFactory(new PropertyValueFactory<>("nodeid"));
@@ -63,7 +49,6 @@ public class NodeController extends MenuController {
     dbTable.setItems(dbTableRowsModel);
 
     editableColumns();
-
     dbTable.setEditable(true);
   }
 
@@ -76,28 +61,26 @@ public class NodeController extends MenuController {
       EdgeImpl edge = new EdgeImpl();
       NodeImpl node = new NodeImpl();
       edge.collapseNode(selected);
-      node.delete(String.valueOf(selected));
+      node.delete(selected.getNodeid());
+      edge.closeSession();
+      node.closeSession();
       reloadData();
     }
   }
 
   public void onSubmit() {
-    String x = xBox.getText().trim();
-    String y = yBox.getText().trim();
-    String floor = floorBox.getValue().toString();
-    String building = buildingBox.getValue().toString();
-
+    String x = newx.getText().trim();
+    String y = newy.getText().trim();
     if (!x.isEmpty() && !y.isEmpty()) {
-      Transaction t = session.beginTransaction();
       NodeEntity n = new NodeEntity();
       n.setNodeid("L1X" + x + "Y" + y);
       n.setXcoord(Integer.parseInt(x));
       n.setYcoord(Integer.parseInt(y));
-      n.setFloor(floor);
-      n.setBuilding(building);
-      System.out.println(n.getNodeid());
-      session.persist(n);
-      t.commit();
+      n.setFloor("L1");
+      n.setBuilding("BTM");
+      NodeImpl nodeI = new NodeImpl();
+      nodeI.add(n);
+      nodeI.closeSession();
       reloadData();
     }
   }
@@ -106,7 +89,9 @@ public class NodeController extends MenuController {
   public void reloadData() {
     dbTableRowsModel.clear();
     try {
-      data = getAllRecords(NodeEntity.class, session);
+      NodeImpl nodeI = new NodeImpl();
+      data = nodeI.getAll();
+      nodeI.closeSession();
       dbTableRowsModel.addAll(data);
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -124,18 +109,11 @@ public class NodeController extends MenuController {
         e -> {
           NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
-            Transaction t = session.beginTransaction();
-            session
-                .createMutationQuery(
-                    "update NodeEntity set nodeid = '"
-                        + e.getNewValue()
-                        + "' where nodeid ='"
-                        + n.getNodeid()
-                        + "'")
-                .executeUpdate();
-            n = session.get(NodeEntity.class, e.getNewValue());
-            session.persist(n);
-            t.commit();
+            String oldId = n.getNodeid();
+            n.setNodeid(e.getNewValue());
+            NodeImpl nodeI = new NodeImpl();
+            nodeI.update(oldId, n);
+            nodeI.closeSession();
           } catch (Exception ex) {
             ex.printStackTrace();
           }
@@ -145,10 +123,10 @@ public class NodeController extends MenuController {
           NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
             if (e.getNewValue() >= 0 && e.getNewValue() < 9999) {
-              Transaction t = session.beginTransaction();
               n.setXcoord(e.getNewValue());
-              session.persist(n);
-              t.commit();
+              NodeImpl nodeI = new NodeImpl();
+              nodeI.update(n.getNodeid(), n);
+              nodeI.closeSession();
             }
           } catch (Exception ex) {
             ex.printStackTrace();
@@ -159,10 +137,10 @@ public class NodeController extends MenuController {
           NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
             if (e.getNewValue() >= 0 && e.getNewValue() < 9999) {
-              Transaction t = session.beginTransaction();
               n.setYcoord(e.getNewValue());
-              session.persist(n);
-              t.commit();
+              NodeImpl nodeI = new NodeImpl();
+              nodeI.update(n.getNodeid(), n);
+              nodeI.closeSession();
             }
           } catch (Exception ex) {
             ex.printStackTrace();
@@ -172,10 +150,10 @@ public class NodeController extends MenuController {
         e -> {
           NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
-            Transaction t = session.beginTransaction();
             n.setFloor(e.getNewValue());
-            session.persist(n);
-            t.commit();
+            NodeImpl nodeI = new NodeImpl();
+            nodeI.update(n.getNodeid(), n);
+            nodeI.closeSession();
           } catch (Exception ex) {
             ex.printStackTrace();
           }
@@ -184,10 +162,10 @@ public class NodeController extends MenuController {
         e -> {
           NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
-            Transaction t = session.beginTransaction();
-            n.setBuilding(e.getNewValue());
-            session.persist(n);
-            t.commit();
+            n.setFloor(e.getNewValue());
+            NodeImpl nodeI = new NodeImpl();
+            nodeI.update(n.getNodeid(), n);
+            nodeI.closeSession();
           } catch (Exception ex) {
             ex.printStackTrace();
           }
@@ -203,17 +181,14 @@ public class NodeController extends MenuController {
   }
 
   public void switchToEdgeScene(ActionEvent event) {
-    session.close();
     Navigation.navigate(Screen.EDGE);
   }
 
   public void switchToMoveScene(ActionEvent event) {
-    session.close();
-    Navigation.navigate(Screen.DATABASE);
+    Navigation.navigate(Screen.MOVE);
   }
 
   public void switchToMapScene(ActionEvent event) {
-    session.close();
     Navigation.navigate(Screen.NODE_MAP);
   }
 }

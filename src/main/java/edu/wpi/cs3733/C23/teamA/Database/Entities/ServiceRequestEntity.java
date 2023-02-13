@@ -4,11 +4,9 @@ import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -149,35 +147,5 @@ public class ServiceRequestEntity {
     this.requestType = requestType;
     this.status = status;
     this.employeeAssigned = employeeAssigned;
-  }
-
-  public static ArrayList<ServiceRequestEntity> getServiceByEmployee(String id, Session session) {
-    return (ArrayList<ServiceRequestEntity>)
-        session
-            .createQuery("From ServiceRequestEntity where employee ='" + id + "'")
-            .getResultList();
-  }
-
-  public static ArrayList<ServiceRequestEntity> getServiceByEmployeeAssigned(
-      String name, Session session) {
-    return (ArrayList<ServiceRequestEntity>)
-        session
-            .createQuery("From ServiceRequestEntity where employeeAssigned ='" + name + "'")
-            .getResultList();
-  }
-
-  public static ArrayList<ServiceRequestEntity> getServiceByUnassigned(Session session) {
-    return (ArrayList<ServiceRequestEntity>)
-        session
-            .createQuery("From ServiceRequestEntity where status ='" + Status.BLANK + "'")
-            .getResultList();
-  }
-
-  public static ArrayList<ServiceRequestEntity> getServiceRequestsByID(
-      String text, Session session) {
-    return (ArrayList<ServiceRequestEntity>)
-        session
-            .createQuery("From ServiceRequestEntity where requestid ='" + text + "'")
-            .getResultList();
   }
 }

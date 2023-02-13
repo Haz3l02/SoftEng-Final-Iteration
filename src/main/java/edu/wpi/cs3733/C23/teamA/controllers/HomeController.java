@@ -110,7 +110,6 @@ public class HomeController extends MenuController {
 
   @FXML
   public void dateAndTime() throws InterruptedException {
-
     Thread thread =
         new Thread(
             () -> {

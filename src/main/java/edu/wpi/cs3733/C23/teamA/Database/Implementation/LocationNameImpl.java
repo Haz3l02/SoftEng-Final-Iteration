@@ -19,16 +19,15 @@ import org.hibernate.query.MutationQuery;
 
 public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String> {
   // done
-
+  Session session;
   private List<LocationNameEntity> locations;
 
   public LocationNameImpl() {
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<LocationNameEntity> criteria = builder.createQuery(LocationNameEntity.class);
     criteria.from(LocationNameEntity.class);
     List<LocationNameEntity> records = session.createQuery(criteria).getResultList();
-    session.close();
     locations = records;
   }
 
@@ -37,16 +36,17 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void exportToCSV(String filename) throws IOException {
-    List<LocationNameEntity> locs = getAll();
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write("longname, locationtype, shortname\n");
-    for (LocationNameEntity loc : locs) {
+    fileWriter.write("longname,locationtype,shortname\n");
+    for (LocationNameEntity loc : locations) {
       fileWriter.write(
           loc.getLongname() + "," + loc.getLocationtype() + "," + loc.getShortname() + "\n");
     }
@@ -54,12 +54,15 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
-    Session session = getSessionFactory().openSession();
-
     String hql = "delete from LocationNameEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     locations.clear();
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
@@ -79,20 +82,16 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
       }
     }
     tx.commit();
-    session.close();
   }
 
   public void add(LocationNameEntity l) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(l);
     locations.add(l);
     tx.commit();
-    session.close();
   }
 
   public void delete(String l) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(session.get(LocationNameEntity.class, l));
 
@@ -104,11 +103,9 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     }
 
     tx.commit();
-    session.close();
   }
 
   public void update(String ID, LocationNameEntity location) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<LocationNameEntity> li = locations.listIterator();
@@ -125,6 +122,28 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
 
     locations.add(l);
     tx.commit();
+  }
+
+  public String getType(String ID) {
+    for (LocationNameEntity ser : locations) {
+      if (ser.getLongname().equals(ID)) return ser.getLocationtype();
+    }
+    return null;
+  }
+
+  public LocationNameEntity get(String ID) {
+
+    for (LocationNameEntity ser : locations) {
+      if (ser.getLongname().equals(ID)) return ser;
+    }
+    return null;
+  }
+
+  public List<String> getAllIDs() {
+    return getAll().stream().map(locationNameEntity -> locationNameEntity.getLongname()).toList();
+  }
+
+  public void closeSession() {
     session.close();
   }
 }

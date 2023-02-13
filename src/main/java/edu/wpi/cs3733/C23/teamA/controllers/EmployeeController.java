@@ -6,7 +6,6 @@ import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.EditTheForm;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -56,10 +55,12 @@ public class EmployeeController {
   private static PopOver popup;
   @FXML private MFXButton cancel;
 
-  public static EditTheForm newEdit = new EditTheForm(0, "", false);
-
   private String hospitalID;
   private String job;
+
+  private ObservableList<EmployeeEntity> dbTableRowsModel = FXCollections.observableArrayList();
+  EmployeeImpl employee = new EmployeeImpl();
+  List<EmployeeEntity> employeeData = new ArrayList<>();
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
@@ -70,10 +71,6 @@ public class EmployeeController {
   public void switchToHomeDatabase(ActionEvent event) throws IOException {
     Navigation.navigateHome(Screen.HOME_DATABASE);
   }
-
-  private ObservableList<EmployeeEntity> dbTableRowsModel = FXCollections.observableArrayList();
-  EmployeeImpl employee = new EmployeeImpl();
-  List<EmployeeEntity> employeeData = new ArrayList<>();
 
   @FXML
   public void initialize() throws SQLException {
@@ -129,7 +126,7 @@ public class EmployeeController {
             IDNumBox.getText(),
             usernameBox.getText(),
             passwordBox.getText(),
-            jobBox.getText(),
+            jobBox.getValue(),
             nameBox.getText());
 
     employee.add(theEmployee);
@@ -148,6 +145,7 @@ public class EmployeeController {
     try {
       employeeData = employee.getAll();
       dbTableRowsModel.addAll(employeeData);
+      clearEdits();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -185,7 +183,7 @@ public class EmployeeController {
   @FXML
   public void submitRequest(ActionEvent event) {}
 
-  public void clearEdits(ActionEvent event) {
+  public void clearEdits() {
     nameBox.clear();
     IDNumBox.clear();
     usernameBox.clear();
@@ -193,6 +191,7 @@ public class EmployeeController {
     jobBox.clear();
 
     createEmployee.setVisible(true);
+    editButton.setDisable(true);
   }
 
   @FXML

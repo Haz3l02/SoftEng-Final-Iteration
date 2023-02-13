@@ -7,6 +7,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.ge
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -121,30 +122,25 @@ public class ServiceRequestStatusController extends MenuController {
         urgencyBox.setDisable(true);
       }
 
-      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
-      formTypeCol.setCellValueFactory(
-          param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-      dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-      statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
-      urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
-      employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
+    IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+    formTypeCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
+    dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+    statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+    urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
+    employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
+    ServiceRequestImpl servI = new ServiceRequestImpl();
+    List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
-      Session session = getSessionFactory().openSession();
-      List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
-
-      if (job.equalsIgnoreCase("medical")) {
-        requests = getServiceByEmployee(hospitalID, session);
-      } else if (job.equals(("Maintenance"))) {
-        requests = getServiceByEmployeeAssigned(holder.getName(), session);
-      } else {
-        requests = getAllRecords(ServiceRequestEntity.class, session);
-      }
-
-      dbTableRowsModel.addAll(requests);
-
-      serviceReqsTable.setItems(dbTableRowsModel);
-      session.close();
+    if (job.equalsIgnoreCase("medical")) {
+      requests = servI.getAllByEmployee(hospitalID);
+    } else {
+      requests = servI.getAll();
     }
+    dbTableRowsModel.addAll(requests);
+    servI.closeSession();
+
+    serviceReqsTable.setItems(dbTableRowsModel);
   }
 
   @FXML
@@ -210,31 +206,33 @@ public class ServiceRequestStatusController extends MenuController {
           SRTable.setRequestType(ServiceRequestEntity.RequestType.valueOf(formTypeBox.getText()));
           SRTable.setDate(Timestamp.valueOf(dateBox.getText()));
           SRTable.setStatus(Status.valueOf(statusBox.getText()));
-          SRTable.setUrgency(UrgencyLevel.value(urgencyBox.getText()));
+          SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
           serviceReqsTable.setItems(currentTableData);
           serviceReqsTable.refresh();
-          Session session = getSessionFactory().openSession();
-          Transaction tx = session.beginTransaction();
-          ServiceRequestEntity billy = session.get(ServiceRequestEntity.class, currentRowId);
+          ServiceRequestImpl servI = new ServiceRequestImpl();
+          ServiceRequestEntity billy = servI.get(currentRowId);
 
           if (statusBox != null && !statusBox.isDisabled()) {
             status = Status.valueOf(statusBox.getValue());
             billy.setStatus(status);
           }
           if (urgencyBox != null && !urgencyBox.isDisabled()) {
-            urgent = UrgencyLevel.value(urgencyBox.getValue());
+            urgent = UrgencyLevel.valueOf(urgencyBox.getValue());
             billy.setUrgency(urgent);
           }
           billy.setEmployeeAssigned(employeeBox.getText());
-          tx.commit();
-          session.close();
+          servI.add(billy);
+          servI.closeSession();
           break;
         }
       }
     }
   }
+
+  @FXML
+  public void delete(ActionEvent event) {}
 
   @FXML
   public void submitRequest(ActionEvent event) {}

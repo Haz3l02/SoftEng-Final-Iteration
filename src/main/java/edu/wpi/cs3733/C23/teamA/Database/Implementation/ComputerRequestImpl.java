@@ -3,11 +3,12 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.ComputerRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
@@ -16,15 +17,15 @@ import org.hibernate.Transaction;
 
 public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, Integer> {
   private List<ComputerRequestEntity> comprequests;
+  private Session session;
 
   public ComputerRequestImpl() {
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<ComputerRequestEntity> criteria =
         builder.createQuery(ComputerRequestEntity.class);
     criteria.from(ComputerRequestEntity.class);
     List<ComputerRequestEntity> records = session.createQuery(criteria).getResultList();
-    session.close();
     comprequests = records;
   }
 
@@ -33,33 +34,35 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
   }
 
   public void add(ComputerRequestEntity c) {
-    Session session = getSessionFactory().openSession();
+    ServiceRequestImpl serv = new ServiceRequestImpl();
     Transaction tx = session.beginTransaction();
     session.persist(c);
-    comprequests.add(c);
-    ServiceRequestEntity ser =
-        new ServiceRequestEntity(
-            c.getRequestid(),
-            c.getName(),
-            c.getEmployee(),
-            c.getLocation(),
-            c.getDescription(),
-            c.getUrgency(),
-            c.getRequestType(),
-            c.getStatus(),
-            c.getEmployeeAssigned(),
-            c.getDate());
-    new ServiceRequestImpl().addToList(ser);
     tx.commit();
-    session.close();
+    comprequests.add(c);
+    serv.addToList(c);
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {}
 
-  public void exportToCSV(String filename) throws IOException {}
+  public void exportToCSV(String filename) throws IOException {
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
+
+    File csvFile =
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+    FileWriter fileWriter = new FileWriter(csvFile);
+    fileWriter.write("device,deviceid,requestid\n");
+    for (ComputerRequestEntity comp : comprequests) {
+      fileWriter.write(
+          comp.getDevice() + "," + comp.getDeviceid() + "," + comp.getRequestid() + "\n");
+    }
+    fileWriter.close();
+  }
 
   public void update(Integer ID, ComputerRequestEntity obj) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
@@ -69,7 +72,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
       }
     }
 
-    ComputerRequestEntity c = session.get(ComputerRequestEntity.class, ID);
+    ComputerRequestEntity c = get(ID);
 
     c.setDevice(obj.getDevice());
     c.setDeviceid(obj.getDeviceid());
@@ -95,17 +98,17 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
             obj.getStatus(),
             obj.getEmployeeAssigned(),
             obj.getDate());
-    new ServiceRequestImpl().updateList(ID, ser);
+    ServiceRequestImpl serv = new ServiceRequestImpl();
+    serv.update(ID, ser);
+    serv.closeSession();
     comprequests.add(c);
 
     tx.commit();
-    session.close();
   }
 
   public void delete(Integer c) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.delete(session.get(ComputerRequestEntity.class, c));
+    session.remove(get(c));
 
     ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
     while (li.hasNext()) {
@@ -113,8 +116,28 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
         li.remove();
       }
     }
-    new ServiceRequestImpl().removeFromList(c);
+    removeFromList(c);
     tx.commit();
+  }
+
+  public void removeFromList(Integer s) {
+    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == s) {
+        li.remove();
+      }
+    }
+  }
+
+  public ComputerRequestEntity get(Integer ID) {
+    return comprequests.stream()
+        .filter(computerRequestEntity -> computerRequestEntity.getRequestid() == ID)
+        .findFirst()
+        .orElseThrow();
+  }
+
+  @Override
+  public void closeSession() {
     session.close();
   }
 }

@@ -1,12 +1,14 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ComputerRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.ComputerRequestImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -19,8 +21,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class ComputerController extends ServiceRequestController {
 
@@ -38,10 +38,8 @@ public class ComputerController extends ServiceRequestController {
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
     if (newEdit.needEdits && newEdit.getRequestType().equals("Computer")) {
-      Session session = getSessionFactory().openSession();
-      Transaction tx = session.beginTransaction();
-      ComputerRequestEntity editComputerRequest =
-          session.get(ComputerRequestEntity.class, newEdit.getRequestID());
+      ComputerRequestImpl compI = new ComputerRequestImpl();
+      ComputerRequestEntity editComputerRequest = compI.get(newEdit.getRequestID());
       nameBox.setText(editComputerRequest.getName());
       IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
       devicesBox.setText(editComputerRequest.getDevice().toString());
@@ -49,12 +47,8 @@ public class ComputerController extends ServiceRequestController {
       locationBox.setText(editComputerRequest.getLocation().getLongname());
       urgencyBox.setText(editComputerRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editComputerRequest.getDescription());
-
-      // session.persist(submission);
-      tx.commit();
-      session.close();
+      compI.closeSession();
     }
-    // }
     // Otherwise Initialize service requests as normal
   }
 
@@ -65,6 +59,9 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) {
+    ComputerRequestImpl compI = new ComputerRequestImpl();
+    LocationNameImpl locationI = new LocationNameImpl();
+    EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null
@@ -75,26 +72,22 @@ public class ComputerController extends ServiceRequestController {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
-      Session session = getSessionFactory().openSession();
-      Transaction tx = session.beginTransaction();
       if (newEdit.needEdits) {
+        ComputerRequestEntity submission = compI.get(newEdit.getRequestID());
+        LocationNameEntity loc = locationI.get(locationBox.getValue());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());
 
-        ComputerRequestEntity submission =
-            session.get(ComputerRequestEntity.class, newEdit.getRequestID());
         submission.setName(nameBox.getText());
-        LocationNameEntity loc = session.get(LocationNameEntity.class, locationBox.getValue());
         submission.setLocation(loc);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
         submission.setDevice(device);
         submission.setDeviceid(deviceIDNum.getText());
       } else {
-
-        EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
-        LocationNameEntity location = session.get(LocationNameEntity.class, locationBox.getText());
+        EmployeeEntity person = employeeI.get(IDNum.getText());
+        LocationNameEntity location = locationI.get(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());
@@ -111,10 +104,11 @@ public class ComputerController extends ServiceRequestController {
                 "Unassigned",
                 deviceIDNum.getText(),
                 device);
-        session.persist(submission);
+        compI.add(submission);
       }
-      tx.commit();
-      session.close();
+      compI.closeSession();
+      employeeI.closeSession();
+      locationI.closeSession();
 
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
