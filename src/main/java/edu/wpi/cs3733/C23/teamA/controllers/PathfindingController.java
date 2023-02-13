@@ -1,17 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
+import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Algorithm;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.HospitalMaps;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.NodeIndicesHolder;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.io.File;
@@ -28,13 +23,14 @@ import javafx.scene.image.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
-import org.hibernate.Session; // remove later
+
+// remove later
 
 public class PathfindingController extends MenuController {
 
-  // javaFX items
-  @FXML private MFXFilterComboBox<String> startNodeID; // field to enter startNode
-  @FXML private MFXFilterComboBox<String> endNodeID; // field to enter endNode
+  //// javaFX items
+  @FXML private MFXFilterComboBox<String> startLocBox; // field to enter startNode
+  @FXML private MFXFilterComboBox<String> endLocBox; // field to enter endNode
   @FXML private MFXFilterComboBox<String> startFloorBox;
   @FXML private MFXFilterComboBox<String> endFloorBox;
   @FXML private MFXFilterComboBox<String> algosBox;
@@ -71,11 +67,10 @@ public class PathfindingController extends MenuController {
   @FXML private GesturePane floorF3gPane;
 
   // Lists of Nodes and Node Data
-  private List<String> allNodeIDs; // List of all Node IDs in specific order
+  private List<String> startNodeIDs; // List of all Node IDs in specific order
+  private List<String> endNodeIDs;
   private List<String> allLongNames; // List of corresponding long names in order
   private List<NodeEntity> allNodes;
-
-  private Session session;
 
   // a PathfindingSystem to run methods in the pathfinding package
   private static PathfindingSystem pathfindingSystem;
@@ -86,6 +81,10 @@ public class PathfindingController extends MenuController {
   // objects needed for the maps
   private GraphicsContext gc;
   private double SCALE_FACTOR = 0.14;
+
+  // database objects
+  MoveImpl moveImpl;
+  NodeImpl nodeImpl;
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -113,8 +112,8 @@ public class PathfindingController extends MenuController {
     endFloorBox.setItems(floors);
     algosBox.setItems(algos);
 
+    /*
     LocationNameImpl table = new LocationNameImpl();
-    // Database's list of longNames
     allNodeIDs = new ArrayList<String>();
     allLongNames =
         table.getAll().stream()
@@ -122,6 +121,7 @@ public class PathfindingController extends MenuController {
             .toList();
 
     table.closeSession();
+     */
 
     // add the map images (also already done in SceneBuilder)
     addFloorMapImage(HospitalMaps.L2.getFilename(), floorL2);
@@ -129,16 +129,6 @@ public class PathfindingController extends MenuController {
     addFloorMapImage(HospitalMaps.F1.getFilename(), floorF1);
     addFloorMapImage(HospitalMaps.F2.getFilename(), floorF2);
     addFloorMapImage(HospitalMaps.F3.getFilename(), floorF3);
-
-    for (NodeEntity n : allNodes) {
-      allNodeIDs.add(n.getNodeid()); // get nodeId
-    }
-
-    // Add to front end
-    ObservableList<String> locations = FXCollections.observableArrayList(allLongNames);
-    // populates the dropdown boxes
-    startNodeID.setItems(locations);
-    endNodeID.setItems(locations);
 
     // prepare the gesture panes
     Node nodeL1 = floorL1Stack;
@@ -184,23 +174,33 @@ public class PathfindingController extends MenuController {
 
   @FXML
   public void fillStartLocationBox() {
-
-    session = getSessionFactory().openSession();
     Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
+    nodeImpl = new NodeImpl();
+    moveImpl = new MoveImpl();
 
     List<NodeEntity> allNodesStartFloor =
-        NodeEntity.getNodeOnFloor(floor.getTableString(), session); // get all nodes from Database
+        nodeImpl.getNodeOnFloor(floor.getTableString()); // get all nodes from Database
 
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
+    LocationNameEntity locNameEnt;
 
     for (NodeEntity n : allNodesStartFloor) {
-      idsFloor.add(n.getNodeid()); // get nodeId
-      namesFloor.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
+      locNameEnt = moveImpl.mostRecentLoc(n.getNodeid());
+      // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
+      // location attached
+      if (locNameEnt != null) {
+        idsFloor.add(n.getNodeid()); // get nodeId
+        namesFloor.add(locNameEnt.getLongname()); // get longName
+      }
     }
-    session.close();
 
     ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
+    startNodeIDs = idsFloor;
+
+    // close the sessions that were opened by the methods above
+    nodeImpl.closeSession();
+    moveImpl.closeSession();
 
     startLocBox.setItems(locs);
     startLocBox.setDisable(false);
@@ -209,23 +209,33 @@ public class PathfindingController extends MenuController {
 
   @FXML
   public void fillEndLocationBox() {
-
-    session = getSessionFactory().openSession();
     Floor floor = Floor.valueOf(Floor.fromString(endFloorBox.getValue()));
+    nodeImpl = new NodeImpl();
+    moveImpl = new MoveImpl();
 
-    List<NodeEntity> allNodesEndFloor =
-        NodeEntity.getNodeOnFloor(floor.getTableString(), session); // get all nodes from Database
+    List<NodeEntity> allNodesStartFloor =
+        nodeImpl.getNodeOnFloor(floor.getTableString()); // get all nodes from Database
 
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
+    LocationNameEntity locNameEnt;
 
-    for (NodeEntity n : allNodesEndFloor) {
-      idsFloor.add(n.getNodeid()); // get nodeId
-      namesFloor.add(MoveEntity.mostRecentLoc(n.getNodeid(), session)); // get longName
+    for (NodeEntity n : allNodesStartFloor) {
+      locNameEnt = moveImpl.mostRecentLoc(n.getNodeid());
+      // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
+      // location attached
+      if (locNameEnt != null) {
+        idsFloor.add(n.getNodeid()); // get nodeId
+        namesFloor.add(locNameEnt.getLongname()); // get longName
+      }
     }
-    session.close();
 
     ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
+    endNodeIDs = idsFloor;
+
+    // close the sessions that were opened by the methods above
+    nodeImpl.closeSession();
+    moveImpl.closeSession();
 
     endLocBox.setItems(locs);
     endLocBox.setDisable(false);
@@ -263,8 +273,8 @@ public class PathfindingController extends MenuController {
     }
 
     // get the IDs from the input combined w/ indexes
-    String sName = allNodeIDs.get(startIndex);
-    String eName = allNodeIDs.get(endIndex);
+    String sName = startNodeIDs.get(startIndex);
+    String eName = endNodeIDs.get(endIndex);
 
     // run A*
     GraphNode start = pathfindingSystem.getNode(sName);
