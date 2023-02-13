@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.mapeditor;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.Node;

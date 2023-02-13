@@ -110,7 +110,7 @@
                                                       </ImageView>
                                                    </graphic>
                                                 </MFXButton>
-                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeScene" prefHeight="170.0" prefWidth="556.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Employee Records" textAlignment="CENTER" wrapText="true">
+                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" minWidth="-Infinity" onAction="#switchToEmployeeScene" prefHeight="170.0" prefWidth="556.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Employee Records" textAlignment="CENTER" wrapText="true">
                                                    <font>
                                                       <Font size="50.0" />
                                                    </font>

@@ -1,35 +1,40 @@
-package edu.wpi.cs3733.C23.teamA.hibernateDB;
+package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
-import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
+import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
-import java.util.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "sanitationrequest")
+@Table(name = "computerrequest")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
-public class SanitationRequestEntity extends ServiceRequestEntity {
+public class ComputerRequestEntity extends ServiceRequestEntity {
 
   //  @Id
   //  @Column(name = "requestid", nullable = false)
-  //  @Setter
   //  @Getter
+  //  @Setter
   //  private int requestid;
 
   @Basic
-  @Column(name = "category", nullable = false, length = -1)
-  @Setter
+  @Column(name = "deviceid", nullable = false, length = -1)
   @Getter
+  @Setter
+  private String deviceid;
+
+  @Basic
+  @Column(name = "device", nullable = false, length = -1)
+  @Getter
+  @Setter
   @Enumerated(EnumType.STRING)
-  private IssueCategory category;
+  private DevicesCategory device;
 
-  public SanitationRequestEntity() {}
+  public ComputerRequestEntity() {}
 
-  public SanitationRequestEntity(
+  public ComputerRequestEntity(
       int requestid,
       String name,
       EmployeeEntity employee,
@@ -39,7 +44,8 @@ public class SanitationRequestEntity extends ServiceRequestEntity {
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      IssueCategory category,
+      String deviceid,
+      DevicesCategory device,
       Timestamp date) {
     super(
         requestid,
@@ -52,10 +58,11 @@ public class SanitationRequestEntity extends ServiceRequestEntity {
         status,
         employeeassigned,
         date);
-    this.category = category;
+    this.deviceid = deviceid;
+    this.device = device;
   }
 
-  public SanitationRequestEntity(
+  public ComputerRequestEntity(
       String name,
       EmployeeEntity employee,
       LocationNameEntity location,
@@ -64,8 +71,10 @@ public class SanitationRequestEntity extends ServiceRequestEntity {
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      IssueCategory category) {
+      String deviceid,
+      DevicesCategory device) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
-    this.category = category;
+    this.deviceid = deviceid;
+    this.device = device;
   }
 }

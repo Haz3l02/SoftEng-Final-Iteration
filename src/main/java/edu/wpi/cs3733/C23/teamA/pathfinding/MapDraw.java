@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
-import java.awt.*;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.canvas.GraphicsContext;

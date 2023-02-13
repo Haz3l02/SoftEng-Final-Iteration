@@ -1,13 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity.getServiceByEmployee;
-
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.*;
@@ -31,8 +29,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class ServiceRequestStatusController extends MenuController {
 
@@ -51,6 +47,8 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
+  @FXML private MFXButton deleteButton;
+
   UrgencyLevel urgent;
   Status status;
 
@@ -58,6 +56,10 @@ public class ServiceRequestStatusController extends MenuController {
 
   private String hospitalID;
   private String job;
+  private ObservableList<ServiceRequestEntity> dbTableRowsModel =
+      FXCollections.observableArrayList();
+  ServiceRequestImpl serviceRequestImpl = new ServiceRequestImpl();
+  List<ServiceRequestEntity> serviceRequestData = new ArrayList<>();
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
@@ -70,9 +72,6 @@ public class ServiceRequestStatusController extends MenuController {
       Navigation.navigateHome(Screen.HOME_EMPLOYEE);
     }
   }
-
-  private ObservableList<ServiceRequestEntity> dbTableRowsModel =
-      FXCollections.observableArrayList();
 
   @FXML
   public void initialize() throws SQLException {
@@ -88,9 +87,14 @@ public class ServiceRequestStatusController extends MenuController {
       formTypeBox.setDisable(true);
       dateBox.setDisable(true);
       urgencyBox.setDisable(false);
-
-    } else {
+    } else if (job.equalsIgnoreCase("maintenance")) {
       statusBox.setDisable(false);
+      employeeBox.setDisable(true);
+      formTypeBox.setDisable(true);
+      dateBox.setDisable(true);
+      urgencyBox.setDisable(true);
+    } else { // admin
+      statusBox.setDisable(true);
       employeeBox.setDisable(false);
       formTypeBox.setDisable(true);
       dateBox.setDisable(true);
@@ -105,19 +109,12 @@ public class ServiceRequestStatusController extends MenuController {
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
-    Session session = getSessionFactory().openSession();
-    List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
+    if (job.equalsIgnoreCase("medical"))
+      serviceRequestData = serviceRequestImpl.getAllByEmployee(hospitalID);
+    else serviceRequestData = serviceRequestImpl.getAll();
 
-    if (job.equalsIgnoreCase("medical")) {
-      requests = getServiceByEmployee(hospitalID, session);
-    } else {
-      requests = getAllRecords(ServiceRequestEntity.class, session);
-    }
-
-    dbTableRowsModel.addAll(requests);
-
+    dbTableRowsModel.addAll(serviceRequestData);
     serviceReqsTable.setItems(dbTableRowsModel);
-    session.close();
   }
 
   @FXML
@@ -134,9 +131,11 @@ public class ServiceRequestStatusController extends MenuController {
       statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
       urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
       employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
-      if (job.equalsIgnoreCase("medical")) {
-        editForm.setVisible(true);
+      if (job.equalsIgnoreCase(
+          "medical")) { // if they have any submsisions its should be editable for their submissions
+        editForm.setDisable(false);
       }
+      deleteButton.setDisable(false);
     }
 
     ObservableList<String> statuses = FXCollections.observableArrayList(Status.statusList());
@@ -145,24 +144,50 @@ public class ServiceRequestStatusController extends MenuController {
         FXCollections.observableArrayList(UrgencyLevel.urgencyList());
 
     ObservableList<String> formTypes = FXCollections.observableArrayList(FormType.typeList());
+    //
+    //    ObservableList<String> employees =
+    //        FXCollections.observableArrayList(
+    //            "Izzy",
+    //            "Isabella",
+    //            "Andrei",
+    //            "Harrison",
+    //            "John",
+    //            "Chris",
+    //            "Steve",
+    //            "Hazel",
+    //            "Audrey",
+    //            "Sarah");
+    EmployeeImpl theEmployee = new EmployeeImpl();
 
-    ObservableList<String> employees =
-        FXCollections.observableArrayList(
-            "Izzy",
-            "Isabella",
-            "Andrei",
-            "Harrison",
-            "John",
-            "Chris",
-            "Steve",
-            "Hazel",
-            "Audrey",
-            "Sarah");
+    ObservableList<String> maintenance =
+        FXCollections.observableArrayList(theEmployee.getListOf("Maintenance"));
 
     statusBox.setItems(statuses);
     urgencyBox.setItems(urgencies);
     formTypeBox.setItems(formTypes);
-    employeeBox.setItems(employees);
+    employeeBox.setItems(maintenance);
+  }
+
+  @FXML
+  public void delete(ActionEvent event) {
+    int currentRowId = Integer.parseInt(IDBoxSaver.getText());
+    serviceRequestImpl.delete(currentRowId);
+    reloadData();
+  }
+
+  public void reloadData() {
+    dbTableRowsModel.clear();
+    try {
+      if (job.equalsIgnoreCase("medical")) {
+        serviceRequestData = serviceRequestImpl.getAllByEmployee(hospitalID);
+      } else {
+        serviceRequestData = serviceRequestImpl.getAll();
+      }
+      dbTableRowsModel.addAll(serviceRequestData);
+      clearEdits();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
@@ -183,26 +208,11 @@ public class ServiceRequestStatusController extends MenuController {
           SRTable.setRequestType(ServiceRequestEntity.RequestType.valueOf(formTypeBox.getText()));
           SRTable.setDate(Timestamp.valueOf(dateBox.getText()));
           SRTable.setStatus(Status.valueOf(statusBox.getText()));
-          SRTable.setUrgency(UrgencyLevel.value(urgencyBox.getText()));
+          SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText().toUpperCase()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
-          serviceReqsTable.setItems(currentTableData);
-          serviceReqsTable.refresh();
-          Session session = getSessionFactory().openSession();
-          Transaction tx = session.beginTransaction();
-          ServiceRequestEntity billy = session.get(ServiceRequestEntity.class, currentRowId);
-
-          if (statusBox != null && !statusBox.isDisabled()) {
-            status = Status.valueOf(statusBox.getValue());
-            billy.setStatus(status);
-          }
-          if (urgencyBox != null && !urgencyBox.isDisabled()) {
-            urgent = UrgencyLevel.value(urgencyBox.getValue());
-            billy.setUrgency(urgent);
-          }
-          billy.setEmployeeAssigned(employeeBox.getText());
-          tx.commit();
-          session.close();
+          serviceRequestImpl.update(currentRowId, SRTable);
+          reloadData();
           break;
         }
       }
@@ -212,7 +222,7 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML
   public void submitRequest(ActionEvent event) {}
 
-  public void clearEdits(ActionEvent event) {
+  public void clearEdits() {
     IDBoxSaver.setText("");
     formTypeBox.clear();
     dateBox.clear();

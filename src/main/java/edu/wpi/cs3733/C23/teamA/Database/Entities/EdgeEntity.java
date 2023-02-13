@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.hibernateDB;
+package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -45,6 +45,12 @@ public class EdgeEntity {
     this.node1 = node1;
     this.node2 = node2;
     this.edgeid = edgeid;
+  }
+
+  public EdgeEntity(NodeEntity node1, NodeEntity node2) {
+    this.node1 = node1;
+    this.node2 = node2;
+    this.edgeid = node1.getNodeid() + "_" + node2.getNodeid();
   }
 
   public EdgeEntity() {}

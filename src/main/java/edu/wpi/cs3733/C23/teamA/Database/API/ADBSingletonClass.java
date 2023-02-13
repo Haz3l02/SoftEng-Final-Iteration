@@ -1,7 +1,12 @@
-package edu.wpi.cs3733.C23.teamA.hibernateDB;
+package edu.wpi.cs3733.C23.teamA.Database.API;
 
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import java.io.*;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,5 +35,18 @@ public class ADBSingletonClass {
     criteria.from(type);
     List<T> records = session.createQuery(criteria).getResultList();
     return records;
+  }
+
+  public static void rewriteNodesEdgesMoves(Session session) throws IOException {
+    NodeImpl node = new NodeImpl();
+    EdgeImpl edge = new EdgeImpl();
+    LocationNameImpl location = new LocationNameImpl();
+    MoveImpl move = new MoveImpl();
+
+    // Pulling csvs into tables
+    node.importFromCSV("node.csv");
+    edge.importFromCSV("edge.csv");
+    location.importFromCSV("location.csv");
+    move.importFromCSV("move.csv");
   }
 }

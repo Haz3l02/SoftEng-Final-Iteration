@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Algorithm;
