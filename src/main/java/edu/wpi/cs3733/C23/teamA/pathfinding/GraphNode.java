@@ -54,6 +54,13 @@ public class GraphNode implements Comparable<GraphNode> {
     penalty = 0;
   }
 
+  /**
+   * @param nodeID
+   * @param xCoord
+   * @param yCoord
+   * @param longName
+   * @param nodeType
+   */
   public GraphNode(String nodeID, int xCoord, int yCoord, String longName, String nodeType) {
     this.nodeID = nodeID;
     this.xCoord = xCoord;
@@ -68,6 +75,8 @@ public class GraphNode implements Comparable<GraphNode> {
     costFromStart = Double.POSITIVE_INFINITY;
     heurCostToEnd = Double.POSITIVE_INFINITY;
     score = Double.POSITIVE_INFINITY;
+
+    // set the penalty based on the nodeType
     penalty = 0;
   }
 

@@ -28,4 +28,14 @@ public enum LocationType {
   public String getExtendedString() {
     return extendedString;
   }
+
+  // takes the extended string and returns the name of the enum
+  public static String fromString(String extendedString) {
+    for (LocationType l : LocationType.values()) {
+      if (l.getExtendedString().equals(extendedString)) {
+        return l.getTableString(); // tableString is the same as the enum name
+      }
+    }
+    return null;
+  }
 }
