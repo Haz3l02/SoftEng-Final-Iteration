@@ -88,7 +88,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     new SanitationRequestImpl().removeFromList(s);
     new SecurityRequestImpl().removeFromList(s);
 
-    session.remove(session.get(ServiceRequestEntity.class, s));
+    session.remove(get(s));
     ListIterator<ServiceRequestEntity> li = services.listIterator();
     while (li.hasNext()) {
       if (li.next().getRequestid() == s) {

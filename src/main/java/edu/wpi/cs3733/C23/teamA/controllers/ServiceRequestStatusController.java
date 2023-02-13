@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByEmployee;
-
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -31,8 +28,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class ServiceRequestStatusController extends MenuController {
 
@@ -51,8 +46,8 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
-  UrgencyLevel urgent;
-  Status status;
+  private UrgencyLevel urgent;
+  private Status status;
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
 
@@ -104,20 +99,18 @@ public class ServiceRequestStatusController extends MenuController {
     statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
-
-    Session session = getSessionFactory().openSession();
+    ServiceRequestImpl servI = new ServiceRequestImpl();
     List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
     if (job.equalsIgnoreCase("medical")) {
-      requests = getServiceByEmployee(hospitalID, session);
+      requests = servI.getAllByEmployee(hospitalID);
     } else {
-      requests = getAllRecords(ServiceRequestEntity.class, session);
+      requests = servI.getAll();
     }
-
     dbTableRowsModel.addAll(requests);
+    servI.closeSession();
 
     serviceReqsTable.setItems(dbTableRowsModel);
-    session.close();
   }
 
   @FXML
@@ -188,9 +181,8 @@ public class ServiceRequestStatusController extends MenuController {
 
           serviceReqsTable.setItems(currentTableData);
           serviceReqsTable.refresh();
-          Session session = getSessionFactory().openSession();
-          Transaction tx = session.beginTransaction();
-          ServiceRequestEntity billy = session.get(ServiceRequestEntity.class, currentRowId);
+          ServiceRequestImpl servI = new ServiceRequestImpl();
+          ServiceRequestEntity billy = servI.get(currentRowId);
 
           if (statusBox != null && !statusBox.isDisabled()) {
             status = Status.valueOf(statusBox.getValue());
@@ -201,8 +193,8 @@ public class ServiceRequestStatusController extends MenuController {
             billy.setUrgency(urgent);
           }
           billy.setEmployeeAssigned(employeeBox.getText());
-          tx.commit();
-          session.close();
+          servI.add(billy);
+          servI.closeSession();
           break;
         }
       }

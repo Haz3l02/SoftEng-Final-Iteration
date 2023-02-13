@@ -25,7 +25,8 @@ import javafx.scene.image.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
-import org.hibernate.Session; // remove later
+
+// remove later
 
 public class PathfindingController extends MenuController {
 
@@ -74,7 +75,6 @@ public class PathfindingController extends MenuController {
   private List<String> endNodeIDs;
   private List<String> allLongNames; // List of corresponding long names in order
   private List<NodeEntity> allNodes;
-  private Session session;
 
   // a PathfindingSystem to run methods in the pathfinding package
   private static PathfindingSystem pathfindingSystem;

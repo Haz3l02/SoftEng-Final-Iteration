@@ -1,10 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -18,8 +16,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class EdgeController extends MenuController {
 
@@ -30,15 +26,11 @@ public class EdgeController extends MenuController {
   @FXML public TableColumn<EdgeEntity, String> endNodeCol;
 
   @FXML public MFXButton refresh;
-
-  private Session session;
   private List<EdgeEntity> data;
 
   private ObservableList<EdgeEntity> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-    session = getSessionFactory().openSession();
-
     reloadData();
 
     edgeIDCol.setCellValueFactory(new PropertyValueFactory<>("edgeid"));
@@ -56,7 +48,9 @@ public class EdgeController extends MenuController {
   public void reloadData() {
     dbTableRowsModel.clear();
     try {
-      data = getAllRecords(EdgeEntity.class, session);
+      EdgeImpl edgeI = new EdgeImpl();
+      data = edgeI.getAll();
+      edgeI.closeSession();
       dbTableRowsModel.addAll(data);
     } catch (Exception e) {
       e.printStackTrace();
@@ -70,10 +64,12 @@ public class EdgeController extends MenuController {
         e -> {
           EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
-            Transaction t = session.beginTransaction();
-            n.setNode1(session.get(NodeEntity.class, e.getNewValue()));
-            session.persist(n);
-            t.commit();
+            NodeImpl nodeI = new NodeImpl();
+            EdgeImpl edgeI = new EdgeImpl();
+            n.setNode1(nodeI.get(e.getNewValue()));
+            edgeI.update(n.getEdgeid(), n);
+            nodeI.closeSession();
+            edgeI.closeSession();
           } catch (Exception ex) {
             refresh.setText("Invalid Node: Refresh");
           }
@@ -82,10 +78,12 @@ public class EdgeController extends MenuController {
         e -> {
           EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
-            Transaction t = session.beginTransaction();
-            n.setNode2(session.get(NodeEntity.class, e.getNewValue()));
-            session.persist(n);
-            t.commit();
+            NodeImpl nodeI = new NodeImpl();
+            EdgeImpl edgeI = new EdgeImpl();
+            n.setNode2(nodeI.get(e.getNewValue()));
+            edgeI.update(n.getEdgeid(), n);
+            nodeI.closeSession();
+            edgeI.closeSession();
           } catch (Exception ex) {
             refresh.setText("Invalid Node: Refresh");
           }
@@ -93,12 +91,10 @@ public class EdgeController extends MenuController {
   }
 
   public void switchToMoveScene(ActionEvent event) {
-    session.close();
     Navigation.navigate(Screen.DATABASE);
   }
 
   public void switchToMapScene(ActionEvent event) {
-    session.close();
     Navigation.navigate(Screen.NODE_MAP);
   }
 }

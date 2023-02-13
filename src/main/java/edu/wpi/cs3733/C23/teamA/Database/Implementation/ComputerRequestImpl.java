@@ -26,7 +26,6 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
         builder.createQuery(ComputerRequestEntity.class);
     criteria.from(ComputerRequestEntity.class);
     List<ComputerRequestEntity> records = session.createQuery(criteria).getResultList();
-    session.close();
     comprequests = records;
   }
 
@@ -107,7 +106,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
 
   public void delete(Integer c) {
     Transaction tx = session.beginTransaction();
-    session.remove(session.get(ComputerRequestEntity.class, c));
+    session.remove(get(c));
 
     ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
     while (li.hasNext()) {

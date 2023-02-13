@@ -59,10 +59,14 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
 
   public void delete(Integer c) {
     Transaction tx = session.beginTransaction();
-    sanrequests.stream()
-        .filter(sanitationRequest -> sanitationRequest.getRequestid() == c)
-        .toList()
-        .forEach(employee -> session.remove(employee));
+    session.remove(get(c));
+    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == c) {
+        li.remove();
+      }
+    }
+    new ServiceRequestImpl().removeFromList(c);
     tx.commit();
   }
 

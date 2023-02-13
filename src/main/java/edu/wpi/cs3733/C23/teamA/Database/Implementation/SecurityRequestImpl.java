@@ -25,7 +25,6 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
         builder.createQuery(SecurityRequestEntity.class);
     criteria.from(SecurityRequestEntity.class);
     secrequests = session.createQuery(criteria).getResultList();
-    ;
   }
 
   public List<SecurityRequestEntity> getAll() {
@@ -58,7 +57,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
 
   public void delete(Integer c) {
     Transaction tx = session.beginTransaction();
-    session.remove(session.get(SecurityRequestImpl.class, c));
+    session.remove(get(c));
 
     ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
     while (li.hasNext()) {
@@ -79,8 +78,9 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
         li.remove();
       }
     }
-
-    SecurityRequestEntity c = session.get(SecurityRequestEntity.class, ID);
+    SecurityRequestImpl secI = new SecurityRequestImpl();
+    SecurityRequestEntity c = secI.get(ID);
+    secI.closeSession();
 
     c.setSecphone(obj.getSecphone());
     c.setAssistance(obj.getAssistance());

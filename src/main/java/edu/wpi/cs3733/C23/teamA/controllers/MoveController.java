@@ -1,16 +1,15 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
+import jakarta.persistence.PersistenceException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +19,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-public class DatabaseController extends MenuController {
+public class MoveController extends MenuController {
 
   @FXML private TableView<MoveEntity> dbTable;
 
@@ -38,27 +36,28 @@ public class DatabaseController extends MenuController {
   @FXML public MFXComboBox<String> locationBox;
   @FXML public DatePicker dateBox;
   @FXML public MFXButton submit;
+  @FXML public Label warning;
 
   // List of all Node IDs in specific order
   private List<String> allNodeIDs;
   private List<String> allLongNames; // List of corresponding long names in order
   private List<MoveEntity> data;
   private List<NodeEntity> nodes;
-  private Session session;
   private MoveEntity row;
   private ObservableList<MoveEntity> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-    session = getSessionFactory().openSession();
     LocationNameImpl table = new LocationNameImpl();
+    NodeImpl nodeI = new NodeImpl();
 
-    nodes = getAllRecords(NodeEntity.class, session); // get all nodes from Database
+    nodes = nodeI.getAll(); // get all nodes from Database
     allNodeIDs = new ArrayList<>();
     allLongNames =
         table.getAll().stream()
             .map(locationNameEntity -> locationNameEntity.getLongname())
             .toList();
     table.closeSession();
+    nodeI.closeSession();
 
     for (NodeEntity n : nodes) {
       allNodeIDs.add(n.getNodeid()); // get nodeId
@@ -88,7 +87,9 @@ public class DatabaseController extends MenuController {
   public void reloadData() {
     dbTableRowsModel.clear();
     try {
-      data = getAllRecords(MoveEntity.class, session);
+      MoveImpl moveI = new MoveImpl();
+      data = moveI.getAll();
+      moveI.closeSession();
       dbTableRowsModel.addAll(data);
     } catch (Exception e) {
       e.printStackTrace();
@@ -97,32 +98,34 @@ public class DatabaseController extends MenuController {
   }
 
   public void submitEdit(ActionEvent event) {
+    LocationNameImpl table = new LocationNameImpl();
+    NodeImpl nodeI = new NodeImpl();
     if (!nodeBox.getText().trim().isBlank()
         || !locationBox.getText().trim().isBlank()
         || !dateBox.getValue().toString().isEmpty()) {
-      Transaction t = session.beginTransaction();
       MoveEntity newMove = new MoveEntity();
-      newMove.setNode(session.get(NodeEntity.class, nodeBox.getText()));
-      newMove.setLocationName(session.get(LocationNameEntity.class, locationBox.getText()));
+      newMove.setNode(nodeI.get(nodeBox.getText()));
+      newMove.setLocationName(table.get(locationBox.getText()));
       newMove.setMovedate(Timestamp.valueOf(dateBox.getValue().atStartOfDay()));
-      session.persist(newMove);
-      t.commit();
+      try {
+        warning.setVisible(false);
+        MoveImpl moveI = new MoveImpl();
+        moveI.add(newMove);
+        moveI.closeSession();
+      } catch (PersistenceException p) {
+        warning.setVisible(true);
+      }
     }
+    nodeI.closeSession();
+    table.closeSession();
     reloadData();
   }
 
   public void switchToEdgeScene(ActionEvent event) {
-    session.close();
     Navigation.navigate(Screen.EDGE);
   }
 
-  public void switchToNodeScene(ActionEvent event) {
-    session.close();
-    Navigation.navigate(Screen.NODE);
-  }
-
   public void switchToHomeDatabaseScene(ActionEvent event) {
-    session.close();
     Navigation.navigateHome(Screen.HOME_DATABASE);
   }
 }

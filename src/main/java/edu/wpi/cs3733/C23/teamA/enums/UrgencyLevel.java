@@ -20,13 +20,13 @@ public enum UrgencyLevel {
 
   public static UrgencyLevel value(String str) {
     switch (str) {
-      case "Low":
+      case "LOW":
         return LOW;
-      case "Medium":
+      case "MEDIUM":
         return MEDIUM;
-      case "High":
+      case "HIGH":
         return HIGH;
-      case "Extremely Urgent":
+      case "EXTREMELY URGENT":
         return EXTREMELY_URGENT;
       default:
         return LOW;

@@ -1,9 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByEmployee;
-
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -17,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import org.controlsfx.control.PopOver;
-import org.hibernate.Session;
 
 public class HomeServiceRequestController extends MenuController {
 
@@ -28,11 +25,10 @@ public class HomeServiceRequestController extends MenuController {
     IdNumberHolder holder = IdNumberHolder.getInstance();
     String hospitalID = holder.getId();
     String job = holder.getJob();
-    Session session = getSessionFactory().openSession();
 
-    ArrayList<ServiceRequestEntity> specificRequests = new ArrayList<ServiceRequestEntity>();
-    specificRequests = getServiceByEmployee(hospitalID, session);
-    session.close();
+    ServiceRequestImpl serviceI = new ServiceRequestImpl();
+    ArrayList<ServiceRequestEntity> specificRequests = serviceI.getAllByEmployee(hospitalID);
+    serviceI.closeSession();
 
     if (specificRequests.size() == 0 && (job.equals("medical") || job.equals("Medical"))) {
       pastSubmissions.setDisable(true);
