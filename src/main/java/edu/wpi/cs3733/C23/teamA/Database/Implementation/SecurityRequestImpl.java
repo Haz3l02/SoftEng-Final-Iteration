@@ -7,7 +7,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -36,18 +35,12 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
 
   public void exportToCSV(String filename) throws IOException {
     File csvFile =
-            new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write(
-            "assistance,secphone,requestid\n");
+    fileWriter.write("assistance,secphone,requestid\n");
     for (SecurityRequestEntity ser : secrequests) {
       fileWriter.write(
-              ser.getAssistance()
-                      + ","
-                      + ser.getSecphone()
-                      + ","
-                      + ser.getRequestid()
-                      + "\n");
+          ser.getAssistance() + "," + ser.getSecphone() + "," + ser.getRequestid() + "\n");
     }
     fileWriter.close();
   }
