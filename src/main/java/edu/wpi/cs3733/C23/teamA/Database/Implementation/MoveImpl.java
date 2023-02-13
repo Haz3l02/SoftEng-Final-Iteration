@@ -134,4 +134,15 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     }
     return null;
   }
+
+  public List<MoveEntity> getNodeID (List<String> ID) {
+
+    for (MoveEntity m : moves) {
+      if (m.getNode().equals(ID.get(0))
+              && m.getLocationName().equals(ID.get(1))
+              && m.getMovedate().equals(ID.get(2))) return m;
+    }
+    return null;
+  }
+
 }
