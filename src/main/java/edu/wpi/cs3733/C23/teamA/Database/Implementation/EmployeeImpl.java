@@ -101,7 +101,8 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
   public void importFromCSV(String filename) throws FileNotFoundException {
 
-    employees.forEach(employee -> session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid())));
+    employees.forEach(
+        employee -> session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid())));
     employees.clear();
 
     File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);

@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -14,8 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Scanner;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -42,7 +39,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     //    }
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write(
         "requestid,date,description,employeeassigned,name,requestype,status,urgency,employeeid,location\n");
@@ -76,24 +73,24 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
-//    services.forEach(service -> session.remove(session.get(ServiceRequestEntity.class, service.getRequestid())));
-//    services.clear();
-//
-//    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
-//
-//    Transaction tx = session.beginTransaction();
-//    Scanner read = new Scanner(emps);
-//    int count = 0;
-//    read.nextLine();
-//
-//    while (read.hasNextLine()) {
-//      String[] b = read.nextLine().split(",");
-//      session.persist(new ServiceRequestEntity(b[0], b[4], b[3], b[1], b[2]));
-//      services.add(session.get(ServiceRequestEntity.class, b[0]));
-//    }
-//    tx.commit();
+    //    services.forEach(service -> session.remove(session.get(ServiceRequestEntity.class,
+    // service.getRequestid())));
+    //    services.clear();
+    //
+    //    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    //
+    //    Transaction tx = session.beginTransaction();
+    //    Scanner read = new Scanner(emps);
+    //    int count = 0;
+    //    read.nextLine();
+    //
+    //    while (read.hasNextLine()) {
+    //      String[] b = read.nextLine().split(",");
+    //      session.persist(new ServiceRequestEntity(b[0], b[4], b[3], b[1], b[2]));
+    //      services.add(session.get(ServiceRequestEntity.class, b[0]));
+    //    }
+    //    tx.commit();
   }
-
 
   public void add(ServiceRequestEntity s) {
     Transaction tx = session.beginTransaction();
