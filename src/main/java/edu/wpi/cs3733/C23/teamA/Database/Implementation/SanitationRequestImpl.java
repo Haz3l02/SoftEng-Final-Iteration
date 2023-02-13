@@ -37,7 +37,6 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     return sanrequests;
   }
 
-  public void add(ServiceRequestEntity obj) {}
 
   public void exportToCSV(String filename) throws IOException {
     File csvFile =
@@ -55,13 +54,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     fileWriter.close();
   }
 
-  public void update(String ID, ServiceRequestEntity obj) {}
 
-  public void delete(String obj) {}
-
-  public SanitationRequestEntity get(String ID) {
-    return null;
-  }
 
   public void importFromCSV(String filename) throws FileNotFoundException {}
 
