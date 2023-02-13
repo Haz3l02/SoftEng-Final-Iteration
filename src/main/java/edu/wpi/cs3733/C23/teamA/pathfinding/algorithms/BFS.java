@@ -1,5 +1,7 @@
-package edu.wpi.cs3733.C23.teamA.pathfinding;
+package edu.wpi.cs3733.C23.teamA.pathfinding.algorithms;
 
+import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.pathfinding.PathInterpreter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;

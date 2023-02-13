@@ -1,8 +1,13 @@
-package edu.wpi.cs3733.C23.teamA.pathfinding;
+package edu.wpi.cs3733.C23.teamA.pathfinding.readers;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.hibernateDB.EdgeEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.MoveEntity;
+import edu.wpi.cs3733.C23.teamA.hibernateDB.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.pathfinding.Graph;
+import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
