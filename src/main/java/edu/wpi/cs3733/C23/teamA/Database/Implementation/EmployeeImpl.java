@@ -69,8 +69,13 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
               employees.remove(employee);
             });
 
-    session.persist(obj);
-    employees.add(obj);
+    EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
+    emp.setEmployeeid(obj.getEmployeeid());
+    emp.setUsername(obj.getUsername());
+    emp.setPassword(obj.getPassword());
+    emp.setJob(obj.getJob());
+    emp.setName(obj.getName());
+
     tx.commit();
   }
 
@@ -126,7 +131,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         .toList()
         .forEach(
             employee -> {
-              session.remove(employee);
+              session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid()));
               employees.remove(employee);
             });
     tx.commit();
