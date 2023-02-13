@@ -39,7 +39,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     //    }
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/servicerequest.csv");
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write(
         "requestid,date,description,employeeassigned,name,requestype,status,urgency,employeeid,location\n");
