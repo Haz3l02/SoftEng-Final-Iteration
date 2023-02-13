@@ -239,16 +239,16 @@
                                 <tabs>
                                     <Tab text="Lower Level One">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0">
                                              <children>
                                                 <StackPane fx:id="floorL1Stack">
                                                    <children>
-                                                      <ImageView fx:id="floorL1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="floorL1" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="floorL1Canvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorL1Canvas" height="459.0" width="675.0" />
                                                    </children>
                                                 </StackPane>
                                                 <GesturePane fx:id="floorL1gPane" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -262,12 +262,12 @@
                                              <children>
                                                 <StackPane fx:id="floorL2Stack">
                                                    <children>
-                                                      <ImageView fx:id="floorL2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="floorL2" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/00_thelowerlevel2_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="floorL2Canvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorL2Canvas" height="459.0" width="675.0" />
                                                    </children>
                                                 </StackPane>
                                                 <GesturePane fx:id="floorL2gPane" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -281,12 +281,12 @@
                                              <children>
                                                 <StackPane fx:id="floorF1Stack">
                                                    <children>
-                                                      <ImageView fx:id="floorF1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="floorF1" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="floorF1Canvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorF1Canvas" height="459.0" width="675.0" />
                                                    </children>
                                                 </StackPane>
                                                 <GesturePane fx:id="floorF1gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -300,7 +300,7 @@
                                              <children>
                                                 <StackPane fx:id="floorF2Stack">
                                                    <children>
-                                                      <ImageView fx:id="floorF2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="floorF2" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
                                                          </image>
@@ -319,7 +319,7 @@
                                              <children>
                                                 <StackPane fx:id="floorF3Stack">
                                                    <children>
-                                                      <ImageView fx:id="floorF3" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="floorF3" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
                                                          </image>

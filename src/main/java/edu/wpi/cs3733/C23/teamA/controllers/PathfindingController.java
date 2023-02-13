@@ -82,7 +82,7 @@ public class PathfindingController extends MenuController {
 
   // objects needed for the maps
   private GraphicsContext gc;
-  private double SCALE_FACTOR = 0.14;
+  private double SCALE_FACTOR = 0.135;
 
   // database objects
   MoveImpl moveImpl;
