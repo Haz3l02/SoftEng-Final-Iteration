@@ -294,43 +294,43 @@
                                           </AnchorPane>
                                     </content>
                                   </Tab>
-                                  <Tab text="Floor Two">
-                                    <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <Tab text="Floor Two">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
                                                 <StackPane fx:id="floorF2Stack">
                                                    <children>
                                                       <ImageView fx:id="floorF2" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
+                                                            <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="floorF2Canvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorF2Canvas" height="459.0" width="675.0" />
                                                    </children>
                                                 </StackPane>
-                                                <GesturePane fx:id="floorF2gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <GesturePane fx:id="floorF2gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.0" prefWidth="747.3333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
-                                    </content>
-                                  </Tab>
+                                       </content>
+                                    </Tab>
                                     <Tab text="Floor Three">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
                                                 <StackPane fx:id="floorF3Stack">
                                                    <children>
                                                       <ImageView fx:id="floorF3" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
+                                                            <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="floorF3Canvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorF3Canvas" height="459.0" width="675.0" />
                                                    </children>
                                                 </StackPane>
-                                                <GesturePane fx:id="floorF3gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <GesturePane fx:id="floorF3gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.0" prefWidth="747.3333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
-                                      </content>
+                                       </content>
                                     </Tab>
                                 </tabs>
                               </TabPane>

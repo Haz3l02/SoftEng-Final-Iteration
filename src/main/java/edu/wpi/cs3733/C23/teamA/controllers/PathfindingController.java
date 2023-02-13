@@ -81,7 +81,12 @@ public class PathfindingController extends MenuController {
   private LocalDate navDate;
 
   // objects needed for the maps
-  private GraphicsContext gc;
+  private GraphicsContext gcL1;
+  private GraphicsContext gcL2;
+  private GraphicsContext gcF1;
+  private GraphicsContext gcF2;
+  private GraphicsContext gcF3;
+  private GraphicsContext[] gcs = new GraphicsContext[5];
   private double SCALE_FACTOR = 0.135;
 
   // database objects
@@ -253,14 +258,20 @@ public class PathfindingController extends MenuController {
    *
    * @param path the path that you want to be drawn
    */
-  private void callMapDraw(ArrayList<GraphNode> path, Canvas canvas) {
-    GraphicsContext gc = canvas.getGraphicsContext2D();
+  private void callMapDraw(ArrayList<GraphNode> path) {
+    // getting graphicsContents for each canvas and put in array
+    gcs[0] = floorL1Canvas.getGraphicsContext2D();
+    gcs[1] = floorL2Canvas.getGraphicsContext2D();
+    gcs[2] = floorF1Canvas.getGraphicsContext2D();
+    gcs[3] = floorF2Canvas.getGraphicsContext2D();
+    gcs[4] = floorF3Canvas.getGraphicsContext2D();
 
-    // clear the canvas w/ the drawn path; does NOT hide the map image
-    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    // clear the canvases w/ the drawn paths
+    for (GraphicsContext gc : gcs) {
+      gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    }
 
-    // constant for map size/coordinate manipulation
-    pathfindingSystem.drawPath(gc, path, SCALE_FACTOR);
+    pathfindingSystem.drawPath(gcs, path, SCALE_FACTOR);
   }
 
   @FXML

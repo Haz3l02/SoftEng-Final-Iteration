@@ -2,7 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
-import edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw;
 import java.io.File;
 import java.util.List;
 import javafx.fxml.FXML;
@@ -33,7 +32,7 @@ public class NodeMapController extends MenuController {
 
     // Add nodes as circles
     gc = nodeMapCanvas.getGraphicsContext2D();
-    MapDraw.drawNodes(gc, allNodes, SCALE_FACTOR);
+    // MapDraw.drawNodes(gc, allNodes, SCALE_FACTOR);
   }
 
   /**

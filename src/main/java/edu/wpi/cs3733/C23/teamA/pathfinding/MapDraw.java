@@ -1,8 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -34,7 +33,8 @@ public class MapDraw {
     return scaledCoordinates;
   }
 
-  public static void drawPath(GraphicsContext gc, ArrayList<GraphNode> path, double scaleFactor) {
+  public static void drawPathOld(
+      GraphicsContext gc, ArrayList<GraphNode> path, double scaleFactor) {
     gc.setFill(Color.web("0x224870"));
     gc.setStroke(Color.web("0x224870"));
     gc.setLineWidth(2);
@@ -70,13 +70,52 @@ public class MapDraw {
     gc.strokeOval(prevX - 6, prevY - 6, 12, 12); // ending open circle
   }
 
-  public static void drawNodes(GraphicsContext gc, List<NodeEntity> allNodes, double scaleFactor) {
-    gc.setFill(Color.web("0x224870"));
+  public static void drawPath(
+      GraphicsContext[] gcs, ArrayList<GraphNode> path, double scaleFactor) {
 
-    // draw circle for each node
-    for (NodeEntity n : allNodes) {
-      int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
-      gc.fillOval(updatedCoords[0] - 4, updatedCoords[1] - 4, 8, 8);
+    for (GraphicsContext gc : gcs) {
+      gc.setFill(Color.web("0x224870"));
+      gc.setStroke(Color.web("0x224870"));
+      gc.setLineWidth(2);
     }
+
+    // coordinates for the previous point in the path
+    int prevX = 0;
+    int prevY = 0;
+    int prevFloor = 0;
+
+    // set the prev values and draw the starting circle
+    int size = path.size();
+    if (size > 0) {
+      int[] updatedCoords =
+          scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), scaleFactor);
+      prevX = updatedCoords[0];
+      prevY = updatedCoords[1];
+      String floor = path.get(0).getFloor();
+      prevFloor = Floor.indexFromTableString(floor);
+      gcs[prevFloor].fillOval(prevX - 5, prevY - 5, 10, 10); // starting circle
+    }
+
+    // current holders for coordinates
+    int currentX;
+    int currentY;
+    int currentFloor;
+
+    // get all node x and y coords to draw lines between them
+    for (GraphNode g : path) {
+      int[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), scaleFactor);
+      currentX = updatedCoords[0];
+      currentY = updatedCoords[1];
+      currentFloor = Floor.indexFromTableString(g.getFloor());
+
+      if (currentFloor == prevFloor) {
+        gcs[currentFloor].strokeLine(prevX, prevY, currentX, currentY);
+      }
+      prevX = currentX;
+      prevY = currentY;
+      prevFloor = currentFloor;
+    }
+
+    gcs[prevFloor].strokeOval(prevX - 5, prevY - 5, 10, 10); // ending open circle
   }
 }
