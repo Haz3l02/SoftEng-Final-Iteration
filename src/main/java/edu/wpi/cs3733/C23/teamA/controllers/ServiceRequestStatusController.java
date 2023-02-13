@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
@@ -58,7 +57,6 @@ public class ServiceRequestStatusController extends MenuController {
   private String job;
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
-  ServiceRequestImpl serviceRequestImpl = new ServiceRequestImpl();
   List<ServiceRequestEntity> serviceRequestData = new ArrayList<>();
 
   @FXML
@@ -108,12 +106,15 @@ public class ServiceRequestStatusController extends MenuController {
     statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
+    ServiceRequestImpl serviceRequestImpl = new ServiceRequestImpl();
 
     if (job.equalsIgnoreCase("medical"))
       serviceRequestData = serviceRequestImpl.getAllByEmployee(hospitalID);
     else serviceRequestData = serviceRequestImpl.getAll();
 
     dbTableRowsModel.addAll(serviceRequestData);
+    serviceRequestImpl.closeSession();
+
     serviceReqsTable.setItems(dbTableRowsModel);
   }
 
@@ -199,6 +200,7 @@ public class ServiceRequestStatusController extends MenuController {
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
           serviceRequestImpl.update(currentRowId, SRTable);
+
           reloadData();
           break;
         }

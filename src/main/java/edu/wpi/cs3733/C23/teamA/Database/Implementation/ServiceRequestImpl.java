@@ -17,10 +17,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, Integer> {
-  private List<ServiceRequestEntity> services;
+  private final List<ServiceRequestEntity> services;
+
+  private Session session;
 
   public ServiceRequestImpl() {
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<ServiceRequestEntity> criteria = builder.createQuery(ServiceRequestEntity.class);
     criteria.from(ServiceRequestEntity.class);
@@ -32,12 +34,16 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public void exportToCSV(String filename) throws IOException {
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length()>4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    }
+    else
+      filename+=".csv";
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/servicerequest.csv");
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write(
         "requestid,date,description,employeeassigned,name,requestype,status,urgency,employeeid,location\n");
@@ -70,10 +76,27 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     new SanitationRequestImpl().exportToCSV("sanitationrequest.csv");
   }
 
-  public void importFromCSV(String filename) throws FileNotFoundException {}
+  public void importFromCSV(String filename) throws FileNotFoundException {
+    //    services.forEach(service -> session.remove(session.get(ServiceRequestEntity.class,
+    // service.getRequestid())));
+    //    services.clear();
+    //
+    //    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    //
+    //    Transaction tx = session.beginTransaction();
+    //    Scanner read = new Scanner(emps);
+    //    int count = 0;
+    //    read.nextLine();
+    //
+    //    while (read.hasNextLine()) {
+    //      String[] b = read.nextLine().split(",");
+    //      session.persist(new ServiceRequestEntity(b[0], b[4], b[3], b[1], b[2]));
+    //      services.add(session.get(ServiceRequestEntity.class, b[0]));
+    //    }
+    //    tx.commit();
+  }
 
   public void add(ServiceRequestEntity s) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(s);
     services.add(s);
@@ -82,13 +105,12 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public void delete(Integer s) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     new ComputerRequestImpl().removeFromList(s);
     new SanitationRequestImpl().removeFromList(s);
     new SecurityRequestImpl().removeFromList(s);
 
-    session.delete(session.get(ServiceRequestEntity.class, s));
+    session.remove(get(s));
     ListIterator<ServiceRequestEntity> li = services.listIterator();
     while (li.hasNext()) {
       if (li.next().getRequestid() == s) {
@@ -96,11 +118,9 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
       }
     }
     tx.commit();
-    session.close();
   }
 
   public void update(Integer ID, ServiceRequestEntity obj) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<ServiceRequestEntity> li = services.listIterator();
@@ -123,7 +143,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
 
     services.add(ser);
     tx.commit();
-    session.close();
   }
 
   public void addToList(ServiceRequestEntity ser) {
@@ -160,10 +179,14 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public ServiceRequestEntity get(Integer ID) {
-
     for (ServiceRequestEntity ser : services) {
       if (ser.getRequestid() == ID) return ser;
     }
     return null;
+  }
+
+  @Override
+  public void closeSession() {
+    session.close();
   }
 }

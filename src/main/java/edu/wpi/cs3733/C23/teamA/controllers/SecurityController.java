@@ -2,7 +2,10 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.SecurityRequestImpl;
@@ -25,10 +28,6 @@ public class SecurityController extends ServiceRequestController {
   @FXML private MFXTextField phone;
   @FXML private MFXComboBox<String> requestsBox;
   private RequestCategory assistance;
-  SecurityRequestImpl securityImpl = new SecurityRequestImpl();
-  SecurityRequestEntity submission = new SecurityRequestEntity();
-  EmployeeImpl employee = new EmployeeImpl();
-  LocationNameImpl location = new LocationNameImpl();
 
   @FXML
   public void initialize() throws SQLException {
@@ -39,9 +38,8 @@ public class SecurityController extends ServiceRequestController {
       requestsBox.setItems(requests);
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Security")) {
-
-      SecurityRequestEntity editRequest = securityImpl.get(newEdit.getRequestID());
-
+      SecurityRequestImpl secI = new SecurityRequestImpl();
+      SecurityRequestEntity editRequest = secI.get(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       requestsBox.setText(editRequest.getRequestType().requestType);
@@ -49,11 +47,7 @@ public class SecurityController extends ServiceRequestController {
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       phone.setText(editRequest.getSecphone());
-      submission.setEmployeeAssigned(editRequest.getEmployeeAssigned());
-      submission.setStatus(editRequest.getStatus());
-      submission.setDate(editRequest.getDate());
-      submission.setRequestType(
-          ServiceRequestEntity.RequestType.valueOf(newEdit.getRequestType().toUpperCase()));
+      secI.closeSession();
     }
   }
 
@@ -69,6 +63,9 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) {
+    SecurityRequestImpl secI = new SecurityRequestImpl();
+    LocationNameImpl locationI = new LocationNameImpl();
+    EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
         || phone.getText().equals("")
         || IDNum.getText().equals("")
@@ -80,33 +77,33 @@ public class SecurityController extends ServiceRequestController {
       reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
-        LocationNameEntity loc = location.get(locationBox.getValue());
-        EmployeeEntity person = employee.get(IDNum.getText());
-
+        // something that submits it
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue().toUpperCase());
 
-        submission.setEmployee(person);
+        SecurityRequestEntity submission = secI.get(newEdit.getRequestID());
         submission.setName(nameBox.getText());
+        LocationNameEntity loc = locationI.get(locationBox.getValue());
         submission.setLocation(loc);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
         submission.setAssistance(assistance);
         submission.setSecphone(phone.getText());
-        securityImpl.update(newEdit.getRequestID(), submission);
-      } else {
 
-        EmployeeEntity person = employee.get(IDNum.getText());
-        LocationNameEntity loc = location.get(locationBox.getText());
+        secI.update(submission.getRequestid(), submission);
+
+      } else {
+        EmployeeEntity person = employeeI.get(IDNum.getText());
+        LocationNameEntity location = locationI.get(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
-        assistance = RequestCategory.value(requestsBox.getValue().toUpperCase());
+        assistance = RequestCategory.value(requestsBox.getValue());
 
         SecurityRequestEntity submission =
             new SecurityRequestEntity(
                 nameBox.getText(),
                 person,
-                loc,
+                location,
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.SECURITY,
@@ -114,8 +111,11 @@ public class SecurityController extends ServiceRequestController {
                 "Unassigned",
                 assistance,
                 phone.getText());
-        securityImpl.add(submission);
+        secI.add(submission);
       }
+      secI.closeSession();
+      employeeI.closeSession();
+      locationI.closeSession();
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

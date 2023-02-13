@@ -15,8 +15,9 @@ public enum Screen {
   HELP("views/HelpFXML.fxml"),
   HOME_SERVICE_REQUEST("views/HomeServiceRequestSMALLFXML.fxml"),
   SERVICE_REQUEST("views/ServiceRequest.fxml"),
-  DATABASE("views/MoveFXML.fxml"),
+  MOVE("views/MoveFXML.fxml"),
   NODE("views/NodeSMALLFXML.fxml"),
+  NODEOLD("views/NodeFXML.fxml"),
   EDGE("views/EdgeFXML.fxml"),
   PATHFINDING("views/PathfindingNewFXML.fxml"),
   PATHFINDING_MAP("views/PathfindingMapFXML.fxml"),
@@ -26,7 +27,8 @@ public enum Screen {
   NODE_MAP("views/NodeMapFXML.fxml"),
   EMPLOYEE("views/EmployeeFXML.fxml"),
   HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
-  MAP_DISPLAY("views/PathDisplayFXML.fxml");
+  MAP_DISPLAY("views/PathDisplayFXML.fxml"),
+  PATIENT_TRANSPORT("views/PatientTransportFXML.fxml");
 
   private final String filename;
 

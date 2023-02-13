@@ -1,8 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw;
 import java.io.File;
 import java.util.List;
@@ -13,7 +12,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import net.kurobako.gesturefx.GesturePane;
-import org.hibernate.Session;
 
 public class NodeMapController extends MenuController {
 
@@ -30,10 +28,10 @@ public class NodeMapController extends MenuController {
   private double SCALE_FACTOR; // constant for map size/coordinate manipulation
 
   public void initialize() {
-    Session session = getSessionFactory().openSession();
-    allNodes = NodeEntity.getNodeOnFloor("L1", session); // get all nodes from Database
-    session.close();
-    //    // Add Image
+    NodeImpl node = new NodeImpl();
+    allNodes = node.getNodeOnFloor("L1"); // get all nodes from Database
+    node.closeSession();
+    // Add Image
     addFloorMapImage(
         "src/main/resources/edu/wpi/cs3733/C23/teamA/assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png");
 

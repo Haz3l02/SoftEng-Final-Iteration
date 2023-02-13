@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -26,9 +27,13 @@ public class HomeServiceRequestController extends MenuController {
     String hospitalID = holder.getId();
     String job = holder.getJob();
 
-    ArrayList<ServiceRequestEntity> specificRequests = new ArrayList<ServiceRequestEntity>();
-    ServiceRequestImpl SRimpl = new ServiceRequestImpl();
-    specificRequests = SRimpl.getAllByEmployee(hospitalID);
+    ServiceRequestImpl serviceI = new ServiceRequestImpl();
+    ArrayList<ServiceRequestEntity> specificRequests = serviceI.getAllByEmployee(hospitalID);
+    serviceI.closeSession();
+//    ArrayList<ServiceRequestEntity> specificRequests = new ArrayList<ServiceRequestEntity>();
+//    ServiceRequestImpl SRimpl = new ServiceRequestImpl();
+//    specificRequests = SRimpl.getAllByEmployee(hospitalID);
+
 
     if (specificRequests.size() == 0 && (job.equals("medical") || job.equals("Medical"))) {
       pastSubmissions.setDisable(true);
@@ -50,6 +55,11 @@ public class HomeServiceRequestController extends MenuController {
   @FXML
   public void switchToComputer(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.COMPUTER);
+  }
+
+  @FXML
+  public void switchToPatientTransport(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.PATIENT_TRANSPORT);
   }
 
   @FXML

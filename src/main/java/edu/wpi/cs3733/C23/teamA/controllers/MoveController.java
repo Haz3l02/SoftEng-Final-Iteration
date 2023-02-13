@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import static java.lang.String.valueOf;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
@@ -10,6 +12,8 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import jakarta.persistence.PersistenceException;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -21,10 +25,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
 public class MoveController extends MenuController {
 
@@ -38,6 +42,7 @@ public class MoveController extends MenuController {
   @FXML public MFXFilterComboBox<String> locationBox;
   @FXML public DatePicker dateBox;
   @FXML public MFXButton submit;
+  @FXML public Label warning;
   @FXML private MFXButton editButton;
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createMove;
@@ -79,6 +84,8 @@ public class MoveController extends MenuController {
     try {
       moveData = moveImpl.getAll();
       dbTableRowsModel.addAll(moveData);
+      moveI.closeSession();
+
       clearEdits();
     } catch (Exception e) {
       e.printStackTrace();
@@ -104,7 +111,13 @@ public class MoveController extends MenuController {
     Timestamp theTime = new Timestamp(bill);
 
     MoveEntity theMove = new MoveEntity(nodeimpl.get(nodeBox.getValue()), loc, theTime);
-
+    try {
+      warning.setVisible(false);
+      moveI.add(newMove);
+      moveI.closeSession();
+    } catch (PersistenceException p) {
+      warning.setVisible(true);
+    }
     moveImpl.add(theMove);
     reloadData();
   }
@@ -157,7 +170,6 @@ public class MoveController extends MenuController {
   }
 
   public void switchToHomeDatabaseScene(ActionEvent event) {
-
     Navigation.navigateHome(Screen.HOME_DATABASE);
   }
 

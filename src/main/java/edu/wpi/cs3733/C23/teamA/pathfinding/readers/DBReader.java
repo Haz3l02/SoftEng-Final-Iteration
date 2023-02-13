@@ -4,8 +4,8 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllReco
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.pathfinding.Graph;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ public class DBReader {
    */
   public static void readDB(Graph graph) throws SQLException {
     Session session = getSessionFactory().openSession();
-
+    MoveImpl moveI = new MoveImpl();
     // Nodes
     List<NodeEntity> allNodes =
         getAllRecords(NodeEntity.class, session); // gets all the nodes in db's node table
@@ -32,10 +32,10 @@ public class DBReader {
               n.getNodeid(),
               n.getXcoord(),
               n.getYcoord(),
-              MoveEntity.mostRecentLoc(n.getNodeid(), session));
+              moveI.mostRecentLoc(n.getNodeid()).getLongname());
       graph.addNode(n.getNodeid(), g);
     }
-
+    moveI.closeSession();
     // Edges
     /* read through edge columns and add edges to correct node (bidirectional) */
     List<EdgeEntity> allEdges =
