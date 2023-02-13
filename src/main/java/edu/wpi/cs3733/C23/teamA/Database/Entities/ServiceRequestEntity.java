@@ -158,6 +158,14 @@ public class ServiceRequestEntity {
             .getResultList();
   }
 
+  public static ArrayList<ServiceRequestEntity> getServiceByEmployeeAssigned(
+      String name, Session session) {
+    return (ArrayList<ServiceRequestEntity>)
+        session
+            .createQuery("From ServiceRequestEntity where employeeAssigned ='" + name + "'")
+            .getResultList();
+  }
+
   public static ArrayList<ServiceRequestEntity> getServiceRequestsByID(
       String text, Session session) {
     return (ArrayList<ServiceRequestEntity>)

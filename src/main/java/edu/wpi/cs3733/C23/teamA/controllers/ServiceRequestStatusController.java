@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByEmployee;
+import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByEmployeeAssigned;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
@@ -106,8 +107,14 @@ public class ServiceRequestStatusController extends MenuController {
         dateBox.setDisable(true);
         urgencyBox.setDisable(false);
 
-      } else {
+      } else if (job.equalsIgnoreCase("Maintenance")) {
         statusBox.setDisable(false);
+        employeeBox.setDisable(true);
+        formTypeBox.setDisable(true);
+        dateBox.setDisable(true);
+        urgencyBox.setDisable(false);
+      } else if (job.equalsIgnoreCase(("Admin"))) {
+        statusBox.setDisable(true);
         employeeBox.setDisable(false);
         formTypeBox.setDisable(true);
         dateBox.setDisable(true);
@@ -127,6 +134,8 @@ public class ServiceRequestStatusController extends MenuController {
 
       if (job.equalsIgnoreCase("medical")) {
         requests = getServiceByEmployee(hospitalID, session);
+      } else if (job.equals(("Maintenance"))) {
+        requests = getServiceByEmployeeAssigned(holder.getName(), session);
       } else {
         requests = getAllRecords(ServiceRequestEntity.class, session);
       }
