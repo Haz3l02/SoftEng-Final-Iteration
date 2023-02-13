@@ -8,6 +8,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.pathfinding.Graph;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.LocationType;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,15 +30,25 @@ public class DBReader {
     for (NodeEntity n : allNodes) {
       locNameEnt = moveImpl.mostRecentLoc(n.getNodeid());
       GraphNode g;
-      // create the nodes; if there's no longName, add placeholder text
+      // create the nodes; if there's no LocationNameEntity, it's a node w/ no location attached
       if (locNameEnt != null) {
-        g = new GraphNode(n.getNodeid(), n.getXcoord(), n.getYcoord(), locNameEnt.getLongname());
+        g =
+            new GraphNode(
+                n.getNodeid(),
+                n.getXcoord(),
+                n.getYcoord(),
+                locNameEnt.getLongname(),
+                locNameEnt.getLocationtype());
       } else {
         g =
             new GraphNode(
-                n.getNodeid(), n.getXcoord(), n.getYcoord(), "UNNAMED NODE"); // what to do here?
+                n.getNodeid(),
+                n.getXcoord(),
+                n.getYcoord(),
+                "UNNAMED NODE",
+                LocationType.UNKN.getTableString()); // what to do here?
       }
-      // create the graph and add the nodes (id, xcoord, ycoord, longName)
+      // create the graph and add the nodes (id, xcoord, ycoord, longName, locationType)
       graph.addNode(n.getNodeid(), g);
     }
 
