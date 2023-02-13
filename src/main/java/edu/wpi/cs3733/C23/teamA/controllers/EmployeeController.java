@@ -5,7 +5,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.EditTheForm;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -44,10 +43,12 @@ public class EmployeeController {
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createEmployee;
 
-  public static EditTheForm newEdit = new EditTheForm(0, "", false);
-
   private String hospitalID;
   private String job;
+
+  private ObservableList<EmployeeEntity> dbTableRowsModel = FXCollections.observableArrayList();
+  EmployeeImpl employee = new EmployeeImpl();
+  List<EmployeeEntity> employeeData = new ArrayList<>();
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
@@ -58,10 +59,6 @@ public class EmployeeController {
   public void switchToHomeDatabase(ActionEvent event) throws IOException {
     Navigation.navigateHome(Screen.HOME_DATABASE);
   }
-
-  private ObservableList<EmployeeEntity> dbTableRowsModel = FXCollections.observableArrayList();
-  EmployeeImpl employee = new EmployeeImpl();
-  List<EmployeeEntity> employeeData = new ArrayList<>();
 
   @FXML
   public void initialize() throws SQLException {
@@ -174,5 +171,6 @@ public class EmployeeController {
     jobBox.clear();
 
     createEmployee.setVisible(true);
+    editButton.setDisable(true);
   }
 }

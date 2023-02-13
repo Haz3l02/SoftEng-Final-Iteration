@@ -4,9 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import static java.lang.Integer.parseInt;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.*;
@@ -17,7 +15,6 @@ import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
-import org.w3c.dom.Node;
 
 public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   // done
@@ -106,8 +103,8 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     ListIterator<NodeEntity> li = nodes.listIterator();
-    while (li.hasNext()){
-      if (li.next().getNodeid().equals(n)){
+    while (li.hasNext()) {
+      if (li.next().getNodeid().equals(n)) {
         li.remove();
       }
     }
@@ -120,10 +117,9 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
-
     ListIterator<NodeEntity> li = nodes.listIterator();
-    while (li.hasNext()){
-      if (li.next().getNodeid().equals(ID)){
+    while (li.hasNext()) {
+      if (li.next().getNodeid().equals(ID)) {
         li.remove();
       }
     }
@@ -135,17 +131,14 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     n.setYcoord(obj.getYcoord());
     n.setFloor(obj.getFloor());
 
-
     nodes.add(n);
     tx.commit();
     session.close();
   }
 
+  public NodeEntity get(String ID) {
 
-
-  public NodeEntity get(String ID){
-
-    for (NodeEntity ser : nodes){
+    for (NodeEntity ser : nodes) {
       if (ser.getNodeid().equals(ID)) return ser;
     }
     return null;

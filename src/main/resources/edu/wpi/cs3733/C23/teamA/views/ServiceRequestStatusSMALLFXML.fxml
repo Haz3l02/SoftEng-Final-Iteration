@@ -32,7 +32,7 @@
             <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0" spacing="10.0">
                <children>
                   <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
-                  <MFXButton id="cancelButton" fx:id="cancelButton1" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#delete" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15;" text="Delete" textFill="#d3e9f6">
+                  <MFXButton id="cancelButton" fx:id="deleteButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#delete" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15;" text="Delete" textFill="#d3e9f6">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -144,7 +144,7 @@
                               <Font size="25.0" />
                            </font>
                         </MFXComboBox>
-                        <MFXButton buttonType="RAISED" defaultButton="true" onAction="#submitEdit" prefHeight="50.0" prefWidth="250.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15;" text="Submit" textFill="#224870">
+                        <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" onAction="#submitEdit" prefHeight="50.0" prefWidth="250.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15;" text="Submit" textFill="#224870">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>

@@ -1,30 +1,30 @@
-//package edu.wpi.cs3733.C23.teamA.controllers;
+// package edu.wpi.cs3733.C23.teamA.controllers;
 //
-//import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-//import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-//import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-//import io.github.palexdev.materialfx.controls.MFXComboBox;
-//import io.github.palexdev.materialfx.controls.MFXTextField;
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
-//import javafx.event.ActionEvent;
-//import javafx.fxml.FXML;
-//import javafx.scene.control.Button;
-//import javafx.scene.control.TableColumn;
-//import javafx.scene.control.TableView;
-//import javafx.scene.control.TextField;
-//import javafx.scene.control.cell.PropertyValueFactory;
-//import javafx.scene.control.cell.TextFieldTableCell;
-//import javafx.util.converter.IntegerStringConverter;
-//import org.hibernate.Session;
-//import org.hibernate.Transaction;
+// import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+// import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+// import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+// import io.github.palexdev.materialfx.controls.MFXComboBox;
+// import io.github.palexdev.materialfx.controls.MFXTextField;
+// import javafx.collections.FXCollections;
+// import javafx.collections.ObservableList;
+// import javafx.event.ActionEvent;
+// import javafx.fxml.FXML;
+// import javafx.scene.control.Button;
+// import javafx.scene.control.TableColumn;
+// import javafx.scene.control.TableView;
+// import javafx.scene.control.TextField;
+// import javafx.scene.control.cell.PropertyValueFactory;
+// import javafx.scene.control.cell.TextFieldTableCell;
+// import javafx.util.converter.IntegerStringConverter;
+// import org.hibernate.Session;
+// import org.hibernate.Transaction;
 //
-//import java.util.List;
+// import java.util.List;
 //
-//import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-//import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
+// import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
+// import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 //
-//public class NodeNewController {
+// public class NodeNewController {
 //
 //  @FXML private TableView<NodeEntity> dbTable;
 //  @FXML public TableColumn<NodeEntity, String> nodeCol;
@@ -210,4 +210,4 @@
 //    session.close();
 //    Navigation.navigate(Screen.NODE_MAP);
 //  }
-//}
+// }

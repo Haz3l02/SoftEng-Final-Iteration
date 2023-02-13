@@ -3,16 +3,13 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -99,8 +96,8 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     session.delete(session.get(LocationNameEntity.class, l));
 
     ListIterator<LocationNameEntity> li = locations.listIterator();
-    while (li.hasNext()){
-      if (li.next().getLongname().equals(l)){
+    while (li.hasNext()) {
+      if (li.next().getLongname().equals(l)) {
         li.remove();
       }
     }
@@ -113,31 +110,26 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
-
     ListIterator<LocationNameEntity> li = locations.listIterator();
-    while (li.hasNext()){
-      if (li.next().getLongname().equals(ID)){
+    while (li.hasNext()) {
+      if (li.next().getLongname().equals(ID)) {
         li.remove();
       }
     }
 
     LocationNameEntity l = session.get(LocationNameEntity.class, ID);
 
-
-
     l.setLocationtype(location.getLocationtype());
     l.setShortname(location.getShortname());
-
 
     locations.add(l);
     tx.commit();
     session.close();
   }
 
+  public LocationNameEntity get(String ID) {
 
-  public LocationNameEntity get(String ID){
-
-    for (LocationNameEntity ser : locations){
+    for (LocationNameEntity ser : locations) {
       if (ser.getLongname().equals(ID)) return ser;
     }
     return null;

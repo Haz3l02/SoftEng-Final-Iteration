@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public enum IssueCategory {
   STANDARD("Standard"),
   BIOHAZARD("Biohazard"),
+  CHEMICAL("Chemical"),
   WONG("Wong");
 
   private final String issue;

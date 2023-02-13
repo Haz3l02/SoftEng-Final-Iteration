@@ -3,9 +3,6 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -16,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -72,7 +68,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     new ComputerRequestImpl().exportToCSV("computerrequest.csv");
     new SecurityRequestImpl().exportToCSV("securityrequest.csv");
     new SanitationRequestImpl().exportToCSV("sanitationrequest.csv");
-
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {}
@@ -95,8 +90,8 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
 
     session.delete(session.get(ServiceRequestEntity.class, s));
     ListIterator<ServiceRequestEntity> li = services.listIterator();
-    while (li.hasNext()){
-      if (li.next().getRequestid()==s){
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == s) {
         li.remove();
       }
     }
@@ -109,8 +104,8 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     Transaction tx = session.beginTransaction();
 
     ListIterator<ServiceRequestEntity> li = services.listIterator();
-    while (li.hasNext()){
-      if (li.next().getRequestid()==ID){
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == ID) {
         li.remove();
       }
     }
@@ -131,50 +126,43 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     session.close();
   }
 
-  public void addToList(ServiceRequestEntity ser){
+  public void addToList(ServiceRequestEntity ser) {
     services.add(ser);
   }
 
-  public void removeFromList(Integer ID){
+  public void removeFromList(Integer ID) {
     ListIterator<ServiceRequestEntity> li = services.listIterator();
-    while (li.hasNext()){
-      if (li.next().getRequestid()==ID){
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == ID) {
         li.remove();
       }
     }
   }
 
-
-
-
-  public void updateList(Integer ID, ServiceRequestEntity ser){
+  public void updateList(Integer ID, ServiceRequestEntity ser) {
     ListIterator<ServiceRequestEntity> li = services.listIterator();
-    while (li.hasNext()){
-      if (li.next().getRequestid()==ID){
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == ID) {
         li.remove();
         li.add(ser);
       }
     }
   }
 
-
-
-  public ArrayList<ServiceRequestEntity> getAllByEmployee(String id){
+  public ArrayList<ServiceRequestEntity> getAllByEmployee(String id) {
     ArrayList<ServiceRequestEntity> fin = new ArrayList<ServiceRequestEntity>();
-    for (ServiceRequestEntity ser : services){
-      if (ser.getEmployee().getEmployeeid().equals(id)){
+    for (ServiceRequestEntity ser : services) {
+      if (ser.getEmployee().getEmployeeid().equals(id)) {
         fin.add(ser);
       }
     }
     return fin;
   }
 
+  public ServiceRequestEntity get(Integer ID) {
 
-
-  public ServiceRequestEntity get(Integer ID){
-
-    for (ServiceRequestEntity ser : services){
-      if (ser.getRequestid()==ID) return ser;
+    for (ServiceRequestEntity ser : services) {
+      if (ser.getRequestid() == ID) return ser;
     }
     return null;
   }

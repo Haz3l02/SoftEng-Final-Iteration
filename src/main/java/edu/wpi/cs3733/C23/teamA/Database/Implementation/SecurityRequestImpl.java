@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.ComputerRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -12,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -22,7 +20,8 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
   public SecurityRequestImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
-    CriteriaQuery<SecurityRequestEntity> criteria = builder.createQuery(SecurityRequestEntity.class);
+    CriteriaQuery<SecurityRequestEntity> criteria =
+        builder.createQuery(SecurityRequestEntity.class);
     criteria.from(SecurityRequestEntity.class);
     List<SecurityRequestEntity> records = session.createQuery(criteria).getResultList();
     session.close();
@@ -42,7 +41,9 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     Transaction tx = session.beginTransaction();
     session.persist(c);
     secrequests.add(c);
-    ServiceRequestEntity ser = new ServiceRequestEntity(c.getRequestid(),
+    ServiceRequestEntity ser =
+        new ServiceRequestEntity(
+            c.getRequestid(),
             c.getName(),
             c.getEmployee(),
             c.getLocation(),
@@ -51,8 +52,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
             c.getRequestType(),
             c.getStatus(),
             c.getEmployeeAssigned(),
-            c.getDate()
-    );
+            c.getDate());
     new ServiceRequestImpl().addToList(ser);
     tx.commit();
     session.close();
@@ -64,8 +64,8 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     session.delete(session.get(SecurityRequestImpl.class, c));
 
     ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
-    while (li.hasNext()){
-      if (li.next().getRequestid()==c){
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == c) {
         li.remove();
       }
     }
@@ -79,8 +79,8 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     Transaction tx = session.beginTransaction();
 
     ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
-    while (li.hasNext()){
-      if (li.next().getRequestid()==ID){
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == ID) {
         li.remove();
       }
     }
@@ -99,7 +99,9 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     c.setUrgency(obj.getUrgency());
     c.setStatus(obj.getStatus());
 
-    ServiceRequestEntity ser = new ServiceRequestEntity(ID,
+    ServiceRequestEntity ser =
+        new ServiceRequestEntity(
+            ID,
             obj.getName(),
             obj.getEmployee(),
             obj.getLocation(),
@@ -116,23 +118,19 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     session.close();
   }
 
-
-
-
-  public void removeFromList(Integer s){
+  public void removeFromList(Integer s) {
     ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
-    while (li.hasNext()){
-      if (li.next().getRequestid()==s){
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == s) {
         li.remove();
       }
     }
   }
 
+  public SecurityRequestEntity get(Integer ID) {
 
-  public SecurityRequestEntity get(Integer ID){
-
-    for (SecurityRequestEntity ser : secrequests){
-      if (ser.getRequestid()==ID) return ser;
+    for (SecurityRequestEntity ser : secrequests) {
+      if (ser.getRequestid() == ID) return ser;
     }
     return null;
   }
