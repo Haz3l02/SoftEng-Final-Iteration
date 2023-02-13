@@ -166,6 +166,13 @@ public class ServiceRequestEntity {
             .getResultList();
   }
 
+  public static ArrayList<ServiceRequestEntity> getServiceByUnassigned(Session session) {
+    return (ArrayList<ServiceRequestEntity>)
+        session
+            .createQuery("From ServiceRequestEntity where status ='" + Status.BLANK + "'")
+            .getResultList();
+  }
+
   public static ArrayList<ServiceRequestEntity> getServiceRequestsByID(
       String text, Session session) {
     return (ArrayList<ServiceRequestEntity>)

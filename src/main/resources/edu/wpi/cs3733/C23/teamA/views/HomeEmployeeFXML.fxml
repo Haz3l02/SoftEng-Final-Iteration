@@ -80,7 +80,7 @@
                               </HBox>
                               <VBox prefHeight="284.0" prefWidth="676.0">
                                  <children>
-                                    <StackPane prefHeight="120.0" prefWidth="492.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15;">
+                                    <StackPane prefHeight="173.0" prefWidth="676.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15;">
                                        <VBox.margin>
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
@@ -96,23 +96,23 @@
                                                       </Text>
                                                    </children>
                                                 </VBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="536.0">
+                                                <HBox prefHeight="77.0" prefWidth="536.0">
                                                    <children>
-                                                      <Label fx:id="message" text="Label" textFill="#122c34">
+                                                      <Label fx:id="message" text="Label" textFill="#122c34" wrapText="true">
                                                          <font>
                                                             <Font name="Verdana" size="18.0" />
                                                          </font>
                                                       </Label>
                                                    </children>
                                                    <VBox.margin>
-                                                      <Insets left="10.0" />
+                                                      <Insets left="10.0" top="5.0" />
                                                    </VBox.margin>
                                                 </HBox>
                                              </children>
                                           </VBox>
                                        </children>
                                     </StackPane>
-                                    <StackPane prefHeight="160.0" prefWidth="492.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15;">
+                                    <StackPane prefHeight="103.0" prefWidth="676.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15;">
                                        <children>
                                           <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                                              <children>

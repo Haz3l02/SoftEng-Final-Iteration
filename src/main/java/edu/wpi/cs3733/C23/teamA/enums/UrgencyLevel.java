@@ -6,7 +6,7 @@ public enum UrgencyLevel {
   LOW("Low"),
   MEDIUM("Medium"),
   HIGH("High"),
-  EXTREMELY_URGENT("Extremely Urgent");
+  EXTREMELY("Extremely");
 
   private final String urgency;
 
@@ -26,8 +26,8 @@ public enum UrgencyLevel {
         return MEDIUM;
       case "High":
         return HIGH;
-      case "Extremely Urgent":
-        return EXTREMELY_URGENT;
+      case "Extremely":
+        return EXTREMELY;
       default:
         return LOW;
     }

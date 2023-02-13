@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByEmployeeAssigned;
+import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByUnassigned;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -66,6 +67,25 @@ public class HomeController extends MenuController {
 
       assignmentsTable.setItems(dbTableRowsModel);
       session.close();
+    } else if (userInfo.getJob().equalsIgnoreCase("Admin")) {
+      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+      requestTypeCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
+      locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+      urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
+
+      Session session = getSessionFactory().openSession();
+      List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
+
+      requests = getServiceByUnassigned(session);
+
+      dbTableRowsModel.addAll(requests);
+
+      assignmentsTable.setItems(dbTableRowsModel);
+      session.close();
+    } else {
+
+      // Code for medical homepage
     }
   }
 
