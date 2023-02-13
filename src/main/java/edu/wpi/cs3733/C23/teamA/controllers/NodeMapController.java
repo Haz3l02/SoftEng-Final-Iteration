@@ -56,6 +56,8 @@ public class NodeMapController extends MenuController {
 
   @Setter NodeEntity selectedNode = null;
 
+
+
   // Lists of Nodes and Node Data
   private List<NodeEntity> allNodes;
 
@@ -91,8 +93,8 @@ public class NodeMapController extends MenuController {
 
     nodeAnchor.setOnMouseClicked(
         e -> {
-          double x = e.getX();
-          double y = e.getY();
+          int x = (int) e.getX();
+          int y = (int) e.getY();
 
           if (e.getButton() == MouseButton.PRIMARY) {
 
@@ -112,6 +114,11 @@ public class NodeMapController extends MenuController {
 
             nodeAnchor.getChildren().add(nodeGraphic);
           }
+
+          NodeEntity n = new NodeEntity();
+          n.setXcoord(x);
+          n.setYcoord(y);
+
         });
   }
 

@@ -74,6 +74,7 @@ public class NodeDraw {
 
               previousNode = nodeGraphic;
               selectNode = n;
+
               System.out.println(n.getXcoord());
               nmc.setLoc(n.getNodeid());
               nmc.setXCord(n.getXcoord().toString());
