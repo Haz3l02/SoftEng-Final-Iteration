@@ -68,8 +68,8 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     Transaction tx = session.beginTransaction();
 
     ListIterator<EmployeeEntity> li = employees.listIterator();
-    while (li.hasNext()){
-      if (li.next().getEmployeeid().equals(ID)){
+    while (li.hasNext()) {
+      if (li.next().getEmployeeid().equals(ID)) {
         li.remove();
       }
     }
@@ -80,7 +80,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     emp.setUsername(obj.getUsername());
     emp.setPassword(obj.getPassword());
     emp.setName(obj.getName());
-
 
     employees.add(emp);
     tx.commit();
@@ -126,14 +125,13 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
-
+    Transaction tx = session.beginTransaction();
     String hql = "delete from EmployeeEntity";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     employees.clear();
     File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
-    Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(emps);
     int count = 0;
     read.nextLine();
@@ -157,14 +155,13 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     Transaction tx = session.beginTransaction();
 
     ListIterator<EmployeeEntity> li = employees.listIterator();
-    while (li.hasNext()){
-      if (li.next().getEmployeeid().equals(e)){
+    while (li.hasNext()) {
+      if (li.next().getEmployeeid().equals(e)) {
         li.remove();
       }
     }
 
     session.delete(session.get(EmployeeEntity.class, e));
-
 
     tx.commit();
     session.close();

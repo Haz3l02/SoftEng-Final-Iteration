@@ -4,8 +4,8 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllReco
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity.getServiceByEmployee;
 
-import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -267,7 +267,7 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML
   public void switchToImportPopup(ActionEvent event) throws IOException {
     if (!event.getSource().equals(cancel)) {
-      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ImportCSVFXML.fxml"));
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ImportStatusCSVFXML.fxml"));
       popup = new PopOver(loader.load());
       popup.show(((Node) event.getSource()).getScene().getWindow());
     }
@@ -278,7 +278,7 @@ public class ServiceRequestStatusController extends MenuController {
   }
 
   @FXML
-  public void importCSV(ActionEvent event) {
+  public void importStatusCSV(ActionEvent event) {
     if (fileNameField.getText().equals("")) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
@@ -301,7 +301,7 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML
   public void switchToExportPopup(ActionEvent event) throws IOException {
     if (!event.getSource().equals(cancel)) {
-      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ExportCSVFXML.fxml"));
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ExportStatusCSVFXML.fxml"));
       popup = new PopOver(loader.load());
       popup.show(((Node) event.getSource()).getScene().getWindow());
     }
@@ -312,7 +312,8 @@ public class ServiceRequestStatusController extends MenuController {
   }
 
   @FXML
-  public void exportCSV(ActionEvent event) {
+  public void exportStatusCSV(ActionEvent event) {
+    System.out.println("This is running");
     if (fileNameField.getText().equals("")) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);

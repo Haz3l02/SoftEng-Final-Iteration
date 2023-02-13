@@ -13,7 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -112,13 +111,15 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     ListIterator<MoveEntity> li = moves.listIterator();
-    while (li.hasNext()){
-      if (li.next().getNode().equals(m.get(0))&&li.next().getLocationName().equals(m.get(1))&&li.next().getMovedate().equals(m.get(2))){
+    while (li.hasNext()) {
+      if (li.next().getNode().equals(m.get(0))
+          && li.next().getLocationName().equals(m.get(1))
+          && li.next().getMovedate().equals(m.get(2))) {
         li.remove();
       }
     }
 
-    //session.delete()
+    // session.delete()
     tx.commit();
     session.close();
   }

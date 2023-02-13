@@ -58,7 +58,9 @@ public class HomeServiceRequestController extends MenuController {
 
   @FXML
   public void switchToServiceRequestStatus(ActionEvent event) throws IOException {
+    System.out.println("There");
     Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
+    System.out.println("Hereh");
   }
 
   public void switchToCredits(ActionEvent event) throws IOException {

@@ -57,7 +57,7 @@
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="submit" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#exportCSV" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Export" textFill="#224870">
+                        <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#exportStatusCSV" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Export" textFill="#224870">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>

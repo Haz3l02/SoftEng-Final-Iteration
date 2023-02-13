@@ -135,8 +135,8 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     ListIterator<EdgeEntity> li = edges.listIterator();
-    while (li.hasNext()){
-      if (li.next().getEdgeid().equals(e)){
+    while (li.hasNext()) {
+      if (li.next().getEdgeid().equals(e)) {
         li.remove();
       }
     }
@@ -169,18 +169,16 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     Transaction tx = session.beginTransaction();
 
     ListIterator<EdgeEntity> li = edges.listIterator();
-    while (li.hasNext()){
-      if (li.next().getEdgeid().equals(s)){
+    while (li.hasNext()) {
+      if (li.next().getEdgeid().equals(s)) {
         li.remove();
       }
     }
-
 
     EdgeEntity edg = session.get(EdgeEntity.class, s);
 
     edg.setNode1(obj.getNode1());
     edg.setNode2(obj.getNode2());
-
 
     edges.add(edg);
 
