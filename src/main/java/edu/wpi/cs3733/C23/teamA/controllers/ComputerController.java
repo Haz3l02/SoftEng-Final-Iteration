@@ -26,11 +26,6 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML private MFXTextField deviceIDNum;
   @FXML private MFXComboBox<String> devicesBox;
-  ComputerRequestImpl computerImpl = new ComputerRequestImpl();
-  ComputerRequestEntity submission = new ComputerRequestEntity();
-  EmployeeImpl employee = new EmployeeImpl();
-  LocationNameImpl location = new LocationNameImpl();
-
   DevicesCategory device;
 
   @FXML
@@ -43,22 +38,18 @@ public class ComputerController extends ServiceRequestController {
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
     if (newEdit.needEdits && newEdit.getRequestType().equals("Computer")) {
-
-      ComputerRequestEntity editComputerRequest = computerImpl.get(newEdit.getRequestID());
-
+      ComputerRequestImpl compI = new ComputerRequestImpl();
+      ComputerRequestEntity editComputerRequest = compI.get(newEdit.getRequestID());
       nameBox.setText(editComputerRequest.getName());
       IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
-      devicesBox.setText(editComputerRequest.getDevice().getDevice());
+      devicesBox.setText(editComputerRequest.getDevice().toString());
       deviceIDNum.setText(editComputerRequest.getDeviceid());
       locationBox.setText(editComputerRequest.getLocation().getLongname());
       urgencyBox.setText(editComputerRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editComputerRequest.getDescription());
-      submission.setEmployeeAssigned(editComputerRequest.getEmployeeAssigned());
-      submission.setStatus(editComputerRequest.getStatus());
-      submission.setDate(editComputerRequest.getDate());
-      submission.setRequestType(
-          ServiceRequestEntity.RequestType.valueOf(newEdit.getRequestType().toUpperCase()));
+      compI.closeSession();
     }
+    // Otherwise Initialize service requests as normal
   }
 
   @FXML
@@ -68,6 +59,9 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) {
+    ComputerRequestImpl compI = new ComputerRequestImpl();
+    LocationNameImpl locationI = new LocationNameImpl();
+    EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null
@@ -78,34 +72,31 @@ public class ComputerController extends ServiceRequestController {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
-
       if (newEdit.needEdits) {
-        EmployeeEntity person = employee.get(IDNum.getText());
+        ComputerRequestEntity submission = compI.get(newEdit.getRequestID());
+        LocationNameEntity loc = locationI.get(locationBox.getValue());
 
-        LocationNameEntity loc = location.get(locationBox.getValue());
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());
+
         submission.setName(nameBox.getText());
-        submission.setEmployee(person);
         submission.setLocation(loc);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
         submission.setDevice(device);
         submission.setDeviceid(deviceIDNum.getText());
-        computerImpl.update(newEdit.getRequestID(), submission);
       } else {
-
-        EmployeeEntity person = employee.get(IDNum.getText());
-        LocationNameEntity loc = location.get(locationBox.getText());
+        EmployeeEntity person = employeeI.get(IDNum.getText());
+        LocationNameEntity location = locationI.get(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());
 
-        submission =
+        ComputerRequestEntity submission =
             new ComputerRequestEntity(
                 nameBox.getText(),
                 person,
-                loc,
+                location,
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.COMPUTER,
@@ -113,8 +104,12 @@ public class ComputerController extends ServiceRequestController {
                 "Unassigned",
                 deviceIDNum.getText(),
                 device);
-        computerImpl.add(submission);
+        compI.add(submission);
       }
+      compI.closeSession();
+      employeeI.closeSession();
+      locationI.closeSession();
+
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

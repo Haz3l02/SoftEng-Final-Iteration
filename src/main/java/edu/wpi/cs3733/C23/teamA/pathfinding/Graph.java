@@ -1,10 +1,14 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.pathfinding.readers.CSVReader;
-import edu.wpi.cs3733.C23.teamA.pathfinding.readers.DBReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import lombok.Getter;
 
 public class Graph {
@@ -59,7 +63,27 @@ public class Graph {
    * @throws SQLException
    */
   public void prepGraphDB() throws SQLException {
-    DBReader.readDB(this);
+    NodeImpl nodeI = new NodeImpl();
+    EdgeImpl edgeI = new EdgeImpl();
+    List<NodeEntity> nodes = nodeI.getAll();
+    List<EdgeEntity> edges = edgeI.getAll();
+    nodes.forEach(
+        node ->
+            addNode(
+                node.getNodeid(),
+                new GraphNode(
+                    node.getNodeid(),
+                    node.getXcoord(),
+                    node.getYcoord(),
+                    node.getFloor(),
+                    node.getBuilding())));
+    edges.forEach(
+        edge -> {
+          GraphNode node1 = graph.get(edge.getNode1().getNodeid());
+          GraphNode node2 = graph.get(edge.getNode2().getNodeid());
+          node1.addNeighbor(node2);
+          node2.addNeighbor(node1);
+        });
   }
 
   /**

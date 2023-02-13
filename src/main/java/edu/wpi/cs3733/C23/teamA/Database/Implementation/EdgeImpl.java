@@ -21,14 +21,14 @@ import org.hibernate.query.MutationQuery;
 
 public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
   private List<EdgeEntity> edges;
+  private Session session;
 
   public EdgeImpl() {
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
     criteria.from(EdgeEntity.class);
     List<EdgeEntity> records = session.createQuery(criteria).getResultList();
-    session.close();
     edges = records;
   }
 
@@ -46,7 +46,6 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
    */
   public HashMap<EdgeEntity, List<EdgeEntity>> nodeVectors(NodeEntity e) {
     HashMap<EdgeEntity, List<EdgeEntity>> vectors = new HashMap<>();
-    Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
     Root<EdgeEntity> item = criteria.from(EdgeEntity.class);
@@ -62,7 +61,6 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
                   criteria.select(item).where(builder.equal(item.get("node1"), e)))
               .getResultList());
     }
-    session.close();
     return vectors;
   }
 
@@ -88,7 +86,6 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
-    Session session = getSessionFactory().openSession();
     String hql = "delete from EdgeEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
@@ -114,21 +111,16 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
       }
     }
     tx.commit();
-    session.close();
   }
 
   public void add(EdgeEntity e) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(e);
     edges.add(e);
-
     tx.commit();
-    session.close();
   }
 
   public void delete(String e) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     ListIterator<EdgeEntity> li = edges.listIterator();
     while (li.hasNext()) {
@@ -138,30 +130,32 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     }
     session.remove(session.get(EdgeEntity.class, e));
     tx.commit();
-    session.close();
   }
 
+  /**
+   * Delete the node and link the edges involving the node back together. It functions by making new
+   * edges from the node going to node e to the node going away from node e. Every edge that
+   * connects to the node e's edge will be repaired like this.
+   *
+   * @param e NodeEntity that must be deleted.
+   */
   public void collapseNode(NodeEntity e) {
     EdgeEntity newEdge;
-    Session session = getSessionFactory().openSession();
     HashMap<EdgeEntity, List<EdgeEntity>> vec = nodeVectors(e);
     Transaction tx = session.beginTransaction();
     for (EdgeEntity n : vec.keySet()) { // n - > e
       List<EdgeEntity> edges = vec.get(n);
       for (EdgeEntity m : edges) { // e - > m
         newEdge = new EdgeEntity(n.getNode1(), m.getNode2());
-        System.out.println(newEdge.getEdgeid());
         session.merge(newEdge);
         delete(m.getEdgeid());
       }
       delete(n.getEdgeid());
     }
     tx.commit();
-    session.close();
   }
 
   public void update(String s, EdgeEntity obj) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<EdgeEntity> li = edges.listIterator();
@@ -179,7 +173,6 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     edges.add(edg);
 
     tx.commit();
-    session.close();
   }
 
   public EdgeEntity get(String ID) {
@@ -188,5 +181,9 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
       if (ser.getEdgeid().equals(ID)) return ser;
     }
     return null;
+  }
+
+  public void closeSession() {
+    session.close();
   }
 }

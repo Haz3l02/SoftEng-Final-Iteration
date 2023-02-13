@@ -19,16 +19,15 @@ import org.hibernate.query.MutationQuery;
 
 public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String> {
   // done
-
+  Session session;
   private List<LocationNameEntity> locations;
 
   public LocationNameImpl() {
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<LocationNameEntity> criteria = builder.createQuery(LocationNameEntity.class);
     criteria.from(LocationNameEntity.class);
     List<LocationNameEntity> records = session.createQuery(criteria).getResultList();
-    session.close();
     locations = records;
   }
 
@@ -53,8 +52,6 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
-    Session session = getSessionFactory().openSession();
-
     String hql = "delete from LocationNameEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
@@ -78,20 +75,16 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
       }
     }
     tx.commit();
-    session.close();
   }
 
   public void add(LocationNameEntity l) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(l);
     locations.add(l);
     tx.commit();
-    session.close();
   }
 
   public void delete(String l) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(session.get(LocationNameEntity.class, l));
 
@@ -103,11 +96,9 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     }
 
     tx.commit();
-    session.close();
   }
 
   public void update(String ID, LocationNameEntity location) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<LocationNameEntity> li = locations.listIterator();
@@ -124,7 +115,13 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
 
     locations.add(l);
     tx.commit();
-    session.close();
+  }
+
+  public String getType(String ID) {
+    for (LocationNameEntity ser : locations) {
+      if (ser.getLongname().equals(ID)) return ser.getLocationtype();
+    }
+    return null;
   }
 
   public LocationNameEntity get(String ID) {
@@ -133,5 +130,13 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
       if (ser.getLongname().equals(ID)) return ser;
     }
     return null;
+  }
+
+  public List<String> getAllIDs() {
+    return getAll().stream().map(locationNameEntity -> locationNameEntity.getLongname()).toList();
+  }
+
+  public void closeSession() {
+    session.close();
   }
 }
