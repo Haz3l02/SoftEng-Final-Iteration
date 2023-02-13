@@ -41,7 +41,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     } else filename += ".csv";
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("employeeid,job,name,password,username\n");
     for (EmployeeEntity emp : employees) {
