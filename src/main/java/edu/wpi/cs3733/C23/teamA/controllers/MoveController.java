@@ -10,7 +10,6 @@ import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import jakarta.persistence.PersistenceException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
@@ -106,7 +105,7 @@ public class MoveController extends MenuController {
       MoveEntity newMove = new MoveEntity();
       newMove.setNode(nodeI.get(nodeBox.getText()));
       newMove.setLocationName(table.get(locationBox.getText()));
-      newMove.setMovedate(Timestamp.valueOf(dateBox.getValue().atStartOfDay()));
+      newMove.setMovedate(dateBox.getValue());
       try {
         warning.setVisible(false);
         MoveImpl moveI = new MoveImpl();

@@ -23,7 +23,11 @@ public class HomeDatabaseController extends MenuController {
   }
 
   public void switchToMoveScene(ActionEvent event) {
-    Navigation.navigate(Screen.DATABASE);
+    Navigation.navigate(Screen.MOVE);
+  }
+
+  public void switchToEmployeeScene(ActionEvent event) {
+    Navigation.navigate(Screen.HOME_EMPLOYEE);
   }
 
   public void switchToCredits(ActionEvent event) throws IOException {

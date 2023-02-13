@@ -18,21 +18,6 @@ public enum UrgencyLevel {
     return urgency;
   }
 
-  public static UrgencyLevel value(String str) {
-    switch (str) {
-      case "LOW":
-        return LOW;
-      case "MEDIUM":
-        return MEDIUM;
-      case "HIGH":
-        return HIGH;
-      case "EXTREMELY":
-        return EXTREMELY;
-      default:
-        return LOW;
-    }
-  }
-
   public static ArrayList<String> urgencyList() {
     ArrayList<String> urgencies = new ArrayList<String>();
     for (UrgencyLevel urgency : values()) {

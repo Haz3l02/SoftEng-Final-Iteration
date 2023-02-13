@@ -74,7 +74,7 @@
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </MFXPasswordField>
-                              <MFXButton fx:id="loginButton" buttonType="RAISED" onAction="#login" prefHeight="27.0" prefWidth="206.0" style="-fx-background-radius: 15; -fx-background-color: F6BD3A;" text="Login" textFill="#224870">
+                              <MFXButton fx:id="loginButton" buttonType="RAISED" defaultButton="true" onAction="#login" prefHeight="27.0" prefWidth="206.0" style="-fx-background-radius: 15; -fx-background-color: F6BD3A;" text="Login" textFill="#224870">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -106,7 +106,7 @@
          <top>
             <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="431.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton onAction="#logout" prefHeight="27.0" prefWidth="56.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-border-radius: 15;" text="Exit">
+                  <MFXButton cancelButton="true" onAction="#logout" prefHeight="27.0" prefWidth="56.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-border-radius: 15;" text="Exit">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
