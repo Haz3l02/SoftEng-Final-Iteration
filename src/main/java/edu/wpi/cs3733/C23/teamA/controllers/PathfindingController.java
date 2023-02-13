@@ -7,6 +7,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.io.File;
@@ -37,6 +38,7 @@ public class PathfindingController extends MenuController {
   @FXML private MFXDatePicker navDatePicker;
   @FXML private Text errorMessage;
   @FXML private Text pathMapText;
+  @FXML private MFXButton clearButton;
 
   // canvases
   @FXML private Canvas floorL1Canvas;
@@ -141,6 +143,9 @@ public class PathfindingController extends MenuController {
     this.floorF2gPane.setContent(nodeF2);
     Node nodeF3 = floorF3Stack;
     this.floorF3gPane.setContent(nodeF3);
+
+    // autofill the date picker to the current date
+    navDatePicker.setValue(navDatePicker.getCurrentDate());
   }
 
   /** Method to clear the fields on the form on the UI page */
@@ -152,6 +157,7 @@ public class PathfindingController extends MenuController {
     startFloorBox.clear();
     endFloorBox.clear();
     algosBox.clear();
+    navDatePicker.clear();
     errorMessage.setText("");
   }
 

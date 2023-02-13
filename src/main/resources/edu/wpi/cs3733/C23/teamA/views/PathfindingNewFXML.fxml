@@ -27,12 +27,20 @@
             <children>
                 <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="70.0" prefWidth="180.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Back" textFill="#d3e9f6">
                     <HBox.margin>
-                        <Insets bottom="10.0" right="10.0" />
+                        <Insets bottom="10.0" />
                     </HBox.margin>
                     <font>
                         <Font size="25.0" />
                     </font>
                 </MFXButton>
+            <MFXButton id="cancelButton" fx:id="clearButton" buttonType="RAISED" cancelButton="true" onAction="#clearForm" prefHeight="70.0" prefWidth="180.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Clear" textFill="#d3e9f6">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </HBox.margin>
+            </MFXButton>
                 <MFXButton id="findPathButton" buttonType="RAISED" defaultButton="true" onAction="#generatePath" prefHeight="70.0" prefWidth="180.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-color: black; -fx-border-radius: 15;" text="Find Path" textFill="#224870">
                     <font>
                         <Font size="25.0" />
