@@ -1,12 +1,14 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.SanitationRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.hibernateDB.*;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -16,14 +18,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class SanitationController extends ServiceRequestController {
-
   IssueCategory category;
 
   @FXML private MFXComboBox<String> categoryBox;
+  SanitationRequestImpl sanitationImpl = new SanitationRequestImpl();
+  SanitationRequestEntity submission = new SanitationRequestEntity();
+  EmployeeImpl employee = new EmployeeImpl();
+  LocationNameImpl location = new LocationNameImpl();
 
   @FXML
   public void initialize() throws SQLException {
@@ -36,18 +39,19 @@ public class SanitationController extends ServiceRequestController {
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Sanitation")) {
 
-      Session session = getSessionFactory().openSession();
-      Transaction tx = session.beginTransaction();
-      SanitationRequestEntity editRequest =
-          session.get(SanitationRequestEntity.class, newEdit.getRequestID());
+      SanitationRequestEntity editRequest = sanitationImpl.get(newEdit.getRequestID());
+
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       categoryBox.setText(editRequest.getCategory().getIssue());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
-      tx.commit();
-      session.close();
+      submission.setEmployeeAssigned(editRequest.getEmployeeAssigned());
+      submission.setStatus(editRequest.getStatus());
+      submission.setDate(editRequest.getDate());
+      submission.setRequestType(
+          ServiceRequestEntity.RequestType.valueOf(newEdit.getRequestType().toUpperCase()));
     }
   }
 
@@ -69,50 +73,35 @@ public class SanitationController extends ServiceRequestController {
       reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
-        // something that submits it
-        Session session = getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
-
+        LocationNameEntity loc = location.get(locationBox.getValue());
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
-
-        SanitationRequestEntity submission =
-            session.get(SanitationRequestEntity.class, newEdit.getRequestID());
         submission.setName(nameBox.getText());
-        LocationNameEntity loc = session.get(LocationNameEntity.class, locationBox.getValue());
+        submission.setName(nameBox.getText());
         submission.setLocation(loc);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
         submission.setCategory(category);
-
-        tx.commit();
-        session.close();
+        sanitationImpl.update(newEdit.getRequestID(), submission);
       } else {
+        EmployeeEntity person = employee.get(IDNum.getText());
+        LocationNameEntity loc = location.get(locationBox.getText());
 
-        Session session = getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
-        EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
-        // IDNum.getText()
-        LocationNameEntity location = session.get(LocationNameEntity.class, locationBox.getText());
-
-        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
 
         SanitationRequestEntity submission =
             new SanitationRequestEntity(
                 nameBox.getText(),
                 person,
-                location,
+                loc,
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.SANITATION,
                 Status.BLANK,
                 "Unassigned",
                 category);
-        session.persist(submission);
-        tx.commit();
-        session.close();
-        // submission.insert(); // *some db thing for getting the request in there*
+        sanitationImpl.add(submission);
       }
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);

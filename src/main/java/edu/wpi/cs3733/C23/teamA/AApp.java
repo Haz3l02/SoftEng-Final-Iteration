@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.C23.teamA;
 
-import static edu.wpi.cs3733.C23.teamA.hibernateDB.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -48,6 +48,7 @@ public class AApp extends Application {
 
   @Override
   public void stop() {
+    // ServiceRequestController.setStop(true);
     getSessionFactory().close();
     log.info("Shutting Down");
     System.exit(0);
