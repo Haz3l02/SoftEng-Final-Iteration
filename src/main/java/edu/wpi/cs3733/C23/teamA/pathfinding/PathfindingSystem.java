@@ -33,8 +33,8 @@ public class PathfindingSystem {
   }
 
   // MapDraw
-  public void drawPath(GraphicsContext gc, ArrayList<GraphNode> path, double scaleFactor) {
-    MapDraw.drawPath(gc, path, scaleFactor);
+  public void drawPath(GraphicsContext[] gcs, ArrayList<GraphNode> path, double scaleFactor) {
+    MapDraw.drawPath(gcs, path, scaleFactor);
   }
 
   // Methods relating to Graph

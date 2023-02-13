@@ -163,6 +163,14 @@ public class PathfindingController extends MenuController {
     endFloorBox.clear();
     algosBox.clear();
     navDatePicker.clear();
+
+    // canvases
+    for (GraphicsContext gc : gcs) {
+      gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    }
+
+    // text
+    pathMapText.setText("Directions on how to get to your destination go here...");
     errorMessage.setText("");
   }
 
@@ -303,7 +311,7 @@ public class PathfindingController extends MenuController {
     // if a path was found, draw a path
     if (path != null) {
       pathMapText.setText(pathfindingSystem.generatePathString(path));
-      callMapDraw(path, floorL1Canvas); // draw the path on top of the image
+      callMapDraw(path);
     } else {
       pathMapText.setText("No Path Found Between " + sName + " and " + eName + ".");
     }

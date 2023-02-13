@@ -38,7 +38,8 @@ public class DBReader {
                 n.getXcoord(),
                 n.getYcoord(),
                 locNameEnt.getLongname(),
-                locNameEnt.getLocationtype());
+                locNameEnt.getLocationtype(),
+                n.getFloor());
       } else {
         g =
             new GraphNode(
@@ -46,7 +47,8 @@ public class DBReader {
                 n.getXcoord(),
                 n.getYcoord(),
                 "UNNAMED NODE",
-                LocationType.UNKN.getTableString()); // what to do here?
+                LocationType.UNKN.getTableString(), // what to do here?
+                n.getFloor());
       }
       // create the graph and add the nodes (id, xcoord, ycoord, longName, locationType)
       graph.addNode(n.getNodeid(), g);
