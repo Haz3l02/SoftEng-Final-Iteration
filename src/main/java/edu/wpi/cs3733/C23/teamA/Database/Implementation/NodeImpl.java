@@ -127,7 +127,11 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   }
 
   public List<NodeEntity> getNodeOnFloor(String floor) {
-    return nodes.stream().filter(nodeEntity -> nodeEntity.getFloor() == floor).toList();
+    return nodes.stream().filter(nodeEntity -> nodeEntity.getFloor().equals(floor)).toList();
+  }
+
+  public List<String> getAllIDs() {
+    return getAll().stream().map(nodeEntity -> nodeEntity.getNodeid()).toList();
   }
 
   public NodeEntity get(String ID) {

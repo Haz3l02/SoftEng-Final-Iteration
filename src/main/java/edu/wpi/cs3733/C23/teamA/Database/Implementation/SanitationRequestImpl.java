@@ -18,64 +18,55 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
 
   private List<SanitationRequestEntity> sanrequests;
 
+  Session session;
+
   public SanitationRequestImpl() {
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<SanitationRequestEntity> criteria =
         builder.createQuery(SanitationRequestEntity.class);
     criteria.from(SanitationRequestEntity.class);
     sanrequests = session.createQuery(criteria).getResultList();
-    session.close();
   }
 
   public List<SanitationRequestEntity> getAll() {
     return sanrequests;
   }
 
+  public void add(ServiceRequestEntity obj) {}
+
   public void exportToCSV(String filename) throws IOException {}
+
+  public void update(String ID, ServiceRequestEntity obj) {}
+
+  public void delete(String obj) {}
+
+  public SanitationRequestEntity get(String ID) {
+    return null;
+  }
 
   public void importFromCSV(String filename) throws FileNotFoundException {}
 
   public void add(SanitationRequestEntity c) {
-    Session session = getSessionFactory().openSession();
+    ServiceRequestImpl serv = new ServiceRequestImpl();
     Transaction tx = session.beginTransaction();
     session.persist(c);
-    sanrequests.add(c);
-    ServiceRequestEntity ser =
-        new ServiceRequestEntity(
-            c.getRequestid(),
-            c.getName(),
-            c.getEmployee(),
-            c.getLocation(),
-            c.getDescription(),
-            c.getUrgency(),
-            c.getRequestType(),
-            c.getStatus(),
-            c.getEmployeeAssigned(),
-            c.getDate());
-    new ServiceRequestImpl().addToList(ser);
     tx.commit();
-    session.close();
+    sanrequests.add(c);
+    serv.addToList(c);
+    serv.closeSession();
   }
 
   public void delete(Integer c) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.delete(session.get(SanitationRequestEntity.class, c));
-
-    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
-    while (li.hasNext()) {
-      if (li.next().getRequestid() == c) {
-        li.remove();
-      }
-    }
-    new ServiceRequestImpl().removeFromList(c);
+    sanrequests.stream()
+        .filter(sanitationRequest -> sanitationRequest.getRequestid() == c)
+        .toList()
+        .forEach(employee -> session.remove(employee));
     tx.commit();
-    session.close();
   }
 
   public void update(Integer ID, SanitationRequestEntity obj) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
@@ -85,7 +76,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
       }
     }
 
-    SanitationRequestEntity c = session.get(SanitationRequestEntity.class, ID);
+    SanitationRequestEntity c = get(ID);
 
     c.setCategory(obj.getCategory());
     c.setName(obj.getName());
@@ -110,11 +101,12 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
             obj.getStatus(),
             obj.getEmployeeAssigned(),
             obj.getDate());
-    new ServiceRequestImpl().updateList(ID, ser);
+    ServiceRequestImpl serv = new ServiceRequestImpl();
+    serv.update(ID, ser);
+    serv.closeSession();
     sanrequests.add(c);
 
     tx.commit();
-    session.close();
   }
 
   public void removeFromList(Integer s) {
@@ -133,4 +125,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     }
     return null;
   }
+
+  @Override
+  public void closeSession() {}
 }

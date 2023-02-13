@@ -17,10 +17,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, Integer> {
-  private List<ServiceRequestEntity> services;
+  private final List<ServiceRequestEntity> services;
+
+  private Session session;
 
   public ServiceRequestImpl() {
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<ServiceRequestEntity> criteria = builder.createQuery(ServiceRequestEntity.class);
     criteria.from(ServiceRequestEntity.class);
@@ -73,7 +75,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   public void importFromCSV(String filename) throws FileNotFoundException {}
 
   public void add(ServiceRequestEntity s) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(s);
     services.add(s);
@@ -82,13 +83,12 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public void delete(Integer s) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     new ComputerRequestImpl().removeFromList(s);
     new SanitationRequestImpl().removeFromList(s);
     new SecurityRequestImpl().removeFromList(s);
 
-    session.delete(session.get(ServiceRequestEntity.class, s));
+    session.remove(session.get(ServiceRequestEntity.class, s));
     ListIterator<ServiceRequestEntity> li = services.listIterator();
     while (li.hasNext()) {
       if (li.next().getRequestid() == s) {
@@ -96,11 +96,9 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
       }
     }
     tx.commit();
-    session.close();
   }
 
   public void update(Integer ID, ServiceRequestEntity obj) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<ServiceRequestEntity> li = services.listIterator();
@@ -123,7 +121,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
 
     services.add(ser);
     tx.commit();
-    session.close();
   }
 
   public void addToList(ServiceRequestEntity ser) {
@@ -160,10 +157,14 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public ServiceRequestEntity get(Integer ID) {
-
     for (ServiceRequestEntity ser : services) {
       if (ser.getRequestid() == ID) return ser;
     }
     return null;
+  }
+
+  @Override
+  public void closeSession() {
+    session.close();
   }
 }
