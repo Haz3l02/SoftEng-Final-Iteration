@@ -2,7 +2,9 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -12,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -54,10 +57,14 @@ public class NodeMapController extends MenuController {
   @FXML GesturePane gestureF2;
   @FXML GesturePane gestureF3;
 
+  @FXML Canvas canvasL1;
+  private GraphicsContext gc;
+
   @Setter NodeEntity selectedNode = null;
 
   // Lists of Nodes and Node Data
   private List<NodeEntity> allNodes;
+  private List<EdgeEntity> allEdges;
 
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
@@ -65,10 +72,10 @@ public class NodeMapController extends MenuController {
   public void initialize() {
 
     initializeFloorMap("L1", nodeAnchorL1, stackL1, gestureL1);
-    initializeFloorMap("L2", nodeAnchorL2, stackL2, gestureL2);
-    initializeFloorMap("1", nodeAnchorF1, stackF1, gestureF1);
-    initializeFloorMap("2", nodeAnchorF2, stackF2, gestureF2);
-    initializeFloorMap("3", nodeAnchorF3, stackF3, gestureF3);
+    //    initializeFloorMap("L2", nodeAnchorL2, stackL2, gestureL2);
+    //    initializeFloorMap("1", nodeAnchorF1, stackF1, gestureF1);
+    //    initializeFloorMap("2", nodeAnchorF2, stackF2, gestureF2);
+    //    initializeFloorMap("3", nodeAnchorF3, stackF3, gestureF3);
   }
   /**
    * Attaches the gesturepane with the stackpane and reads and adds all the nodes on a floor to the
@@ -81,13 +88,18 @@ public class NodeMapController extends MenuController {
     allNodes = NodeEntity.getNodeOnFloor(floor, session); // get all nodes from Database
     session.close();
 
+    EdgeImpl edgeObj = new EdgeImpl();
+    allEdges = edgeObj.getAll(); // get all nodes from Database
+    GraphicsContext gc = canvasL1.getGraphicsContext2D();
+
     // Add nodes as circles
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, nodeAnchor, this);
+    // Add edges as lines
+    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gc);
 
     Node node = stack;
     gesture.setContent(node);
     gesture.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
-    System.out.println("Assigned the stackPane to gesture");
 
     nodeAnchor.setOnMouseClicked(
         e -> {

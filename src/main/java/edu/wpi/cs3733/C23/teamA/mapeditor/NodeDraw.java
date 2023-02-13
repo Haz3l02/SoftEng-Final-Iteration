@@ -1,12 +1,16 @@
 package edu.wpi.cs3733.C23.teamA.mapeditor;
 
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.controllers.NodeMapController;
+import java.awt.*;
 import java.util.List;
 import javafx.event.EventHandler;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class NodeDraw {
 
@@ -85,6 +89,26 @@ public class NodeDraw {
       // nodeGraphic.setOnMouseClicked(event -> System.out.println("click"));
 
       nodeAnchor.getChildren().add(nodeGraphic);
+    }
+  }
+
+  public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, GraphicsContext gc) {
+    gc.setFill(javafx.scene.paint.Color.web("0x224870"));
+    gc.setStroke(Color.web("0x224870"));
+    gc.setLineWidth(2);
+
+    for (EdgeEntity edge : allEdges) {
+      // get x and y values
+      int[] updatedCoordsNode1 =
+          scaleCoordinates(edge.getNode1().getXcoord(), edge.getNode1().getYcoord(), scaleFactor);
+      int[] updatedCoordsNode2 =
+          scaleCoordinates(edge.getNode2().getXcoord(), edge.getNode2().getYcoord(), scaleFactor);
+
+      gc.strokeLine(
+          updatedCoordsNode1[0],
+          updatedCoordsNode1[1],
+          updatedCoordsNode2[0],
+          updatedCoordsNode2[1]);
     }
   }
 }
