@@ -2,13 +2,11 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import java.io.IOException;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw;
-import java.io.File;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,8 +56,6 @@ public class NodeMapController extends MenuController {
 
   @Setter NodeEntity selectedNode = null;
 
-
-
   // Lists of Nodes and Node Data
   private List<NodeEntity> allNodes;
 
@@ -70,9 +66,9 @@ public class NodeMapController extends MenuController {
 
     initializeFloorMap("L1", nodeAnchorL1, stackL1, gestureL1);
     initializeFloorMap("L2", nodeAnchorL2, stackL2, gestureL2);
-    initializeFloorMap("F1", nodeAnchorF1, stackF1, gestureF1);
-    initializeFloorMap("F2", nodeAnchorF2, stackF2, gestureF2);
-    initializeFloorMap("F3", nodeAnchorF3, stackF3, gestureF3);
+    initializeFloorMap("1", nodeAnchorF1, stackF1, gestureF1);
+    initializeFloorMap("2", nodeAnchorF2, stackF2, gestureF2);
+    initializeFloorMap("3", nodeAnchorF3, stackF3, gestureF3);
   }
   /**
    * Attaches the gesturepane with the stackpane and reads and adds all the nodes on a floor to the
@@ -120,7 +116,6 @@ public class NodeMapController extends MenuController {
           NodeEntity n = new NodeEntity();
           n.setXcoord(x);
           n.setYcoord(y);
-
         });
   }
 
