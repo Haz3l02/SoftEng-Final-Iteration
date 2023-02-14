@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.pathfinding;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.IAlgorithmStrategy;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
@@ -33,8 +34,8 @@ public class PathfindingSystem {
   }
 
   // MapDraw
-  public void drawPath(GraphicsContext gc, ArrayList<GraphNode> path, double scaleFactor) {
-    MapDraw.drawPath(gc, path, scaleFactor);
+  public void drawPath(GraphicsContext[] gcs, ArrayList<GraphNode> path, double scaleFactor) {
+    MapDraw.drawPath(gcs, path, scaleFactor);
   }
 
   // Methods relating to Graph
@@ -50,8 +51,8 @@ public class PathfindingSystem {
     return graph.getNode(key);
   }
 
-  public void prepGraphDB() throws SQLException {
-    graph.prepGraphDB();
+  public void prepGraphDB(LocalDate navDate) throws SQLException {
+    graph.prepGraphDB(navDate);
   }
 
   public void prepGraphCSV() throws IOException {

@@ -62,6 +62,7 @@ public class NodeController extends MenuController {
       NodeImpl node = new NodeImpl();
       edge.collapseNode(selected);
       node.delete(selected.getNodeid());
+
       reloadData();
     }
   }

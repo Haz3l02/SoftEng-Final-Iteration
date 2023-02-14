@@ -97,7 +97,8 @@ public class PathInterpreter {
     int cx = end.getXCoord();
     int cy = end.getYCoord();
 
-    // todo: add some kind of check for the same coordinates; if any pair has the same ones?
+    // todo: add some kind of check for the same coordinates; if any pair has the same ones? (ex:
+    // elevators)
 
     // distance between the first and second graphNodes
     int dist = (int) Math.sqrt(Math.pow(bx - ax, 2) + Math.pow(by - ay, 2)) / 3;

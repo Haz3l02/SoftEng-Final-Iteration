@@ -67,6 +67,7 @@ public class EdgeController extends MenuController {
             EdgeImpl edgeI = new EdgeImpl();
             n.setNode1(nodeI.get(e.getNewValue()));
             edgeI.update(n.getEdgeid(), n);
+
           } catch (Exception ex) {
             refresh.setText("Invalid Node: Refresh");
           }

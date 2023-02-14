@@ -206,16 +206,15 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
         .toList();
   }
 
-
   public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
     MoveEntity mov = new MoveEntity();
     List<MoveEntity> ids =
-            moves.stream()
-                    .filter(
-                            moveEntity ->
-                                    moveEntity.getNode().getNodeid().equals(id)
-                                            && (date.compareTo(moveEntity.getMovedate())>=0))
-                    .toList();
+        moves.stream()
+            .filter(
+                moveEntity ->
+                    moveEntity.getNode().getNodeid().equals(id)
+                        && (date.compareTo(moveEntity.getMovedate()) >= 0))
+            .toList();
     LocalDate dt1 = LocalDate.parse("2023-01-01");
     for (MoveEntity mo : ids){
       if (mo.getMovedate().compareTo(dt1)>=0){
@@ -243,8 +242,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     ids.sort(Comparator.comparing(MoveEntity::getMovedate));
     return ids.isEmpty() ? null : ids.get(0).getLocationName();
   }
-
-
 
   public void update(List<String> ID, MoveEntity obj) {
     Session session = getSessionFactory().openSession();
