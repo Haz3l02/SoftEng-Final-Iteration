@@ -246,21 +246,36 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public void update(List<String> ID, MoveEntity obj) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    String hql = "update MoveEntity mov set mov.nodeid = '"+
-            ID.get(0)+
-            "', mov.longname = '"+
-            ID.get(1)+
-            "', mov.movedate = '"+
-            LocalDate.parse(ID.get(2))+
-            "' where mov.nodeid = '"+
-            obj.getNode().getNodeid()+
-            "', mov.longname = '"+
-            obj.getLocationName().getLongname()+
-            "', mov.movedate = '"+
-            obj.getMovedate()+
-            "';";
-    MutationQuery q = session.createMutationQuery(hql);
-    q.executeUpdate();
+//    String hql = "update MoveEntity mov set mov.nodeid = '"+
+//            ID.get(0)+
+//            "', mov.longname = '"+
+//            ID.get(1)+
+//            "', mov.movedate = '"+
+//            LocalDate.parse(ID.get(2))+
+//            "' where mov.nodeid = '"+
+//            obj.getNode().getNodeid()+
+//            "', mov.longname = '"+
+//            obj.getLocationName().getLongname()+
+//            "', mov.movedate = '"+
+//            obj.getMovedate()+
+//            "';";
+//    MutationQuery q = session.createMutationQuery(hql);
+//    q.executeUpdate();
+
+
+    session.
+            createMutationQuery(
+                    "UPDATE MoveEntity mov SET " +
+                            "mov.node = :newnodeid, mov.locationName = :newlongname, mov.movedate = :newmovedate " +
+                            "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
+            .setParameter("newnodeid", obj.getNode())
+            .setParameter("newlongname", obj.getLocationName())
+            .setParameter("newmovedate", obj.getMovedate())
+            .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
+            .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
+            .setParameter("oldmovedate", Timestamp.parse(ID.get(2)))
+            .executeUpdate();
+
 
 
     ListIterator<MoveEntity> li = moves.listIterator();
