@@ -143,7 +143,7 @@ public class MoveController extends MenuController {
           moveID.add(nodeID);
           moveID.add(theLocation);
           moveID.add(submitDate);
-
+          System.out.println(nodeID);
           NodeImpl nodeimpl = new NodeImpl();
           LocationNameImpl location = new LocationNameImpl();
           LocationNameEntity loc = location.get(locationBox.getValue());
@@ -191,9 +191,9 @@ public class MoveController extends MenuController {
 
     if (clickedMoveTableRow != null) {
       nodeIDSaver = (valueOf(clickedMoveTableRow.getNode().getNodeid()));
-      nodeBox.setText(valueOf(clickedMoveTableRow.getNode().getNodeid()));
+      nodeBox.setValue(valueOf(clickedMoveTableRow.getNode().getNodeid()));
       theLocationSaver = (valueOf(clickedMoveTableRow.getLocationName().getLongname()));
-      locationBox.setText(valueOf(clickedMoveTableRow.getLocationName().getLongname()));
+      locationBox.setValue(valueOf(clickedMoveTableRow.getLocationName().getLongname()));
       moveDateSaver = clickedMoveTableRow.getMovedate();
       dateBox.setValue(clickedMoveTableRow.getMovedate());
 
