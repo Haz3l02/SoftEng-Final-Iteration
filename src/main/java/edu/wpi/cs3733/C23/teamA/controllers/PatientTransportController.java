@@ -58,18 +58,20 @@ public class PatientTransportController extends ServiceRequestController {
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editPatientRequest.getDescription());
       pNameBox.setText(editPatientRequest.getPatientName());
-      moveToBox.setText(editPatientRequest.getLocation().getLongname());
+      locationBox.setText(editPatientRequest.getLocation().getLongname());
+      moveToBox.setText(editPatientRequest.getMoveTo().getLongname());
       pIDBox.setText(editPatientRequest.getPatientID());
       equipmentBox.setText(editPatientRequest.getEquipment());
     } else if (acceptTheForm.acceptance
-        && acceptTheForm.getRequestType().equals("PatientTransport")) {
+        && acceptTheForm.getRequestType().equals("Patient Transport")) {
       PatientTransportRequestEntity editPatientRequest = patI.get(acceptTheForm.getRequestID());
       nameBox.setText(editPatientRequest.getName());
       IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editPatientRequest.getDescription());
       pNameBox.setText(editPatientRequest.getPatientName());
-      moveToBox.setText(editPatientRequest.getLocation().getLongname());
+      locationBox.setText(editPatientRequest.getLocation().getLongname());
+      moveToBox.setText(editPatientRequest.getMoveTo().getLongname());
       pIDBox.setText(editPatientRequest.getPatientID());
       equipmentBox.setText(editPatientRequest.getEquipment());
       // sanI.closeSession();

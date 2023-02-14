@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public enum FormType {
   SANITATION("Sanitation Request"),
   COMPUTER("Computer Request"),
+  TRANSPORT("Transportation Request"),
   SECURITY("Security Request");
 
   private final String formType;

@@ -52,14 +52,14 @@ public class SecurityController extends ServiceRequestController {
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       phone.setText(editRequest.getSecphone());
-        accept.setDisable(true);
-        accept.setVisible(false);
-        clear.setDisable(false);
-        clear.setVisible(true);
-        submit.setDisable(false);
-        submit.setVisible(true);
-        reject.setDisable(true);
-        reject.setVisible(false);
+      accept.setDisable(true);
+      accept.setVisible(false);
+      clear.setDisable(false);
+      clear.setVisible(true);
+      submit.setDisable(false);
+      submit.setVisible(true);
+      reject.setDisable(true);
+      reject.setVisible(false);
     } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Security")) {
       SecurityRequestEntity editRequest = secI.get(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());

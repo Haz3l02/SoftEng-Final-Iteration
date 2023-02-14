@@ -271,6 +271,9 @@ public class ServiceRequestStatusController extends MenuController {
       case "Security":
         Navigation.navigate(Screen.SECURITY);
         break;
+      case "Patient Transport":
+        Navigation.navigate(Screen.PATIENT_TRANSPORT);
+        break;
       default:
         Navigation.navigateHome(Screen.HOME);
         break;
