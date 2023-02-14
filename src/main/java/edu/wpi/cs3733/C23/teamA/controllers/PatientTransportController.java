@@ -43,11 +43,6 @@ public class PatientTransportController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToConfirmationScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.PATIENT_TRANSPORT);
-  }
-
-  @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
     PatientTransportimpl patI = new PatientTransportimpl();
     LocationNameImpl locationI = new LocationNameImpl();
