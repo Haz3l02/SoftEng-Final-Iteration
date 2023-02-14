@@ -82,6 +82,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     emp.setJob(obj.getJob());
     emp.setName(obj.getName());
 
+    employees.add(emp);
     tx.commit();
     session.close();
   }
