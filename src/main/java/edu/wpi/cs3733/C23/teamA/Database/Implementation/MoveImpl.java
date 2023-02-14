@@ -37,13 +37,11 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    if (filename.length()>4) {
+    if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
         filename += ".csv";
       }
-    }
-    else
-      filename+=".csv";
+    } else filename += ".csv";
 
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
@@ -70,13 +68,11 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     q.executeUpdate();
     moves.clear();
 
-    if (filename.length()>4) {
+    if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
         filename += ".csv";
       }
-    }
-    else
-      filename+=".csv";
+    } else filename += ".csv";
 
     File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 

@@ -2,7 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -30,10 +29,9 @@ public class HomeServiceRequestController extends MenuController {
     ServiceRequestImpl serviceI = new ServiceRequestImpl();
     ArrayList<ServiceRequestEntity> specificRequests = serviceI.getAllByEmployee(hospitalID);
     serviceI.closeSession();
-//    ArrayList<ServiceRequestEntity> specificRequests = new ArrayList<ServiceRequestEntity>();
-//    ServiceRequestImpl SRimpl = new ServiceRequestImpl();
-//    specificRequests = SRimpl.getAllByEmployee(hospitalID);
-
+    //    ArrayList<ServiceRequestEntity> specificRequests = new ArrayList<ServiceRequestEntity>();
+    //    ServiceRequestImpl SRimpl = new ServiceRequestImpl();
+    //    specificRequests = SRimpl.getAllByEmployee(hospitalID);
 
     if (specificRequests.size() == 0 && (job.equals("medical") || job.equals("Medical"))) {
       pastSubmissions.setDisable(true);

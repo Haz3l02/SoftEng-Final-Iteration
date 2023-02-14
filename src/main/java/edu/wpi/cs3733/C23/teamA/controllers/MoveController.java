@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import static java.lang.String.valueOf;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
@@ -12,11 +10,9 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
-import jakarta.persistence.PersistenceException;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
-import java.sql.Timestamp;
-import java.time.LocalDate;
+import jakarta.persistence.PersistenceException;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
@@ -61,6 +57,7 @@ public class MoveController extends MenuController {
 
     allNodeID = moveImpl.getNodeID();
     allLongNames = moveImpl.getLocationName();
+    moveImpl.closeSession();
 
     ObservableList<String> nodes = FXCollections.observableArrayList(allNodeID);
     ObservableList<String> locationNames = FXCollections.observableArrayList(allLongNames);
@@ -84,7 +81,7 @@ public class MoveController extends MenuController {
     try {
       moveData = moveImpl.getAll();
       dbTableRowsModel.addAll(moveData);
-      moveI.closeSession();
+      moveImpl.closeSession();
 
       clearEdits();
     } catch (Exception e) {
@@ -107,14 +104,12 @@ public class MoveController extends MenuController {
     NodeImpl nodeimpl = new NodeImpl();
     LocationNameImpl location = new LocationNameImpl();
     LocationNameEntity loc = location.get(locationBox.getValue());
-    long bill = 90;
-    Timestamp theTime = new Timestamp(bill);
-
-    MoveEntity theMove = new MoveEntity(nodeimpl.get(nodeBox.getValue()), loc, theTime);
+    MoveEntity theMove = new MoveEntity(nodeimpl.get(nodeBox.getValue()), loc, dateBox.getValue());
+    nodeimpl.closeSession();
     try {
       warning.setVisible(false);
-      moveI.add(newMove);
-      moveI.closeSession();
+      moveImpl.add(theMove);
+      moveImpl.closeSession();
     } catch (PersistenceException p) {
       warning.setVisible(true);
     }
@@ -148,12 +143,11 @@ public class MoveController extends MenuController {
 
           move.setNode(nodeimpl.get(nodeBox.getValue()));
           move.setLocationName(loc);
-          long bill = 90;
-          Timestamp theTime = new Timestamp(bill);
-          move.setMovedate(theTime);
+          move.setMovedate(dateBox.getValue());
 
           moveImpl.update(moveID, move);
           dbTable.setItems(currentTableData);
+          moveImpl.closeSession();
           reloadData();
           break;
         }
@@ -185,15 +179,11 @@ public class MoveController extends MenuController {
   public void rowClicked(MouseEvent event) {
 
     MoveEntity clickedMoveTableRow = dbTable.getSelectionModel().getSelectedItem();
-    // Time date;
-    LocalDate newDate = null;
-    // newDate.atStartOfDay();
-    // Time time = new Time(2, 1, 1);
 
     if (clickedMoveTableRow != null) {
       nodeBox.setText(valueOf(clickedMoveTableRow.getNode().getNodeid()));
       locationBox.setText(valueOf(clickedMoveTableRow.getLocationName().getLongname()));
-      dateBox.setValue(newDate);
+      dateBox.setValue(dateBox.getValue());
       editButton.setDisable(false);
       deleteButton.setDisable(false);
       createMove.setVisible(false);

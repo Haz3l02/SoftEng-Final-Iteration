@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
@@ -58,6 +59,7 @@ public class ServiceRequestStatusController extends MenuController {
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
   List<ServiceRequestEntity> serviceRequestData = new ArrayList<>();
+  ServiceRequestImpl serviceRequestImpl = new ServiceRequestImpl();
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
@@ -106,7 +108,6 @@ public class ServiceRequestStatusController extends MenuController {
     statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
-    ServiceRequestImpl serviceRequestImpl = new ServiceRequestImpl();
 
     if (job.equalsIgnoreCase("medical"))
       serviceRequestData = serviceRequestImpl.getAllByEmployee(hospitalID);
@@ -208,9 +209,6 @@ public class ServiceRequestStatusController extends MenuController {
     }
   }
 
-  @FXML
-  public void submitRequest(ActionEvent event) {}
-
   public void clearEdits() {
     IDBoxSaver.setText("");
     formTypeBox.clear();
@@ -233,6 +231,9 @@ public class ServiceRequestStatusController extends MenuController {
         break;
       case "Security":
         Navigation.navigate(Screen.SECURITY);
+        break;
+      case "Transportation":
+        Navigation.navigate(Screen.PATIENT_TRANSPORT);
         break;
       default:
         Navigation.navigateHome(Screen.HOME);
