@@ -210,9 +210,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
         li.remove();
       }
     }
-
     services.add(serv);
-
     tx.commit();
     session.close();
   }
