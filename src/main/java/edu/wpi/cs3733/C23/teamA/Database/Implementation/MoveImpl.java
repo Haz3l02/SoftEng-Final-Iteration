@@ -141,21 +141,22 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     Transaction tx = session.beginTransaction();
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
-      if (li.next().getNode().equals(m.get(0))
-          && li.next().getLocationName().equals(m.get(1))
-          && li.next().getMovedate().equals(m.get(2))) {
+      MoveEntity me = li.next();
+      if (me.getNode().equals(m.get(0))
+          && me.getLocationName().equals(m.get(1))
+          && me.getMovedate().equals(m.get(2))) {
         li.remove();
       }
     }
 
     String hql =
         "delete MoveEntity mov "
-            + " where mov.nodeid = '"
-            + m.get(0)
-            + "', mov.longname = '"
-            + m.get(1)
-            + "', mov.movedate = '"
-            + m.get(2)
+            + " where mov.node = '"
+            + session.get(NodeEntity.class, m.get(0))
+            + "' and mov.locationName = '"
+            + session.get(LocationNameEntity.class, m.get(1))
+            + "' and mov.movedate = '"
+            + LocalDate.parse(m.get(2))
             + "';";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
