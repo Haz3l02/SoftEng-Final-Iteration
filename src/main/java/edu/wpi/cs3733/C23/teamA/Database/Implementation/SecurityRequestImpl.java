@@ -7,7 +7,9 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
@@ -15,6 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, Integer> {
+  private static final SecurityRequestImpl instance = new SecurityRequestImpl();
+
   private List<SecurityRequestEntity> secrequests;
 
   public SecurityRequestImpl() {
@@ -23,18 +27,38 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     CriteriaQuery<SecurityRequestEntity> criteria =
         builder.createQuery(SecurityRequestEntity.class);
     criteria.from(SecurityRequestEntity.class);
-    List<SecurityRequestEntity> records = session.createQuery(criteria).getResultList();
+    secrequests = session.createQuery(criteria).getResultList();
     session.close();
-    secrequests = records;
   }
 
   public List<SecurityRequestEntity> getAll() {
     return secrequests;
   }
 
-  public void exportToCSV(String filename) throws IOException {}
+  public void exportToCSV(String filename) throws IOException {
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
+    File csvFile =
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+    FileWriter fileWriter = new FileWriter(csvFile);
+    fileWriter.write("assistance,secphone,requestid\n");
+    for (SecurityRequestEntity ser : secrequests) {
+      fileWriter.write(
+          ser.getAssistance() + "," + ser.getSecphone() + "," + ser.getRequestid() + "\n");
+    }
+    fileWriter.close();
+  }
 
-  public void importFromCSV(String filename) throws FileNotFoundException {}
+  public void importFromCSV(String filename) throws FileNotFoundException {
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
+  }
 
   public void add(SecurityRequestEntity c) {
     Session session = getSessionFactory().openSession();
@@ -61,7 +85,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
   public void delete(Integer c) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.delete(session.get(SecurityRequestImpl.class, c));
+    session.remove(get(c));
 
     ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
     while (li.hasNext()) {
@@ -84,7 +108,6 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
         li.remove();
       }
     }
-
     SecurityRequestEntity c = session.get(SecurityRequestEntity.class, ID);
 
     c.setSecphone(obj.getSecphone());
@@ -133,5 +156,9 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
       if (ser.getRequestid() == ID) return ser;
     }
     return null;
+  }
+
+  public static SecurityRequestImpl getInstance() {
+    return instance;
   }
 }

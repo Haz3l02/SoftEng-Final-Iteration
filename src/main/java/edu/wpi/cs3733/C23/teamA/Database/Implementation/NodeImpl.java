@@ -18,6 +18,7 @@ import org.hibernate.query.MutationQuery;
 
 public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   // done
+  private static final NodeImpl instance = new NodeImpl();
 
   private ArrayList<NodeEntity> nodes;
 
@@ -27,8 +28,8 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     CriteriaQuery<NodeEntity> criteria = builder.createQuery(NodeEntity.class);
     criteria.from(NodeEntity.class);
     List<NodeEntity> records = session.createQuery(criteria).getResultList();
-    session.close();
     nodes = (ArrayList) records;
+    session.close();
   }
 
   public List<NodeEntity> getAll() {
@@ -37,9 +38,11 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
   public void exportToCSV(String filename) throws IOException {
     List<NodeEntity> nods = getAll();
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
@@ -63,11 +66,16 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
-
     String hql = "delete from NodeEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     nodes.clear();
+
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File node = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
@@ -108,7 +116,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
         li.remove();
       }
     }
-    session.remove(session.get(NodeEntity.class, n));
+    session.remove(n);
     tx.commit();
     session.close();
   }
@@ -136,8 +144,16 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     session.close();
   }
 
-  public NodeEntity get(String ID) {
+  public List<NodeEntity> getNodeOnFloor(String floor) {
+    // changed == to .equals() - audrey
+    return nodes.stream().filter(nodeEntity -> nodeEntity.getFloor().equals(floor)).toList();
+  }
 
+  public List<String> getAllIDs() {
+    return getAll().stream().map(nodeEntity -> nodeEntity.getNodeid()).toList();
+  }
+
+  public NodeEntity get(String ID) {
     for (NodeEntity ser : nodes) {
       if (ser.getNodeid().equals(ID)) return ser;
     }
@@ -146,5 +162,9 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
   public List<NodeEntity> getNodeOnFloor(String floor) {
     return nodes.stream().filter(nodeEntity -> nodeEntity.getFloor().equals(floor)).toList();
+  }
+
+  public static NodeImpl getInstance() {
+    return instance;
   }
 }

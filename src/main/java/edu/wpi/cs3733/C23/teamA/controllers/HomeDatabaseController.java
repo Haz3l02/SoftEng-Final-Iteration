@@ -19,11 +19,11 @@ public class HomeDatabaseController extends MenuController {
   }
 
   public void switchToMapScene(ActionEvent event) {
-    Navigation.navigate(Screen.NODE_MAP);
+    Navigation.navigate(Screen.MAP_DISPLAY);
   }
 
   public void switchToMoveScene(ActionEvent event) {
-    Navigation.navigate(Screen.DATABASE);
+    Navigation.navigate(Screen.MOVE);
   }
 
   public void switchToEmployeeScene(ActionEvent event) {

@@ -1,10 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import jakarta.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Session;
 
 @Entity
 @Table(name = "move")
@@ -41,11 +40,11 @@ public class MoveEntity {
   @Column(name = "movedate", nullable = false)
   @Getter
   @Setter
-  private Timestamp movedate;
+  private LocalDate movedate;
 
   public MoveEntity() {}
 
-  public MoveEntity(NodeEntity node, LocationNameEntity locationName, Timestamp movedate) {
+  public MoveEntity(NodeEntity node, LocationNameEntity locationName, LocalDate movedate) {
     this.node = node;
     this.locationName = locationName;
     this.movedate = movedate;
@@ -67,21 +66,8 @@ public class MoveEntity {
         && this.node.equals(mo.node));
   }
 
-  public static String mostRecentLoc(String nodeID, Session session) {
-    MoveEntity move =
-        session
-            .createQuery(
-                "select mov from MoveEntity mov where mov.node = '"
-                    + nodeID
-                    + "' order by mov.movedate desc",
-                MoveEntity.class)
-            .setMaxResults(1)
-            .getSingleResult();
-    return move.getLocationName().getLongname();
-  }
-
   @Override
   public int hashCode() {
-    return node.getXcoord() * node.getYcoord() + movedate.getNanos();
+    return node.getXcoord() * node.getYcoord() + movedate.getDayOfMonth();
   }
 }

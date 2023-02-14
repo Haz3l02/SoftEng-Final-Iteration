@@ -19,6 +19,7 @@ import org.hibernate.query.MutationQuery;
 
 public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String> {
   // done
+  private static final LocationNameImpl instance = new LocationNameImpl();
 
   private List<LocationNameEntity> locations;
 
@@ -28,8 +29,8 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     CriteriaQuery<LocationNameEntity> criteria = builder.createQuery(LocationNameEntity.class);
     criteria.from(LocationNameEntity.class);
     List<LocationNameEntity> records = session.createQuery(criteria).getResultList();
-    session.close();
     locations = records;
+    session.close();
   }
 
   public List<LocationNameEntity> getAll() {
@@ -37,9 +38,11 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void exportToCSV(String filename) throws IOException {
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
@@ -54,11 +57,15 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
 
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
-
     String hql = "delete from LocationNameEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     locations.clear();
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
@@ -127,11 +134,26 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     session.close();
   }
 
+  public String getType(String ID) {
+    for (LocationNameEntity ser : locations) {
+      if (ser.getLongname().equals(ID)) return ser.getLocationtype();
+    }
+    return null;
+  }
+
   public LocationNameEntity get(String ID) {
 
     for (LocationNameEntity ser : locations) {
       if (ser.getLongname().equals(ID)) return ser;
     }
     return null;
+  }
+
+  public List<String> getAllIDs() {
+    return getAll().stream().map(locationNameEntity -> locationNameEntity.getLongname()).toList();
+  }
+
+  public static LocationNameImpl getInstance() {
+    return instance;
   }
 }

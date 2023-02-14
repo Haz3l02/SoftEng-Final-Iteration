@@ -20,6 +20,8 @@ import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
 public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
+  private static final EdgeImpl instance = new EdgeImpl();
+
   private List<EdgeEntity> edges;
 
   public EdgeImpl() {
@@ -28,8 +30,8 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
     criteria.from(EdgeEntity.class);
     List<EdgeEntity> records = session.createQuery(criteria).getResultList();
-    session.close();
     edges = records;
+    session.close();
   }
 
   public List<EdgeEntity> getAll() {
@@ -45,8 +47,8 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
    *     come from the node (node1 is the node)
    */
   public HashMap<EdgeEntity, List<EdgeEntity>> nodeVectors(NodeEntity e) {
-    HashMap<EdgeEntity, List<EdgeEntity>> vectors = new HashMap<>();
     Session session = getSessionFactory().openSession();
+    HashMap<EdgeEntity, List<EdgeEntity>> vectors = new HashMap<>();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
     Root<EdgeEntity> item = criteria.from(EdgeEntity.class);
@@ -67,12 +69,13 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
-    File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("edgeid,node1,node2\n");
     for (EdgeEntity edge : edges) {
@@ -93,6 +96,11 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     edges.clear();
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
     File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
     Transaction tx = session.beginTransaction();
@@ -122,7 +130,6 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     Transaction tx = session.beginTransaction();
     session.persist(e);
     edges.add(e);
-
     tx.commit();
     session.close();
   }
@@ -141,16 +148,22 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     session.close();
   }
 
+  /**
+   * Delete the node and link the edges involving the node back together. It functions by making new
+   * edges from the node going to node e to the node going away from node e. Every edge that
+   * connects to the node e's edge will be repaired like this.
+   *
+   * @param e NodeEntity that must be deleted.
+   */
   public void collapseNode(NodeEntity e) {
-    EdgeEntity newEdge;
     Session session = getSessionFactory().openSession();
+    EdgeEntity newEdge;
     HashMap<EdgeEntity, List<EdgeEntity>> vec = nodeVectors(e);
     Transaction tx = session.beginTransaction();
     for (EdgeEntity n : vec.keySet()) { // n - > e
       List<EdgeEntity> edges = vec.get(n);
       for (EdgeEntity m : edges) { // e - > m
         newEdge = new EdgeEntity(n.getNode1(), m.getNode2());
-        System.out.println(newEdge.getEdgeid());
         session.merge(newEdge);
         delete(m.getEdgeid());
       }
@@ -197,5 +210,9 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
                 edgeEntity.getNode1().getFloor().equals(floor)
                     && edgeEntity.getNode2().getFloor().equals(floor))
         .toList();
+  }
+
+  public static EdgeImpl getInstance() {
+    return instance;
   }
 }

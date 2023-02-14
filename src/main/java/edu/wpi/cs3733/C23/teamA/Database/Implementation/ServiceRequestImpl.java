@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -17,14 +18,17 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, Integer> {
-  private List<ServiceRequestEntity> services;
+  private final List<ServiceRequestEntity> services;
+  private static final ServiceRequestImpl instance = new ServiceRequestImpl();
 
   public ServiceRequestImpl() {
     Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<ServiceRequestEntity> criteria = builder.createQuery(ServiceRequestEntity.class);
     criteria.from(ServiceRequestEntity.class);
     services = session.createQuery(criteria).getResultList();
+    session.close();
   }
 
   public List<ServiceRequestEntity> getAll() {
@@ -32,12 +36,14 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public void exportToCSV(String filename) throws IOException {
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/servicerequest.csv");
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write(
         "requestid,date,description,employeeassigned,name,requestype,status,urgency,employeeid,location\n");
@@ -70,7 +76,25 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     new SanitationRequestImpl().exportToCSV("sanitationrequest.csv");
   }
 
-  public void importFromCSV(String filename) throws FileNotFoundException {}
+  public void importFromCSV(String filename) throws FileNotFoundException {
+    //    services.forEach(service -> session.remove(session.get(ServiceRequestEntity.class,
+    // service.getRequestid())));
+    //    services.clear();
+    //
+    //    File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    //
+    //    Transaction tx = session.beginTransaction();
+    //    Scanner read = new Scanner(emps);
+    //    int count = 0;
+    //    read.nextLine();
+    //
+    //    while (read.hasNextLine()) {
+    //      String[] b = read.nextLine().split(",");
+    //      session.persist(new ServiceRequestEntity(b[0], b[4], b[3], b[1], b[2]));
+    //      services.add(session.get(ServiceRequestEntity.class, b[0]));
+    //    }
+    //    tx.commit();
+  }
 
   public void add(ServiceRequestEntity s) {
     Session session = getSessionFactory().openSession();
@@ -87,8 +111,9 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     new ComputerRequestImpl().removeFromList(s);
     new SanitationRequestImpl().removeFromList(s);
     new SecurityRequestImpl().removeFromList(s);
+    new PatientTransportimpl().removeFromList(s);
 
-    session.delete(session.get(ServiceRequestEntity.class, s));
+    session.remove(get(s));
     ListIterator<ServiceRequestEntity> li = services.listIterator();
     while (li.hasNext()) {
       if (li.next().getRequestid() == s) {
@@ -160,10 +185,65 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public ServiceRequestEntity get(Integer ID) {
-
     for (ServiceRequestEntity ser : services) {
       if (ser.getRequestid() == ID) return ser;
     }
     return null;
+  }
+
+  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(String name) {
+    ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
+    for (ServiceRequestEntity ser : services) {
+      if (ser.getEmployeeAssigned().equals(name)) sers.add(ser);
+    }
+    return sers;
+  }
+
+  public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
+    ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
+    for (ServiceRequestEntity ser : services) {
+      if (ser.getEmployeeAssigned().equals("Unassigned")) sers.add(ser);
+    }
+    return sers;
+  }
+
+  public void updateStatus(Status status, Integer ID) {
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+
+    ServiceRequestEntity serv = session.get(ServiceRequestEntity.class, ID);
+    serv.setStatus(status);
+    ListIterator<ServiceRequestEntity> li = services.listIterator();
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == ID) {
+        li.remove();
+      }
+    }
+    services.add(serv);
+    tx.commit();
+    session.close();
+  }
+
+  public void updateEmployee(String employee, Integer ID) {
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+
+    ServiceRequestEntity serv = session.get(ServiceRequestEntity.class, ID);
+    serv.setEmployeeAssigned(employee);
+    ListIterator<ServiceRequestEntity> li = services.listIterator();
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == ID) {
+        li.remove();
+      }
+    }
+
+    services.add(serv);
+
+    tx.commit();
+    session.close();
+  }
+
+  public static ServiceRequestImpl getInstance() {
+    return instance;
   }
 }

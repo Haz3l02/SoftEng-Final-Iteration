@@ -1,9 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
+import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.acceptTheForm;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -11,6 +13,7 @@ import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +23,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import org.hibernate.Session;
 
 public abstract class ServiceRequestController extends MenuController {
 
@@ -39,14 +41,17 @@ public abstract class ServiceRequestController extends MenuController {
     String name = holder.getName();
     String id = holder.getId();
 
-    if (urgencyBox != null) {
+    if (reminder != null) {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
+    }
+
+    if (urgencyBox != null) {
+
       ObservableList<String> urgencies =
           FXCollections.observableArrayList(UrgencyLevel.urgencyList());
-
-      Session session = getSessionFactory().openSession();
-      List<LocationNameEntity> temp = getAllRecords(LocationNameEntity.class, session);
+      LocationNameImpl locationI = new LocationNameImpl();
+      List<LocationNameEntity> temp = locationI.getAll();
 
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationNameEntity move : temp) {
@@ -60,7 +65,6 @@ public abstract class ServiceRequestController extends MenuController {
 
       urgencyBox.setItems(urgencies);
       locationBox.setItems(locations);
-      session.close();
     }
   }
 
@@ -87,7 +91,37 @@ public abstract class ServiceRequestController extends MenuController {
   }
 
   @FXML
+  public void switchToPatientTransportScene(ActionEvent event) {
+    Navigation.navigate(Screen.PATIENT_TRANSPORT);
+  }
+
+  @FXML
   public void switchToHomeServiceRequestScene(ActionEvent event) {
     Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
+  }
+
+  @FXML
+  public void switchToServiceRequestStatus(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
+  }
+
+  @FXML
+  public void switchToConfirmationScene(ActionEvent event) {
+    Navigation.navigate(Screen.CONFIRMATION);
+  }
+
+  @FXML
+  void acceptRequest(ActionEvent event) throws IOException {
+    ServiceRequestImpl sri = new ServiceRequestImpl();
+    sri.updateStatus(Status.PROCESSING, acceptTheForm.getRequestID());
+    switchToServiceRequestStatus(event);
+  }
+
+  @FXML
+  public void rejectRequest(ActionEvent event) throws IOException {
+    ServiceRequestImpl sri = new ServiceRequestImpl();
+    sri.updateEmployee("Unassigned", acceptTheForm.getRequestID());
+    sri.updateStatus(Status.NEW, acceptTheForm.getRequestID());
+    switchToServiceRequestStatus(event);
   }
 }

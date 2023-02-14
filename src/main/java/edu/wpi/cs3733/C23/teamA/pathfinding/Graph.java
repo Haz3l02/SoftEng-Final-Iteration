@@ -4,6 +4,7 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.readers.CSVReader;
 import edu.wpi.cs3733.C23.teamA.pathfinding.readers.DBReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import lombok.Getter;
 
@@ -58,8 +59,8 @@ public class Graph {
    *
    * @throws SQLException
    */
-  public void prepGraphDB() throws SQLException {
-    DBReader.readDB(this);
+  public void prepGraphDB(LocalDate navDate) throws SQLException {
+    DBReader.readDB(this, navDate);
   }
 
   /**

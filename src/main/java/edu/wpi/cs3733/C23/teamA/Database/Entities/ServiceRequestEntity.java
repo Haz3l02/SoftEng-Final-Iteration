@@ -4,11 +4,9 @@ import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -97,7 +95,8 @@ public class ServiceRequestEntity {
   public enum RequestType {
     SECURITY("Security"),
     COMPUTER("Computer"),
-    SANITATION("Sanitation");
+    SANITATION("Sanitation"),
+    PATIENT_TRANSPORT("Patient Transport");
 
     // FILL OUT TOMORROW WITH ISABELLA
     @NonNull public final String requestType;
@@ -149,20 +148,5 @@ public class ServiceRequestEntity {
     this.requestType = requestType;
     this.status = status;
     this.employeeAssigned = employeeAssigned;
-  }
-
-  public static ArrayList<ServiceRequestEntity> getServiceByEmployee(String id, Session session) {
-    return (ArrayList<ServiceRequestEntity>)
-        session
-            .createQuery("From ServiceRequestEntity where employee ='" + id + "'")
-            .getResultList();
-  }
-
-  public static ArrayList<ServiceRequestEntity> getServiceRequestsByID(
-      String text, Session session) {
-    return (ArrayList<ServiceRequestEntity>)
-        session
-            .createQuery("From ServiceRequestEntity where requestid ='" + text + "'")
-            .getResultList();
   }
 }

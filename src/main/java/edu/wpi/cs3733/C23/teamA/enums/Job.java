@@ -19,7 +19,7 @@ public enum Job {
         return MEDICAL;
       case "Maintenance":
         return MAINTENANCE;
-      case "ADMIN":
+      case "Admin":
         return ADMIN;
       default:
         return MEDICAL;

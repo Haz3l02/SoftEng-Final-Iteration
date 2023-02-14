@@ -17,6 +17,7 @@ import org.hibernate.Transaction;
 
 public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, Integer> {
   private List<ComputerRequestEntity> comprequests;
+  private static final ComputerRequestImpl instance = new ComputerRequestImpl();
 
   public ComputerRequestImpl() {
     Session session = getSessionFactory().openSession();
@@ -35,32 +36,24 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
 
   public void add(ComputerRequestEntity c) {
     Session session = getSessionFactory().openSession();
+    ServiceRequestImpl serv = new ServiceRequestImpl();
     Transaction tx = session.beginTransaction();
     session.persist(c);
-    comprequests.add(c);
-    ServiceRequestEntity ser =
-        new ServiceRequestEntity(
-            c.getRequestid(),
-            c.getName(),
-            c.getEmployee(),
-            c.getLocation(),
-            c.getDescription(),
-            c.getUrgency(),
-            c.getRequestType(),
-            c.getStatus(),
-            c.getEmployeeAssigned(),
-            c.getDate());
-    new ServiceRequestImpl().addToList(ser);
     tx.commit();
+    comprequests.add(c);
+    serv.addToList(c);
     session.close();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {}
 
   public void exportToCSV(String filename) throws IOException {
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    Session session = getSessionFactory().openSession();
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
@@ -71,6 +64,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
           comp.getDevice() + "," + comp.getDeviceid() + "," + comp.getRequestid() + "\n");
     }
     fileWriter.close();
+    session.close();
   }
 
   public void update(Integer ID, ComputerRequestEntity obj) {
@@ -84,7 +78,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
       }
     }
 
-    ComputerRequestEntity c = session.get(ComputerRequestEntity.class, ID);
+    ComputerRequestEntity c = get(ID);
 
     c.setDevice(obj.getDevice());
     c.setDeviceid(obj.getDeviceid());
@@ -110,7 +104,8 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
             obj.getStatus(),
             obj.getEmployeeAssigned(),
             obj.getDate());
-    new ServiceRequestImpl().updateList(ID, ser);
+    ServiceRequestImpl serv = new ServiceRequestImpl();
+    serv.update(ID, ser);
     comprequests.add(c);
 
     tx.commit();
@@ -119,8 +114,9 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
 
   public void delete(Integer c) {
     Session session = getSessionFactory().openSession();
+
     Transaction tx = session.beginTransaction();
-    session.delete(session.get(ComputerRequestEntity.class, c));
+    session.remove(get(c));
 
     ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
     while (li.hasNext()) {
@@ -128,7 +124,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
         li.remove();
       }
     }
-    new ServiceRequestImpl().removeFromList(c);
+    removeFromList(c);
     tx.commit();
     session.close();
   }
@@ -143,10 +139,13 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
   }
 
   public ComputerRequestEntity get(Integer ID) {
+    return comprequests.stream()
+        .filter(computerRequestEntity -> computerRequestEntity.getRequestid() == ID)
+        .findFirst()
+        .orElseThrow();
+  }
 
-    for (ComputerRequestEntity ser : comprequests) {
-      if (ser.getRequestid() == ID) return ser;
-    }
-    return null;
+  public static ComputerRequestImpl getInstance() {
+    return instance;
   }
 }
