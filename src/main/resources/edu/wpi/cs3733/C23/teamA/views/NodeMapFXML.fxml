@@ -46,44 +46,75 @@
                               </MFXButton>
                            </children>
                         </HBox>
-                        <VBox fx:id="fieldBox" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X Coord">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Text>
-                              <MFXTextField fx:id="XCord" maxWidth="1.7976931348623157E308" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y Coord">
-                                 <font>
-                                    <Font name="Verdana" size="24.0" />
-                                 </font>
-                              </Text>
-                              <MFXTextField fx:id="YCord" maxWidth="1.7976931348623157E308" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building">
-                                 <font>
-                                    <Font name="Verdana" size="24.0" />
-                                 </font>
-                              </Text>
-                              <MFXComboBox fx:id="BuildingBox" maxWidth="1.7976931348623157E308" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floor">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Text>
-                              <MFXComboBox fx:id="FloorBox" maxWidth="1.7976931348623157E308">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" />
-                                 </VBox.margin>
-                              </MFXComboBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
+                        <TabPane>
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
-                        </VBox>
+                           <tabs>
+                              <Tab text="Node Editor">
+                                 <content>
+                                    <VBox fx:id="fieldBox" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X Coord">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXTextField fx:id="XCord" maxWidth="1.7976931348623157E308" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y Coord">
+                                             <font>
+                                                <Font name="Verdana" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXTextField fx:id="YCord" maxWidth="1.7976931348623157E308" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building">
+                                             <font>
+                                                <Font name="Verdana" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXComboBox fx:id="BuildingBox" maxWidth="1.7976931348623157E308" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floor">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXComboBox fx:id="FloorBox" maxWidth="1.7976931348623157E308">
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                          </MFXComboBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                              <Tab text="Add Edge">
+                                 <content>
+                                    <VBox fx:id="fieldBox1" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node 1">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXTextField fx:id="node1" maxWidth="1.7976931348623157E308" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node 2">
+                                             <font>
+                                                <Font name="Verdana" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXTextField fx:id="node2" maxWidth="1.7976931348623157E308" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
                      </children>
                   </VBox>
                </top>
@@ -120,7 +151,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </MFXButton>
-                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: red;" text="Delete Node">
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Node">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
