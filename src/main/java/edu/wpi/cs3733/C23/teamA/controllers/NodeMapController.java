@@ -86,6 +86,7 @@ public class NodeMapController extends MenuController {
   private List<NodeEntity> allNodes;
   private List<EdgeEntity> allEdges;
   private GraphicsContext[] gcs = new GraphicsContext[5];
+  private AnchorPane[] aps = new AnchorPane[5];
 
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
@@ -103,13 +104,18 @@ public class NodeMapController extends MenuController {
     gcs[4] = mapEditorCanvasF3.getGraphicsContext2D();
 
     // set anchorpanes into an array for easy access
+    aps[0] = nodeAnchorL1;
+    aps[1] = nodeAnchorL2;
+    aps[2] = nodeAnchorF1;
+    aps[3] = nodeAnchorF2;
+    aps[4] = nodeAnchorF3;
 
     // add nodes and edges per floor
-    initializeFloorMap("L1", nodeAnchorL1, stackL1, gestureL1);
-    initializeFloorMap("L2", nodeAnchorL2, stackL2, gestureL2);
-    initializeFloorMap("1", nodeAnchorF1, stackF1, gestureF1);
-    initializeFloorMap("2", nodeAnchorF2, stackF2, gestureF2);
-    initializeFloorMap("3", nodeAnchorF3, stackF3, gestureF3);
+    initializeFloorMap("L1", aps[0], stackL1, gestureL1);
+    initializeFloorMap("L2", aps[1], stackL2, gestureL2);
+    initializeFloorMap("1", aps[2], stackF1, gestureF1);
+    initializeFloorMap("2", aps[3], stackF2, gestureF2);
+    initializeFloorMap("3", aps[4], stackF3, gestureF3);
   }
 
   /**
@@ -256,7 +262,8 @@ public class NodeMapController extends MenuController {
 
     newNode.setXcoord(Integer.parseInt(XCord.getText()));
     newNode.setYcoord(Integer.parseInt(YCord.getText()));
-    newNode.setFloor(Floor.fromString(FloorBox.getText()));
+    String tableString = Floor.fromString(FloorBox.getText());
+    newNode.setFloor(tableString);
     newNode.setBuilding(BuildingBox.getText());
     newNode.setNodeid(
         makeNewNodeID(
@@ -289,7 +296,7 @@ public class NodeMapController extends MenuController {
 
     ArrayList<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(newNode);
-    NodeDraw.drawNodes(oneNode, SCALE_FACTOR, nodeAnchorL1, this);
+    NodeDraw.drawNodes(oneNode, SCALE_FACTOR, aps[Floor.indexFromTableString(tableString)], this);
     // initialize();
   }
 

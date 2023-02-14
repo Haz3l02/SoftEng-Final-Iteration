@@ -111,13 +111,12 @@ public class NodeDraw {
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 13.5");
               nodeGraphic.setPrefSize(7, 7);
-              nodeGraphic.setLayoutX(updatedCoords[0] - 3.5);
-              nodeGraphic.setLayoutY(updatedCoords[1] - 3.5);
+              //              nodeGraphic.setLayoutX(updatedCoords[0] - 3.5);
+              //              nodeGraphic.setLayoutY(updatedCoords[1] - 3.5);
 
               previousNode = nodeGraphic;
               selectNode = n;
 
-              System.out.println(n.getXcoord());
               nmc.setXCord(n.getXcoord().toString());
               nmc.setYCord(n.getYcoord().toString());
               nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
@@ -126,7 +125,6 @@ public class NodeDraw {
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-      // nodeGraphic.setOnMouseClicked(event -> System.out.println("click"));
 
       nodeAnchor.getChildren().add(nodeGraphic);
       nodeAnchor.getChildren().add(locName);
