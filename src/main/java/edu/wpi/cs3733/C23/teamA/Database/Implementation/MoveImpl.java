@@ -7,6 +7,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.PersistenceException;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -239,7 +240,10 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
         li.remove();
       }
     }
-    moves.add(mov);
+
+    moves.add(new MoveEntity(session.get(NodeEntity.class, ID.get(0)),
+            session.get(LocationNameEntity.class, ID.get(1)),
+            LocalDate.parse(ID.get(2))));
 
     tx.commit();
     session.close();
