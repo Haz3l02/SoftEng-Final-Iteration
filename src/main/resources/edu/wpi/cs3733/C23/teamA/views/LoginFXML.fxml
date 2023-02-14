@@ -58,7 +58,7 @@
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </Text>
-                              <MFXTextField fx:id="usernameTextField" floatMode="ABOVE" prefHeight="37.0" prefWidth="246.0" promptText="Username" style="-fx-border-radius: 15; -fx-background-radius: 15;">
+                              <MFXTextField fx:id="usernameTextField" floatMode="DISABLED" prefColumnCount="1" prefHeight="37.0" prefWidth="246.0" promptText="Username" style="-fx-border-radius: 15; -fx-background-radius: 15;">
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
@@ -66,7 +66,7 @@
                                     <Font size="24.0" />
                                  </font>
                               </MFXTextField>
-                              <MFXPasswordField fx:id="passwordTextField" floatMode="ABOVE" prefHeight="37.0" prefWidth="242.0" promptText="Password" style="-fx-background-radius: 15; -fx-border-radius: 15;">
+                              <MFXPasswordField fx:id="passwordTextField" floatMode="DISABLED" prefColumnCount="1" prefHeight="37.0" prefWidth="246.0" promptText="Password" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
