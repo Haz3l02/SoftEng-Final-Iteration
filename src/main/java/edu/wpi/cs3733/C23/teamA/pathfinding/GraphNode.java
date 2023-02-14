@@ -79,7 +79,12 @@ public class GraphNode implements Comparable<GraphNode> {
     score = Double.POSITIVE_INFINITY;
 
     // set the penalty based on the nodeType
-    penalty = 0;
+    // stairs aren't preferred in almost all cases, add a penalty to them
+    if (this.nodeType.equals("STAI")) {
+      penalty = 100;
+    } else {
+      penalty = 0;
+    }
   }
 
   /**
@@ -108,7 +113,12 @@ public class GraphNode implements Comparable<GraphNode> {
     score = Double.POSITIVE_INFINITY;
 
     // set the penalty based on the nodeType
-    penalty = 0;
+    // stairs aren't preferred in almost all cases, add a penalty to them
+    if (this.nodeType.equals("STAI")) {
+      penalty = 100;
+    } else {
+      penalty = 0;
+    }
   }
 
   /**
