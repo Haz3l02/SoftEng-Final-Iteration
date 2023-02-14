@@ -272,7 +272,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
                             "mov.node = :newnodeid, mov.locationName = :newlongname, mov.movedate = :newmovedate " +
                             "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
             .setParameter("newnodeid", session.get(NodeEntity.class, obj.getNode().getNodeid()))
-            .setParameter("newlongname", session.get(NodeEntity.class, obj.getNode().getNodeid()))
+            .setParameter("newlongname", session.get(LocationNameEntity.class, obj.getLocationName().getLongname()))
             .setParameter("newmovedate", obj.getMovedate())
             .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
             .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
