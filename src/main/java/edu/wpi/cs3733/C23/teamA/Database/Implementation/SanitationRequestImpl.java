@@ -21,9 +21,9 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
 
   private List<SanitationRequestEntity> sanrequests;
 
-
   public SanitationRequestImpl() {
-    Session session = getSessionFactory().openSession();    CriteriaBuilder builder = session.getCriteriaBuilder();
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<SanitationRequestEntity> criteria =
         builder.createQuery(SanitationRequestEntity.class);
     criteria.from(SanitationRequestEntity.class);
@@ -148,8 +148,6 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     }
     return null;
   }
-
-
 
   public static SanitationRequestImpl getInstance() {
     return instance;

@@ -21,14 +21,13 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
   private List<EmployeeEntity> employees;
 
-
   public EmployeeImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EmployeeEntity> criteria = builder.createQuery(EmployeeEntity.class);
     criteria.from(EmployeeEntity.class);
-    session.close();
     employees = session.createQuery(criteria).getResultList();
+    session.close();
   }
 
   public List<EmployeeEntity> getAll() {
@@ -166,7 +165,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         .findFirst()
         .orElseThrow();
   }
-
 
   public static EmployeeImpl getInstance() {
     return instance;

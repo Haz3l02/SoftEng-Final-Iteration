@@ -144,21 +144,21 @@
                                           <Font name="Verdana" size="18.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets left="100.0" />
+                                          <Insets left="80.0" />
                                        </HBox.margin>
                                     </Text>
                                  </children>
                               </HBox>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="algosBox" floatMode="DISABLED" onAction="#setPathfindingAlgorithm" prefHeight="38.0" prefWidth="198.0" promptText="Select Algorithm...">
+                                                <MFXFilterComboBox fx:id="algosBox" floatMode="DISABLED" onAction="#setPathfindingAlgorithm" prefHeight="38.0" prefWidth="181.0" promptText="Select Algorithm...">
                                                     <font>
                                                         <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                    <MFXDatePicker fx:id="navDatePicker" onAction="#setNavigationDate" promptText="Select Date...">
+                                    <MFXDatePicker fx:id="navDatePicker" onAction="#setNavigationDate" prefHeight="38.0" prefWidth="222.0" promptText="Select Date...">
                                        <HBox.margin>
-                                          <Insets left="15.0" />
+                                          <Insets left="10.0" />
                                        </HBox.margin>
                                        <font>
                                           <Font name="Kohinoor Bangla" size="14.0" />

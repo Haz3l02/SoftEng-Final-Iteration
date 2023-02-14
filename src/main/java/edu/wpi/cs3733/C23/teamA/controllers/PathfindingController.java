@@ -153,6 +153,11 @@ public class PathfindingController extends MenuController {
   /** Method to clear the fields on the form on the UI page */
   @FXML
   public void clearForm() {
+    // reset the location lists
+    ObservableList<String> empty = FXCollections.observableArrayList();
+    startLocBox.setItems(empty);
+    endLocBox.setItems(empty);
+
     // clear the selection fields
     startLocBox.clear();
     endLocBox.clear();
@@ -186,6 +191,15 @@ public class PathfindingController extends MenuController {
   public void setNavigationDate(ActionEvent event) {
     navDate = navDatePicker.getValue();
     // System.out.println(navDate);
+
+    ObservableList<String> empty = FXCollections.observableArrayList();
+    startLocBox.setItems(empty);
+    endLocBox.setItems(empty);
+
+    startLocBox.clear();
+    endLocBox.clear();
+    startFloorBox.clear();
+    endFloorBox.clear();
   }
 
   @FXML
@@ -213,7 +227,6 @@ public class PathfindingController extends MenuController {
 
     ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
     startNodeIDs = idsFloor;
-
 
     startLocBox.setItems(locs);
     startLocBox.setDisable(false);
@@ -245,7 +258,6 @@ public class PathfindingController extends MenuController {
 
     ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
     endNodeIDs = idsFloor;
-
 
     endLocBox.setItems(locs);
     endLocBox.setDisable(false);
@@ -279,32 +291,38 @@ public class PathfindingController extends MenuController {
     int startIndex = startLocBox.getSelectedIndex();
     int endIndex = endLocBox.getSelectedIndex();
     int algIndex = algosBox.getSelectedIndex();
+    int startFloorIndex = startFloorBox.getSelectedIndex();
+    int endFloorIndex = endFloorBox.getSelectedIndex();
 
-    if (startIndex == -1 || endIndex == -1 || algIndex == -1) {
+    if (startIndex == -1
+        || endIndex == -1
+        || algIndex == -1
+        || startFloorIndex == -1
+        || endFloorIndex == -1) {
       reminder.setText("Please select an option from all fields in the form!");
       reminder.setVisible(true);
     } else {
       // create the graph hashMap where String is nodeId and GraphNode is the node
       pathfindingSystem.prepGraphDB();
-    }
 
-    // get the IDs from the input combined w/ indexes
-    String sName = startNodeIDs.get(startIndex);
-    String eName = endNodeIDs.get(endIndex);
+      // get the IDs from the input combined w/ indexes
+      String sName = startNodeIDs.get(startIndex);
+      String eName = endNodeIDs.get(endIndex);
 
-    // run A*
-    GraphNode start = pathfindingSystem.getNode(sName);
-    GraphNode end = pathfindingSystem.getNode(eName);
-    ArrayList<GraphNode> path =
-        pathfindingSystem.runPathfinding(
-            start, end); // makes a call to the algorithm that was selected
+      // run A*
+      GraphNode start = pathfindingSystem.getNode(sName);
+      GraphNode end = pathfindingSystem.getNode(eName);
+      ArrayList<GraphNode> path =
+          pathfindingSystem.runPathfinding(
+              start, end); // makes a call to the algorithm that was selected
 
-    // if a path was found, draw a path
-    if (path != null) {
-      pathMapText.setText(pathfindingSystem.generatePathString(path));
-      callMapDraw(path);
-    } else {
-      pathMapText.setText("No Path Found Between " + sName + " and " + eName + ".");
+      // if a path was found, draw a path
+      if (path != null) {
+        pathMapText.setText(pathfindingSystem.generatePathString(path));
+        callMapDraw(path);
+      } else {
+        pathMapText.setText("No Path Found Between " + sName + " and " + eName + ".");
+      }
     }
   }
 

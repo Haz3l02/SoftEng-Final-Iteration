@@ -20,7 +20,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   private final List<ServiceRequestEntity> services;
   private static final ServiceRequestImpl instance = new ServiceRequestImpl();
 
-
   public ServiceRequestImpl() {
     Session session = getSessionFactory().openSession();
     session = getSessionFactory().openSession();
@@ -30,7 +29,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     services = session.createQuery(criteria).getResultList();
     session.close();
   }
-
 
   public List<ServiceRequestEntity> getAll() {
     return services;
@@ -190,8 +188,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     }
     return null;
   }
-
-
 
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();

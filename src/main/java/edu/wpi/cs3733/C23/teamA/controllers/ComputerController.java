@@ -106,7 +106,6 @@ public class ComputerController extends ServiceRequestController {
         compI.add(submission);
       }
 
-
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

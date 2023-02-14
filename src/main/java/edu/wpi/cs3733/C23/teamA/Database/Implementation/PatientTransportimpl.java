@@ -32,6 +32,4 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
   public PatientTransportRequestEntity get(Integer ID) {
     return null;
   }
-
-
 }

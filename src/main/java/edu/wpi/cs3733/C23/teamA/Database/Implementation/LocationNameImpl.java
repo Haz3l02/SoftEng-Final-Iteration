@@ -153,7 +153,6 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     return getAll().stream().map(locationNameEntity -> locationNameEntity.getLongname()).toList();
   }
 
-
   public static LocationNameImpl getInstance() {
     return instance;
   }
