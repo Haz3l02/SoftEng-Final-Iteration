@@ -7,12 +7,15 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.PersistenceException;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 import org.hibernate.Session;
@@ -31,6 +34,17 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     moves = records;
+    HashMap<MoveEntity, MoveEntity> loc =
+        locationChanges(LocalDate.parse("2023-02-18"), LocalDate.parse("2023-02-20"));
+    for (MoveEntity m : loc.keySet()) {
+      System.out.println(
+          String.format(
+              "%s -> %s %s %s",
+              loc.get(m).getLocationName().getLongname(),
+              m.getLocationName().getLongname(),
+              m.getNode().getNodeid(),
+              m.getMovedate().toString()));
+    }
     session.close();
   }
 
@@ -130,65 +144,80 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
       if (li.next().getNode().equals(m.get(0))
-          && li.next().getLocationName().equals(m.get(1))
-          && li.next().getMovedate().equals(m.get(2))) {
+              && li.next().getLocationName().equals(m.get(1))
+              && li.next().getMovedate().equals(m.get(2))) {
         li.remove();
       }
     }
 
-    String hql =
-        "delete MoveEntity mov "
-            + " where mov.nodeid = '"
-            + m.get(0)
-            + "', mov.longname = '"
-            + m.get(1)
-            + "', mov.movedate = '"
-            + m.get(2)
-            + "';";
+    String hql = "delete MoveEntity mov "+
+            " where mov.nodeid = '"+
+            m.get(0)+
+            "', mov.longname = '"+
+            m.get(1)+
+            "', mov.movedate = '"+
+            m.get(2)+
+            "';";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
-    // session.delete(
-    //        session.find(
-    //            MoveEntity.class,
-    //            new MoveEntity(
-    //                session.get(NodeEntity.class, m.get(0)),
-    //                session.get(LocationNameEntity.class, m.get(1)),
-    //                LocalDate.parse(m.get(2)))));
+
 
     tx.commit();
     session.close();
   }
 
   /**
-   * Find the location of the node on or immediately before a specific date
+   * Find all moves happening on or after a date
    *
-   * @param id ID of Node
-   * @param date Date for finding the location
+   * @param date Minimum date for a Move to become a key in the return
+   * @return Hashmap representing mapping of (latest location, location immediately before)
    */
-  public MoveEntity locationOnDate(String id, LocalDate date) {
-    List<MoveEntity> ids =
-        moves.stream()
-            .filter(
-                moveEntity ->
-                    moveEntity.getNode().getNodeid().equals(id)
-                        && (moveEntity.getMovedate().compareTo(date) == 0
-                            || moveEntity.getMovedate().compareTo(date) == 1))
-            .toList();
-    return ids.get(0);
+  public HashMap<MoveEntity, MoveEntity> locationChanges(LocalDate minDate, LocalDate maxDate) {
+    HashMap<MoveEntity, MoveEntity> changes = new HashMap<>();
+
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    Root<MoveEntity> location = criteria.from(MoveEntity.class);
+    criteria.select(location).where(builder.between(location.get("movedate"), minDate, maxDate));
+    List<MoveEntity> ids = session.createQuery(criteria).getResultList();
+    for (MoveEntity id : ids) {
+      List<MoveEntity> loc =
+          locationRecord(id.getNode().getNodeid(), id.getMovedate()).stream().toList();
+      changes.put(id, loc.get(0));
+    }
+    return changes;
+  }
+
+  /**
+   * Finds a list of moves matching node id that happened on or before certain date
+   *
+   * @param id
+   * @param lastDate
+   * @return
+   */
+  public List<MoveEntity> locationRecord(String id, LocalDate date) {
+    return moves.stream()
+        .filter(
+            moveEntity ->
+                (moveEntity.getNode().getNodeid().equals(id)
+                    && moveEntity.getMovedate().compareTo(date) < 0))
+        .sorted((move1, move2) -> move2.getMovedate().compareTo(move1.getMovedate()))
+        .toList();
   }
 
   public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
     MoveEntity mov = new MoveEntity();
     List<MoveEntity> ids =
-        moves.stream()
-            .filter(
-                moveEntity ->
-                    moveEntity.getNode().getNodeid().equals(id)
-                        && (date.compareTo(moveEntity.getMovedate()) >= 0))
-            .toList();
+            moves.stream()
+                    .filter(
+                            moveEntity ->
+                                    moveEntity.getNode().getNodeid().equals(id)
+                                            && (date.compareTo(moveEntity.getMovedate())>=0))
+                    .toList();
     LocalDate dt1 = LocalDate.parse("2023-01-01");
-    for (MoveEntity mo : ids) {
-      if (mo.getMovedate().compareTo(dt1) >= 0) {
+    for (MoveEntity mo : ids){
+      if (mo.getMovedate().compareTo(dt1)>=0){
         mov = mo;
         dt1 = mo.getMovedate();
       }
@@ -217,32 +246,38 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public void update(List<String> ID, MoveEntity obj) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    String hql =
-        "update MoveEntity mov set mov.nodeid = '"
-            + ID.get(0)
-            + "', mov.longname = '"
-            + ID.get(1)
-            + "', mov.movedate = '"
-            + LocalDate.parse(ID.get(2))
-            + "' where mov.nodeid = '"
-            + obj.getNode().getNodeid()
-            + "', mov.longname = '"
-            + obj.getLocationName().getLongname()
-            + "', mov.movedate = '"
-            + obj.getMovedate()
-            + "';";
-    MutationQuery q = session.createMutationQuery(hql);
-    q.executeUpdate();
-    //    MoveEntity mov =
-    //            session.find(
-    //                    MoveEntity.class,
-    //                    new MoveEntity(
-    //                            session.get(NodeEntity.class, ID.get(0)),
-    //                            session.get(LocationNameEntity.class, ID.get(1)),
-    //                            LocalDate.parse(ID.get(2))));
-    //    mov.setLocationName(obj.getLocationName());
-    //    mov.setNode(obj.getNode());
-    //    mov.setMovedate(obj.getMovedate());
+//    String hql = "update MoveEntity mov set mov.nodeid = '"+
+//            ID.get(0)+
+//            "', mov.longname = '"+
+//            ID.get(1)+
+//            "', mov.movedate = '"+
+//            LocalDate.parse(ID.get(2))+
+//            "' where mov.nodeid = '"+
+//            obj.getNode().getNodeid()+
+//            "', mov.longname = '"+
+//            obj.getLocationName().getLongname()+
+//            "', mov.movedate = '"+
+//            obj.getMovedate()+
+//            "';";
+//    MutationQuery q = session.createMutationQuery(hql);
+//    q.executeUpdate();
+
+
+    session.
+            createMutationQuery(
+                    "UPDATE MoveEntity mov SET " +
+                            "mov.node.id = \":newnodeid\", mov.locationName = \":newlongname\", mov.movedate = \":newmovedate\" " +
+                            "WHERE mov.node = \":oldnodeid\" and mov.locationName = \":oldlongname\" and mov.movedate = \":oldmovedate\"")
+            .setParameter("newnodeid", obj.getNode().getNodeid())
+            .setParameter("newlongname", obj.getLocationName().getLongname())
+            .setParameter("newmovedate", obj.getMovedate())
+            .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
+            .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
+            .setParameter("oldmovedate", Timestamp.parse(ID.get(2)))
+            .executeUpdate();
+
+
+
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
       if (li.next().getNode().equals(ID.get(0))
