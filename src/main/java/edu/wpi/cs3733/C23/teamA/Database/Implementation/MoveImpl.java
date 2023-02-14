@@ -7,7 +7,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.PersistenceException;
-import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -15,7 +14,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 import org.hibernate.Session;
@@ -161,7 +159,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
 
-
     tx.commit();
     session.close();
   }
@@ -169,7 +166,8 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   /**
    * Find all moves happening on or after a date
    *
-   * @param date Minimum date for a Move to become a key in the return
+   * @param minDate Minimum date for a Move to become a key in the return
+   * @param maxDate Minimum date for a Move to become a key in the return
    * @return Hashmap representing mapping of (latest location, location immediately before)
    */
   public HashMap<MoveEntity, MoveEntity> locationChanges(LocalDate minDate, LocalDate maxDate) {

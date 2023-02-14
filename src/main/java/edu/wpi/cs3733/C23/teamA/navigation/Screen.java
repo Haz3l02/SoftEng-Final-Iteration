@@ -6,6 +6,7 @@ public enum Screen {
   HOME_MAINTENANCE("views/HomeMaintenanceFXML.fxml"),
   HOME_ADMIN("views/HomeAdminFXML.fxml"),
   HOME_EMPLOYEE("views/HomeEmployeeFXML.fxml"),
+  CONFIRMATION("views/ConfirmationFXML.fxml"),
   COMPUTER_CONFIRMATION("views/ComputerConfirmationFXML.fxml"),
   SANITATION_CONFIRMATION("views/SanitationConfirmationFXML.fxml"),
   SECURITY_CONFIRMATION("views/SecurityConfirmationFXML.fxml"),
