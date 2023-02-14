@@ -46,7 +46,7 @@
                               </MFXButton>
                            </children>
                         </HBox>
-                        <TabPane>
+                        <TabPane tabClosingPolicy="UNAVAILABLE">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
@@ -60,28 +60,46 @@
                                                 <Font size="24.0" />
                                              </font>
                                           </Text>
-                                          <MFXTextField fx:id="XCord" maxWidth="1.7976931348623157E308" />
+                                          <MFXTextField fx:id="XCord" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></MFXTextField>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y Coord">
                                              <font>
                                                 <Font name="Verdana" size="24.0" />
                                              </font>
                                           </Text>
-                                          <MFXTextField fx:id="YCord" maxWidth="1.7976931348623157E308" />
+                                          <MFXTextField fx:id="YCord" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></MFXTextField>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building">
                                              <font>
                                                 <Font name="Verdana" size="24.0" />
                                              </font>
                                           </Text>
-                                          <MFXComboBox fx:id="BuildingBox" maxWidth="1.7976931348623157E308" />
+                                          <MFXComboBox fx:id="BuildingBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding></MFXComboBox>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floor">
                                              <font>
                                                 <Font size="24.0" />
                                              </font>
                                           </Text>
-                                          <MFXComboBox fx:id="FloorBox" maxWidth="1.7976931348623157E308">
+                                          <MFXComboBox fx:id="FloorBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
                                              <VBox.margin>
                                                 <Insets bottom="10.0" />
                                              </VBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
                                           </MFXComboBox>
                                        </children>
                                        <padding>
@@ -123,7 +141,7 @@
                      <children>
                         <HBox alignment="CENTER">
                            <children>
-                              <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#createNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Create" textFill="#d3e9f6">
+                              <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#createNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create" textFill="#224870">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -207,8 +225,8 @@
                                                       <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
                                                    </image>
                                                 </ImageView>
-                                                <AnchorPane fx:id="nodeAnchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                                 <Canvas fx:id="mapEditorCanvasL1" height="510.0" width="750.0" />
+                                                <AnchorPane fx:id="nodeAnchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
                                           </StackPane>
                                           <GesturePane fx:id="gestureL1" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -227,8 +245,8 @@
                                                       <Image url="@../assets/unlabeledMaps/00_thelowerlevel2_unlabeled.png" />
                                                    </image>
                                                 </ImageView>
-                                                <AnchorPane fx:id="nodeAnchorL2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                                 <Canvas fx:id="mapEditorCanvasL2" height="510.0" width="750.0" />
+                                                <AnchorPane fx:id="nodeAnchorL2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
                                           </StackPane>
                                           <GesturePane fx:id="gestureL2" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -247,8 +265,8 @@
                                                       <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
                                                    </image>
                                                 </ImageView>
-                                                <AnchorPane fx:id="nodeAnchorF1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                                 <Canvas fx:id="mapEditorCanvasF1" height="510.0" width="750.0" />
+                                                <AnchorPane fx:id="nodeAnchorF1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
                                           </StackPane>
                                           <GesturePane fx:id="gestureF1" layoutX="10.0" layoutY="10.0" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -267,8 +285,8 @@
                                                       <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
                                                    </image>
                                                 </ImageView>
-                                                <AnchorPane fx:id="nodeAnchorF2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                                 <Canvas fx:id="mapEditorCanvasF2" height="510.0" width="750.0" />
+                                                <AnchorPane fx:id="nodeAnchorF2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
                                           </StackPane>
                                           <GesturePane fx:id="gestureF2" layoutX="10.0" layoutY="10.0" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -287,8 +305,8 @@
                                                       <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
                                                    </image>
                                                 </ImageView>
-                                                <AnchorPane fx:id="nodeAnchorF3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                                 <Canvas fx:id="mapEditorCanvasF3" height="510.0" width="750.0" />
+                                                <AnchorPane fx:id="nodeAnchorF3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
                                           </StackPane>
                                           <GesturePane fx:id="gestureF3" layoutX="10.0" layoutY="10.0" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
