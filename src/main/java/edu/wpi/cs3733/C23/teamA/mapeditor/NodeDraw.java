@@ -33,7 +33,7 @@ public class NodeDraw {
     previousNode = p;
   }
 
-  private static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
+  public static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
@@ -58,8 +58,8 @@ public class NodeDraw {
 
       /* Set the style of the node */
       nodeGraphic.setPrefSize(5, 5);
-      nodeGraphic.setLayoutX(updatedCoords[0] - 2);
-      nodeGraphic.setLayoutY(updatedCoords[1] - 2);
+      nodeGraphic.setLayoutX(updatedCoords[0] - 2.5);
+      nodeGraphic.setLayoutY(updatedCoords[1] - 2.5);
       nodeGraphic.setStyle(
           "-fx-background-color: '#224870'; "
               + "-fx-background-radius: 12.5; "
@@ -71,8 +71,8 @@ public class NodeDraw {
       locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
 
       locName.setText("Floor: " + n.getFloor() + " Building: " + n.getBuilding());
-      locName.setLayoutX(updatedCoords[0] - 2);
-      locName.setLayoutY(updatedCoords[1] - 2);
+      locName.setLayoutX(updatedCoords[0] - 2.5);
+      locName.setLayoutY(updatedCoords[1] - 2.5);
       //            NodeMapController nmcToggle = new NodeMapController();
       //            if (nmcToggle.toggleLocations()) {
       //              locName.setVisible(false);
@@ -95,6 +95,9 @@ public class NodeDraw {
                           + "-fx-border-color: '#224870'; "
                           + "-fx-border-width: 1;"
                           + "-fx-border-radius: 13.5");
+                  previousNode.setPrefSize(5, 5);
+                  //                  previousNode.setLayoutX(updatedCoords[0] - 2.5);
+                  //                  previousNode.setLayoutY(updatedCoords[1] - 2.5);
                 }
               }
 
@@ -104,6 +107,9 @@ public class NodeDraw {
                       + "-fx-border-color: '#224870'; "
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 13.5");
+              nodeGraphic.setPrefSize(7, 7);
+              nodeGraphic.setLayoutX(updatedCoords[0] - 3.5);
+              nodeGraphic.setLayoutY(updatedCoords[1] - 3.5);
 
               previousNode = nodeGraphic;
               selectNode = n;
@@ -125,9 +131,8 @@ public class NodeDraw {
   }
 
   public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, GraphicsContext gc) {
-    gc.setFill(javafx.scene.paint.Color.web("0x224870"));
     gc.setStroke(Color.web("0x224870"));
-    gc.setLineWidth(2);
+    gc.setLineWidth(1);
 
     for (EdgeEntity edge : allEdges) {
       // get x and y values

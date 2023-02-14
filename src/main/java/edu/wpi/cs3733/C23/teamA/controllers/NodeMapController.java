@@ -11,6 +11,7 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -101,6 +102,8 @@ public class NodeMapController extends MenuController {
     gcs[3] = mapEditorCanvasF2.getGraphicsContext2D();
     gcs[4] = mapEditorCanvasF3.getGraphicsContext2D();
 
+    // set anchorpanes into an array for easy access
+
     // add nodes and edges per floor
     initializeFloorMap("L1", nodeAnchorL1, stackL1, gestureL1);
     initializeFloorMap("L2", nodeAnchorL2, stackL2, gestureL2);
@@ -119,11 +122,13 @@ public class NodeMapController extends MenuController {
     NodeImpl nodeimpl = new NodeImpl();
     allNodes = nodeimpl.getNodeOnFloor(floor);
     EdgeImpl edgeimpl = new EdgeImpl();
-    allEdges = edgeimpl.getEdgeOnFloor("L1");
+    allEdges = edgeimpl.getEdgeOnFloor(floor);
+
+    GraphicsContext gc = gcs[Floor.indexFromTableString(floor)];
 
     // Add nodes as circles
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, nodeAnchor, this);
-    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gcs[0]);
+    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gc);
 
     ObservableList<String> floors =
         FXCollections.observableArrayList(
@@ -267,7 +272,18 @@ public class NodeMapController extends MenuController {
     createNodeButton.setVisible(false);
     fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
 
-    initialize();
+    Pane recentPane = NodeDraw.getSelectedPane();
+    if (recentPane != null) {
+      recentPane.setPrefSize(5, 5);
+      //      int[] updatedCoords = NodeDraw.scaleCoordinates();
+      //      recentPane.setLayoutX(updatedCoords[0] - 2.5);
+      //      recentPane.setLayoutY(updatedCoords[1] - 2.5);
+    }
+
+    ArrayList<NodeEntity> oneNode = new ArrayList<>();
+    oneNode.add(newNode);
+    NodeDraw.drawNodes(oneNode, SCALE_FACTOR, nodeAnchorL1, this);
+    // initialize();
   }
 
   public void editNode(ActionEvent event) {
