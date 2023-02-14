@@ -95,7 +95,8 @@ public class ServiceRequestEntity {
   public enum RequestType {
     SECURITY("Security"),
     COMPUTER("Computer"),
-    SANITATION("Sanitation");
+    SANITATION("Sanitation"),
+    PATIENT_TRANSPORT("Patient Transport");
 
     // FILL OUT TOMORROW WITH ISABELLA
     @NonNull public final String requestType;

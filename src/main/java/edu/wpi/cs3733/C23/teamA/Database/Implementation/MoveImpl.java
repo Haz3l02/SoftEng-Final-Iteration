@@ -223,4 +223,20 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public static MoveImpl getInstance() {
     return instance;
   }
+
+  public List<String> getNodeID() {
+    ArrayList<String> nodeID = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      nodeID.add(m.getNode().getNodeid());
+    }
+    return nodeID;
+  }
+
+  public List<String> getLocationName() {
+    ArrayList<String> nodeID = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      nodeID.add(m.getLocationName().getLongname());
+    }
+    return nodeID;
+  }
 }

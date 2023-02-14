@@ -125,6 +125,7 @@ public class PathfindingController extends MenuController {
             .map(locationNameEntity -> locationNameEntity.getLongname())
             .toList();
 
+    table.closeSession();
      */
 
     // add the map images (also already done in SceneBuilder)

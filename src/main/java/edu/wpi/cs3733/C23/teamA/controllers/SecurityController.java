@@ -51,11 +51,6 @@ public class SecurityController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToConfirmationScene(ActionEvent event) {
-    Navigation.navigate(Screen.SECURITY_CONFIRMATION);
-  }
-
-  @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
     Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
   }

@@ -79,7 +79,6 @@ public class NodeController extends MenuController {
       n.setBuilding("BTM");
       NodeImpl nodeI = new NodeImpl();
       nodeI.add(n);
-
       reloadData();
     }
   }
