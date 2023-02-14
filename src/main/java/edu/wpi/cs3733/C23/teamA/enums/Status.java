@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public enum Status {
   BLANK("Blank"),
+  NEW("New"),
+  ASSIGNED("Assigned"),
   PROCESSING("Processing"),
   DONE("Done");
 

@@ -109,7 +109,7 @@ public class PatientTransportController extends ServiceRequestController {
                 descBox.getText(),
                 urgent,
                 PatientTransportRequestEntity.RequestType.PATIENT_TRANSPORT,
-                Status.BLANK,
+                Status.NEW,
                 "Unassigned",
                 pNameBox.getText(),
                 pIDBox.getText(),

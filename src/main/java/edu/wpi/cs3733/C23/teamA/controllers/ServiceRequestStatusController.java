@@ -67,6 +67,7 @@ public class ServiceRequestStatusController extends MenuController {
 
   private String hospitalID;
   private String job;
+  private String name;
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
   List<ServiceRequestEntity> serviceRequestData = new ArrayList<>();
@@ -92,6 +93,7 @@ public class ServiceRequestStatusController extends MenuController {
     popup = new PopOver(loader.load());
     IdNumberHolder holder = IdNumberHolder.getInstance();
     hospitalID = holder.getId();
+    name = holder.getName();
     job = holder.getJob();
     if (reminder != null) {
       reminder.setVisible(false);
@@ -204,8 +206,10 @@ public class ServiceRequestStatusController extends MenuController {
     try {
       if (job.equalsIgnoreCase("medical")) {
         serviceRequestData = serviceRequestImpl.getAllByEmployee(hospitalID);
-      } else {
-        serviceRequestData = serviceRequestImpl.getAll();
+      } else if (job.equalsIgnoreCase("Maintenance")) {
+        serviceRequestData = serviceRequestImpl.getServiceRequestByAssigned(name);
+      } else if (job.equalsIgnoreCase("Admin")) {
+        serviceRequestData = serviceRequestImpl.getServiceRequestByUnassigned();
       }
       dbTableRowsModel.addAll(serviceRequestData);
       clearEdits();
@@ -231,7 +235,7 @@ public class ServiceRequestStatusController extends MenuController {
           SRTable.setRequestid(Integer.parseInt(IDBoxSaver.getText()));
           SRTable.setRequestType(ServiceRequestEntity.RequestType.valueOf(formTypeBox.getText()));
           SRTable.setDate(Timestamp.valueOf(dateBox.getText()));
-          SRTable.setStatus(Status.valueOf(statusBox.getText()));
+          SRTable.setStatus(Status.valueOf(statusBox.getText().toUpperCase()));
           SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText().toUpperCase()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 

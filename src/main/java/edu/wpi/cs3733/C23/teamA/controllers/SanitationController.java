@@ -51,7 +51,6 @@ public class SanitationController extends ServiceRequestController {
       categoryBox.setItems(categories);
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Sanitation")) {
-      SanitationRequestImpl sanI = new SanitationRequestImpl();
       SanitationRequestEntity editRequest = sanI.get(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
@@ -105,6 +104,7 @@ public class SanitationController extends ServiceRequestController {
   public void rejectRequest(ActionEvent event) throws IOException {
     ServiceRequestImpl sri = new ServiceRequestImpl();
     sri.updateEmployee("Unassigned", acceptTheForm.getRequestID());
+    sri.updateStatus(Status.NEW, acceptTheForm.getRequestID());
     switchToServiceRequestStatus(event);
   }
 
@@ -149,7 +149,7 @@ public class SanitationController extends ServiceRequestController {
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.SANITATION,
-                Status.BLANK,
+                Status.NEW,
                 "Unassigned",
                 category);
         sanI.add(submission);
