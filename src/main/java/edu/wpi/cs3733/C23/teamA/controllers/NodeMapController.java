@@ -30,7 +30,6 @@ public class NodeMapController extends MenuController {
   public void initialize() {
     NodeImpl node = new NodeImpl();
     allNodes = node.getNodeOnFloor("L1"); // get all nodes from Database
-    node.closeSession();
     // Add Image
     addFloorMapImage(
         "src/main/resources/edu/wpi/cs3733/C23/teamA/assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png");

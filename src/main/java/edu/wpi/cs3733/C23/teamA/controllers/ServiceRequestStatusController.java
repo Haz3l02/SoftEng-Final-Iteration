@@ -53,6 +53,8 @@ public class ServiceRequestStatusController extends MenuController {
 
   private String hospitalID;
   private String job;
+  ServiceRequestImpl servI = new ServiceRequestImpl();
+  List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
@@ -99,8 +101,6 @@ public class ServiceRequestStatusController extends MenuController {
     statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
     urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
-    ServiceRequestImpl servI = new ServiceRequestImpl();
-    List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
     if (job.equalsIgnoreCase("medical")) {
       requests = servI.getAllByEmployee(hospitalID);
@@ -108,7 +108,6 @@ public class ServiceRequestStatusController extends MenuController {
       requests = servI.getAll();
     }
     dbTableRowsModel.addAll(requests);
-    servI.closeSession();
 
     serviceReqsTable.setItems(dbTableRowsModel);
   }
@@ -194,7 +193,6 @@ public class ServiceRequestStatusController extends MenuController {
           }
           billy.setEmployeeAssigned(employeeBox.getText());
           servI.add(billy);
-          servI.closeSession();
           break;
         }
       }

@@ -23,7 +23,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
   private List<EmployeeEntity> employees;
 
-
   public EmployeeImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -188,7 +187,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         .findFirst()
         .orElseThrow();
   }
-
 
   public static EmployeeImpl getInstance() {
     return instance;

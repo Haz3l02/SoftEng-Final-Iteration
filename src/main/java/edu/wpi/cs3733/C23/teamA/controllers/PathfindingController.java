@@ -186,9 +186,6 @@ public class PathfindingController extends MenuController {
     ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
     startNodeIDs = idsFloor;
 
-    nodeI.closeSession();
-    moveI.closeSession();
-
     startLocBox.setItems(locs);
     startLocBox.setDisable(false);
     startLocBox.clear();
@@ -220,8 +217,6 @@ public class PathfindingController extends MenuController {
     endNodeIDs = idsFloor;
 
     // close the sessions that were opened by the methods above
-    nodeI.closeSession();
-    moveI.closeSession();
 
     endLocBox.setItems(locs);
     endLocBox.setDisable(false);
