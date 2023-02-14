@@ -12,6 +12,8 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.util.List;
+
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 
@@ -62,6 +65,9 @@ public class NodeMapController extends MenuController {
 
   @FXML VBox fieldBox;
   @FXML MFXButton createNodeButton;
+  @FXML Text reminder;   // text field for a "remember to fill out all fields before submitting form" thingy
+  @FXML MFXToggleButton locationToggle;
+
 
   @Setter NodeEntity selectedNode = null;
 

@@ -12,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.*;
+import javafx.scene.text.Font;
 
 public class NodeDraw {
 
@@ -65,16 +67,16 @@ public class NodeDraw {
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
 
-      //      Text locName = new Text();
-      //      locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-      //
-      //      locName.setText("Floor: " + n.getFloor() + " Building: " + n.getBuilding());
-      //      locName.setLayoutX(updatedCoords[0] - 2);
-      //      locName.setLayoutY(updatedCoords[1] - 2);
-      //      NodeMapController nmcToggle = new NodeMapController();
-      //      if (nmcToggle.toggleLocations()) {
-      //        locName.setVisible(false);
-      //      }
+      Text locName = new Text();
+      locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+
+      locName.setText("Floor: " + n.getFloor() + " Building: " + n.getBuilding());
+      locName.setLayoutX(updatedCoords[0] - 2);
+      locName.setLayoutY(updatedCoords[1] - 2);
+      //            NodeMapController nmcToggle = new NodeMapController();
+      //            if (nmcToggle.toggleLocations()) {
+      //              locName.setVisible(false);
+      //            }
 
       EventHandler<MouseEvent> eventHandler =
           new EventHandler<MouseEvent>() {
