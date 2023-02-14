@@ -131,8 +131,8 @@ public class MoveController extends MenuController {
       // LocalDate moveDate = dateBox.getValue();
       String nodeID = nodeBox.getValue();
       String theLocation = locationBox.getValue();
-      String submitDate = dateBox.getText().toString();
-      System.out.println("Updateing Node");
+      String submitDate = dateBox.getValue().toString();
+      System.out.println(submitDate);
 
       for (MoveEntity move : currentTableData) {
         if (move.getMovedate().equals(moveDateSaver)
