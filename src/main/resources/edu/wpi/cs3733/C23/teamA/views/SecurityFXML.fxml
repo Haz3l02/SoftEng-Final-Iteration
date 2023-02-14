@@ -173,7 +173,7 @@
                         <Insets left="30.0" />
                      </padding>
                      <children>
-                        <MFXComboBox fx:id="requestsBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High, Extremely High" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                        <MFXComboBox fx:id="requestsBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Harassment, Potential Threat, Security Escort" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                            <font>
                               <Font name="Kohinoor Bangla" size="14.0" />
                            </font>

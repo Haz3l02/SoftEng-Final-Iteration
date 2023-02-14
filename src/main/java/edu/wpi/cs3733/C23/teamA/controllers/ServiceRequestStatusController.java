@@ -175,7 +175,7 @@ public class ServiceRequestStatusController extends MenuController {
           SRTable.setRequestid(Integer.parseInt(IDBoxSaver.getText()));
           SRTable.setRequestType(ServiceRequestEntity.RequestType.valueOf(formTypeBox.getText()));
           SRTable.setDate(Timestamp.valueOf(dateBox.getText()));
-          SRTable.setStatus(Status.valueOf(statusBox.getText()));
+          SRTable.setStatus(Status.valueOf(statusBox.getText().toUpperCase()));
           SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
@@ -185,7 +185,7 @@ public class ServiceRequestStatusController extends MenuController {
           ServiceRequestEntity billy = servI.get(currentRowId);
 
           if (statusBox != null && !statusBox.isDisabled()) {
-            status = Status.valueOf(statusBox.getValue());
+            status = Status.valueOf(statusBox.getValue().toUpperCase());
             billy.setStatus(status);
           }
           if (urgencyBox != null && !urgencyBox.isDisabled()) {
