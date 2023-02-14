@@ -249,22 +249,17 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public void update(List<String> ID, MoveEntity obj) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-//    String hql = "update MoveEntity mov set mov.nodeid = '"+
-//            ID.get(0)+
-//            "', mov.longname = '"+
-//            ID.get(1)+
-//            "', mov.movedate = '"+
-//            LocalDate.parse(ID.get(2))+
-//            "' where mov.nodeid = '"+
-//            obj.getNode().getNodeid()+
-//            "', mov.longname = '"+
-//            obj.getLocationName().getLongname()+
-//            "', mov.movedate = '"+
-//            obj.getMovedate()+
-//            "';";
-//    MutationQuery q = session.createMutationQuery(hql);
-//    q.executeUpdate();
 
+
+
+    ListIterator<MoveEntity> li = moves.listIterator();
+    while (li.hasNext()) {
+      if (li.next().getNode().equals(ID.get(0))
+              && li.next().getLocationName().equals(ID.get(1))
+              && li.next().getMovedate().toString().equals(ID.get(2))) {
+        li.remove();
+      }
+    }
 
     session.
             createMutationQuery(
@@ -281,14 +276,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
 
 
-    ListIterator<MoveEntity> li = moves.listIterator();
-    while (li.hasNext()) {
-      if (li.next().getNode().equals(ID.get(0))
-          && li.next().getLocationName().equals(ID.get(1))
-          && li.next().getMovedate().toString().equals(ID.get(2))) {
-        li.remove();
-      }
-    }
+
 
     moves.add(new MoveEntity(session.get(NodeEntity.class, ID.get(0)),
             session.get(LocationNameEntity.class, ID.get(1)),
