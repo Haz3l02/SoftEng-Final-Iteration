@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.ImportExportCSV;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -10,11 +11,14 @@ import javafx.scene.Node;
 import org.controlsfx.control.PopOver;
 
 public class HomeDatabaseController extends MenuController {
+  public static ImportExportCSV iecsv = new ImportExportCSV("");
+
   public void switchToEdgeScene(ActionEvent event) {
     Navigation.navigate(Screen.EDGE);
   }
 
   public void switchToNodeScene(ActionEvent event) {
+    iecsv = new ImportExportCSV("node");
     Navigation.navigate(Screen.NODE);
   }
 
@@ -23,10 +27,12 @@ public class HomeDatabaseController extends MenuController {
   }
 
   public void switchToMoveScene(ActionEvent event) {
+    iecsv = new ImportExportCSV("move");
     Navigation.navigate(Screen.MOVE);
   }
 
   public void switchToEmployeeScene(ActionEvent event) {
+    iecsv = new ImportExportCSV("employee");
     Navigation.navigate(Screen.EMPLOYEE);
   }
 

@@ -1,22 +1,35 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.controllers.HomeDatabaseController.iecsv;
+
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
+import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.util.converter.IntegerStringConverter;
+import org.controlsfx.control.PopOver;
 
 public class NodeController extends MenuController {
 
@@ -31,6 +44,14 @@ public class NodeController extends MenuController {
   @FXML public TextField newy;
 
   @FXML public Button submit;
+  @FXML private Text reminder;
+  @FXML private StackPane reminderPane;
+  @FXML private MFXTextField fileNameField;
+  private PopOver popup;
+  @FXML private MFXButton cancel;
+
+  NodeImpl node = new NodeImpl();
+  List<NodeEntity> nodeData = new ArrayList<>();
 
   private NodeEntity selected;
   private List<NodeEntity> data;
@@ -182,5 +203,78 @@ public class NodeController extends MenuController {
 
   public void switchToMapScene(ActionEvent event) {
     Navigation.navigate(Screen.NODE_MAP);
+  }
+
+  @FXML
+  void clearForm(ActionEvent event) {
+    fileNameField.clear();
+  }
+
+  @FXML
+  public void switchToImportPopup(ActionEvent event) throws IOException {
+
+    if (!event.getSource().equals(cancel)) {
+      FXMLLoader loader =
+          new FXMLLoader(Main.class.getResource("views/ImportEmployeeCSVFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(cancel)) {
+      popup.hide();
+    }
+  }
+
+  @FXML
+  public void importCSV(ActionEvent event) throws FileNotFoundException {
+    if (fileNameField.getText().equals("")) {
+      reminder.setVisible(true);
+      reminderPane.setVisible(true);
+    } else {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+      if (iecsv.getTableType().equals("node")) {
+        node.importFromCSV(fileNameField.getText());
+      }
+
+      popup.hide();
+    }
+  }
+
+  @FXML
+  public void close(ActionEvent event) {
+    popup.hide();
+  }
+
+  @FXML
+  public void switchToExportPopup(ActionEvent event) throws IOException {
+
+    if (!event.getSource().equals(cancel)) {
+      FXMLLoader loader =
+          new FXMLLoader(Main.class.getResource("views/ExportEmployeeCSVFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(cancel)) {
+      popup.hide();
+    }
+  }
+
+  @FXML
+  public void exportCSV(ActionEvent event) throws IOException {
+
+    if (fileNameField.getText().equals("")) {
+      reminder.setVisible(true);
+      reminderPane.setVisible(true);
+    } else {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+      if (iecsv.getTableType().equals("node")) {
+        node.exportToCSV(fileNameField.getText());
+      }
+    }
+
+    popup.hide();
   }
 }

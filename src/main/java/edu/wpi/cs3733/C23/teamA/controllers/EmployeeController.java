@@ -1,7 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.controllers.HomeDatabaseController.iecsv;
+
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -52,7 +56,7 @@ public class EmployeeController {
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
   @FXML private MFXTextField fileNameField;
-  private static PopOver popup;
+  private PopOver popup;
   @FXML private MFXButton cancel;
 
   private String hospitalID;
@@ -60,6 +64,8 @@ public class EmployeeController {
 
   private ObservableList<EmployeeEntity> dbTableRowsModel = FXCollections.observableArrayList();
   EmployeeImpl employee = new EmployeeImpl();
+  NodeImpl node = new NodeImpl();
+  MoveImpl move = new MoveImpl();
   List<EmployeeEntity> employeeData = new ArrayList<>();
 
   @FXML
@@ -73,7 +79,9 @@ public class EmployeeController {
   }
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, IOException {
+    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
+    popup = new PopOver(loader.load());
 
     if (reminder != null) {
       reminder.setVisible(false);
@@ -201,6 +209,7 @@ public class EmployeeController {
 
   @FXML
   public void switchToImportPopup(ActionEvent event) throws IOException {
+
     if (!event.getSource().equals(cancel)) {
       FXMLLoader loader =
           new FXMLLoader(Main.class.getResource("views/ImportEmployeeCSVFXML.fxml"));
@@ -214,17 +223,20 @@ public class EmployeeController {
   }
 
   @FXML
-  public void importEmployeeCSV(ActionEvent event) throws FileNotFoundException {
+  public void importCSV(ActionEvent event) throws FileNotFoundException {
     if (fileNameField.getText().equals("")) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
-
-      System.out.println(fileNameField.getText());
-
-      employee.importFromCSV(fileNameField.getText());
+      if (iecsv.getTableType().equals("employee")) {
+        employee.importFromCSV(fileNameField.getText());
+      } else if (iecsv.getTableType().equals("node")) {
+        node.importFromCSV(fileNameField.getText());
+      } else if (iecsv.getTableType().equals("move")) {
+        move.importFromCSV(fileNameField.getText());
+      }
 
       popup.hide();
     }
@@ -251,7 +263,7 @@ public class EmployeeController {
   }
 
   @FXML
-  public void exportEmployeeCSV(ActionEvent event) throws IOException {
+  public void exportCSV(ActionEvent event) throws IOException {
 
     if (fileNameField.getText().equals("")) {
       reminder.setVisible(true);
@@ -259,8 +271,13 @@ public class EmployeeController {
     } else {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
-
-      employee.exportToCSV(fileNameField.getText());
+      if (iecsv.getTableType().equals("employee")) {
+        employee.exportToCSV(fileNameField.getText());
+      } else if (iecsv.getTableType().equals("node")) {
+        node.exportToCSV(fileNameField.getText());
+      } else if (iecsv.getTableType().equals("move")) {
+        move.exportToCSV(fileNameField.getText());
+      }
 
       popup.hide();
     }
