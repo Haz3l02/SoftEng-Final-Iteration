@@ -91,7 +91,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
       }
     } else filename += ".csv";
 
-    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);
@@ -246,51 +246,38 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public void update(List<String> ID, MoveEntity obj) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-//    String hql = "update MoveEntity mov set mov.nodeid = '"+
-//            ID.get(0)+
-//            "', mov.longname = '"+
-//            ID.get(1)+
-//            "', mov.movedate = '"+
-//            LocalDate.parse(ID.get(2))+
-//            "' where mov.nodeid = '"+
-//            obj.getNode().getNodeid()+
-//            "', mov.longname = '"+
-//            obj.getLocationName().getLongname()+
-//            "', mov.movedate = '"+
-//            obj.getMovedate()+
-//            "';";
-//    MutationQuery q = session.createMutationQuery(hql);
-//    q.executeUpdate();
 
+
+
+    ListIterator<MoveEntity> li = moves.listIterator();
+    while (li.hasNext()) {
+      if (li.next().getNode().getNodeid().equals(ID.get(0))
+              && li.next().getLocationName().getLongname().equals(ID.get(1))
+              && li.next().getMovedate().toString().equals(ID.get(2))) {
+        li.remove();
+      }
+    }
 
     session.
             createMutationQuery(
                     "UPDATE MoveEntity mov SET " +
                             "mov.node = :newnodeid, mov.locationName = :newlongname, mov.movedate = :newmovedate " +
                             "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
-            .setParameter("newnodeid", obj.getNode())
-            .setParameter("newlongname", obj.getLocationName())
+            .setParameter("newnodeid", session.get(NodeEntity.class, obj.getNode().getNodeid()))
+            .setParameter("newlongname", session.get(LocationNameEntity.class, obj.getLocationName().getLongname()))
             .setParameter("newmovedate", obj.getMovedate())
             .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
             .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
-            .setParameter("oldmovedate", Timestamp.parse(ID.get(2)))
+            .setParameter("oldmovedate", LocalDate.parse(ID.get(2)))
             .executeUpdate();
 
 
 
-    ListIterator<MoveEntity> li = moves.listIterator();
-    while (li.hasNext()) {
-      if (li.next().getNode().equals(ID.get(0))
-          && li.next().getLocationName().equals(ID.get(1))
-          && li.next().getMovedate().equals(ID.get(2))) {
-        li.remove();
-      }
-    }
 
-    moves.add(new MoveEntity(session.get(NodeEntity.class, ID.get(0)),
-            session.get(LocationNameEntity.class, ID.get(1)),
-            LocalDate.parse(ID.get(2))));
 
+    moves.add(new MoveEntity(session.get(NodeEntity.class, obj.getNode().getNodeid()),
+            session.get(LocationNameEntity.class, obj.getLocationName().getLongname()),
+            obj.getMovedate()));
     tx.commit();
     session.close();
   }
