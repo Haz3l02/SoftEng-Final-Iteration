@@ -149,14 +149,15 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
       }
     }
 
-    String hql = "delete MoveEntity mov "+
-            " where mov.nodeid = '"+
-            m.get(0)+
-            "', mov.longname = '"+
-            m.get(1)+
-            "', mov.movedate = '"+
-            m.get(2)+
-            "';";
+    String hql =
+        "delete MoveEntity mov "
+            + " where mov.nodeid = '"
+            + m.get(0)
+            + "', mov.longname = '"
+            + m.get(1)
+            + "', mov.movedate = '"
+            + m.get(2)
+            + "';";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
 
@@ -207,15 +208,15 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
     MoveEntity mov = new MoveEntity();
     List<MoveEntity> ids =
-            moves.stream()
-                    .filter(
-                            moveEntity ->
-                                    moveEntity.getNode().getNodeid().equals(id)
-                                            && (date.compareTo(moveEntity.getMovedate())>=0))
-                    .toList();
+        moves.stream()
+            .filter(
+                moveEntity ->
+                    moveEntity.getNode().getNodeid().equals(id)
+                        && (date.compareTo(moveEntity.getMovedate()) >= 0))
+            .toList();
     LocalDate dt1 = LocalDate.parse("2023-01-01");
-    for (MoveEntity mo : ids){
-      if (mo.getMovedate().compareTo(dt1)>=0){
+    for (MoveEntity mo : ids) {
+      if (mo.getMovedate().compareTo(dt1) >= 0) {
         mov = mo;
         dt1 = mo.getMovedate();
       }
@@ -244,35 +245,34 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public void update(List<String> ID, MoveEntity obj) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-//    String hql = "update MoveEntity mov set mov.nodeid = '"+
-//            ID.get(0)+
-//            "', mov.longname = '"+
-//            ID.get(1)+
-//            "', mov.movedate = '"+
-//            LocalDate.parse(ID.get(2))+
-//            "' where mov.nodeid = '"+
-//            obj.getNode().getNodeid()+
-//            "', mov.longname = '"+
-//            obj.getLocationName().getLongname()+
-//            "', mov.movedate = '"+
-//            obj.getMovedate()+
-//            "';";
-//    MutationQuery q = session.createMutationQuery(hql);
-//    q.executeUpdate();
+    //    String hql = "update MoveEntity mov set mov.nodeid = '"+
+    //            ID.get(0)+
+    //            "', mov.longname = '"+
+    //            ID.get(1)+
+    //            "', mov.movedate = '"+
+    //            LocalDate.parse(ID.get(2))+
+    //            "' where mov.nodeid = '"+
+    //            obj.getNode().getNodeid()+
+    //            "', mov.longname = '"+
+    //            obj.getLocationName().getLongname()+
+    //            "', mov.movedate = '"+
+    //            obj.getMovedate()+
+    //            "';";
+    //    MutationQuery q = session.createMutationQuery(hql);
+    //    q.executeUpdate();
 
-
-    session.
-            createMutationQuery(
-                    "UPDATE MoveEntity mov SET " +
-                            "mov.node.id = :newnodeid, mov.locationName = :newlongname, mov.movedate = :newmovedate " +
-                            "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
-            .setParameter("newnodeid", obj.getNode().getNodeid())
-            .setParameter("newlongname", obj.getLocationName().getLongname())
-            .setParameter("newmovedate", obj.getMovedate())
-            .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
-            .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
-            .setParameter("oldmovedate", Timestamp.parse(ID.get(2)))
-            .executeUpdate();
+    session
+        .createMutationQuery(
+            "UPDATE MoveEntity mov SET "
+                + "mov.node.id = :newnodeid, mov.locationName = :newlongname, mov.movedate = :newmovedate "
+                + "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
+        .setParameter("newnodeid", obj.getNode().getNodeid())
+        .setParameter("newlongname", obj.getLocationName().getLongname())
+        .setParameter("newmovedate", obj.getMovedate())
+        .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
+        .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
+        .setParameter("oldmovedate", Timestamp.parse(ID.get(2)))
+        .executeUpdate();
 
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
