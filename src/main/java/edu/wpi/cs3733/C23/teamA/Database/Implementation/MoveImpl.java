@@ -168,6 +168,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
    * Find all moves happening on or after a date
    *
    * @param minDate Minimum date for a Move to become a key in the return
+   * @param maxDate Minimum date for a Move to become a key in the return
    * @return Hashmap representing mapping of (latest location, location immediately before)
    */
   public HashMap<MoveEntity, MoveEntity> locationChanges(LocalDate minDate, LocalDate maxDate) {
@@ -247,9 +248,10 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
-      if (li.next().getNode().getNodeid().equals(ID.get(0))
-          && li.next().getLocationName().getLongname().equals(ID.get(1))
-          && li.next().getMovedate().toString().equals(ID.get(2))) {
+      MoveEntity me = li.next();
+      if (me.getNode().getNodeid().equals(ID.get(0))
+          && me.getLocationName().getLongname().equals(ID.get(1))
+          && me.getMovedate().toString().equals(ID.get(2))) {
         li.remove();
       }
     }
