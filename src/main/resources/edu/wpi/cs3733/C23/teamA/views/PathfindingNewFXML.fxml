@@ -27,12 +27,20 @@
             <children>
                 <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" onAction="#switchToHomeScene" prefHeight="70.0" prefWidth="180.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Back" textFill="#d3e9f6">
                     <HBox.margin>
-                        <Insets bottom="10.0" right="10.0" />
+                        <Insets bottom="10.0" />
                     </HBox.margin>
                     <font>
                         <Font size="25.0" />
                     </font>
                 </MFXButton>
+            <MFXButton id="cancelButton" fx:id="clearButton" buttonType="RAISED" cancelButton="true" onAction="#clearForm" prefHeight="70.0" prefWidth="180.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Clear" textFill="#d3e9f6">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </HBox.margin>
+            </MFXButton>
                 <MFXButton id="findPathButton" buttonType="RAISED" defaultButton="true" onAction="#generatePath" prefHeight="70.0" prefWidth="180.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-color: black; -fx-border-radius: 15;" text="Find Path" textFill="#224870">
                     <font>
                         <Font size="25.0" />
@@ -57,7 +65,7 @@
                                             <children>
                                                 <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Pathfinding" wrappingWidth="278.1484375">
                                                     <font>
-                                                        <Font name="Verdana" size="36.0" />
+                                                        <Font name="Arial Black" size="36.0" />
                                                     </font>
                                                     <VBox.margin>
                                                         <Insets left="10.0" />
@@ -80,12 +88,12 @@
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                                 <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" promptText="Select Location...">
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                             </children>
@@ -108,12 +116,12 @@
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                                 <MFXFilterComboBox fx:id="endLocBox" disable="true" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" promptText="Select Location...">
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                             </children>
@@ -136,24 +144,24 @@
                                           <Font name="Verdana" size="18.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets left="100.0" />
+                                          <Insets left="80.0" />
                                        </HBox.margin>
                                     </Text>
                                  </children>
                               </HBox>
                                         <HBox>
                                             <children>
-                                                <MFXFilterComboBox fx:id="algosBox" floatMode="DISABLED" onAction="#setPathfindingAlgorithm" prefHeight="38.0" prefWidth="198.0" promptText="Select Algorithm...">
+                                                <MFXFilterComboBox fx:id="algosBox" floatMode="DISABLED" onAction="#setPathfindingAlgorithm" prefHeight="38.0" prefWidth="181.0" promptText="Select Algorithm...">
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                    <MFXDatePicker fx:id="navDatePicker" onAction="#setNavigationDate" promptText="Select Date...">
+                                    <MFXDatePicker fx:id="navDatePicker" disable="true" onAction="#setNavigationDate" prefHeight="38.0" prefWidth="222.0" promptText="Select Date...">
                                        <HBox.margin>
-                                          <Insets left="15.0" />
+                                          <Insets left="10.0" />
                                        </HBox.margin>
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Kohinoor Bangla" size="14.0" />
                                        </font>
                                     </MFXDatePicker>
                                             </children>
@@ -181,7 +189,7 @@
                                     <children>
                                         <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions" wrappingWidth="212.8151092529297">
                                             <font>
-                                                <Font name="Verdana" size="36.0" />
+                                                <Font name="Arial Black" size="36.0" />
                                             </font>
                                             <VBox.margin>
                                                 <Insets left="10.0" />
@@ -219,7 +227,7 @@
                                     <children>
                                         <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map" wrappingWidth="278.1484375">
                                             <font>
-                                                <Font name="Verdana" size="36.0" />
+                                                <Font name="Arial Black" size="36.0" />
                                             </font>
                                         </Text>
                                         <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0" />
@@ -231,16 +239,16 @@
                                 <tabs>
                                     <Tab text="Lower Level One">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0">
                                              <children>
                                                 <StackPane fx:id="floorL1Stack">
                                                    <children>
-                                                      <ImageView fx:id="floorL1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="floorL1" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="floorL1Canvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorL1Canvas" height="459.0" width="675.0" />
                                                    </children>
                                                 </StackPane>
                                                 <GesturePane fx:id="floorL1gPane" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -254,12 +262,12 @@
                                              <children>
                                                 <StackPane fx:id="floorL2Stack">
                                                    <children>
-                                                      <ImageView fx:id="floorL2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="floorL2" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/00_thelowerlevel2_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="floorL2Canvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorL2Canvas" height="459.0" width="675.0" />
                                                    </children>
                                                 </StackPane>
                                                 <GesturePane fx:id="floorL2gPane" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -273,12 +281,12 @@
                                              <children>
                                                 <StackPane fx:id="floorF1Stack">
                                                    <children>
-                                                      <ImageView fx:id="floorF1" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="floorF1" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="floorF1Canvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorF1Canvas" height="459.0" width="675.0" />
                                                    </children>
                                                 </StackPane>
                                                 <GesturePane fx:id="floorF1gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -286,43 +294,43 @@
                                           </AnchorPane>
                                     </content>
                                   </Tab>
-                                  <Tab text="Floor Two">
-                                    <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <Tab text="Floor Two">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
                                                 <StackPane fx:id="floorF2Stack">
                                                    <children>
-                                                      <ImageView fx:id="floorF2" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="floorF2" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
+                                                            <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="floorF2Canvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorF2Canvas" height="459.0" width="675.0" />
                                                    </children>
                                                 </StackPane>
-                                                <GesturePane fx:id="floorF2gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <GesturePane fx:id="floorF2gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.0" prefWidth="747.3333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
-                                    </content>
-                                  </Tab>
+                                       </content>
+                                    </Tab>
                                     <Tab text="Floor Three">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
                                                 <StackPane fx:id="floorF3Stack">
                                                    <children>
-                                                      <ImageView fx:id="floorF3" fitHeight="456.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="floorF3" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
+                                                            <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Canvas fx:id="floorF3Canvas" height="456.0" width="754.0" />
+                                                      <Canvas fx:id="floorF3Canvas" height="459.0" width="675.0" />
                                                    </children>
                                                 </StackPane>
-                                                <GesturePane fx:id="floorF3gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <GesturePane fx:id="floorF3gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.0" prefWidth="747.3333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
-                                      </content>
+                                       </content>
                                     </Tab>
                                 </tabs>
                               </TabPane>

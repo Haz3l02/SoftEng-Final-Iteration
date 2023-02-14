@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
@@ -66,8 +67,10 @@ public class ServiceRequestStatusController extends MenuController {
 
   private String hospitalID;
   private String job;
-  ServiceRequestImpl servI = new ServiceRequestImpl();
-  List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
+  private ObservableList<ServiceRequestEntity> dbTableRowsModel =
+      FXCollections.observableArrayList();
+  List<ServiceRequestEntity> serviceRequestData = new ArrayList<>();
+  ServiceRequestImpl serviceRequestImpl = new ServiceRequestImpl();
 
   private static PopOver popup;
 
@@ -82,9 +85,6 @@ public class ServiceRequestStatusController extends MenuController {
       Navigation.navigateHome(Screen.HOME_EMPLOYEE);
     }
   }
-
-  private ObservableList<ServiceRequestEntity> dbTableRowsModel =
-      FXCollections.observableArrayList();
 
   @FXML
   public void initialize() throws SQLException, IOException {
@@ -138,13 +138,13 @@ public class ServiceRequestStatusController extends MenuController {
       employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
       if (job.equalsIgnoreCase("medical")) {
-        requests = servI.getAllByEmployee(hospitalID);
+        serviceRequestData = serviceRequestImpl.getAllByEmployee(hospitalID);
       } else if (job.equalsIgnoreCase("Maintenance")) {
-        requests = servI.getServiceRequestByAssigned(holder.getName());
+        serviceRequestData = serviceRequestImpl.getServiceRequestByAssigned(holder.getName());
       } else if (job.equalsIgnoreCase("Admin")) {
-        requests = servI.getServiceRequestByUnassigned();
+        serviceRequestData = serviceRequestImpl.getServiceRequestByUnassigned();
       }
-      dbTableRowsModel.addAll(requests);
+      dbTableRowsModel.addAll(serviceRequestData);
 
       serviceReqsTable.setItems(dbTableRowsModel);
     }
@@ -180,25 +180,37 @@ public class ServiceRequestStatusController extends MenuController {
         FXCollections.observableArrayList(UrgencyLevel.urgencyList());
 
     ObservableList<String> formTypes = FXCollections.observableArrayList(FormType.typeList());
+    EmployeeImpl theEmployee = new EmployeeImpl();
 
-    ObservableList<String> employees =
-        FXCollections.observableArrayList(
-            "Izzy",
-            "Isabella",
-            "Andrei",
-            "Harrison",
-            "John",
-            "Chris",
-            "Steve",
-            "Hazel",
-            "Audrey",
-            "Sarah",
-            "Maintenance Wong");
+    ObservableList<String> maintenance =
+        FXCollections.observableArrayList(theEmployee.getListOf("Maintenance"));
 
     statusBox.setItems(statuses);
     urgencyBox.setItems(urgencies);
     formTypeBox.setItems(formTypes);
-    employeeBox.setItems(employees);
+    employeeBox.setItems(maintenance);
+  }
+
+  @FXML
+  public void delete(ActionEvent event) {
+    int currentRowId = Integer.parseInt(IDBoxSaver.getText());
+    serviceRequestImpl.delete(currentRowId);
+    reloadData();
+  }
+
+  public void reloadData() {
+    dbTableRowsModel.clear();
+    try {
+      if (job.equalsIgnoreCase("medical")) {
+        serviceRequestData = serviceRequestImpl.getAllByEmployee(hospitalID);
+      } else {
+        serviceRequestData = serviceRequestImpl.getAll();
+      }
+      dbTableRowsModel.addAll(serviceRequestData);
+      clearEdits();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
@@ -219,37 +231,19 @@ public class ServiceRequestStatusController extends MenuController {
           SRTable.setRequestType(ServiceRequestEntity.RequestType.valueOf(formTypeBox.getText()));
           SRTable.setDate(Timestamp.valueOf(dateBox.getText()));
           SRTable.setStatus(Status.valueOf(statusBox.getText()));
-          SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText()));
+          SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText().toUpperCase()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
-          serviceReqsTable.setItems(currentTableData);
-          serviceReqsTable.refresh();
-          ServiceRequestImpl servI = new ServiceRequestImpl();
-          ServiceRequestEntity billy = servI.get(currentRowId);
+          serviceRequestImpl.update(currentRowId, SRTable);
 
-          if (statusBox != null && !statusBox.isDisabled()) {
-            status = Status.valueOf(statusBox.getValue());
-            billy.setStatus(status);
-          }
-          if (urgencyBox != null && !urgencyBox.isDisabled()) {
-            urgent = UrgencyLevel.valueOf(urgencyBox.getValue());
-            billy.setUrgency(urgent);
-          }
-          billy.setEmployeeAssigned(employeeBox.getText());
-          servI.add(billy);
+          reloadData();
           break;
         }
       }
     }
   }
 
-  @FXML
-  public void delete(ActionEvent event) {}
-
-  @FXML
-  public void submitRequest(ActionEvent event) {}
-
-  public void clearEdits(ActionEvent event) {
+  public void clearEdits() {
     IDBoxSaver.setText("");
     formTypeBox.clear();
     dateBox.clear();
@@ -291,6 +285,9 @@ public class ServiceRequestStatusController extends MenuController {
         break;
       case "Security":
         Navigation.navigate(Screen.SECURITY);
+        break;
+      case "Transportation":
+        Navigation.navigate(Screen.PATIENT_TRANSPORT);
         break;
       default:
         Navigation.navigateHome(Screen.HOME);

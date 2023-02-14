@@ -165,7 +165,24 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     return ids.get(0);
   }
 
-  // NEED TO FIX THIS
+  public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
+    MoveEntity mov = new MoveEntity();
+    List<MoveEntity> ids =
+        moves.stream()
+            .filter(
+                moveEntity ->
+                    moveEntity.getNode().getNodeid().equals(id)
+                        && (date.compareTo(moveEntity.getMovedate()) >= 0))
+            .toList();
+    LocalDate dt1 = LocalDate.parse("2023-01-01");
+    for (MoveEntity mo : ids) {
+      if (mo.getMovedate().compareTo(dt1) >= 0) {
+        mov = mo;
+        dt1 = mo.getMovedate();
+      }
+    }
+    return mov;
+  }
 
   /**
    * Find the last assigned location of this node by its id. This will get the move with the
@@ -224,5 +241,21 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
   public static MoveImpl getInstance() {
     return instance;
+  }
+
+  public List<String> getNodeID() {
+    ArrayList<String> nodeID = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      nodeID.add(m.getNode().getNodeid());
+    }
+    return nodeID;
+  }
+
+  public List<String> getLocationName() {
+    ArrayList<String> nodeID = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      nodeID.add(m.getLocationName().getLongname());
+    }
+    return nodeID;
   }
 }

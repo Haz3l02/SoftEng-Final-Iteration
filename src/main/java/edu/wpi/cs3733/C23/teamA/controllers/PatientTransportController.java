@@ -8,8 +8,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.PatientTransportimpl;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
@@ -40,11 +38,6 @@ public class PatientTransportController extends ServiceRequestController {
       equipmentBox.setText(editPatientRequest.getEquipment());
     }
     // Otherwise Initialize service requests as normal
-  }
-
-  @FXML
-  public void switchToConfirmationScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.PATIENT_TRANSPORT);
   }
 
   @FXML

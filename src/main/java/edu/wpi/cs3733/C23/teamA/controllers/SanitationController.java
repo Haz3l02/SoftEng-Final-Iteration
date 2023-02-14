@@ -27,6 +27,9 @@ import javafx.fxml.FXML;
 
 public class SanitationController extends ServiceRequestController {
   private IssueCategory category;
+  SanitationRequestImpl sanI = new SanitationRequestImpl();
+  LocationNameImpl locationI = new LocationNameImpl();
+  EmployeeImpl employeeI = new EmployeeImpl();
 
   @FXML private MFXComboBox<String> categoryBox;
   @FXML private MFXButton clear;
@@ -105,9 +108,7 @@ public class SanitationController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
-    SanitationRequestImpl sanI = new SanitationRequestImpl();
-    LocationNameImpl locationI = new LocationNameImpl();
-    EmployeeImpl employeeI = new EmployeeImpl();
+
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null
@@ -152,6 +153,7 @@ public class SanitationController extends ServiceRequestController {
         sanI.add(submission);
         // submission.insert(); // *some db thing for getting the request in there*
       }
+
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }
