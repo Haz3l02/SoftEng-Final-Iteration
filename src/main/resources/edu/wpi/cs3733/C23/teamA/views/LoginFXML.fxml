@@ -44,23 +44,23 @@
    <right>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <right>
-            <VBox alignment="CENTER" prefHeight="500.0" prefWidth="431.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="451.0" prefWidth="362.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
                <children>
-                  <StackPane prefHeight="150.0" prefWidth="74.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15;">
+                  <StackPane prefHeight="286.0" prefWidth="355.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15;">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="212.0" prefWidth="232.0">
+                        <VBox alignment="CENTER" prefHeight="314.0" prefWidth="364.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Login" underline="true">
                                  <font>
                                     <Font name="Verdana" size="48.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets bottom="25.0" />
                                  </VBox.margin>
                               </Text>
                               <MFXTextField fx:id="usernameTextField" floatMode="DISABLED" prefColumnCount="1" prefHeight="37.0" prefWidth="246.0" promptText="Username" style="-fx-border-radius: 15; -fx-background-radius: 15;">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets bottom="25.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font size="24.0" />
@@ -68,7 +68,7 @@
                               </MFXTextField>
                               <MFXPasswordField fx:id="passwordTextField" floatMode="DISABLED" prefColumnCount="1" prefHeight="37.0" prefWidth="246.0" promptText="Password" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets bottom="25.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font name="Verdana" size="24.0" />
@@ -78,6 +78,9 @@
                                  <font>
                                     <Font size="24.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets bottom="25.0" />
+                                 </VBox.margin>
                               </MFXButton>
                            </children>
                            <StackPane.margin>

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.acceptTheForm;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
@@ -12,6 +13,9 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.SanitationRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -27,10 +31,18 @@ public class SanitationController extends ServiceRequestController {
   EmployeeImpl employeeI = new EmployeeImpl();
 
   @FXML private MFXComboBox<String> categoryBox;
+  @FXML private MFXButton clear;
+  @FXML private MFXButton submit;
+  @FXML private MFXButton accept;
+  @FXML private MFXButton reject;
 
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
+    reject.setDisable(true);
+    reject.setVisible(false);
+    accept.setDisable(true);
+    accept.setVisible(false);
     if (categoryBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
       ObservableList<String> categories =
@@ -38,7 +50,6 @@ public class SanitationController extends ServiceRequestController {
       categoryBox.setItems(categories);
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Sanitation")) {
-      SanitationRequestImpl sanI = new SanitationRequestImpl();
       SanitationRequestEntity editRequest = sanI.get(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
@@ -46,7 +57,38 @@ public class SanitationController extends ServiceRequestController {
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
+      accept.setDisable(true);
+      accept.setVisible(false);
+      clear.setDisable(false);
+      clear.setVisible(true);
+      submit.setDisable(false);
+      submit.setVisible(true);
+      reject.setDisable(true);
+      reject.setVisible(false);
+
+    } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Sanitation")) {
+      SanitationRequestEntity editRequest = sanI.get(acceptTheForm.getRequestID());
+      nameBox.setText(editRequest.getName());
+      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      categoryBox.setText(editRequest.getCategory().getIssue());
+      locationBox.setText(editRequest.getLocation().getLongname());
+      urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      descBox.setText(editRequest.getDescription());
+      // sanI.closeSession();
+      accept.setDisable(false);
+      accept.setVisible(true);
+      clear.setDisable(true);
+      clear.setVisible(false);
+      submit.setDisable(true);
+      submit.setVisible(false);
+      reject.setDisable(false);
+      reject.setVisible(true);
     }
+  }
+
+  @FXML
+  public void switchToConfirmationScene(ActionEvent event) {
+    Navigation.navigate(Screen.CONFIRMATION);
   }
 
   @FXML
@@ -62,8 +104,6 @@ public class SanitationController extends ServiceRequestController {
       reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
-        // something that submits it
-
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
 
@@ -76,7 +116,6 @@ public class SanitationController extends ServiceRequestController {
         submission.setCategory(category);
       } else {
         EmployeeEntity person = employeeI.get(IDNum.getText());
-        // IDNum.getText()
         LocationNameEntity location = locationI.get(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
@@ -90,11 +129,10 @@ public class SanitationController extends ServiceRequestController {
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.SANITATION,
-                Status.BLANK,
+                Status.NEW,
                 "Unassigned",
                 category);
         sanI.add(submission);
-        // submission.insert(); // *some db thing for getting the request in there*
       }
 
       newEdit.setNeedEdits(false);

@@ -24,12 +24,12 @@
             </Text>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                <children>
-                  <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" prefWidth="450.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15;" text="Service Request Systems" textFill="#122c34">
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" prefWidth="450.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Service Request Systems" textFill="#122c34">
                      <font>
                         <Font size="35.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#switchToServiceRequestStatus" prefHeight="28.0" prefWidth="450.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15;" text="Past Submissions" textFill="#122c34" wrapText="true">
+                  <Button mnemonicParsing="false" onAction="#switchToServiceRequestStatus" prefHeight="28.0" prefWidth="450.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Past Submissions" textFill="#122c34" wrapText="true">
                      <font>
                         <Font size="35.0" />
                      </font>

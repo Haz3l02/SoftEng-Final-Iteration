@@ -111,6 +111,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     new ComputerRequestImpl().removeFromList(s);
     new SanitationRequestImpl().removeFromList(s);
     new SecurityRequestImpl().removeFromList(s);
+    new PatientTransportimpl().removeFromList(s);
 
     session.remove(get(s));
     ListIterator<ServiceRequestEntity> li = services.listIterator();
@@ -190,6 +191,14 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     return null;
   }
 
+  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(String name) {
+    ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
+    for (ServiceRequestEntity ser : services) {
+      if (ser.getEmployeeAssigned().equals(name)) sers.add(ser);
+    }
+    return sers;
+  }
+
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
     for (ServiceRequestEntity ser : services) {
@@ -211,6 +220,25 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
       }
     }
     services.add(serv);
+    tx.commit();
+    session.close();
+  }
+
+  public void updateEmployee(String employee, Integer ID) {
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+
+    ServiceRequestEntity serv = session.get(ServiceRequestEntity.class, ID);
+    serv.setEmployeeAssigned(employee);
+    ListIterator<ServiceRequestEntity> li = services.listIterator();
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == ID) {
+        li.remove();
+      }
+    }
+
+    services.add(serv);
+
     tx.commit();
     session.close();
   }

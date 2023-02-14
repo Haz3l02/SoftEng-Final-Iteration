@@ -24,7 +24,7 @@
                   <Insets bottom="-20.0" />
                </padding>
                <center>
-                  <VBox alignment="TOP_CENTER" prefHeight="330.0" prefWidth="732.0" spacing="15.0" BorderPane.alignment="CENTER_LEFT">
+                  <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="330.0" prefWidth="732.0" spacing="15.0" BorderPane.alignment="CENTER_LEFT">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="602.0" spacing="30.0">
                            <children>
@@ -38,16 +38,16 @@
                               </Text>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="4.0" prefWidth="1339.0" spacing="25.0">
                            <children>
-                              <VBox alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="330.0" prefWidth="417.0" style="-fx-background-color: F6BD3A; -fx-background-radius: 20;">
+                              <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="330.0" prefWidth="417.0" style="-fx-background-color: F6BD3A; -fx-background-radius: 20; -fx-border-color: #122c34; -fx-border-radius: 20;">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Moves Occuring Today">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
                                     </Text>
-                                    <TableView nodeOrientation="LEFT_TO_RIGHT" prefHeight="270.0" prefWidth="417.0" style="-fx-background-color: F6BD3A;">
+                                    <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="270.0" prefWidth="500.0" style="-fx-background-color: F6BD3A;">
                                       <columns>
                                         <TableColumn prefWidth="455.0" text="Move Location" />
                                         <TableColumn prefWidth="199.0" text="Date" />
@@ -60,11 +60,11 @@
                               </VBox>
                               <HBox alignment="CENTER" prefHeight="418.0" prefWidth="1724.0">
                                  <children>
-                                    <VBox alignment="TOP_RIGHT" prefHeight="330.0" prefWidth="700.0">
+                                    <VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="330.0" prefWidth="850.0">
                                        <children>
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="50.0" spacing="30.0">
+                                          <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="100.0" prefWidth="850.0" spacing="30.0">
                                              <children>
-                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" minHeight="-Infinity" onAction="#switchToMoveScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text=" Move Table" textAlignment="CENTER" wrapText="true">
+                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToMoveScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="BioHaz_container" text=" Move Table" textAlignment="CENTER" wrapText="true">
                                                    <font>
                                                       <Font size="40.0" />
                                                    </font>
@@ -82,7 +82,7 @@
                                                       <Insets left="5.0" right="5.0" />
                                                    </padding>
                                                 </MFXButton>
-                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToMapScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Map Editor" textAlignment="CENTER" wrapText="true">
+                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToMapScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="BioHaz_container" text="Map Editor" textAlignment="CENTER" wrapText="true">
                                                    <font>
                                                       <Font size="40.0" />
                                                    </font>
@@ -104,7 +104,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="1000.0" spacing="30.0">
                                              <children>
-                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Node Creation" textAlignment="CENTER">
+                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="BioHaz_container" text="Node Creation" textAlignment="CENTER">
                                                    <font>
                                                       <Font size="34.0" />
                                                    </font>
@@ -119,7 +119,7 @@
                                                       <Insets left="5.0" right="5.0" />
                                                    </HBox.margin>
                                                 </MFXButton>
-                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToEmployeeScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Employee Records" textAlignment="CENTER" wrapText="true">
+                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToEmployeeScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="BioHaz_container" text="Employee Records" textAlignment="CENTER" wrapText="true">
                                                    <font>
                                                       <Font size="34.0" />
                                                    </font>

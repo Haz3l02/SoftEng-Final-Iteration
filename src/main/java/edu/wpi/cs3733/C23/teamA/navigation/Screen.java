@@ -7,6 +7,7 @@ public enum Screen {
   HOME_ADMIN("views/HomeAdminFXML.fxml"),
   HOME_EMPLOYEE("views/HomeEmployeeFXML.fxml"),
   CONFIRMATION("views/ConfirmationFXML.fxml"),
+  PATIENT_CONFIRMATION("views/PatientTransportConformationFXML.fxml"),
   COMPUTER("views/ComputerFXML.fxml"),
   SANITATION("views/SanitationFXML.fxml"),
   SECURITY("views/SecurityFXML.fxml"),
@@ -26,7 +27,7 @@ public enum Screen {
   EMPLOYEE("views/EmployeeFXML.fxml"),
   HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
   MAP_DISPLAY("views/PathDisplayFXML.fxml"),
-  PATIENT_TRANSPORT("views/PatientTransportFXML.fxml");
+  PATIENT_TRANSPORT("views/PatientTransportationFXML.fxml");
 
   private final String filename;
 
