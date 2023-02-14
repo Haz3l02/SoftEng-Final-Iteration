@@ -90,4 +90,9 @@ public abstract class ServiceRequestController extends MenuController {
   public void switchToHomeServiceRequestScene(ActionEvent event) {
     Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
   }
+
+  @FXML
+  public void switchToConfirmationScene(ActionEvent event) {
+    Navigation.navigateHome(Screen.CONFIRMATION);
+  }
 }

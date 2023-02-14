@@ -12,8 +12,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.SanitationRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -47,11 +45,6 @@ public class SanitationController extends ServiceRequestController {
       descBox.setText(editRequest.getDescription());
       sanI.closeSession();
     }
-  }
-
-  @FXML
-  public void switchToConfirmationScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.SANITATION_CONFIRMATION);
   }
 
   @FXML
