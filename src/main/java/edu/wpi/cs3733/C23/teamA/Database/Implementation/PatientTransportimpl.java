@@ -4,9 +4,13 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.PatientTransportRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
@@ -50,7 +54,25 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
   public void importFromCSV(String filename) throws FileNotFoundException {}
 
   @Override
-  public void exportToCSV(String filename) throws IOException {}
+  public void exportToCSV(String filename) throws IOException {
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
+    File csvFile =
+            new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+    FileWriter fileWriter = new FileWriter(csvFile);
+    fileWriter.write("patientname, patientid, moveto, equipment\n");
+    for (PatientTransportRequestEntity pat : patrequests) {
+      fileWriter.write(pat.getPatientName() + "," + pat.getPatientID()
+              + ", "
+              + pat.getMoveTo()
+              + ", "
+              + pat.getEquipment() + "\n");
+    }
+    fileWriter.close();
+  }
 
   @Override
   public void update(Integer ID, PatientTransportRequestEntity obj) {
