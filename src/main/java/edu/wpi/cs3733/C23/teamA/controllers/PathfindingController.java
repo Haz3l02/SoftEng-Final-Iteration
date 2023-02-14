@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
@@ -117,17 +118,6 @@ public class PathfindingController extends MenuController {
     endFloorBox.setItems(floors);
     algosBox.setItems(algos);
 
-    /*
-    LocationNameImpl table = new LocationNameImpl();
-    allNodeIDs = new ArrayList<String>();
-    allLongNames =
-        table.getAll().stream()
-            .map(locationNameEntity -> locationNameEntity.getLongname())
-            .toList();
-
-    table.closeSession();
-     */
-
     // add the map images (also already done in SceneBuilder)
     addFloorMapImage(HospitalMaps.L2.getFilename(), floorL2);
     addFloorMapImage(HospitalMaps.L1.getFilename(), floorL1);
@@ -148,24 +138,26 @@ public class PathfindingController extends MenuController {
     this.floorF3gPane.setContent(nodeF3);
 
     // autofill the date picker to the current date
-    navDatePicker.setValue(navDatePicker.getCurrentDate());
+    navDatePicker.setValue(LocalDate.of(2023, 1, 1)); // hard coding this for iteration 2
+    // navDatePicker.setValue(navDatePicker.getCurrentDate()); // WILL NEED THIS LATER
+    navDate = navDatePicker.getValue();
   }
 
   /** Method to clear the fields on the form on the UI page */
   @FXML
   public void clearForm() {
+    // clear the selection fields
+    startLocBox.clearSelection();
+    endLocBox.clearSelection();
+    startFloorBox.clearSelection();
+    endFloorBox.clearSelection();
+    algosBox.clearSelection();
+    // navDatePicker.clear(); WILL NEED THIS LATER
+
     // reset the location lists
     ObservableList<String> empty = FXCollections.observableArrayList();
     startLocBox.setItems(empty);
     endLocBox.setItems(empty);
-
-    // clear the selection fields
-    startLocBox.clear();
-    endLocBox.clear();
-    startFloorBox.clear();
-    endFloorBox.clear();
-    algosBox.clear();
-    navDatePicker.clear();
 
     // canvases
     for (GraphicsContext gc : gcs) {
@@ -193,14 +185,14 @@ public class PathfindingController extends MenuController {
     navDate = navDatePicker.getValue();
     // System.out.println(navDate);
 
-    ObservableList<String> empty = FXCollections.observableArrayList();
-    startLocBox.setItems(empty);
-    endLocBox.setItems(empty);
-
     startLocBox.clear();
     endLocBox.clear();
     startFloorBox.clear();
     endFloorBox.clear();
+
+    ObservableList<String> empty = FXCollections.observableArrayList();
+    startLocBox.setItems(empty);
+    endLocBox.setItems(empty);
   }
 
   @FXML
@@ -215,14 +207,18 @@ public class PathfindingController extends MenuController {
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
     LocationNameEntity locNameEnt;
+    MoveEntity moveEntity;
 
     for (NodeEntity n : allNodesStartFloor) {
-      locNameEnt = moveImpl.mostRecentLoc(n.getNodeid());
+      // THIS WILL NEED TO CHANGE IN ITERATION 3
+      moveEntity = moveImpl.locationOnOrBeforeDate(n.getNodeid(), navDate);
+      locNameEnt = moveEntity.getLocationName();
       // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
       // location attached
       if (locNameEnt != null) {
         idsFloor.add(n.getNodeid()); // get nodeId
         namesFloor.add(locNameEnt.getLongname()); // get longName
+        // System.out.println(n.getNodeid());
       }
     }
 
@@ -246,14 +242,18 @@ public class PathfindingController extends MenuController {
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
     LocationNameEntity locNameEnt;
+    MoveEntity moveEntity;
 
     for (NodeEntity n : allNodesStartFloor) {
-      locNameEnt = moveImpl.mostRecentLoc(n.getNodeid());
+      // THIS WILL NEED TO CHANGE IN ITERATION 3
+      moveEntity = moveImpl.locationOnOrBeforeDate(n.getNodeid(), navDate);
+      locNameEnt = moveEntity.getLocationName();
       // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
       // location attached
-      if (locNameEnt != null) {
+      if (locNameEnt != null && !idsFloor.contains(n.getNodeid())) {
         idsFloor.add(n.getNodeid()); // get nodeId
         namesFloor.add(locNameEnt.getLongname()); // get longName
+        // System.out.println(n.getNodeid());
       }
     }
 
@@ -299,12 +299,13 @@ public class PathfindingController extends MenuController {
         || endIndex == -1
         || algIndex == -1
         || startFloorIndex == -1
-        || endFloorIndex == -1) {
+        || endFloorIndex == -1
+        || navDatePicker.getValue() == null) {
       reminder.setText("Please select an option from all fields in the form!");
       reminder.setVisible(true);
     } else {
       // create the graph hashMap where String is nodeId and GraphNode is the node
-      pathfindingSystem.prepGraphDB();
+      pathfindingSystem.prepGraphDB(navDate);
 
       // get the IDs from the input combined w/ indexes
       String sName = startNodeIDs.get(startIndex);

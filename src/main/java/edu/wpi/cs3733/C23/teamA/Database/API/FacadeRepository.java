@@ -130,6 +130,7 @@ public class FacadeRepository {
   public void deleteSecurityRequest(Integer id) {
     sec.delete(id);
   }
+
   public void deletePatientTransport(Integer id) {
     pat.delete(id);
   }
@@ -209,6 +210,7 @@ public class FacadeRepository {
   public SecurityRequestEntity getSecurityRequest(Integer id) {
     return sec.get(id);
   }
+
   public PatientTransportRequestEntity getPatientTransport(Integer id) {
     return pat.get(id);
   }
@@ -220,7 +222,6 @@ public class FacadeRepository {
   public void updateComputerRequest(Integer id, ComputerRequestEntity c) {
     comp.update(id, c);
   }
-
 
   public void updateEdge(String id, EdgeEntity c) {
     edge.update(id, c);
@@ -249,6 +250,7 @@ public class FacadeRepository {
   public void updateSecurityRequest(Integer id, SecurityRequestEntity c) {
     sec.update(id, c);
   }
+
   public void updatePatientTransport(Integer id, PatientTransportRequestEntity c) {
     pat.update(id, c);
   }

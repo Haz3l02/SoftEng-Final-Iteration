@@ -39,6 +39,7 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
     return null;
   }
 
-
-  public static PatientTransportimpl getInstance(){return instance;}
+  public static PatientTransportimpl getInstance() {
+    return instance;
+  }
 }
