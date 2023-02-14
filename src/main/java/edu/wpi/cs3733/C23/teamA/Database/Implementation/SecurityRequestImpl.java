@@ -158,9 +158,6 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     return null;
   }
 
-  //  @Override
-  //  public void closeSession() {}
-
   public static SecurityRequestImpl getInstance() {
     return instance;
   }

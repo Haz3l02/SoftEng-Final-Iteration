@@ -65,6 +65,8 @@ public class ServiceRequestStatusController extends MenuController {
 
   private String hospitalID;
   private String job;
+  ServiceRequestImpl servI = new ServiceRequestImpl();
+  List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
   private static PopOver popup;
 
@@ -121,23 +123,20 @@ public class ServiceRequestStatusController extends MenuController {
         editForm.setVisible(false);
       }
 
-      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
-      formTypeCol.setCellValueFactory(
-          param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-      dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-      statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
-      urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
-      employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
-      ServiceRequestImpl servI = new ServiceRequestImpl();
-      List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
+    IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+    formTypeCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
+    dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+    statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+    urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
+    employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
-      if (job.equalsIgnoreCase("medical")) {
-        requests = servI.getAllByEmployee(hospitalID);
-      } else {
-        requests = servI.getAll();
-      }
-      dbTableRowsModel.addAll(requests);
-      // servI.closeSession();
+    if (job.equalsIgnoreCase("medical")) {
+      requests = servI.getAllByEmployee(hospitalID);
+    } else {
+      requests = servI.getAll();
+    }
+    dbTableRowsModel.addAll(requests);
 
       serviceReqsTable.setItems(dbTableRowsModel);
     }
@@ -224,7 +223,6 @@ public class ServiceRequestStatusController extends MenuController {
           }
           billy.setEmployeeAssigned(employeeBox.getText());
           servI.add(billy);
-          // servI.closeSession();
           break;
         }
       }

@@ -106,9 +106,6 @@ public class ComputerController extends ServiceRequestController {
                 device);
         compI.add(submission);
       }
-      // compI.closeSession();
-      // employeeI.closeSession();
-      // locationI.closeSession();
 
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);

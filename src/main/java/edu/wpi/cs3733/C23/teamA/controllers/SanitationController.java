@@ -56,7 +56,6 @@ public class SanitationController extends ServiceRequestController {
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
-      // sanI.closeSession();
       accept.setDisable(true);
       accept.setVisible(false);
       clear.setDisable(false);
@@ -153,9 +152,6 @@ public class SanitationController extends ServiceRequestController {
         sanI.add(submission);
         // submission.insert(); // *some db thing for getting the request in there*
       }
-      // sanI.closeSession();
-      // employeeI.closeSession();
-      // locationI.closeSession();
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

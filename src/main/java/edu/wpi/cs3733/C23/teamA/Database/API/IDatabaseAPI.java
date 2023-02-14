@@ -18,6 +18,4 @@ public interface IDatabaseAPI<T, G> {
   void delete(G obj);
 
   T get(G ID);
-
-  // void closeSession();
 }

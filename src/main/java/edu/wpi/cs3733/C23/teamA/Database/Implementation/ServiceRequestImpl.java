@@ -190,21 +190,10 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     return null;
   }
 
-  //  @Override
-  //  public void closeSession() {}
-
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
     for (ServiceRequestEntity ser : services) {
       if (ser.getEmployeeAssigned().equals("Unassigned")) sers.add(ser);
-    }
-    return sers;
-  }
-
-  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(String name) {
-    ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
-    for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployeeAssigned().equals(name)) sers.add(ser);
     }
     return sers;
   }
@@ -221,9 +210,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
         li.remove();
       }
     }
-
     services.add(serv);
-
     tx.commit();
     session.close();
   }
