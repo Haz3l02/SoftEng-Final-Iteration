@@ -26,10 +26,17 @@ public class HomeServiceRequestController extends MenuController {
     String hospitalID = holder.getId();
     String job = holder.getJob();
 
+    if (job.equalsIgnoreCase("Maintenance")) {
+      pastSubmissions.setText("Assignments");
+    }
+
     ServiceRequestImpl serviceI = new ServiceRequestImpl();
     ArrayList<ServiceRequestEntity> specificRequests = serviceI.getAllByEmployee(hospitalID);
 
-    if (specificRequests.size() == 0 && (job.equals("medical") || job.equals("Medical"))) {
+    if (specificRequests.size() == 0 && (job.equalsIgnoreCase("medical"))) {
+      pastSubmissions.setDisable(true);
+    } else if (serviceI.getServiceRequestByAssigned(holder.getName()).size() == 0
+        && (job.equalsIgnoreCase("Maintenance"))) {
       pastSubmissions.setDisable(true);
     } else {
       pastSubmissions.setDisable(false);

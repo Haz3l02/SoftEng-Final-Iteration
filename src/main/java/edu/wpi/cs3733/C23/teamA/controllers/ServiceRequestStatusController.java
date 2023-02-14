@@ -52,6 +52,7 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
   @FXML private MFXButton viewForm;
+  @FXML private MFXButton deleteButton;
   @FXML private MFXButton cancel;
   @FXML private MFXTextField fileNameField;
   @FXML private Text reminder;
@@ -106,6 +107,7 @@ public class ServiceRequestStatusController extends MenuController {
         dateBox.setDisable(true);
         urgencyBox.setDisable(false);
         viewForm.setVisible(false);
+        deleteButton.setVisible(true);
 
       } else if (job.equalsIgnoreCase("Maintenance")) {
         statusBox.setDisable(false);
@@ -114,6 +116,8 @@ public class ServiceRequestStatusController extends MenuController {
         dateBox.setDisable(true);
         urgencyBox.setDisable(false);
         editForm.setVisible(false);
+        deleteButton.setDisable(true);
+        deleteButton.setVisible(false);
       } else if (job.equalsIgnoreCase(("Admin"))) {
         statusBox.setDisable(true);
         employeeBox.setDisable(false);
@@ -121,22 +125,26 @@ public class ServiceRequestStatusController extends MenuController {
         dateBox.setDisable(true);
         urgencyBox.setDisable(true);
         editForm.setVisible(false);
+        deleteButton.setDisable(true);
+        deleteButton.setVisible(false);
       }
 
-    IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
-    formTypeCol.setCellValueFactory(
-        param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-    dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-    statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
-    urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
-    employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
+      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+      formTypeCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
+      dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+      statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+      urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
+      employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
-    if (job.equalsIgnoreCase("medical")) {
-      requests = servI.getAllByEmployee(hospitalID);
-    } else {
-      requests = servI.getAll();
-    }
-    dbTableRowsModel.addAll(requests);
+      if (job.equalsIgnoreCase("medical")) {
+        requests = servI.getAllByEmployee(hospitalID);
+      } else if (job.equalsIgnoreCase("Maintenance")) {
+        requests = servI.getServiceRequestByAssigned(holder.getName());
+      } else if (job.equalsIgnoreCase("Admin")) {
+        requests = servI.getServiceRequestByUnassigned();
+      }
+      dbTableRowsModel.addAll(requests);
 
       serviceReqsTable.setItems(dbTableRowsModel);
     }
@@ -158,7 +166,12 @@ public class ServiceRequestStatusController extends MenuController {
       employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
       if (job.equalsIgnoreCase("medical")) {
         editForm.setVisible(true);
+        editForm.setDisable(false);
+        deleteButton.setDisable(false);
       }
+    } else {
+      editForm.setDisable(true);
+      deleteButton.setDisable(true);
     }
 
     ObservableList<String> statuses = FXCollections.observableArrayList(Status.statusList());
@@ -179,7 +192,8 @@ public class ServiceRequestStatusController extends MenuController {
             "Steve",
             "Hazel",
             "Audrey",
-            "Sarah");
+            "Sarah",
+            "Maintenance Wong");
 
     statusBox.setItems(statuses);
     urgencyBox.setItems(urgencies);

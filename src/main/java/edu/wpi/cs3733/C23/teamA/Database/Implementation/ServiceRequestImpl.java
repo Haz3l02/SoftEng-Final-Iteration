@@ -190,6 +190,14 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     return null;
   }
 
+  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(String name) {
+    ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
+    for (ServiceRequestEntity ser : services) {
+      if (ser.getEmployeeAssigned().equals(name)) sers.add(ser);
+    }
+    return sers;
+  }
+
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
     for (ServiceRequestEntity ser : services) {

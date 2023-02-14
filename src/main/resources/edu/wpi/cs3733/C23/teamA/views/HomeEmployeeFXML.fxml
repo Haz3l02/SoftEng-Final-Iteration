@@ -195,11 +195,6 @@
                                           <Font size="25.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToDatabase" prefHeight="64.0" prefWidth="145.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Database" textFill="#d3e9f6" underline="true">
-                                       <font>
-                                          <Font size="25.0" />
-                                       </font>
-                                    </MFXButton>
                                  </children>
                               </HBox>
                            </left>

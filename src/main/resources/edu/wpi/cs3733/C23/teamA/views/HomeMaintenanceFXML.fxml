@@ -191,7 +191,7 @@
                                           <Font size="25.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToStatus" prefHeight="64.0" prefWidth="188.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Assignments" textFill="#d3e9f6" underline="true">
+                                    <MFXButton fx:id="assignmentsButton" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToStatus" prefHeight="64.0" prefWidth="188.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Assignments" textFill="#d3e9f6" underline="true">
                                        <font>
                                           <Font size="25.0" />
                                        </font>

@@ -7,6 +7,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -38,6 +39,7 @@ public class HomeController extends MenuController {
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
+  @FXML private MFXButton assignmentsButton;
 
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
@@ -52,7 +54,8 @@ public class HomeController extends MenuController {
     IdNumberHolder userInfo = IdNumberHolder.getInstance();
     welcome.setText("Welcome " + userInfo.getName() + "!");
     if (userInfo.getJob().equalsIgnoreCase("Maintenance")) {
-      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+
+      // IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
       locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -62,13 +65,17 @@ public class HomeController extends MenuController {
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
       requests = sri.getServiceRequestByAssigned(userInfo.getName());
-
+      if (requests.size() == 0) {
+        assignmentsButton.setDisable(true);
+      } else {
+        assignmentsButton.setDisable(false);
+      }
       dbTableRowsModel.addAll(requests);
 
       assignmentsTable.setItems(dbTableRowsModel);
       session.close();
     } else if (userInfo.getJob().equalsIgnoreCase("Admin")) {
-      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+      // IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
       locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -84,7 +91,6 @@ public class HomeController extends MenuController {
       assignmentsTable.setItems(dbTableRowsModel);
       session.close();
     } else {
-
       // Code for medical homepage
     }
   }
