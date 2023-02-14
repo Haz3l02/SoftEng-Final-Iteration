@@ -108,7 +108,6 @@ public class ServiceRequestStatusController extends MenuController {
       requests = servI.getAll();
     }
     dbTableRowsModel.addAll(requests);
-    servI.closeSession();
 
     serviceReqsTable.setItems(dbTableRowsModel);
   }
@@ -194,7 +193,6 @@ public class ServiceRequestStatusController extends MenuController {
           }
           billy.setEmployeeAssigned(employeeBox.getText());
           servI.add(billy);
-          servI.closeSession();
           break;
         }
       }

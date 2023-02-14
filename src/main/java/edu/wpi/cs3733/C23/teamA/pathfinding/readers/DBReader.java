@@ -55,8 +55,7 @@ public class DBReader {
     }
 
     // close the sessions related to nodes
-    moveImpl.closeSession();
-    nodeImpl.closeSession();
+
 
     // Edges
     EdgeImpl edgeImpl = new EdgeImpl();
@@ -71,8 +70,6 @@ public class DBReader {
       node2.addNeighbor(node1);
     }
 
-    // close the edge session
-    // edgeImpl.closeSession(); // session was null, don't think it's ever started in EdgeImpl
-    // anyway
+
   }
 }
