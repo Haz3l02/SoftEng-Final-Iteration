@@ -51,14 +51,18 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
+  @FXML private MFXButton viewForm;
   @FXML private MFXButton cancel;
   @FXML private MFXTextField fileNameField;
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
+
+
   UrgencyLevel urgent;
   Status status;
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
+  public static AcceptTheForm acceptTheForm = new AcceptTheForm(0, "", false);
 
   private String hospitalID;
   private String job;
@@ -100,6 +104,7 @@ public class ServiceRequestStatusController extends MenuController {
         formTypeBox.setDisable(true);
         dateBox.setDisable(true);
         urgencyBox.setDisable(false);
+        viewForm.setVisible(false);
 
       } else if (job.equalsIgnoreCase("Maintenance")) {
         statusBox.setDisable(false);
@@ -107,12 +112,14 @@ public class ServiceRequestStatusController extends MenuController {
         formTypeBox.setDisable(true);
         dateBox.setDisable(true);
         urgencyBox.setDisable(false);
+        editForm.setVisible(false);
       } else if (job.equalsIgnoreCase(("Admin"))) {
         statusBox.setDisable(true);
         employeeBox.setDisable(false);
         formTypeBox.setDisable(true);
         dateBox.setDisable(true);
         urgencyBox.setDisable(true);
+        editForm.setVisible(false);
       }
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
@@ -238,6 +245,25 @@ public class ServiceRequestStatusController extends MenuController {
     statusBox.clear();
     urgencyBox.clear();
     employeeBox.clear();
+  }
+
+  public void acceptForm(ActionEvent event) {
+    ServiceRequestEntity clickedRow = serviceReqsTable.getSelectionModel().getSelectedItem();
+    acceptTheForm = new AcceptTheForm(clickedRow.getRequestid(), clickedRow.getRequestType().requestType, true);
+    switch (clickedRow.getRequestType().requestType) {
+      case "Computer":
+        Navigation.navigate(Screen.COMPUTER);
+        break;
+      case "Sanitation":
+        Navigation.navigate(Screen.SANITATION);
+        break;
+      case "Security":
+        Navigation.navigate(Screen.SECURITY);
+        break;
+      default:
+        Navigation.navigateHome(Screen.HOME);
+        break;
+    }
   }
 
   public void editForm(ActionEvent event) {
