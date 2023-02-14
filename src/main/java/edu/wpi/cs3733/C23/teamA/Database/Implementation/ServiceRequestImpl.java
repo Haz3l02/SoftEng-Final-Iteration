@@ -111,6 +111,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     new ComputerRequestImpl().removeFromList(s);
     new SanitationRequestImpl().removeFromList(s);
     new SecurityRequestImpl().removeFromList(s);
+    new PatientTransportimpl().removeFromList(s);
 
     session.remove(get(s));
     ListIterator<ServiceRequestEntity> li = services.listIterator();

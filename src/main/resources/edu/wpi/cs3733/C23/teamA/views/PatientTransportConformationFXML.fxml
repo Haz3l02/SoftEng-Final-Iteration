@@ -24,7 +24,7 @@
                         <Font name="Kohinoor Bangla" size="13.0" />
                     </font>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#switchToComputerScene" prefHeight="28.0" style="-fx-background-color: #224870;" text="Submit Another" textFill="#d3e9f6" wrapText="true">
+                <Button mnemonicParsing="false" onAction="#switchToPatientTransportScene" prefHeight="28.0" style="-fx-background-color: #224870;" text="Submit Another" textFill="#d3e9f6" wrapText="true">
                     <VBox.margin>
                         <Insets top="20.0" />
                     </VBox.margin>
