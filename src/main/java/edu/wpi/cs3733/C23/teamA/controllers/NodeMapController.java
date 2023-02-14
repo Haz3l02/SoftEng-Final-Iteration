@@ -57,10 +57,8 @@ public class NodeMapController extends MenuController {
   @FXML MFXTextField XCord;
   @FXML MFXTextField YCord;
   @FXML MFXComboBox FloorBox;
-
   @FXML MFXComboBox BuildingBox;
-
-  Pane newCircle = new Pane();
+  @FXML MFXButton saveButton;
 
   @FXML VBox fieldBox;
   @FXML MFXButton createNodeButton;
@@ -74,7 +72,9 @@ public class NodeMapController extends MenuController {
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
 
   public void initialize() {
+    NodeDraw.setSelectedPane(null);
     createNodeButton.setVisible(false);
+    saveButton.setVisible(false);
     initializeFloorMap("L1", nodeAnchorL1, stackL1, gestureL1);
     initializeFloorMap("L2", nodeAnchorL2, stackL2, gestureL2);
     initializeFloorMap("1", nodeAnchorF1, stackF1, gestureF1);
@@ -93,6 +93,24 @@ public class NodeMapController extends MenuController {
 
     // Add nodes as circles
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, nodeAnchor, this);
+
+    ObservableList<String> floors =
+        FXCollections.observableArrayList(
+            Floor.L1.getExtendedString(),
+            Floor.L2.getExtendedString(),
+            Floor.F1.getExtendedString(),
+            Floor.F2.getExtendedString(),
+            Floor.F3.getExtendedString());
+    FloorBox.setItems(floors);
+
+    ObservableList<String> buildings =
+        FXCollections.observableArrayList(
+            Building.FR45.getTableString(),
+            Building.TOWR.getTableString(),
+            Building._BTM.getTableString(),
+            Building.SHPR.getTableString(),
+            Building.FR15.getTableString());
+    BuildingBox.setItems(buildings);
 
     Node node = stack;
     gesture.setContent(node);
@@ -167,7 +185,7 @@ public class NodeMapController extends MenuController {
     // initialize();
   }
 
-  public void newNode(ActionEvent event) {
+  public void newNodeCreation(ActionEvent event) {
     XCord.clear();
     YCord.clear();
     FloorBox.clear();
@@ -193,11 +211,6 @@ public class NodeMapController extends MenuController {
 
     fieldBox.setStyle("-fx-background-color: '013A75'; ");
     createNodeButton.setVisible(true);
-    //
-    //    newNode.setXcoord(Integer.parseInt(XCord.getText()));
-    //    newNode.setYcoord(Integer.parseInt(YCord.getText()));
-    //
-
   }
 
   public void createNode(ActionEvent event) {
@@ -208,7 +221,7 @@ public class NodeMapController extends MenuController {
 
     newNode.setXcoord(Integer.parseInt(XCord.getText()));
     newNode.setYcoord(Integer.parseInt(YCord.getText()));
-    newNode.setFloor(FloorBox.getText());
+    newNode.setFloor(Floor.fromString(FloorBox.getText()));
     newNode.setBuilding(BuildingBox.getText());
     newNode.setNodeid(
         makeNewNodeID(
@@ -225,6 +238,50 @@ public class NodeMapController extends MenuController {
     fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
 
     initialize();
+  }
+
+  public void editNode(ActionEvent event) {
+    fieldBox.setStyle("-fx-background-color: 'red'; ");
+    saveButton.setVisible(true);
+  }
+
+  public void saveNodeEdit(ActionEvent event) {
+    NodeEntity currentNode = NodeDraw.getSelected();
+    Pane currentPane = NodeDraw.getSelectedPane();
+    currentPane.setVisible(false);
+    String id = currentNode.getNodeid();
+    currentNode.setXcoord(Integer.parseInt(XCord.getText()));
+    currentNode.setYcoord(Integer.parseInt(YCord.getText()));
+    currentNode.setBuilding(BuildingBox.getText());
+    currentNode.setFloor(Floor.fromString(FloorBox.getText()));
+
+    System.out.println("X: " + currentNode.getXcoord());
+    System.out.println("Y: " + currentNode.getYcoord());
+    System.out.println("Floor: " + currentNode.getFloor());
+    System.out.println("Building: " + currentNode.getBuilding());
+    System.out.println("ID: " + currentNode.getNodeid());
+
+    currentNode.setNodeid(
+        makeNewNodeID(
+            Floor.fromString(currentNode.getFloor()),
+            currentNode.getXcoord(),
+            currentNode.getYcoord()));
+
+    //    currentPane.setLayoutX(currentNode.getXcoord());
+    //    currentPane.setLayoutY(currentNode.getYcoord());
+    //    NodeDraw.setSelectedPane(currentPane);
+
+    NodeImpl node = new NodeImpl();
+    node.update(id, currentNode);
+    // node.delete(id);
+    fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
+    saveButton.setVisible(false);
+
+    initialize();
+  }
+
+  public boolean toggleLocations() {
+    return true;
   }
 
   public void setXCord(String xLoc) {

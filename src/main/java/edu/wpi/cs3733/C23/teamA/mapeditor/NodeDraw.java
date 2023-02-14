@@ -27,6 +27,10 @@ public class NodeDraw {
     return selectNodePane;
   }
 
+  public static void setSelectedPane(Pane p) {
+    previousNode = p;
+  }
+
   private static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
     // get the coordinates from the node
 
@@ -60,6 +64,17 @@ public class NodeDraw {
               + "-fx-border-color: '#224870'; "
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
+
+      //      Text locName = new Text();
+      //      locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+      //
+      //      locName.setText("Floor: " + n.getFloor() + " Building: " + n.getBuilding());
+      //      locName.setLayoutX(updatedCoords[0] - 2);
+      //      locName.setLayoutY(updatedCoords[1] - 2);
+      //      NodeMapController nmcToggle = new NodeMapController();
+      //      if (nmcToggle.toggleLocations()) {
+      //        locName.setVisible(false);
+      //      }
 
       EventHandler<MouseEvent> eventHandler =
           new EventHandler<MouseEvent>() {
@@ -95,6 +110,7 @@ public class NodeDraw {
               nmc.setXCord(n.getXcoord().toString());
               nmc.setYCord(n.getYcoord().toString());
               nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
+              // nmc.setFloorBox(n.getFloor());
               nmc.setBuildingBox(n.getBuilding());
             }
           };
@@ -102,6 +118,7 @@ public class NodeDraw {
       // nodeGraphic.setOnMouseClicked(event -> System.out.println("click"));
 
       nodeAnchor.getChildren().add(nodeGraphic);
+      // nodeAnchor.getChildren().add(locName);
     }
   }
 

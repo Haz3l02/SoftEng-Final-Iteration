@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -32,7 +31,7 @@
                               <Insets top="30.0" />
                            </BorderPane.margin>
                            <children>
-                              <MFXButton onAction="#newNode" text="New Node">
+                              <MFXButton onAction="#newNodeCreation" text="New Node">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </VBox.margin>
@@ -77,6 +76,16 @@
                                     <Font size="24.0" />
                                  </font>
                               </MFXButton>
+                              <MFXButton fx:id="saveButton" buttonType="RAISED" cancelButton="true" onAction="#saveNodeEdit" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Save" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </MFXButton>
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#editNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Node" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </MFXButton>
                               <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Delete Node" textFill="#d3e9f6">
                                  <font>
                                     <Font size="24.0" />
@@ -114,7 +123,6 @@
                                              <children>
                                                 <StackPane fx:id="stackL1">
                                                    <children>
-                                                      <Pane fx:id="newCircle" prefHeight="200.0" prefWidth="200.0" />
                                                       <ImageView fx:id="floorL1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
