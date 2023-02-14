@@ -10,9 +10,10 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import jakarta.persistence.PersistenceException;
-import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,11 +21,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 public class MoveController extends MenuController {
 
@@ -36,12 +38,14 @@ public class MoveController extends MenuController {
 
   @FXML public MFXFilterComboBox<String> nodeBox;
   @FXML public MFXFilterComboBox<String> locationBox;
-  @FXML public DatePicker dateBox;
+  @FXML public MFXDatePicker dateBox;
   @FXML public MFXButton submit;
-  @FXML public Label warning;
+  // @FXML public Label warning;
   @FXML private MFXButton editButton;
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createMove;
+  @FXML protected Text warning;
+  @FXML protected StackPane reminderPane;
 
   // List of all Node IDs in specific order
   private List<String> allNodeID;
@@ -54,6 +58,8 @@ public class MoveController extends MenuController {
   /** runs on switching to this scene */
   public void initialize() {
     moveData = moveImpl.getAll();
+    warning.setVisible(false);
+    reminderPane.setVisible(false);
 
     allNodeID =
         moveImpl.getAll().stream().map(moveEntity -> moveEntity.getNode().getNodeid()).toList();
@@ -112,8 +118,9 @@ public class MoveController extends MenuController {
       moveImpl.add(theMove);
     } catch (PersistenceException p) {
       warning.setVisible(true);
+      reminderPane.setVisible(true);
     }
-    moveImpl.add(theMove);
+    // moveImpl.add(theMove);
     reloadData();
   }
 
@@ -124,18 +131,19 @@ public class MoveController extends MenuController {
 
       ObservableList<MoveEntity> currentTableData = dbTable.getItems();
 
-      String moveDate = dateBox.getValue().toString();
+      LocalDate moveDate = dateBox.getValue();
       String nodeID = nodeBox.getValue();
       String theLocation = locationBox.getValue();
+      String submitDate = dateBox.getText().toString();
 
       for (MoveEntity move : currentTableData) {
-        if (move.getMovedate().toString().equals(moveDate)
+        if (move.getMovedate().equals(moveDate)
             && move.getLocationName().getLongname().equals(theLocation)
             && move.getNode().getNodeid().equals(nodeID)) {
           List<String> moveID = new ArrayList<>();
           moveID.add(nodeID);
           moveID.add(theLocation);
-          moveID.add(moveDate);
+          moveID.add(submitDate);
 
           NodeImpl nodeimpl = new NodeImpl();
           LocationNameImpl location = new LocationNameImpl();
@@ -146,6 +154,7 @@ public class MoveController extends MenuController {
           move.setMovedate(dateBox.getValue());
 
           moveImpl.update(moveID, move);
+          System.out.println("Updateing Node");
           dbTable.setItems(currentTableData);
           reloadData();
           break;
@@ -167,8 +176,9 @@ public class MoveController extends MenuController {
   }
 
   public void clearEdits() {
-    nameBox.clear();
+    nodeBox.clear();
     locationBox.clear();
+    dateBox.setValue(dateBox.getCurrentDate());
 
     //        createEmployee.setVisible(true);
     //        editButton.setDisable(true);
@@ -182,7 +192,8 @@ public class MoveController extends MenuController {
     if (clickedMoveTableRow != null) {
       nodeBox.setText(valueOf(clickedMoveTableRow.getNode().getNodeid()));
       locationBox.setText(valueOf(clickedMoveTableRow.getLocationName().getLongname()));
-      dateBox.setValue(dateBox.getValue());
+      dateBox.setValue(clickedMoveTableRow.getMovedate());
+
       editButton.setDisable(false);
       deleteButton.setDisable(false);
       createMove.setVisible(false);

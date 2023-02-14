@@ -1,19 +1,16 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.acceptTheForm;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.SecurityRequestImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
@@ -27,18 +24,26 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML private MFXTextField phone;
   @FXML private MFXComboBox<String> requestsBox;
+  @FXML private MFXButton clear;
+  @FXML private MFXButton submit;
+  @FXML private MFXButton accept;
+  @FXML private MFXButton reject;
   private RequestCategory assistance;
+  private SecurityRequestImpl secI;
 
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
+    reject.setDisable(true);
+    reject.setVisible(false);
+    accept.setDisable(true);
+    accept.setVisible(false);
     if (requestsBox != null) {
       ObservableList<String> requests =
           FXCollections.observableArrayList(RequestCategory.categoryList());
       requestsBox.setItems(requests);
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Security")) {
-      SecurityRequestImpl secI = new SecurityRequestImpl();
       SecurityRequestEntity editRequest = secI.get(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
@@ -47,6 +52,31 @@ public class SecurityController extends ServiceRequestController {
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       phone.setText(editRequest.getSecphone());
+      accept.setDisable(true);
+      accept.setVisible(false);
+      clear.setDisable(false);
+      clear.setVisible(true);
+      submit.setDisable(false);
+      submit.setVisible(true);
+      reject.setDisable(true);
+      reject.setVisible(false);
+    } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Security")) {
+      SecurityRequestEntity editRequest = secI.get(acceptTheForm.getRequestID());
+      nameBox.setText(editRequest.getName());
+      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      requestsBox.setText(editRequest.getRequestType().requestType);
+      locationBox.setText(editRequest.getLocation().getLongname());
+      urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      descBox.setText(editRequest.getDescription());
+      // sanI.closeSession();
+      accept.setDisable(false);
+      accept.setVisible(true);
+      clear.setDisable(true);
+      clear.setVisible(false);
+      submit.setDisable(true);
+      submit.setVisible(false);
+      reject.setDisable(false);
+      reject.setVisible(true);
     }
   }
 
@@ -57,7 +87,6 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) {
-    SecurityRequestImpl secI = new SecurityRequestImpl();
     LocationNameImpl locationI = new LocationNameImpl();
     EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
@@ -101,7 +130,7 @@ public class SecurityController extends ServiceRequestController {
                 descBox.getText(),
                 urgent,
                 ServiceRequestEntity.RequestType.SECURITY,
-                Status.BLANK,
+                Status.NEW,
                 "Unassigned",
                 assistance,
                 phone.getText());

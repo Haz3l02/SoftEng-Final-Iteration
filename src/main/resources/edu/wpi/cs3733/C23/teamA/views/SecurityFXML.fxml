@@ -97,7 +97,7 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" minWidth="-Infinity" prefHeight="60.0" prefWidth="500.0">
                      <children>
-                        <MFXTextField fx:id="phone" alignment="TOP_LEFT" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="( _ _ _) - _ _ _ - _ _ _ _" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                        <MFXTextField fx:id="phone" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="( _ _ _) - _ _ _ - _ _ _ _" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -163,7 +163,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </MFXFilterComboBox>
-                        <MFXComboBox fx:id="urgencyBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High, Extremely High" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                        <MFXComboBox fx:id="urgencyBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High, Extremely" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                            <font>
                               <Font name="Kohinoor Bangla" size="14.0" />
                            </font>
@@ -226,29 +226,32 @@
       </VBox>
    </top>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="88.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="818.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="818.0">
                <children>
-                  <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Kohinoor Bangla" size="25.0" />
-                     </font>
-                  </MFXButton>
+                  <StackPane prefHeight="50.0" prefWidth="115.0">
+                     <children>
+                        <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="reject" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#rejectRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reject" textAlignment="CENTER" textFill="#d3e9f6">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </StackPane>
                </children>
                <HBox.margin>
                   <Insets />
                </HBox.margin>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="1100.0">
                <children>
-                  <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #122c34; -fx-border-width: 2 2 2 2;">
+                  <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #F6BD3A; -fx-border-width: 5;">
                      <children>
                         <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
                            <font>
@@ -260,34 +263,37 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </StackPane>
-                  <MFXButton fx:id="cancel" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                  <MFXButton fx:id="cancel" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
-                        <Insets right="30.0" />
+                        <Insets right="20.0" />
                      </HBox.margin>
                      <font>
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Submit" textFill="#224870">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Kohinoor Bangla" size="25.0" />
-                     </font>
-                  </MFXButton>
+                  <StackPane prefHeight="50.0" prefWidth="134.0">
+                     <children>
+                        <MFXButton fx:id="accept" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#acceptRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Accept" textAlignment="CENTER" textFill="#224870">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Submit" textFill="#224870">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </StackPane>
                </children>
                <HBox.margin>
                   <Insets />
                </HBox.margin>
-               <padding>
-                  <Insets right="30.0" />
-               </padding>
             </HBox>
          </children>
-         <padding>
-            <Insets bottom="20.0" />
-         </padding>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </BorderPane.margin>
       </HBox>
    </bottom>
 </BorderPane>

@@ -32,17 +32,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     moves = records;
-    HashMap<MoveEntity, MoveEntity> loc =
-        locationChanges(LocalDate.parse("2023-02-18"), LocalDate.parse("2023-02-20"));
-    for (MoveEntity m : loc.keySet()) {
-      System.out.println(
-          String.format(
-              "%s -> %s %s %s",
-              loc.get(m).getLocationName().getLongname(),
-              m.getLocationName().getLongname(),
-              m.getNode().getNodeid(),
-              m.getMovedate().toString()));
-    }
     session.close();
   }
 
