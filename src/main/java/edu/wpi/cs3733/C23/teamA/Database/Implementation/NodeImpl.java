@@ -144,10 +144,6 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     session.close();
   }
 
-  public List<NodeEntity> getNodeOnFloor(String floor) {
-    // changed == to .equals() - audrey
-    return nodes.stream().filter(nodeEntity -> nodeEntity.getFloor().equals(floor)).toList();
-  }
 
   public List<String> getAllIDs() {
     return getAll().stream().map(nodeEntity -> nodeEntity.getNodeid()).toList();
