@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.MutationQuery;
 
 public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   private static final EmployeeImpl instance = new EmployeeImpl();
@@ -112,9 +114,28 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         filename += ".csv";
       }
     } else filename += ".csv";
+
+    String hql = "delete from SecurityRequestEntity";
+    MutationQuery q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from SanitationRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from ComputerRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from ServiceRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
     employees.forEach(
         employee -> session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid())));
     employees.clear();
+
+
 
     File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 

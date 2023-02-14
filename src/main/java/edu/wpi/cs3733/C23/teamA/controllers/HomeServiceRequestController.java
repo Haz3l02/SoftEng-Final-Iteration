@@ -28,9 +28,6 @@ public class HomeServiceRequestController extends MenuController {
 
     ServiceRequestImpl serviceI = new ServiceRequestImpl();
     ArrayList<ServiceRequestEntity> specificRequests = serviceI.getAllByEmployee(hospitalID);
-    //    ArrayList<ServiceRequestEntity> specificRequests = new ArrayList<ServiceRequestEntity>();
-    //    ServiceRequestImpl SRimpl = new ServiceRequestImpl();
-    //    specificRequests = SRimpl.getAllByEmployee(hospitalID);
 
     if (specificRequests.size() == 0 && (job.equals("medical") || job.equals("Medical"))) {
       pastSubmissions.setDisable(true);
