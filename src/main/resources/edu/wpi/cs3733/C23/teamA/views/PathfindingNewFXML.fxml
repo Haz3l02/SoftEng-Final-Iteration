@@ -88,12 +88,12 @@
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                                 <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" promptText="Select Location...">
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                             </children>
@@ -116,12 +116,12 @@
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                                 <MFXFilterComboBox fx:id="endLocBox" disable="true" floatMode="DISABLED" prefHeight="32.0" prefWidth="222.0" promptText="Select Location...">
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                             </children>
@@ -153,7 +153,7 @@
                                             <children>
                                                 <MFXFilterComboBox fx:id="algosBox" floatMode="DISABLED" onAction="#setPathfindingAlgorithm" prefHeight="38.0" prefWidth="198.0" promptText="Select Algorithm...">
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
                                     <MFXDatePicker fx:id="navDatePicker" onAction="#setNavigationDate" promptText="Select Date...">
@@ -161,7 +161,7 @@
                                           <Insets left="15.0" />
                                        </HBox.margin>
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="Kohinoor Bangla" size="14.0" />
                                        </font>
                                     </MFXDatePicker>
                                             </children>
