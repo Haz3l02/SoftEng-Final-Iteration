@@ -254,8 +254,8 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
-      if (li.next().getNode().equals(ID.get(0))
-              && li.next().getLocationName().equals(ID.get(1))
+      if (li.next().getNode().getNodeid().equals(ID.get(0))
+              && li.next().getLocationName().getLongname().equals(ID.get(1))
               && li.next().getMovedate().toString().equals(ID.get(2))) {
         li.remove();
       }
