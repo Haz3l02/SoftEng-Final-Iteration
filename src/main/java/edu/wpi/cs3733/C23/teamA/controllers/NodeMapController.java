@@ -9,10 +9,9 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.io.IOException;
 import java.util.List;
-
-import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,9 +71,11 @@ public class NodeMapController extends MenuController {
 
   @FXML VBox fieldBox;
   @FXML MFXButton createNodeButton;
-  @FXML Text reminder;   // text field for a "remember to fill out all fields before submitting form" thingy
-  @FXML MFXToggleButton locationToggle;
 
+  @FXML
+  Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
+
+  @FXML MFXToggleButton locationToggle;
 
   @Setter NodeEntity selectedNode = null;
 
@@ -143,7 +144,6 @@ public class NodeMapController extends MenuController {
     Node node = stack;
     gesture.setContent(node);
     gesture.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
-    System.out.println("Assigned the stackPane to gesture");
 
     //    nodeAnchor.setOnMouseClicked(
     //        e -> {
