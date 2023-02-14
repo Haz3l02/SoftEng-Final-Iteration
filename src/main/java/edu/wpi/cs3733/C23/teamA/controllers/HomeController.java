@@ -50,12 +50,12 @@ public class HomeController extends MenuController {
   public void initialize() throws IOException, InterruptedException {
     grabQuote();
     dateAndTime();
-    // IdNumberHolder userInfo = new IdNumberHolder();
-    IdNumberHolder userInfo = IdNumberHolder.getInstance();
+    IdNumberHolder userInfo = new IdNumberHolder();
+    userInfo = IdNumberHolder.getInstance();
     welcome.setText("Welcome " + userInfo.getName() + "!");
     if (userInfo.getJob().equalsIgnoreCase("Maintenance")) {
 
-      // IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
       locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -75,7 +75,7 @@ public class HomeController extends MenuController {
       assignmentsTable.setItems(dbTableRowsModel);
       session.close();
     } else if (userInfo.getJob().equalsIgnoreCase("Admin")) {
-      // IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
       locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));

@@ -90,8 +90,8 @@ public class SanitationController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToConfirmationScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.SANITATION_CONFIRMATION);
+  public void switchToConfirmationScene(ActionEvent event) {
+    Navigation.navigate(Screen.CONFIRMATION);
   }
 
   @FXML

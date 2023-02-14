@@ -25,7 +25,6 @@ public enum Screen {
   NODE_MAP("views/NodeMapFXML.fxml"),
   EMPLOYEE("views/EmployeeFXML.fxml"),
   HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
-  EMPLOYEE("views/EmployeeFXML.fxml"),
   // HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
   MAP_DISPLAY("views/PathDisplayFXML.fxml"),
   PATIENT_TRANSPORT("PatientTransportFXML");
