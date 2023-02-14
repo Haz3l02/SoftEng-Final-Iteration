@@ -117,7 +117,6 @@ public class MoveController extends MenuController {
       warning.setVisible(true);
       reminderPane.setVisible(true);
     }
-    // moveImpl.add(theMove);
     reloadData();
   }
 
