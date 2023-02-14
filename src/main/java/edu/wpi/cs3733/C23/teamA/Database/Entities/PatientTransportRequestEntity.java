@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
-import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
@@ -92,7 +91,10 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      IssueCategory category) {
+      String patientName,
+      String patientID,
+      LocationNameEntity moveTo, // moveTo--there's already a location in servicerequest super
+      String equipment) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.patientName = patientName;
     this.patientID = patientID;
