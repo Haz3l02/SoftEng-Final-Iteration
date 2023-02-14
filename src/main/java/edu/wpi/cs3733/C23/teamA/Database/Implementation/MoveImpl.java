@@ -165,6 +165,26 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     return ids.get(0);
   }
 
+
+  public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
+    MoveEntity mov = new MoveEntity();
+    List<MoveEntity> ids =
+            moves.stream()
+                    .filter(
+                            moveEntity ->
+                                    moveEntity.getNode().getNodeid().equals(id)
+                                            && (date.compareTo(moveEntity.getMovedate())>=0))
+                    .toList();
+    LocalDate dt1 = LocalDate.parse("2023-01-01");
+    for (MoveEntity mo : ids){
+      if (mo.getMovedate().compareTo(dt1)>0){
+        mov = mo;
+        dt1 = mo.getMovedate();
+      }
+    }
+    return mov;
+  }
+
   /**
    * Find the last assigned location of this node by its id. This will get the move with the
    * furthest in the future date.
@@ -182,6 +202,8 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     ids.sort(Comparator.comparing(MoveEntity::getMovedate));
     return ids.isEmpty() ? null : ids.get(0).getLocationName();
   }
+
+
 
   public void update(List<String> ID, MoveEntity obj) {
     Session session = getSessionFactory().openSession();

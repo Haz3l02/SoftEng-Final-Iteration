@@ -9,6 +9,7 @@ import java.util.List;
 public class PatientTransportimpl implements IDatabaseAPI<PatientTransportRequestEntity, Integer> {
 
   private List<PatientTransportRequestEntity> patrequests;
+  private static final PatientTransportimpl instance = new PatientTransportimpl();
 
   @Override
   public List<PatientTransportRequestEntity> getAll() {
@@ -37,4 +38,7 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
     }
     return null;
   }
+
+
+  public static PatientTransportimpl getInstance(){return instance;}
 }
