@@ -97,9 +97,8 @@ public class HomeController extends MenuController {
 
   @FXML
   public void switchToStatus(ActionEvent event) throws IOException {
-    // stop = true;
-    System.out.println("Hereh");
-    Navigation.navigateHome(Screen.SERVICE_REQUEST_STATUS);
+    stop = true;
+    Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
   }
 
   @FXML

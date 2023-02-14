@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.acceptTheForm;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
@@ -8,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.PatientTransportimpl;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
@@ -24,10 +26,20 @@ public class PatientTransportController extends ServiceRequestController {
   @FXML private MFXTextField equipmentBox;
   @FXML private MFXTextField pIDBox;
   @FXML private MFXFilterComboBox<String> moveToBox;
+  @FXML private MFXButton clear;
+  @FXML private MFXButton submit;
+  @FXML private MFXButton accept;
+  @FXML private MFXButton reject;
+
+  private PatientTransportimpl patI = new PatientTransportimpl();
 
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
+    reject.setDisable(true);
+    reject.setVisible(false);
+    accept.setDisable(true);
+    accept.setVisible(false);
     if (moveToBox != null) {
       LocationNameImpl locationI = new LocationNameImpl();
       List<LocationNameEntity> temp = locationI.getAll();
@@ -39,9 +51,9 @@ public class PatientTransportController extends ServiceRequestController {
       moveToBox.setItems(locations);
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
+    PatientTransportRequestEntity editPatientRequest = null;
     if (newEdit.needEdits && newEdit.getRequestType().equals("PatientTransport")) {
-      PatientTransportimpl patI = new PatientTransportimpl();
-      PatientTransportRequestEntity editPatientRequest = patI.get(newEdit.getRequestID());
+      editPatientRequest = patI.get(newEdit.getRequestID());
       nameBox.setText(editPatientRequest.getName());
       IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
@@ -50,6 +62,26 @@ public class PatientTransportController extends ServiceRequestController {
       moveToBox.setText(editPatientRequest.getLocation().getLongname());
       pIDBox.setText(editPatientRequest.getPatientID());
       equipmentBox.setText(editPatientRequest.getEquipment());
+    } else if (acceptTheForm.acceptance
+        && acceptTheForm.getRequestType().equals("PatientTransport")) {
+      PatientTransportRequestEntity editRequest = patI.get(acceptTheForm.getRequestID());
+      nameBox.setText(editPatientRequest.getName());
+      IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
+      urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
+      descBox.setText(editPatientRequest.getDescription());
+      pNameBox.setText(editPatientRequest.getPatientName());
+      moveToBox.setText(editPatientRequest.getLocation().getLongname());
+      pIDBox.setText(editPatientRequest.getPatientID());
+      equipmentBox.setText(editPatientRequest.getEquipment());
+      // sanI.closeSession();
+      accept.setDisable(false);
+      accept.setVisible(true);
+      clear.setDisable(true);
+      clear.setVisible(false);
+      submit.setDisable(true);
+      submit.setVisible(false);
+      reject.setDisable(false);
+      reject.setVisible(true);
     }
 
     // Otherwise Initialize service requests as normal
