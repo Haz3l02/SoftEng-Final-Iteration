@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.Database.API;
 
+import com.sun.javafx.geom.Edge;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
 import java.util.List;
@@ -56,4 +57,21 @@ public class FacadeRepository {
   public void addComputerRequest(ComputerRequestEntity c) {
     comp.add(c);
   }
+
+  public void addEdge(EdgeEntity c) {
+    edge.add(c);
+  }
+
+  public void addEmployee(EmployeeEntity c) {
+    emp.add(c);
+  }
+
+  public void addLocation(LocationNameEntity c) {
+    loc.add(c);
+  }
+
+  public void addMove(MoveEntity c) {
+    move.add(c);
+  }
+
 }
