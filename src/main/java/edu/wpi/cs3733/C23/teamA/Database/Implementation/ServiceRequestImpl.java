@@ -102,7 +102,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     session.persist(s);
     services.add(s);
     tx.commit();
-    session.close();
   }
 
   public void delete(Integer s) {
