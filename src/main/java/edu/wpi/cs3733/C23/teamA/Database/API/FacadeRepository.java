@@ -16,6 +16,7 @@ public class FacadeRepository {
   private final MoveImpl move = MoveImpl.getInstance();
   private final SanitationRequestImpl san = SanitationRequestImpl.getInstance();
   private final SecurityRequestImpl sec = SecurityRequestImpl.getInstance();
+  private final PatientTransportimpl pat = PatientTransportimpl.getInstance();
   private final ServiceRequestImpl serv = ServiceRequestImpl.getInstance();
 
   public static FacadeRepository getInstance() {
@@ -54,6 +55,10 @@ public class FacadeRepository {
     return sec.getAll();
   }
 
+  public List<PatientTransportRequestEntity> getPatientTransport() {
+    return pat.getAll();
+  }
+
   public void addComputerRequest(ComputerRequestEntity c) {
     comp.add(c);
   }
@@ -84,6 +89,10 @@ public class FacadeRepository {
 
   public void addSecurityRequest(SecurityRequestEntity c) {
     sec.add(c);
+  }
+
+  public void addPatientTransport(PatientTransportRequestEntity c) {
+    pat.add(c);
   }
 
   public void addServiceRequest(ServiceRequestEntity c) {
@@ -120,6 +129,9 @@ public class FacadeRepository {
 
   public void deleteSecurityRequest(Integer id) {
     sec.delete(id);
+  }
+  public void deletePatientTransport(Integer id) {
+    pat.delete(id);
   }
 
   public void deleteServiceRequest(Integer id) {
@@ -197,6 +209,9 @@ public class FacadeRepository {
   public SecurityRequestEntity getSecurityRequest(Integer id) {
     return sec.get(id);
   }
+  public PatientTransportRequestEntity getPatientTransport(Integer id) {
+    return pat.get(id);
+  }
 
   public ServiceRequestEntity getServiceRequest(Integer id) {
     return serv.get(id);
@@ -205,6 +220,7 @@ public class FacadeRepository {
   public void updateComputerRequest(Integer id, ComputerRequestEntity c) {
     comp.update(id, c);
   }
+
 
   public void updateEdge(String id, EdgeEntity c) {
     edge.update(id, c);
@@ -232,6 +248,9 @@ public class FacadeRepository {
 
   public void updateSecurityRequest(Integer id, SecurityRequestEntity c) {
     sec.update(id, c);
+  }
+  public void updatePatientTransport(Integer id, PatientTransportRequestEntity c) {
+    pat.update(id, c);
   }
 
   public void updateServiceRequest(Integer id, ServiceRequestEntity c) {
