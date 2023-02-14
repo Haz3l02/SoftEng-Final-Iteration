@@ -269,10 +269,10 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     session.
             createMutationQuery(
                     "UPDATE MoveEntity mov SET " +
-                            "mov.node = :newnodeid, mov.locationName = :newlongname, mov.movedate = :newmovedate " +
-                            "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
-            .setParameter("newnodeid", obj.getNode())
-            .setParameter("newlongname", obj.getLocationName())
+                            "mov.node.id = \":newnodeid\", mov.locationName = \":newlongname\", mov.movedate = \":newmovedate\" " +
+                            "WHERE mov.node = \":oldnodeid\" and mov.locationName = \":oldlongname\" and mov.movedate = \":oldmovedate\"")
+            .setParameter("newnodeid", obj.getNode().getNodeid())
+            .setParameter("newlongname", obj.getLocationName().getLongname())
             .setParameter("newmovedate", obj.getMovedate())
             .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
             .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
