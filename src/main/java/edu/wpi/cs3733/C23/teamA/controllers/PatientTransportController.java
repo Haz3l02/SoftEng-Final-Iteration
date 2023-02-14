@@ -11,7 +11,9 @@ import javafx.fxml.FXML;
 
 public class PatientTransportController extends ServiceRequestController {
   @FXML private MFXTextField pNameBox;
-  @FXML private MFXComboBox<String> moveFromBox;
+  @FXML private MFXTextField pIDBox;
+  @FXML private MFXTextField equipmentBox;
+  @FXML private MFXComboBox<String> moveToBox;
 
   @FXML
   public void initialize() throws SQLException {
@@ -22,10 +24,12 @@ public class PatientTransportController extends ServiceRequestController {
       PatientTransportRequestEntity editPatientRequest = patI.get(newEdit.getRequestID());
       nameBox.setText(editPatientRequest.getName());
       IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
-      pNameBox.setText(editPatientRequest.getPatientName());
-      moveFromBox.setText(editPatientRequest.getLocation().getLongname());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editPatientRequest.getDescription());
+      pNameBox.setText(editPatientRequest.getPatientName());
+      moveToBox.setText(editPatientRequest.getLocation().getLongname());
+      pIDBox.setText(editPatientRequest.getPatientID());
+      equipmentBox.setText(editPatientRequest.getEquipment());
       patI.closeSession();
     }
     // Otherwise Initialize service requests as normal

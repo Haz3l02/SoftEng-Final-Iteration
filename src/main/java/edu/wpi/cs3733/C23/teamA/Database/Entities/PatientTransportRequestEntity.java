@@ -29,7 +29,7 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
   @Column(name = "patientid", nullable = false, length = -1)
   @Setter
   @Getter
-  private int patientID;
+  private String patientID;
 
   @ManyToOne
   @JoinColumn(
@@ -62,7 +62,7 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
       Status status,
       String employeeassigned,
       String patientName,
-      int patientID,
+      String patientID,
       LocationNameEntity moveTo, // moveTo--there's already a location in servicerequest super
       String equipment,
       Timestamp date) {
