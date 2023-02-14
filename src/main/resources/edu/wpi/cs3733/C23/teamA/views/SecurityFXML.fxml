@@ -81,6 +81,34 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </HBox>
+            <HBox prefHeight="60.0" prefWidth="1376.0">
+               <children>
+                  <VBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" minWidth="-Infinity" prefHeight="60.0" prefWidth="500.0">
+                     <children>
+                        <MFXTextField fx:id="phone" alignment="TOP_LEFT" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="( _ _ _) - _ _ _ - _ _ _ _" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </MFXTextField>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
             <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Info">
                <font>
                   <Font name="Verdana" size="30.0" />
@@ -173,7 +201,7 @@
                         <Insets left="30.0" />
                      </padding>
                      <children>
-                        <MFXComboBox fx:id="requestsBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High, Extremely High" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                        <MFXComboBox fx:id="requestsBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Harassment, Potential Threat, Security Escort" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                            <font>
                               <Font name="Kohinoor Bangla" size="14.0" />
                            </font>
