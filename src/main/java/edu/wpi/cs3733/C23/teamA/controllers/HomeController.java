@@ -53,7 +53,7 @@ public class HomeController extends MenuController {
     IdNumberHolder userInfo = new IdNumberHolder();
     userInfo = IdNumberHolder.getInstance();
     welcome.setText("Welcome " + userInfo.getName() + "!");
-    if (userInfo.getJob().equalsIgnoreCase("Maintenance")) {
+    if (userInfo.getJob().equalsIgnoreCase("Maintenance") && IDCol != null) {
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
