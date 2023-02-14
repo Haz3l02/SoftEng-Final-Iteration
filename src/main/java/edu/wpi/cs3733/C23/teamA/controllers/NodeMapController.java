@@ -1,12 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -20,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -57,6 +57,13 @@ public class NodeMapController extends MenuController {
   @FXML GesturePane gestureF2;
   @FXML GesturePane gestureF3;
 
+  // Canvases
+  @FXML Canvas mapEditorCanvasL1;
+  @FXML Canvas mapEditorCanvasL2;
+  @FXML Canvas mapEditorCanvasF1;
+  @FXML Canvas mapEditorCanvasF2;
+  @FXML Canvas mapEditorCanvasF3;
+
   @FXML MFXTextField XCord;
   @FXML MFXTextField YCord;
   @FXML MFXComboBox FloorBox;
@@ -73,6 +80,8 @@ public class NodeMapController extends MenuController {
 
   // Lists of Nodes and Node Data
   private List<NodeEntity> allNodes;
+  private List<EdgeEntity> allEdges;
+  private GraphicsContext[] gcs = new GraphicsContext[5];
 
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
@@ -81,12 +90,22 @@ public class NodeMapController extends MenuController {
     NodeDraw.setSelectedPane(null);
     createNodeButton.setVisible(false);
     saveButton.setVisible(false);
+
+    // set graphicContexts for each floor
+    gcs[0] = mapEditorCanvasL1.getGraphicsContext2D();
+    gcs[1] = mapEditorCanvasL2.getGraphicsContext2D();
+    gcs[2] = mapEditorCanvasF1.getGraphicsContext2D();
+    gcs[3] = mapEditorCanvasF2.getGraphicsContext2D();
+    gcs[4] = mapEditorCanvasF3.getGraphicsContext2D();
+
+    // add nodes and edges per floor
     initializeFloorMap("L1", nodeAnchorL1, stackL1, gestureL1);
     initializeFloorMap("L2", nodeAnchorL2, stackL2, gestureL2);
     initializeFloorMap("1", nodeAnchorF1, stackF1, gestureF1);
     initializeFloorMap("2", nodeAnchorF2, stackF2, gestureF2);
     initializeFloorMap("3", nodeAnchorF3, stackF3, gestureF3);
   }
+
   /**
    * Attaches the gesturepane with the stackpane and reads and adds all the nodes on a floor to the
    * correct anchorPane
@@ -95,10 +114,13 @@ public class NodeMapController extends MenuController {
       String floor, AnchorPane nodeAnchor, StackPane stack, GesturePane gesture) {
     // Get all nodes on floor names floor
     NodeImpl nodeimpl = new NodeImpl();
-    allNodes = nodeimpl.getAll();
+    allNodes = nodeimpl.getNodeOnFloor(floor);
+    EdgeImpl edgeimpl = new EdgeImpl();
+    allEdges = edgeimpl.getEdgeOnFloor("L1");
 
     // Add nodes as circles
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, nodeAnchor, this);
+    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gcs[0]);
 
     ObservableList<String> floors =
         FXCollections.observableArrayList(

@@ -143,4 +143,8 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     }
     return null;
   }
+
+  public List<NodeEntity> getNodeOnFloor(String floor) {
+    return nodes.stream().filter(nodeEntity -> nodeEntity.getFloor().equals(floor)).toList();
+  }
 }
