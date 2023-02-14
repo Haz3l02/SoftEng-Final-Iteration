@@ -158,7 +158,7 @@
                   <HBox prefWidth="200.0" BorderPane.alignment="CENTER" />
                </bottom>
                <top>
-                  <SplitPane orientation="VERTICAL" prefHeight="91.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+                  <SplitPane orientation="VERTICAL" prefHeight="60.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
                      <items>
                         <BorderPane prefHeight="0.0" prefWidth="1372.0" style="-fx-background-color: #224870;">
                            <right>
@@ -185,12 +185,12 @@
                            <left>
                               <HBox alignment="CENTER_LEFT" prefHeight="89.0" prefWidth="418.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="64.0" prefWidth="320.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Service Request Systems" textFill="#d3e9f6" underline="true">
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="64.0" prefWidth="330.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Service Request Systems" textFill="#d3e9f6" underline="true">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToPathfinding" prefHeight="64.0" prefWidth="158.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Navigation" textFill="#d3e9f6" underline="true">
+                                    <MFXButton cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToPathfinding" prefHeight="64.0" prefWidth="165.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Navigation" textFill="#d3e9f6" underline="true">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
