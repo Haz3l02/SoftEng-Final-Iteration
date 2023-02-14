@@ -34,12 +34,14 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("employeeid,job,name,password,username\n");
     for (EmployeeEntity emp : employees) {
@@ -69,8 +71,13 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
               employees.remove(employee);
             });
 
-    session.persist(obj);
-    employees.add(obj);
+    EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
+    emp.setEmployeeid(obj.getEmployeeid());
+    emp.setUsername(obj.getUsername());
+    emp.setPassword(obj.getPassword());
+    emp.setJob(obj.getJob());
+    emp.setName(obj.getName());
+
     tx.commit();
   }
 
@@ -95,8 +102,13 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
-
-    employees.forEach(employee -> session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid())));
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
+    employees.forEach(
+        employee -> session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid())));
     employees.clear();
 
     File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
@@ -126,7 +138,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         .toList()
         .forEach(
             employee -> {
-              session.remove(employee);
+              session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid()));
               employees.remove(employee);
             });
     tx.commit();

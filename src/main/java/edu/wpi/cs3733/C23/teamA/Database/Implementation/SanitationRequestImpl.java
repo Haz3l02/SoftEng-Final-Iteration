@@ -4,11 +4,9 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -37,26 +35,29 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     return sanrequests;
   }
 
-
   public void exportToCSV(String filename) throws IOException {
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
     File csvFile =
-            new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/"+filename);
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write(
-            "category,requestid\n");
+    fileWriter.write("category,requestid\n");
     for (SanitationRequestEntity ser : sanrequests) {
-      fileWriter.write(
-              ser.getCategory()
-                      + ","
-                      + ser.getRequestid()
-                      + "\n");
+      fileWriter.write(ser.getCategory() + "," + ser.getRequestid() + "\n");
     }
     fileWriter.close();
   }
 
-
-
-  public void importFromCSV(String filename) throws FileNotFoundException {}
+  public void importFromCSV(String filename) throws FileNotFoundException {
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
+  }
 
   public void add(SanitationRequestEntity c) {
     ServiceRequestImpl serv = new ServiceRequestImpl();
@@ -77,7 +78,9 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
         li.remove();
       }
     }
-    new ServiceRequestImpl().removeFromList(c);
+    ServiceRequestImpl servI = new ServiceRequestImpl();
+    servI.removeFromList(c);
+    servI.closeSession();
     tx.commit();
   }
 

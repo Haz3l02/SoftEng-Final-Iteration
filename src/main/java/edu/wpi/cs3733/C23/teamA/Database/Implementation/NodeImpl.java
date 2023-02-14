@@ -36,9 +36,11 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
   public void exportToCSV(String filename) throws IOException {
     List<NodeEntity> nods = getAll();
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
@@ -65,6 +67,12 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     nodes.clear();
+
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File node = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
