@@ -21,7 +21,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   private final List<ServiceRequestEntity> services;
   private static final ServiceRequestImpl instance = new ServiceRequestImpl();
 
-
   public ServiceRequestImpl() {
     Session session = getSessionFactory().openSession();
     session = getSessionFactory().openSession();
@@ -31,7 +30,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     services = session.createQuery(criteria).getResultList();
     session.close();
   }
-
 
   public List<ServiceRequestEntity> getAll() {
     return services;
@@ -192,10 +190,8 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     return null;
   }
 
-  @Override
-  public void closeSession() {
-    session.close();
-  }
+  //  @Override
+  //  public void closeSession() {}
 
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
@@ -213,9 +209,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     return sers;
   }
 
-
-
-  public void updateStatus(Status status, Integer ID){
+  public void updateStatus(Status status, Integer ID) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
@@ -234,6 +228,24 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     session.close();
   }
 
+  public void updateEmployee(String employee, Integer ID) {
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+
+    ServiceRequestEntity serv = session.get(ServiceRequestEntity.class, ID);
+    serv.setEmployeeAssigned(employee);
+    ListIterator<ServiceRequestEntity> li = services.listIterator();
+    while (li.hasNext()) {
+      if (li.next().getRequestid() == ID) {
+        li.remove();
+      }
+    }
+
+    services.add(serv);
+
+    tx.commit();
+    session.close();
+  }
 
   public static ServiceRequestImpl getInstance() {
     return instance;

@@ -57,7 +57,6 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
 
-
   UrgencyLevel urgent;
   Status status;
 
@@ -138,7 +137,7 @@ public class ServiceRequestStatusController extends MenuController {
         requests = servI.getAll();
       }
       dbTableRowsModel.addAll(requests);
-      servI.closeSession();
+      // servI.closeSession();
 
       serviceReqsTable.setItems(dbTableRowsModel);
     }
@@ -225,7 +224,7 @@ public class ServiceRequestStatusController extends MenuController {
           }
           billy.setEmployeeAssigned(employeeBox.getText());
           servI.add(billy);
-          servI.closeSession();
+          // servI.closeSession();
           break;
         }
       }
@@ -249,7 +248,8 @@ public class ServiceRequestStatusController extends MenuController {
 
   public void acceptForm(ActionEvent event) {
     ServiceRequestEntity clickedRow = serviceReqsTable.getSelectionModel().getSelectedItem();
-    acceptTheForm = new AcceptTheForm(clickedRow.getRequestid(), clickedRow.getRequestType().requestType, true);
+    acceptTheForm =
+        new AcceptTheForm(clickedRow.getRequestid(), clickedRow.getRequestType().requestType, true);
     switch (clickedRow.getRequestType().requestType) {
       case "Computer":
         Navigation.navigate(Screen.COMPUTER);

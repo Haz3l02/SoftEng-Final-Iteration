@@ -19,4 +19,5 @@ public interface IDatabaseAPI<T, G> {
 
   T get(G ID);
 
+  // void closeSession();
 }

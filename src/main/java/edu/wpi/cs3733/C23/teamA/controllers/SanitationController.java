@@ -10,6 +10,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.SanitationRequestImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -55,7 +56,7 @@ public class SanitationController extends ServiceRequestController {
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
-      sanI.closeSession();
+      // sanI.closeSession();
       accept.setDisable(true);
       accept.setVisible(false);
       clear.setDisable(false);
@@ -74,7 +75,7 @@ public class SanitationController extends ServiceRequestController {
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
-      sanI.closeSession();
+      // sanI.closeSession();
       accept.setDisable(false);
       accept.setVisible(true);
       clear.setDisable(true);
@@ -83,7 +84,6 @@ public class SanitationController extends ServiceRequestController {
       submit.setVisible(false);
       reject.setDisable(false);
       reject.setVisible(true);
-
     }
   }
 
@@ -94,7 +94,14 @@ public class SanitationController extends ServiceRequestController {
 
   @FXML
   void acceptRequest(ActionEvent event) {
+    ServiceRequestImpl sri = new ServiceRequestImpl();
+    sri.updateStatus(Status.PROCESSING, acceptTheForm.getRequestID());
+  }
 
+  @FXML
+  public void rejectRequest(ActionEvent event) {
+    ServiceRequestImpl sri = new ServiceRequestImpl();
+    sri.updateEmployee("Unassigned", acceptTheForm.getRequestID());
   }
 
   @FXML
@@ -146,9 +153,9 @@ public class SanitationController extends ServiceRequestController {
         sanI.add(submission);
         // submission.insert(); // *some db thing for getting the request in there*
       }
-      sanI.closeSession();
-      employeeI.closeSession();
-      locationI.closeSession();
+      // sanI.closeSession();
+      // employeeI.closeSession();
+      // locationI.closeSession();
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

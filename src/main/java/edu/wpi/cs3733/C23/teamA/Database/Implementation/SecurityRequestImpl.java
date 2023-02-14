@@ -22,7 +22,8 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
   private List<SecurityRequestEntity> secrequests;
 
   public SecurityRequestImpl() {
-    Session session = getSessionFactory().openSession();    CriteriaBuilder builder = session.getCriteriaBuilder();
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<SecurityRequestEntity> criteria =
         builder.createQuery(SecurityRequestEntity.class);
     criteria.from(SecurityRequestEntity.class);
@@ -109,7 +110,6 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     }
     SecurityRequestEntity c = session.get(SecurityRequestEntity.class, ID);
 
-
     c.setSecphone(obj.getSecphone());
     c.setAssistance(obj.getAssistance());
     c.setName(obj.getName());
@@ -158,6 +158,8 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     return null;
   }
 
+  //  @Override
+  //  public void closeSession() {}
 
   public static SecurityRequestImpl getInstance() {
     return instance;

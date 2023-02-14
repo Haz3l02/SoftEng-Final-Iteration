@@ -62,8 +62,8 @@ public class NodeController extends MenuController {
       NodeImpl node = new NodeImpl();
       edge.collapseNode(selected);
       node.delete(selected.getNodeid());
-      edge.closeSession();
-      node.closeSession();
+      // edge.closeSession();
+      // node.closeSession();
       reloadData();
     }
   }
@@ -80,7 +80,7 @@ public class NodeController extends MenuController {
       n.setBuilding("BTM");
       NodeImpl nodeI = new NodeImpl();
       nodeI.add(n);
-      nodeI.closeSession();
+      // nodeI.closeSession();
       reloadData();
     }
   }
@@ -91,7 +91,7 @@ public class NodeController extends MenuController {
     try {
       NodeImpl nodeI = new NodeImpl();
       data = nodeI.getAll();
-      nodeI.closeSession();
+      // nodeI.closeSession();
       dbTableRowsModel.addAll(data);
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -113,7 +113,7 @@ public class NodeController extends MenuController {
             n.setNodeid(e.getNewValue());
             NodeImpl nodeI = new NodeImpl();
             nodeI.update(oldId, n);
-            nodeI.closeSession();
+            // nodeI.closeSession();
           } catch (Exception ex) {
             ex.printStackTrace();
           }
@@ -126,7 +126,7 @@ public class NodeController extends MenuController {
               n.setXcoord(e.getNewValue());
               NodeImpl nodeI = new NodeImpl();
               nodeI.update(n.getNodeid(), n);
-              nodeI.closeSession();
+              // nodeI.closeSession();
             }
           } catch (Exception ex) {
             ex.printStackTrace();
@@ -140,7 +140,7 @@ public class NodeController extends MenuController {
               n.setYcoord(e.getNewValue());
               NodeImpl nodeI = new NodeImpl();
               nodeI.update(n.getNodeid(), n);
-              nodeI.closeSession();
+              // nodeI.closeSession();
             }
           } catch (Exception ex) {
             ex.printStackTrace();
@@ -153,7 +153,7 @@ public class NodeController extends MenuController {
             n.setFloor(e.getNewValue());
             NodeImpl nodeI = new NodeImpl();
             nodeI.update(n.getNodeid(), n);
-            nodeI.closeSession();
+            // nodeI.closeSession();
           } catch (Exception ex) {
             ex.printStackTrace();
           }
@@ -165,7 +165,7 @@ public class NodeController extends MenuController {
             n.setFloor(e.getNewValue());
             NodeImpl nodeI = new NodeImpl();
             nodeI.update(n.getNodeid(), n);
-            nodeI.closeSession();
+            // nodeI.closeSession();
           } catch (Exception ex) {
             ex.printStackTrace();
           }

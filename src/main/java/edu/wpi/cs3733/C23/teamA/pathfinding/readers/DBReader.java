@@ -35,7 +35,7 @@ public class DBReader {
               moveI.mostRecentLoc(n.getNodeid()).getLongname());
       graph.addNode(n.getNodeid(), g);
     }
-    moveI.closeSession();
+    // moveI.closeSession();
     // Edges
     /* read through edge columns and add edges to correct node (bidirectional) */
     List<EdgeEntity> allEdges =

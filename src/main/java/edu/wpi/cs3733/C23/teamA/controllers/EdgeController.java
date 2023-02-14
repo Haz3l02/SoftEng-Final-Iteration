@@ -50,7 +50,7 @@ public class EdgeController extends MenuController {
     try {
       EdgeImpl edgeI = new EdgeImpl();
       data = edgeI.getAll();
-      edgeI.closeSession();
+      // edgeI.closeSession();
       dbTableRowsModel.addAll(data);
     } catch (Exception e) {
       e.printStackTrace();
@@ -68,8 +68,8 @@ public class EdgeController extends MenuController {
             EdgeImpl edgeI = new EdgeImpl();
             n.setNode1(nodeI.get(e.getNewValue()));
             edgeI.update(n.getEdgeid(), n);
-            nodeI.closeSession();
-            edgeI.closeSession();
+            // nodeI.closeSession();
+            // edgeI.closeSession();
           } catch (Exception ex) {
             refresh.setText("Invalid Node: Refresh");
           }
@@ -82,8 +82,8 @@ public class EdgeController extends MenuController {
             EdgeImpl edgeI = new EdgeImpl();
             n.setNode2(nodeI.get(e.getNewValue()));
             edgeI.update(n.getEdgeid(), n);
-            nodeI.closeSession();
-            edgeI.closeSession();
+            // nodeI.closeSession();
+            // edgeI.closeSession();
           } catch (Exception ex) {
             refresh.setText("Invalid Node: Refresh");
           }

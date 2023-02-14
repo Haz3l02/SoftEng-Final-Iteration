@@ -26,7 +26,7 @@ public class PatientTransportController extends ServiceRequestController {
       moveFromBox.setText(editPatientRequest.getLocation().getLongname());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editPatientRequest.getDescription());
-      patI.closeSession();
+      // patI.closeSession();
     }
     // Otherwise Initialize service requests as normal
   }

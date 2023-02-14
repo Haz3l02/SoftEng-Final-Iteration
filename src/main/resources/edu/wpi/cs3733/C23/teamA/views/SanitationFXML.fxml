@@ -207,7 +207,7 @@
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="reject" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#rejectForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15;" text="Reject" textAlignment="CENTER" textFill="#d3e9f6">
+                        <MFXButton fx:id="reject" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#rejectRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15;" text="Reject" textAlignment="CENTER" textFill="#d3e9f6">
                            <font>
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
@@ -246,7 +246,7 @@
                   </MFXButton>
                   <StackPane prefHeight="50.0" prefWidth="134.0">
                      <children>
-                        <MFXButton fx:id="accept" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Accept" textAlignment="CENTER" textFill="#224870">
+                        <MFXButton fx:id="accept" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#acceptRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Accept" textAlignment="CENTER" textFill="#224870">
                            <font>
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
