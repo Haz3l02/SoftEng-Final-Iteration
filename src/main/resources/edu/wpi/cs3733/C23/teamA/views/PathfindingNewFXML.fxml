@@ -65,7 +65,7 @@
                                             <children>
                                                 <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Pathfinding" wrappingWidth="278.1484375">
                                                     <font>
-                                                        <Font name="Verdana" size="36.0" />
+                                                        <Font name="Arial Black" size="36.0" />
                                                     </font>
                                                     <VBox.margin>
                                                         <Insets left="10.0" />
@@ -189,7 +189,7 @@
                                     <children>
                                         <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions" wrappingWidth="212.8151092529297">
                                             <font>
-                                                <Font name="Verdana" size="36.0" />
+                                                <Font name="Arial Black" size="36.0" />
                                             </font>
                                             <VBox.margin>
                                                 <Insets left="10.0" />
@@ -227,7 +227,7 @@
                                     <children>
                                         <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map" wrappingWidth="278.1484375">
                                             <font>
-                                                <Font name="Verdana" size="36.0" />
+                                                <Font name="Arial Black" size="36.0" />
                                             </font>
                                         </Text>
                                         <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0" />
