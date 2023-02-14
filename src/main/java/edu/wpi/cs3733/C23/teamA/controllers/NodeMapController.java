@@ -69,6 +69,8 @@ public class NodeMapController extends MenuController {
   @FXML MFXComboBox FloorBox;
   @FXML MFXComboBox BuildingBox;
   @FXML MFXButton saveButton;
+  @FXML MFXTextField node1;
+  @FXML MFXTextField node2;
 
   @FXML VBox fieldBox;
   @FXML MFXButton createNodeButton;
