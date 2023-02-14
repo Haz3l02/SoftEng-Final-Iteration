@@ -20,16 +20,18 @@ import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
 public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
+  private static final EdgeImpl instance = new EdgeImpl();
+
   private List<EdgeEntity> edges;
-  private Session session;
 
   public EdgeImpl() {
-    session = getSessionFactory().openSession();
+    Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
     criteria.from(EdgeEntity.class);
     List<EdgeEntity> records = session.createQuery(criteria).getResultList();
     edges = records;
+    session.close();
   }
 
   public List<EdgeEntity> getAll() {
@@ -45,6 +47,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
    *     come from the node (node1 is the node)
    */
   public HashMap<EdgeEntity, List<EdgeEntity>> nodeVectors(NodeEntity e) {
+    Session session = getSessionFactory().openSession();
     HashMap<EdgeEntity, List<EdgeEntity>> vectors = new HashMap<>();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
@@ -61,16 +64,18 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
                   criteria.select(item).where(builder.equal(item.get("node1"), e)))
               .getResultList());
     }
+    session.close();
     return vectors;
   }
 
   public void exportToCSV(String filename) throws IOException {
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
-    File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("edgeid,node1,node2\n");
     for (EdgeEntity edge : edges) {
@@ -86,10 +91,16 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
+    Session session = getSessionFactory().openSession();
     String hql = "delete from EdgeEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     edges.clear();
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
     File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
     Transaction tx = session.beginTransaction();
@@ -111,16 +122,20 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
       }
     }
     tx.commit();
+    session.close();
   }
 
   public void add(EdgeEntity e) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(e);
     edges.add(e);
     tx.commit();
+    session.close();
   }
 
   public void delete(String e) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     ListIterator<EdgeEntity> li = edges.listIterator();
     while (li.hasNext()) {
@@ -130,6 +145,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     }
     session.remove(session.get(EdgeEntity.class, e));
     tx.commit();
+    session.close();
   }
 
   /**
@@ -140,6 +156,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
    * @param e NodeEntity that must be deleted.
    */
   public void collapseNode(NodeEntity e) {
+    Session session = getSessionFactory().openSession();
     EdgeEntity newEdge;
     HashMap<EdgeEntity, List<EdgeEntity>> vec = nodeVectors(e);
     Transaction tx = session.beginTransaction();
@@ -153,9 +170,11 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
       delete(n.getEdgeid());
     }
     tx.commit();
+    session.close();
   }
 
   public void update(String s, EdgeEntity obj) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<EdgeEntity> li = edges.listIterator();
@@ -173,6 +192,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     edges.add(edg);
 
     tx.commit();
+    session.close();
   }
 
   public EdgeEntity get(String ID) {
@@ -183,7 +203,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     return null;
   }
 
-  public void closeSession() {
-    session.close();
+  public static EdgeImpl getInstance() {
+    return instance;
   }
 }

@@ -49,12 +49,11 @@ public class LoginController {
 
     ArrayList<String> info =
         employee1.checkPass(usernameTextField.getText(), passwordTextField.getText());
-
+    employee1.closeSession();
     if (info.get(0).equals("")) {
       incorrectNotification.setVisible(true);
       usernameTextField.clear();
       passwordTextField.clear();
-      employee1.closeSession();
     } else {
       IdNumberHolder holder = IdNumberHolder.getInstance();
       holder.setId(info.get(0));
@@ -62,7 +61,6 @@ public class LoginController {
       holder.setPassword(passwordTextField.getText());
       holder.setJob(info.get(1));
       holder.setName(info.get(2));
-      employee1.closeSession();
       if (holder.getJob().equalsIgnoreCase("Maintenance")) {
         Navigation.navigateHome(Screen.HOME_MAINTENANCE);
       } else if (holder.getJob().equalsIgnoreCase("Admin")) {
