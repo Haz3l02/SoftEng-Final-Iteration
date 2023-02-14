@@ -20,16 +20,18 @@ import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
 public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
-  private Session session;
   private List<MoveEntity> moves;
+  private static final MoveImpl instance = new MoveImpl();
+
   // done except importCSV
   public MoveImpl() {
-    session = getSessionFactory().openSession();
+    Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     moves = records;
+    session.close();
   }
 
   public List<MoveEntity> getAll() {
@@ -37,9 +39,11 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
@@ -61,10 +65,18 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   // different node types
   // can't recognize class as string
   public void importFromCSV(String filename) throws FileNotFoundException {
+    Session session = getSessionFactory().openSession();
     String hql = "delete from MoveEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     moves.clear();
+
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
+
     File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
     Transaction tx = session.beginTransaction();
@@ -89,9 +101,11 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
       }
     }
     tx.commit();
+    session.close();
   }
 
   public void add(MoveEntity m) {
+    Session session = getSessionFactory().openSession();
     List<LocalDate> tracking = new ArrayList<>();
 
     for (MoveEntity n :
@@ -107,9 +121,11 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     } else {
       throw new PersistenceException();
     }
+    session.close();
   }
 
   public void delete(List<String> m) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
@@ -117,8 +133,18 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
         li.remove();
       }
     }
-    session.remove(get(m));
+
+    session.delete(
+        session.find(
+            MoveEntity.class,
+            new MoveEntity(
+                session.get(NodeEntity.class, m.get(0)),
+                session.get(LocationNameEntity.class, m.get(1)),
+                LocalDate.parse(m.get(2)))));
+
+    // session.delete()
     tx.commit();
+    session.close();
   }
 
   /**
@@ -158,21 +184,45 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void update(List<String> ID, MoveEntity obj) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.merge(obj);
+    MoveEntity mov =
+        session.find(
+            MoveEntity.class,
+            new MoveEntity(
+                session.get(NodeEntity.class, ID.get(0)),
+                session.get(LocationNameEntity.class, ID.get(1)),
+                LocalDate.parse(ID.get(2))));
+    mov.setLocationName(obj.getLocationName());
+    mov.setNode(obj.getNode());
+    mov.setMovedate(obj.getMovedate());
+
+    ListIterator<MoveEntity> li = moves.listIterator();
+    while (li.hasNext()) {
+      if (li.next().getNode().equals(ID.get(0))
+          && li.next().getLocationName().equals(ID.get(1))
+          && li.next().getMovedate().equals(ID.get(2))) {
+        li.remove();
+      }
+    }
+    moves.add(mov);
+
     tx.commit();
+    session.close();
   }
 
   public MoveEntity get(List<String> ID) {
     for (MoveEntity m : moves) {
       if (m.getNode().equals(ID.get(0))
           && m.getLocationName().equals(ID.get(1))
-          && m.getMovedate().equals(ID.get(2))) return m;
+          && m.getMovedate().toString().equals(ID.get(2))) return m;
     }
     return null;
   }
 
-  public void closeSession() {
-    session.close();
+
+
+  public static MoveImpl getInstance() {
+    return instance;
   }
 }

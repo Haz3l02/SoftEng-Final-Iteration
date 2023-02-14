@@ -53,6 +53,11 @@ public class HomeServiceRequestController extends MenuController {
   }
 
   @FXML
+  public void switchToPatientTransport(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.PATIENT_TRANSPORT);
+  }
+
+  @FXML
   public void switchToServiceRequestStatus(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
   }

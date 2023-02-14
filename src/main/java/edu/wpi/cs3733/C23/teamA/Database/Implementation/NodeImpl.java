@@ -18,16 +18,18 @@ import org.hibernate.query.MutationQuery;
 
 public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   // done
-  private Session session;
+  private static final NodeImpl instance = new NodeImpl();
+
   private ArrayList<NodeEntity> nodes;
 
   public NodeImpl() {
-    session = getSessionFactory().openSession();
+    Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<NodeEntity> criteria = builder.createQuery(NodeEntity.class);
     criteria.from(NodeEntity.class);
     List<NodeEntity> records = session.createQuery(criteria).getResultList();
     nodes = (ArrayList) records;
+    session.close();
   }
 
   public List<NodeEntity> getAll() {
@@ -36,9 +38,11 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
   public void exportToCSV(String filename) throws IOException {
     List<NodeEntity> nods = getAll();
-    //    if (!filename[filename.length()-3, filename.length()].equals(".csv")){
-    //      filename+=".csv";
-    //    }
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File csvFile =
         new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
@@ -61,10 +65,17 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
+    Session session = getSessionFactory().openSession();
     String hql = "delete from NodeEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     nodes.clear();
+
+    if (filename.length() > 4) {
+      if (!filename.substring(filename.length() - 4).equals(".csv")) {
+        filename += ".csv";
+      }
+    } else filename += ".csv";
 
     File node = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
@@ -84,16 +95,20 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
       }
     }
     tx.commit();
+    session.close();
   }
 
   public void add(NodeEntity n) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(n);
     nodes.add(n);
     tx.commit();
+    session.close();
   }
 
   public void delete(String n) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     ListIterator<NodeEntity> li = nodes.listIterator();
     while (li.hasNext()) {
@@ -103,9 +118,11 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     }
     session.remove(n);
     tx.commit();
+    session.close();
   }
 
   public void update(String ID, NodeEntity obj) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<NodeEntity> li = nodes.listIterator();
@@ -124,6 +141,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
     nodes.add(n);
     tx.commit();
+    session.close();
   }
 
   public List<NodeEntity> getNodeOnFloor(String floor) {
@@ -142,7 +160,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     return null;
   }
 
-  public void closeSession() {
-    session.close();
+  public static NodeImpl getInstance() {
+    return instance;
   }
 }

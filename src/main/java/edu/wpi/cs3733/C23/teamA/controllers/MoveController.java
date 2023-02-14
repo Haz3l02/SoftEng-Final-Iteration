@@ -10,7 +10,6 @@ import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import jakarta.persistence.PersistenceException;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -46,29 +45,18 @@ public class MoveController extends MenuController {
   private ObservableList<MoveEntity> dbTableRowsModel = FXCollections.observableArrayList();
   /** runs on switching to this scene */
   public void initialize() {
-    LocationNameImpl table = new LocationNameImpl();
-    NodeImpl nodeI = new NodeImpl();
 
-    nodes = nodeI.getAll(); // get all nodes from Database
-    allNodeIDs = new ArrayList<>();
+    reloadData();
+    nodes = data.stream().map(moveEntity -> moveEntity.getNode()).toList();
+    allNodeIDs = nodes.stream().map(nodeEntity -> nodeEntity.getNodeid()).toList();
     allLongNames =
-        table.getAll().stream()
-            .map(locationNameEntity -> locationNameEntity.getLongname())
-            .toList();
-    table.closeSession();
-    nodeI.closeSession();
-
-    for (NodeEntity n : nodes) {
-      allNodeIDs.add(n.getNodeid()); // get nodeId
-    }
+        data.stream().map(moveEntity -> moveEntity.getLocationName().getLongname()).toList();
 
     ObservableList<String> nodes = FXCollections.observableArrayList(allNodeIDs);
     ObservableList<String> locationNames = FXCollections.observableArrayList(allLongNames);
 
     nodeBox.setItems(nodes);
     locationBox.setItems(locationNames);
-
-    reloadData();
 
     nodeCol.setCellValueFactory(
         param -> new SimpleStringProperty(param.getValue().getNode().getNodeid()));
@@ -97,6 +85,7 @@ public class MoveController extends MenuController {
   }
 
   public void submitEdit(ActionEvent event) {
+    MoveImpl moveI = new MoveImpl();
     LocationNameImpl table = new LocationNameImpl();
     NodeImpl nodeI = new NodeImpl();
     if (!nodeBox.getText().trim().isBlank()
@@ -108,13 +97,13 @@ public class MoveController extends MenuController {
       newMove.setMovedate(dateBox.getValue());
       try {
         warning.setVisible(false);
-        MoveImpl moveI = new MoveImpl();
         moveI.add(newMove);
         moveI.closeSession();
       } catch (PersistenceException p) {
         warning.setVisible(true);
       }
     }
+    moveI.closeSession();
     nodeI.closeSession();
     table.closeSession();
     reloadData();
