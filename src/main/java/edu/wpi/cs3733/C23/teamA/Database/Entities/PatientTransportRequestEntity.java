@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
-import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
@@ -29,7 +28,7 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
   @Column(name = "patientid", nullable = false, length = -1)
   @Setter
   @Getter
-  private int patientID;
+  private String patientID;
 
   @ManyToOne
   @JoinColumn(
@@ -62,7 +61,7 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
       Status status,
       String employeeassigned,
       String patientName,
-      int patientID,
+      String patientID,
       LocationNameEntity moveTo, // moveTo--there's already a location in servicerequest super
       String equipment,
       Timestamp date) {
@@ -92,7 +91,10 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      IssueCategory category) {
+      String patientName,
+      String patientID,
+      LocationNameEntity moveTo, // moveTo--there's already a location in servicerequest super
+      String equipment) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.patientName = patientName;
     this.patientID = patientID;

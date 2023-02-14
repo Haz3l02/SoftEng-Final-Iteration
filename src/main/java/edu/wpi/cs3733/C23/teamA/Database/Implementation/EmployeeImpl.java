@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -15,20 +16,20 @@ import java.util.List;
 import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.MutationQuery;
 
 public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   private static final EmployeeImpl instance = new EmployeeImpl();
 
   private List<EmployeeEntity> employees;
 
-
   public EmployeeImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EmployeeEntity> criteria = builder.createQuery(EmployeeEntity.class);
     criteria.from(EmployeeEntity.class);
-    session.close();
     employees = session.createQuery(criteria).getResultList();
+    session.close();
   }
 
   public List<EmployeeEntity> getAll() {
@@ -79,7 +80,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     emp.setPassword(obj.getPassword());
     emp.setJob(obj.getJob());
     emp.setName(obj.getName());
-
+    employees.add(emp);
     tx.commit();
     session.close();
   }
@@ -113,9 +114,28 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         filename += ".csv";
       }
     } else filename += ".csv";
+
+    String hql = "delete from SecurityRequestEntity";
+    MutationQuery q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from SanitationRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from ComputerRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from ServiceRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
     employees.forEach(
         employee -> session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid())));
     employees.clear();
+
+
 
     File emps = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
@@ -160,13 +180,22 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         .orElseThrow();
   }
 
+  public List<String> getListOf(String job) {
+    ArrayList<String> theList = new ArrayList<>();
+    for (EmployeeEntity emp : employees) {
+      if (emp.getJob().equals(job)) {
+        theList.add(emp.getName());
+      }
+    }
+    return theList;
+  }
+
   public EmployeeEntity get(String ID) {
     return employees.stream()
         .filter(employee -> employee.getEmployeeid().equals(ID))
         .findFirst()
         .orElseThrow();
   }
-
 
   public static EmployeeImpl getInstance() {
     return instance;

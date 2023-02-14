@@ -25,9 +25,9 @@ public class NodeMapController extends MenuController {
 
   // scaling constant
   private double SCALE_FACTOR; // constant for map size/coordinate manipulation
+  NodeImpl node = new NodeImpl();
 
   public void initialize() {
-    NodeImpl node = new NodeImpl();
     allNodes = node.getNodeOnFloor("L1"); // get all nodes from Database
     // Add Image
     addFloorMapImage(

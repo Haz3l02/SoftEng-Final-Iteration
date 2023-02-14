@@ -125,6 +125,7 @@ public class PathfindingController extends MenuController {
             .map(locationNameEntity -> locationNameEntity.getLongname())
             .toList();
 
+    table.closeSession();
      */
 
     // add the map images (also already done in SceneBuilder)
@@ -214,7 +215,6 @@ public class PathfindingController extends MenuController {
     ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
     startNodeIDs = idsFloor;
 
-
     startLocBox.setItems(locs);
     startLocBox.setDisable(false);
     startLocBox.clear();
@@ -245,7 +245,6 @@ public class PathfindingController extends MenuController {
 
     ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
     endNodeIDs = idsFloor;
-
 
     endLocBox.setItems(locs);
     endLocBox.setDisable(false);

@@ -54,9 +54,6 @@ public class DBReader {
       graph.addNode(n.getNodeid(), g);
     }
 
-    // close the sessions related to nodes
-
-
     // Edges
     EdgeImpl edgeImpl = new EdgeImpl();
 
@@ -70,6 +67,8 @@ public class DBReader {
       node2.addNeighbor(node1);
     }
 
-
+    // close the edge session
+    // edgeImpl.closeSession(); // session was null, don't think it's ever started in EdgeImpl
+    // anyway
   }
 }

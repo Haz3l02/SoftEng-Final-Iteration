@@ -49,7 +49,6 @@ public class LoginController {
 
     ArrayList<String> info =
         employee1.checkPass(usernameTextField.getText(), passwordTextField.getText());
-
     if (info.get(0).equals("")) {
       incorrectNotification.setVisible(true);
       usernameTextField.clear();

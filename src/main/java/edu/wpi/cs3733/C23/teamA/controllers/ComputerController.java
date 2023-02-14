@@ -12,8 +12,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
@@ -49,11 +47,6 @@ public class ComputerController extends ServiceRequestController {
       descBox.setText(editComputerRequest.getDescription());
     }
     // Otherwise Initialize service requests as normal
-  }
-
-  @FXML
-  public void switchToConfirmationScene(ActionEvent event) {
-    Navigation.navigate(Screen.COMPUTER_CONFIRMATION);
   }
 
   @FXML
@@ -105,8 +98,6 @@ public class ComputerController extends ServiceRequestController {
                 device);
         compI.add(submission);
       }
-
-
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

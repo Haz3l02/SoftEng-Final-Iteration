@@ -8,6 +8,8 @@ import java.util.List;
 
 public class PatientTransportimpl implements IDatabaseAPI<PatientTransportRequestEntity, Integer> {
 
+  private List<PatientTransportRequestEntity> patrequests;
+
   @Override
   public List<PatientTransportRequestEntity> getAll() {
     return null;
@@ -30,8 +32,9 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
 
   @Override
   public PatientTransportRequestEntity get(Integer ID) {
+    for (PatientTransportRequestEntity pat : patrequests) {
+      if (pat.getRequestid() == ID) return pat;
+    }
     return null;
   }
-
-
 }

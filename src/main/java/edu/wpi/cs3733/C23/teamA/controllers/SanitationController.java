@@ -12,8 +12,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.SanitationRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,6 +22,9 @@ import javafx.fxml.FXML;
 
 public class SanitationController extends ServiceRequestController {
   private IssueCategory category;
+  SanitationRequestImpl sanI = new SanitationRequestImpl();
+  LocationNameImpl locationI = new LocationNameImpl();
+  EmployeeImpl employeeI = new EmployeeImpl();
 
   @FXML private MFXComboBox<String> categoryBox;
 
@@ -49,15 +50,8 @@ public class SanitationController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToConfirmationScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.SANITATION_CONFIRMATION);
-  }
-
-  @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
-    SanitationRequestImpl sanI = new SanitationRequestImpl();
-    LocationNameImpl locationI = new LocationNameImpl();
-    EmployeeImpl employeeI = new EmployeeImpl();
+
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null
