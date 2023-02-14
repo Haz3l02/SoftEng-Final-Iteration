@@ -168,7 +168,8 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   /**
    * Find all moves happening on or after a date
    *
-   * @param date Minimum date for a Move to become a key in the return
+   * @param minDate Minimum date for a Move to become a key in the return
+   * @param maxDate Minimum date for a Move to become a key in the return
    * @return Hashmap representing mapping of (latest location, location immediately before)
    */
   public HashMap<MoveEntity, MoveEntity> locationChanges(LocalDate minDate, LocalDate maxDate) {

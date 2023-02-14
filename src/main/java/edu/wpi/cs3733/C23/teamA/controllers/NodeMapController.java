@@ -2,7 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
-import edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw;
 import java.io.File;
 import java.util.List;
 import javafx.fxml.FXML;
@@ -26,9 +25,9 @@ public class NodeMapController extends MenuController {
 
   // scaling constant
   private double SCALE_FACTOR; // constant for map size/coordinate manipulation
+  NodeImpl node = new NodeImpl();
 
   public void initialize() {
-    NodeImpl node = new NodeImpl();
     allNodes = node.getNodeOnFloor("L1"); // get all nodes from Database
     // Add Image
     addFloorMapImage(
@@ -37,7 +36,7 @@ public class NodeMapController extends MenuController {
     SCALE_FACTOR = gPane.getCurrentScale();
     // Add nodes as circles
     gc = nodeMapCanvas.getGraphicsContext2D();
-    MapDraw.drawNodes(gc, allNodes, SCALE_FACTOR);
+    // MapDraw.drawNodes(gc, allNodes, SCALE_FACTOR);
   }
 
   /**

@@ -58,7 +58,7 @@ public class PatientTransportController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToConfirmationScene(ActionEvent event) throws IOException {
+  public void switchToConfirmationScene(ActionEvent event) {
     Navigation.navigate(Screen.PATIENT_CONFIRMATION);
   }
 
@@ -123,19 +123,5 @@ public class PatientTransportController extends ServiceRequestController {
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }
-  }
-
-  @FXML
-  public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
-  }
-
-  @FXML
-  void clearForm() {
-    super.clearForm();
-    pNameBox.clear();
-    pIDBox.clear();
-    moveToBox.clear();
-    equipmentBox.clear();
   }
 }

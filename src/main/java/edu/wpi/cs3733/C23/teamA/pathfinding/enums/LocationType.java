@@ -11,7 +11,8 @@ public enum LocationType {
   CONF("CONF", "Conference Room"),
   EXIT("EXIT", "Exit/Entrance"),
   RETL("RETL", "Retail"),
-  SERV("SERV", "Other Non-Medical Services");
+  SERV("SERV", "Other Non-Medical Services"),
+  UNKN("UNKN", "Unknown Location Type"); // not in tables, but UNKN is the enum name
 
   private final String tableString;
   private final String extendedString;

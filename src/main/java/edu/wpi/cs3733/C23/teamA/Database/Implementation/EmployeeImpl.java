@@ -79,7 +79,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     emp.setPassword(obj.getPassword());
     emp.setJob(obj.getJob());
     emp.setName(obj.getName());
-
     employees.add(emp);
     tx.commit();
     session.close();
@@ -176,6 +175,16 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         .filter(employee -> employee.getUsername().equals(user))
         .findFirst()
         .orElseThrow();
+  }
+
+  public List<String> getListOf(String job) {
+    ArrayList<String> theList = new ArrayList<>();
+    for (EmployeeEntity emp : employees) {
+      if (emp.getJob().equals(job)) {
+        theList.add(emp.getName());
+      }
+    }
+    return theList;
   }
 
   public EmployeeEntity get(String ID) {
