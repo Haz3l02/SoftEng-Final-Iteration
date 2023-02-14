@@ -20,16 +20,18 @@ import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
 public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
-  private Session session;
   private List<MoveEntity> moves;
+  private static final MoveImpl instance = new MoveImpl();
+
   // done except importCSV
   public MoveImpl() {
-    session = getSessionFactory().openSession();
+    Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     moves = records;
+    session.close();
   }
 
   public List<MoveEntity> getAll() {
@@ -63,6 +65,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   // different node types
   // can't recognize class as string
   public void importFromCSV(String filename) throws FileNotFoundException {
+    Session session = getSessionFactory().openSession();
     String hql = "delete from MoveEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
@@ -98,9 +101,11 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
       }
     }
     tx.commit();
+    session.close();
   }
 
   public void add(MoveEntity m) {
+    Session session = getSessionFactory().openSession();
     List<LocalDate> tracking = new ArrayList<>();
 
     for (MoveEntity n :
@@ -116,9 +121,11 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     } else {
       throw new PersistenceException();
     }
+    session.close();
   }
 
   public void delete(List<String> m) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
@@ -137,6 +144,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     // session.delete()
     tx.commit();
+    session.close();
   }
 
   /**
@@ -176,6 +184,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void update(List<String> ID, MoveEntity obj) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     MoveEntity mov =
         session.find(
@@ -199,6 +208,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     moves.add(mov);
 
     tx.commit();
+    session.close();
   }
 
   public MoveEntity get(List<String> ID) {
@@ -210,7 +220,9 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     return null;
   }
 
-  public void closeSession() {
-    session.close();
+
+
+  public static MoveImpl getInstance() {
+    return instance;
   }
 }
