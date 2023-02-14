@@ -273,10 +273,10 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
                             "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
             .setParameter("newnodeid", obj.getNode().getNodeid())
             .setParameter("newlongname", obj.getLocationName().getLongname())
-            .setParameter("newmovedate", Timestamp.parse(obj.getMovedate().toString()))
+            .setParameter("newmovedate", obj.getMovedate())
             .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
             .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
-            .setParameter("oldmovedate", Timestamp.parse(ID.get(2)))
+            .setParameter("oldmovedate", LocalDate.parse(ID.get(2)))
             .executeUpdate();
 
 
@@ -293,7 +293,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     moves.add(new MoveEntity(session.get(NodeEntity.class, ID.get(0)),
             session.get(LocationNameEntity.class, ID.get(1)),
             LocalDate.parse(ID.get(2))));
-
     tx.commit();
     session.close();
   }
