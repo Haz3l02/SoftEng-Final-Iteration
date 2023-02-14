@@ -278,9 +278,9 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
 
 
-    moves.add(new MoveEntity(session.get(NodeEntity.class, ID.get(0)),
-            session.get(LocationNameEntity.class, ID.get(1)),
-            LocalDate.parse(ID.get(2))));
+    moves.add(new MoveEntity(session.get(NodeEntity.class, obj.getNode().getNodeid()),
+            session.get(LocationNameEntity.class, obj.getLocationName().getLongname()),
+            obj.getMovedate()));
     tx.commit();
     session.close();
   }
