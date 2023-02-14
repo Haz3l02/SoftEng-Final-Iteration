@@ -74,7 +74,7 @@ public class HomeController extends MenuController {
 
       assignmentsTable.setItems(dbTableRowsModel);
       session.close();
-    } else if (userInfo.getJob().equalsIgnoreCase("Admin")) {
+    } else if (userInfo.getJob().equalsIgnoreCase("Admin") && IDCol != null) {
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
