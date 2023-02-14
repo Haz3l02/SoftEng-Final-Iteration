@@ -4,7 +4,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -130,11 +129,11 @@
                                                 <Insets left="2.0" top="30.0" />
                                             </VBox.margin>
                                         </MFXFilterComboBox>
-                                        <TextArea fx:id="descBox" prefHeight="146.0" prefWidth="354.0" promptText="Reason for transportation">
-                                            <VBox.margin>
-                                                <Insets top="32.0" />
-                                            </VBox.margin>
-                                        </TextArea>
+                              <MFXTextField fx:id="descBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="390.0" promptText="Enter name">
+                                 <VBox.margin>
+                                    <Insets left="2.0" top="31.0" />
+                                 </VBox.margin>
+                              </MFXTextField>
                                     </children>
                                 </VBox>
                                 <VBox alignment="TOP_RIGHT" prefHeight="430.0" prefWidth="241.0">
@@ -202,7 +201,7 @@
                                         <Insets left="30.0" />
                                     </padding>
                                     <children>
-                                        <MFXButton fx:id="reset" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                                        <MFXButton fx:id="reset" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
                                             <font>
                                                 <Font name="Verdana" size="25.0" />
                                             </font>
@@ -214,7 +213,7 @@
                                         <Insets right="30.0" />
                                     </padding>
                                     <children>
-                                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="307.0" style="-fx-border-color: #f6bd3a; -fx-border-width: 5;">
+                                        <StackPane fx:id="reminderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="307.0" style="-fx-border-color: #f6bd3a; -fx-border-width: 5;">
                                             <children>
                                                 <Text fx:id="reminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields">
                                        <font>
@@ -225,7 +224,7 @@
                                                 <Insets right="20.0" />
                                             </HBox.margin>
                                         </StackPane>
-                                        <MFXButton fx:id="cancel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textAlignment="CENTER" textFill="#d3e9f6">
+                                        <MFXButton fx:id="cancel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textAlignment="CENTER" textFill="#d3e9f6">
                                             <font>
                                                 <Font name="Verdana" size="25.0" />
                                             </font>
@@ -233,7 +232,7 @@
                                                 <Insets right="20.0" />
                                             </HBox.margin>
                                         </MFXButton>
-                                        <MFXButton fx:id="submit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f6bd3a; -fx-background-radius: 15;" text="Submit" textAlignment="CENTER" textFill="#122c34">
+                                        <MFXButton fx:id="submit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f6bd3a; -fx-background-radius: 15;" text="Submit" textAlignment="CENTER" textFill="#122c34">
                                             <font>
                                                 <Font name="Verdana" size="25.0" />
                                             </font>
