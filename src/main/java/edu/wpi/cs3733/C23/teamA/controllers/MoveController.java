@@ -76,7 +76,7 @@ public class MoveController extends MenuController {
     try {
       MoveImpl moveI = new MoveImpl();
       data = moveI.getAll();
-      moveI.closeSession();
+
       dbTableRowsModel.addAll(data);
     } catch (Exception e) {
       e.printStackTrace();
@@ -98,14 +98,12 @@ public class MoveController extends MenuController {
       try {
         warning.setVisible(false);
         moveI.add(newMove);
-        moveI.closeSession();
+
       } catch (PersistenceException p) {
         warning.setVisible(true);
       }
     }
-    moveI.closeSession();
-    nodeI.closeSession();
-    table.closeSession();
+
     reloadData();
   }
 

@@ -33,6 +33,5 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
     return null;
   }
 
-  @Override
-  public void closeSession() {}
+
 }
