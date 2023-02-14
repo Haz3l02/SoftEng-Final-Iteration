@@ -52,7 +52,6 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
-
     String hql = "delete from LocationNameEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
@@ -79,7 +78,6 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void add(LocationNameEntity l) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(l);
     locations.add(l);
@@ -87,7 +85,6 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void delete(String l) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.delete(session.get(LocationNameEntity.class, l));
 
@@ -102,7 +99,6 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void update(String ID, LocationNameEntity location) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<LocationNameEntity> li = locations.listIterator();
@@ -134,6 +130,10 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
       if (ser.getLongname().equals(ID)) return ser;
     }
     return null;
+  }
+
+  public List<String> getAllIDs() {
+    return getAll().stream().map(locationNameEntity -> locationNameEntity.getLongname()).toList();
   }
 
   public void closeSession() {

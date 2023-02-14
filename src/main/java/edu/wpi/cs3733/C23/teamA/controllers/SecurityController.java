@@ -1,12 +1,14 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.SecurityRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -20,8 +22,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class SecurityController extends ServiceRequestController {
 
@@ -38,11 +38,8 @@ public class SecurityController extends ServiceRequestController {
       requestsBox.setItems(requests);
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Security")) {
-
-      Session session = getSessionFactory().openSession();
-      Transaction tx = session.beginTransaction();
-      SecurityRequestEntity editRequest =
-          session.get(SecurityRequestEntity.class, newEdit.getRequestID());
+      SecurityRequestImpl secI = new SecurityRequestImpl();
+      SecurityRequestEntity editRequest = secI.get(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       requestsBox.setText(editRequest.getRequestType().requestType);
@@ -50,8 +47,7 @@ public class SecurityController extends ServiceRequestController {
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       phone.setText(editRequest.getSecphone());
-      tx.commit();
-      session.close();
+      secI.closeSession();
     }
   }
 
@@ -67,6 +63,9 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) {
+    SecurityRequestImpl secI = new SecurityRequestImpl();
+    LocationNameImpl locationI = new LocationNameImpl();
+    EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
         || phone.getText().equals("")
         || IDNum.getText().equals("")
@@ -79,35 +78,25 @@ public class SecurityController extends ServiceRequestController {
     } else {
       if (newEdit.needEdits) {
         // something that submits it
-
-        Session session = getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
-
-        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue().toUpperCase());
 
-        SecurityRequestEntity submission =
-            session.get(SecurityRequestEntity.class, newEdit.getRequestID());
+        SecurityRequestEntity submission = secI.get(newEdit.getRequestID());
         submission.setName(nameBox.getText());
-        LocationNameEntity loc = session.get(LocationNameEntity.class, locationBox.getValue());
+        LocationNameEntity loc = locationI.get(locationBox.getValue());
         submission.setLocation(loc);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
         submission.setAssistance(assistance);
         submission.setSecphone(phone.getText());
 
-        session.persist(submission);
+        secI.update(submission.getRequestid(), submission);
 
-        tx.commit();
-        session.close();
       } else {
-        Session session = getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
+        EmployeeEntity person = employeeI.get(IDNum.getText());
+        LocationNameEntity location = locationI.get(locationBox.getText());
 
-        EmployeeEntity person = session.get(EmployeeEntity.class, IDNum.getText());
-        LocationNameEntity location = session.get(LocationNameEntity.class, locationBox.getText());
-
-        urgent = UrgencyLevel.value(urgencyBox.getValue().toUpperCase());
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue());
 
         SecurityRequestEntity submission =
@@ -122,11 +111,11 @@ public class SecurityController extends ServiceRequestController {
                 "Unassigned",
                 assistance,
                 phone.getText());
-        session.persist(submission);
-        tx.commit();
-        session.close();
+        secI.add(submission);
       }
-
+      secI.closeSession();
+      employeeI.closeSession();
+      locationI.closeSession();
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

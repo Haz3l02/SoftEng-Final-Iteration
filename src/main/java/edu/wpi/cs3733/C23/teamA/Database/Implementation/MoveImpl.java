@@ -6,13 +6,13 @@ import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 import org.hibernate.Session;
@@ -78,7 +78,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
           new MoveEntity(
               session.get(NodeEntity.class, b[0]),
               session.get(LocationNameEntity.class, b[1]),
-              Timestamp.valueOf(b[2]));
+              LocalDate.parse(b[2]));
       session.persist(mov);
 
       count++;
@@ -92,24 +92,32 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void add(MoveEntity m) {
-    Transaction tx = session.beginTransaction();
-    session.persist(m);
-    moves.add(m);
-    tx.commit();
+    List<LocalDate> tracking = new ArrayList<>();
+
+    for (MoveEntity n :
+        moves.stream().filter(moveEntity -> moveEntity.getNode().equals(m.getNode())).toList()) {
+      tracking.add(n.getMovedate());
+    }
+    System.out.println(tracking);
+    if (Collections.frequency(tracking, m.getMovedate()) < 2) {
+      Transaction tx = session.beginTransaction();
+      session.persist(m);
+      moves.add(m);
+      tx.commit();
+    } else {
+      throw new PersistenceException();
+    }
   }
 
   public void delete(List<String> m) {
     Transaction tx = session.beginTransaction();
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
-      if (li.next().getNode().equals(m.get(0))
-          && li.next().getLocationName().equals(m.get(1))
-          && li.next().getMovedate().equals(m.get(2))) {
+      if (li.next().equals(get(m))) {
         li.remove();
       }
     }
-
-    // session.delete()
+    session.remove(get(m));
     tx.commit();
   }
 
@@ -120,18 +128,25 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
    * @param date Date for finding the location
    */
   public MoveEntity locationOnDate(String id, LocalDate date) {
-    Timestamp convertDate = Timestamp.valueOf(date.atStartOfDay());
     List<MoveEntity> ids =
         moves.stream()
             .filter(
                 moveEntity ->
                     moveEntity.getNode().getNodeid().equals(id)
-                        && (moveEntity.getMovedate().compareTo(convertDate) == 0
-                            || moveEntity.getMovedate().compareTo(convertDate) == 1))
+                        && (moveEntity.getMovedate().compareTo(date) == 0
+                            || moveEntity.getMovedate().compareTo(date) == 1))
             .toList();
     return ids.get(0);
   }
 
+  /**
+   * Find the last assigned location of this node by its id. This will get the move with the
+   * furthest in the future date.
+   *
+   * @param id Node ID as String
+   * @return LocationNameEntity representing the Location that this node will be at far in the
+   *     future.
+   */
   public LocationNameEntity mostRecentLoc(String id) {
     List<MoveEntity> ids =
         new ArrayList<>(
@@ -142,10 +157,13 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     return ids.isEmpty() ? null : ids.get(0).getLocationName();
   }
 
-  public void update(List<String> ID, MoveEntity obj) {}
+  public void update(List<String> ID, MoveEntity obj) {
+    Transaction tx = session.beginTransaction();
+    session.merge(obj);
+    tx.commit();
+  }
 
   public MoveEntity get(List<String> ID) {
-
     for (MoveEntity m : moves) {
       if (m.getNode().equals(ID.get(0))
           && m.getLocationName().equals(ID.get(1))

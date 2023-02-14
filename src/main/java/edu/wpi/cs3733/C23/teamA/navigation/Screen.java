@@ -15,7 +15,7 @@ public enum Screen {
   HELP("views/HelpFXML.fxml"),
   HOME_SERVICE_REQUEST("views/HomeServiceRequestSMALLFXML.fxml"),
   SERVICE_REQUEST("views/ServiceRequest.fxml"),
-  DATABASE("views/DatabaseFXML.fxml"),
+  MOVE("views/MoveFXML.fxml"),
   NODE("views/NodeFXML.fxml"),
   EDGE("views/EdgeFXML.fxml"),
   PATHFINDING("views/PathfindingNewFXML.fxml"),

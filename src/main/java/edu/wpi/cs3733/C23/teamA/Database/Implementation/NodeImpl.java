@@ -131,6 +131,10 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     return nodes.stream().filter(nodeEntity -> nodeEntity.getFloor().equals(floor)).toList();
   }
 
+  public List<String> getAllIDs() {
+    return getAll().stream().map(nodeEntity -> nodeEntity.getNodeid()).toList();
+  }
+
   public NodeEntity get(String ID) {
     for (NodeEntity ser : nodes) {
       if (ser.getNodeid().equals(ID)) return ser;

@@ -119,7 +119,7 @@
                                                       <Insets left="5.0" right="5.0" />
                                                    </HBox.margin>
                                                 </MFXButton>
-                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Employee Records" textAlignment="CENTER" wrapText="true">
+                                                <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToEmployeeScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Employee Records" textAlignment="CENTER" wrapText="true">
                                                    <font>
                                                       <Font size="34.0" />
                                                    </font>

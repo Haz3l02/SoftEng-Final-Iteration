@@ -16,16 +16,15 @@ import org.hibernate.Transaction;
 
 public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, Integer> {
   private List<SecurityRequestEntity> secrequests;
+  private Session session;
 
   public SecurityRequestImpl() {
-    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<SecurityRequestEntity> criteria =
         builder.createQuery(SecurityRequestEntity.class);
     criteria.from(SecurityRequestEntity.class);
-    List<SecurityRequestEntity> records = session.createQuery(criteria).getResultList();
-    session.close();
-    secrequests = records;
+    secrequests = session.createQuery(criteria).getResultList();
   }
 
   public List<SecurityRequestEntity> getAll() {
@@ -37,7 +36,6 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
   public void importFromCSV(String filename) throws FileNotFoundException {}
 
   public void add(SecurityRequestEntity c) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(c);
     secrequests.add(c);
@@ -55,13 +53,11 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
             c.getDate());
     new ServiceRequestImpl().addToList(ser);
     tx.commit();
-    session.close();
   }
 
   public void delete(Integer c) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    session.delete(session.get(SecurityRequestImpl.class, c));
+    session.remove(get(c));
 
     ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
     while (li.hasNext()) {
@@ -71,11 +67,9 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     }
     new ServiceRequestImpl().removeFromList(c);
     tx.commit();
-    session.close();
   }
 
   public void update(Integer ID, SecurityRequestEntity obj) {
-    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
@@ -84,8 +78,9 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
         li.remove();
       }
     }
-
-    SecurityRequestEntity c = session.get(SecurityRequestEntity.class, ID);
+    SecurityRequestImpl secI = new SecurityRequestImpl();
+    SecurityRequestEntity c = secI.get(ID);
+    secI.closeSession();
 
     c.setSecphone(obj.getSecphone());
     c.setAssistance(obj.getAssistance());
@@ -115,7 +110,6 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     secrequests.add(c);
 
     tx.commit();
-    session.close();
   }
 
   public void removeFromList(Integer s) {
@@ -133,5 +127,10 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
       if (ser.getRequestid() == ID) return ser;
     }
     return null;
+  }
+
+  @Override
+  public void closeSession() {
+    session.close();
   }
 }
