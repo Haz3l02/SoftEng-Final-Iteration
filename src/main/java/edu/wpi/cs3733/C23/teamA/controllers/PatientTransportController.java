@@ -10,22 +10,36 @@ import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class PatientTransportController extends ServiceRequestController {
   @FXML private MFXTextField pNameBox;
-  @FXML private MFXTextField pIDBox;
   @FXML private MFXTextField equipmentBox;
-  @FXML private MFXComboBox<String> moveToBox;
+  @FXML private MFXTextField pIDBox;
+  @FXML private MFXFilterComboBox<String> moveToBox;
 
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
+    if (moveToBox != null) {
+      LocationNameImpl locationI = new LocationNameImpl();
+      List<LocationNameEntity> temp = locationI.getAll();
+      ObservableList<String> locations = FXCollections.observableArrayList();
+      for (LocationNameEntity move : temp) {
+        locations.add(move.getLongname());
+      }
+      Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
+      moveToBox.setItems(locations);
+    }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
     if (newEdit.needEdits && newEdit.getRequestType().equals("PatientTransport")) {
       PatientTransportimpl patI = new PatientTransportimpl();
@@ -39,12 +53,13 @@ public class PatientTransportController extends ServiceRequestController {
       pIDBox.setText(editPatientRequest.getPatientID());
       equipmentBox.setText(editPatientRequest.getEquipment());
     }
+
     // Otherwise Initialize service requests as normal
   }
 
   @FXML
   public void switchToConfirmationScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.PATIENT_TRANSPORT);
+    Navigation.navigate(Screen.PATIENT_CONFIRMATION);
   }
 
   @FXML
@@ -108,5 +123,18 @@ public class PatientTransportController extends ServiceRequestController {
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }
+  }
+
+  @FXML
+  public void switchToHomeScene(ActionEvent event) throws IOException {
+    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
+  }
+
+  @FXML
+  void clearForm() {
+    pNameBox.clear();
+    pIDBox.clear();
+    moveToBox.clear();
+    equipmentBox.clear();
   }
 }
