@@ -139,26 +139,31 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public void delete(List<String> m) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
+    MoveEntity me;
+
+
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
-      if (li.next().getNode().equals(m.get(0))
-          && li.next().getLocationName().equals(m.get(1))
-          && li.next().getMovedate().equals(m.get(2))) {
+      me = li.next();
+      if (me.getNode().equals(m.get(0))
+          && me.getLocationName().equals(m.get(1))
+          && me.getMovedate().equals(m.get(2))) {
         li.remove();
+        session.remove(me);
       }
     }
 
-    String hql =
-        "delete MoveEntity mov "
-            + " where mov.nodeid = '"
-            + m.get(0)
-            + "', mov.longname = '"
-            + m.get(1)
-            + "', mov.movedate = '"
-            + m.get(2)
-            + "';";
-    MutationQuery q = session.createMutationQuery(hql);
-    q.executeUpdate();
+//    String hql =
+//        "delete MoveEntity mov "
+//            + " where mov.node = '"
+//            + session.get(NodeEntity.class, m.get(0))
+//            + "' and mov.locationName = '"
+//            + session.get(LocationNameEntity.class, m.get(1))
+//            + "' and mov.movedate = '"
+//            + LocalDate.parse(m.get(2))
+//            + "';";
+//    MutationQuery q = session.createMutationQuery(hql);
+//    q.executeUpdate();
 
     tx.commit();
     session.close();
@@ -256,15 +261,14 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
       }
     }
 
+
     session
         .createMutationQuery(
             "UPDATE MoveEntity mov SET "
                 + "mov.node = :newnodeid, mov.locationName = :newlongname, mov.movedate = :newmovedate "
                 + "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
         .setParameter("newnodeid", session.get(NodeEntity.class, obj.getNode().getNodeid()))
-        .setParameter(
-            "newlongname",
-            session.get(LocationNameEntity.class, obj.getLocationName().getLongname()))
+        .setParameter("newlongname", session.get(LocationNameEntity.class, obj.getLocationName().getLongname()))
         .setParameter("newmovedate", obj.getMovedate())
         .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
         .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
