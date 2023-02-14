@@ -83,7 +83,6 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     }
     ServiceRequestImpl servI = new ServiceRequestImpl();
     servI.removeFromList(c);
-    servI.closeSession();
     tx.commit();
     session.close();
   }

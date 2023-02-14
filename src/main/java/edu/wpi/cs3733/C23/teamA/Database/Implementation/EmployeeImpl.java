@@ -29,8 +29,8 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EmployeeEntity> criteria = builder.createQuery(EmployeeEntity.class);
     criteria.from(EmployeeEntity.class);
-    session.close();
     employees = session.createQuery(criteria).getResultList();
+    session.close();
   }
 
   public List<EmployeeEntity> getAll() {
