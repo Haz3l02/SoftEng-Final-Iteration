@@ -45,6 +45,7 @@ public class ComputerController extends ServiceRequestController {
       locationBox.setText(editComputerRequest.getLocation().getLongname());
       urgencyBox.setText(editComputerRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editComputerRequest.getDescription());
+      // compI.closeSession();
     }
     // Otherwise Initialize service requests as normal
   }
