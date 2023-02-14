@@ -4,10 +4,8 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.PatientTransportRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -61,15 +59,19 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
       }
     } else filename += ".csv";
     File csvFile =
-            new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("patientname, patientid, moveto, equipment\n");
     for (PatientTransportRequestEntity pat : patrequests) {
-      fileWriter.write(pat.getPatientName() + "," + pat.getPatientID()
+      fileWriter.write(
+          pat.getPatientName()
+              + ","
+              + pat.getPatientID()
               + ", "
               + pat.getMoveTo()
               + ", "
-              + pat.getEquipment() + "\n");
+              + pat.getEquipment()
+              + "\n");
     }
     fileWriter.close();
   }
