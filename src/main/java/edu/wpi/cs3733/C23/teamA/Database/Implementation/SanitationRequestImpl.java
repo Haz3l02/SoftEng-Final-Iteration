@@ -17,18 +17,18 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEntity, Integer> {
+  private static final SanitationRequestImpl instance = new SanitationRequestImpl();
 
   private List<SanitationRequestEntity> sanrequests;
 
-  Session session;
 
   public SanitationRequestImpl() {
-    session = getSessionFactory().openSession();
-    CriteriaBuilder builder = session.getCriteriaBuilder();
+    Session session = getSessionFactory().openSession();    CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<SanitationRequestEntity> criteria =
         builder.createQuery(SanitationRequestEntity.class);
     criteria.from(SanitationRequestEntity.class);
     sanrequests = session.createQuery(criteria).getResultList();
+    session.close();
   }
 
   public List<SanitationRequestEntity> getAll() {
@@ -52,6 +52,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
+
     if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
         filename += ".csv";
@@ -60,16 +61,18 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
   }
 
   public void add(SanitationRequestEntity c) {
+    Session session = getSessionFactory().openSession();
     ServiceRequestImpl serv = new ServiceRequestImpl();
     Transaction tx = session.beginTransaction();
     session.persist(c);
     tx.commit();
     sanrequests.add(c);
     serv.addToList(c);
-    serv.closeSession();
+    session.close();
   }
 
   public void delete(Integer c) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.remove(get(c));
     ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
@@ -80,11 +83,12 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     }
     ServiceRequestImpl servI = new ServiceRequestImpl();
     servI.removeFromList(c);
-    servI.closeSession();
     tx.commit();
+    session.close();
   }
 
   public void update(Integer ID, SanitationRequestEntity obj) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
@@ -121,10 +125,10 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
             obj.getDate());
     ServiceRequestImpl serv = new ServiceRequestImpl();
     serv.update(ID, ser);
-    serv.closeSession();
     sanrequests.add(c);
 
     tx.commit();
+    session.close();
   }
 
   public void removeFromList(Integer s) {
@@ -144,6 +148,9 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     return null;
   }
 
-  @Override
-  public void closeSession() {}
+
+
+  public static SanitationRequestImpl getInstance() {
+    return instance;
+  }
 }

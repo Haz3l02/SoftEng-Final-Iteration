@@ -1,16 +1,16 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding.readers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getAllRecords;
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.pathfinding.Graph;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.LocationType;
 import java.sql.SQLException;
 import java.util.List;
-import org.hibernate.Session;
 
 public class DBReader {
 
@@ -20,62 +20,59 @@ public class DBReader {
    * @param graph a Graph object
    */
   public static void readDB(Graph graph) throws SQLException {
-    Session session = getSessionFactory().openSession();
-    MoveImpl moveI = new MoveImpl();
     // Nodes
-    List<NodeEntity> allNodes =
-        getAllRecords(NodeEntity.class, session); // gets all the nodes in db's node table
+    LocationNameEntity locNameEnt;
+    MoveImpl moveImpl = new MoveImpl();
+    NodeImpl nodeImpl = new NodeImpl();
+    List<NodeEntity> allNodes = nodeImpl.getAll(); // gets all the nodes in db's node table
+
+    // loop through all the nodes, adding them to the graph specified
     for (NodeEntity n : allNodes) {
-      // create the graph and add the nodes (id, xcoord, ycoord, longName)
-      GraphNode g =
-          new GraphNode(
-              n.getNodeid(),
-              n.getXcoord(),
-              n.getYcoord(),
-              moveI.mostRecentLoc(n.getNodeid()).getLongname());
+      locNameEnt = moveImpl.mostRecentLoc(n.getNodeid());
+      GraphNode g;
+      // create the nodes; if there's no LocationNameEntity, it's a node w/ no location attached
+      if (locNameEnt != null) {
+        g =
+            new GraphNode(
+                n.getNodeid(),
+                n.getXcoord(),
+                n.getYcoord(),
+                locNameEnt.getLongname(),
+                locNameEnt.getLocationtype(),
+                n.getFloor());
+      } else {
+        g =
+            new GraphNode(
+                n.getNodeid(),
+                n.getXcoord(),
+                n.getYcoord(),
+                "UNNAMED NODE",
+                LocationType.UNKN.getTableString(), // what to do here?
+                n.getFloor());
+      }
+      // create the graph and add the nodes (id, xcoord, ycoord, longName, locationType)
       graph.addNode(n.getNodeid(), g);
     }
-    moveI.closeSession();
+
+    // close the sessions related to nodes
+    moveImpl.closeSession();
+    nodeImpl.closeSession();
+
     // Edges
+    EdgeImpl edgeImpl = new EdgeImpl();
+
     /* read through edge columns and add edges to correct node (bidirectional) */
     List<EdgeEntity> allEdges =
-        getAllRecords(
-            EdgeEntity.class, session); // Gets list of all edges from database's edge table
+        edgeImpl.getAll(); // Gets list of all edges from database's edge table
     for (EdgeEntity e : allEdges) {
       GraphNode node1 = graph.getNode(e.getNode1().getNodeid());
       GraphNode node2 = graph.getNode(e.getNode2().getNodeid());
       node1.addNeighbor(node2);
       node2.addNeighbor(node1);
     }
-    session.close();
+
+    // close the edge session
+    // edgeImpl.closeSession(); // session was null, don't think it's ever started in EdgeImpl
+    // anyway
   }
-
-  /**
-   * Reads the database using AWS to populate the given graph with location nodes and edges
-   *
-   * @param graph a Graph object
-   * @throws SQLException
-   */
-  /*public static void readDBOld(Graph graph) throws SQLException {
-
-      // Nodes
-      ArrayList<Node> allNodes = Node.getAll();
-      for (Node n : allNodes) {
-        // create the graph and add the nodes (id, xcoord, ycoord, longName)
-        GraphNode g =
-            new GraphNode(
-                n.getNodeID(), n.getXcoord(), n.getYcoord(), Move.mostRecentLoc(n.getNodeID()));
-        graph.addNode(n.getNodeID(), g);
-      }
-  /*
-      // Edges
-      /* read through edge columns and add edges to correct node (bidirectional) */
-  /*ArrayList<Edge> allEdges = Edge.getAll(); // Gets list of all edges from database's edge table
-    for (Edge e : allEdges) {
-      GraphNode node1 = graph.getNode(e.getNode1());
-      GraphNode node2 = graph.getNode(e.getNode2());
-      node1.addNeighbor(node2);
-      node2.addNeighbor(node1);
-    }
-  }*/
 }

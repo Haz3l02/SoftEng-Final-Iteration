@@ -10,7 +10,7 @@ public class GraphNode implements Comparable<GraphNode> {
   @Getter private String nodeID; // unique string id of the node
   @Getter @Setter private int xCoord; // x coordinate of where it is located
   @Getter @Setter private int yCoord; // y coordinate of where it is located
-  private String floor; // floor identifier that it is on
+  @Getter @Setter private String floor; // floor identifier that it is on
   private String building; // name of building it is in
   private String nodeType; // type of node (ie hallway, restroom, etc)
   @Getter private String longName; // name of node
@@ -47,6 +47,7 @@ public class GraphNode implements Comparable<GraphNode> {
     visited = false;
     parent = null;
     neighbors = new ArrayList<GraphNode>();
+    floor = "";
 
     costFromStart = Double.POSITIVE_INFINITY;
     heurCostToEnd = Double.POSITIVE_INFINITY;
@@ -71,13 +72,53 @@ public class GraphNode implements Comparable<GraphNode> {
     visited = false;
     parent = null;
     neighbors = new ArrayList<GraphNode>();
+    floor = "";
 
     costFromStart = Double.POSITIVE_INFINITY;
     heurCostToEnd = Double.POSITIVE_INFINITY;
     score = Double.POSITIVE_INFINITY;
 
     // set the penalty based on the nodeType
-    penalty = 0;
+    // stairs aren't preferred in almost all cases, add a penalty to them
+    if (this.nodeType.equals("STAI")) {
+      penalty = 100;
+    } else {
+      penalty = 0;
+    }
+  }
+
+  /**
+   * @param nodeID
+   * @param xCoord
+   * @param yCoord
+   * @param longName
+   * @param nodeType
+   * @param floor
+   */
+  public GraphNode(
+      String nodeID, int xCoord, int yCoord, String longName, String nodeType, String floor) {
+    this.nodeID = nodeID;
+    this.xCoord = xCoord;
+    this.yCoord = yCoord;
+    this.longName = longName;
+    this.nodeType = nodeType;
+    this.floor = floor;
+
+    visited = false;
+    parent = null;
+    neighbors = new ArrayList<GraphNode>();
+
+    costFromStart = Double.POSITIVE_INFINITY;
+    heurCostToEnd = Double.POSITIVE_INFINITY;
+    score = Double.POSITIVE_INFINITY;
+
+    // set the penalty based on the nodeType
+    // stairs aren't preferred in almost all cases, add a penalty to them
+    if (this.nodeType.equals("STAI")) {
+      penalty = 100;
+    } else {
+      penalty = 0;
+    }
   }
 
   /**

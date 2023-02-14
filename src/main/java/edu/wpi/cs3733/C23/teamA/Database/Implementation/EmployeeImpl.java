@@ -17,15 +17,17 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
+  private static final EmployeeImpl instance = new EmployeeImpl();
 
   private List<EmployeeEntity> employees;
-  private Session session;
+
 
   public EmployeeImpl() {
-    session = getSessionFactory().openSession();
+    Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EmployeeEntity> criteria = builder.createQuery(EmployeeEntity.class);
     criteria.from(EmployeeEntity.class);
+    session.close();
     employees = session.createQuery(criteria).getResultList();
   }
 
@@ -40,8 +42,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
       }
     } else filename += ".csv";
 
-    File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("employeeid,job,name,password,username\n");
     for (EmployeeEntity emp : employees) {
@@ -61,6 +62,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   }
 
   public void update(String ID, EmployeeEntity obj) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     employees.stream()
@@ -79,6 +81,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     emp.setName(obj.getName());
 
     tx.commit();
+    session.close();
   }
 
   public ArrayList<String> checkPass(String user, String pass) {
@@ -95,13 +98,16 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   }
 
   public void add(EmployeeEntity e) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(e);
     employees.add(e);
     tx.commit();
+    session.close();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
+    Session session = getSessionFactory().openSession();
     if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
         filename += ".csv";
@@ -124,6 +130,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
       employees.add(session.get(EmployeeEntity.class, b[0]));
     }
     tx.commit();
+    session.close();
   }
 
   /**
@@ -132,6 +139,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
    * @param e EmployeeId
    */
   public void delete(String e) {
+    Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     employees.stream()
         .filter(employee -> employee.getEmployeeid().equals(e))
@@ -142,6 +150,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
               employees.remove(employee);
             });
     tx.commit();
+    session.close();
   }
 
   public EmployeeEntity getByUsername(String user) {
@@ -168,7 +177,8 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         .orElseThrow();
   }
 
-  public void closeSession() {
-    session.close();
+
+  public static EmployeeImpl getInstance() {
+    return instance;
   }
 }

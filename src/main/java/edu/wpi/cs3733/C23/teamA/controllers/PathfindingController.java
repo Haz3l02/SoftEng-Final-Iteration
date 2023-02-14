@@ -6,9 +6,8 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Algorithm;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.HospitalMaps;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.io.File;
@@ -26,11 +25,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
 
-// remove later
-
 public class PathfindingController extends MenuController {
 
-  // javaFX items
+  //// javaFX items
   @FXML private MFXFilterComboBox<String> startLocBox; // field to enter startNode
   @FXML private MFXFilterComboBox<String> endLocBox; // field to enter endNode
   @FXML private MFXFilterComboBox<String> startFloorBox;
@@ -38,8 +35,8 @@ public class PathfindingController extends MenuController {
   @FXML private MFXFilterComboBox<String> algosBox;
   @FXML private MFXDatePicker navDatePicker;
   @FXML private Text errorMessage;
-
   @FXML private Text pathMapText;
+  @FXML private MFXButton clearButton;
 
   // canvases
   @FXML private Canvas floorL1Canvas;
@@ -70,7 +67,6 @@ public class PathfindingController extends MenuController {
   @FXML private GesturePane floorF3gPane;
 
   // Lists of Nodes and Node Data
-
   private List<String> startNodeIDs; // List of all Node IDs in specific order
   private List<String> endNodeIDs;
   private List<String> allLongNames; // List of corresponding long names in order
@@ -83,8 +79,17 @@ public class PathfindingController extends MenuController {
   private LocalDate navDate;
 
   // objects needed for the maps
-  private GraphicsContext gc;
-  private double SCALE_FACTOR = 0.14;
+  private GraphicsContext gcL1;
+  private GraphicsContext gcL2;
+  private GraphicsContext gcF1;
+  private GraphicsContext gcF2;
+  private GraphicsContext gcF3;
+  private GraphicsContext[] gcs = new GraphicsContext[5];
+  private double SCALE_FACTOR = 0.135;
+
+  // database objects
+  MoveImpl moveImpl;
+  NodeImpl nodeImpl;
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -112,6 +117,17 @@ public class PathfindingController extends MenuController {
     endFloorBox.setItems(floors);
     algosBox.setItems(algos);
 
+    /*
+    LocationNameImpl table = new LocationNameImpl();
+    allNodeIDs = new ArrayList<String>();
+    allLongNames =
+        table.getAll().stream()
+            .map(locationNameEntity -> locationNameEntity.getLongname())
+            .toList();
+
+    table.closeSession();
+     */
+
     // add the map images (also already done in SceneBuilder)
     addFloorMapImage(HospitalMaps.L2.getFilename(), floorL2);
     addFloorMapImage(HospitalMaps.L1.getFilename(), floorL1);
@@ -130,6 +146,9 @@ public class PathfindingController extends MenuController {
     this.floorF2gPane.setContent(nodeF2);
     Node nodeF3 = floorF3Stack;
     this.floorF3gPane.setContent(nodeF3);
+
+    // autofill the date picker to the current date
+    navDatePicker.setValue(navDatePicker.getCurrentDate());
   }
 
   /** Method to clear the fields on the form on the UI page */
@@ -141,6 +160,15 @@ public class PathfindingController extends MenuController {
     startFloorBox.clear();
     endFloorBox.clear();
     algosBox.clear();
+    navDatePicker.clear();
+
+    // canvases
+    for (GraphicsContext gc : gcs) {
+      gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    }
+
+    // text
+    pathMapText.setText("Directions on how to get to your destination go here...");
     errorMessage.setText("");
   }
 
@@ -163,19 +191,19 @@ public class PathfindingController extends MenuController {
 
   @FXML
   public void fillStartLocationBox() {
-    NodeImpl nodeI = new NodeImpl();
-    MoveImpl moveI = new MoveImpl();
-
     Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
+    nodeImpl = new NodeImpl();
+    moveImpl = new MoveImpl();
+
     List<NodeEntity> allNodesStartFloor =
-        nodeI.getNodeOnFloor(floor.getTableString()); // get all nodes from Database
+        nodeImpl.getNodeOnFloor(floor.getTableString()); // get all nodes from Database
 
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
     LocationNameEntity locNameEnt;
 
     for (NodeEntity n : allNodesStartFloor) {
-      locNameEnt = moveI.mostRecentLoc(n.getNodeid());
+      locNameEnt = moveImpl.mostRecentLoc(n.getNodeid());
       // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
       // location attached
       if (locNameEnt != null) {
@@ -183,11 +211,13 @@ public class PathfindingController extends MenuController {
         namesFloor.add(locNameEnt.getLongname()); // get longName
       }
     }
+
     ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
     startNodeIDs = idsFloor;
 
-    nodeI.closeSession();
-    moveI.closeSession();
+    // close the sessions that were opened by the methods above
+    nodeImpl.closeSession();
+    moveImpl.closeSession();
 
     startLocBox.setItems(locs);
     startLocBox.setDisable(false);
@@ -196,19 +226,19 @@ public class PathfindingController extends MenuController {
 
   @FXML
   public void fillEndLocationBox() {
-    NodeImpl nodeI = new NodeImpl();
-    MoveImpl moveI = new MoveImpl();
-
     Floor floor = Floor.valueOf(Floor.fromString(endFloorBox.getValue()));
-    List<NodeEntity> allNodesEndFloor =
-        nodeI.getNodeOnFloor(floor.getTableString()); // get all nodes from Database
+    nodeImpl = new NodeImpl();
+    moveImpl = new MoveImpl();
+
+    List<NodeEntity> allNodesStartFloor =
+        nodeImpl.getNodeOnFloor(floor.getTableString()); // get all nodes from Database
 
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
     LocationNameEntity locNameEnt;
 
-    for (NodeEntity n : allNodesEndFloor) {
-      locNameEnt = moveI.mostRecentLoc(n.getNodeid());
+    for (NodeEntity n : allNodesStartFloor) {
+      locNameEnt = moveImpl.mostRecentLoc(n.getNodeid());
       // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
       // location attached
       if (locNameEnt != null) {
@@ -216,12 +246,13 @@ public class PathfindingController extends MenuController {
         namesFloor.add(locNameEnt.getLongname()); // get longName
       }
     }
+
     ObservableList<String> locs = FXCollections.observableArrayList(namesFloor);
     endNodeIDs = idsFloor;
 
     // close the sessions that were opened by the methods above
-    nodeI.closeSession();
-    moveI.closeSession();
+    nodeImpl.closeSession();
+    moveImpl.closeSession();
 
     endLocBox.setItems(locs);
     endLocBox.setDisable(false);
@@ -233,14 +264,20 @@ public class PathfindingController extends MenuController {
    *
    * @param path the path that you want to be drawn
    */
-  private void callMapDraw(ArrayList<GraphNode> path, Canvas canvas) {
-    GraphicsContext gc = canvas.getGraphicsContext2D();
+  private void callMapDraw(ArrayList<GraphNode> path) {
+    // getting graphicsContents for each canvas and put in array
+    gcs[0] = floorL1Canvas.getGraphicsContext2D();
+    gcs[1] = floorL2Canvas.getGraphicsContext2D();
+    gcs[2] = floorF1Canvas.getGraphicsContext2D();
+    gcs[3] = floorF2Canvas.getGraphicsContext2D();
+    gcs[4] = floorF3Canvas.getGraphicsContext2D();
 
-    // clear the canvas w/ the drawn path; does NOT hide the map image
-    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    // clear the canvases w/ the drawn paths
+    for (GraphicsContext gc : gcs) {
+      gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    }
 
-    // constant for map size/coordinate manipulation
-    pathfindingSystem.drawPath(gc, path, SCALE_FACTOR);
+    pathfindingSystem.drawPath(gcs, path, SCALE_FACTOR);
   }
 
   @FXML
@@ -272,7 +309,7 @@ public class PathfindingController extends MenuController {
     // if a path was found, draw a path
     if (path != null) {
       pathMapText.setText(pathfindingSystem.generatePathString(path));
-      callMapDraw(path, floorL1Canvas); // draw the path on top of the image
+      callMapDraw(path);
     } else {
       pathMapText.setText("No Path Found Between " + sName + " and " + eName + ".");
     }
