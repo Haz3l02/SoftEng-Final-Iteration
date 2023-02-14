@@ -57,7 +57,6 @@ public class MoveController extends MenuController {
 
     allNodeID = moveImpl.getNodeID();
     allLongNames = moveImpl.getLocationName();
-    moveImpl.closeSession();
 
     ObservableList<String> nodes = FXCollections.observableArrayList(allNodeID);
     ObservableList<String> locationNames = FXCollections.observableArrayList(allLongNames);
@@ -81,7 +80,6 @@ public class MoveController extends MenuController {
     try {
       moveData = moveImpl.getAll();
       dbTableRowsModel.addAll(moveData);
-      moveImpl.closeSession();
 
       clearEdits();
     } catch (Exception e) {
@@ -105,11 +103,9 @@ public class MoveController extends MenuController {
     LocationNameImpl location = new LocationNameImpl();
     LocationNameEntity loc = location.get(locationBox.getValue());
     MoveEntity theMove = new MoveEntity(nodeimpl.get(nodeBox.getValue()), loc, dateBox.getValue());
-    nodeimpl.closeSession();
     try {
       warning.setVisible(false);
       moveImpl.add(theMove);
-      moveImpl.closeSession();
     } catch (PersistenceException p) {
       warning.setVisible(true);
     }
@@ -147,7 +143,6 @@ public class MoveController extends MenuController {
 
           moveImpl.update(moveID, move);
           dbTable.setItems(currentTableData);
-          moveImpl.closeSession();
           reloadData();
           break;
         }

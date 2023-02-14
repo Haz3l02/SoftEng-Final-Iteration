@@ -145,7 +145,6 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
         .orElseThrow();
   }
 
-
   public static ComputerRequestImpl getInstance() {
     return instance;
   }

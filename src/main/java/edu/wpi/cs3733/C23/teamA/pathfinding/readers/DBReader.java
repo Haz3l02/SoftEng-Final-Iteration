@@ -54,10 +54,6 @@ public class DBReader {
       graph.addNode(n.getNodeid(), g);
     }
 
-    // close the sessions related to nodes
-    moveImpl.closeSession();
-    nodeImpl.closeSession();
-
     // Edges
     EdgeImpl edgeImpl = new EdgeImpl();
 

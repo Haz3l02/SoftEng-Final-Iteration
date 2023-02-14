@@ -47,7 +47,6 @@ public class SecurityController extends ServiceRequestController {
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       phone.setText(editRequest.getSecphone());
-      secI.closeSession();
     }
   }
 
@@ -108,9 +107,7 @@ public class SecurityController extends ServiceRequestController {
                 phone.getText());
         secI.add(submission);
       }
-      secI.closeSession();
-      employeeI.closeSession();
-      locationI.closeSession();
+
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

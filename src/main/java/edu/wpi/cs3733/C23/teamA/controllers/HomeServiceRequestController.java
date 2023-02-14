@@ -28,7 +28,6 @@ public class HomeServiceRequestController extends MenuController {
 
     ServiceRequestImpl serviceI = new ServiceRequestImpl();
     ArrayList<ServiceRequestEntity> specificRequests = serviceI.getAllByEmployee(hospitalID);
-    serviceI.closeSession();
     //    ArrayList<ServiceRequestEntity> specificRequests = new ArrayList<ServiceRequestEntity>();
     //    ServiceRequestImpl SRimpl = new ServiceRequestImpl();
     //    specificRequests = SRimpl.getAllByEmployee(hospitalID);

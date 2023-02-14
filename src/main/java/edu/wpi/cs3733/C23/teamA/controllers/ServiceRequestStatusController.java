@@ -114,8 +114,6 @@ public class ServiceRequestStatusController extends MenuController {
     else serviceRequestData = serviceRequestImpl.getAll();
 
     dbTableRowsModel.addAll(serviceRequestData);
-    serviceRequestImpl.closeSession();
-
     serviceReqsTable.setItems(dbTableRowsModel);
   }
 

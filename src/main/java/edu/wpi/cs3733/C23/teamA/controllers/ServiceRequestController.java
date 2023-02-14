@@ -9,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
@@ -92,7 +93,12 @@ public abstract class ServiceRequestController extends MenuController {
   }
 
   @FXML
+  public void switchToServiceRequestStatus(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
+  }
+
+  @FXML
   public void switchToConfirmationScene(ActionEvent event) {
-    Navigation.navigateHome(Screen.CONFIRMATION);
+    Navigation.navigate(Screen.CONFIRMATION);
   }
 }

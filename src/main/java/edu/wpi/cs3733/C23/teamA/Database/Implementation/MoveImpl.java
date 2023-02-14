@@ -220,8 +220,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     return null;
   }
 
-
-
   public static MoveImpl getInstance() {
     return instance;
   }

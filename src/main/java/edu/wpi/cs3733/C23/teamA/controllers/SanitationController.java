@@ -22,6 +22,9 @@ import javafx.fxml.FXML;
 
 public class SanitationController extends ServiceRequestController {
   private IssueCategory category;
+  SanitationRequestImpl sanI = new SanitationRequestImpl();
+  LocationNameImpl locationI = new LocationNameImpl();
+  EmployeeImpl employeeI = new EmployeeImpl();
 
   @FXML private MFXComboBox<String> categoryBox;
 
@@ -43,15 +46,12 @@ public class SanitationController extends ServiceRequestController {
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
-      sanI.closeSession();
     }
   }
 
   @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
-    SanitationRequestImpl sanI = new SanitationRequestImpl();
-    LocationNameImpl locationI = new LocationNameImpl();
-    EmployeeImpl employeeI = new EmployeeImpl();
+
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null
@@ -96,9 +96,7 @@ public class SanitationController extends ServiceRequestController {
         sanI.add(submission);
         // submission.insert(); // *some db thing for getting the request in there*
       }
-      sanI.closeSession();
-      employeeI.closeSession();
-      locationI.closeSession();
+
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }

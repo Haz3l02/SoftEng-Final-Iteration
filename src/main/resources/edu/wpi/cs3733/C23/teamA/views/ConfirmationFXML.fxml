@@ -29,7 +29,7 @@
                         <Font size="35.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#switchToSecurityScene" prefHeight="28.0" prefWidth="450.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15;" text="Past Submissions" textFill="#122c34" wrapText="true">
+                  <Button mnemonicParsing="false" onAction="#switchToServiceRequestStatus" prefHeight="28.0" prefWidth="450.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15;" text="Past Submissions" textFill="#122c34" wrapText="true">
                      <font>
                         <Font size="35.0" />
                      </font>
