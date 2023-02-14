@@ -8,8 +8,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.PatientTransportimpl;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
@@ -57,10 +55,10 @@ public class PatientTransportController extends ServiceRequestController {
     // Otherwise Initialize service requests as normal
   }
 
-  @FXML
-  public void switchToConfirmationScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.PATIENT_CONFIRMATION);
-  }
+  //  @FXML
+  //  public void switchToConfirmationScene(ActionEvent event) throws IOException {
+  //    Navigation.navigate(Screen.PATIENT_CONFIRMATION);
+  //  }
 
   @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
@@ -125,10 +123,10 @@ public class PatientTransportController extends ServiceRequestController {
     }
   }
 
-  @FXML
-  public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
-  }
+  //  @FXML
+  //  public void switchToHomeScene(ActionEvent event) throws IOException {
+  //    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
+  //  }
 
   @FXML
   void clearForm() {

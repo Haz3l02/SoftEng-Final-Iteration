@@ -55,7 +55,12 @@
                   <Insets />
                </VBox.margin>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Pathfinding: Sarah,  Audrey and Hazel">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Transportation: John and Izzy">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Text>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Pathfinding: Sarah, Audrey and Hazel">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font></Text>
@@ -63,7 +68,7 @@
                <font>
                   <Font name="Verdana" size="14.0" />
                </font></Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Landing Page: Chris">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Systems: Chris and Isabella">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font></Text>

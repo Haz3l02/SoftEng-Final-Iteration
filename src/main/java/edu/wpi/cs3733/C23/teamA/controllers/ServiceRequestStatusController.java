@@ -114,7 +114,7 @@ public class ServiceRequestStatusController extends MenuController {
         employeeBox.setDisable(true);
         formTypeBox.setDisable(true);
         dateBox.setDisable(true);
-        urgencyBox.setDisable(false);
+        urgencyBox.setDisable(true);
         editForm.setVisible(false);
         deleteButton.setDisable(true);
         deleteButton.setVisible(false);
@@ -168,10 +168,11 @@ public class ServiceRequestStatusController extends MenuController {
         editForm.setVisible(true);
         editForm.setDisable(false);
         deleteButton.setDisable(false);
+      } else {
+        editForm.setVisible(false);
+        viewForm.setDisable(false);
+        deleteButton.setDisable(true);
       }
-    } else {
-      editForm.setDisable(true);
-      deleteButton.setDisable(true);
     }
 
     ObservableList<String> statuses = FXCollections.observableArrayList(Status.statusList());

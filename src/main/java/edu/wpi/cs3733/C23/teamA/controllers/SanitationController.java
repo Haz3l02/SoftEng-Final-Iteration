@@ -70,7 +70,7 @@ public class SanitationController extends ServiceRequestController {
 
     } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Sanitation")) {
       SanitationRequestImpl sanI = new SanitationRequestImpl();
-      SanitationRequestEntity editRequest = sanI.get(newEdit.getRequestID());
+      SanitationRequestEntity editRequest = sanI.get(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       categoryBox.setText(editRequest.getCategory().getIssue());
@@ -95,15 +95,17 @@ public class SanitationController extends ServiceRequestController {
   }
 
   @FXML
-  void acceptRequest(ActionEvent event) {
+  void acceptRequest(ActionEvent event) throws IOException {
     ServiceRequestImpl sri = new ServiceRequestImpl();
     sri.updateStatus(Status.PROCESSING, acceptTheForm.getRequestID());
+    switchToServiceRequestStatus(event);
   }
 
   @FXML
-  public void rejectRequest(ActionEvent event) {
+  public void rejectRequest(ActionEvent event) throws IOException {
     ServiceRequestImpl sri = new ServiceRequestImpl();
     sri.updateEmployee("Unassigned", acceptTheForm.getRequestID());
+    switchToServiceRequestStatus(event);
   }
 
   @FXML

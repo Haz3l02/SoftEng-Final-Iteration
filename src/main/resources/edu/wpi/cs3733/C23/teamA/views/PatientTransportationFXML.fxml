@@ -4,8 +4,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.effect.SepiaTone?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -13,240 +11,272 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PatientTransportController">
-    <children>
-        <BorderPane prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6;">
-            <top>
-                <VBox prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Transport Request">
-                            <font>
-                                <Font name="Verdana" size="37.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets left="30.0" top="5.0" />
-                            </VBox.margin>
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Transport Request">
+               <font>
+                  <Font name="Verdana" size="35.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="30.0" top="5.0" />
+               </VBox.margin>
+            </Text>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER_RIGHT" prefHeight="97.0" prefWidth="280.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Name:" wrappingWidth="221.87739896774292">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </Text>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                            <children>
-                                <VBox alignment="CENTER_RIGHT" prefHeight="97.0" prefWidth="280.0">
-                                    <children>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Name:" wrappingWidth="221.87739896774292">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets />
-                                            </VBox.margin>
-                                        </Text>
-                                    </children>
-                                </VBox>
-                                <VBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="318.0">
-                                    <children>
-                                        <MFXTextField fx:id="nameBox" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="246.0">
-                                            <VBox.margin>
-                                                <Insets />
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                    </children>
-                                </VBox>
-                                <VBox alignment="CENTER_RIGHT" prefHeight="61.0" prefWidth="329.0">
-                                    <children>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hospital ID number:" wrappingWidth="264.54395139217377">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                        </Text>
-                                    </children>
-                                </VBox>
-                                <VBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="243.0">
-                                    <children>
-                                        <MFXTextField fx:id="IDNum" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="244.0" />
-                                    </children>
-                                </VBox>
-                            </children>
-                        </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Request Info">
-                            <font>
-                                <Font name="Verdana" size="37.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets left="30.0" />
-                            </VBox.margin>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="318.0">
+                     <children>
+                        <MFXTextField fx:id="nameBox" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </MFXTextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_RIGHT" prefHeight="61.0" prefWidth="329.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hospital ID number:" wrappingWidth="264.54395139217377">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
                         </Text>
-                        <HBox prefHeight="430.0" prefWidth="1376.0">
-                            <children>
-                                <VBox alignment="TOP_RIGHT" prefHeight="430.0" prefWidth="280.0">
-                                    <children>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name:" wrappingWidth="188.2774874687202">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="20.0" />
-                                            </VBox.margin>
-                                        </Text>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move from:" wrappingWidth="149.87744779586865">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="40.0" />
-                                            </VBox.margin>
-                                        </Text>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency:" wrappingWidth="119.47742338180615">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="40.0" />
-                                            </VBox.margin>
-                                        </Text>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reason:" wrappingWidth="106.67749662399365">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="40.0" />
-                                            </VBox.margin>
-                                        </Text>
-                                    </children>
-                                </VBox>
-                                <VBox prefHeight="430.0" prefWidth="394.0">
-                                    <children>
-                                        <MFXTextField fx:id="pNameBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="247.0" promptText="Enter name">
-                                            <VBox.margin>
-                                                <Insets left="2.0" top="20.0" />
-                                            </VBox.margin>
-                                        </MFXTextField>
-                                        <MFXFilterComboBox fx:id="locationBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="247.0" promptText="Choose location">
-                                            <VBox.margin>
-                                                <Insets left="2.0" top="28.0" />
-                                            </VBox.margin>
-                                        </MFXFilterComboBox>
-                                        <MFXFilterComboBox fx:id="urgencyBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="247.0" promptText="Low, Medium, High">
-                                            <VBox.margin>
-                                                <Insets left="2.0" top="30.0" />
-                                            </VBox.margin>
-                                        </MFXFilterComboBox>
-                              <MFXTextField fx:id="descBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="390.0" promptText="Enter name">
-                                 <VBox.margin>
-                                    <Insets left="2.0" top="31.0" />
-                                 </VBox.margin>
-                              </MFXTextField>
-                                    </children>
-                                </VBox>
-                                <VBox alignment="TOP_RIGHT" prefHeight="430.0" prefWidth="241.0">
-                                    <children>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID Number:" wrappingWidth="249.07747077941895">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="20.0" />
-                                            </VBox.margin>
-                                        </Text>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move to:" wrappingWidth="113.07747077941895">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="40.0" />
-                                            </VBox.margin>
-                                        </Text>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Equipment:" wrappingWidth="149.87751960754395">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="40.0" />
-                                            </VBox.margin>
-                                        </Text>
-                                    </children>
-                                </VBox>
-                        <VBox prefHeight="430.0" prefWidth="310.0">
-                           <children>
-                              <MFXTextField fx:id="pIDBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="247.0" promptText="Enter patient ID">
-                                 <VBox.margin>
-                                    <Insets top="17.0" />
-                                 </VBox.margin>
-                              </MFXTextField>
-                              <MFXFilterComboBox fx:id="moveToBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="247.0" promptText="Choose location">
-                                 <VBox.margin>
-                                    <Insets top="33.0" />
-                                 </VBox.margin>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </MFXFilterComboBox>
-                              <MFXTextField fx:id="equipmentBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="247.0" promptText="Enter equipment needed">
-                                 <VBox.margin>
-                                    <Insets top="30.0" />
-                                 </VBox.margin>
-                              </MFXTextField>
-                           </children>
-                        </VBox>
-                            </children>
-                            <effect>
-                                <SepiaTone />
-                            </effect>
-                        </HBox>
-                        <HBox prefHeight="75.0" prefWidth="1376.0">
-                            <children>
-                                <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="526.0">
-                                    <opaqueInsets>
-                                        <Insets left="30.0" />
-                                    </opaqueInsets>
-                                    <padding>
-                                        <Insets left="30.0" />
-                                    </padding>
-                                    <children>
-                                        <MFXButton fx:id="reset" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                        </MFXButton>
-                                    </children>
-                                </HBox>
-                                <HBox alignment="CENTER_RIGHT" prefHeight="75.0" prefWidth="930.0">
-                                    <padding>
-                                        <Insets right="30.0" />
-                                    </padding>
-                                    <children>
-                                        <StackPane fx:id="reminderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="307.0" style="-fx-border-color: #f6bd3a; -fx-border-width: 5;">
-                                            <children>
-                                                <Text fx:id="reminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields">
-                                       <font>
-                                          <Font name="Verdana" size="25.0" />
-                                       </font></Text>
-                                            </children>
-                                            <HBox.margin>
-                                                <Insets right="20.0" />
-                                            </HBox.margin>
-                                        </StackPane>
-                                        <MFXButton fx:id="cancel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textAlignment="CENTER" textFill="#d3e9f6">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                            <HBox.margin>
-                                                <Insets right="20.0" />
-                                            </HBox.margin>
-                                        </MFXButton>
-                                        <MFXButton fx:id="submit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f6bd3a; -fx-background-radius: 15;" text="Submit" textAlignment="CENTER" textFill="#122c34">
-                                            <font>
-                                                <Font name="Verdana" size="25.0" />
-                                            </font>
-                                        </MFXButton>
-                                    </children>
-                                </HBox>
-                            </children>
-                            <VBox.margin>
-                                <Insets top="10.0" />
-                            </VBox.margin>
-                        </HBox>
-                    </children>
-                </VBox>
-            </top>
-        </BorderPane>
-    </children>
-</AnchorPane>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="243.0">
+                     <children>
+                        <MFXTextField fx:id="IDNum" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Request Info">
+               <font>
+                  <Font name="Verdana" size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="30.0" />
+               </VBox.margin>
+            </Text>
+            <HBox prefHeight="430.0" prefWidth="1376.0">
+               <children>
+                  <VBox alignment="TOP_RIGHT" prefHeight="430.0" prefWidth="280.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name:" wrappingWidth="188.2774874687202">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move from:" wrappingWidth="149.87744779586865">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency:" wrappingWidth="119.47742338180615">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reason:" wrappingWidth="106.67749662399365">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="430.0" prefWidth="394.0">
+                     <children>
+                        <MFXTextField fx:id="pNameBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter name" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <VBox.margin>
+                              <Insets left="2.0" top="20.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXTextField>
+                        <MFXFilterComboBox fx:id="locationBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <VBox.margin>
+                              <Insets left="2.0" top="28.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXFilterComboBox>
+                        <MFXFilterComboBox fx:id="urgencyBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <VBox.margin>
+                              <Insets left="2.0" top="30.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXFilterComboBox>
+                        <MFXTextField fx:id="descBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="390.0" promptText="Enter name" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <VBox.margin>
+                              <Insets left="2.0" top="31.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXTextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_RIGHT" prefHeight="430.0" prefWidth="241.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID Number:" wrappingWidth="249.07747077941895">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move to:" wrappingWidth="113.07747077941895">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Equipment:" wrappingWidth="149.87751960754395">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="430.0" prefWidth="310.0">
+                     <children>
+                        <MFXTextField fx:id="pIDBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter patient ID" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <VBox.margin>
+                              <Insets top="17.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXTextField>
+                        <MFXFilterComboBox fx:id="moveToBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <VBox.margin>
+                              <Insets top="33.0" />
+                           </VBox.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXFilterComboBox>
+                        <MFXTextField fx:id="equipmentBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter equipment needed" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </MFXTextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="818.0">
+               <children>
+                  <StackPane prefHeight="50.0" prefWidth="115.0">
+                     <children>
+                        <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="reject" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#rejectRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reject" textAlignment="CENTER" textFill="#d3e9f6">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </StackPane>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="1100.0">
+               <children>
+                  <StackPane fx:id="reminderPane1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #F6BD3A; -fx-border-width: 5;">
+                     <children>
+                        <Text fx:id="reminder1" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </StackPane>
+                  <MFXButton fx:id="cancel" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <StackPane prefHeight="50.0" prefWidth="134.0">
+                     <children>
+                        <MFXButton fx:id="accept" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#acceptRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Accept" textAlignment="CENTER" textFill="#224870">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Submit" textFill="#224870">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </StackPane>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+</BorderPane>

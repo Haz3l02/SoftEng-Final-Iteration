@@ -149,6 +149,7 @@ public class MoveController extends MenuController {
           move.setMovedate(dateBox.getValue());
 
           moveImpl.update(moveID, move);
+          System.out.println("Updateing Node");
           dbTable.setItems(currentTableData);
           reloadData();
           break;
