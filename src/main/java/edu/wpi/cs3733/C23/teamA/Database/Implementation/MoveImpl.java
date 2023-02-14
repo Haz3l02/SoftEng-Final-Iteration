@@ -129,7 +129,12 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     Transaction tx = session.beginTransaction();
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
-      if (li.next().equals(get(m))) {
+      if (li.next().equals( session.find(
+              MoveEntity.class,
+              new MoveEntity(
+                      session.get(NodeEntity.class, m.get(0)),
+                      session.get(LocationNameEntity.class, m.get(1)),
+                      LocalDate.parse(m.get(2)))))) {
         li.remove();
       }
     }
@@ -177,7 +182,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
                     .toList();
     LocalDate dt1 = LocalDate.parse("2023-01-01");
     for (MoveEntity mo : ids){
-      if (mo.getMovedate().compareTo(dt1)>0){
+      if (mo.getMovedate().compareTo(dt1)>=0){
         mov = mo;
         dt1 = mo.getMovedate();
       }
