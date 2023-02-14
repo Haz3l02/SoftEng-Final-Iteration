@@ -275,6 +275,13 @@ public class NodeMapController extends MenuController {
     Pane recentPane = NodeDraw.getSelectedPane();
     if (recentPane != null) {
       recentPane.setPrefSize(5, 5);
+
+      recentPane.setStyle(
+          "-fx-background-color: '#224870'; "
+              + "-fx-background-radius: 12.5; "
+              + "-fx-border-color: '#224870'; "
+              + "-fx-border-width: 1;"
+              + "-fx-border-radius: 13.5");
       //      int[] updatedCoords = NodeDraw.scaleCoordinates();
       //      recentPane.setLayoutX(updatedCoords[0] - 2.5);
       //      recentPane.setLayoutY(updatedCoords[1] - 2.5);
