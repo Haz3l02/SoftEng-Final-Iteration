@@ -91,7 +91,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
       }
     } else filename += ".csv";
 
-    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);
