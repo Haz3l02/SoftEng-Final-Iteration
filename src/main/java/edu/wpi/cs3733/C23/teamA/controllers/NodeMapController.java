@@ -1,26 +1,30 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
-import org.hibernate.Session;
 
 public class NodeMapController extends MenuController {
 
@@ -52,8 +56,14 @@ public class NodeMapController extends MenuController {
 
   @FXML MFXTextField XCord;
   @FXML MFXTextField YCord;
+  @FXML MFXComboBox FloorBox;
+
+  @FXML MFXComboBox BuildingBox;
+
+  Pane newCircle = new Pane();
 
   @FXML VBox fieldBox;
+  @FXML MFXButton createNodeButton;
 
   @Setter NodeEntity selectedNode = null;
 
@@ -64,9 +74,7 @@ public class NodeMapController extends MenuController {
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
 
   public void initialize() {
-
-    makeNewNodeID("L1", 344, 400);
-
+    createNodeButton.setVisible(false);
     initializeFloorMap("L1", nodeAnchorL1, stackL1, gestureL1);
     initializeFloorMap("L2", nodeAnchorL2, stackL2, gestureL2);
     initializeFloorMap("1", nodeAnchorF1, stackF1, gestureF1);
@@ -80,9 +88,8 @@ public class NodeMapController extends MenuController {
   private void initializeFloorMap(
       String floor, AnchorPane nodeAnchor, StackPane stack, GesturePane gesture) {
     // Get all nodes on floor names floor
-    NodeImpl nodeimpl =  new NodeImpl();
+    NodeImpl nodeimpl = new NodeImpl();
     allNodes = nodeimpl.getAll();
-
 
     // Add nodes as circles
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, nodeAnchor, this);
@@ -151,21 +158,73 @@ public class NodeMapController extends MenuController {
 
   public void deleteSelectedNode(ActionEvent event) throws IOException {
     NodeEntity currentNode = NodeDraw.getSelected();
+    Pane currentNodePane = NodeDraw.getSelectedPane();
     String id = currentNode.getNodeid();
     System.out.println(id);
     NodeImpl newNode = new NodeImpl();
     newNode.delete(id);
-    //initialize();
+    currentNodePane.setVisible(false);
+    // initialize();
   }
 
-  public void addNode(ActionEvent event) {
-    NodeEntity newNode = new NodeEntity();
+  public void newNode(ActionEvent event) {
+    XCord.clear();
+    YCord.clear();
+    FloorBox.clear();
+    BuildingBox.clear();
+
+    ObservableList<String> floors =
+        FXCollections.observableArrayList(
+            Floor.L1.getExtendedString(),
+            Floor.L2.getExtendedString(),
+            Floor.F1.getExtendedString(),
+            Floor.F2.getExtendedString(),
+            Floor.F3.getExtendedString());
+    FloorBox.setItems(floors);
+
+    ObservableList<String> buildings =
+        FXCollections.observableArrayList(
+            Building.FR45.getTableString(),
+            Building.TOWR.getTableString(),
+            Building._BTM.getTableString(),
+            Building.SHPR.getTableString(),
+            Building.FR15.getTableString());
+    BuildingBox.setItems(buildings);
+
     fieldBox.setStyle("-fx-background-color: '013A75'; ");
+    createNodeButton.setVisible(true);
+    //
+    //    newNode.setXcoord(Integer.parseInt(XCord.getText()));
+    //    newNode.setYcoord(Integer.parseInt(YCord.getText()));
+    //
+
+  }
+
+  public void createNode(ActionEvent event) {
+
+    NodeEntity newNode = new NodeEntity();
+    NodeImpl newNodeCreation = new NodeImpl();
+    fieldBox.setStyle("-fx-background-color: '013A75'; ");
+
     newNode.setXcoord(Integer.parseInt(XCord.getText()));
     newNode.setYcoord(Integer.parseInt(YCord.getText()));
+    newNode.setFloor(FloorBox.getText());
+    newNode.setBuilding(BuildingBox.getText());
+    newNode.setNodeid(
+        makeNewNodeID(
+            Floor.fromString(newNode.getFloor()), newNode.getXcoord(), newNode.getYcoord()));
 
     System.out.println("X: " + newNode.getXcoord());
     System.out.println("Y: " + newNode.getYcoord());
+    System.out.println("Floor: " + newNode.getFloor());
+    System.out.println("Building: " + newNode.getBuilding());
+    System.out.println("ID: " + newNode.getNodeid());
+
+    newNodeCreation.add(newNode);
+    createNodeButton.setVisible(false);
+    fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
+
+    initialize();
   }
 
   public void setXCord(String xLoc) {
@@ -174,5 +233,13 @@ public class NodeMapController extends MenuController {
 
   public void setYCord(String yLoc) {
     this.YCord.setText(yLoc);
+  }
+
+  public void setFloorBox(String floor) {
+    this.FloorBox.setValue(floor);
+  }
+
+  public void setBuildingBox(String building) {
+    this.BuildingBox.setValue(building);
   }
 }

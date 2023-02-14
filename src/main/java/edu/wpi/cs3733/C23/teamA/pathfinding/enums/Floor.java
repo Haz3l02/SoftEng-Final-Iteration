@@ -39,4 +39,13 @@ public enum Floor {
     }
     return null;
   }
+
+  public static String extendedStringFromTableString(String tableString) {
+    for (Floor f : Floor.values()) {
+      if (f.getTableString().equals(tableString)) {
+        return f.getExtendedString();
+      }
+    }
+    return null;
+  }
 }

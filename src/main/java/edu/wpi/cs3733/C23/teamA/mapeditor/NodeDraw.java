@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.mapeditor;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.controllers.NodeMapController;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.awt.*;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -15,10 +16,15 @@ import javafx.scene.paint.Color;
 public class NodeDraw {
 
   static Pane previousNode = null;
+  static Pane selectNodePane = null;
   static NodeEntity selectNode = null;
 
   public static NodeEntity getSelected() {
     return selectNode;
+  }
+
+  public static Pane getSelectedPane() {
+    return selectNodePane;
   }
 
   private static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
@@ -60,6 +66,8 @@ public class NodeDraw {
             @Override
             public void handle(MouseEvent event) {
 
+              selectNodePane = nodeGraphic;
+
               if ((previousNode != null)) {
 
                 if (!previousNode.equals(nodeGraphic)) {
@@ -86,6 +94,8 @@ public class NodeDraw {
               System.out.println(n.getXcoord());
               nmc.setXCord(n.getXcoord().toString());
               nmc.setYCord(n.getYcoord().toString());
+              nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
+              nmc.setBuildingBox(n.getBuilding());
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
