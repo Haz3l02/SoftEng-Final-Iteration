@@ -251,9 +251,9 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="1100.0">
                <children>
-                  <StackPane fx:id="reminderPane1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #F6BD3A; -fx-border-width: 5;">
+                  <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #F6BD3A; -fx-border-width: 5;">
                      <children>
-                        <Text fx:id="reminder1" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
+                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
                            <font>
                               <Font name="Verdana" size="25.0" />
                            </font>

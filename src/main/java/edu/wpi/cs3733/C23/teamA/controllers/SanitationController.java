@@ -68,7 +68,6 @@ public class SanitationController extends ServiceRequestController {
       reject.setVisible(false);
 
     } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Sanitation")) {
-      SanitationRequestImpl sanI = new SanitationRequestImpl();
       SanitationRequestEntity editRequest = sanI.get(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
@@ -94,21 +93,6 @@ public class SanitationController extends ServiceRequestController {
   }
 
   @FXML
-  void acceptRequest(ActionEvent event) throws IOException {
-    ServiceRequestImpl sri = new ServiceRequestImpl();
-    sri.updateStatus(Status.PROCESSING, acceptTheForm.getRequestID());
-    switchToServiceRequestStatus(event);
-  }
-
-  @FXML
-  public void rejectRequest(ActionEvent event) throws IOException {
-    ServiceRequestImpl sri = new ServiceRequestImpl();
-    sri.updateEmployee("Unassigned", acceptTheForm.getRequestID());
-    sri.updateStatus(Status.NEW, acceptTheForm.getRequestID());
-    switchToServiceRequestStatus(event);
-  }
-
-  @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
 
     if (nameBox.getText().equals("")
@@ -121,8 +105,6 @@ public class SanitationController extends ServiceRequestController {
       reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
-        // something that submits it
-
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
 
@@ -135,7 +117,6 @@ public class SanitationController extends ServiceRequestController {
         submission.setCategory(category);
       } else {
         EmployeeEntity person = employeeI.get(IDNum.getText());
-        // IDNum.getText()
         LocationNameEntity location = locationI.get(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
@@ -153,7 +134,6 @@ public class SanitationController extends ServiceRequestController {
                 "Unassigned",
                 category);
         sanI.add(submission);
-        // submission.insert(); // *some db thing for getting the request in there*
       }
 
       newEdit.setNeedEdits(false);

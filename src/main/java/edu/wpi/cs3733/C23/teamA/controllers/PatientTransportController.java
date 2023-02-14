@@ -24,6 +24,8 @@ public class PatientTransportController extends ServiceRequestController {
   @FXML private MFXTextField equipmentBox;
   @FXML private MFXTextField pIDBox;
   @FXML private MFXFilterComboBox<String> moveToBox;
+  private PatientTransportimpl patI = new PatientTransportimpl();
+
 
   @FXML
   public void initialize() throws SQLException {

@@ -52,14 +52,14 @@ public class SecurityController extends ServiceRequestController {
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       phone.setText(editRequest.getSecphone());
-      accept.setDisable(true);
-      accept.setVisible(false);
-      clear.setDisable(false);
-      clear.setVisible(true);
-      submit.setDisable(false);
-      submit.setVisible(true);
-      reject.setDisable(true);
-      reject.setVisible(false);
+        accept.setDisable(true);
+        accept.setVisible(false);
+        clear.setDisable(false);
+        clear.setVisible(true);
+        submit.setDisable(false);
+        submit.setVisible(true);
+        reject.setDisable(true);
+        reject.setVisible(false);
     } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Security")) {
       SecurityRequestEntity editRequest = secI.get(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
@@ -87,7 +87,6 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) {
-    SecurityRequestImpl secI = new SecurityRequestImpl();
     LocationNameImpl locationI = new LocationNameImpl();
     EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
@@ -141,21 +140,6 @@ public class SecurityController extends ServiceRequestController {
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }
-  }
-
-  @FXML
-  void acceptRequest(ActionEvent event) throws IOException {
-    ServiceRequestImpl sri = new ServiceRequestImpl();
-    sri.updateStatus(Status.PROCESSING, acceptTheForm.getRequestID());
-    switchToServiceRequestStatus(event);
-  }
-
-  @FXML
-  public void rejectRequest(ActionEvent event) throws IOException {
-    ServiceRequestImpl sri = new ServiceRequestImpl();
-    sri.updateEmployee("Unassigned", acceptTheForm.getRequestID());
-    sri.updateStatus(Status.NEW, acceptTheForm.getRequestID());
-    switchToServiceRequestStatus(event);
   }
 
   @FXML
