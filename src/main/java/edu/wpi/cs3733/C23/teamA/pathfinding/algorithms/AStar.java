@@ -56,7 +56,7 @@ public class AStar implements IAlgorithmStrategy {
           // set attributes of n
           n.setCostFromStart(tentativeGScore);
           n.setHeurCostToEnd(getDirectDistance(n, endNode));
-          n.setScore(n.getCostFromStart() + n.getHeurCostToEnd());
+          n.setScore(n.getCostFromStart() + n.getHeurCostToEnd() + n.getPenalty());
 
           // if n is not in the set, add it (can happen multiple times for a node)
           if (!open.contains(n)) {
