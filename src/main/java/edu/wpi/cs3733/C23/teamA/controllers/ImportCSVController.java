@@ -9,7 +9,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.File;
 import java.io.IOException;
@@ -17,15 +16,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
-public class ExportCSVController {
+public class ImportCSVController {
 
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
   @FXML private MFXTextField fileNameField;
   @FXML private MFXButton cancel;
-  @FXML private MFXCheckbox checkBox;
   EmployeeImpl employee = new EmployeeImpl();
   NodeImpl node = new NodeImpl();
   MoveImpl move = new MoveImpl();
@@ -41,8 +39,8 @@ public class ExportCSVController {
   public void openFileExplorer(ActionEvent event) {
     // we need this to fucking work so save the damn changes
     System.out.println("adfsgbdf");
-    DirectoryChooser dc = new DirectoryChooser();
-    File selectedDirectory = dc.showDialog(null);
+    FileChooser fc = new FileChooser();
+    File selectedDirectory = fc.showOpenDialog(null);
     if (selectedDirectory != null) {
       fileNameField.setText(selectedDirectory.getAbsolutePath());
     }
@@ -71,7 +69,7 @@ public class ExportCSVController {
   }
 
   @FXML
-  public void exportCSV(ActionEvent event) throws IOException {
+  public void importCSV(ActionEvent event) throws IOException {
 
     if (fileNameField.getText().equals("")) {
       reminder.setVisible(true);
@@ -79,25 +77,19 @@ public class ExportCSVController {
     } else {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
-      if (checkBox.isSelected()) {
-        employee.exportToCSV(fileNameField.getText());
-        node.exportToCSV(fileNameField.getText());
-        move.exportToCSV(fileNameField.getText());
-        sri.exportToCSV(fileNameField.getText());
+
+      if (iecsv.getTableType().equals("employee")) {
+        employee.importFromCSV(fileNameField.getText());
+        Navigation.navigate(Screen.EMPLOYEE);
+      } else if (iecsv.getTableType().equals("node")) {
+        node.importFromCSV(fileNameField.getText());
+        Navigation.navigate(Screen.NODE);
+      } else if (iecsv.getTableType().equals("move")) {
+        move.importFromCSV(fileNameField.getText());
+        Navigation.navigate(Screen.MOVE);
       } else {
-        if (iecsv.getTableType().equals("employee")) {
-          employee.exportToCSV(fileNameField.getText());
-          Navigation.navigate(Screen.EMPLOYEE);
-        } else if (iecsv.getTableType().equals("node")) {
-          node.exportToCSV(fileNameField.getText());
-          Navigation.navigate(Screen.NODE);
-        } else if (iecsv.getTableType().equals("move")) {
-          move.exportToCSV(fileNameField.getText());
-          Navigation.navigate(Screen.MOVE);
-        } else {
-          sri.exportToCSV(fileNameField.getText());
-          Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
-        }
+        sri.importFromCSV(fileNameField.getText());
+        Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
       }
     }
   }

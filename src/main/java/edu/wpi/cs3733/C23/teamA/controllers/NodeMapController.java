@@ -254,8 +254,8 @@ public class NodeMapController extends MenuController {
     NodeEntity currentNode = NodeDraw.getSelected();
     Pane currentNodePane = NodeDraw.getSelectedPane();
     String id = currentNode.getNodeid();
-    nodeimpl.delete(id);
     edgeimpl.collapseNode(currentNode);
+    nodeimpl.delete(id);
     currentNodePane.setVisible(false);
     int index = Floor.indexFromTableString(currentNode.getFloor());
     gcs[index].clearRect(

@@ -64,6 +64,7 @@ public class ServiceRequestStatusController extends MenuController {
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
   public static AcceptTheForm acceptTheForm = new AcceptTheForm(0, "", false);
+  public static ImportExportCSV iecsv = new ImportExportCSV("");
 
   private String hospitalID;
   private String job;
@@ -302,71 +303,17 @@ public class ServiceRequestStatusController extends MenuController {
         break;
     }
   }
-
   @FXML
-  void clearForm(ActionEvent event) {
-    fileNameField.clear();
+  public void switchToExport(ActionEvent event) {
+    iecsv = new ImportExportCSV("status");
+    Navigation.navigate(Screen.EXPORT_CSV);
   }
 
-  @FXML
-  public void switchToImportPopup(ActionEvent event) throws IOException {
-    if (!event.getSource().equals(cancel)) {
-      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ImportStatusCSVFXML.fxml"));
-      popup = new PopOver(loader.load());
-      popup.show(((Node) event.getSource()).getScene().getWindow());
-    }
 
-    if (event.getSource().equals(cancel)) {
-      popup.hide();
-    }
-  }
 
-  @FXML
-  public void importStatusCSV(ActionEvent event) {
-    if (fileNameField.getText().equals("")) {
-      reminder.setVisible(true);
-      reminderPane.setVisible(true);
-    } else {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
 
-      System.out.println(fileNameField.getText());
 
-      // FUNCTION CALL TO IMPORT CSV
 
-    }
-  }
 
-  @FXML
-  public void close(ActionEvent event) {
-    popup.hide();
-  }
 
-  @FXML
-  public void switchToExportPopup(ActionEvent event) throws IOException {
-    if (!event.getSource().equals(cancel)) {
-      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ExportStatusCSVFXML.fxml"));
-      popup = new PopOver(loader.load());
-      popup.show(((Node) event.getSource()).getScene().getWindow());
-    }
-
-    if (event.getSource().equals(cancel)) {
-      popup.hide();
-    }
-  }
-
-  @FXML
-  public void exportStatusCSV(ActionEvent event) {
-    System.out.println("This is running");
-    if (fileNameField.getText().equals("")) {
-      reminder.setVisible(true);
-      reminderPane.setVisible(true);
-    } else {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-
-      // FUNCTION CALL TO EXPORT CSV
-
-    }
-  }
 }

@@ -5,6 +5,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.ImportExportCSV;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -31,6 +32,7 @@ public class HomeDatabaseController extends MenuController {
   List<MoveEntity> data;
 
   private ObservableList<MoveEntity> dbTableRowsModel = FXCollections.observableArrayList();
+  public static ImportExportCSV iecsv = new ImportExportCSV("");
 
   @Override
   public void initialize() throws SQLException, IOException, InterruptedException {
@@ -54,6 +56,7 @@ public class HomeDatabaseController extends MenuController {
   }
 
   public void switchToNodeScene(ActionEvent event) {
+    iecsv = new ImportExportCSV("node");
     Navigation.navigate(Screen.NODE);
   }
 
@@ -62,10 +65,12 @@ public class HomeDatabaseController extends MenuController {
   }
 
   public void switchToMoveScene(ActionEvent event) {
+    iecsv = new ImportExportCSV("move");
     Navigation.navigate(Screen.MOVE);
   }
 
   public void switchToEmployeeScene(ActionEvent event) {
+    iecsv = new ImportExportCSV("employee");
     Navigation.navigate(Screen.EMPLOYEE);
   }
 

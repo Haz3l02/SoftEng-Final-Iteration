@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.EmployeeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ImportCSVController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;">
          <bottom>
@@ -49,7 +49,7 @@
                               <Insets right="30.0" />
                            </HBox.margin>
                         </StackPane>
-                        <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#close" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                        <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancel" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
                            <HBox.margin>
                               <Insets right="30.0" />
                            </HBox.margin>
@@ -57,7 +57,7 @@
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#importEmployeeCSV" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Import" textFill="#224870">
+                        <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#importCSV" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Import" textFill="#224870">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -101,12 +101,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="File Name: ">
-                           <font>
-                              <Font name="Verdana" size="48.0" />
-                           </font>
-                        </Text>
-                        <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="51.0" prefWidth="284.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
+                        <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="81.0" prefWidth="1200.0" promptText="File Path" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                            <font>
                               <Font name="Verdana" size="48.0" />
                            </font>
@@ -115,11 +110,11 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                        <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="159.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Select File" textAlignment="CENTER" textFill="#d3e9f6">
                            <font>
-                              <Font name="Verdana" size="48.0" />
+                              <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
-                        </Text>
+                        </MFXButton>
                      </children>
                   </HBox>
                </children>
