@@ -137,7 +137,7 @@
                                     </ImageView>
                                  </graphic>
                               </MFXButton>
-                              <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" onAction="#switchToSanitation" prefHeight="135.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="BioHaz_container" text="__________________ Request" textAlignment="CENTER" wrapText="true">
+                              <MFXButton buttonType="RAISED" disable="true" graphicTextGap="15.0" maxHeight="-Infinity" onAction="#switchToSanitation" prefHeight="135.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="BioHaz_container" text="__________________ Request" textAlignment="CENTER" wrapText="true">
                                  <font>
                                     <Font size="33.0" />
                                  </font>
@@ -149,7 +149,7 @@
                                     </ImageView>
                                  </graphic>
                               </MFXButton>
-                              <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" onAction="#switchToSanitation" prefHeight="135.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="BioHaz_container" text="Audio/Visual Request" textAlignment="CENTER" wrapText="true">
+                              <MFXButton buttonType="RAISED" disable="true" graphicTextGap="15.0" maxHeight="-Infinity" onAction="#switchToSanitation" prefHeight="135.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="BioHaz_container" text="Audio/Visual Request" textAlignment="CENTER" wrapText="true">
                                  <font>
                                     <Font size="33.0" />
                                  </font>
