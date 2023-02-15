@@ -146,19 +146,20 @@ public class NodeMapController extends MenuController {
     // initializeFloorMap("L2");
     // initializeFloorMap("1");
     // initializeFloorMap("2", stackF2, gestureF2);
-    // initializeFloorMap("3", stackF3, gestureF3);
+    //    initializeFloorMap("3", stackF3, gestureF3);
   }
 
-  public void getTab(ActionEvent event) {
+  public void getTab() {
+    System.out.println("HERE");
     Tab selectedTab = mapTabPane.getSelectionModel().getSelectedItem();
     String tabID = selectedTab.getId();
 
-    System.out.println("HERE");
+    System.out.println(tabID);
 
-    if (tabID.equals("tabL1") && floorInitialized[0] == false) {
-      // initializeFloorMap("L1");
-      // floorInitialized[0] = true;
-    } else if (tabID.equals("tabL2") && floorInitialized[1] == false) {
+    if  (tabID.equals("tabL1") && floorInitialized[0] == false) {
+      ///
+    }
+    else if (tabID.equals("tabL2") && floorInitialized[1] == false) {
       initializeFloorMap("L2");
       floorInitialized[1] = true;
     } else if (tabID.equals("tabF1") && floorInitialized[2] == false) {
@@ -171,7 +172,7 @@ public class NodeMapController extends MenuController {
       initializeFloorMap("3");
       floorInitialized[4] = true;
     } else {
-      System.out.println("tab name not found, this is bad");
+      System.out.println("tab name not found, this is bad (we know L1 isn't here)");
     }
   }
 
