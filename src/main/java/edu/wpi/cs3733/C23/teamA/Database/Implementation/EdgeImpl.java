@@ -187,6 +187,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
 
     EdgeEntity edg = session.get(EdgeEntity.class, s);
 
+    edg.setEdgeid(obj.getEdgeid());
     edg.setNode1(obj.getNode1());
     edg.setNode2(obj.getNode2());
 

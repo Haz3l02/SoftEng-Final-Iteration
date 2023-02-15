@@ -1,9 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
+import static org.apache.derby.impl.sql.execute.AlterTableConstantAction.executeUpdate;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -69,13 +72,17 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
               employees.remove(employee);
             });
 
-    EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
-    emp.setEmployeeid(obj.getEmployeeid());
-    emp.setUsername(obj.getUsername());
-    emp.setPassword(obj.getPassword());
-    emp.setJob(obj.getJob());
-    emp.setName(obj.getName());
-    employees.add(emp);
+    session
+            .createMutationQuery(
+                    "UPDATE EmployeeEntity SET " +
+                            "employeeid = '"+obj.getEmployeeid()+"', job = '"+obj.getJob()+"', name = '"+obj.getName()+"', password = '"+obj.getPassword()+"', username = '"+obj.getUsername()+
+                            "' WHERE employeeid = '"+ID+"'").executeUpdate();
+
+
+
+
+
+    employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
     tx.commit();
     session.close();
   }

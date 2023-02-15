@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -115,13 +116,17 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
       }
     }
 
-    LocationNameEntity l = session.get(LocationNameEntity.class, ID);
+    session
+            .createMutationQuery(
+                    "UPDATE LocationNameEntity SET " +
+                            "longname = '"+location.getLongname()+"', shortname = '"+location.getShortname()+"', locationtype = '"+location.getLongname()+
+                            "' WHERE longname = '"+ID+"'").executeUpdate();
 
-    l.setLongname(location.getLongname());
-    l.setLocationtype(location.getLocationtype());
-    l.setShortname(location.getShortname());
 
-    locations.add(l);
+
+
+
+    locations.add(session.get(LocationNameEntity.class, location.getLongname()));
     tx.commit();
     session.close();
   }
