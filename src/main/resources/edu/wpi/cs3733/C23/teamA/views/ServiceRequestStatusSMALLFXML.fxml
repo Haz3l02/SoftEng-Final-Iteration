@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -19,7 +20,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                <children>
-                  <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#clearEdits" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textFill="#d3e9f6">
+                  <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#clearEdits" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reset" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -27,17 +28,30 @@
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
+                  <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImportPopup" prefHeight="53.0" prefWidth="170.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Import CSV" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExportPopup" prefHeight="53.0" prefWidth="170.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Export CSV" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0" spacing="10.0">
                <children>
                   <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
-                  <MFXButton id="cancelButton" fx:id="deleteButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#delete" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15;" text="Delete" textFill="#d3e9f6">
+                  <MFXButton id="cancelButton" fx:id="deleteButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#delete" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Delete" textFill="#d3e9f6">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                  <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -45,14 +59,20 @@
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="helpButton" fx:id="editForm" buttonType="RAISED" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#editForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15;" text="Edit" textFill="#224870">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </MFXButton>
+                  <StackPane prefHeight="60.0" prefWidth="138.0">
+                     <children>
+                        <MFXButton id="helpButton" fx:id="editForm" buttonType="RAISED" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#editForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="Edit" textFill="#224870">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton id="helpButton" fx:id="viewForm" buttonType="RAISED" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#acceptForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="View" textFill="#224870">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </StackPane>
                </children>
                <HBox.margin>
                   <Insets right="15.0" />
@@ -87,7 +107,7 @@
                               <Font name="Verdana" size="20.0" />
                            </font>
                         </Text>
-                        <MFXComboBox fx:id="formTypeBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+                        <MFXComboBox fx:id="formTypeBox" floatMode="ABOVE" prefHeight="50.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -100,7 +120,7 @@
                               <Font name="Verdana" size="20.0" />
                            </font>
                         </Text>
-                        <MFXTextField fx:id="dateBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+                        <MFXTextField fx:id="dateBox" floatMode="ABOVE" prefHeight="50.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -113,7 +133,7 @@
                               <Font name="Verdana" size="20.0" />
                            </font>
                         </Text>
-                        <MFXComboBox fx:id="statusBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+                        <MFXComboBox fx:id="statusBox" floatMode="ABOVE" prefHeight="50.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -126,7 +146,7 @@
                               <Font name="Verdana" size="20.0" />
                            </font>
                         </Text>
-                        <MFXComboBox fx:id="urgencyBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+                        <MFXComboBox fx:id="urgencyBox" floatMode="ABOVE" prefHeight="50.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -139,12 +159,12 @@
                               <Font name="Verdana" size="20.0" />
                            </font>
                         </Text>
-                        <MFXComboBox fx:id="employeeBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15;">
+                        <MFXComboBox fx:id="employeeBox" floatMode="ABOVE" prefHeight="50.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </MFXComboBox>
-                        <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" onAction="#submitEdit" prefHeight="50.0" prefWidth="250.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15;" text="Submit" textFill="#224870">
+                        <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" onAction="#submitEdit" prefHeight="50.0" prefWidth="250.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Submit" textFill="#224870">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>

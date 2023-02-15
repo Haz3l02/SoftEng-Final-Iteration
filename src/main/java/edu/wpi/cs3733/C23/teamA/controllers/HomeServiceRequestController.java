@@ -26,10 +26,17 @@ public class HomeServiceRequestController extends MenuController {
     String hospitalID = holder.getId();
     String job = holder.getJob();
 
+    if (job.equalsIgnoreCase("Maintenance")) {
+      pastSubmissions.setText("Assignments");
+    }
+
     ServiceRequestImpl serviceI = new ServiceRequestImpl();
     ArrayList<ServiceRequestEntity> specificRequests = serviceI.getAllByEmployee(hospitalID);
 
-    if (specificRequests.size() == 0 && (job.equals("medical") || job.equals("Medical"))) {
+    if (specificRequests.size() == 0 && (job.equalsIgnoreCase("medical"))) {
+      pastSubmissions.setDisable(true);
+    } else if (serviceI.getServiceRequestByAssigned(holder.getName()).size() == 0
+        && (job.equalsIgnoreCase("Maintenance"))) {
       pastSubmissions.setDisable(true);
     } else {
       pastSubmissions.setDisable(false);
@@ -58,7 +65,9 @@ public class HomeServiceRequestController extends MenuController {
 
   @FXML
   public void switchToServiceRequestStatus(ActionEvent event) throws IOException {
+    System.out.println("There");
     Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
+    System.out.println("Hereh");
   }
 
   public void switchToCredits(ActionEvent event) throws IOException {

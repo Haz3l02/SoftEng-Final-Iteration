@@ -62,12 +62,12 @@ public class NodeController extends MenuController {
       NodeImpl node = new NodeImpl();
       edge.collapseNode(selected);
       node.delete(selected.getNodeid());
-
       reloadData();
     }
   }
 
-  public void onSubmit() {
+  public void submitEdit() {
+
     String x = newx.getText().trim();
     String y = newy.getText().trim();
     if (!x.isEmpty() && !y.isEmpty()) {
