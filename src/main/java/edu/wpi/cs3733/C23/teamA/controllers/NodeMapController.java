@@ -405,7 +405,7 @@ public class NodeMapController extends MenuController {
 
   public void editLocationName() {}
 
-  public void deleteLocationName() {}
+  public void delLocationName() {}
 
   @FXML
   public void showLocations(ActionEvent event) {
