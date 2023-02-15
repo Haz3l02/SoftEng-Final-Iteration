@@ -130,9 +130,9 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
       me = li.next();
-      if (me.getNode().equals(m.get(0))
-          && me.getLocationName().equals(m.get(1))
-          && me.getMovedate().equals(m.get(2))) {
+      if (me.getNode().getNodeid().equals(m.get(0))
+          && me.getLocationName().getLongname().equals(m.get(1))
+          && me.getMovedate().toString().equals(m.get(2))) {
         li.remove();
         if(session.find(MoveEntity.class, me) != null){
           System.out.println("Exists");
@@ -142,17 +142,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
       }
     }
 
-//    String hql =
-//        "delete MoveEntity mov "
-//            + " where mov.node = '"
-//            + session.get(NodeEntity.class, m.get(0))
-//            + "' and mov.locationName = '"
-//            + session.get(LocationNameEntity.class, m.get(1))
-//            + "' and mov.movedate = '"
-//            + LocalDate.parse(m.get(2))
-//            + "';";
-//    MutationQuery q = session.createMutationQuery(hql);
-//    q.executeUpdate();
+
 
     tx.commit();
     session.close();
@@ -237,40 +227,44 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void update(List<String> ID, MoveEntity obj) {
-    Session session = getSessionFactory().openSession();
-    Transaction tx = session.beginTransaction();
+//    Session session = getSessionFactory().openSession();
+//    Transaction tx = session.beginTransaction();
+//
+////    ListIterator<MoveEntity> li = moves.listIterator();
+////    while (li.hasNext()) {
+////      MoveEntity me = li.next();
+////      if (me.getNode().getNodeid().equals(ID.get(0))
+////          && me.getLocationName().getLongname().equals(ID.get(1))
+////          && me.getMovedate().toString().equals(ID.get(2))) {
+////        li.remove();
+////      }
+////    }
+//
+//
+//    session
+//        .createMutationQuery(
+//            "UPDATE MoveEntity mov SET "
+//                + "mov.node = :newnodeid, mov.locationName = :newlongname, mov.movedate = :newmovedate "
+//                + "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
+//        .setParameter("newnodeid", session.get(NodeEntity.class, obj.getNode().getNodeid()))
+//        .setParameter("newlongname", session.get(LocationNameEntity.class, obj.getLocationName().getLongname()))
+//        .setParameter("newmovedate", obj.getMovedate())
+//        .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
+//        .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
+//        .setParameter("oldmovedate", LocalDate.parse(ID.get(2)))
+//        .executeUpdate();
+//
+//    moves.add(
+//        new MoveEntity(
+//            session.get(NodeEntity.class, obj.getNode().getNodeid()),
+//            session.get(LocationNameEntity.class, obj.getLocationName().getLongname()),
+//            obj.getMovedate()));
+//    tx.commit();
+//    session.close();
 
-    ListIterator<MoveEntity> li = moves.listIterator();
-    while (li.hasNext()) {
-      MoveEntity me = li.next();
-      if (me.getNode().getNodeid().equals(ID.get(0))
-          && me.getLocationName().getLongname().equals(ID.get(1))
-          && me.getMovedate().toString().equals(ID.get(2))) {
-        li.remove();
-      }
-    }
 
-
-    session
-        .createMutationQuery(
-            "UPDATE MoveEntity mov SET "
-                + "mov.node = :newnodeid, mov.locationName = :newlongname, mov.movedate = :newmovedate "
-                + "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
-        .setParameter("newnodeid", session.get(NodeEntity.class, obj.getNode().getNodeid()))
-        .setParameter("newlongname", session.get(LocationNameEntity.class, obj.getLocationName().getLongname()))
-        .setParameter("newmovedate", obj.getMovedate())
-        .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
-        .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
-        .setParameter("oldmovedate", LocalDate.parse(ID.get(2)))
-        .executeUpdate();
-
-    moves.add(
-        new MoveEntity(
-            session.get(NodeEntity.class, obj.getNode().getNodeid()),
-            session.get(LocationNameEntity.class, obj.getLocationName().getLongname()),
-            obj.getMovedate()));
-    tx.commit();
-    session.close();
+    delete(ID);
+    add(obj);
   }
 
   public MoveEntity get(List<String> ID) {
