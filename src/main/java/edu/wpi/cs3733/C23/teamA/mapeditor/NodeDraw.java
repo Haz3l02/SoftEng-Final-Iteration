@@ -91,13 +91,10 @@ public class NodeDraw {
           new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
               selectNodePane = nodeGraphic;
 
               if ((previousNode != null)) {
-
                 if (!previousNode.equals(nodeGraphic)) {
-
                   previousNode.setStyle(
                       "-fx-background-color: '#224870'; "
                           + "-fx-background-radius: 12.5; "
