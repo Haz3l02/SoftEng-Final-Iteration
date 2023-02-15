@@ -22,6 +22,8 @@ public class NodeDraw {
   static Pane selectNodePane = null;
   static NodeEntity selectNode = null;
 
+  static boolean setLocationVisibility;
+
   static MoveImpl locations = new MoveImpl();
 
   public static void setVisibility(boolean b) {}
