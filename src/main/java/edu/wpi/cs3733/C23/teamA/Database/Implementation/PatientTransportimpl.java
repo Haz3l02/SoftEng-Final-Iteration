@@ -53,9 +53,8 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
 
   @Override
   public void exportToCSV(String filename) throws IOException {
-    filename+="patienttransportrequest.csv";
-    File csvFile =
-        new File(filename);
+    filename += "patienttransportrequest.csv";
+    File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("patientname, patientid, moveto, equipment\n");
     for (PatientTransportRequestEntity pat : patrequests) {

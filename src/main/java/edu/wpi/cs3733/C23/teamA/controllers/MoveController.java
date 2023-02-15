@@ -179,8 +179,8 @@ public class MoveController extends MenuController {
     locationBox.clear();
     dateBox.setValue(dateBox.getCurrentDate());
 
-    //        createEmployee.setVisible(true);
-    //        editButton.setDisable(true);
+    createMove.setVisible(true);
+    editButton.setDisable(true);
   }
 
   @FXML

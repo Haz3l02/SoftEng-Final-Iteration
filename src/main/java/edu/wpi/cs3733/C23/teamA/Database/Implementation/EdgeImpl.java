@@ -69,10 +69,9 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="edge.csv";
+    filename += "edge.csv";
 
-    File csvFile =
-        new File(filename);
+    File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("edgeid,node1,node2\n");
     for (EdgeEntity edge : edges) {
