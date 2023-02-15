@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="774.0" prefWidth="1356.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ExportCSVController">
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ExportCSVController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;">
          <bottom>
@@ -110,11 +111,21 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <MFXButton fx:id="reset1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="154.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Select File" textAlignment="CENTER" textFill="#225870">
+                        <MFXButton fx:id="reset1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Select Folder" textAlignment="CENTER" textFill="#225870">
                            <font>
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
                         </MFXButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export All Tables">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Text>
+                        <MFXCheckbox fx:id="checkBox" contentDisposition="CENTER" prefHeight="67.0" prefWidth="75.0" />
                      </children>
                   </HBox>
                </children>

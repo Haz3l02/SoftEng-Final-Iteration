@@ -38,10 +38,9 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="/locationname.csv";
+    filename += "/locationname.csv";
 
-    File csvFile =
-        new File(filename);
+    File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("longname,locationtype,shortname\n");
     for (LocationNameEntity loc : locations) {

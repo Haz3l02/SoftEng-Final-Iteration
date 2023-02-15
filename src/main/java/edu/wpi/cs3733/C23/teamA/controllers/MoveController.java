@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.controllers.HomeDatabaseController.iecsv;
 import static java.lang.String.valueOf;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
@@ -8,15 +7,12 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
-import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import jakarta.persistence.PersistenceException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,15 +22,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import org.controlsfx.control.PopOver;
 
 public class MoveController extends MenuController {
 
@@ -53,12 +46,7 @@ public class MoveController extends MenuController {
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createMove;
   @FXML protected Text warning;
-  @FXML protected StackPane reminderPaneMove;
-  @FXML private Text reminder;
-  @FXML private StackPane reminderPane;
-  @FXML private MFXTextField fileNameField;
-  private PopOver popup;
-  @FXML private MFXButton cancel;
+  @FXML protected StackPane reminderPane;
 
   MoveImpl move = new MoveImpl();
 
@@ -74,7 +62,6 @@ public class MoveController extends MenuController {
   public void initialize() {
     moveData = moveImpl.getAll();
     warning.setVisible(false);
-    reminderPane.setVisible(false);
 
     allNodeID =
         moveImpl.getAll().stream().map(moveEntity -> moveEntity.getNode().getNodeid()).toList();
@@ -133,7 +120,7 @@ public class MoveController extends MenuController {
       moveImpl.add(theMove);
     } catch (PersistenceException p) {
       warning.setVisible(true);
-      reminderPaneMove.setVisible(true);
+      reminderPane.setVisible(true);
     }
     // moveImpl.add(theMove);
     reloadData();
@@ -222,70 +209,13 @@ public class MoveController extends MenuController {
   }
 
   @FXML
-  public void switchToImportPopup(ActionEvent event) throws IOException {
+  public void switchToImportScreen(ActionEvent event) throws IOException {
 
-    if (!event.getSource().equals(cancel)) {
-      FXMLLoader loader =
-          new FXMLLoader(Main.class.getResource("views/ImportEmployeeCSVFXML.fxml"));
-      popup = new PopOver(loader.load());
-      popup.show(((Node) event.getSource()).getScene().getWindow());
-    }
-
-    if (event.getSource().equals(cancel)) {
-      popup.hide();
-    }
+    Navigation.navigate(Screen.IMPORT_CSV);
   }
 
   @FXML
-  public void importCSV(ActionEvent event) throws FileNotFoundException {
-    if (fileNameField.getText().equals("")) {
-      reminder.setVisible(true);
-      reminderPane.setVisible(true);
-    } else {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-      if (iecsv.getTableType().equals("move")) {
-        move.importFromCSV(fileNameField.getText());
-      }
-
-      popup.hide();
-    }
-  }
-
-  @FXML
-  public void close(ActionEvent event) {
-    popup.hide();
-  }
-
-  @FXML
-  public void switchToExportPopup(ActionEvent event) throws IOException {
-
-    if (!event.getSource().equals(cancel)) {
-      FXMLLoader loader =
-          new FXMLLoader(Main.class.getResource("views/ExportEmployeeCSVFXML.fxml"));
-      popup = new PopOver(loader.load());
-      popup.show(((Node) event.getSource()).getScene().getWindow());
-    }
-
-    if (event.getSource().equals(cancel)) {
-      popup.hide();
-    }
-  }
-
-  @FXML
-  public void exportCSV(ActionEvent event) throws IOException {
-
-    if (fileNameField.getText().equals("")) {
-      reminder.setVisible(true);
-      reminderPane.setVisible(true);
-    } else {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-      if (iecsv.getTableType().equals("move")) {
-        move.exportToCSV(fileNameField.getText());
-      }
-    }
-
-    popup.hide();
+  public void switchToExportScreen(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.EXPORT_CSV);
   }
 }
