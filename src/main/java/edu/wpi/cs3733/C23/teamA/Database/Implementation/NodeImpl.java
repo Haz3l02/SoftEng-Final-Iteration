@@ -66,6 +66,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
     String hql = "delete from NodeEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
@@ -79,7 +80,6 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
     File node = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
 
-    Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(node);
     int count = 0;
     read.nextLine();

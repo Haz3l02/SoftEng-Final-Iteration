@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.controllers.HomeDatabaseController.iecsv;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
@@ -66,6 +67,7 @@ public class EmployeeController {
   EmployeeImpl employee = new EmployeeImpl();
   NodeImpl node = new NodeImpl();
   MoveImpl move = new MoveImpl();
+  LocationNameImpl locationName = new LocationNameImpl();
   List<EmployeeEntity> employeeData = new ArrayList<>();
 
   @FXML
@@ -232,10 +234,19 @@ public class EmployeeController {
       reminderPane.setVisible(false);
       if (iecsv.getTableType().equals("employee")) {
         employee.importFromCSV(fileNameField.getText());
+        System.out.println("Import employee works");
+        popup.hide();
       } else if (iecsv.getTableType().equals("node")) {
         node.importFromCSV(fileNameField.getText());
+        System.out.println("Import node works");
+        popup.hide();
       } else if (iecsv.getTableType().equals("move")) {
+        // locationName.importFromCSV("locationname");
+        node.importFromCSV("nodes");
         move.importFromCSV(fileNameField.getText());
+        System.out.println("Import move works");
+
+        popup.hide();
       }
 
       popup.hide();
