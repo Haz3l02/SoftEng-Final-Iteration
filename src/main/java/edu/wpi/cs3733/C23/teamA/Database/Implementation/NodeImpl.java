@@ -138,9 +138,11 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     n.setXcoord(obj.getXcoord());
     n.setYcoord(obj.getYcoord());
     n.setFloor(obj.getFloor());
+    // n.setNodeid(obj.getNodeid()); // added
 
     nodes.add(n);
     tx.commit();
+    System.out.println("way after ");
     session.close();
   }
 

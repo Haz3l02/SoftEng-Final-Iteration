@@ -216,9 +216,7 @@ public class NodeMapController extends MenuController {
     String tableString = Floor.fromString(FloorBox.getText());
     newNode.setFloor(tableString);
     newNode.setBuilding(BuildingBox.getText());
-    newNode.setNodeid(
-        makeNewNodeID(
-            Floor.fromString(newNode.getFloor()), newNode.getXcoord(), newNode.getYcoord()));
+    newNode.setNodeid(makeNewNodeID(newNode.getFloor(), newNode.getXcoord(), newNode.getYcoord()));
 
     //    System.out.println("X: " + newNode.getXcoord());
     //    System.out.println("Y: " + newNode.getYcoord());
@@ -263,13 +261,14 @@ public class NodeMapController extends MenuController {
   public void saveNodeEdit(ActionEvent event) {
     NodeEntity currentNode = NodeDraw.getSelected();
     Pane currentPane = NodeDraw.getSelectedPane();
-    currentPane.setVisible(false);
+    if (currentPane != null) {
+      currentPane.setVisible(false);
+    }
     String id = currentNode.getNodeid();
     currentNode.setXcoord(Integer.parseInt(XCord.getText()));
     currentNode.setYcoord(Integer.parseInt(YCord.getText()));
     currentNode.setBuilding(BuildingBox.getText());
     currentNode.setFloor(Floor.fromString(FloorBox.getText()));
-    System.out.println("HIIIIIII");
 
     System.out.println("X: " + currentNode.getXcoord());
     System.out.println("Y: " + currentNode.getYcoord());
@@ -278,16 +277,16 @@ public class NodeMapController extends MenuController {
     System.out.println("ID: " + currentNode.getNodeid());
 
     currentNode.setNodeid(
-        makeNewNodeID(
-            Floor.fromString(currentNode.getFloor()),
-            currentNode.getXcoord(),
-            currentNode.getYcoord()));
+        makeNewNodeID(currentNode.getFloor(), currentNode.getXcoord(), currentNode.getYcoord()));
+
+    System.out.println("IDNew: " + currentNode.getNodeid());
 
     //    currentPane.setLayoutX(currentNode.getXcoord());
     //    currentPane.setLayoutY(currentNode.getYcoord());
     //    NodeDraw.setSelectedPane(currentPane);
 
     NodeImpl node = new NodeImpl();
+    // old id, with new updated node
     node.update(id, currentNode);
     // node.delete(id);
     fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
@@ -298,8 +297,8 @@ public class NodeMapController extends MenuController {
     currentNodePane.setVisible(false);
     ArrayList<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(currentNode);
-    String tableString = Floor.fromString(currentNode.getFloor());
-    System.out.println(tableString);
+    String tableString = currentNode.getFloor();
+    System.out.println("Floor: " + tableString);
     NodeDraw.drawNodes(oneNode, SCALE_FACTOR, aps[Floor.indexFromTableString(tableString)], this);
 
     // initialize();
