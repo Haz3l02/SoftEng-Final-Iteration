@@ -24,33 +24,26 @@
                   <Insets bottom="-20.0" />
                </padding>
                <center>
-                  <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="330.0" prefWidth="732.0" spacing="15.0" BorderPane.alignment="CENTER_LEFT">
+                  <VBox>
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefWidth="602.0" spacing="30.0">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Database Home Page">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Text>
+                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="430.0" prefWidth="1374.0" spacing="25.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Database Home Page">
-                                 <font>
-                                    <Font size="30.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="15.0" />
-                                 </HBox.margin>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="4.0" prefWidth="1339.0" spacing="25.0">
-                           <children>
-                              <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="330.0" prefWidth="417.0" style="-fx-background-color: F6BD3A; -fx-background-radius: 20; -fx-border-color: #122c34; -fx-border-radius: 20;">
+                              <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" style="-fx-background-color: F6BD3A; -fx-background-radius: 20; -fx-border-color: #122c34; -fx-border-radius: 20; -fx-background-color: red;" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Moves Occuring Today">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
                                     </Text>
-                                    <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="270.0" prefWidth="500.0" style="-fx-background-color: F6BD3A;">
+                                    <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" style="-fx-background-color: F6BD3A;" VBox.vgrow="ALWAYS">
                                       <columns>
-                                        <TableColumn prefWidth="455.0" text="Move Location" />
-                                        <TableColumn prefWidth="199.0" text="Date" />
+                                        <TableColumn prefWidth="-1.0" text="Move Location" />
+                                        <TableColumn prefWidth="-1.0" text="Date" />
                                       </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -58,9 +51,9 @@
                                     </TableView>
                                  </children>
                               </VBox>
-                              <HBox alignment="CENTER" prefHeight="418.0" prefWidth="1724.0">
+                              <HBox alignment="CENTER" prefHeight="418.0" HBox.hgrow="NEVER">
                                  <children>
-                                    <VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="330.0" prefWidth="850.0">
+                                    <VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="330.0" prefWidth="850.0" style="-fx-background-color: blue;" HBox.hgrow="NEVER">
                                        <children>
                                           <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="100.0" prefWidth="850.0" spacing="30.0">
                                              <children>
@@ -102,7 +95,7 @@
                                                 <Insets bottom="25.0" />
                                              </VBox.margin>
                                           </HBox>
-                                          <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="1000.0" spacing="30.0">
+                                          <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="100.0" spacing="30.0">
                                              <children>
                                                 <MFXButton buttonType="RAISED" graphicTextGap="15.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeScene" prefHeight="140.0" prefWidth="400.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="BioHaz_container" text="Node Creation" textAlignment="CENTER">
                                                    <font>
@@ -147,21 +140,12 @@
                                  </children>
                               </HBox>
                            </children>
-                           <VBox.margin>
-                              <Insets left="35.0" />
-                           </VBox.margin>
                         </HBox>
                      </children>
-                     <BorderPane.margin>
-                        <Insets />
-                     </BorderPane.margin>
                   </VBox>
                </center>
-               <bottom>
-                  <HBox prefWidth="200.0" BorderPane.alignment="CENTER" />
-               </bottom>
                <top>
-                  <SplitPane orientation="VERTICAL" prefHeight="60.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+                  <SplitPane maxHeight="-Infinity" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="60.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
                      <items>
                         <BorderPane prefHeight="60.0" style="-fx-background-color: #224870;">
                            <right>

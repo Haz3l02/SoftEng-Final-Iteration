@@ -32,17 +32,17 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     moves = records;
-    HashMap<MoveEntity, MoveEntity> loc =
-        locationChanges(LocalDate.parse("2023-02-18"), LocalDate.parse("2023-02-20"));
-    for (MoveEntity m : loc.keySet()) {
-      System.out.println(
-          String.format(
-              "%s -> %s %s %s",
-              loc.get(m).getLocationName().getLongname(),
-              m.getLocationName().getLongname(),
-              m.getNode().getNodeid(),
-              m.getMovedate().toString()));
-    }
+//    HashMap<MoveEntity, MoveEntity> loc =
+//        locationChanges(LocalDate.parse("2023-02-18"), LocalDate.parse("2023-02-20"));
+//    for (MoveEntity m : loc.keySet()) {
+//      System.out.println(
+//          String.format(
+//              "%s -> %s %s %s",
+//              loc.get(m).getLocationName().getLongname(),
+//              m.getLocationName().getLongname(),
+//              m.getNode().getNodeid(),
+//              m.getMovedate().toString()));
+//    }
     session.close();
   }
 
@@ -51,14 +51,10 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
+    filename+="move.csv";
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File( filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("movedate,longname,nodeid\n");
     for (MoveEntity mov : moves) {
@@ -151,21 +147,22 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
         if (session.find(MoveEntity.class, me) != null) {
           System.out.println("Exists");
         }
+        System.out.println("hi");
         session.remove(me);
       }
     }
 
-    //    String hql =
-    //        "delete MoveEntity mov "
-    //            + " where mov.node = '"
-    //            + session.get(NodeEntity.class, m.get(0))
-    //            + "' and mov.locationName = '"
-    //            + session.get(LocationNameEntity.class, m.get(1))
-    //            + "' and mov.movedate = '"
-    //            + LocalDate.parse(m.get(2))
-    //            + "';";
-    //    MutationQuery q = session.createMutationQuery(hql);
-    //    q.executeUpdate();
+//    String hql =
+//        "delete MoveEntity mov "
+//            + " where mov.node = '"
+//            + session.get(NodeEntity.class, m.get(0))
+//            + "' and mov.locationName = '"
+//            + session.get(LocationNameEntity.class, m.get(1))
+//            + "' and mov.movedate = '"
+//            + LocalDate.parse(m.get(2))
+//            + "';";
+//    MutationQuery q = session.createMutationQuery(hql);
+//    q.executeUpdate();
 
     tx.commit();
     session.close();
@@ -262,6 +259,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
         li.remove();
       }
     }
+
 
     session
         .createMutationQuery(

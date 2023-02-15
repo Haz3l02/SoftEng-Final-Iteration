@@ -38,14 +38,10 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void exportToCSV(String filename) throws IOException {
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
+    filename+="locationname.csv";
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("longname,locationtype,shortname\n");
     for (LocationNameEntity loc : locations) {
@@ -61,13 +57,9 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     locations.clear();
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
 
-    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+
+    File loc = new File(filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);

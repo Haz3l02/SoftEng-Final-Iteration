@@ -37,18 +37,13 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    List<NodeEntity> nods = getAll();
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
+    filename+="node.csv";
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File( filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("node,xcoord,ycoord,building,floor\n");
-    for (NodeEntity nod : nods) {
+    for (NodeEntity nod : nodes) {
       fileWriter.write(
           nod.getNodeid()
               + ","
@@ -77,7 +72,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
       }
     } else filename += ".csv";
 
-    File node = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File node = new File( filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(node);
