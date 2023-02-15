@@ -205,4 +205,14 @@ public class MoveController extends MenuController {
     nodeBox.setItems(node);
     locationBox.setItems(location);
   }
+
+  @FXML
+  public void switchToImport(ActionEvent event) {
+    Navigation.navigate(Screen.IMPORT_CSV);
+  }
+
+  @FXML
+  public void switchToExport(ActionEvent event) {
+    Navigation.navigate(Screen.EXPORT_CSV);
+  }
 }
