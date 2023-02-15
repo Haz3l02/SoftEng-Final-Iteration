@@ -126,6 +126,7 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
 
     LocationNameEntity l = session.get(LocationNameEntity.class, ID);
 
+    l.setLongname(location.getLongname());
     l.setLocationtype(location.getLocationtype());
     l.setShortname(location.getShortname());
 
