@@ -58,7 +58,6 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     q.executeUpdate();
     locations.clear();
 
-
     File loc = new File(filename);
 
     Transaction tx = session.beginTransaction();

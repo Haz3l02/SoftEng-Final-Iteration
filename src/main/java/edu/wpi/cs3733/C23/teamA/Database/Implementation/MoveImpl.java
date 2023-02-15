@@ -126,7 +126,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     Transaction tx = session.beginTransaction();
     MoveEntity me;
 
-
     ListIterator<MoveEntity> li = moves.listIterator();
     while (li.hasNext()) {
       me = li.next();
@@ -141,8 +140,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
         session.remove(me);
       }
     }
-
-
 
     tx.commit();
     session.close();
@@ -261,7 +258,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 //            obj.getMovedate()));
 //    tx.commit();
 //    session.close();
-
 
     delete(ID);
     add(obj);
