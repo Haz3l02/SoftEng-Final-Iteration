@@ -127,14 +127,17 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
       }
     }
 
-    NodeEntity n = session.get(NodeEntity.class, ID);
+    session
+            .createMutationQuery(
+                    "UPDATE NodeEntity SET " +
+                            "nodeid = "+obj.getNodeid()+", floor = "+obj.getFloor()+", ycoord = "+obj.getYcoord()+", xcoord = "+obj.getXcoord()+", building =  "+obj.getBuilding()+
+                            " WHERE nodeid = "+ID).executeUpdate();
 
-    n.setBuilding(obj.getBuilding());
-    n.setXcoord(obj.getXcoord());
-    n.setYcoord(obj.getYcoord());
-    n.setFloor(obj.getFloor());
 
-    nodes.add(n);
+
+
+
+    nodes.add(session.get(NodeEntity.class, obj.getNodeid()));
     tx.commit();
     session.close();
   }

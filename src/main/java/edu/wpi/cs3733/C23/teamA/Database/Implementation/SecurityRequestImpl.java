@@ -5,6 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -153,6 +154,19 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     }
     return null;
   }
+
+//  public void updateStatus(Integer ID, Status status){
+//    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+//    while (li.hasNext()) {
+//      SecurityRequestEntity sec = li.next();
+//      if (sec.getRequestid() == ID) {
+//        sec.setStatus(status);
+//        li.remove();
+//        secrequests.add(sec);
+//        break;
+//      }
+//    }
+//  }
 
   public static SecurityRequestImpl getInstance() {
     return instance;

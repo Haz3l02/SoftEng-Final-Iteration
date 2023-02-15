@@ -186,7 +186,7 @@ public class ServiceRequestStatusController extends MenuController {
     EmployeeImpl theEmployee = new EmployeeImpl();
 
     ObservableList<String> maintenance =
-        FXCollections.observableArrayList(theEmployee.getListOf("Maintenance"));
+        FXCollections.observableArrayList(theEmployee.getListOfByJob("Maintenance"));
 
     statusBox.setItems(statuses);
     urgencyBox.setItems(urgencies);
