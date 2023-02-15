@@ -15,15 +15,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 public class NodeDraw {
 
   static Pane previousNode = null;
   static Pane selectNodePane = null;
   static NodeEntity selectNode = null;
+
+  static MoveImpl locations = new MoveImpl();
 
   public static NodeEntity getSelected() {
     return selectNode;
@@ -70,17 +69,19 @@ public class NodeDraw {
               + "-fx-border-color: '#224870'; "
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
-
       Text locName = new Text();
-      locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-      MoveImpl locations = new MoveImpl();
-      locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
-      locName.setLayoutX(updatedCoords[0] - 2.5);
-      locName.setLayoutY(updatedCoords[1] - 2.5);
-      //            NodeMapController nmcToggle = new NodeMapController();
-      //            if (nmcToggle.toggleLocations()) {
-      //              locName.setVisible(false);
-      //            }
+      locName.setVisible(false);
+      if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
+        locName.setVisible(true);
+        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+        locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
+        locName.setLayoutX(updatedCoords[0] - 2.5);
+        locName.setLayoutY(updatedCoords[1] - 2.5);
+        NodeMapController nmcToggle = new NodeMapController();
+        //      if (nmcToggle.toggleLocations()) {
+        //        locName.setVisible(false);
+        //      }
+      }
 
       EventHandler<MouseEvent> eventHandler =
           new EventHandler<MouseEvent>() {

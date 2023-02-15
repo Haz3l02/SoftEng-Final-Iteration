@@ -172,7 +172,9 @@ public class NodeMapController extends MenuController {
     Pane currentNodePane = NodeDraw.getSelectedPane();
     String id = currentNode.getNodeid();
     NodeImpl newNode = new NodeImpl();
+    EdgeImpl edgeImp = new EdgeImpl();
     newNode.delete(id);
+    edgeImp.collapseNode(currentNode);
     currentNodePane.setVisible(false);
   }
 
