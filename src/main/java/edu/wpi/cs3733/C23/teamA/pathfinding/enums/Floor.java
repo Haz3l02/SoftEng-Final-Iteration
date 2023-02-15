@@ -36,11 +36,11 @@ public enum Floor {
     return index;
   }
 
-  // takes the extended string and returns the name of the table string
+  // takes the extended string and returns the name of the enum
   public static String fromString(String extendedString) {
     for (Floor f : Floor.values()) {
       if (f.getExtendedString().equals(extendedString)) {
-        return f.getTableString();
+        return f.getEnumName();
       }
     }
     return null;
