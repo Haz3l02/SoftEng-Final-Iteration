@@ -174,7 +174,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         .orElseThrow();
   }
 
-  public List<String> getListOf(String job) {
+  public List<String> getListOfByJob(String job) {
     ArrayList<String> theList = new ArrayList<>();
     for (EmployeeEntity emp : employees) {
       if (emp.getJob().equals(job)) {

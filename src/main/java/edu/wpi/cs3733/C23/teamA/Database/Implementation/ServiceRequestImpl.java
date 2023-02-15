@@ -66,9 +66,10 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
               + "\n");
     }
     fileWriter.close();
-    new ComputerRequestImpl().exportToCSV("computerrequest.csv");
-    new SecurityRequestImpl().exportToCSV("securityrequest.csv");
-    new SanitationRequestImpl().exportToCSV("sanitationrequest.csv");
+    new ComputerRequestImpl().exportToCSV(filename);
+    new SecurityRequestImpl().exportToCSV(filename);
+    new SanitationRequestImpl().exportToCSV(filename);
+    new PatientTransportimpl().exportToCSV(filename);
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
@@ -214,6 +215,13 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
       }
     }
     services.add(serv);
+
+//    ComputerRequestImpl.getInstance().updateStatus(ID, status);
+//    PatientTransportimpl.getInstance().updateStatus(ID, status);
+//    SecurityRequestImpl.getInstance().updateStatus(ID, status);
+//    SecurityRequestImpl.getInstance().updateStatus(ID, status);
+
+
     tx.commit();
     session.close();
   }
@@ -230,6 +238,8 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
         li.remove();
       }
     }
+
+
 
     services.add(serv);
 
