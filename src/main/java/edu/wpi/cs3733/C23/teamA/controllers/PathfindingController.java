@@ -84,8 +84,8 @@ public class PathfindingController extends MenuController {
   private double SCALE_FACTOR = 0.135;
 
   // database objects
-  MoveImpl moveImpl;
-  NodeImpl nodeImpl;
+  MoveImpl moveImpl = new MoveImpl();
+  NodeImpl nodeImpl = new NodeImpl();
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -193,8 +193,6 @@ public class PathfindingController extends MenuController {
   @FXML
   public void fillStartLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
-    nodeImpl = new NodeImpl();
-    moveImpl = new MoveImpl();
 
     List<NodeEntity> allNodesStartFloor =
         nodeImpl.getNodeOnFloor(floor.getTableString()); // get all nodes from Database
@@ -228,8 +226,6 @@ public class PathfindingController extends MenuController {
   @FXML
   public void fillEndLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(endFloorBox.getValue()));
-    nodeImpl = new NodeImpl();
-    moveImpl = new MoveImpl();
 
     List<NodeEntity> allNodesStartFloor =
         nodeImpl.getNodeOnFloor(floor.getTableString()); // get all nodes from Database
@@ -331,6 +327,6 @@ public class PathfindingController extends MenuController {
    */
   private void addFloorMapImage(String floor, ImageView iv) {
     Image image = ImageLoader.getImage(floor);
-    iv.setImage(image); // this does not work
+    iv.setImage(image);
   }
 }
