@@ -144,7 +144,6 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     session.close();
   }
 
-
   public List<String> getAllIDs() {
     return getAll().stream().map(nodeEntity -> nodeEntity.getNodeid()).toList();
   }

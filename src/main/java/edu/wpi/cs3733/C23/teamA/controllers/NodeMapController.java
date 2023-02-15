@@ -64,6 +64,7 @@ public class NodeMapController extends MenuController {
   @FXML Canvas mapEditorCanvasF2;
   @FXML Canvas mapEditorCanvasF3;
 
+  // Buttons and Text
   @FXML MFXTextField XCord;
   @FXML MFXTextField YCord;
   @FXML MFXComboBox FloorBox;
@@ -71,7 +72,6 @@ public class NodeMapController extends MenuController {
   @FXML MFXButton saveButton;
   @FXML MFXTextField node1;
   @FXML MFXTextField node2;
-
   @FXML VBox fieldBox;
   @FXML MFXButton createNodeButton;
 
@@ -91,39 +91,28 @@ public class NodeMapController extends MenuController {
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
 
+  /** Starting method called when screen is opened: Draws nodes and edges */
   public void initialize() {
     NodeDraw.setSelectedPane(null);
     createNodeButton.setVisible(false);
     saveButton.setVisible(false);
 
-    // set graphicContexts for each floor
-    gcs[0] = mapEditorCanvasL1.getGraphicsContext2D();
-    gcs[1] = mapEditorCanvasL2.getGraphicsContext2D();
-    gcs[2] = mapEditorCanvasF1.getGraphicsContext2D();
-    gcs[3] = mapEditorCanvasF2.getGraphicsContext2D();
-    gcs[4] = mapEditorCanvasF3.getGraphicsContext2D();
-
-    // set anchorpanes into an array for easy access
-    aps[0] = nodeAnchorL1;
-    aps[1] = nodeAnchorL2;
-    aps[2] = nodeAnchorF1;
-    aps[3] = nodeAnchorF2;
-    aps[4] = nodeAnchorF3;
+    // sets the arrays for GraphicContexts and AnchorPanes
+    setArrays();
 
     // add nodes and edges per floor
-    initializeFloorMap("L1", aps[0], stackL1, gestureL1);
-    initializeFloorMap("L2", aps[1], stackL2, gestureL2);
-    initializeFloorMap("1", aps[2], stackF1, gestureF1);
-    initializeFloorMap("2", aps[3], stackF2, gestureF2);
-    initializeFloorMap("3", aps[4], stackF3, gestureF3);
+    initializeFloorMap("L1", stackL1, gestureL1);
+    initializeFloorMap("L2", stackL2, gestureL2);
+    initializeFloorMap("1", stackF1, gestureF1);
+    initializeFloorMap("2", stackF2, gestureF2);
+    initializeFloorMap("3", stackF3, gestureF3);
   }
 
   /**
    * Attaches the gesturepane with the stackpane and reads and adds all the nodes on a floor to the
    * correct anchorPane
    */
-  private void initializeFloorMap(
-      String floor, AnchorPane nodeAnchor, StackPane stack, GesturePane gesture) {
+  private void initializeFloorMap(String floor, StackPane stack, GesturePane gesture) {
     // Get all nodes on floor names floor
     NodeImpl nodeimpl = new NodeImpl();
     allNodes = nodeimpl.getNodeOnFloor(floor);
@@ -133,7 +122,7 @@ public class NodeMapController extends MenuController {
     GraphicsContext gc = gcs[Floor.indexFromTableString(floor)];
 
     // Add nodes as circles
-    NodeDraw.drawNodes(allNodes, SCALE_FACTOR, nodeAnchor, this);
+    NodeDraw.drawNodes(allNodes, SCALE_FACTOR, aps[Floor.indexFromTableString(floor)], this);
     NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gc);
 
     ObservableList<String> floors =
@@ -157,43 +146,6 @@ public class NodeMapController extends MenuController {
     Node node = stack;
     gesture.setContent(node);
     gesture.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
-
-    //    nodeAnchor.setOnMouseClicked(
-    //        e -> {
-    //          int x = (int) e.getX();
-    //          int y = (int) e.getY();
-    //
-    //          if (e.getButton() == MouseButton.PRIMARY) {
-    //
-    //          } else if (e.getButton() == MouseButton.SECONDARY) {
-    //            final Pane nodeGraphic = new Pane();
-    //
-    //            /* Set the style of the node */
-    //            nodeGraphic.setPrefSize(4, 4);
-    //            nodeGraphic.setLayoutX(x - 4);
-    //            nodeGraphic.setLayoutY(y - 4);
-    //            nodeGraphic.setStyle(
-    //                "-fx-background-color: '#F6BD38'; "
-    //                    + "-fx-background-radius: 12.5; "
-    //                    + "-fx-border-color: '013A75'; "
-    //                    + "-fx-border-width: 1;"
-    //                    + "-fx-border-radius: 12.5");
-    //
-    //            nodeAnchor.getChildren().add(nodeGraphic);
-    //          }
-    //
-    //          NodeEntity n = new NodeEntity();
-    //          n.setNodeid(makeNewNodeID(floor, x, y));
-    //          n.setXcoord(x);
-    //          n.setYcoord(y);
-    //          n.setFloor(floor);
-    //          n.setBuilding("Tower");
-    //          NodeImpl newNode = new NodeImpl();
-    //          newNode.add(n);
-    //
-    //          // initialize();
-    //
-    //        });
   }
 
   @FXML
@@ -223,10 +175,9 @@ public class NodeMapController extends MenuController {
     NodeImpl newNode = new NodeImpl();
     newNode.delete(id);
     currentNodePane.setVisible(false);
-    // initialize();
   }
 
-  public void newNodeCreation(ActionEvent event) {
+  public void transitionToNewNodeBox(ActionEvent event) {
     XCord.clear();
     YCord.clear();
     FloorBox.clear();
@@ -256,10 +207,9 @@ public class NodeMapController extends MenuController {
 
   public void createNode(ActionEvent event) {
 
+    // Create a new node entity
     NodeEntity newNode = new NodeEntity();
-    NodeImpl newNodeCreation = new NodeImpl();
     fieldBox.setStyle("-fx-background-color: '013A75'; ");
-
     newNode.setXcoord(Integer.parseInt(XCord.getText()));
     newNode.setYcoord(Integer.parseInt(YCord.getText()));
     String tableString = Floor.fromString(FloorBox.getText());
@@ -269,20 +219,24 @@ public class NodeMapController extends MenuController {
         makeNewNodeID(
             Floor.fromString(newNode.getFloor()), newNode.getXcoord(), newNode.getYcoord()));
 
-    System.out.println("X: " + newNode.getXcoord());
-    System.out.println("Y: " + newNode.getYcoord());
-    System.out.println("Floor: " + newNode.getFloor());
-    System.out.println("Building: " + newNode.getBuilding());
-    System.out.println("ID: " + newNode.getNodeid());
+    //    System.out.println("X: " + newNode.getXcoord());
+    //    System.out.println("Y: " + newNode.getYcoord());
+    //    System.out.println("Floor: " + newNode.getFloor());
+    //    System.out.println("Building: " + newNode.getBuilding());
+    //    System.out.println("ID: " + newNode.getNodeid());
 
+    // Add new Node to database
+    NodeImpl newNodeCreation = new NodeImpl();
     newNodeCreation.add(newNode);
+
+    // switch box screen
     createNodeButton.setVisible(false);
     fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
 
+    // take care of last selected node
     Pane recentPane = NodeDraw.getSelectedPane();
     if (recentPane != null) {
       recentPane.setPrefSize(5, 5);
-
       recentPane.setStyle(
           "-fx-background-color: '#224870'; "
               + "-fx-background-radius: 12.5; "
@@ -294,10 +248,10 @@ public class NodeMapController extends MenuController {
       //      recentPane.setLayoutY(updatedCoords[1] - 2.5);
     }
 
+    // draw node onto the map
     ArrayList<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(newNode);
     NodeDraw.drawNodes(oneNode, SCALE_FACTOR, aps[Floor.indexFromTableString(tableString)], this);
-    // initialize();
   }
 
   public void editNode(ActionEvent event) {
@@ -337,7 +291,15 @@ public class NodeMapController extends MenuController {
     fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
     saveButton.setVisible(false);
 
-    initialize();
+    // Remove old and draw new
+    Pane currentNodePane = NodeDraw.getSelectedPane();
+    currentNodePane.setVisible(false);
+    ArrayList<NodeEntity> oneNode = new ArrayList<>();
+    oneNode.add(currentNode);
+    String tableString = Floor.fromString(currentNode.getFloor());
+    NodeDraw.drawNodes(oneNode, SCALE_FACTOR, aps[Floor.indexFromTableString(tableString)], this);
+
+    // initialize();
   }
 
   public boolean toggleLocations() {
@@ -358,5 +320,21 @@ public class NodeMapController extends MenuController {
 
   public void setBuildingBox(String building) {
     this.BuildingBox.setValue(building);
+  }
+
+  private void setArrays() {
+    // set graphicContexts for each floor
+    gcs[0] = mapEditorCanvasL1.getGraphicsContext2D();
+    gcs[1] = mapEditorCanvasL2.getGraphicsContext2D();
+    gcs[2] = mapEditorCanvasF1.getGraphicsContext2D();
+    gcs[3] = mapEditorCanvasF2.getGraphicsContext2D();
+    gcs[4] = mapEditorCanvasF3.getGraphicsContext2D();
+
+    // set anchorpanes into an array for easy access
+    aps[0] = nodeAnchorL1;
+    aps[1] = nodeAnchorL2;
+    aps[2] = nodeAnchorF1;
+    aps[3] = nodeAnchorF2;
+    aps[4] = nodeAnchorF3;
   }
 }
