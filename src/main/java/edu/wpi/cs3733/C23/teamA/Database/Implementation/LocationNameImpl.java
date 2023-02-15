@@ -23,7 +23,7 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
 
   private List<LocationNameEntity> locations;
 
-  public LocationNameImpl() {
+  private LocationNameImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<LocationNameEntity> criteria = builder.createQuery(LocationNameEntity.class);

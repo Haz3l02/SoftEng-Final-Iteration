@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.acceptTheForm;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
@@ -88,8 +89,6 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) {
-    LocationNameImpl locationI = new LocationNameImpl();
-    EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
         || phone.getText().equals("")
         || IDNum.getText().equals("")
@@ -107,7 +106,7 @@ public class SecurityController extends ServiceRequestController {
 
         SecurityRequestEntity submission = secI.get(newEdit.getRequestID());
         submission.setName(nameBox.getText());
-        LocationNameEntity loc = locationI.get(locationBox.getValue());
+        LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
         submission.setLocation(loc);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
@@ -117,8 +116,8 @@ public class SecurityController extends ServiceRequestController {
         secI.update(submission.getRequestid(), submission);
 
       } else {
-        EmployeeEntity person = employeeI.get(IDNum.getText());
-        LocationNameEntity location = locationI.get(locationBox.getText());
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        LocationNameEntity location = FacadeRepository.getInstance().getLocation(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue());

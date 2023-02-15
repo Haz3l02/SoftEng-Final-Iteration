@@ -4,6 +4,8 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.PatientTransportRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -21,7 +23,7 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
   private List<PatientTransportRequestEntity> patrequests;
   private static final PatientTransportimpl instance = new PatientTransportimpl();
 
-  public PatientTransportimpl() {
+  private PatientTransportimpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<PatientTransportRequestEntity> criteria =
@@ -39,12 +41,11 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
   @Override
   public void add(PatientTransportRequestEntity obj) {
     Session session = getSessionFactory().openSession();
-    ServiceRequestImpl serv = new ServiceRequestImpl();
     Transaction tx = session.beginTransaction();
     session.persist(obj);
     tx.commit();
     patrequests.add(obj);
-    serv.addToList(obj);
+    ServiceRequestImpl.getInstance().addToList(obj);
     session.close();
   }
 
@@ -136,8 +137,8 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
         pr.remove();
       }
     }
-    ServiceRequestImpl servI = new ServiceRequestImpl();
-    servI.removeFromList(obj);
+
+    ServiceRequestImpl.getInstance().removeFromList(obj);
     tx.commit();
     session.close();
   }
@@ -159,18 +160,33 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
     return null;
   }
 
-  //  public void updateStatus(Integer ID, Status status){
-  //    ListIterator<PatientTransportRequestEntity> li = patrequests.listIterator();
-  //    while (li.hasNext()) {
-  //      PatientTransportRequestEntity san = li.next();
-  //      if (san.getRequestid() == ID) {
-  //        san.setStatus(status);
-  //        li.remove();
-  //        patrequests.add(san);
-  //        break;
-  //      }
-  //    }
-  //  }
+    public void updateStatus(Integer ID, Status status){
+      ListIterator<PatientTransportRequestEntity> li = patrequests.listIterator();
+      while (li.hasNext()) {
+        PatientTransportRequestEntity san = li.next();
+        if (san.getRequestid() == ID) {
+          san.setStatus(status);
+          li.remove();
+          patrequests.add(san);
+          break;
+        }
+      }
+    }
+
+
+
+  public void updateEmployee(Integer ID, String employee){
+    ListIterator<PatientTransportRequestEntity> li = patrequests.listIterator();
+    while (li.hasNext()) {
+      PatientTransportRequestEntity sec = li.next();
+      if (sec.getRequestid() == ID) {
+        sec.setEmployeeAssigned(employee);
+        li.remove();
+        patrequests.add(sec);
+        break;
+      }
+    }
+  }
 
   public static PatientTransportimpl getInstance() {
     return instance;

@@ -4,7 +4,9 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -21,7 +23,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
 
   private List<SanitationRequestEntity> sanrequests;
 
-  public SanitationRequestImpl() {
+  private SanitationRequestImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<SanitationRequestEntity> criteria =
@@ -57,12 +59,12 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
 
   public void add(SanitationRequestEntity c) {
     Session session = getSessionFactory().openSession();
-    ServiceRequestImpl serv = new ServiceRequestImpl();
+
     Transaction tx = session.beginTransaction();
     session.persist(c);
     tx.commit();
     sanrequests.add(c);
-    serv.addToList(c);
+    ServiceRequestImpl.getInstance().addToList(c);
     session.close();
   }
 
@@ -76,8 +78,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
         li.remove();
       }
     }
-    ServiceRequestImpl servI = new ServiceRequestImpl();
-    servI.removeFromList(c);
+    ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
   }
@@ -118,8 +119,8 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
             obj.getStatus(),
             obj.getEmployeeAssigned(),
             obj.getDate());
-    ServiceRequestImpl serv = new ServiceRequestImpl();
-    serv.update(ID, ser);
+
+    ServiceRequestImpl.getInstance().update(ID, ser);
     sanrequests.add(c);
 
     tx.commit();
@@ -135,18 +136,31 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     }
   }
 
-  //  public void updateStatus(Integer ID, Status status){
-  //    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
-  //    while (li.hasNext()) {
-  //      SanitationRequestEntity san = li.next();
-  //      if (san.getRequestid() == ID) {
-  //        san.setStatus(status);
-  //        li.remove();
-  //        sanrequests.add(san);
-  //        break;
-  //      }
-  //    }
-  //  }
+    public void updateStatus(Integer ID, Status status){
+      ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
+      while (li.hasNext()) {
+        SanitationRequestEntity san = li.next();
+        if (san.getRequestid() == ID) {
+          san.setStatus(status);
+          li.remove();
+          sanrequests.add(san);
+          break;
+        }
+      }
+    }
+
+  public void updateEmployee(Integer ID, String employee){
+    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
+    while (li.hasNext()) {
+      SanitationRequestEntity sec = li.next();
+      if (sec.getRequestid() == ID) {
+        sec.setEmployeeAssigned(employee);
+        li.remove();
+        sanrequests.add(sec);
+        break;
+      }
+    }
+  }
 
   public SanitationRequestEntity get(Integer ID) {
 

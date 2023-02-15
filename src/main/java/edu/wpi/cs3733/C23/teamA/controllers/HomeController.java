@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -44,7 +45,6 @@ public class HomeController extends MenuController {
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
 
-  private ServiceRequestImpl sri = new ServiceRequestImpl();
 
   @FXML
   public void initialize() throws IOException, InterruptedException {
@@ -65,7 +65,7 @@ public class HomeController extends MenuController {
       Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
-      requests = sri.getServiceRequestByAssigned(userInfo.getName());
+      requests = FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getName());
       if (requests.size() == 0) {
         assignmentsButton.setDisable(true);
       } else {
@@ -86,7 +86,7 @@ public class HomeController extends MenuController {
       Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
-      requests = sri.getServiceRequestByUnassigned();
+      requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
 
       dbTableRowsModel.addAll(requests);
 

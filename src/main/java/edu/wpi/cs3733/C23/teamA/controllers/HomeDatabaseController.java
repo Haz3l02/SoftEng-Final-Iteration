@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
@@ -27,7 +28,6 @@ public class HomeDatabaseController extends MenuController {
   @FXML TableColumn<MoveEntity, String> moveCol;
   @FXML TableColumn<MoveEntity, String> destinationCol;
   @FXML TableColumn<MoveEntity, String> dateCol;
-  MoveImpl moveImpl = new MoveImpl();
   List<MoveEntity> data;
 
   private ObservableList<MoveEntity> dbTableRowsModel = FXCollections.observableArrayList();
@@ -35,7 +35,7 @@ public class HomeDatabaseController extends MenuController {
   @Override
   public void initialize() throws SQLException, IOException, InterruptedException {
     HashMap<MoveEntity, MoveEntity> vector =
-        moveImpl.locationChanges(LocalDate.now(), LocalDate.now().plusWeeks((long) 1.0));
+            FacadeRepository.getInstance().getLocationChanges(LocalDate.now(), LocalDate.now().plusWeeks((long) 1.0));
     data = vector.keySet().stream().toList();
     dbTableRowsModel.addAll(data);
 

@@ -22,7 +22,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
   private ArrayList<NodeEntity> nodes;
 
-  public NodeImpl() {
+  private NodeImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<NodeEntity> criteria = builder.createQuery(NodeEntity.class);

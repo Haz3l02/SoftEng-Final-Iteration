@@ -42,6 +42,7 @@ public class FacadeRepository {
   public List<EmployeeEntity> getAllEmployee() {
     return emp.getAll();
   }
+  public List<LocationNameEntity> getAllLocation() {return loc.getAll();}
 
   public List<MoveEntity> getAllMove() {
     return move.getAll();
@@ -55,11 +56,11 @@ public class FacadeRepository {
     return san.getAll();
   }
 
-  public List<SecurityRequestEntity> getSecurityRequest() {
+  public List<SecurityRequestEntity> getAllSecurityRequest() {
     return sec.getAll();
   }
 
-  public List<PatientTransportRequestEntity> getPatientTransport() {
+  public List<PatientTransportRequestEntity> getAllPatientTransport() {
     return pat.getAll();
   }
 
@@ -316,9 +317,10 @@ public class FacadeRepository {
     return move.mostRecentLoc(id);
   }
 
-  public List<NodeEntity> nodeGetNodesOnFloor(String floor) {
+  public List<NodeEntity> getNodesOnFloor(String floor) {
     return node.getNodeOnFloor(floor);
   }
+  public List<EdgeEntity> getEdgesOnFloor(String floor) {return edge.getEdgeOnFloor(floor);}
 
   public List<String> getAllNodeIDs() {
     return node.getAllIDs();
@@ -342,5 +344,10 @@ public class FacadeRepository {
 
   public void updateServEmployee(String employee, Integer ID) {
     serv.updateEmployee(employee, ID);
+  }
+
+
+  public HashMap<MoveEntity, MoveEntity> getLocationChanges(LocalDate minDate, LocalDate maxDate) {
+    return move.locationChanges(minDate, maxDate);
   }
 }

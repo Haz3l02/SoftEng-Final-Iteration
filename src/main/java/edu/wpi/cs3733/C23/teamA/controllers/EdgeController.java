@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
@@ -48,8 +49,7 @@ public class EdgeController extends MenuController {
   public void reloadData() {
     dbTableRowsModel.clear();
     try {
-      EdgeImpl edgeI = new EdgeImpl();
-      data = edgeI.getAll();
+      data = FacadeRepository.getInstance().getAllEdge();
       dbTableRowsModel.addAll(data);
     } catch (Exception e) {
       e.printStackTrace();
@@ -63,10 +63,8 @@ public class EdgeController extends MenuController {
         e -> {
           EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
-            NodeImpl nodeI = new NodeImpl();
-            EdgeImpl edgeI = new EdgeImpl();
-            n.setNode1(nodeI.get(e.getNewValue()));
-            edgeI.update(n.getEdgeid(), n);
+            n.setNode1(FacadeRepository.getInstance().getNode(e.getNewValue()));
+            FacadeRepository.getInstance().updateEdge(n.getEdgeid(), n);
 
           } catch (Exception ex) {
             refresh.setText("Invalid Node: Refresh");
@@ -76,10 +74,9 @@ public class EdgeController extends MenuController {
         e -> {
           EdgeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
           try {
-            NodeImpl nodeI = new NodeImpl();
-            EdgeImpl edgeI = new EdgeImpl();
-            n.setNode2(nodeI.get(e.getNewValue()));
-            edgeI.update(n.getEdgeid(), n);
+
+            n.setNode2(FacadeRepository.getInstance().getNode(e.getNewValue()));
+            FacadeRepository.getInstance().updateEdge(n.getEdgeid(), n);
 
           } catch (Exception ex) {
             refresh.setText("Invalid Node: Refresh");

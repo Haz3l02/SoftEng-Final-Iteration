@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.acceptTheForm;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
@@ -50,8 +51,7 @@ public abstract class ServiceRequestController extends MenuController {
 
       ObservableList<String> urgencies =
           FXCollections.observableArrayList(UrgencyLevel.urgencyList());
-      LocationNameImpl locationI = new LocationNameImpl();
-      List<LocationNameEntity> temp = locationI.getAll();
+      List<LocationNameEntity> temp = FacadeRepository.getInstance().getAllLocation();
 
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationNameEntity move : temp) {
@@ -112,16 +112,14 @@ public abstract class ServiceRequestController extends MenuController {
 
   @FXML
   void acceptRequest(ActionEvent event) throws IOException {
-    ServiceRequestImpl sri = new ServiceRequestImpl();
-    sri.updateStatus(Status.PROCESSING, acceptTheForm.getRequestID());
+    FacadeRepository.getInstance().updateStatusOfServ(Status.PROCESSING, acceptTheForm.getRequestID());
     switchToServiceRequestStatus(event);
   }
 
   @FXML
   public void rejectRequest(ActionEvent event) throws IOException {
-    ServiceRequestImpl sri = new ServiceRequestImpl();
-    sri.updateEmployee("Unassigned", acceptTheForm.getRequestID());
-    sri.updateStatus(Status.NEW, acceptTheForm.getRequestID());
+    FacadeRepository.getInstance().updateServEmployee("Unassigned", acceptTheForm.getRequestID());
+    FacadeRepository.getInstance().updateStatusOfServ(Status.NEW, acceptTheForm.getRequestID());
     switchToServiceRequestStatus(event);
   }
 }

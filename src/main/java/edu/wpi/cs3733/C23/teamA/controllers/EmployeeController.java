@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
@@ -59,7 +60,6 @@ public class EmployeeController {
   private String job;
 
   private ObservableList<EmployeeEntity> dbTableRowsModel = FXCollections.observableArrayList();
-  EmployeeImpl employee = new EmployeeImpl();
   List<EmployeeEntity> employeeData = new ArrayList<>();
 
   @FXML
@@ -83,7 +83,7 @@ public class EmployeeController {
     hospitalID = holder.getId();
     job = holder.getJob();
 
-    employeeData = employee.getAll();
+    employeeData = FacadeRepository.getInstance().getAllEmployee();
 
     if (nameCol != null) {
       nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -129,21 +129,21 @@ public class EmployeeController {
             jobBox.getValue(),
             nameBox.getText());
 
-    employee.add(theEmployee);
+    FacadeRepository.getInstance().addEmployee(theEmployee);
     reloadData();
   }
 
   @FXML
   public void delete(ActionEvent event) {
     String currentRowId = IDNumBox.getText();
-    employee.delete(currentRowId);
+    FacadeRepository.getInstance().deleteEmployee(currentRowId);
     reloadData();
   }
 
   public void reloadData() {
     dbTableRowsModel.clear();
     try {
-      employeeData = employee.getAll();
+      employeeData = FacadeRepository.getInstance().getAllEmployee();
       dbTableRowsModel.addAll(employeeData);
       clearEdits();
     } catch (Exception e) {
@@ -171,7 +171,7 @@ public class EmployeeController {
           employees.setPassword(passwordBox.getText());
           employees.setJob(Job.value(jobBox.getValue()).getJob());
           employees.setEmployeeid(IDNumBox.getText());
-          employee.update(currentRowId, employees);
+          FacadeRepository.getInstance().updateEmployee(currentRowId, employees);
           employeeTable.setItems(currentTableData);
           reloadData();
           break;
@@ -214,7 +214,7 @@ public class EmployeeController {
   }
 
   @FXML
-  public void importEmployeeCSV(ActionEvent event) throws FileNotFoundException {
+  public void importEmployeeCSV(ActionEvent event) throws IOException {
     if (fileNameField.getText().equals("")) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
@@ -224,7 +224,7 @@ public class EmployeeController {
 
       System.out.println(fileNameField.getText());
 
-      employee.importFromCSV(fileNameField.getText());
+      FacadeRepository.getInstance().importEmployee(fileNameField.getText());
 
       popup.hide();
     }
@@ -260,7 +260,7 @@ public class EmployeeController {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
 
-      employee.exportToCSV(fileNameField.getText());
+      FacadeRepository.getInstance().exportEmployee(fileNameField.getText());
 
       popup.hide();
     }

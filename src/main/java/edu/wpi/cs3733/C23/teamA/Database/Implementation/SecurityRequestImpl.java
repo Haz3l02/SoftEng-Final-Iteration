@@ -5,6 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -21,7 +22,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
 
   private List<SecurityRequestEntity> secrequests;
 
-  public SecurityRequestImpl() {
+  private SecurityRequestImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<SecurityRequestEntity> criteria =
@@ -72,7 +73,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
             c.getStatus(),
             c.getEmployeeAssigned(),
             c.getDate());
-    new ServiceRequestImpl().addToList(ser);
+    ServiceRequestImpl.getInstance().addToList(ser);
     tx.commit();
     session.close();
   }
@@ -88,7 +89,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
         li.remove();
       }
     }
-    new ServiceRequestImpl().removeFromList(c);
+    ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
   }
@@ -129,7 +130,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
             obj.getStatus(),
             obj.getEmployeeAssigned(),
             obj.getDate());
-    new ServiceRequestImpl().updateList(ID, ser);
+    ServiceRequestImpl.getInstance().updateList(ID, ser);
     secrequests.add(c);
 
     tx.commit();
@@ -153,18 +154,32 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     return null;
   }
 
-  //  public void updateStatus(Integer ID, Status status){
-  //    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
-  //    while (li.hasNext()) {
-  //      SecurityRequestEntity sec = li.next();
-  //      if (sec.getRequestid() == ID) {
-  //        sec.setStatus(status);
-  //        li.remove();
-  //        secrequests.add(sec);
-  //        break;
-  //      }
-  //    }
-  //  }
+    public void updateStatus(Integer ID, Status status){
+      ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+      while (li.hasNext()) {
+        SecurityRequestEntity sec = li.next();
+        if (sec.getRequestid() == ID) {
+          sec.setStatus(status);
+          li.remove();
+          secrequests.add(sec);
+          break;
+        }
+      }
+    }
+
+
+  public void updateEmployee(Integer ID, String employee){
+    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+    while (li.hasNext()) {
+      SecurityRequestEntity sec = li.next();
+      if (sec.getRequestid() == ID) {
+        sec.setEmployeeAssigned(employee);
+        li.remove();
+        secrequests.add(sec);
+        break;
+      }
+    }
+  }
 
   public static SecurityRequestImpl getInstance() {
     return instance;

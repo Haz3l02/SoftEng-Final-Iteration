@@ -24,7 +24,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
 
   private List<EdgeEntity> edges;
 
-  public EdgeImpl() {
+  private EdgeImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);

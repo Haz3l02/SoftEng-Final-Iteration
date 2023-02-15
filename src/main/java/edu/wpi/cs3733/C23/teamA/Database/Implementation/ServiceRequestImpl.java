@@ -21,7 +21,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   private final List<ServiceRequestEntity> services;
   private static final ServiceRequestImpl instance = new ServiceRequestImpl();
 
-  public ServiceRequestImpl() {
+  private ServiceRequestImpl() {
     Session session = getSessionFactory().openSession();
     session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -66,10 +66,10 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
               + "\n");
     }
     fileWriter.close();
-    new ComputerRequestImpl().exportToCSV(filename);
-    new SecurityRequestImpl().exportToCSV(filename);
-    new SanitationRequestImpl().exportToCSV(filename);
-    new PatientTransportimpl().exportToCSV(filename);
+    ComputerRequestImpl.getInstance().exportToCSV(filename);
+    SecurityRequestImpl.getInstance().exportToCSV(filename);
+    SanitationRequestImpl.getInstance().exportToCSV(filename);
+    PatientTransportimpl.getInstance().exportToCSV(filename);
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
@@ -103,10 +103,10 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   public void delete(Integer s) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    new ComputerRequestImpl().removeFromList(s);
-    new SanitationRequestImpl().removeFromList(s);
-    new SecurityRequestImpl().removeFromList(s);
-    new PatientTransportimpl().removeFromList(s);
+    ComputerRequestImpl.getInstance().removeFromList(s);
+    SecurityRequestImpl.getInstance().removeFromList(s);
+    PatientTransportimpl.getInstance().removeFromList(s);
+    SanitationRequestImpl.getInstance().removeFromList(s);
 
     session.remove(get(s));
     ListIterator<ServiceRequestEntity> li = services.listIterator();
@@ -216,10 +216,10 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     }
     services.add(serv);
 
-    //    ComputerRequestImpl.getInstance().updateStatus(ID, status);
-    //    PatientTransportimpl.getInstance().updateStatus(ID, status);
-    //    SecurityRequestImpl.getInstance().updateStatus(ID, status);
-    //    SecurityRequestImpl.getInstance().updateStatus(ID, status);
+        ComputerRequestImpl.getInstance().updateStatus(ID, status);
+        PatientTransportimpl.getInstance().updateStatus(ID, status);
+        SecurityRequestImpl.getInstance().updateStatus(ID, status);
+        SecurityRequestImpl.getInstance().updateStatus(ID, status);
 
     tx.commit();
     session.close();
@@ -238,6 +238,12 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
       }
     }
 
+
+
+    ComputerRequestImpl.getInstance().updateEmployee(ID, employee);
+    PatientTransportimpl.getInstance().updateEmployee(ID, employee);
+    SecurityRequestImpl.getInstance().updateEmployee(ID, employee);
+    SecurityRequestImpl.getInstance().updateEmployee(ID, employee);
     services.add(serv);
 
     tx.commit();
