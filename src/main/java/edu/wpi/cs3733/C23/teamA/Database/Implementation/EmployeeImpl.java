@@ -31,6 +31,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     session.close();
   }
 
+
   public List<EmployeeEntity> getAll() {
     return employees;
   }

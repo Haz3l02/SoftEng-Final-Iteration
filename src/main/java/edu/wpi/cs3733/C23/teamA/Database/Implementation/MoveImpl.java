@@ -39,6 +39,17 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     return moves;
   }
 
+
+
+  public void refresh(){
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    criteria.from(MoveEntity.class);
+    List<MoveEntity> records = session.createQuery(criteria).getResultList();
+    moves = records;
+    session.close();
+  }
   public void exportToCSV(String filename) throws IOException {
     filename += "/move.csv";
 
