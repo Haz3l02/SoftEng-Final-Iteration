@@ -268,6 +268,7 @@ public class NodeMapController extends MenuController {
     currentNode.setYcoord(Integer.parseInt(YCord.getText()));
     currentNode.setBuilding(BuildingBox.getText());
     currentNode.setFloor(Floor.fromString(FloorBox.getText()));
+    System.out.println("HIIIIIII");
 
     System.out.println("X: " + currentNode.getXcoord());
     System.out.println("Y: " + currentNode.getYcoord());
