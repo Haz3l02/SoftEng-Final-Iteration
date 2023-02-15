@@ -152,6 +152,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
         if(session.find(MoveEntity.class, me) != null){
           System.out.println("Exists");
         }
+        System.out.println("hi");
         session.remove(me);
       }
     }

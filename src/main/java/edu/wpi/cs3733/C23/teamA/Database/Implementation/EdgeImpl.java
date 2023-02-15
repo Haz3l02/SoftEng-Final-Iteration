@@ -76,7 +76,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     } else filename += ".csv";
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("edgeid,node1,node2\n");
     for (EdgeEntity edge : edges) {
@@ -102,7 +102,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
         filename += ".csv";
       }
     } else filename += ".csv";
-    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File loc = new File(filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);

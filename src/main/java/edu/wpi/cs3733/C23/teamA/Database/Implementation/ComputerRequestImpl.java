@@ -56,7 +56,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
     } else filename += ".csv";
 
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("device,deviceid,requestid\n");
     for (ComputerRequestEntity comp : comprequests) {
