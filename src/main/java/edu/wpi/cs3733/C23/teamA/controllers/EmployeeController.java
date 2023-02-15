@@ -2,9 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -26,8 +23,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 
 public class EmployeeController {
 
@@ -47,19 +42,11 @@ public class EmployeeController {
   @FXML private MFXButton editButton;
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createEmployee;
-  @FXML private Text reminder;
-  @FXML private StackPane reminderPane;
-  @FXML private MFXTextField fileNameField;
-  @FXML private MFXButton cancel;
-
   private String hospitalID;
   private String job;
 
   private ObservableList<EmployeeEntity> dbTableRowsModel = FXCollections.observableArrayList();
   EmployeeImpl employee = new EmployeeImpl();
-  NodeImpl node = new NodeImpl();
-  MoveImpl move = new MoveImpl();
-  LocationNameImpl locationName = new LocationNameImpl();
   List<EmployeeEntity> employeeData = new ArrayList<>();
 
   @FXML

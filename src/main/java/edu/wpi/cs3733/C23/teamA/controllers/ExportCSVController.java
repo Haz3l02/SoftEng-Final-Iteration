@@ -72,7 +72,7 @@ public class ExportCSVController {
     } else {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
-      if(checkBox.isSelected()) {
+      if (checkBox.isSelected()) {
         employee.exportToCSV(fileNameField.getText());
         node.exportToCSV(fileNameField.getText());
         move.exportToCSV(fileNameField.getText());
@@ -92,7 +92,6 @@ public class ExportCSVController {
           Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
         }
       }
-
     }
   }
 }

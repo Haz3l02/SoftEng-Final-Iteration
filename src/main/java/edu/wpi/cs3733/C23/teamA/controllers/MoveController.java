@@ -48,8 +48,6 @@ public class MoveController extends MenuController {
   @FXML protected Text warning;
   @FXML protected StackPane reminderPane;
 
-  MoveImpl move = new MoveImpl();
-
   // List of all Node IDs in specific order
   private List<String> allNodeID;
   private List<String> allLongNames; // List of corresponding long names in order
