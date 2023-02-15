@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -32,7 +31,7 @@ public class HomeController extends MenuController {
   @FXML private TableView<ServiceRequestEntity> assignmentsTable;
   @FXML public TableColumn<ServiceRequestEntity, Integer> IDCol;
   @FXML public TableColumn<ServiceRequestEntity, String> requestTypeCol;
-  @FXML public TableColumn<ServiceRequestEntity, LocationNameEntity> locationCol;
+  @FXML public TableColumn<ServiceRequestEntity, String> locationCol;
   @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
   @FXML public TableColumn<ServiceRequestEntity, String> node1Col;
   @FXML public TableColumn<ServiceRequestEntity, String> node2Col;
@@ -60,7 +59,8 @@ public class HomeController extends MenuController {
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-      locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+      locationCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
       requests = sri.getServiceRequestByAssigned(userInfo.getName());
@@ -76,7 +76,8 @@ public class HomeController extends MenuController {
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-      locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+      locationCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
       requests = sri.getServiceRequestByUnassigned();
@@ -85,22 +86,23 @@ public class HomeController extends MenuController {
 
       assignmentsTable.setItems(dbTableRowsModel);
     }
-    //    else {
-    //      locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-    //      node1Col.setCellValueFactory(
-    //          param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-    //      node2Col.setCellValueFactory(new PropertyValueFactory<>("node"));
-    //      urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
+    //        else {
+    //          locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+    //          node1Col.setCellValueFactory(
+    //              param -> new
+    // SimpleStringProperty(param.getValue().getRequestType().requestType));
+    //          node2Col.setCellValueFactory(new PropertyValueFactory<>("node"));
+    //          urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
     //
-    //      MoveImpl move = new MoveImpl();
+    //          MoveImpl move = new MoveImpl();
     //
-    //      List<MoveEntity> moveData = new ArrayList<MoveEntity>();
+    //          List<MoveEntity> moveData = new ArrayList<MoveEntity>();
     //
-    //      moveData = move.getAll();
-    //      moveData.dbTableRowsModel.addAll(requests);
+    //          moveData = move.getAll();
+    //          moveData.dbTableRowsModel.addAll(requests);
     //
-    //      assignmentsTable.setItems(dbTableRowsModel);
-    //    }
+    //          assignmentsTable.setItems(dbTableRowsModel);
+    //        }
   }
 
   @FXML
@@ -168,6 +170,9 @@ public class HomeController extends MenuController {
             .substring(
                 response.body().indexOf("\"name\":\"", 0) + 8,
                 response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
-    message.setText("\"" + quote + "\" -" + author);
+    //
+    // message.setText("\"" + quote + "\" -" + author);
+    message.setText(
+        "The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela");
   }
 }
