@@ -162,6 +162,7 @@ public class HomeController extends MenuController {
             .substring(
                 response.body().indexOf("\"name\":\"", 0) + 8,
                 response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
-    message.setText("The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela");
+    message.setText(
+        "The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela");
   }
 }

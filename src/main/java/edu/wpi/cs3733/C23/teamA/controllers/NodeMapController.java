@@ -120,22 +120,22 @@ public class NodeMapController extends MenuController {
     saveButton.setVisible(false);
 
     // set location name box
-    ObservableList<String> locationList =
-        FXCollections.observableArrayList(
-            locNameImp.getAll().stream()
-                .map(locationNameEntity -> locationNameEntity.getLongname())
-                .toList());
-    longNameBox.setItems(locationList);
+    //    ObservableList<String> locationList =
+    //        FXCollections.observableArrayList(
+    //            locNameImp.getAll().stream()
+    //                .map(locationNameEntity -> locationNameEntity.getLongname())
+    //                .toList());
+    //    longNameBox.setItems(locationList);
 
     // sets the arrays for GraphicContexts and AnchorPanes
     setArrays();
 
     // add nodes and edges per floor
     initializeFloorMap("L1", stackL1, gestureL1);
-    initializeFloorMap("L2", stackL2, gestureL2);
-    initializeFloorMap("1", stackF1, gestureF1);
-    initializeFloorMap("2", stackF2, gestureF2);
-    initializeFloorMap("3", stackF3, gestureF3);
+    //    initializeFloorMap("L2", stackL2, gestureL2);
+    //    initializeFloorMap("1", stackF1, gestureF1);
+    //    initializeFloorMap("2", stackF2, gestureF2);
+    //    initializeFloorMap("3", stackF3, gestureF3);
   }
 
   /**
