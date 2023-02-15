@@ -66,6 +66,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
               + "\n");
     }
     fileWriter.close();
+
     new ComputerRequestImpl().exportToCSV(filename);
     new SecurityRequestImpl().exportToCSV(filename);
     new SanitationRequestImpl().exportToCSV(filename);

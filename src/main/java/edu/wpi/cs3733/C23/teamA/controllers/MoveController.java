@@ -13,6 +13,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import jakarta.persistence.PersistenceException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +41,14 @@ public class MoveController extends MenuController {
   @FXML public MFXFilterComboBox<String> locationBox;
   @FXML public MFXDatePicker dateBox;
   @FXML public MFXButton submit;
-  // @FXML public Label warning;
   @FXML private MFXButton editButton;
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createMove;
   @FXML protected Text warning;
   @FXML protected StackPane reminderPane;
+  LocalDate moveDateSaver;
+  String nodeIDSaver;
+  String theLocationSaver;
 
   // List of all Node IDs in specific order
   private List<String> allNodeID;
@@ -60,13 +63,8 @@ public class MoveController extends MenuController {
     moveData = moveImpl.getAll();
     warning.setVisible(false);
     reminderPane.setVisible(false);
-
-    allNodeID =
-        moveImpl.getAll().stream().map(moveEntity -> moveEntity.getNode().getNodeid()).toList();
-    allLongNames =
-        moveImpl.getAll().stream()
-            .map(moveEntity -> moveEntity.getLocationName().getLongname())
-            .toList();
+    allNodeID = moveImpl.getNodeID();
+    allLongNames = moveImpl.getLocationName();
 
     ObservableList<String> nodes = FXCollections.observableArrayList(allNodeID);
     ObservableList<String> locationNames = FXCollections.observableArrayList(allLongNames);
@@ -120,7 +118,6 @@ public class MoveController extends MenuController {
       warning.setVisible(true);
       reminderPane.setVisible(true);
     }
-    // moveImpl.add(theMove);
     reloadData();
   }
 
@@ -131,30 +128,33 @@ public class MoveController extends MenuController {
 
       ObservableList<MoveEntity> currentTableData = dbTable.getItems();
 
-      LocalDate moveDate = dateBox.getValue();
+      // LocalDate moveDate = dateBox.getValue();
       String nodeID = nodeBox.getValue();
       String theLocation = locationBox.getValue();
-      String submitDate = dateBox.getText().toString();
+      String submitDate = dateBox.getValue().toString();
+      System.out.println(submitDate);
 
       for (MoveEntity move : currentTableData) {
-        if (move.getMovedate().equals(moveDate)
-            && move.getLocationName().getLongname().equals(theLocation)
-            && move.getNode().getNodeid().equals(nodeID)) {
+        if (move.getMovedate().equals(moveDateSaver)
+            && move.getLocationName().getLongname().equals(theLocationSaver)
+            && move.getNode().getNodeid().equals(nodeIDSaver)) {
+
           List<String> moveID = new ArrayList<>();
           moveID.add(nodeID);
           moveID.add(theLocation);
           moveID.add(submitDate);
-
+          System.out.println(nodeID);
           NodeImpl nodeimpl = new NodeImpl();
           LocationNameImpl location = new LocationNameImpl();
           LocationNameEntity loc = location.get(locationBox.getValue());
 
-          move.setNode(nodeimpl.get(nodeBox.getValue()));
+          move.setNode(nodeimpl.get(nodeID));
           move.setLocationName(loc);
           move.setMovedate(dateBox.getValue());
+          System.out.println("Updateing Node");
 
           moveImpl.update(moveID, move);
-          System.out.println("Updateing Node");
+
           dbTable.setItems(currentTableData);
           reloadData();
           break;
@@ -180,8 +180,8 @@ public class MoveController extends MenuController {
     locationBox.clear();
     dateBox.setValue(dateBox.getCurrentDate());
 
-    //        createEmployee.setVisible(true);
-    //        editButton.setDisable(true);
+    createMove.setVisible(true);
+    editButton.setDisable(true);
   }
 
   @FXML
@@ -190,8 +190,11 @@ public class MoveController extends MenuController {
     MoveEntity clickedMoveTableRow = dbTable.getSelectionModel().getSelectedItem();
 
     if (clickedMoveTableRow != null) {
-      nodeBox.setText(valueOf(clickedMoveTableRow.getNode().getNodeid()));
-      locationBox.setText(valueOf(clickedMoveTableRow.getLocationName().getLongname()));
+      nodeIDSaver = (valueOf(clickedMoveTableRow.getNode().getNodeid()));
+      nodeBox.setValue(valueOf(clickedMoveTableRow.getNode().getNodeid()));
+      theLocationSaver = (valueOf(clickedMoveTableRow.getLocationName().getLongname()));
+      locationBox.setValue(valueOf(clickedMoveTableRow.getLocationName().getLongname()));
+      moveDateSaver = clickedMoveTableRow.getMovedate();
       dateBox.setValue(clickedMoveTableRow.getMovedate());
 
       editButton.setDisable(false);
@@ -204,5 +207,16 @@ public class MoveController extends MenuController {
 
     nodeBox.setItems(node);
     locationBox.setItems(location);
+  }
+
+  @FXML
+  public void switchToImportScreen(ActionEvent event) throws IOException {
+
+    Navigation.navigate(Screen.IMPORT_CSV);
+  }
+
+  @FXML
+  public void switchToExportScreen(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.EXPORT_CSV);
   }
 }

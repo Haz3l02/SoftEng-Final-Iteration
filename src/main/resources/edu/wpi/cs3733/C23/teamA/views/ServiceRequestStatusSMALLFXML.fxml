@@ -28,12 +28,7 @@
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImportPopup" prefHeight="53.0" prefWidth="170.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Import CSV" textFill="#d3e9f6">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </MFXButton>
-                  <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExportPopup" prefHeight="53.0" prefWidth="170.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Export CSV" textFill="#d3e9f6">
+                  <MFXButton id="helpButton" fx:id="exportCSVButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExportScreen" prefHeight="53.0" prefWidth="170.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Export CSV" textFill="#d3e9f6">
                      <font>
                         <Font size="25.0" />
                      </font>

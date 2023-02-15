@@ -37,7 +37,7 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
           @ForeignKey(
               name = "longname",
               foreignKeyDefinition =
-                  "FOREIGN KEY (moveto) REFERENCES locationname(longname) ON UPDATE CASCADE ON DELETE NULL"))
+                  "FOREIGN KEY (moveto) REFERENCES locationname(longname) ON UPDATE CASCADE ON DELETE SET NULL"))
   @Setter
   @Getter
   private LocationNameEntity moveTo;
