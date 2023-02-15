@@ -36,11 +36,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
+    filename+="employee.csv";
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);

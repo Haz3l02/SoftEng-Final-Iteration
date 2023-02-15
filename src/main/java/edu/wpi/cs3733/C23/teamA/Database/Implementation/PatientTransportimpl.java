@@ -53,11 +53,7 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
 
   @Override
   public void exportToCSV(String filename) throws IOException {
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
+    filename+="patienttransportrequest.csv";
     File csvFile =
         new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);

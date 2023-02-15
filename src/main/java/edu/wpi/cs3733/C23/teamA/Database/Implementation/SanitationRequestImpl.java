@@ -36,11 +36,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
   }
 
   public void exportToCSV(String filename) throws IOException {
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
+    filename+="sanitationrequest.csv";
     File csvFile =
         new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
