@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -88,6 +89,11 @@ public class NodeMapController extends MenuController {
   @FXML MFXButton createLocation;
 
   @FXML TabPane editorTabPane;
+  @FXML Tab tabL1;
+  @FXML Tab tabL2;
+  @FXML Tab tabF1;
+  @FXML Tab tabF2;
+  @FXML Tab tabF3;
 
   @FXML
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy

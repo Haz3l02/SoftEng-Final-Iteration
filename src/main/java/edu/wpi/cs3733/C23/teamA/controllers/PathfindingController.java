@@ -117,6 +117,7 @@ public class PathfindingController extends MenuController {
     addFloorMapImage("1", floorF1);
     addFloorMapImage("2", floorF2);
     addFloorMapImage("3", floorF3);
+    */
 
     // prepare the gesture panes
     Node nodeL1 = floorL1Stack;
