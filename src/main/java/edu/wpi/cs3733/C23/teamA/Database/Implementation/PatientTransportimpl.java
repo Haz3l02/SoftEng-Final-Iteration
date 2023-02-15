@@ -59,7 +59,7 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
       }
     } else filename += ".csv";
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("patientname, patientid, moveto, equipment\n");
     for (PatientTransportRequestEntity pat : patrequests) {

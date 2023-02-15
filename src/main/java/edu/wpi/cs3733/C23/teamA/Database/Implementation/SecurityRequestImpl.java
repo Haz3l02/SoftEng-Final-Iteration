@@ -42,7 +42,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
       }
     } else filename += ".csv";
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("assistance,secphone,requestid\n");
     for (SecurityRequestEntity ser : secrequests) {
