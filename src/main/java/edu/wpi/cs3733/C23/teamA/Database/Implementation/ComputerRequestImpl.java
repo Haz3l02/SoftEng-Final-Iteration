@@ -49,7 +49,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
 
   public void exportToCSV(String filename) throws IOException {
     Session session = getSessionFactory().openSession();
-    filename += "computerrequest.csv";
+    filename += "/computerrequest.csv";
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
@@ -139,6 +139,19 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
         .findFirst()
         .orElseThrow();
   }
+
+  //  public void updateStatus(Integer ID, Status status){
+  //    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+  //    while (li.hasNext()) {
+  //      ComputerRequestEntity san = li.next();
+  //      if (san.getRequestid() == ID) {
+  //        san.setStatus(status);
+  //        li.remove();
+  //        comprequests.add(san);
+  //        break;
+  //      }
+  //    }
+  //  }
 
   public static ComputerRequestImpl getInstance() {
     return instance;

@@ -53,7 +53,7 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
 
   @Override
   public void exportToCSV(String filename) throws IOException {
-    filename += "patienttransportrequest.csv";
+    filename += "/patienttransportrequest.csv";
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("patientname, patientid, moveto, equipment\n");
@@ -158,6 +158,19 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
     }
     return null;
   }
+
+  //  public void updateStatus(Integer ID, Status status){
+  //    ListIterator<PatientTransportRequestEntity> li = patrequests.listIterator();
+  //    while (li.hasNext()) {
+  //      PatientTransportRequestEntity san = li.next();
+  //      if (san.getRequestid() == ID) {
+  //        san.setStatus(status);
+  //        li.remove();
+  //        patrequests.add(san);
+  //        break;
+  //      }
+  //    }
+  //  }
 
   public static PatientTransportimpl getInstance() {
     return instance;

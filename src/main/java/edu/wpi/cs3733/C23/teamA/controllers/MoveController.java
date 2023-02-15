@@ -13,6 +13,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import jakarta.persistence.PersistenceException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +154,7 @@ public class MoveController extends MenuController {
           System.out.println("Updateing Node");
 
           moveImpl.update(moveID, move);
-          System.out.println("Updateing Node");
+
           dbTable.setItems(currentTableData);
           reloadData();
           break;
@@ -206,5 +207,16 @@ public class MoveController extends MenuController {
 
     nodeBox.setItems(node);
     locationBox.setItems(location);
+  }
+
+  @FXML
+  public void switchToImportScreen(ActionEvent event) throws IOException {
+
+    Navigation.navigate(Screen.IMPORT_CSV);
+  }
+
+  @FXML
+  public void switchToExportScreen(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.EXPORT_CSV);
   }
 }

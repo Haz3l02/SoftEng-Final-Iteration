@@ -26,7 +26,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -58,12 +57,11 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML private MFXTextField fileNameField;
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
-
-  UrgencyLevel urgent;
-  Status status;
+  @FXML private MFXButton exportCSVButton;
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
   public static AcceptTheForm acceptTheForm = new AcceptTheForm(0, "", false);
+  public static ImportExportCSV iecsv = new ImportExportCSV("");
 
   private String hospitalID;
   private String job;
@@ -110,6 +108,8 @@ public class ServiceRequestStatusController extends MenuController {
         urgencyBox.setDisable(false);
         viewForm.setVisible(false);
         deleteButton.setVisible(true);
+        exportCSVButton.setDisable(true);
+        exportCSVButton.setVisible(false);
 
       } else if (job.equalsIgnoreCase("Maintenance")) {
         statusBox.setDisable(false);
@@ -120,6 +120,8 @@ public class ServiceRequestStatusController extends MenuController {
         editForm.setVisible(false);
         deleteButton.setDisable(true);
         deleteButton.setVisible(false);
+        exportCSVButton.setDisable(true);
+        exportCSVButton.setVisible(false);
       } else if (job.equalsIgnoreCase(("Admin"))) {
         statusBox.setDisable(true);
         employeeBox.setDisable(false);
@@ -129,6 +131,8 @@ public class ServiceRequestStatusController extends MenuController {
         editForm.setVisible(false);
         deleteButton.setDisable(true);
         deleteButton.setVisible(false);
+        exportCSVButton.setDisable(false);
+        exportCSVButton.setVisible(true);
       }
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
@@ -186,7 +190,7 @@ public class ServiceRequestStatusController extends MenuController {
     EmployeeImpl theEmployee = new EmployeeImpl();
 
     ObservableList<String> maintenance =
-        FXCollections.observableArrayList(theEmployee.getListOf("Maintenance"));
+        FXCollections.observableArrayList(theEmployee.getListOfByJob("Maintenance"));
 
     statusBox.setItems(statuses);
     urgencyBox.setItems(urgencies);
@@ -304,69 +308,8 @@ public class ServiceRequestStatusController extends MenuController {
   }
 
   @FXML
-  void clearForm(ActionEvent event) {
-    fileNameField.clear();
-  }
-
-  @FXML
-  public void switchToImportPopup(ActionEvent event) throws IOException {
-    if (!event.getSource().equals(cancel)) {
-      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ImportStatusCSVFXML.fxml"));
-      popup = new PopOver(loader.load());
-      popup.show(((Node) event.getSource()).getScene().getWindow());
-    }
-
-    if (event.getSource().equals(cancel)) {
-      popup.hide();
-    }
-  }
-
-  @FXML
-  public void importStatusCSV(ActionEvent event) {
-    if (fileNameField.getText().equals("")) {
-      reminder.setVisible(true);
-      reminderPane.setVisible(true);
-    } else {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-
-      System.out.println(fileNameField.getText());
-
-      // FUNCTION CALL TO IMPORT CSV
-
-    }
-  }
-
-  @FXML
-  public void close(ActionEvent event) {
-    popup.hide();
-  }
-
-  @FXML
-  public void switchToExportPopup(ActionEvent event) throws IOException {
-    if (!event.getSource().equals(cancel)) {
-      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/ExportStatusCSVFXML.fxml"));
-      popup = new PopOver(loader.load());
-      popup.show(((Node) event.getSource()).getScene().getWindow());
-    }
-
-    if (event.getSource().equals(cancel)) {
-      popup.hide();
-    }
-  }
-
-  @FXML
-  public void exportStatusCSV(ActionEvent event) {
-    System.out.println("This is running");
-    if (fileNameField.getText().equals("")) {
-      reminder.setVisible(true);
-      reminderPane.setVisible(true);
-    } else {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-
-      // FUNCTION CALL TO EXPORT CSV
-
-    }
+  public void switchToExportScreen(ActionEvent event) throws IOException {
+    iecsv = new ImportExportCSV("status");
+    Navigation.navigate(Screen.EXPORT_CSV);
   }
 }

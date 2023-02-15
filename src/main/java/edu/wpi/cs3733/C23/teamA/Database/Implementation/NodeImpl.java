@@ -37,7 +37,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename += "node.csv";
+    filename += "/node.csv";
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
@@ -60,6 +60,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
     String hql = "delete from NodeEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
@@ -73,7 +74,6 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
     File node = new File(filename);
 
-    Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(node);
     int count = 0;
     read.nextLine();
@@ -126,14 +126,24 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
       }
     }
 
-    NodeEntity n = session.get(NodeEntity.class, ID);
+    session
+        .createMutationQuery(
+            "UPDATE NodeEntity SET "
+                + "nodeid = "
+                + obj.getNodeid()
+                + ", floor = "
+                + obj.getFloor()
+                + ", ycoord = "
+                + obj.getYcoord()
+                + ", xcoord = "
+                + obj.getXcoord()
+                + ", building =  "
+                + obj.getBuilding()
+                + " WHERE nodeid = "
+                + ID)
+        .executeUpdate();
 
-    n.setBuilding(obj.getBuilding());
-    n.setXcoord(obj.getXcoord());
-    n.setYcoord(obj.getYcoord());
-    n.setFloor(obj.getFloor());
-
-    nodes.add(n);
+    nodes.add(session.get(NodeEntity.class, obj.getNodeid()));
     tx.commit();
     session.close();
   }

@@ -36,7 +36,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename += "employee.csv";
+    filename += "/employee.csv";
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
@@ -90,6 +90,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         return info;
       }
     }
+    info.add("");
     return info;
   }
 
@@ -104,6 +105,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
     if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
         filename += ".csv";
@@ -132,7 +134,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
     File emps = new File(filename);
 
-    Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(emps);
     int count = 0;
     read.nextLine();
@@ -173,7 +174,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         .orElseThrow();
   }
 
-  public List<String> getListOf(String job) {
+  public List<String> getListOfByJob(String job) {
     ArrayList<String> theList = new ArrayList<>();
     for (EmployeeEntity emp : employees) {
       if (emp.getJob().equals(job)) {

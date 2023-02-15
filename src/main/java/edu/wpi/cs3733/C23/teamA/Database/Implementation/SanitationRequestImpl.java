@@ -36,7 +36,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename += "sanitationrequest.csv";
+    filename += "/sanitationrequest.csv";
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("category,requestid\n");
@@ -134,6 +134,19 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
       }
     }
   }
+
+  //  public void updateStatus(Integer ID, Status status){
+  //    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
+  //    while (li.hasNext()) {
+  //      SanitationRequestEntity san = li.next();
+  //      if (san.getRequestid() == ID) {
+  //        san.setStatus(status);
+  //        li.remove();
+  //        sanrequests.add(san);
+  //        break;
+  //      }
+  //    }
+  //  }
 
   public SanitationRequestEntity get(Integer ID) {
 

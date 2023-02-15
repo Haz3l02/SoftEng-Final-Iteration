@@ -27,7 +27,9 @@ public enum Screen {
   EMPLOYEE("views/EmployeeFXML.fxml"),
   HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
   MAP_DISPLAY("views/PathDisplayFXML.fxml"),
-  PATIENT_TRANSPORT("views/PatientTransportationFXML.fxml");
+  PATIENT_TRANSPORT("views/PatientTransportationFXML.fxml"),
+  IMPORT_CSV("views/ImportEmployeeCSVFXML.fxml"),
+  EXPORT_CSV("views/ExportEmployeeCSVFXML.fxml");
 
   private final String filename;
 

@@ -51,7 +51,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename += "move.csv";
+    filename += "/move.csv";
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
@@ -74,6 +74,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
     String hql = "delete from MoveEntity ";
+    Transaction tx = session.beginTransaction();
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     moves.clear();
@@ -86,7 +87,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     File loc = new File(filename);
 
-    Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);
     int count = 0;
     read.nextLine();

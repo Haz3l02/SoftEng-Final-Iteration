@@ -36,7 +36,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename += "securityrequest.csv";
+    filename += "/securityrequest.csv";
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("assistance,secphone,requestid\n");
@@ -152,6 +152,19 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     }
     return null;
   }
+
+  //  public void updateStatus(Integer ID, Status status){
+  //    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+  //    while (li.hasNext()) {
+  //      SecurityRequestEntity sec = li.next();
+  //      if (sec.getRequestid() == ID) {
+  //        sec.setStatus(status);
+  //        li.remove();
+  //        secrequests.add(sec);
+  //        break;
+  //      }
+  //    }
+  //  }
 
   public static SecurityRequestImpl getInstance() {
     return instance;
