@@ -326,7 +326,8 @@ public class PathfindingController extends MenuController {
   /**
    * Updates the mapImage asset to contain an image (which is supposed to be a floor map)
    *
-   * @param floor the table name of the floor
+   * @param floor is the tablename of the floor
+   * @param iv is the image view to be updated
    */
   private void addFloorMapImage(String floor, ImageView iv) {
     Image image = ImageLoader.getImage(floor);

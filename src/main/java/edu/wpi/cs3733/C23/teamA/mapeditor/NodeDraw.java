@@ -24,6 +24,8 @@ public class NodeDraw {
 
   static MoveImpl locations = new MoveImpl();
 
+  public static void setVisibility(boolean b) {}
+
   public static NodeEntity getSelected() {
     return selectNode;
   }
@@ -53,6 +55,7 @@ public class NodeDraw {
   public static void drawNodes(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NodeMapController nmc) {
     // gc.setFill(Color.web("0x224870"));
+    // locations.refresh();
 
     // draw circle for each node
     for (NodeEntity n : allNodes) {
@@ -124,12 +127,23 @@ public class NodeDraw {
               nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
               // nmc.setFloorBox(n.getFloor());
               nmc.setBuildingBox(n.getBuilding());
+              nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
+
+              if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
+                nmc.setLongNameBox(locations.mostRecentLoc(n.getNodeid()).getLongname());
+                nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
+                nmc.setLocButtonVisibility(false);
+              } else {
+                // nmc.setLongNameBox(null);
+                nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
+                nmc.setLocButtonVisibility(true);
+              }
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
       nodeAnchor.getChildren().add(nodeGraphic);
-      nodeAnchor.getChildren().add(locName);
+      // nodeAnchor.getChildren().add(locName);
     }
   }
 

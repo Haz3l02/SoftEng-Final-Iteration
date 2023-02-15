@@ -2,14 +2,13 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -46,12 +45,12 @@
                               </MFXButton>
                            </children>
                         </HBox>
-                        <TabPane tabClosingPolicy="UNAVAILABLE">
+                        <TabPane fx:id="editorTabPane" tabClosingPolicy="UNAVAILABLE">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
                            <tabs>
-                              <Tab text="Node Editor">
+                              <Tab fx:id="nodeEditorTab" closable="false" text="Node Editor">
                                  <content>
                                     <VBox fx:id="fieldBox" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
                                        <children>
@@ -108,7 +107,7 @@
                                     </VBox>
                                  </content>
                               </Tab>
-                              <Tab text="Add Edge">
+                              <Tab fx:id="addEdgeTab" closable="false" text="Add Edge">
                                  <content>
                                     <VBox fx:id="fieldBox1" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
                                        <children>
@@ -124,6 +123,59 @@
                                              </font>
                                           </Text>
                                           <MFXTextField fx:id="node2" maxWidth="1.7976931348623157E308" />
+                                          <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#addEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Edge" textFill="#224870">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#editEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Location" textFill="#d3e9f6">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#deleteEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Location" textFill="#bad1ea">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="addLocationTab" closable="false" text="Add Location">
+                                 <content>
+                                    <VBox fx:id="fieldBox11" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Longname">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXFilterComboBox fx:id="longNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="372.0" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node ID">
+                                             <font>
+                                                <Font name="Verdana" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXTextField fx:id="locationIDBox" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
+                                          <MFXButton fx:id="createLocation" buttonType="RAISED" minHeight="51.0" onAction="#addLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Location" textFill="#224870">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#editLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Location" textFill="#d3e9f6">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#delLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Location" textFill="#bad1ea">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
                                        </children>
                                        <padding>
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -141,7 +193,7 @@
                      <children>
                         <HBox alignment="CENTER">
                            <children>
-                              <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#createNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create" textFill="#224870">
+                              <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#createNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Node" textFill="#224870">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -149,7 +201,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </MFXButton>
-                              <MFXButton fx:id="saveButton" buttonType="RAISED" cancelButton="true" onAction="#saveNodeEdit" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Save" textFill="#224870">
+                              <MFXButton fx:id="saveButton" buttonType="RAISED" cancelButton="true" onAction="#saveNodeEdit" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Save Node" textFill="#224870">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -169,7 +221,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </MFXButton>
-                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Node">
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Node" textFill="#bad1ea">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -220,11 +272,7 @@
                                        <children>
                                           <StackPane fx:id="stackL1">
                                              <children>
-                                                <ImageView fx:id="floorL1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
-                                                   </image>
-                                                </ImageView>
+                                                <ImageView fx:id="floorL1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
                                                 <Canvas fx:id="mapEditorCanvasL1" height="510.0" width="750.0" />
                                                 <AnchorPane fx:id="nodeAnchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
@@ -240,11 +288,7 @@
                                        <children>
                                           <StackPane fx:id="stackL2">
                                              <children>
-                                                <ImageView fx:id="floorL2" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../assets/unlabeledMaps/00_thelowerlevel2_unlabeled.png" />
-                                                   </image>
-                                                </ImageView>
+                                                <ImageView fx:id="floorL2" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
                                                 <Canvas fx:id="mapEditorCanvasL2" height="510.0" width="750.0" />
                                                 <AnchorPane fx:id="nodeAnchorL2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
@@ -260,11 +304,7 @@
                                        <children>
                                           <StackPane fx:id="stackF1">
                                              <children>
-                                                <ImageView fx:id="floorF1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
-                                                   </image>
-                                                </ImageView>
+                                                <ImageView fx:id="floorF1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
                                                 <Canvas fx:id="mapEditorCanvasF1" height="510.0" width="750.0" />
                                                 <AnchorPane fx:id="nodeAnchorF1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
@@ -280,11 +320,7 @@
                                        <children>
                                           <StackPane fx:id="stackF2">
                                              <children>
-                                                <ImageView fx:id="floorF2" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
-                                                   </image>
-                                                </ImageView>
+                                                <ImageView fx:id="floorF2" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
                                                 <Canvas fx:id="mapEditorCanvasF2" height="510.0" width="750.0" />
                                                 <AnchorPane fx:id="nodeAnchorF2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
@@ -300,11 +336,7 @@
                                        <children>
                                           <StackPane fx:id="stackF3">
                                              <children>
-                                                <ImageView fx:id="floorF3" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
-                                                   </image>
-                                                </ImageView>
+                                                <ImageView fx:id="floorF3" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
                                                 <Canvas fx:id="mapEditorCanvasF3" height="510.0" width="750.0" />
                                                 <AnchorPane fx:id="nodeAnchorF3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
@@ -331,11 +363,27 @@
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
                         </Text>
-                        <MFXToggleButton fx:id="locationToggle" contentDisposition="CENTER" prefHeight="21.0" prefWidth="50.0" style="-fx-background-color: F6BD3A; -fx-background-radius: 10;">
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding></MFXToggleButton>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#showLocations" prefHeight="51.0" prefWidth="224.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Show Locations" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hideLocations" prefHeight="51.0" prefWidth="224.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Hide Locations" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
