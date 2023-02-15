@@ -156,16 +156,23 @@ public class NodeMapController extends MenuController {
 
     System.out.println(tabID);
 
-    if (tabID.equals("tabL2") && floorInitialized[1] == false) {
+    if  (tabID.equals("tabL1") && floorInitialized[0] == false) {
+      ///
+    }
+    else if (tabID.equals("tabL2") && floorInitialized[1] == false) {
       initializeFloorMap("L2");
+      floorInitialized[1] = true;
     } else if (tabID.equals("tabF1") && floorInitialized[2] == false) {
       initializeFloorMap("1");
+      floorInitialized[2] = true;
     } else if (tabID.equals("tabF2") && floorInitialized[3] == false) {
       initializeFloorMap("2");
+      floorInitialized[3] = true;
     } else if (tabID.equals("tabF3") && floorInitialized[4] == false) {
       initializeFloorMap("3");
+      floorInitialized[4] = true;
     } else {
-      System.out.println("tab name not found, this is bad");
+      System.out.println("tab name not found, this is bad (we know L1 isn't here)");
     }
   }
 
