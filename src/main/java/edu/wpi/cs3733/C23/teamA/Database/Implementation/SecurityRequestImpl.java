@@ -36,13 +36,9 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
   }
 
   public void exportToCSV(String filename) throws IOException {
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
+    filename+="/securityrequest.csv";
     File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+        new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("assistance,secphone,requestid\n");
     for (SecurityRequestEntity ser : secrequests) {

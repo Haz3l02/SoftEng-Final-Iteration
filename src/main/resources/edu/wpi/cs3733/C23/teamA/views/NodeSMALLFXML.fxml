@@ -158,11 +158,6 @@
                               <Font size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton id="cancelButton" fx:id="editButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#onSubmit" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: f6bd3a; -fx-background-radius: 15;" text="Edit" textFill="#d3e9f6">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </MFXButton>
                      </children>
                      <HBox.margin>
                         <Insets />

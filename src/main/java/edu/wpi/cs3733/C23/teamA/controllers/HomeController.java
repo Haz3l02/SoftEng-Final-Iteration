@@ -58,7 +58,8 @@ public class HomeController extends MenuController {
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-      locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+      locationCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
       Session session = getSessionFactory().openSession();
@@ -78,7 +79,8 @@ public class HomeController extends MenuController {
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-      locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+      locationCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
       Session session = getSessionFactory().openSession();

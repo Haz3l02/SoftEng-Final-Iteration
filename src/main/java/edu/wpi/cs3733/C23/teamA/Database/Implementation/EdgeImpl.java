@@ -69,13 +69,10 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
+    filename+="/edge.csv";
 
-    File csvFile = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File csvFile =
+        new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("edgeid,node1,node2\n");
     for (EdgeEntity edge : edges) {
@@ -101,7 +98,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
         filename += ".csv";
       }
     } else filename += ".csv";
-    File loc = new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSV/" + filename);
+    File loc = new File(filename);
 
     Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);
@@ -165,7 +162,11 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
       for (EdgeEntity m : edges) { // e - > m
         newEdge = new EdgeEntity(n.getNode1(), m.getNode2());
         session.merge(newEdge);
-        delete(m.getEdgeid());
+        try {
+          delete(m.getEdgeid());
+        } catch (Exception exc) {
+        }
+        ;
       }
       delete(n.getEdgeid());
     }

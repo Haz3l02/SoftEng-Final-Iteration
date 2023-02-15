@@ -74,9 +74,14 @@ public class MoveController extends MenuController {
   public void initialize() {
     moveData = moveImpl.getAll();
     warning.setVisible(false);
-    reminderPaneMove.setVisible(false);
-    allNodeID = moveImpl.getNodeID();
-    allLongNames = moveImpl.getLocationName();
+    reminderPane.setVisible(false);
+
+    allNodeID =
+        moveImpl.getAll().stream().map(moveEntity -> moveEntity.getNode().getNodeid()).toList();
+    allLongNames =
+        moveImpl.getAll().stream()
+            .map(moveEntity -> moveEntity.getLocationName().getLongname())
+            .toList();
 
     ObservableList<String> nodes = FXCollections.observableArrayList(allNodeID);
     ObservableList<String> locationNames = FXCollections.observableArrayList(allLongNames);
