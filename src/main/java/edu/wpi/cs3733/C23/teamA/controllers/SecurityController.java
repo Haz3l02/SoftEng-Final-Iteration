@@ -34,11 +34,12 @@ public class SecurityController extends ServiceRequestController {
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
-    reject.setDisable(true);
-    reject.setVisible(false);
-    accept.setDisable(true);
-    accept.setVisible(false);
+
     if (requestsBox != null) {
+      reject.setDisable(true);
+      reject.setVisible(false);
+      accept.setDisable(true);
+      accept.setVisible(false);
       ObservableList<String> requests =
           FXCollections.observableArrayList(RequestCategory.categoryList());
       requestsBox.setItems(requests);

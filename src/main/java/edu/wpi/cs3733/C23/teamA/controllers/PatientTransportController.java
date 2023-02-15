@@ -36,11 +36,12 @@ public class PatientTransportController extends ServiceRequestController {
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
-    reject.setDisable(true);
-    reject.setVisible(false);
-    accept.setDisable(true);
-    accept.setVisible(false);
+
     if (moveToBox != null) {
+      reject.setDisable(true);
+      reject.setVisible(false);
+      accept.setDisable(true);
+      accept.setVisible(false);
       LocationNameImpl locationI = new LocationNameImpl();
       List<LocationNameEntity> temp = locationI.getAll();
       ObservableList<String> locations = FXCollections.observableArrayList();
