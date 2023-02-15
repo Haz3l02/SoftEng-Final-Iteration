@@ -14,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
-import javafx.scene.text.Font;
 
 public class NodeDraw {
 
@@ -56,11 +55,6 @@ public class NodeDraw {
 
   public static void drawNodes(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NodeMapController nmc) {
-    System.out.println("HERE");
-  }
-
-  public static void drawNodesLong(
-      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NodeMapController nmc) {
     // gc.setFill(Color.web("0x224870"));
     locations.refresh();
 
@@ -79,19 +73,19 @@ public class NodeDraw {
               + "-fx-border-color: '#224870'; "
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
-      Text locName = new Text();
-      locName.setVisible(false);
-      if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
-        locName.setVisible(true);
-        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-        locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
-        locName.setLayoutX(updatedCoords[0] - 2.5);
-        locName.setLayoutY(updatedCoords[1] - 2.5);
-        NodeMapController nmcToggle = new NodeMapController();
-        //      if (nmcToggle.toggleLocations()) {
-        //        locName.setVisible(false);
-        //      }
-      }
+      //      Text locName = new Text();
+      //      locName.setVisible(false);
+      //      if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
+      //        locName.setVisible(true);
+      //        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+      //        locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
+      //        locName.setLayoutX(updatedCoords[0] - 2.5);
+      //        locName.setLayoutY(updatedCoords[1] - 2.5);
+      //        NodeMapController nmcToggle = new NodeMapController();
+      //        //      if (nmcToggle.toggleLocations()) {
+      //        //        locName.setVisible(false);
+      //        //      }
+      //      }
 
       EventHandler<MouseEvent> eventHandler =
           new EventHandler<MouseEvent>() {

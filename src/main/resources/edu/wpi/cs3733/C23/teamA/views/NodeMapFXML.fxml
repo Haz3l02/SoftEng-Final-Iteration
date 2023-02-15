@@ -266,7 +266,7 @@
                      <children>
                         <TabPane prefHeight="510.0" prefWidth="760.0" style="-fx-background-color: #224870;" tabClosingPolicy="UNAVAILABLE">
                            <tabs>
-                              <Tab text="Lower Level One">
+                              <Tab fx:id="tabL1" text="Lower Level One">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -282,7 +282,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab text="Lower Level Two">
+                              <Tab fx:id="tabL2" onSelectionChanged="#getTab" text="Lower Level Two">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -298,7 +298,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab text="Floor One">
+                              <Tab fx:id="tabF1" text="Floor One">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -314,7 +314,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab text="Floor Two">
+                              <Tab fx:id="tabF2" text="Floor Two">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -330,7 +330,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab text="Floor Three">
+                              <Tab fx:id="tabF3" text="Floor Three">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>

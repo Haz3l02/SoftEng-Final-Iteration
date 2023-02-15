@@ -100,6 +100,8 @@ public class NodeMapController extends MenuController {
   private AnchorPane[] aps = new AnchorPane[5];
   private ImageView[] ivs = new ImageView[5];
   private StackPane[] stacks = new StackPane[5];
+  private GesturePane[] gestures = new GesturePane[5];
+  private Boolean[] floorInitialized = new Boolean[5];
   NodeImpl nodeimpl = new NodeImpl();
   EdgeImpl edgeimpl = new EdgeImpl();
   MoveImpl moveimpl = new MoveImpl();
@@ -108,16 +110,17 @@ public class NodeMapController extends MenuController {
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
 
-  static Pane previousNode = null;
-  static Pane selectNodePane = null;
-  static NodeEntity selectNode = null;
-
   /** Starting method called when screen is opened: Draws nodes and edges */
   public void initialize() {
 
     NodeDraw.setSelectedPane(null);
     createNodeButton.setVisible(false);
     saveButton.setVisible(false);
+    floorInitialized[0] = false;
+    floorInitialized[1] = false;
+    floorInitialized[2] = false;
+    floorInitialized[3] = false;
+    floorInitialized[4] = false;
 
     // set location name box
     //    ObservableList<String> locationList =
@@ -131,18 +134,40 @@ public class NodeMapController extends MenuController {
     setArrays();
 
     // add nodes and edges per floor
-    initializeFloorMap("L1", stackL1, gestureL1);
-    //    initializeFloorMap("L2", stackL2, gestureL2);
-    //    initializeFloorMap("1", stackF1, gestureF1);
-    //    initializeFloorMap("2", stackF2, gestureF2);
+    initializeFloorMap("L1");
+    floorInitialized[0] = true;
+    // initializeFloorMap("L2");
+    // initializeFloorMap("1");
+    // initializeFloorMap("2", stackF2, gestureF2);
     //    initializeFloorMap("3", stackF3, gestureF3);
+  }
+
+  public void getTab(ActionEvent event) {
+    Tab selectedTab = editorTabPane.getSelectionModel().getSelectedItem();
+    String tabID = selectedTab.getId();
+
+    System.out.println("HERE");
+
+    if (tabID.equals("tabL1") && floorInitialized[0] == false) {
+      initializeFloorMap("L1");
+    } else if (tabID.equals("tabL2") && floorInitialized[1] == false) {
+      initializeFloorMap("L2");
+    } else if (tabID.equals("tabF1") && floorInitialized[2] == false) {
+      initializeFloorMap("1");
+    } else if (tabID.equals("tabF2") && floorInitialized[3] == false) {
+      initializeFloorMap("2");
+    } else if (tabID.equals("tabF3") && floorInitialized[4] == false) {
+      initializeFloorMap("3");
+    } else {
+      System.out.println("tab name not found, this is bad");
+    }
   }
 
   /**
    * Attaches the gesturepane with the stackpane and reads and adds all the nodes on a floor to the
    * correct anchorPane
    */
-  private void initializeFloorMap(String floor, StackPane stack, GesturePane gesture) {
+  private void initializeFloorMap(String floor) {
     int floorIndex = Floor.indexFromTableString(floor);
     // add image
     addFloorMapImage(floor, ivs[floorIndex]);
@@ -186,9 +211,9 @@ public class NodeMapController extends MenuController {
             Building.FR15.getTableString());
     BuildingBox.setItems(buildings);
 
-    Node node = stack;
-    gesture.setContent(node);
-    gesture.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+    Node node = stacks[floorIndex];
+    gestures[floorIndex].setContent(node);
+    gestures[floorIndex].setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
   }
 
   public void loadLocNames(ActionEvent event) {}
@@ -462,6 +487,12 @@ public class NodeMapController extends MenuController {
     stacks[2] = stackF1;
     stacks[3] = stackF2;
     stacks[4] = stackF3;
+
+    gestures[0] = gestureL1;
+    gestures[1] = gestureL2;
+    gestures[2] = gestureF1;
+    gestures[3] = gestureF2;
+    gestures[4] = gestureF3;
   }
 
   @FXML
@@ -492,101 +523,4 @@ public class NodeMapController extends MenuController {
     Image image = ImageLoader.getImage(floor);
     iv.setImage(image);
   }
-
-  //  public void drawNodes(List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
-  //    // gc.setFill(Color.web("0x224870"));
-  //
-  //    // draw circle for each node
-  //    for (NodeEntity n : allNodes) {
-  //      int[] updatedCoords = NodeDraw.scaleCoordinates(n.getXcoord(), n.getYcoord(),
-  // scaleFactor);
-  //      Pane nodeGraphic = new Pane();
-  //
-  //      /* Set the style of the node */
-  //      nodeGraphic.setPrefSize(5, 5);
-  //      nodeGraphic.setLayoutX(updatedCoords[0] - 2.5);
-  //      nodeGraphic.setLayoutY(updatedCoords[1] - 2.5);
-  //      nodeGraphic.setStyle(
-  //          "-fx-background-color: '#224870'; "
-  //              + "-fx-background-radius: 12.5; "
-  //              + "-fx-border-color: '#224870'; "
-  //              + "-fx-border-width: 1;"
-  //              + "-fx-border-radius: 12.5");
-  //      //      Text locName = new Text();
-  //      //      locName.setVisible(false);
-  //      //      if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
-  //      //        locName.setVisible(true);
-  //      //        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-  //      //        locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
-  //      //        locName.setLayoutX(updatedCoords[0] - 2.5);
-  //      //        locName.setLayoutY(updatedCoords[1] - 2.5);
-  //      //        NodeMapController nmcToggle = new NodeMapController();
-  //      //        //      if (nmcToggle.toggleLocations()) {
-  //      //        //        locName.setVisible(false);
-  //      //        //      }
-  //      //      }
-  //
-  //      EventHandler<MouseEvent> eventHandler =
-  //          new EventHandler<MouseEvent>() {
-  //            @Override
-  //            public void handle(MouseEvent event) {
-  //
-  //              selectNodePane = nodeGraphic;
-  //
-  //              if ((previousNode != null)) {
-  //
-  //                if (!previousNode.equals(nodeGraphic)) {
-  //
-  //                  previousNode.setStyle(
-  //                      "-fx-background-color: '#224870'; "
-  //                          + "-fx-background-radius: 12.5; "
-  //                          + "-fx-border-color: '#224870'; "
-  //                          + "-fx-border-width: 1;"
-  //                          + "-fx-border-radius: 13.5");
-  //                  previousNode.setPrefSize(5, 5);
-  //                  //                  previousNode.setLayoutX(updatedCoords[0] - 2.5);
-  //                  //                  previousNode.setLayoutY(updatedCoords[1] - 2.5);
-  //                }
-  //              }
-  //
-  //              nodeGraphic.setStyle(
-  //                  "-fx-background-color: '#D3E9F6'; "
-  //                      + "-fx-background-radius: 12.5; "
-  //                      + "-fx-border-color: '#224870'; "
-  //                      + "-fx-border-width: 1;"
-  //                      + "-fx-border-radius: 13.5");
-  //              nodeGraphic.setPrefSize(7, 7);
-  //              //              nodeGraphic.setLayoutX(updatedCoords[0] - 3.5);
-  //              //              nodeGraphic.setLayoutY(updatedCoords[1] - 3.5);
-  //
-  //              previousNode = nodeGraphic;
-  //              selectNode = n;
-  //
-  //              setXCord(n.getXcoord().toString());
-  //              setYCord(n.getYcoord().toString());
-  //              setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
-  //              // nmc.setFloorBox(n.getFloor());
-  //              setBuildingBox(n.getBuilding());
-  //              makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
-  //
-  //              System.out.println(moveimpl.mostRecentLoc(n.getNodeid()).getLongname()); // added
-  //
-  //              if (!(moveimpl.mostRecentLoc(n.getNodeid()) == null)) {
-  //                setLongNameBox(moveimpl.mostRecentLoc(n.getNodeid()).getLongname());
-  //                setLocationIDBox(makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-  //                setLocButtonVisibility(false);
-  //              } else {
-  //                setLongNameBox(null);
-  //                setLocationIDBox(makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-  //                setLocButtonVisibility(true);
-  //              }
-  //            }
-  //          };
-  //      nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-  //
-  //      nodeAnchor.getChildren().add(nodeGraphic);
-  //      // nodeAnchor.getChildren().add(locName);
-  //    }
-  //  }
-
 }
