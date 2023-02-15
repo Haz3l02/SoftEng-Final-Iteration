@@ -8,12 +8,10 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
 import io.github.palexdev.materialfx.controls.*;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,121 +33,72 @@ import net.kurobako.gesturefx.GesturePane;
 
 public class NodeMapController extends MenuController {
 
-    @FXML
-    private Canvas nodeMapCanvas; // to display the generated path
-    @FXML
-    private ImageView nodeMapImage;
-    @FXML
-    private GesturePane gPane;
-    @FXML
-    StackPane sPane;
+    @FXML private Canvas nodeMapCanvas; // to display the generated path
+    @FXML private ImageView nodeMapImage;
+    @FXML private GesturePane gPane;
+    @FXML StackPane sPane;
 
     // Anchor panes
-    @FXML
-    AnchorPane nodeAnchorL1;
-    @FXML
-    AnchorPane nodeAnchorL2;
-    @FXML
-    AnchorPane nodeAnchorF1;
-    @FXML
-    AnchorPane nodeAnchorF2;
-    @FXML
-    AnchorPane nodeAnchorF3;
+    @FXML AnchorPane nodeAnchorL1;
+    @FXML AnchorPane nodeAnchorL2;
+    @FXML AnchorPane nodeAnchorF1;
+    @FXML AnchorPane nodeAnchorF2;
+    @FXML AnchorPane nodeAnchorF3;
 
     // Stack panes
-    @FXML
-    StackPane stackL1;
-    @FXML
-    StackPane stackL2;
-    @FXML
-    StackPane stackF1;
-    @FXML
-    StackPane stackF2;
-    @FXML
-    StackPane stackF3;
+    @FXML StackPane stackL1;
+    @FXML StackPane stackL2;
+    @FXML StackPane stackF1;
+    @FXML StackPane stackF2;
+    @FXML StackPane stackF3;
 
     // Gesture panes
-    @FXML
-    GesturePane gestureL1;
-    @FXML
-    GesturePane gestureL2;
-    @FXML
-    GesturePane gestureF1;
-    @FXML
-    GesturePane gestureF2;
-    @FXML
-    GesturePane gestureF3;
+    @FXML GesturePane gestureL1;
+    @FXML GesturePane gestureL2;
+    @FXML GesturePane gestureF1;
+    @FXML GesturePane gestureF2;
+    @FXML GesturePane gestureF3;
 
     // Canvases
-    @FXML
-    Canvas mapEditorCanvasL1;
-    @FXML
-    Canvas mapEditorCanvasL2;
-    @FXML
-    Canvas mapEditorCanvasF1;
-    @FXML
-    Canvas mapEditorCanvasF2;
-    @FXML
-    Canvas mapEditorCanvasF3;
+    @FXML Canvas mapEditorCanvasL1;
+    @FXML Canvas mapEditorCanvasL2;
+    @FXML Canvas mapEditorCanvasF1;
+    @FXML Canvas mapEditorCanvasF2;
+    @FXML Canvas mapEditorCanvasF3;
 
     // image views
-    @FXML
-    private ImageView floorL2;
-    @FXML
-    private ImageView floorL1;
-    @FXML
-    private ImageView floorF1;
-    @FXML
-    private ImageView floorF2;
-    @FXML
-    private ImageView floorF3;
+    @FXML private ImageView floorL2;
+    @FXML private ImageView floorL1;
+    @FXML private ImageView floorF1;
+    @FXML private ImageView floorF2;
+    @FXML private ImageView floorF3;
 
     // Buttons and Text
-    @FXML
-    MFXTextField XCord;
-    @FXML
-    MFXTextField YCord;
-    @FXML
-    MFXComboBox FloorBox;
-    @FXML
-    MFXComboBox BuildingBox;
-    @FXML
-    MFXButton saveButton;
-    @FXML
-    MFXTextField node1;
-    @FXML
-    MFXTextField node2;
-    @FXML
-    VBox fieldBox;
-    @FXML
-    MFXButton createNodeButton;
-    @FXML
-    MFXFilterComboBox<String> longNameBox;
-    @FXML
-    MFXTextField locationIDBox;
-    @FXML
-    MFXButton createLocation;
+    @FXML MFXTextField XCord;
+    @FXML MFXTextField YCord;
+    @FXML MFXComboBox FloorBox;
+    @FXML MFXComboBox BuildingBox;
+    @FXML MFXButton saveButton;
+    @FXML MFXTextField node1;
+    @FXML MFXTextField node2;
+    @FXML VBox fieldBox;
+    @FXML MFXButton createNodeButton;
+    @FXML MFXFilterComboBox<String> longNameBox;
+    @FXML MFXTextField locationIDBox;
+    @FXML MFXButton createLocation;
 
-    @FXML
-    TabPane editorTabPane;
-    @FXML
-    TabPane mapTabPane;
-    @FXML
-    Tab tabL1;
-    @FXML
-    Tab tabL2;
-    @FXML
-    Tab tabF1;
-    @FXML
-    Tab tabF2;
-    @FXML
-    Tab tabF3;
+    @FXML TabPane editorTabPane;
+    @FXML TabPane mapTabPane;
+    @FXML Tab tabL1;
+    @FXML Tab tabL2;
+    @FXML Tab tabF1;
+    @FXML Tab tabF2;
+    @FXML Tab tabF3;
 
     @FXML
     Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
 
-    @Setter
-    NodeEntity selectedNode = null;
+    @Setter NodeEntity selectedNode = null;
 
     // Lists of Nodes and Node Data
     private List<NodeEntity> allNodes;
@@ -166,14 +115,13 @@ public class NodeMapController extends MenuController {
     LocationNameImpl locNameImp = new LocationNameImpl();
 
     // scaling constant
-    private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
+    private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulations
 
-    /**
-     * Starting method called when screen is opened: Draws nodes and edges
-     */
+    /** Starting method called when screen is opened: Draws nodes and edges */
     public void initialize() {
 
         NodeDraw.setSelectedPane(null);
+
         createNodeButton.setVisible(false);
         saveButton.setVisible(false);
         floorInitialized[0] = false;
@@ -282,8 +230,7 @@ public class NodeMapController extends MenuController {
         gestures[floorIndex].setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
     }
 
-    public void loadLocNames(ActionEvent event) {
-    }
+    public void loadLocNames(ActionEvent event) {}
 
     @FXML
     public void switchToNodeScene(ActionEvent event) throws IOException {
@@ -349,8 +296,7 @@ public class NodeMapController extends MenuController {
         createNodeButton.setVisible(true);
     }
 
-    public void addEdge(ActionEvent event) {
-    }
+    public void addEdge(ActionEvent event) {}
 
     public void createNode(ActionEvent event) {
 
@@ -414,7 +360,8 @@ public class NodeMapController extends MenuController {
         currentNode.setXcoord(Integer.parseInt(XCord.getText()));
         currentNode.setYcoord(Integer.parseInt(YCord.getText()));
         currentNode.setBuilding(BuildingBox.getText());
-        currentNode.setFloor(Floor.fromString(FloorBox.getText()));
+        Floor floor = Floor.valueOf(Floor.fromString(FloorBox.getText())); // !!
+        currentNode.setFloor(floor.getTableString());
 
         System.out.println("X: " + currentNode.getXcoord());
         System.out.println("Y: " + currentNode.getYcoord());
@@ -502,15 +449,11 @@ public class NodeMapController extends MenuController {
         locationIDBox.setText(currentNode.getNodeid());
     }
 
-  public void editLocationName() {}
-
-  public void delLocationName() {}
-
-  @FXML
-  public void showLocations(ActionEvent event) {
-    // TODO
-    System.out.println("show locations");
-  }
+    @FXML
+    public void showLocations(ActionEvent event) {
+        // TODO
+        System.out.println("show locations");
+    }
 
     @FXML
     public void hideLocations(ActionEvent event) {
@@ -570,12 +513,10 @@ public class NodeMapController extends MenuController {
     }
 
     @FXML
-    public void editEdge(ActionEvent event) {
-    }
+    public void editEdge(ActionEvent event) {}
 
     @FXML
-    public void deleteEdge(ActionEvent event) {
-    }
+    public void deleteEdge(ActionEvent event) {}
 
     public void setLocationIDBox(String idString) {
         locationIDBox.setText(idString);
@@ -593,7 +534,7 @@ public class NodeMapController extends MenuController {
      * Updates the mapImage asset to contain an image (which is supposed to be a floor map)
      *
      * @param floor is the tablename of the floor
-     * @param iv    is the image view to be updated
+     * @param iv is the image view to be updated
      */
     private void addFloorMapImage(String floor, ImageView iv) {
         Image image = ImageLoader.getImage(floor);
