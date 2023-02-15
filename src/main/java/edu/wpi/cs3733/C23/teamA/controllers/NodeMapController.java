@@ -88,6 +88,7 @@ public class NodeMapController extends MenuController {
   @FXML MFXButton createLocation;
 
   @FXML TabPane editorTabPane;
+  @FXML TabPane mapTabPane;
   @FXML Tab tabL1;
   @FXML Tab tabL2;
   @FXML Tab tabF1;
@@ -149,7 +150,7 @@ public class NodeMapController extends MenuController {
   }
 
   public void getTab(ActionEvent event) {
-    Tab selectedTab = editorTabPane.getSelectionModel().getSelectedItem();
+    Tab selectedTab = mapTabPane.getSelectionModel().getSelectedItem();
     String tabID = selectedTab.getId();
 
     System.out.println("HERE");

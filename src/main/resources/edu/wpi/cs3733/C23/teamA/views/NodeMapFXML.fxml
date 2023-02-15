@@ -9,6 +9,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -264,15 +265,18 @@
                   </HBox>
                   <StackPane prefHeight="510.0" prefWidth="754.0">
                      <children>
-                        <TabPane prefHeight="510.0" prefWidth="760.0" style="-fx-background-color: #224870;" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane fx:id="mapTabPane" prefHeight="510.0" prefWidth="760.0" style="-fx-background-color: #224870;" tabClosingPolicy="UNAVAILABLE">
                            <tabs>
-                              <Tab fx:id="tabL1" text="Lower Level One">
+                              <Tab fx:id="tabL1" onSelectionChanged="#getTab" text="Lower Level One">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
                                           <StackPane fx:id="stackL1">
                                              <children>
-                                                <ImageView fx:id="floorL1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="floorL1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
+                                                   </image></ImageView>
                                                 <Canvas fx:id="mapEditorCanvasL1" height="510.0" width="750.0" />
                                                 <AnchorPane fx:id="nodeAnchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
@@ -288,7 +292,10 @@
                                        <children>
                                           <StackPane fx:id="stackL2">
                                              <children>
-                                                <ImageView fx:id="floorL2" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="floorL2" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/unlabeledMaps/00_thelowerlevel2_unlabeled.png" />
+                                                   </image></ImageView>
                                                 <Canvas fx:id="mapEditorCanvasL2" height="510.0" width="750.0" />
                                                 <AnchorPane fx:id="nodeAnchorL2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
@@ -298,13 +305,16 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="tabF1" text="Floor One">
+                              <Tab fx:id="tabF1" onSelectionChanged="#getTab" text="Floor One">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
                                           <StackPane fx:id="stackF1">
                                              <children>
-                                                <ImageView fx:id="floorF1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="floorF1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
+                                                   </image></ImageView>
                                                 <Canvas fx:id="mapEditorCanvasF1" height="510.0" width="750.0" />
                                                 <AnchorPane fx:id="nodeAnchorF1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
@@ -314,13 +324,16 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="tabF2" text="Floor Two">
+                              <Tab fx:id="tabF2" onSelectionChanged="#getTab" text="Floor Two">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
                                           <StackPane fx:id="stackF2">
                                              <children>
-                                                <ImageView fx:id="floorF2" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="floorF2" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
+                                                   </image></ImageView>
                                                 <Canvas fx:id="mapEditorCanvasF2" height="510.0" width="750.0" />
                                                 <AnchorPane fx:id="nodeAnchorF2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
@@ -330,13 +343,16 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="tabF3" text="Floor Three">
+                              <Tab fx:id="tabF3" onSelectionChanged="#getTab" text="Floor Three">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
                                           <StackPane fx:id="stackF3">
                                              <children>
-                                                <ImageView fx:id="floorF3" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="floorF3" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
+                                                   </image></ImageView>
                                                 <Canvas fx:id="mapEditorCanvasF3" height="510.0" width="750.0" />
                                                 <AnchorPane fx:id="nodeAnchorF3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                                              </children>
