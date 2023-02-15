@@ -87,7 +87,6 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) {
-    SecurityRequestImpl secI = new SecurityRequestImpl();
     LocationNameImpl locationI = new LocationNameImpl();
     EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
@@ -141,21 +140,6 @@ public class SecurityController extends ServiceRequestController {
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }
-  }
-
-  @FXML
-  void acceptRequest(ActionEvent event) throws IOException {
-    ServiceRequestImpl sri = new ServiceRequestImpl();
-    sri.updateStatus(Status.PROCESSING, acceptTheForm.getRequestID());
-    switchToServiceRequestStatus(event);
-  }
-
-  @FXML
-  public void rejectRequest(ActionEvent event) throws IOException {
-    ServiceRequestImpl sri = new ServiceRequestImpl();
-    sri.updateEmployee("Unassigned", acceptTheForm.getRequestID());
-    sri.updateStatus(Status.NEW, acceptTheForm.getRequestID());
-    switchToServiceRequestStatus(event);
   }
 
   @FXML

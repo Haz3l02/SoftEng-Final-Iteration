@@ -41,9 +41,13 @@ public abstract class ServiceRequestController extends MenuController {
     String name = holder.getName();
     String id = holder.getId();
 
-    if (urgencyBox != null) {
+    if (reminder != null) {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
+    }
+
+    if (urgencyBox != null) {
+
       ObservableList<String> urgencies =
           FXCollections.observableArrayList(UrgencyLevel.urgencyList());
       LocationNameImpl locationI = new LocationNameImpl();

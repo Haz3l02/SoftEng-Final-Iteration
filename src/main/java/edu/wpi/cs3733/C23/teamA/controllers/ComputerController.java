@@ -27,7 +27,7 @@ public class ComputerController extends ServiceRequestController {
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
-  private ComputerRequestImpl compI;
+  private ComputerRequestImpl compI = new ComputerRequestImpl();
   DevicesCategory device;
 
   @FXML
@@ -45,7 +45,7 @@ public class ComputerController extends ServiceRequestController {
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
     ComputerRequestEntity editComputerRequest = null;
     if (newEdit.needEdits && newEdit.getRequestType().equals("Computer")) {
-      ComputerRequestImpl compI = new ComputerRequestImpl();
+      // ComputerRequestImpl compI = new ComputerRequestImpl();
       editComputerRequest = compI.get(newEdit.getRequestID());
       nameBox.setText(editComputerRequest.getName());
       IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
@@ -59,8 +59,8 @@ public class ComputerController extends ServiceRequestController {
       ComputerRequestEntity editRequest = compI.get(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
-      devicesBox.setText(editComputerRequest.getDevice().toString());
-      deviceIDNum.setText(editComputerRequest.getDeviceid());
+      devicesBox.setText(editRequest.getDevice().toString());
+      deviceIDNum.setText(editRequest.getDeviceid());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
@@ -79,7 +79,7 @@ public class ComputerController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) {
-    ComputerRequestImpl compI = new ComputerRequestImpl();
+    // ComputerRequestImpl compI = new ComputerRequestImpl();
     LocationNameImpl locationI = new LocationNameImpl();
     EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
