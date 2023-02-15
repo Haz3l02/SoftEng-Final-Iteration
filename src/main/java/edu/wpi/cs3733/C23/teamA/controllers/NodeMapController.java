@@ -149,15 +149,14 @@ public class NodeMapController extends MenuController {
     //    initializeFloorMap("3", stackF3, gestureF3);
   }
 
-  public void getTab(ActionEvent event) {
+  public void getTab() {
+    System.out.println("HERE");
     Tab selectedTab = mapTabPane.getSelectionModel().getSelectedItem();
     String tabID = selectedTab.getId();
 
-    System.out.println("HERE");
+    System.out.println(tabID);
 
-    if (tabID.equals("tabL1") && floorInitialized[0] == false) {
-      initializeFloorMap("L1");
-    } else if (tabID.equals("tabL2") && floorInitialized[1] == false) {
+    if (tabID.equals("tabL2") && floorInitialized[1] == false) {
       initializeFloorMap("L2");
     } else if (tabID.equals("tabF1") && floorInitialized[2] == false) {
       initializeFloorMap("1");
