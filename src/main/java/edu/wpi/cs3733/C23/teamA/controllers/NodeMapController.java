@@ -184,7 +184,7 @@ public class NodeMapController extends MenuController {
   private void initializeFloorMap(String floor) {
     int floorIndex = Floor.indexFromTableString(floor);
     // add image
-    addFloorMapImage(floor, ivs[floorIndex]);
+    // addFloorMapImage(floor, ivs[floorIndex]);
 
     // Get all nodes on floor names floor!
     allNodes = nodeimpl.getNodeOnFloor(floor);
