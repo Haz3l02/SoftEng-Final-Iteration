@@ -162,7 +162,11 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
       for (EdgeEntity m : edges) { // e - > m
         newEdge = new EdgeEntity(n.getNode1(), m.getNode2());
         session.merge(newEdge);
-        delete(m.getEdgeid());
+        try {
+          delete(m.getEdgeid());
+        } catch (Exception exc) {
+        }
+        ;
       }
       delete(n.getEdgeid());
     }
