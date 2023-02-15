@@ -37,11 +37,14 @@ public class AApp extends Application {
 
     AApp.rootPane = root;
 
+    // load images
+    ImageLoader.loadImages();
+
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
     primaryStage.setMaximized(true);
-    Navigation.navigateHome(Screen.NODE_MAP);
+    Navigation.navigateHome(Screen.LOGIN);
     primaryStage.setMinWidth(615);
     primaryStage.setMinHeight(450);
   }

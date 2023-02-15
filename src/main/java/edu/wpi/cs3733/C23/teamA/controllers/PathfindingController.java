@@ -5,13 +5,13 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
+import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
-import java.io.File;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
@@ -80,11 +80,6 @@ public class PathfindingController extends MenuController {
   private LocalDate navDate;
 
   // objects needed for the maps
-  private GraphicsContext gcL1;
-  private GraphicsContext gcL2;
-  private GraphicsContext gcF1;
-  private GraphicsContext gcF2;
-  private GraphicsContext gcF3;
   private GraphicsContext[] gcs = new GraphicsContext[5];
   private double SCALE_FACTOR = 0.135;
 
@@ -119,11 +114,11 @@ public class PathfindingController extends MenuController {
     algosBox.setItems(algos);
 
     // add the map images (also already done in SceneBuilder)
-    addFloorMapImage(HospitalMaps.L2.getFilename(), floorL2);
-    addFloorMapImage(HospitalMaps.L1.getFilename(), floorL1);
-    addFloorMapImage(HospitalMaps.F1.getFilename(), floorF1);
-    addFloorMapImage(HospitalMaps.F2.getFilename(), floorF2);
-    addFloorMapImage(HospitalMaps.F3.getFilename(), floorF3);
+    addFloorMapImage("L1", floorL2);
+    addFloorMapImage("L2", floorL1);
+    addFloorMapImage("1", floorF1);
+    addFloorMapImage("2", floorF2);
+    addFloorMapImage("3", floorF3);
 
     // prepare the gesture panes
     Node nodeL1 = floorL1Stack;
@@ -331,11 +326,10 @@ public class PathfindingController extends MenuController {
   /**
    * Updates the mapImage asset to contain an image (which is supposed to be a floor map)
    *
-   * @param pathName the path to the image to be added
+   * @param floor the table name of the floor
    */
-  private void addFloorMapImage(String pathName, ImageView iv) {
-    File file = new File(pathName);
-    Image image = new Image(file.toURI().toString());
+  private void addFloorMapImage(String floor, ImageView iv) {
+    Image image = ImageLoader.getImage(floor);
     iv.setImage(image); // this does not work
   }
 }
