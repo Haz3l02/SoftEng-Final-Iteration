@@ -163,7 +163,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     for (MoveEntity id : ids) {
       List<MoveEntity> loc =
           locationRecord(id.getNode().getNodeid(), id.getMovedate()).stream().toList();
-      changes.put(id, loc.get(0));
+      changes.put(id, loc.stream().findFirst().orElse(id));
     }
     return changes;
   }
