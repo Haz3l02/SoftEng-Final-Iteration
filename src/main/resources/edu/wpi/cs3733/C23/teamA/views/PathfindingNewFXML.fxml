@@ -314,7 +314,7 @@
                                                                     <children>
                                                                         <ImageView fx:id="floorF2" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                                             <image>
-                                                                                <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
+                                                                                <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
                                                                             </image>
                                                                         </ImageView>
                                                                         <Canvas fx:id="floorF2Canvas" height="459.0" width="675.0" />
@@ -333,7 +333,7 @@
                                                                     <children>
                                                                         <ImageView fx:id="floorF3" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
                                                                             <image>
-                                                                                <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
+                                                                                <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
                                                                             </image>
                                                                         </ImageView>
                                                                         <Canvas fx:id="floorF3Canvas" height="459.0" width="675.0" />
