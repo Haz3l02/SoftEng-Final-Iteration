@@ -1,12 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-import static org.apache.derby.impl.sql.execute.AlterTableConstantAction.executeUpdate;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -39,7 +36,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="/employee.csv";
+    filename += "/employee.csv";
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
@@ -73,14 +70,22 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
             });
 
     session
-            .createMutationQuery(
-                    "UPDATE EmployeeEntity SET " +
-                            "employeeid = '"+obj.getEmployeeid()+"', job = '"+obj.getJob()+"', name = '"+obj.getName()+"', password = '"+obj.getPassword()+"', username = '"+obj.getUsername()+
-                            "' WHERE employeeid = '"+ID+"'").executeUpdate();
-
-
-
-
+        .createMutationQuery(
+            "UPDATE EmployeeEntity SET "
+                + "employeeid = '"
+                + obj.getEmployeeid()
+                + "', job = '"
+                + obj.getJob()
+                + "', name = '"
+                + obj.getName()
+                + "', password = '"
+                + obj.getPassword()
+                + "', username = '"
+                + obj.getUsername()
+                + "' WHERE employeeid = '"
+                + ID
+                + "'")
+        .executeUpdate();
 
     employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
     tx.commit();

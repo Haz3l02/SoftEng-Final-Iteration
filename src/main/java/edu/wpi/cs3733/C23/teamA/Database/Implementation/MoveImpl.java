@@ -40,10 +40,9 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="/move.csv";
+    filename += "/move.csv";
 
-    File csvFile =
-        new File( filename);
+    File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("movedate,longname,nodeid\n");
     for (MoveEntity mov : moves) {
@@ -133,7 +132,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
           && me.getLocationName().getLongname().equals(m.get(1))
           && me.getMovedate().toString().equals(m.get(2))) {
         li.remove();
-        if(session.find(MoveEntity.class, me) != null){
+        if (session.find(MoveEntity.class, me) != null) {
           System.out.println("Exists");
         }
         System.out.println("hi");
@@ -224,40 +223,43 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void update(List<String> ID, MoveEntity obj) {
-//    Session session = getSessionFactory().openSession();
-//    Transaction tx = session.beginTransaction();
-//
-////    ListIterator<MoveEntity> li = moves.listIterator();
-////    while (li.hasNext()) {
-////      MoveEntity me = li.next();
-////      if (me.getNode().getNodeid().equals(ID.get(0))
-////          && me.getLocationName().getLongname().equals(ID.get(1))
-////          && me.getMovedate().toString().equals(ID.get(2))) {
-////        li.remove();
-////      }
-////    }
-//
-//
-//    session
-//        .createMutationQuery(
-//            "UPDATE MoveEntity mov SET "
-//                + "mov.node = :newnodeid, mov.locationName = :newlongname, mov.movedate = :newmovedate "
-//                + "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and mov.movedate = :oldmovedate")
-//        .setParameter("newnodeid", session.get(NodeEntity.class, obj.getNode().getNodeid()))
-//        .setParameter("newlongname", session.get(LocationNameEntity.class, obj.getLocationName().getLongname()))
-//        .setParameter("newmovedate", obj.getMovedate())
-//        .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
-//        .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
-//        .setParameter("oldmovedate", LocalDate.parse(ID.get(2)))
-//        .executeUpdate();
-//
-//    moves.add(
-//        new MoveEntity(
-//            session.get(NodeEntity.class, obj.getNode().getNodeid()),
-//            session.get(LocationNameEntity.class, obj.getLocationName().getLongname()),
-//            obj.getMovedate()));
-//    tx.commit();
-//    session.close();
+    //    Session session = getSessionFactory().openSession();
+    //    Transaction tx = session.beginTransaction();
+    //
+    ////    ListIterator<MoveEntity> li = moves.listIterator();
+    ////    while (li.hasNext()) {
+    ////      MoveEntity me = li.next();
+    ////      if (me.getNode().getNodeid().equals(ID.get(0))
+    ////          && me.getLocationName().getLongname().equals(ID.get(1))
+    ////          && me.getMovedate().toString().equals(ID.get(2))) {
+    ////        li.remove();
+    ////      }
+    ////    }
+    //
+    //
+    //    session
+    //        .createMutationQuery(
+    //            "UPDATE MoveEntity mov SET "
+    //                + "mov.node = :newnodeid, mov.locationName = :newlongname, mov.movedate =
+    // :newmovedate "
+    //                + "WHERE mov.node = :oldnodeid and mov.locationName = :oldlongname and
+    // mov.movedate = :oldmovedate")
+    //        .setParameter("newnodeid", session.get(NodeEntity.class, obj.getNode().getNodeid()))
+    //        .setParameter("newlongname", session.get(LocationNameEntity.class,
+    // obj.getLocationName().getLongname()))
+    //        .setParameter("newmovedate", obj.getMovedate())
+    //        .setParameter("oldnodeid", session.get(NodeEntity.class, ID.get(0)))
+    //        .setParameter("oldlongname", session.get(LocationNameEntity.class, ID.get(1)))
+    //        .setParameter("oldmovedate", LocalDate.parse(ID.get(2)))
+    //        .executeUpdate();
+    //
+    //    moves.add(
+    //        new MoveEntity(
+    //            session.get(NodeEntity.class, obj.getNode().getNodeid()),
+    //            session.get(LocationNameEntity.class, obj.getLocationName().getLongname()),
+    //            obj.getMovedate()));
+    //    tx.commit();
+    //    session.close();
 
     delete(ID);
     add(obj);

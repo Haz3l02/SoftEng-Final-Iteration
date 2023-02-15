@@ -4,7 +4,6 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -39,10 +38,9 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="/locationname.csv";
+    filename += "/locationname.csv";
 
-    File csvFile =
-        new File(filename);
+    File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("longname,locationtype,shortname\n");
     for (LocationNameEntity loc : locations) {
@@ -117,14 +115,18 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     }
 
     session
-            .createMutationQuery(
-                    "UPDATE LocationNameEntity SET " +
-                            "longname = '"+location.getLongname()+"', shortname = '"+location.getShortname()+"', locationtype = '"+location.getLongname()+
-                            "' WHERE longname = '"+ID+"'").executeUpdate();
-
-
-
-
+        .createMutationQuery(
+            "UPDATE LocationNameEntity SET "
+                + "longname = '"
+                + location.getLongname()
+                + "', shortname = '"
+                + location.getShortname()
+                + "', locationtype = '"
+                + location.getLongname()
+                + "' WHERE longname = '"
+                + ID
+                + "'")
+        .executeUpdate();
 
     locations.add(session.get(LocationNameEntity.class, location.getLongname()));
     tx.commit();

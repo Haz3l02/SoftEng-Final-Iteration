@@ -31,6 +31,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     criteria.from(EdgeEntity.class);
     List<EdgeEntity> records = session.createQuery(criteria).getResultList();
     edges = records;
+    collapseNode(session.get(NodeEntity.class, "AHALL001L2"));
     session.close();
   }
 
@@ -69,10 +70,9 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="/edge.csv";
+    filename += "/edge.csv";
 
-    File csvFile =
-        new File(filename);
+    File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("edgeid,node1,node2\n");
     for (EdgeEntity edge : edges) {
@@ -161,12 +161,9 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
       List<EdgeEntity> edges = vec.get(n);
       for (EdgeEntity m : edges) { // e - > m
         newEdge = new EdgeEntity(n.getNode1(), m.getNode2());
-        session.merge(newEdge);
-        try {
-          delete(m.getEdgeid());
-        } catch (Exception exc) {
-        }
-        ;
+        System.out.println(newEdge.getEdgeid());
+        add(newEdge);
+        delete(m.getEdgeid());
       }
       delete(n.getEdgeid());
     }

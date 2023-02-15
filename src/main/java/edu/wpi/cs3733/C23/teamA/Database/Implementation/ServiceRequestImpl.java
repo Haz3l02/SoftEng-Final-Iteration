@@ -36,10 +36,9 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public void exportToCSV(String filename) throws IOException {
-    String file = filename+"/servicerequest.csv";
+    String file = filename + "/servicerequest.csv";
 
-    File csvFile =
-        new File(file);
+    File csvFile = new File(file);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write(
         "requestid,date,description,employeeassigned,name,requestype,status,urgency,employeeid,location\n");
@@ -217,11 +216,10 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     }
     services.add(serv);
 
-//    ComputerRequestImpl.getInstance().updateStatus(ID, status);
-//    PatientTransportimpl.getInstance().updateStatus(ID, status);
-//    SecurityRequestImpl.getInstance().updateStatus(ID, status);
-//    SecurityRequestImpl.getInstance().updateStatus(ID, status);
-
+    //    ComputerRequestImpl.getInstance().updateStatus(ID, status);
+    //    PatientTransportimpl.getInstance().updateStatus(ID, status);
+    //    SecurityRequestImpl.getInstance().updateStatus(ID, status);
+    //    SecurityRequestImpl.getInstance().updateStatus(ID, status);
 
     tx.commit();
     session.close();
@@ -239,8 +237,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
         li.remove();
       }
     }
-
-
 
     services.add(serv);
 

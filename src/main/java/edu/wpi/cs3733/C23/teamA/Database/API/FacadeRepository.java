@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.Database.API;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -264,7 +263,7 @@ public class FacadeRepository {
     serv.update(id, c);
   }
 
-  public HashMap<EdgeEntity, List<EdgeEntity>> getNodeVectors(NodeEntity e){
+  public HashMap<EdgeEntity, List<EdgeEntity>> getNodeVectors(NodeEntity e) {
     return edge.nodeVectors(e);
   }
 
@@ -281,37 +280,33 @@ public class FacadeRepository {
     serv.exportToCSV(filename);
   }
 
-
-  public void collapseNode(NodeEntity e){
+  public void collapseNode(NodeEntity e) {
     edge.collapseNode(e);
   }
 
-  public List<String> getListEmployeeOfByJob(String job){
+  public List<String> getListEmployeeOfByJob(String job) {
     return emp.getListOfByJob(job);
   }
 
-  public EmployeeEntity getEmployeeByUser(String user){
+  public EmployeeEntity getEmployeeByUser(String user) {
     return emp.getByUsername(user);
   }
 
-  public ArrayList<String> employeeCheckPass(String user, String pass){
+  public ArrayList<String> employeeCheckPass(String user, String pass) {
     return emp.checkPass(user, pass);
   }
 
-
-  public List<String> getAllLocationIDS(){
+  public List<String> getAllLocationIDS() {
     return loc.getAllIDs();
   }
 
-
-  public HashMap<MoveEntity, MoveEntity> moveLocationChanges(LocalDate minDate, LocalDate maxDate){
-    return move.locationChanges( minDate,  maxDate);
+  public HashMap<MoveEntity, MoveEntity> moveLocationChanges(LocalDate minDate, LocalDate maxDate) {
+    return move.locationChanges(minDate, maxDate);
   }
 
-  public List<MoveEntity> moveLocationRecord(String id, LocalDate date){
+  public List<MoveEntity> moveLocationRecord(String id, LocalDate date) {
     return move.locationRecord(id, date);
   }
-
 
   public MoveEntity moveLocationOnOrBeforeDate(String id, LocalDate date) {
     return move.locationOnOrBeforeDate(id, date);
@@ -325,36 +320,27 @@ public class FacadeRepository {
     return node.getNodeOnFloor(floor);
   }
 
-
   public List<String> getAllNodeIDs() {
     return node.getAllIDs();
   }
-
 
   public ArrayList<ServiceRequestEntity> getAllServByEmployee(String id) {
     return serv.getAllByEmployee(id);
   }
 
-
-  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(String name){
+  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(String name) {
     return serv.getServiceRequestByAssigned(name);
   }
-
 
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
     return serv.getServiceRequestByUnassigned();
   }
 
-
   public void updateStatusOfServ(Status status, Integer ID) {
     serv.updateStatus(status, ID);
   }
 
-
   public void updateServEmployee(String employee, Integer ID) {
     serv.updateEmployee(employee, ID);
   }
-
-
-
 }
