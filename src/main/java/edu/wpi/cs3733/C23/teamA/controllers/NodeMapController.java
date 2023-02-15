@@ -171,7 +171,6 @@ public class NodeMapController extends MenuController {
     NodeEntity currentNode = NodeDraw.getSelected();
     Pane currentNodePane = NodeDraw.getSelectedPane();
     String id = currentNode.getNodeid();
-    System.out.println(id);
     NodeImpl newNode = new NodeImpl();
     newNode.delete(id);
     currentNodePane.setVisible(false);
@@ -297,6 +296,7 @@ public class NodeMapController extends MenuController {
     ArrayList<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(currentNode);
     String tableString = Floor.fromString(currentNode.getFloor());
+    System.out.println(tableString);
     NodeDraw.drawNodes(oneNode, SCALE_FACTOR, aps[Floor.indexFromTableString(tableString)], this);
 
     // initialize();

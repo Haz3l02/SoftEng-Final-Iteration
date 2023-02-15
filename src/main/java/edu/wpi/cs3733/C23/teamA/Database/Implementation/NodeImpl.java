@@ -116,7 +116,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
         li.remove();
       }
     }
-    session.remove(n);
+    session.remove(session.get(NodeEntity.class, n));
     tx.commit();
     session.close();
   }
