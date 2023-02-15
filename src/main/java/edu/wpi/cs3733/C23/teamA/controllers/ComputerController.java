@@ -33,14 +33,15 @@ public class ComputerController extends ServiceRequestController {
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
-    reject.setDisable(true);
-    reject.setVisible(false);
-    accept.setDisable(true);
-    accept.setVisible(false);
+
     if (devicesBox != null) {
       ObservableList<String> devices =
           FXCollections.observableArrayList(DevicesCategory.deviceList());
       devicesBox.setItems(devices);
+      reject.setDisable(true);
+      reject.setVisible(false);
+      accept.setDisable(true);
+      accept.setVisible(false);
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
     ComputerRequestEntity editComputerRequest = null;

@@ -39,15 +39,16 @@ public class SanitationController extends ServiceRequestController {
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
-    reject.setDisable(true);
-    reject.setVisible(false);
-    accept.setDisable(true);
-    accept.setVisible(false);
+
     if (categoryBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
       ObservableList<String> categories =
           FXCollections.observableArrayList(IssueCategory.issueList());
       categoryBox.setItems(categories);
+      reject.setDisable(true);
+      reject.setVisible(false);
+      accept.setDisable(true);
+      accept.setVisible(false);
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Sanitation")) {
       SanitationRequestEntity editRequest = sanI.get(newEdit.getRequestID());
