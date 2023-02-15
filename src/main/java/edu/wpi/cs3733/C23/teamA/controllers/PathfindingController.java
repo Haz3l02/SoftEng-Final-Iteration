@@ -111,6 +111,7 @@ public class PathfindingController extends MenuController {
     algosBox.setItems(algos);
 
     // add the map images (also already done in SceneBuilder)
+    /*
     addFloorMapImage("L1", floorL2);
     addFloorMapImage("L2", floorL1);
     addFloorMapImage("1", floorF1);
