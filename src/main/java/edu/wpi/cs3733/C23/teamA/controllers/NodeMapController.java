@@ -171,9 +171,10 @@ public class NodeMapController extends MenuController {
     NodeEntity currentNode = NodeDraw.getSelected();
     Pane currentNodePane = NodeDraw.getSelectedPane();
     String id = currentNode.getNodeid();
-    System.out.println(id);
     NodeImpl newNode = new NodeImpl();
+    EdgeImpl edgeImp = new EdgeImpl();
     newNode.delete(id);
+    edgeImp.collapseNode(currentNode);
     currentNodePane.setVisible(false);
   }
 
@@ -213,7 +214,6 @@ public class NodeMapController extends MenuController {
     newNode.setXcoord(Integer.parseInt(XCord.getText()));
     newNode.setYcoord(Integer.parseInt(YCord.getText()));
     String tableString = Floor.fromString(FloorBox.getText());
-    System.out.println("TABLE STRING " + tableString);
     newNode.setFloor(tableString);
     newNode.setBuilding(BuildingBox.getText());
     newNode.setNodeid(makeNewNodeID(newNode.getFloor(), newNode.getXcoord(), newNode.getYcoord()));
