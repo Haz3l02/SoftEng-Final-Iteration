@@ -32,6 +32,17 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     moves = records;
+    //    HashMap<MoveEntity, MoveEntity> loc =
+    //        locationChanges(LocalDate.parse("2023-02-18"), LocalDate.parse("2023-02-20"));
+    //    for (MoveEntity m : loc.keySet()) {
+    //      System.out.println(
+    //          String.format(
+    //              "%s -> %s %s %s",
+    //              loc.get(m).getLocationName().getLongname(),
+    //              m.getLocationName().getLongname(),
+    //              m.getNode().getNodeid(),
+    //              m.getMovedate().toString()));
+    //    }
     session.close();
   }
 
@@ -276,5 +287,21 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
   public static MoveImpl getInstance() {
     return instance;
+  }
+
+  public List<String> getNodeID() {
+    ArrayList<String> nodeID = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      nodeID.add(m.getNode().getNodeid());
+    }
+    return nodeID;
+  }
+
+  public List<String> getLocationName() {
+    ArrayList<String> nodeID = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      nodeID.add(m.getLocationName().getLongname());
+    }
+    return nodeID;
   }
 }
