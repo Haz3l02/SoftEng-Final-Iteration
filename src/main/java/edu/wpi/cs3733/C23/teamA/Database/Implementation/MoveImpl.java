@@ -40,7 +40,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="move.csv";
+    filename+="/move.csv";
 
     File csvFile =
         new File( filename);

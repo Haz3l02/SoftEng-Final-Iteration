@@ -37,7 +37,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="node.csv";
+    filename+="/node.csv";
 
     File csvFile =
         new File( filename);

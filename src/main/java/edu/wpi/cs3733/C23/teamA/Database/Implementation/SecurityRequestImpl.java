@@ -36,7 +36,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="securityrequest.csv";
+    filename+="/securityrequest.csv";
     File csvFile =
         new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);

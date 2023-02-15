@@ -36,7 +36,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="employee.csv";
+    filename+="/employee.csv";
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);

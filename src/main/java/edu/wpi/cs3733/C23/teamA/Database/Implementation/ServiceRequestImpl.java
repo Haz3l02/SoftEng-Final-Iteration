@@ -36,7 +36,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename+="servicerequest.csv";
+    filename+="/servicerequest.csv";
 
     File csvFile =
         new File(filename);
