@@ -49,14 +49,9 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
 
   public void exportToCSV(String filename) throws IOException {
     Session session = getSessionFactory().openSession();
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
+    filename += "computerrequest.csv";
 
-    File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+    File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write("device,deviceid,requestid\n");
     for (ComputerRequestEntity comp : comprequests) {

@@ -37,7 +37,7 @@ public class ADBSingletonClass {
     return records;
   }
 
-  public static void rewriteNodesEdgesMoves(Session session) throws IOException {
+  public static void rewriteNodesEdgesMoves() throws IOException {
     NodeImpl node = new NodeImpl();
     EdgeImpl edge = new EdgeImpl();
     LocationNameImpl location = new LocationNameImpl();

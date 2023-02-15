@@ -36,14 +36,9 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
   }
 
   public void exportToCSV(String filename) throws IOException {
-    if (filename.length() > 4) {
-      if (!filename.substring(filename.length() - 4).equals(".csv")) {
-        filename += ".csv";
-      }
-    } else filename += ".csv";
+    filename += "servicerequest.csv";
 
-    File csvFile =
-        new File("src/main/java/edu/wpi/cs3733/C23/teamA/Database/CSVBackup/" + filename);
+    File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write(
         "requestid,date,description,employeeassigned,name,requestype,status,urgency,employeeid,location\n");
@@ -102,7 +97,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     session.persist(s);
     services.add(s);
     tx.commit();
-    session.close();
   }
 
   public void delete(Integer s) {

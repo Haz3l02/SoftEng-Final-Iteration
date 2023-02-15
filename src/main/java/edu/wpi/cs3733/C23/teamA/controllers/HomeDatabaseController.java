@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import org.controlsfx.control.PopOver;
 
 public class HomeDatabaseController extends MenuController {
+
   public void switchToEdgeScene(ActionEvent event) {
     Navigation.navigate(Screen.EDGE);
   }
