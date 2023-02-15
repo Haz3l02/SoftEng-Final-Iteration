@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -32,7 +31,7 @@ public class HomeController extends MenuController {
   @FXML private TableView<ServiceRequestEntity> assignmentsTable;
   @FXML public TableColumn<ServiceRequestEntity, Integer> IDCol;
   @FXML public TableColumn<ServiceRequestEntity, String> requestTypeCol;
-  @FXML public TableColumn<ServiceRequestEntity, LocationNameEntity> locationCol;
+  @FXML public TableColumn<ServiceRequestEntity, String> locationCol;
   @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
   @FXML public TableColumn<ServiceRequestEntity, String> node1Col;
   @FXML public TableColumn<ServiceRequestEntity, String> node2Col;
@@ -170,6 +169,6 @@ public class HomeController extends MenuController {
             .substring(
                 response.body().indexOf("\"name\":\"", 0) + 8,
                 response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
-    message.setText("\"" + quote + "\" -" + author);
+    message.setText(“The greatest glory in living lies not in never falling, but in rising every time we fall.-Nelsen Mandela");
   }
 }
