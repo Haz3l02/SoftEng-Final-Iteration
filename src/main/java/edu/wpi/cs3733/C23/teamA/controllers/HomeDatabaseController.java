@@ -58,7 +58,7 @@ public class HomeDatabaseController extends MenuController {
   }
 
   public void switchToMapScene(ActionEvent event) {
-    Navigation.navigate(Screen.MAP_DISPLAY);
+    Navigation.navigate(Screen.NODE_MAP);
   }
 
   public void switchToMoveScene(ActionEvent event) {

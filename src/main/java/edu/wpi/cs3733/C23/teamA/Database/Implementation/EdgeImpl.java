@@ -202,6 +202,15 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     return null;
   }
 
+  public List<EdgeEntity> getEdgeOnFloor(String floor) {
+    return edges.stream()
+        .filter(
+            edgeEntity ->
+                edgeEntity.getNode1().getFloor().equals(floor)
+                    && edgeEntity.getNode2().getFloor().equals(floor))
+        .toList();
+  }
+
   public static EdgeImpl getInstance() {
     return instance;
   }

@@ -37,6 +37,9 @@ public class AApp extends Application {
 
     AApp.rootPane = root;
 
+    // load images
+    ImageLoader.loadImages();
+
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
