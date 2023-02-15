@@ -142,7 +142,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
 
     nodes.add(n);
     tx.commit();
-    System.out.println("way after");
+    System.out.println("way after ");
     session.close();
   }
 
