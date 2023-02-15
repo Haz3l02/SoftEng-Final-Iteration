@@ -5,9 +5,6 @@ import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusControlle
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.ComputerRequestImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -48,7 +45,8 @@ public class ComputerController extends ServiceRequestController {
     ComputerRequestEntity editComputerRequest = null;
     if (newEdit.needEdits && newEdit.getRequestType().equals("Computer")) {
       // ComputerRequestImpl compI = new ComputerRequestImpl();
-      editComputerRequest = FacadeRepository.getInstance().getComputerRequest(newEdit.getRequestID());
+      editComputerRequest =
+          FacadeRepository.getInstance().getComputerRequest(newEdit.getRequestID());
       nameBox.setText(editComputerRequest.getName());
       IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
       devicesBox.setText(editComputerRequest.getDevice().toString());
@@ -58,7 +56,8 @@ public class ComputerController extends ServiceRequestController {
       descBox.setText(editComputerRequest.getDescription());
       // compI.closeSession();
     } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Computer")) {
-      ComputerRequestEntity editRequest = FacadeRepository.getInstance().getComputerRequest(acceptTheForm.getRequestID());
+      ComputerRequestEntity editRequest =
+          FacadeRepository.getInstance().getComputerRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       devicesBox.setText(editRequest.getDevice().toString());
@@ -93,7 +92,8 @@ public class ComputerController extends ServiceRequestController {
       reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
-        ComputerRequestEntity submission = FacadeRepository.getInstance().getComputerRequest(newEdit.getRequestID());
+        ComputerRequestEntity submission =
+            FacadeRepository.getInstance().getComputerRequest(newEdit.getRequestID());
         LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
@@ -107,7 +107,8 @@ public class ComputerController extends ServiceRequestController {
         submission.setDeviceid(deviceIDNum.getText());
       } else {
         EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
-        LocationNameEntity location = FacadeRepository.getInstance().getLocation(locationBox.getText());
+        LocationNameEntity location =
+            FacadeRepository.getInstance().getLocation(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());

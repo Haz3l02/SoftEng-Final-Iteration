@@ -39,7 +39,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
     return moves;
   }
 
-
   public void exportToCSV(String filename) throws IOException {
     filename += "/move.csv";
 

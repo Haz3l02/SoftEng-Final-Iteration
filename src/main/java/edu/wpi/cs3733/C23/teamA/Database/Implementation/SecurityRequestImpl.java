@@ -154,21 +154,20 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     return null;
   }
 
-    public void updateStatus(Integer ID, Status status){
-      ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
-      while (li.hasNext()) {
-        SecurityRequestEntity sec = li.next();
-        if (sec.getRequestid() == ID) {
-          sec.setStatus(status);
-          li.remove();
-          secrequests.add(sec);
-          break;
-        }
+  public void updateStatus(Integer ID, Status status) {
+    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+    while (li.hasNext()) {
+      SecurityRequestEntity sec = li.next();
+      if (sec.getRequestid() == ID) {
+        sec.setStatus(status);
+        li.remove();
+        secrequests.add(sec);
+        break;
       }
     }
+  }
 
-
-  public void updateEmployee(Integer ID, String employee){
+  public void updateEmployee(Integer ID, String employee) {
     ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
     while (li.hasNext()) {
       SecurityRequestEntity sec = li.next();

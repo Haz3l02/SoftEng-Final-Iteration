@@ -42,7 +42,10 @@ public class FacadeRepository {
   public List<EmployeeEntity> getAllEmployee() {
     return emp.getAll();
   }
-  public List<LocationNameEntity> getAllLocation() {return loc.getAll();}
+
+  public List<LocationNameEntity> getAllLocation() {
+    return loc.getAll();
+  }
 
   public List<MoveEntity> getAllMove() {
     return move.getAll();
@@ -320,7 +323,10 @@ public class FacadeRepository {
   public List<NodeEntity> getNodesOnFloor(String floor) {
     return node.getNodeOnFloor(floor);
   }
-  public List<EdgeEntity> getEdgesOnFloor(String floor) {return edge.getEdgeOnFloor(floor);}
+
+  public List<EdgeEntity> getEdgesOnFloor(String floor) {
+    return edge.getEdgeOnFloor(floor);
+  }
 
   public List<String> getAllNodeIDs() {
     return node.getAllIDs();
@@ -345,7 +351,6 @@ public class FacadeRepository {
   public void updateServEmployee(String employee, Integer ID) {
     serv.updateEmployee(employee, ID);
   }
-
 
   public HashMap<MoveEntity, MoveEntity> getLocationChanges(LocalDate minDate, LocalDate maxDate) {
     return move.locationChanges(minDate, maxDate);

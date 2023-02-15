@@ -50,9 +50,9 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
               + ","
               + nod.getYcoord()
               + ","
-              + nod.getFloor()
-              + ","
               + nod.getBuilding()
+              + ","
+              + nod.getFloor()
               + "\n");
     }
     fileWriter.close();

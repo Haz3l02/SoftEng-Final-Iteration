@@ -5,9 +5,6 @@ import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusControlle
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.PatientTransportimpl;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -32,7 +29,6 @@ public class PatientTransportController extends ServiceRequestController {
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
 
-
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
@@ -52,7 +48,8 @@ public class PatientTransportController extends ServiceRequestController {
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
     if (newEdit.needEdits && newEdit.getRequestType().equals("PatientTransport")) {
-      PatientTransportRequestEntity editPatientRequest = FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
+      PatientTransportRequestEntity editPatientRequest =
+          FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
       nameBox.setText(editPatientRequest.getName());
       IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
@@ -64,7 +61,8 @@ public class PatientTransportController extends ServiceRequestController {
       equipmentBox.setText(editPatientRequest.getEquipment());
     } else if (acceptTheForm.acceptance
         && acceptTheForm.getRequestType().equals("Patient Transport")) {
-      PatientTransportRequestEntity editPatientRequest = FacadeRepository.getInstance().getPatientTransport(acceptTheForm.getRequestID());
+      PatientTransportRequestEntity editPatientRequest =
+          FacadeRepository.getInstance().getPatientTransport(acceptTheForm.getRequestID());
       nameBox.setText(editPatientRequest.getName());
       IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
@@ -112,10 +110,12 @@ public class PatientTransportController extends ServiceRequestController {
         // something that submits it
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
 
-        PatientTransportRequestEntity submission = FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
+        PatientTransportRequestEntity submission =
+            FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
         // supers
         submission.setName(nameBox.getText());
-        LocationNameEntity loc1 = FacadeRepository.getInstance().getLocation(locationBox.getValue());
+        LocationNameEntity loc1 =
+            FacadeRepository.getInstance().getLocation(locationBox.getValue());
         submission.setLocation(loc1);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
@@ -129,7 +129,8 @@ public class PatientTransportController extends ServiceRequestController {
         EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
         // IDNum.getText()
         LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getText());
-        LocationNameEntity moveTo = FacadeRepository.getInstance().getLocation(moveToBox.getValue());
+        LocationNameEntity moveTo =
+            FacadeRepository.getInstance().getLocation(moveToBox.getValue());
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
 
         PatientTransportRequestEntity submission =

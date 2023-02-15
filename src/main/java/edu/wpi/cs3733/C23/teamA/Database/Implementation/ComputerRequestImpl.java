@@ -141,22 +141,20 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
         .orElseThrow();
   }
 
-    public void updateStatus(Integer ID, Status status){
-      ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
-      while (li.hasNext()) {
-        ComputerRequestEntity san = li.next();
-        if (san.getRequestid() == ID) {
-          san.setStatus(status);
-          li.remove();
-          comprequests.add(san);
-          break;
-        }
+  public void updateStatus(Integer ID, Status status) {
+    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    while (li.hasNext()) {
+      ComputerRequestEntity san = li.next();
+      if (san.getRequestid() == ID) {
+        san.setStatus(status);
+        li.remove();
+        comprequests.add(san);
+        break;
       }
     }
+  }
 
-
-
-  public void updateEmployee(Integer ID, String employee){
+  public void updateEmployee(Integer ID, String employee) {
     ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
     while (li.hasNext()) {
       ComputerRequestEntity sec = li.next();

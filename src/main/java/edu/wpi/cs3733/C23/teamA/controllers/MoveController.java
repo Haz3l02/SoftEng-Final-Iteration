@@ -5,9 +5,6 @@ import static java.lang.String.valueOf;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -62,9 +59,11 @@ public class MoveController extends MenuController {
     reminderPane.setVisible(false);
 
     allNodeID =
-            FacadeRepository.getInstance().getAllMove().stream().map(moveEntity -> moveEntity.getNode().getNodeid()).toList();
+        FacadeRepository.getInstance().getAllMove().stream()
+            .map(moveEntity -> moveEntity.getNode().getNodeid())
+            .toList();
     allLongNames =
-            FacadeRepository.getInstance().getAllMove().stream()
+        FacadeRepository.getInstance().getAllMove().stream()
             .map(moveEntity -> moveEntity.getLocationName().getLongname())
             .toList();
 
@@ -110,7 +109,9 @@ public class MoveController extends MenuController {
   @FXML
   public void createMove(ActionEvent event) {
     LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
-    MoveEntity theMove = new MoveEntity(FacadeRepository.getInstance().getNode(nodeBox.getValue()), loc, dateBox.getValue());
+    MoveEntity theMove =
+        new MoveEntity(
+            FacadeRepository.getInstance().getNode(nodeBox.getValue()), loc, dateBox.getValue());
     try {
       warning.setVisible(false);
       FacadeRepository.getInstance().addMove(theMove);
@@ -143,7 +144,8 @@ public class MoveController extends MenuController {
           moveID.add(theLocation);
           moveID.add(submitDate);
 
-          LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
+          LocationNameEntity loc =
+              FacadeRepository.getInstance().getLocation(locationBox.getValue());
 
           move.setNode(FacadeRepository.getInstance().getNode(nodeBox.getValue()));
           move.setLocationName(loc);

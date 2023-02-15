@@ -4,7 +4,6 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.PatientTransportRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -160,22 +159,20 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
     return null;
   }
 
-    public void updateStatus(Integer ID, Status status){
-      ListIterator<PatientTransportRequestEntity> li = patrequests.listIterator();
-      while (li.hasNext()) {
-        PatientTransportRequestEntity san = li.next();
-        if (san.getRequestid() == ID) {
-          san.setStatus(status);
-          li.remove();
-          patrequests.add(san);
-          break;
-        }
+  public void updateStatus(Integer ID, Status status) {
+    ListIterator<PatientTransportRequestEntity> li = patrequests.listIterator();
+    while (li.hasNext()) {
+      PatientTransportRequestEntity san = li.next();
+      if (san.getRequestid() == ID) {
+        san.setStatus(status);
+        li.remove();
+        patrequests.add(san);
+        break;
       }
     }
+  }
 
-
-
-  public void updateEmployee(Integer ID, String employee){
+  public void updateEmployee(Integer ID, String employee) {
     ListIterator<PatientTransportRequestEntity> li = patrequests.listIterator();
     while (li.hasNext()) {
       PatientTransportRequestEntity sec = li.next();

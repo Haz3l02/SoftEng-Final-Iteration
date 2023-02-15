@@ -2,8 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -40,7 +38,6 @@ public class NodeController extends MenuController {
 
   private NodeEntity selected = null;
   private List<NodeEntity> data;
-
 
   private ObservableList<NodeEntity> dbTableRowsModel = FXCollections.observableArrayList();
 

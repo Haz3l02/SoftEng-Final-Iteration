@@ -4,8 +4,6 @@ import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusControlle
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -112,7 +110,8 @@ public abstract class ServiceRequestController extends MenuController {
 
   @FXML
   void acceptRequest(ActionEvent event) throws IOException {
-    FacadeRepository.getInstance().updateStatusOfServ(Status.PROCESSING, acceptTheForm.getRequestID());
+    FacadeRepository.getInstance()
+        .updateStatusOfServ(Status.PROCESSING, acceptTheForm.getRequestID());
     switchToServiceRequestStatus(event);
   }
 

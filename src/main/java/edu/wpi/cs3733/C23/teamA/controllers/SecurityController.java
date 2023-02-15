@@ -117,7 +117,8 @@ public class SecurityController extends ServiceRequestController {
 
       } else {
         EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
-        LocationNameEntity location = FacadeRepository.getInstance().getLocation(locationBox.getText());
+        LocationNameEntity location =
+            FacadeRepository.getInstance().getLocation(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue());

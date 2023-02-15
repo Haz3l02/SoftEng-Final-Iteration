@@ -4,7 +4,6 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -44,7 +43,6 @@ public class HomeController extends MenuController {
 
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
-
 
   @FXML
   public void initialize() throws IOException, InterruptedException {
@@ -162,6 +160,7 @@ public class HomeController extends MenuController {
             .substring(
                 response.body().indexOf("\"name\":\"", 0) + 8,
                 response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
-    message.setText("The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela");
+    message.setText(
+        "The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela");
   }
 }

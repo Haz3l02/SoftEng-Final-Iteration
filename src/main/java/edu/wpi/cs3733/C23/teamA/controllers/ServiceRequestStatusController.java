@@ -2,8 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
@@ -142,7 +140,8 @@ public class ServiceRequestStatusController extends MenuController {
       if (job.equalsIgnoreCase("medical")) {
         serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
       } else if (job.equalsIgnoreCase("Maintenance")) {
-        serviceRequestData = FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getName());
+        serviceRequestData =
+            FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getName());
       } else if (job.equalsIgnoreCase("Admin")) {
         serviceRequestData = FacadeRepository.getInstance().getServiceRequestByUnassigned();
       }
@@ -185,7 +184,8 @@ public class ServiceRequestStatusController extends MenuController {
     ObservableList<String> formTypes = FXCollections.observableArrayList(FormType.typeList());
 
     ObservableList<String> maintenance =
-        FXCollections.observableArrayList(FacadeRepository.getInstance().getListEmployeeOfByJob("Maintenance"));
+        FXCollections.observableArrayList(
+            FacadeRepository.getInstance().getListEmployeeOfByJob("Maintenance"));
 
     statusBox.setItems(statuses);
     urgencyBox.setItems(urgencies);

@@ -5,9 +5,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.pathfinding.Graph;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.LocationType;
@@ -26,12 +23,14 @@ public class DBReader {
     // Nodes
     LocationNameEntity locNameEnt;
     MoveEntity moveEntity;
-    List<NodeEntity> allNodes = FacadeRepository.getInstance().getAllNode(); // gets all the nodes in db's node table
+    List<NodeEntity> allNodes =
+        FacadeRepository.getInstance().getAllNode(); // gets all the nodes in db's node table
 
     // loop through all the nodes, adding them to the graph specified
     for (NodeEntity n : allNodes) {
       // THIS WILL NEED TO CHANGE IN ITERATION 3
-      moveEntity = FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
+      moveEntity =
+          FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
       locNameEnt = moveEntity.getLocationName();
       GraphNode g;
       // create the nodes; if there's no LocationNameEntity, it's a node w/ no location attached
@@ -62,7 +61,8 @@ public class DBReader {
 
     /* read through edge columns and add edges to correct node (bidirectional) */
     List<EdgeEntity> allEdges =
-            FacadeRepository.getInstance().getAllEdge(); // Gets list of all edges from database's edge table
+        FacadeRepository.getInstance()
+            .getAllEdge(); // Gets list of all edges from database's edge table
     for (EdgeEntity e : allEdges) {
       GraphNode node1 = graph.getNode(e.getNode1().getNodeid());
       GraphNode node2 = graph.getNode(e.getNode2().getNodeid());

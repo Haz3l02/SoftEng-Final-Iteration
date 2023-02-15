@@ -4,7 +4,6 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -136,20 +135,20 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     }
   }
 
-    public void updateStatus(Integer ID, Status status){
-      ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
-      while (li.hasNext()) {
-        SanitationRequestEntity san = li.next();
-        if (san.getRequestid() == ID) {
-          san.setStatus(status);
-          li.remove();
-          sanrequests.add(san);
-          break;
-        }
+  public void updateStatus(Integer ID, Status status) {
+    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
+    while (li.hasNext()) {
+      SanitationRequestEntity san = li.next();
+      if (san.getRequestid() == ID) {
+        san.setStatus(status);
+        li.remove();
+        sanrequests.add(san);
+        break;
       }
     }
+  }
 
-  public void updateEmployee(Integer ID, String employee){
+  public void updateEmployee(Integer ID, String employee) {
     ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
     while (li.hasNext()) {
       SanitationRequestEntity sec = li.next();

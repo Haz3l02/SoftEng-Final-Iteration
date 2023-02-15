@@ -102,7 +102,6 @@ public class NodeMapController extends MenuController {
   private ImageView[] ivs = new ImageView[5];
   private StackPane[] stacks = new StackPane[5];
 
-
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
 
@@ -120,7 +119,7 @@ public class NodeMapController extends MenuController {
     // set location name box
     ObservableList<String> locationList =
         FXCollections.observableArrayList(
-                FacadeRepository.getInstance().getAllLocation().stream()
+            FacadeRepository.getInstance().getAllLocation().stream()
                 .map(locationNameEntity -> locationNameEntity.getLongname())
                 .toList());
     longNameBox.setItems(locationList);
@@ -352,14 +351,19 @@ public class NodeMapController extends MenuController {
   public void addLocationName(ActionEvent event) {
     NodeEntity currentNode = NodeDraw.getSelected();
     MoveEntity newLocation =
-        new MoveEntity(currentNode, FacadeRepository.getInstance().getLocation(longNameBox.getText()), LocalDate.now());
+        new MoveEntity(
+            currentNode,
+            FacadeRepository.getInstance().getLocation(longNameBox.getText()),
+            LocalDate.now());
     FacadeRepository.getInstance().addMove(newLocation);
-    longNameBox.setText(FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
+    longNameBox.setText(
+        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
     locationIDBox.setText(currentNode.getNodeid());
     createLocation.setVisible(false);
 
     System.out.println("LongName");
-    System.out.println(FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
+    System.out.println(
+        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
     System.out.println();
 
     // added to redraw
@@ -377,13 +381,17 @@ public class NodeMapController extends MenuController {
   public void editLocationName(ActionEvent event) {
     NodeEntity currentNode = NodeDraw.getSelected();
     MoveEntity newLocation =
-        new MoveEntity(currentNode, FacadeRepository.getInstance().getLocation(longNameBox.getText()), LocalDate.now());
+        new MoveEntity(
+            currentNode,
+            FacadeRepository.getInstance().getLocation(longNameBox.getText()),
+            LocalDate.now());
     List<String> data = new ArrayList<>();
     data.add(currentNode.getNodeid());
     data.add(longNameBox.getText());
     data.add(LocalDate.now().toString());
     FacadeRepository.getInstance().updateMove(data, newLocation);
-    longNameBox.setText(FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
+    longNameBox.setText(
+        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
     locationIDBox.setText(currentNode.getNodeid());
   }
 
@@ -391,13 +399,17 @@ public class NodeMapController extends MenuController {
   public void delLocationName(ActionEvent event) {
     NodeEntity currentNode = NodeDraw.getSelected();
     MoveEntity newLocation =
-        new MoveEntity(currentNode, FacadeRepository.getInstance().getLocation(longNameBox.getText()), LocalDate.now());
+        new MoveEntity(
+            currentNode,
+            FacadeRepository.getInstance().getLocation(longNameBox.getText()),
+            LocalDate.now());
     List<String> data = new ArrayList<>();
     data.add(currentNode.getNodeid());
     data.add(longNameBox.getText());
     data.add(LocalDate.now().toString());
     FacadeRepository.getInstance().deleteMove(data);
-    longNameBox.setText(FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
+    longNameBox.setText(
+        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
     locationIDBox.setText(currentNode.getNodeid());
   }
 

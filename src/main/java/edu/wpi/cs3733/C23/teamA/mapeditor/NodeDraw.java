@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.mapeditor;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.controllers.NodeMapController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.awt.*;
@@ -24,7 +23,6 @@ public class NodeDraw {
   static NodeEntity selectNode = null;
 
   static boolean setLocationVisibility;
-
 
   public static void setVisibility(boolean b) {}
 
@@ -78,7 +76,8 @@ public class NodeDraw {
       if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
         locName.setVisible(true);
         locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-        locName.setText(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
+        locName.setText(
+            FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
         locName.setLayoutX(updatedCoords[0] - 2.5);
         locName.setLayoutY(updatedCoords[1] - 2.5);
         NodeMapController nmcToggle = new NodeMapController();
@@ -131,7 +130,8 @@ public class NodeDraw {
               nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
 
               if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
-                nmc.setLongNameBox(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
+                nmc.setLongNameBox(
+                    FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
                 nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
                 nmc.setLocButtonVisibility(false);
               } else {

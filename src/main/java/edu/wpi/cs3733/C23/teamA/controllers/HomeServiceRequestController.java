@@ -2,7 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -31,11 +30,13 @@ public class HomeServiceRequestController extends MenuController {
       pastSubmissions.setText("Assignments");
     }
 
-    ArrayList<ServiceRequestEntity> specificRequests = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
+    ArrayList<ServiceRequestEntity> specificRequests =
+        FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
 
     if (specificRequests.size() == 0 && (job.equalsIgnoreCase("medical"))) {
       pastSubmissions.setDisable(true);
-    } else if (FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getName()).size() == 0
+    } else if (FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getName()).size()
+            == 0
         && (job.equalsIgnoreCase("Maintenance"))) {
       pastSubmissions.setDisable(true);
     } else {

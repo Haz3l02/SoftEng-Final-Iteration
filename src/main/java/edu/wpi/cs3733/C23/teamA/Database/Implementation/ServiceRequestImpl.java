@@ -216,10 +216,10 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     }
     services.add(serv);
 
-        ComputerRequestImpl.getInstance().updateStatus(ID, status);
-        PatientTransportimpl.getInstance().updateStatus(ID, status);
-        SecurityRequestImpl.getInstance().updateStatus(ID, status);
-        SecurityRequestImpl.getInstance().updateStatus(ID, status);
+    ComputerRequestImpl.getInstance().updateStatus(ID, status);
+    PatientTransportimpl.getInstance().updateStatus(ID, status);
+    SecurityRequestImpl.getInstance().updateStatus(ID, status);
+    SecurityRequestImpl.getInstance().updateStatus(ID, status);
 
     tx.commit();
     session.close();
@@ -237,8 +237,6 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
         li.remove();
       }
     }
-
-
 
     ComputerRequestImpl.getInstance().updateEmployee(ID, employee);
     PatientTransportimpl.getInstance().updateEmployee(ID, employee);

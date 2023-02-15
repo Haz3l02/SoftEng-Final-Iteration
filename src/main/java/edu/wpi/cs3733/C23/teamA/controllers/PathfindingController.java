@@ -4,8 +4,6 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
@@ -194,7 +192,8 @@ public class PathfindingController extends MenuController {
     Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
 
     List<NodeEntity> allNodesStartFloor =
-            FacadeRepository.getInstance().getNodesOnFloor(floor.getTableString()); // get all nodes from Database
+        FacadeRepository.getInstance()
+            .getNodesOnFloor(floor.getTableString()); // get all nodes from Database
 
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
@@ -203,7 +202,8 @@ public class PathfindingController extends MenuController {
 
     for (NodeEntity n : allNodesStartFloor) {
       // THIS WILL NEED TO CHANGE IN ITERATION 3
-      moveEntity = FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
+      moveEntity =
+          FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
       locNameEnt = moveEntity.getLocationName();
       // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
       // location attached
@@ -227,7 +227,8 @@ public class PathfindingController extends MenuController {
     Floor floor = Floor.valueOf(Floor.fromString(endFloorBox.getValue()));
 
     List<NodeEntity> allNodesStartFloor =
-            FacadeRepository.getInstance().getNodesOnFloor(floor.getTableString()); // get all nodes from Database
+        FacadeRepository.getInstance()
+            .getNodesOnFloor(floor.getTableString()); // get all nodes from Database
 
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
@@ -236,7 +237,8 @@ public class PathfindingController extends MenuController {
 
     for (NodeEntity n : allNodesStartFloor) {
       // THIS WILL NEED TO CHANGE IN ITERATION 3
-      moveEntity = FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
+      moveEntity =
+          FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
       locNameEnt = moveEntity.getLocationName();
       // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
       // location attached
