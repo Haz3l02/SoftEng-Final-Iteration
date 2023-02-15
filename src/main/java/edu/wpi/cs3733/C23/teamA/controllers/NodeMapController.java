@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
@@ -89,6 +88,7 @@ public class NodeMapController extends MenuController {
   @FXML MFXButton createLocation;
 
   @FXML TabPane editorTabPane;
+  @FXML TabPane mapTabPane;
   @FXML Tab tabL1;
   @FXML Tab tabL2;
   @FXML Tab tabF1;
@@ -107,13 +107,15 @@ public class NodeMapController extends MenuController {
   private AnchorPane[] aps = new AnchorPane[5];
   private ImageView[] ivs = new ImageView[5];
   private StackPane[] stacks = new StackPane[5];
+  private GesturePane[] gestures = new GesturePane[5];
+  private Boolean[] floorInitialized = new Boolean[5];
+  NodeImpl nodeimpl = new NodeImpl();
+  EdgeImpl edgeimpl = new EdgeImpl();
+  MoveImpl moveimpl = new MoveImpl();
+  LocationNameImpl locNameImp = new LocationNameImpl();
 
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
-
-  static Pane previousNode = null;
-  static Pane selectNodePane = null;
-  static NodeEntity selectNode = null;
 
   /** Starting method called when screen is opened: Draws nodes and edges */
   public void initialize() {
@@ -121,38 +123,71 @@ public class NodeMapController extends MenuController {
     NodeDraw.setSelectedPane(null);
     createNodeButton.setVisible(false);
     saveButton.setVisible(false);
+    floorInitialized[0] = false;
+    floorInitialized[1] = false;
+    floorInitialized[2] = false;
+    floorInitialized[3] = false;
+    floorInitialized[4] = false;
 
     // set location name box
-    ObservableList<String> locationList =
-        FXCollections.observableArrayList(
-            FacadeRepository.getInstance().getAllLocation().stream()
-                .map(locationNameEntity -> locationNameEntity.getLongname())
-                .toList());
-    longNameBox.setItems(locationList);
+    //    ObservableList<String> locationList =
+    //        FXCollections.observableArrayList(
+    //            locNameImp.getAll().stream()
+    //                .map(locationNameEntity -> locationNameEntity.getLongname())
+    //                .toList());
+    //    longNameBox.setItems(locationList);
 
     // sets the arrays for GraphicContexts and AnchorPanes
     setArrays();
 
     // add nodes and edges per floor
-    initializeFloorMap("L1", stackL1, gestureL1);
-    initializeFloorMap("L2", stackL2, gestureL2);
-    initializeFloorMap("1", stackF1, gestureF1);
-    initializeFloorMap("2", stackF2, gestureF2);
-    initializeFloorMap("3", stackF3, gestureF3);
+    initializeFloorMap("L1");
+    floorInitialized[0] = true;
+    // initializeFloorMap("L2");
+    // initializeFloorMap("1");
+    // initializeFloorMap("2", stackF2, gestureF2);
+    //    initializeFloorMap("3", stackF3, gestureF3);
+  }
+
+  public void getTab() {
+    System.out.println("HERE");
+    Tab selectedTab = mapTabPane.getSelectionModel().getSelectedItem();
+    String tabID = selectedTab.getId();
+
+    System.out.println(tabID);
+
+    if  (tabID.equals("tabL1") && floorInitialized[0] == false) {
+      ///
+    }
+    else if (tabID.equals("tabL2") && floorInitialized[1] == false) {
+      initializeFloorMap("L2");
+      floorInitialized[1] = true;
+    } else if (tabID.equals("tabF1") && floorInitialized[2] == false) {
+      initializeFloorMap("1");
+      floorInitialized[2] = true;
+    } else if (tabID.equals("tabF2") && floorInitialized[3] == false) {
+      initializeFloorMap("2");
+      floorInitialized[3] = true;
+    } else if (tabID.equals("tabF3") && floorInitialized[4] == false) {
+      initializeFloorMap("3");
+      floorInitialized[4] = true;
+    } else {
+      System.out.println("tab name not found, this is bad (we know L1 isn't here)");
+    }
   }
 
   /**
    * Attaches the gesturepane with the stackpane and reads and adds all the nodes on a floor to the
    * correct anchorPane
    */
-  private void initializeFloorMap(String floor, StackPane stack, GesturePane gesture) {
+  private void initializeFloorMap(String floor) {
     int floorIndex = Floor.indexFromTableString(floor);
     // add image
     addFloorMapImage(floor, ivs[floorIndex]);
 
     // Get all nodes on floor names floor!
-    allNodes = FacadeRepository.getInstance().getNodesOnFloor(floor);
-    allEdges = FacadeRepository.getInstance().getEdgesOnFloor(floor);
+    allNodes = nodeimpl.getNodeOnFloor(floor);
+    allEdges = edgeimpl.getEdgeOnFloor(floor);
 
     LocationNameEntity locNameEnt;
     ArrayList<NodeEntity> nullNodes = new ArrayList<>();
@@ -189,9 +224,9 @@ public class NodeMapController extends MenuController {
             Building.FR15.getTableString());
     BuildingBox.setItems(buildings);
 
-    Node node = stack;
-    gesture.setContent(node);
-    gesture.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+    Node node = stacks[floorIndex];
+    gestures[floorIndex].setContent(node);
+    gestures[floorIndex].setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
   }
 
   public void loadLocNames(ActionEvent event) {}
@@ -218,7 +253,8 @@ public class NodeMapController extends MenuController {
     NodeEntity currentNode = NodeDraw.getSelected();
     Pane currentNodePane = NodeDraw.getSelectedPane();
     String id = currentNode.getNodeid();
-    FacadeRepository.getInstance().collapseNode(currentNode);
+    nodeimpl.delete(id);
+    edgeimpl.collapseNode(currentNode);
     currentNodePane.setVisible(false);
     int index = Floor.indexFromTableString(currentNode.getFloor());
     gcs[index].clearRect(
@@ -275,7 +311,7 @@ public class NodeMapController extends MenuController {
     //    System.out.println("ID: " + newNode.getNodeid());
 
     // Add new Node to database
-    FacadeRepository.getInstance().addNode(newNode);
+    nodeimpl.add(newNode);
 
     // switch box screen
     createNodeButton.setVisible(false);
@@ -335,7 +371,7 @@ public class NodeMapController extends MenuController {
     //    NodeDraw.setSelectedPane(currentPane);
 
     // old id, with new updated node
-    FacadeRepository.getInstance().updateNode(id, currentNode);
+    nodeimpl.update(id, currentNode);
     // node.delete(id);
     fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
     saveButton.setVisible(false);
@@ -356,19 +392,14 @@ public class NodeMapController extends MenuController {
   public void addLocationName(ActionEvent event) {
     NodeEntity currentNode = NodeDraw.getSelected();
     MoveEntity newLocation =
-        new MoveEntity(
-            currentNode,
-            FacadeRepository.getInstance().getLocation(longNameBox.getText()),
-            LocalDate.now());
-    FacadeRepository.getInstance().addMove(newLocation);
-    longNameBox.setText(
-        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
+        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
+    moveimpl.add(newLocation);
+    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
     locationIDBox.setText(currentNode.getNodeid());
     createLocation.setVisible(false);
 
     System.out.println("LongName");
-    System.out.println(
-        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
+    System.out.println(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
     System.out.println();
 
     // added to redraw
@@ -386,17 +417,13 @@ public class NodeMapController extends MenuController {
   public void editLocationName(ActionEvent event) {
     NodeEntity currentNode = NodeDraw.getSelected();
     MoveEntity newLocation =
-        new MoveEntity(
-            currentNode,
-            FacadeRepository.getInstance().getLocation(longNameBox.getText()),
-            LocalDate.now());
+        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
     List<String> data = new ArrayList<>();
     data.add(currentNode.getNodeid());
     data.add(longNameBox.getText());
     data.add(LocalDate.now().toString());
-    FacadeRepository.getInstance().updateMove(data, newLocation);
-    longNameBox.setText(
-        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
+    moveimpl.update(data, newLocation);
+    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
     locationIDBox.setText(currentNode.getNodeid());
   }
 
@@ -404,17 +431,13 @@ public class NodeMapController extends MenuController {
   public void delLocationName(ActionEvent event) {
     NodeEntity currentNode = NodeDraw.getSelected();
     MoveEntity newLocation =
-        new MoveEntity(
-            currentNode,
-            FacadeRepository.getInstance().getLocation(longNameBox.getText()),
-            LocalDate.now());
+        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
     List<String> data = new ArrayList<>();
     data.add(currentNode.getNodeid());
     data.add(longNameBox.getText());
     data.add(LocalDate.now().toString());
-    FacadeRepository.getInstance().deleteMove(data);
-    longNameBox.setText(
-        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
+    moveimpl.delete(data);
+    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
     locationIDBox.setText(currentNode.getNodeid());
   }
 
@@ -477,6 +500,12 @@ public class NodeMapController extends MenuController {
     stacks[2] = stackF1;
     stacks[3] = stackF2;
     stacks[4] = stackF3;
+
+    gestures[0] = gestureL1;
+    gestures[1] = gestureL2;
+    gestures[2] = gestureF1;
+    gestures[3] = gestureF2;
+    gestures[4] = gestureF3;
   }
 
   @FXML
@@ -507,101 +536,4 @@ public class NodeMapController extends MenuController {
     Image image = ImageLoader.getImage(floor);
     iv.setImage(image);
   }
-
-  //  public void drawNodes(List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
-  //    // gc.setFill(Color.web("0x224870"));
-  //
-  //    // draw circle for each node
-  //    for (NodeEntity n : allNodes) {
-  //      int[] updatedCoords = NodeDraw.scaleCoordinates(n.getXcoord(), n.getYcoord(),
-  // scaleFactor);
-  //      Pane nodeGraphic = new Pane();
-  //
-  //      /* Set the style of the node */
-  //      nodeGraphic.setPrefSize(5, 5);
-  //      nodeGraphic.setLayoutX(updatedCoords[0] - 2.5);
-  //      nodeGraphic.setLayoutY(updatedCoords[1] - 2.5);
-  //      nodeGraphic.setStyle(
-  //          "-fx-background-color: '#224870'; "
-  //              + "-fx-background-radius: 12.5; "
-  //              + "-fx-border-color: '#224870'; "
-  //              + "-fx-border-width: 1;"
-  //              + "-fx-border-radius: 12.5");
-  //      //      Text locName = new Text();
-  //      //      locName.setVisible(false);
-  //      //      if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
-  //      //        locName.setVisible(true);
-  //      //        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-  //      //        locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
-  //      //        locName.setLayoutX(updatedCoords[0] - 2.5);
-  //      //        locName.setLayoutY(updatedCoords[1] - 2.5);
-  //      //        NodeMapController nmcToggle = new NodeMapController();
-  //      //        //      if (nmcToggle.toggleLocations()) {
-  //      //        //        locName.setVisible(false);
-  //      //        //      }
-  //      //      }
-  //
-  //      EventHandler<MouseEvent> eventHandler =
-  //          new EventHandler<MouseEvent>() {
-  //            @Override
-  //            public void handle(MouseEvent event) {
-  //
-  //              selectNodePane = nodeGraphic;
-  //
-  //              if ((previousNode != null)) {
-  //
-  //                if (!previousNode.equals(nodeGraphic)) {
-  //
-  //                  previousNode.setStyle(
-  //                      "-fx-background-color: '#224870'; "
-  //                          + "-fx-background-radius: 12.5; "
-  //                          + "-fx-border-color: '#224870'; "
-  //                          + "-fx-border-width: 1;"
-  //                          + "-fx-border-radius: 13.5");
-  //                  previousNode.setPrefSize(5, 5);
-  //                  //                  previousNode.setLayoutX(updatedCoords[0] - 2.5);
-  //                  //                  previousNode.setLayoutY(updatedCoords[1] - 2.5);
-  //                }
-  //              }
-  //
-  //              nodeGraphic.setStyle(
-  //                  "-fx-background-color: '#D3E9F6'; "
-  //                      + "-fx-background-radius: 12.5; "
-  //                      + "-fx-border-color: '#224870'; "
-  //                      + "-fx-border-width: 1;"
-  //                      + "-fx-border-radius: 13.5");
-  //              nodeGraphic.setPrefSize(7, 7);
-  //              //              nodeGraphic.setLayoutX(updatedCoords[0] - 3.5);
-  //              //              nodeGraphic.setLayoutY(updatedCoords[1] - 3.5);
-  //
-  //              previousNode = nodeGraphic;
-  //              selectNode = n;
-  //
-  //              setXCord(n.getXcoord().toString());
-  //              setYCord(n.getYcoord().toString());
-  //              setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
-  //              // nmc.setFloorBox(n.getFloor());
-  //              setBuildingBox(n.getBuilding());
-  //              makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
-  //
-  //              System.out.println(moveimpl.mostRecentLoc(n.getNodeid()).getLongname()); // added
-  //
-  //              if (!(moveimpl.mostRecentLoc(n.getNodeid()) == null)) {
-  //                setLongNameBox(moveimpl.mostRecentLoc(n.getNodeid()).getLongname());
-  //                setLocationIDBox(makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-  //                setLocButtonVisibility(false);
-  //              } else {
-  //                setLongNameBox(null);
-  //                setLocationIDBox(makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-  //                setLocButtonVisibility(true);
-  //              }
-  //            }
-  //          };
-  //      nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-  //
-  //      nodeAnchor.getChildren().add(nodeGraphic);
-  //      // nodeAnchor.getChildren().add(locName);
-  //    }
-  //  }
-
 }
