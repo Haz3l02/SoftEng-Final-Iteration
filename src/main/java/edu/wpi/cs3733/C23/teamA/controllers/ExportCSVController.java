@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 
 public class ExportCSVController {
+
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
   @FXML private MFXTextField fileNameField;
@@ -38,6 +39,8 @@ public class ExportCSVController {
 
   @FXML
   public void openFileExplorer(ActionEvent event) {
+    //we need this to fucking work so save the damn changes
+    System.out.println("adfsgbdf");
     DirectoryChooser dc = new DirectoryChooser();
     File selectedDirectory = dc.showDialog(null);
     if (selectedDirectory != null) {
