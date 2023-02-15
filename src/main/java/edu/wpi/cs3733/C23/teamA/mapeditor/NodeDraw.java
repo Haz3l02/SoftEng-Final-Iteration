@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.mapeditor;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.controllers.NodeMapController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.awt.*;
@@ -72,8 +73,8 @@ public class NodeDraw {
 
       Text locName = new Text();
       locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-
-      locName.setText("Floor: " + n.getFloor() + " Building: " + n.getBuilding());
+      MoveImpl locations = new MoveImpl();
+      locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
       locName.setLayoutX(updatedCoords[0] - 2.5);
       locName.setLayoutY(updatedCoords[1] - 2.5);
       //            NodeMapController nmcToggle = new NodeMapController();
