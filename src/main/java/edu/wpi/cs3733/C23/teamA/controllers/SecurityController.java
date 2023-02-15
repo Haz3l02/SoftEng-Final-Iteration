@@ -29,20 +29,19 @@ public class SecurityController extends ServiceRequestController {
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
   private RequestCategory assistance;
-  private SecurityRequestImpl secI = new SecurityRequestImpl();
+  private SecurityRequestImpl secI;
 
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
-
+    reject.setDisable(true);
+    reject.setVisible(false);
+    accept.setDisable(true);
+    accept.setVisible(false);
     if (requestsBox != null) {
       ObservableList<String> requests =
           FXCollections.observableArrayList(RequestCategory.categoryList());
       requestsBox.setItems(requests);
-      reject.setDisable(true);
-      reject.setVisible(false);
-      accept.setDisable(true);
-      accept.setVisible(false);
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Security")) {
       SecurityRequestEntity editRequest = secI.get(newEdit.getRequestID());

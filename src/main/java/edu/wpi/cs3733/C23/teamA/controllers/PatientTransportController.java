@@ -163,7 +163,6 @@ public class PatientTransportController extends ServiceRequestController {
 
   @FXML
   void clearForm() {
-    super.clearForm();
     pNameBox.clear();
     pIDBox.clear();
     moveToBox.clear();

@@ -3,30 +3,21 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.util.converter.IntegerStringConverter;
-import org.controlsfx.control.PopOver;
 
 public class NodeController extends MenuController {
 
@@ -40,15 +31,6 @@ public class NodeController extends MenuController {
   @FXML public MFXTextField xBox;
   @FXML public MFXTextField yBox;
 
-  @FXML public Button submit;
-  @FXML private Text reminder;
-  @FXML private StackPane reminderPane;
-  @FXML private MFXTextField fileNameField;
-  private PopOver popup;
-  @FXML private MFXButton cancel;
-
-  NodeImpl node = new NodeImpl();
-  List<NodeEntity> nodeData = new ArrayList<>();
   @FXML public MFXComboBox floorBox;
   @FXML public MFXComboBox buildingBox;
 
@@ -154,104 +136,5 @@ public class NodeController extends MenuController {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-  }
-
-  /** Set cells to respond to modification and try to commit changes to the database */
-  public void editableColumns() {
-    nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    xCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-    yCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-    floorCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    buildingCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    nodeCol.setOnEditCommit(
-        e -> {
-          NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
-          try {
-            String oldId = n.getNodeid();
-            n.setNodeid(e.getNewValue());
-            NodeImpl nodeI = new NodeImpl();
-            nodeI.update(oldId, n);
-          } catch (Exception ex) {
-            ex.printStackTrace();
-          }
-        });
-    xCol.setOnEditCommit(
-        e -> {
-          NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
-          try {
-            if (e.getNewValue() >= 0 && e.getNewValue() < 9999) {
-              n.setXcoord(e.getNewValue());
-              NodeImpl nodeI = new NodeImpl();
-              nodeI.update(n.getNodeid(), n);
-            }
-          } catch (Exception ex) {
-            ex.printStackTrace();
-          }
-        });
-    yCol.setOnEditCommit(
-        e -> {
-          NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
-          try {
-            if (e.getNewValue() >= 0 && e.getNewValue() < 9999) {
-              n.setYcoord(e.getNewValue());
-              NodeImpl nodeI = new NodeImpl();
-              nodeI.update(n.getNodeid(), n);
-            }
-          } catch (Exception ex) {
-            ex.printStackTrace();
-          }
-        });
-    floorCol.setOnEditCommit(
-        e -> {
-          NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
-          try {
-            n.setFloor(e.getNewValue());
-            NodeImpl nodeI = new NodeImpl();
-            nodeI.update(n.getNodeid(), n);
-          } catch (Exception ex) {
-            ex.printStackTrace();
-          }
-        });
-    buildingCol.setOnEditCommit(
-        e -> {
-          NodeEntity n = e.getTableView().getItems().get(e.getTablePosition().getRow());
-          try {
-            n.setFloor(e.getNewValue());
-            NodeImpl nodeI = new NodeImpl();
-            nodeI.update(n.getNodeid(), n);
-          } catch (Exception ex) {
-            ex.printStackTrace();
-          }
-        });
-  }
-
-  public void addTableColumns() {
-    nodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    xCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-    yCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-    floorCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    buildingCol.setCellFactory(TextFieldTableCell.forTableColumn());
-  }
-
-  public void switchToEdgeScene(ActionEvent event) {
-    Navigation.navigate(Screen.EDGE);
-  }
-
-  public void switchToMoveScene(ActionEvent event) {
-    Navigation.navigate(Screen.MOVE);
-  }
-
-  public void switchToMapScene(ActionEvent event) {
-    Navigation.navigate(Screen.NODE_MAP);
-  }
-
-  @FXML
-  public void switchToImportScreen(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.IMPORT_CSV);
-  }
-
-  @FXML
-  public void switchToExportScreen(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.EXPORT_CSV);
   }
 }

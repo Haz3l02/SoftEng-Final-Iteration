@@ -69,13 +69,25 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
               employees.remove(employee);
             });
 
-    EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
-    emp.setEmployeeid(obj.getEmployeeid());
-    emp.setUsername(obj.getUsername());
-    emp.setPassword(obj.getPassword());
-    emp.setJob(obj.getJob());
-    emp.setName(obj.getName());
-    employees.add(emp);
+    session
+        .createMutationQuery(
+            "UPDATE EmployeeEntity SET "
+                + "employeeid = '"
+                + obj.getEmployeeid()
+                + "', job = '"
+                + obj.getJob()
+                + "', name = '"
+                + obj.getName()
+                + "', password = '"
+                + obj.getPassword()
+                + "', username = '"
+                + obj.getUsername()
+                + "' WHERE employeeid = '"
+                + ID
+                + "'")
+        .executeUpdate();
+
+    employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
     tx.commit();
     session.close();
   }
@@ -90,7 +102,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         return info;
       }
     }
-    info.add("");
     return info;
   }
 
@@ -105,7 +116,6 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
-    Transaction tx = session.beginTransaction();
     if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
         filename += ".csv";
@@ -134,6 +144,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
 
     File emps = new File(filename);
 
+    Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(emps);
     int count = 0;
     read.nextLine();

@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
+
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -25,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.hibernate.Session;
 
 public class HomeController extends MenuController {
 
@@ -33,9 +36,6 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<ServiceRequestEntity, String> requestTypeCol;
   @FXML public TableColumn<ServiceRequestEntity, String> locationCol;
   @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
-  @FXML public TableColumn<ServiceRequestEntity, String> node1Col;
-  @FXML public TableColumn<ServiceRequestEntity, String> node2Col;
-
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
@@ -45,7 +45,6 @@ public class HomeController extends MenuController {
       FXCollections.observableArrayList();
 
   private ServiceRequestImpl sri = new ServiceRequestImpl();
-  List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
   @FXML
   public void initialize() throws IOException, InterruptedException {
@@ -63,6 +62,9 @@ public class HomeController extends MenuController {
           param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
+      Session session = getSessionFactory().openSession();
+      List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
+
       requests = sri.getServiceRequestByAssigned(userInfo.getName());
       if (requests.size() == 0) {
         assignmentsButton.setDisable(true);
@@ -72,6 +74,7 @@ public class HomeController extends MenuController {
       dbTableRowsModel.addAll(requests);
 
       assignmentsTable.setItems(dbTableRowsModel);
+      session.close();
     } else if (userInfo.getJob().equalsIgnoreCase("Admin") && IDCol != null) {
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
@@ -80,29 +83,18 @@ public class HomeController extends MenuController {
           param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
+      Session session = getSessionFactory().openSession();
+      List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
+
       requests = sri.getServiceRequestByUnassigned();
 
       dbTableRowsModel.addAll(requests);
 
       assignmentsTable.setItems(dbTableRowsModel);
+      session.close();
+    } else {
+      // Code for medical homepage
     }
-    //        else {
-    //          locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-    //          node1Col.setCellValueFactory(
-    //              param -> new
-    // SimpleStringProperty(param.getValue().getRequestType().requestType));
-    //          node2Col.setCellValueFactory(new PropertyValueFactory<>("node"));
-    //          urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
-    //
-    //          MoveImpl move = new MoveImpl();
-    //
-    //          List<MoveEntity> moveData = new ArrayList<MoveEntity>();
-    //
-    //          moveData = move.getAll();
-    //          moveData.dbTableRowsModel.addAll(requests);
-    //
-    //          assignmentsTable.setItems(dbTableRowsModel);
-    //        }
   }
 
   @FXML
@@ -170,9 +162,6 @@ public class HomeController extends MenuController {
             .substring(
                 response.body().indexOf("\"name\":\"", 0) + 8,
                 response.body().indexOf("\"", response.body().indexOf("\"name\":\"") + 9));
-    //
-    // message.setText("\"" + quote + "\" -" + author);
-    message.setText(
-        "The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela");
+    message.setText("\"" + quote + "\" -" + author);
   }
 }

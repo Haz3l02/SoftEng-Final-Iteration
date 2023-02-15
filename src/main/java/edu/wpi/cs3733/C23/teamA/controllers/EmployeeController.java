@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
+import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -9,6 +10,7 @@ import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -19,10 +21,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import org.controlsfx.control.PopOver;
 
 public class EmployeeController {
 
@@ -42,6 +49,12 @@ public class EmployeeController {
   @FXML private MFXButton editButton;
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createEmployee;
+  @FXML private Text reminder;
+  @FXML private StackPane reminderPane;
+  @FXML private MFXTextField fileNameField;
+  private static PopOver popup;
+  @FXML private MFXButton cancel;
+
   private String hospitalID;
   private String job;
 
@@ -60,8 +73,12 @@ public class EmployeeController {
   }
 
   @FXML
-  public void initialize() throws SQLException, IOException {
+  public void initialize() throws SQLException {
 
+    if (reminder != null) {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+    }
     IdNumberHolder holder = IdNumberHolder.getInstance();
     hospitalID = holder.getId();
     job = holder.getJob();
@@ -178,12 +195,74 @@ public class EmployeeController {
   }
 
   @FXML
-  public void switchToImportScreen(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.IMPORT_CSV);
+  void clearForm(ActionEvent event) {
+    fileNameField.clear();
   }
 
   @FXML
-  public void switchToExportScreen(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.EXPORT_CSV);
+  public void switchToImportPopup(ActionEvent event) throws IOException {
+    if (!event.getSource().equals(cancel)) {
+      FXMLLoader loader =
+          new FXMLLoader(Main.class.getResource("views/ImportEmployeeCSVFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(cancel)) {
+      popup.hide();
+    }
+  }
+
+  @FXML
+  public void importEmployeeCSV(ActionEvent event) throws FileNotFoundException {
+    if (fileNameField.getText().equals("")) {
+      reminder.setVisible(true);
+      reminderPane.setVisible(true);
+    } else {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+
+      System.out.println(fileNameField.getText());
+
+      employee.importFromCSV(fileNameField.getText());
+
+      popup.hide();
+    }
+  }
+
+  @FXML
+  public void close(ActionEvent event) {
+    popup.hide();
+  }
+
+  @FXML
+  public void switchToExportPopup(ActionEvent event) throws IOException {
+    System.out.println("opens popup");
+    if (!event.getSource().equals(cancel)) {
+      FXMLLoader loader =
+          new FXMLLoader(Main.class.getResource("views/ExportEmployeeCSVFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(cancel)) {
+      popup.hide();
+    }
+  }
+
+  @FXML
+  public void exportEmployeeCSV(ActionEvent event) throws IOException {
+
+    if (fileNameField.getText().equals("")) {
+      reminder.setVisible(true);
+      reminderPane.setVisible(true);
+    } else {
+      reminder.setVisible(false);
+      reminderPane.setVisible(false);
+
+      employee.exportToCSV(fileNameField.getText());
+
+      popup.hide();
+    }
   }
 }
