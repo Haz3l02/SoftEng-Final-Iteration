@@ -113,7 +113,7 @@ public class NodeMapController extends MenuController {
    * correct anchorPane
    */
   private void initializeFloorMap(String floor, StackPane stack, GesturePane gesture) {
-    // Get all nodes on floor names floor
+    // Get all nodes on floor names floor!
     NodeImpl nodeimpl = new NodeImpl();
     allNodes = nodeimpl.getNodeOnFloor(floor);
     EdgeImpl edgeimpl = new EdgeImpl();
@@ -269,6 +269,7 @@ public class NodeMapController extends MenuController {
     currentNode.setYcoord(Integer.parseInt(YCord.getText()));
     currentNode.setBuilding(BuildingBox.getText());
     currentNode.setFloor(Floor.fromString(FloorBox.getText()));
+    System.out.println("HIIIIIII");
 
     System.out.println("X: " + currentNode.getXcoord());
     System.out.println("Y: " + currentNode.getYcoord());
