@@ -143,10 +143,6 @@ public class NodeMapController extends MenuController {
     // add nodes and edges per floor
     initializeFloorMap("L1");
     floorInitialized[0] = true;
-    // initializeFloorMap("L2");
-    // initializeFloorMap("1");
-    // initializeFloorMap("2", stackF2, gestureF2);
-    //    initializeFloorMap("3", stackF3, gestureF3);
   }
 
   public void getTab() {
@@ -157,7 +153,9 @@ public class NodeMapController extends MenuController {
     System.out.println(tabID);
 
     if  (tabID.equals("tabL1") && floorInitialized[0] == false) {
-      ///
+      // already initialized
+      initializeFloorMap("L1");
+      floorInitialized[0] = true;
     }
     else if (tabID.equals("tabL2") && floorInitialized[1] == false) {
       initializeFloorMap("L2");
@@ -171,8 +169,6 @@ public class NodeMapController extends MenuController {
     } else if (tabID.equals("tabF3") && floorInitialized[4] == false) {
       initializeFloorMap("3");
       floorInitialized[4] = true;
-    } else {
-      System.out.println("tab name not found, this is bad (we know L1 isn't here)");
     }
   }
 
