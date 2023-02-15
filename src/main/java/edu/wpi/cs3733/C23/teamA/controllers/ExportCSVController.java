@@ -48,6 +48,9 @@ public class ExportCSVController {
     }
   }
 
+  public void doStuff() {
+    System.out.println("hehe");
+  }
   @FXML
   public void cancel(ActionEvent event) {
     if (iecsv.getTableType().equals("employee")) {
