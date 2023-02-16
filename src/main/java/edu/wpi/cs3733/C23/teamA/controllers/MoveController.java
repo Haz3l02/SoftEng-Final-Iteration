@@ -23,7 +23,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 public class MoveController extends MenuController {
@@ -43,7 +42,6 @@ public class MoveController extends MenuController {
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createMove;
   @FXML protected Text warning;
-  @FXML protected StackPane reminderPane;
 
   // List of all Node IDs in specific order
   private List<String> allNodeID;
@@ -56,7 +54,6 @@ public class MoveController extends MenuController {
   public void initialize() {
     moveData = FacadeRepository.getInstance().getAllMove();
     warning.setVisible(false);
-    reminderPane.setVisible(false);
 
     allNodeID =
         FacadeRepository.getInstance().getAllMove().stream()
@@ -117,7 +114,6 @@ public class MoveController extends MenuController {
       FacadeRepository.getInstance().addMove(theMove);
     } catch (PersistenceException p) {
       warning.setVisible(true);
-      reminderPane.setVisible(true);
     }
     // moveImpl.add(theMove);
     reloadData();

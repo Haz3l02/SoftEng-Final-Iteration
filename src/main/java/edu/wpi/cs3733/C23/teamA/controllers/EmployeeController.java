@@ -251,6 +251,16 @@ public class EmployeeController {
   }
 
   @FXML
+  void switchToImportScreen(ActionEvent event) {
+    Navigation.navigate(Screen.IMPORT_CSV);
+  }
+
+  @FXML
+  void switchToExportScreen(ActionEvent event) {
+    Navigation.navigate(Screen.EXPORT_CSV);
+  }
+
+  @FXML
   public void exportEmployeeCSV(ActionEvent event) throws IOException {
 
     if (fileNameField.getText().equals("")) {
