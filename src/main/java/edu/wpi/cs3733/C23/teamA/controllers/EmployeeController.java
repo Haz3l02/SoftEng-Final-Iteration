@@ -229,14 +229,18 @@ public class EmployeeController {
   @FXML
   public void close(ActionEvent event) {
     popup.hide();
+  }
+
+  @FXML
   public void switchToImport(ActionEvent event) {
     Navigation.navigate(Screen.IMPORT_CSV);
   }
 
   @FXML
-  public void switchToExport(ActionEvent event){
-      Navigation.navigate(Screen.EXPORT_CSV);
+  public void switchToExport(ActionEvent event) {
+    Navigation.navigate(Screen.EXPORT_CSV);
   }
+
   public void switchToExportPopup(ActionEvent event) throws IOException {
     System.out.println("opens popup");
     if (!event.getSource().equals(cancel)) {
@@ -249,16 +253,6 @@ public class EmployeeController {
     if (event.getSource().equals(cancel)) {
       popup.hide();
     }
-  }
-
-  @FXML
-  void switchToImportScreen(ActionEvent event) {
-    Navigation.navigate(Screen.IMPORT_CSV);
-  }
-
-  @FXML
-  void switchToExportScreen(ActionEvent event) {
-    Navigation.navigate(Screen.EXPORT_CSV);
   }
 
   @FXML

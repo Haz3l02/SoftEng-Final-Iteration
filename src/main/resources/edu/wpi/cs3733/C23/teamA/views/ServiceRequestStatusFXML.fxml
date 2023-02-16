@@ -27,7 +27,7 @@
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImportPopup" prefHeight="50.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Import CSV" textFill="#d3e9f6">
+                  <MFXButton id="helpButton" fx:id="importCSVButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImport" prefHeight="50.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Import CSV" textFill="#d3e9f6">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -35,19 +35,19 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </MFXButton>
+                  <MFXButton id="helpButton" fx:id="exportCSVButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExport" prefHeight="50.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Export CSV" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
                </children>
             </HBox>
-            <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExportPopup" prefHeight="50.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Export CSV" textFill="#d3e9f6">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </MFXButton>
             <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0">
                <children>
-                  <MFXButton id="helpButton" fx:id="submitButton" buttonType="RAISED" onAction="#submitRequest" prefHeight="25.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Select All" textFill="#d3e9f6" visible="false">
+                  <MFXButton id="helpButton" fx:id="submitButton" buttonType="RAISED" onAction="#submitEdit" prefHeight="25.0" prefWidth="86.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Select All" textFill="#d3e9f6" visible="false">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" />
                      </HBox.margin>

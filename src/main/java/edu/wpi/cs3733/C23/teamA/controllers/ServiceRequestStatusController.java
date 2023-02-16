@@ -57,6 +57,7 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
   @FXML private MFXButton exportCSVButton;
+  @FXML private MFXButton importCSVButton;
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
   public static AcceptTheForm acceptTheForm = new AcceptTheForm(0, "", false);
@@ -306,9 +307,12 @@ public class ServiceRequestStatusController extends MenuController {
     }
   }
 
+  public void switchToImport(ActionEvent event) {
+    Navigation.navigate(Screen.IMPORT_CSV);
+  }
+
   @FXML
-  public void switchToExportScreen(ActionEvent event) throws IOException {
-    iecsv = new ImportExportCSV("status");
+  public void switchToExport(ActionEvent event) {
     Navigation.navigate(Screen.EXPORT_CSV);
   }
 }
