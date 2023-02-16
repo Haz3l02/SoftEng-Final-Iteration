@@ -33,6 +33,17 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     moves = records;
+    //    HashMap<MoveEntity, MoveEntity> loc =
+    //        locationChanges(LocalDate.parse("2023-02-18"), LocalDate.parse("2023-02-20"));
+    //    for (MoveEntity m : loc.keySet()) {
+    //      System.out.println(
+    //          String.format(
+    //              "%s -> %s %s %s",
+    //              loc.get(m).getLocationName().getLongname(),
+    //              m.getLocationName().getLongname(),
+    //              m.getNode().getNodeid(),
+    //              m.getMovedate().toString()));
+    //    }
     session.close();
   }
 
@@ -74,6 +85,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
     String hql = "delete from MoveEntity ";
+    Transaction tx = session.beginTransaction();
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     moves.clear();
@@ -86,7 +98,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
 
     File loc = new File(filename);
 
-    Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);
     int count = 0;
     read.nextLine();
@@ -185,7 +196,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
    * Finds a list of moves matching node id that happened on or before certain date
    *
    * @param id
-   * @param lastDate
+   * @param date
    * @return
    */
   public List<MoveEntity> locationRecord(String id, LocalDate date) {
@@ -290,5 +301,21 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
 
   public static MoveImpl getInstance() {
     return instance;
+  }
+
+  public List<String> getNodeID() {
+    ArrayList<String> nodeID = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      nodeID.add(m.getNode().getNodeid());
+    }
+    return nodeID;
+  }
+
+  public List<String> getLocationName() {
+    ArrayList<String> nodeID = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      nodeID.add(m.getLocationName().getLongname());
+    }
+    return nodeID;
   }
 }

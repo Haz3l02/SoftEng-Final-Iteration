@@ -119,6 +119,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
         return info;
       }
     }
+    info.add("");
     return info;
   }
 
@@ -134,6 +135,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
 
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
     if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
         filename += ".csv";
@@ -162,7 +164,6 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
 
     File emps = new File(filename);
 
-    Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(emps);
     int count = 0;
     read.nextLine();

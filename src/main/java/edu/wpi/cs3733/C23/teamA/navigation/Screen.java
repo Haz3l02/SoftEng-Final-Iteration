@@ -7,9 +7,6 @@ public enum Screen {
   HOME_ADMIN("views/HomeAdminFXML.fxml"),
   HOME_EMPLOYEE("views/HomeEmployeeFXML.fxml"),
   CONFIRMATION("views/ConfirmationFXML.fxml"),
-  COMPUTER_CONFIRMATION("views/ComputerConfirmationFXML.fxml"),
-  SANITATION_CONFIRMATION("views/SanitationConfirmationFXML.fxml"),
-  SECURITY_CONFIRMATION("views/SecurityConfirmationFXML.fxml"),
   PATIENT_CONFIRMATION("views/PatientTransportConformationFXML.fxml"),
   COMPUTER("views/ComputerFXML.fxml"),
   SANITATION("views/SanitationFXML.fxml"),
@@ -29,8 +26,10 @@ public enum Screen {
   NODE_MAP("views/NodeMapFXML.fxml"),
   EMPLOYEE("views/EmployeeFXML.fxml"),
   HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
-  // MAP_DISPLAY("views/PathDisplayFXML.fxml"),
-  PATIENT_TRANSPORT("views/PatientTransportationFXML.fxml");
+  MAP_DISPLAY("views/PathDisplayFXML.fxml"),
+  PATIENT_TRANSPORT("views/PatientTransportationFXML.fxml"),
+  IMPORT_CSV("views/ImportEmployeeCSVFXML.fxml"),
+  EXPORT_CSV("views/ExportEmployeeCSVFXML.fxml");
 
   private final String filename;
 
