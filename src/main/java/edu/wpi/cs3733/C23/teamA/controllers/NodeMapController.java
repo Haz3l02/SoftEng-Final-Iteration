@@ -212,7 +212,6 @@ public class NodeMapController extends MenuController {
     NodeEntity currentNode = NodeDraw.getSelected();
     Pane currentNodePane = NodeDraw.getSelectedPane();
     String id = currentNode.getNodeid();
-    FacadeRepository.getInstance().deleteNode(id);
     FacadeRepository.getInstance().collapseNode(currentNode);
     currentNodePane.setVisible(false);
     int index = Floor.indexFromTableString(currentNode.getFloor());
