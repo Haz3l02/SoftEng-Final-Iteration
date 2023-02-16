@@ -54,11 +54,6 @@ public class NodeDraw {
 
   public static void drawNodes(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NodeMapController nmc) {
-    System.out.println("HERE");
-  }
-
-  public static void drawNodesLong(
-      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NodeMapController nmc) {
     // gc.setFill(Color.web("0x224870"));
 
     // draw circle for each node

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ExportCSVController">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="88.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="818.0">
+               <children>
+                  <MFXButton fx:id="reset" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="1100.0">
+               <children>
+                  <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #122c34; -fx-border-width: 2 2 2 2;">
+                     <children>
+                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Select a Folder!" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </StackPane>
+                  <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancel" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#exportCSV" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Export" textFill="#224870">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets right="30.0" />
+               </padding>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="20.0" />
+         </padding>
+      </HBox>
+   </bottom>
+   <top>
+      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="600.0" style="-fx-background-color: #f6bd3a; -fx-border-color: #122c34; -fx-border-width: 0 0 10 0;" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <children>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Export CSV Table" textAlignment="CENTER">
+               <font>
+                  <Font name="Verdana" size="64.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="359.0" prefWidth="1374.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="81.0" prefWidth="1248.0" promptText="Folder Path..." style="-fx-background-radius: 15; -fx-border-radius: 15;">
+                     <font>
+                        <Font name="Verdana" size="48.0" />
+                     </font>
+                  </MFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <MFXButton fx:id="reset1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="200.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Select Folder" textAlignment="CENTER" textFill="#224870">
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font name="Verdana" size="48.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export all tables">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Text>
+                  <MFXCheckbox fx:id="checkBox" alignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </MFXCheckbox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

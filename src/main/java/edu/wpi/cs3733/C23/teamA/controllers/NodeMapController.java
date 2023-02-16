@@ -178,7 +178,7 @@ public class NodeMapController extends MenuController {
   private void initializeFloorMap(String floor) {
     int floorIndex = Floor.indexFromTableString(floor);
     // add image
-    addFloorMapImage(floor, ivs[floorIndex]);
+    // addFloorMapImage(floor, ivs[floorIndex]); // !!!
 
     // Get all nodes on floor names floor!
     allNodes = FacadeRepository.getInstance().getNodesOnFloor(floor);
@@ -254,6 +254,12 @@ public class NodeMapController extends MenuController {
     gcs[index].clearRect(
         0, 0, gcs[index].getCanvas().getWidth(), gcs[index].getCanvas().getHeight());
     initializeFloorMap(currentNode.getFloor());
+
+    // fix this
+    String currentFloor = currentNode.getFloor();
+    allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
+    if (Floor.indexFromTableString(currentFloor) != -1)
+      NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gcs[Floor.indexFromTableString(currentFloor)]);
   }
 
   public void transitionToNewNodeBox(ActionEvent event) {
@@ -293,7 +299,8 @@ public class NodeMapController extends MenuController {
     fieldBox.setStyle("-fx-background-color: '013A75'; ");
     newNode.setXcoord(Integer.parseInt(XCord.getText()));
     newNode.setYcoord(Integer.parseInt(YCord.getText()));
-    String tableString = Floor.fromString(FloorBox.getText());
+    Floor floor = Floor.valueOf(Floor.fromString(FloorBox.getText()));
+    String tableString = floor.getTableString();
     newNode.setFloor(tableString);
     newNode.setBuilding(BuildingBox.getText());
     newNode.setNodeid(makeNewNodeID(newNode.getFloor(), newNode.getXcoord(), newNode.getYcoord()));
@@ -347,7 +354,8 @@ public class NodeMapController extends MenuController {
     currentNode.setXcoord(Integer.parseInt(XCord.getText()));
     currentNode.setYcoord(Integer.parseInt(YCord.getText()));
     currentNode.setBuilding(BuildingBox.getText());
-    currentNode.setFloor(Floor.fromString(FloorBox.getText()));
+    Floor floor = Floor.valueOf(Floor.fromString(FloorBox.getText())); // !!
+    currentNode.setFloor(floor.getTableString());
 
     System.out.println("X: " + currentNode.getXcoord());
     System.out.println("Y: " + currentNode.getYcoord());

@@ -110,12 +110,12 @@
                               <Font size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImportScreen" prefHeight="55.0" prefWidth="166.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Import CSV" textFill="#d3e9f6">
+                        <MFXButton id="helpButton" fx:id="clearButton1" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImport" prefHeight="55.0" prefWidth="168.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Import CSV" textFill="#d3e9f6">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExportScreen" prefHeight="55.0" prefWidth="163.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Export CSV" textFill="#d3e9f6">
+                        <MFXButton id="helpButton" fx:id="clearButton11" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExport" prefHeight="55.0" prefWidth="165.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Export CSV" textFill="#d3e9f6">
                            <font>
                               <Font size="25.0" />
                            </font>

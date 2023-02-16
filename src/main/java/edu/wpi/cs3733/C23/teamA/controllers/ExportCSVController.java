@@ -27,6 +27,7 @@ public class ExportCSVController {
   public void initialize() {
     reminder.setVisible(false);
     reminderPane.setVisible(false);
+    fileNameField.setDisable(true);
   }
 
   @FXML

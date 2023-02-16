@@ -90,16 +90,6 @@ public class NodeController extends MenuController {
     }
   }
 
-  @FXML
-  void switchToImportScreen(ActionEvent event) {
-    Navigation.navigate(Screen.IMPORT_CSV);
-  }
-
-  @FXML
-  void switchToExportScreen(ActionEvent event) {
-    Navigation.navigate(Screen.EXPORT_CSV);
-  }
-
   public void onSubmit() {
     String x = xBox.getText().trim();
     String y = yBox.getText().trim();
@@ -145,5 +135,15 @@ public class NodeController extends MenuController {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @FXML
+  public void switchToImport(ActionEvent event) {
+    Navigation.navigate(Screen.IMPORT_CSV);
+  }
+
+  @FXML
+  public void switchToExport(ActionEvent event) {
+    Navigation.navigate(Screen.EXPORT_CSV);
   }
 }

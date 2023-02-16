@@ -25,6 +25,7 @@ public class ImportCSVController {
   public void initialize() {
     reminder.setVisible(false);
     reminderPane.setVisible(false);
+    fileNameField.setDisable(true);
   }
 
   @FXML
@@ -44,6 +45,8 @@ public class ImportCSVController {
       Navigation.navigate(Screen.NODE);
     } else if (iecsv.getTableType().equals("move")) {
       Navigation.navigate(Screen.MOVE);
+    } else if (iecsv.getTableType().equals("status")) {
+      Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
     }
   }
 
