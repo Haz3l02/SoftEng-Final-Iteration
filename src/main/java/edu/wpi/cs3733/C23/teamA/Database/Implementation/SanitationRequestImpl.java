@@ -32,6 +32,17 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     session.close();
   }
 
+
+  public void refresh(){
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<SanitationRequestEntity> criteria =
+            builder.createQuery(SanitationRequestEntity.class);
+    criteria.from(SanitationRequestEntity.class);
+    sanrequests = session.createQuery(criteria).getResultList();
+    session.close();
+  }
+
   public List<SanitationRequestEntity> getAll() {
     return sanrequests;
   }

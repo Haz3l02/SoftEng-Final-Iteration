@@ -32,6 +32,16 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
     session.close();
   }
 
+  public void refresh(){
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<PatientTransportRequestEntity> criteria =
+            builder.createQuery(PatientTransportRequestEntity.class);
+    criteria.from(PatientTransportRequestEntity.class);
+    patrequests = session.createQuery(criteria).getResultList();
+    session.close();
+  }
+
   @Override
   public List<PatientTransportRequestEntity> getAll() {
     return patrequests;
@@ -171,6 +181,9 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
       }
     }
   }
+
+
+
 
   public void updateEmployee(Integer ID, String employee) {
     ListIterator<PatientTransportRequestEntity> li = patrequests.listIterator();

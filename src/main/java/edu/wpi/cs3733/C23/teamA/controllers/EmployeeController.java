@@ -93,6 +93,8 @@ public class EmployeeController {
       dbTableRowsModel.addAll(employeeData);
       employeeTable.setItems(dbTableRowsModel);
     }
+    ObservableList<String> jobs = FXCollections.observableArrayList(Job.jobList());
+    jobBox.setItems(jobs);
     // Assign permissions to differentiate between medical and non-medical staff
 
   }
@@ -107,7 +109,7 @@ public class EmployeeController {
       IDNumBox.setText(String.valueOf(clickedEmployeeTableRow.getEmployeeid()));
       usernameBox.setText(String.valueOf(clickedEmployeeTableRow.getUsername()));
       passwordBox.setText(String.valueOf(clickedEmployeeTableRow.getPassword()));
-      jobBox.setText(String.valueOf(clickedEmployeeTableRow.getJob()));
+      jobBox.setValue(String.valueOf(clickedEmployeeTableRow.getJob()));
     }
     editButton.setDisable(false);
     deleteButton.setDisable(false);

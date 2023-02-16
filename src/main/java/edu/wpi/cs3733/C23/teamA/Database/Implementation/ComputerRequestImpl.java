@@ -31,6 +31,17 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
     comprequests = records;
   }
 
+  public void refresh(){
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<ComputerRequestEntity> criteria =
+            builder.createQuery(ComputerRequestEntity.class);
+    criteria.from(ComputerRequestEntity.class);
+    List<ComputerRequestEntity> records = session.createQuery(criteria).getResultList();
+    session.close();
+    comprequests = records;
+  }
+
   public List<ComputerRequestEntity> getAll() {
     return comprequests;
   }

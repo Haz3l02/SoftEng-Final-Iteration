@@ -31,6 +31,8 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     session.close();
   }
 
+
+
   public List<EmployeeEntity> getAll() {
     return employees;
   }
@@ -69,25 +71,32 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
               employees.remove(employee);
             });
 
-    session
-        .createMutationQuery(
-            "UPDATE EmployeeEntity SET "
-                + "employeeid = '"
-                + obj.getEmployeeid()
-                + "', job = '"
-                + obj.getJob()
-                + "', name = '"
-                + obj.getName()
-                + "', password = '"
-                + obj.getPassword()
-                + "', username = '"
-                + obj.getUsername()
-                + "' WHERE employeeid = '"
-                + ID
-                + "'")
-        .executeUpdate();
+    //    session
+    //        .createMutationQuery(
+    //            "UPDATE EmployeeEntity SET "
+    //                + "employeeid = '"
+    //                + obj.getEmployeeid()
+    //                + "', job = '"
+    //                + obj.getJob()
+    //                + "', name = '"
+    //                + obj.getName()
+    //                + "', password = '"
+    //                + obj.getPassword()
+    //                + "', username = '"
+    //                + obj.getUsername()
+    //                + "' WHERE employeeid = '"
+    //                + ID
+    //                + "'")
+    //        .executeUpdate();
 
-    employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
+    EmployeeEntity emp = session.get(EmployeeEntity.class, obj);
+    emp.setName(obj.getName());
+    emp.setPassword(obj.getPassword());
+    emp.setEmployeeid(obj.getEmployeeid());
+    emp.setUsername(obj.getUsername());
+    emp.setJob(obj.getJob());
+
+    // employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
     tx.commit();
     session.close();
   }

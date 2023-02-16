@@ -18,7 +18,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, Integer> {
-  private final List<ServiceRequestEntity> services;
+  private List<ServiceRequestEntity> services;
   private static final ServiceRequestImpl instance = new ServiceRequestImpl();
 
   private ServiceRequestImpl() {
@@ -27,8 +27,20 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<ServiceRequestEntity> criteria = builder.createQuery(ServiceRequestEntity.class);
     criteria.from(ServiceRequestEntity.class);
-    services = session.createQuery(criteria).getResultList();
+    List<ServiceRequestEntity> records = session.createQuery(criteria).getResultList();
     session.close();
+    services=records;
+  }
+
+  public void refresh(){
+    Session session = getSessionFactory().openSession();
+    session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<ServiceRequestEntity> criteria = builder.createQuery(ServiceRequestEntity.class);
+    criteria.from(ServiceRequestEntity.class);
+    List<ServiceRequestEntity> records = session.createQuery(criteria).getResultList();
+    session.close();
+    services=records;
   }
 
   public List<ServiceRequestEntity> getAll() {

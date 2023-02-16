@@ -32,6 +32,16 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     session.close();
   }
 
+  public void refresh(){
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<SecurityRequestEntity> criteria =
+            builder.createQuery(SecurityRequestEntity.class);
+    criteria.from(SecurityRequestEntity.class);
+    secrequests = session.createQuery(criteria).getResultList();
+    session.close();
+  }
+
   public List<SecurityRequestEntity> getAll() {
     return secrequests;
   }

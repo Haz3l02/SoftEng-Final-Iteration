@@ -31,9 +31,22 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     criteria.from(EdgeEntity.class);
     List<EdgeEntity> records = session.createQuery(criteria).getResultList();
     edges = records;
-    collapseNode(session.get(NodeEntity.class, "AHALL001L2"));
+    //collapseNode(session.get(NodeEntity.class, "AHALL001L2"));
     session.close();
   }
+
+
+  public void refresh(){
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
+    criteria.from(EdgeEntity.class);
+    List<EdgeEntity> records = session.createQuery(criteria).getResultList();
+    edges = records;
+    //collapseNode(session.get(NodeEntity.class, "AHALL001L2"));
+    session.close();
+  }
+
 
   public List<EdgeEntity> getAll() {
     return edges;
