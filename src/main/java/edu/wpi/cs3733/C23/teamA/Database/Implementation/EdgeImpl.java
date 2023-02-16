@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -11,27 +12,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Scanner;
+import java.util.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
-public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
+public class EdgeImpl extends Observable implements IDatabaseAPI<EdgeEntity, String> {
   private static final EdgeImpl instance = new EdgeImpl();
 
   private List<EdgeEntity> edges;
 
-  public EdgeImpl() {
+  private EdgeImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
     criteria.from(EdgeEntity.class);
     List<EdgeEntity> records = session.createQuery(criteria).getResultList();
     edges = records;
-    collapseNode(session.get(NodeEntity.class, "AHALL001L2"));
+    // collapseNode(session.get(NodeEntity.class, "AHALL001L2"));
+    session.close();
+  }
+
+  public void refresh() {
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<EdgeEntity> criteria = builder.createQuery(EdgeEntity.class);
+    criteria.from(EdgeEntity.class);
+    List<EdgeEntity> records = session.createQuery(criteria).getResultList();
+    edges = records;
+    // collapseNode(session.get(NodeEntity.class, "AHALL001L2"));
     session.close();
   }
 
@@ -129,6 +138,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     edges.add(e);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void delete(String e) {
@@ -143,6 +153,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
     session.remove(session.get(EdgeEntity.class, e));
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   /**
@@ -163,12 +174,16 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
         newEdge = new EdgeEntity(n.getNode1(), m.getNode2());
         System.out.println(newEdge.getEdgeid());
         add(newEdge);
-        delete(m.getEdgeid());
+        try {
+          delete(m.getEdgeid());
+        } catch (Exception exp) {
+        }
       }
       delete(n.getEdgeid());
     }
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void update(String s, EdgeEntity obj) {
@@ -192,6 +207,7 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
 
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public EdgeEntity get(String ID) {

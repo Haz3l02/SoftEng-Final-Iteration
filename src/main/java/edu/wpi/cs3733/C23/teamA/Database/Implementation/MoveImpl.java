@@ -2,7 +2,8 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.*;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
@@ -20,18 +21,29 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
-public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
+public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, List<String>> {
   private List<MoveEntity> moves;
   private static final MoveImpl instance = new MoveImpl();
 
   // done except importCSV
-  public MoveImpl() {
+  private MoveImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
     criteria.from(MoveEntity.class);
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     moves = records;
+    //    HashMap<MoveEntity, MoveEntity> loc =
+    //        locationChanges(LocalDate.parse("2023-02-18"), LocalDate.parse("2023-02-20"));
+    //    for (MoveEntity m : loc.keySet()) {
+    //      System.out.println(
+    //          String.format(
+    //              "%s -> %s %s %s",
+    //              loc.get(m).getLocationName().getLongname(),
+    //              m.getLocationName().getLongname(),
+    //              m.getNode().getNodeid(),
+    //              m.getMovedate().toString()));
+    //    }
     session.close();
   }
 
@@ -73,6 +85,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
     String hql = "delete from MoveEntity ";
+    Transaction tx = session.beginTransaction();
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     moves.clear();
@@ -85,7 +98,6 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     File loc = new File(filename);
 
-    Transaction tx = session.beginTransaction();
     Scanner read = new Scanner(loc);
     int count = 0;
     read.nextLine();
@@ -128,6 +140,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
       throw new PersistenceException();
     }
     session.close();
+    notifyAllObservers();
   }
 
   public void delete(List<String> m) {
@@ -152,6 +165,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   /**
@@ -182,7 +196,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
    * Finds a list of moves matching node id that happened on or before certain date
    *
    * @param id
-   * @param lastDate
+   * @param date
    * @return
    */
   public List<MoveEntity> locationRecord(String id, LocalDate date) {
@@ -273,6 +287,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     delete(ID);
     add(obj);
+    notifyAllObservers();
   }
 
   public MoveEntity get(List<String> ID) {
@@ -286,5 +301,21 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
   public static MoveImpl getInstance() {
     return instance;
+  }
+
+  public List<String> getNodeID() {
+    ArrayList<String> nodeID = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      nodeID.add(m.getNode().getNodeid());
+    }
+    return nodeID;
+  }
+
+  public List<String> getLocationName() {
+    ArrayList<String> nodeID = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      nodeID.add(m.getLocationName().getLongname());
+    }
+    return nodeID;
   }
 }

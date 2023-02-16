@@ -2,11 +2,9 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static java.lang.String.valueOf;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -25,7 +23,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 public class MoveController extends MenuController {
@@ -45,26 +42,25 @@ public class MoveController extends MenuController {
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createMove;
   @FXML protected Text warning;
-  @FXML protected StackPane reminderPane;
 
   // List of all Node IDs in specific order
   private List<String> allNodeID;
   private List<String> allLongNames; // List of corresponding long names in order
 
   private ObservableList<MoveEntity> dbTableRowsModel = FXCollections.observableArrayList();
-  MoveImpl moveImpl = new MoveImpl();
   List<MoveEntity> moveData = new ArrayList<>();
 
   /** runs on switching to this scene */
   public void initialize() {
-    moveData = moveImpl.getAll();
+    moveData = FacadeRepository.getInstance().getAllMove();
     warning.setVisible(false);
-    reminderPane.setVisible(false);
 
     allNodeID =
-        moveImpl.getAll().stream().map(moveEntity -> moveEntity.getNode().getNodeid()).toList();
+        FacadeRepository.getInstance().getAllMove().stream()
+            .map(moveEntity -> moveEntity.getNode().getNodeid())
+            .toList();
     allLongNames =
-        moveImpl.getAll().stream()
+        FacadeRepository.getInstance().getAllMove().stream()
             .map(moveEntity -> moveEntity.getLocationName().getLongname())
             .toList();
 
@@ -88,7 +84,7 @@ public class MoveController extends MenuController {
   public void reloadData() {
     dbTableRowsModel.clear();
     try {
-      moveData = moveImpl.getAll();
+      moveData = FacadeRepository.getInstance().getAllMove();
       dbTableRowsModel.addAll(moveData);
 
       clearEdits();
@@ -103,22 +99,21 @@ public class MoveController extends MenuController {
     moveIDs.add(nodeBox.getValue());
     moveIDs.add(locationBox.getValue());
     moveIDs.add(dateBox.getValue().toString());
-    moveImpl.delete(moveIDs);
+    FacadeRepository.getInstance().deleteMove(moveIDs);
     reloadData();
   }
 
   @FXML
   public void createMove(ActionEvent event) {
-    NodeImpl nodeimpl = new NodeImpl();
-    LocationNameImpl location = new LocationNameImpl();
-    LocationNameEntity loc = location.get(locationBox.getValue());
-    MoveEntity theMove = new MoveEntity(nodeimpl.get(nodeBox.getValue()), loc, dateBox.getValue());
+    LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
+    MoveEntity theMove =
+        new MoveEntity(
+            FacadeRepository.getInstance().getNode(nodeBox.getValue()), loc, dateBox.getValue());
     try {
       warning.setVisible(false);
-      moveImpl.add(theMove);
+      FacadeRepository.getInstance().addMove(theMove);
     } catch (PersistenceException p) {
       warning.setVisible(true);
-      reminderPane.setVisible(true);
     }
     // moveImpl.add(theMove);
     reloadData();
@@ -145,15 +140,14 @@ public class MoveController extends MenuController {
           moveID.add(theLocation);
           moveID.add(submitDate);
 
-          NodeImpl nodeimpl = new NodeImpl();
-          LocationNameImpl location = new LocationNameImpl();
-          LocationNameEntity loc = location.get(locationBox.getValue());
+          LocationNameEntity loc =
+              FacadeRepository.getInstance().getLocation(locationBox.getValue());
 
-          move.setNode(nodeimpl.get(nodeBox.getValue()));
+          move.setNode(FacadeRepository.getInstance().getNode(nodeBox.getValue()));
           move.setLocationName(loc);
           move.setMovedate(dateBox.getValue());
 
-          moveImpl.update(moveID, move);
+          FacadeRepository.getInstance().updateMove(moveID, move);
           System.out.println("Updateing Node");
           dbTable.setItems(currentTableData);
           reloadData();

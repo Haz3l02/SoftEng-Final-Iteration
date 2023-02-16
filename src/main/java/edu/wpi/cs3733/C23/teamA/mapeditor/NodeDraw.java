@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.mapeditor;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.controllers.NodeMapController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.awt.*;
@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
+import javafx.scene.text.Font;
 
 public class NodeDraw {
 
@@ -22,8 +23,6 @@ public class NodeDraw {
   static NodeEntity selectNode = null;
 
   static boolean setLocationVisibility;
-
-  static MoveImpl locations = new MoveImpl();
 
   public static void setVisibility(boolean b) {}
 
@@ -56,7 +55,6 @@ public class NodeDraw {
   public static void drawNodes(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NodeMapController nmc) {
     // gc.setFill(Color.web("0x224870"));
-    locations.refresh();
 
     // draw circle for each node
     for (NodeEntity n : allNodes) {
@@ -73,19 +71,20 @@ public class NodeDraw {
               + "-fx-border-color: '#224870'; "
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
-      //      Text locName = new Text();
-      //      locName.setVisible(false);
-      //      if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
-      //        locName.setVisible(true);
-      //        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-      //        locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
-      //        locName.setLayoutX(updatedCoords[0] - 2.5);
-      //        locName.setLayoutY(updatedCoords[1] - 2.5);
-      //        NodeMapController nmcToggle = new NodeMapController();
-      //        //      if (nmcToggle.toggleLocations()) {
-      //        //        locName.setVisible(false);
-      //        //      }
-      //      }
+      Text locName = new Text();
+      locName.setVisible(false);
+      if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
+        locName.setVisible(true);
+        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+        locName.setText(
+            FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
+        locName.setLayoutX(updatedCoords[0] - 2.5);
+        locName.setLayoutY(updatedCoords[1] - 2.5);
+        NodeMapController nmcToggle = new NodeMapController();
+        //      if (nmcToggle.toggleLocations()) {
+        //        locName.setVisible(false);
+        //      }
+      }
 
       EventHandler<MouseEvent> eventHandler =
           new EventHandler<MouseEvent>() {
@@ -127,8 +126,9 @@ public class NodeDraw {
               nmc.setBuildingBox(n.getBuilding());
               nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
 
-              if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
-                nmc.setLongNameBox(locations.mostRecentLoc(n.getNodeid()).getLongname());
+              if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
+                nmc.setLongNameBox(
+                    FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
                 nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
                 nmc.setLocButtonVisibility(false);
               } else {

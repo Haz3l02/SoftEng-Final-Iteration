@@ -48,7 +48,7 @@ public class ServiceRequestEntity {
           @ForeignKey(
               name = "longname",
               foreignKeyDefinition =
-                  "FOREIGN KEY (location) REFERENCES locationname(longname) ON UPDATE CASCADE ON DELETE NULL"))
+                  "FOREIGN KEY (location) REFERENCES locationname(longname) ON UPDATE CASCADE ON DELETE SET NULL"))
   @Setter
   @Getter
   private LocationNameEntity location;

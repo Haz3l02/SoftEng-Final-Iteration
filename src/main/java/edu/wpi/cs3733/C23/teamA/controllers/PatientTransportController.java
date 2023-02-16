@@ -3,10 +3,8 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.acceptTheForm;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.PatientTransportimpl;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -31,8 +29,6 @@ public class PatientTransportController extends ServiceRequestController {
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
 
-  private PatientTransportimpl patI = new PatientTransportimpl();
-
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
@@ -42,8 +38,7 @@ public class PatientTransportController extends ServiceRequestController {
       reject.setVisible(false);
       accept.setDisable(true);
       accept.setVisible(false);
-      LocationNameImpl locationI = new LocationNameImpl();
-      List<LocationNameEntity> temp = locationI.getAll();
+      List<LocationNameEntity> temp = FacadeRepository.getInstance().getAllLocation();
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationNameEntity move : temp) {
         locations.add(move.getLongname());
@@ -53,7 +48,8 @@ public class PatientTransportController extends ServiceRequestController {
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
     if (newEdit.needEdits && newEdit.getRequestType().equals("PatientTransport")) {
-      PatientTransportRequestEntity editPatientRequest = patI.get(newEdit.getRequestID());
+      PatientTransportRequestEntity editPatientRequest =
+          FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
       nameBox.setText(editPatientRequest.getName());
       IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
@@ -65,7 +61,8 @@ public class PatientTransportController extends ServiceRequestController {
       equipmentBox.setText(editPatientRequest.getEquipment());
     } else if (acceptTheForm.acceptance
         && acceptTheForm.getRequestType().equals("Patient Transport")) {
-      PatientTransportRequestEntity editPatientRequest = patI.get(acceptTheForm.getRequestID());
+      PatientTransportRequestEntity editPatientRequest =
+          FacadeRepository.getInstance().getPatientTransport(acceptTheForm.getRequestID());
       nameBox.setText(editPatientRequest.getName());
       IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
@@ -96,9 +93,7 @@ public class PatientTransportController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
-    PatientTransportimpl patI = new PatientTransportimpl();
-    LocationNameImpl locationI = new LocationNameImpl();
-    EmployeeImpl employeeI = new EmployeeImpl();
+
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null
@@ -115,24 +110,27 @@ public class PatientTransportController extends ServiceRequestController {
         // something that submits it
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
 
-        PatientTransportRequestEntity submission = patI.get(newEdit.getRequestID());
+        PatientTransportRequestEntity submission =
+            FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
         // supers
         submission.setName(nameBox.getText());
-        LocationNameEntity loc1 = locationI.get(locationBox.getValue());
+        LocationNameEntity loc1 =
+            FacadeRepository.getInstance().getLocation(locationBox.getValue());
         submission.setLocation(loc1);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
         // sub fields
         submission.setPatientID(pIDBox.getText());
         submission.setPatientID(pIDBox.getText());
-        LocationNameEntity loc2 = locationI.get(moveToBox.getValue());
+        LocationNameEntity loc2 = FacadeRepository.getInstance().getLocation(moveToBox.getValue());
         submission.setMoveTo(loc2);
         submission.setEquipment(equipmentBox.getText());
       } else {
-        EmployeeEntity person = employeeI.get(IDNum.getText());
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
         // IDNum.getText()
-        LocationNameEntity loc = locationI.get(locationBox.getText());
-        LocationNameEntity moveTo = locationI.get(moveToBox.getValue());
+        LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getText());
+        LocationNameEntity moveTo =
+            FacadeRepository.getInstance().getLocation(moveToBox.getValue());
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
 
         PatientTransportRequestEntity submission =
@@ -149,7 +147,7 @@ public class PatientTransportController extends ServiceRequestController {
                 pIDBox.getText(),
                 moveTo,
                 equipmentBox.getText());
-        patI.add(submission);
+        FacadeRepository.getInstance().addPatientTransport(submission);
         // submission.insert(); // *some db thing for getting the request in there*
       }
       newEdit.setNeedEdits(false);
@@ -164,6 +162,7 @@ public class PatientTransportController extends ServiceRequestController {
 
   @FXML
   void clearForm() {
+    super.clearForm();
     pNameBox.clear();
     pIDBox.clear();
     moveToBox.clear();

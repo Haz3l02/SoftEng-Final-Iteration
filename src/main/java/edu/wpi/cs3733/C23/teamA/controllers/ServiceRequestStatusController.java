@@ -1,8 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
@@ -57,9 +56,8 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML private MFXTextField fileNameField;
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
-
-  UrgencyLevel urgent;
-  Status status;
+  @FXML private MFXButton exportCSVButton;
+  @FXML private MFXButton importCSVButton;
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
   public static AcceptTheForm acceptTheForm = new AcceptTheForm(0, "", false);
@@ -71,7 +69,6 @@ public class ServiceRequestStatusController extends MenuController {
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
   List<ServiceRequestEntity> serviceRequestData = new ArrayList<>();
-  ServiceRequestImpl serviceRequestImpl = new ServiceRequestImpl();
 
   private static PopOver popup;
 
@@ -110,6 +107,8 @@ public class ServiceRequestStatusController extends MenuController {
         urgencyBox.setDisable(false);
         viewForm.setVisible(false);
         deleteButton.setVisible(true);
+        exportCSVButton.setDisable(true);
+        exportCSVButton.setVisible(false);
 
       } else if (job.equalsIgnoreCase("Maintenance")) {
         statusBox.setDisable(false);
@@ -120,6 +119,8 @@ public class ServiceRequestStatusController extends MenuController {
         editForm.setVisible(false);
         deleteButton.setDisable(true);
         deleteButton.setVisible(false);
+        exportCSVButton.setDisable(true);
+        exportCSVButton.setVisible(false);
       } else if (job.equalsIgnoreCase(("Admin"))) {
         statusBox.setDisable(true);
         employeeBox.setDisable(false);
@@ -129,6 +130,8 @@ public class ServiceRequestStatusController extends MenuController {
         editForm.setVisible(false);
         deleteButton.setDisable(true);
         deleteButton.setVisible(false);
+        exportCSVButton.setDisable(false);
+        exportCSVButton.setVisible(true);
       }
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
@@ -140,11 +143,12 @@ public class ServiceRequestStatusController extends MenuController {
       employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
 
       if (job.equalsIgnoreCase("medical")) {
-        serviceRequestData = serviceRequestImpl.getAllByEmployee(hospitalID);
+        serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
       } else if (job.equalsIgnoreCase("Maintenance")) {
-        serviceRequestData = serviceRequestImpl.getServiceRequestByAssigned(holder.getName());
+        serviceRequestData =
+            FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getName());
       } else if (job.equalsIgnoreCase("Admin")) {
-        serviceRequestData = serviceRequestImpl.getServiceRequestByUnassigned();
+        serviceRequestData = FacadeRepository.getInstance().getServiceRequestByUnassigned();
       }
       dbTableRowsModel.addAll(serviceRequestData);
 
@@ -183,10 +187,10 @@ public class ServiceRequestStatusController extends MenuController {
         FXCollections.observableArrayList(UrgencyLevel.urgencyList());
 
     ObservableList<String> formTypes = FXCollections.observableArrayList(FormType.typeList());
-    EmployeeImpl theEmployee = new EmployeeImpl();
 
     ObservableList<String> maintenance =
-        FXCollections.observableArrayList(theEmployee.getListOfByJob("Maintenance"));
+        FXCollections.observableArrayList(
+            FacadeRepository.getInstance().getListEmployeeOfByJob("Maintenance"));
 
     statusBox.setItems(statuses);
     urgencyBox.setItems(urgencies);
@@ -197,7 +201,7 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML
   public void delete(ActionEvent event) {
     int currentRowId = Integer.parseInt(IDBoxSaver.getText());
-    serviceRequestImpl.delete(currentRowId);
+    FacadeRepository.getInstance().deleteServiceRequest(currentRowId);
     reloadData();
   }
 
@@ -205,11 +209,11 @@ public class ServiceRequestStatusController extends MenuController {
     dbTableRowsModel.clear();
     try {
       if (job.equalsIgnoreCase("medical")) {
-        serviceRequestData = serviceRequestImpl.getAllByEmployee(hospitalID);
+        serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
       } else if (job.equalsIgnoreCase("Maintenance")) {
-        serviceRequestData = serviceRequestImpl.getServiceRequestByAssigned(name);
+        serviceRequestData = FacadeRepository.getInstance().getServiceRequestByAssigned(name);
       } else if (job.equalsIgnoreCase("Admin")) {
-        serviceRequestData = serviceRequestImpl.getServiceRequestByUnassigned();
+        serviceRequestData = FacadeRepository.getInstance().getServiceRequestByUnassigned();
       }
       dbTableRowsModel.addAll(serviceRequestData);
       clearEdits();
@@ -239,7 +243,7 @@ public class ServiceRequestStatusController extends MenuController {
           SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText().toUpperCase()));
           SRTable.setEmployeeAssigned(employeeBox.getText());
 
-          serviceRequestImpl.update(currentRowId, SRTable);
+          FacadeRepository.getInstance().updateServiceRequest(currentRowId, SRTable);
 
           reloadData();
           break;
@@ -303,9 +307,12 @@ public class ServiceRequestStatusController extends MenuController {
     }
   }
 
+  public void switchToImport(ActionEvent event) {
+    Navigation.navigate(Screen.IMPORT_CSV);
+  }
+
   @FXML
   public void switchToExport(ActionEvent event) {
-    iecsv = new ImportExportCSV("status");
     Navigation.navigate(Screen.EXPORT_CSV);
   }
 }

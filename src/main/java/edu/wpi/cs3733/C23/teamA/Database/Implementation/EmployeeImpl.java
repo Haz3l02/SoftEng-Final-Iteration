@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -17,12 +18,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
-public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
+public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEntity, String> {
   private static final EmployeeImpl instance = new EmployeeImpl();
 
   private List<EmployeeEntity> employees;
 
-  public EmployeeImpl() {
+  private EmployeeImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<EmployeeEntity> criteria = builder.createQuery(EmployeeEntity.class);
@@ -69,27 +70,43 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
               employees.remove(employee);
             });
 
-    session
-        .createMutationQuery(
-            "UPDATE EmployeeEntity SET "
-                + "employeeid = '"
-                + obj.getEmployeeid()
-                + "', job = '"
-                + obj.getJob()
-                + "', name = '"
-                + obj.getName()
-                + "', password = '"
-                + obj.getPassword()
-                + "', username = '"
-                + obj.getUsername()
-                + "' WHERE employeeid = '"
-                + ID
-                + "'")
-        .executeUpdate();
+    //    session
+    //        .createMutationQuery(
+    //            "UPDATE EmployeeEntity SET "
+    //                + "employeeid = '"
+    //                + obj.getEmployeeid()
+    //                + "', job = '"
+    //                + obj.getJob()
+    //                + "', name = '"
+    //                + obj.getName()
+    //                + "', password = '"
+    //                + obj.getPassword()
+    //                + "', username = '"
+    //                + obj.getUsername()
+    //                + "' WHERE employeeid = '"
+    //                + ID
+    //                + "'")
+    //        .executeUpdate();
 
-    employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
+    EmployeeEntity emp = session.get(EmployeeEntity.class, obj);
+    emp.setName(obj.getName());
+    emp.setPassword(obj.getPassword());
+    emp.setEmployeeid(obj.getEmployeeid());
+    emp.setUsername(obj.getUsername());
+    emp.setJob(obj.getJob());
+
+    if (ID.equals(obj.getEmployeeid())) {
+      ComputerRequestImpl.getInstance().refresh();
+      PatientTransportimpl.getInstance().refresh();
+      SecurityRequestImpl.getInstance().refresh();
+      SanitationRequestImpl.getInstance().refresh();
+      ServiceRequestImpl.getInstance().refresh();
+    }
+
+    // employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public ArrayList<String> checkPass(String user, String pass) {
@@ -102,6 +119,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         return info;
       }
     }
+    info.add("");
     return info;
   }
 
@@ -112,6 +130,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     employees.add(e);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
@@ -176,6 +195,7 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
             });
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public EmployeeEntity getByUsername(String user) {
@@ -200,6 +220,16 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
         .filter(employee -> employee.getEmployeeid().equals(ID))
         .findFirst()
         .orElseThrow();
+  }
+
+  @Override
+  public void refresh() {
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<EmployeeEntity> criteria = builder.createQuery(EmployeeEntity.class);
+    criteria.from(EmployeeEntity.class);
+    employees = session.createQuery(criteria).getResultList();
+    session.close();
   }
 
   public static EmployeeImpl getInstance() {

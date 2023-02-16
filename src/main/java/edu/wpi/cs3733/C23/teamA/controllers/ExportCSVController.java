@@ -1,11 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.controllers.HomeDatabaseController.iecsv;
+import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.iecsv;
 
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -20,7 +17,6 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 
 public class ExportCSVController {
-
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
   @FXML private MFXTextField fileNameField;
@@ -36,8 +32,6 @@ public class ExportCSVController {
 
   @FXML
   public void openFileExplorer(ActionEvent event) {
-    // we need this to fucking work so save the damn changes
-    System.out.println("adfsgbdf");
     DirectoryChooser dc = new DirectoryChooser();
     File selectedDirectory = dc.showDialog(null);
     if (selectedDirectory != null) {
@@ -73,39 +67,22 @@ public class ExportCSVController {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
       if (checkBox.isSelected()) {
-        EmployeeImpl employee = new EmployeeImpl();
-        NodeImpl node = new NodeImpl();
-        MoveImpl move = new MoveImpl();
-        ServiceRequestImpl sri = new ServiceRequestImpl();
-        employee.exportToCSV(fileNameField.getText());
-        node.exportToCSV(fileNameField.getText());
-        move.exportToCSV(fileNameField.getText());
-        sri.exportToCSV(fileNameField.getText());
-        if (iecsv.getTableType().equals("employee")) {
-          Navigation.navigate(Screen.EMPLOYEE);
-        } else if (iecsv.getTableType().equals("node")) {
-          Navigation.navigate(Screen.NODE);
-        } else if (iecsv.getTableType().equals("move")) {
-          Navigation.navigate(Screen.MOVE);
-        } else if (iecsv.getTableType().equals("status")) {
-          Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
-        }
+        FacadeRepository.getInstance().exportEmployee(fileNameField.getText());
+        FacadeRepository.getInstance().exportNode(fileNameField.getText());
+        FacadeRepository.getInstance().exportMove(fileNameField.getText());
+        FacadeRepository.getInstance().exportService(fileNameField.getText());
       } else {
         if (iecsv.getTableType().equals("employee")) {
-          EmployeeImpl employee = new EmployeeImpl();
-          employee.exportToCSV(fileNameField.getText());
+          FacadeRepository.getInstance().exportEmployee(fileNameField.getText());
           Navigation.navigate(Screen.EMPLOYEE);
         } else if (iecsv.getTableType().equals("node")) {
-          NodeImpl node = new NodeImpl();
-          node.exportToCSV(fileNameField.getText());
+          FacadeRepository.getInstance().exportNode(fileNameField.getText());
           Navigation.navigate(Screen.NODE);
         } else if (iecsv.getTableType().equals("move")) {
-          MoveImpl move = new MoveImpl();
-          move.exportToCSV(fileNameField.getText());
+          FacadeRepository.getInstance().exportMove(fileNameField.getText());
           Navigation.navigate(Screen.MOVE);
         } else {
-          ServiceRequestImpl sri = new ServiceRequestImpl();
-          sri.exportToCSV(fileNameField.getText());
+          FacadeRepository.getInstance().exportEmployee(fileNameField.getText());
           Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
         }
       }

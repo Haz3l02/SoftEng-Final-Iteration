@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.acceptTheForm;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
@@ -29,7 +30,6 @@ public class SecurityController extends ServiceRequestController {
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
   private RequestCategory assistance;
-  private SecurityRequestImpl secI;
 
   @FXML
   public void initialize() throws SQLException {
@@ -43,9 +43,14 @@ public class SecurityController extends ServiceRequestController {
       ObservableList<String> requests =
           FXCollections.observableArrayList(RequestCategory.categoryList());
       requestsBox.setItems(requests);
+      reject.setDisable(true);
+      reject.setVisible(false);
+      accept.setDisable(true);
+      accept.setVisible(false);
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Security")) {
-      SecurityRequestEntity editRequest = secI.get(newEdit.getRequestID());
+      SecurityRequestEntity editRequest =
+          FacadeRepository.getInstance().getSecurityRequest(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       requestsBox.setText(editRequest.getRequestType().requestType);
@@ -62,7 +67,8 @@ public class SecurityController extends ServiceRequestController {
       reject.setDisable(true);
       reject.setVisible(false);
     } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Security")) {
-      SecurityRequestEntity editRequest = secI.get(acceptTheForm.getRequestID());
+      SecurityRequestEntity editRequest =
+          FacadeRepository.getInstance().getSecurityRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       requestsBox.setText(editRequest.getRequestType().requestType);
@@ -88,8 +94,6 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) {
-    LocationNameImpl locationI = new LocationNameImpl();
-    EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
         || phone.getText().equals("")
         || IDNum.getText().equals("")
@@ -105,20 +109,22 @@ public class SecurityController extends ServiceRequestController {
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue().toUpperCase());
 
-        SecurityRequestEntity submission = secI.get(newEdit.getRequestID());
+        SecurityRequestEntity submission =
+            FacadeRepository.getInstance().getSecurityRequest(newEdit.getRequestID());
         submission.setName(nameBox.getText());
-        LocationNameEntity loc = locationI.get(locationBox.getValue());
+        LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
         submission.setLocation(loc);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
         submission.setAssistance(assistance);
         submission.setSecphone(phone.getText());
 
-        secI.update(submission.getRequestid(), submission);
+        FacadeRepository.getInstance().updateSecurityRequest(submission.getRequestid(), submission);
 
       } else {
-        EmployeeEntity person = employeeI.get(IDNum.getText());
-        LocationNameEntity location = locationI.get(locationBox.getText());
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        LocationNameEntity location =
+            FacadeRepository.getInstance().getLocation(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         assistance = RequestCategory.value(requestsBox.getValue());
@@ -135,7 +141,7 @@ public class SecurityController extends ServiceRequestController {
                 "Unassigned",
                 assistance,
                 phone.getText());
-        secI.add(submission);
+        FacadeRepository.getInstance().addSecurityRequest(submission);
       }
 
       newEdit.setNeedEdits(false);

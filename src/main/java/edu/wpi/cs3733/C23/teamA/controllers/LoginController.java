@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -44,11 +44,11 @@ public class LoginController {
 
   @FXML
   public void login(ActionEvent event) throws SQLException, InterruptedException {
-    EmployeeImpl employee1 = new EmployeeImpl();
     // Transaction tx = session.beginTransaction();
 
     ArrayList<String> info =
-        employee1.checkPass(usernameTextField.getText(), passwordTextField.getText());
+        FacadeRepository.getInstance()
+            .employeeCheckPass(usernameTextField.getText(), passwordTextField.getText());
     if (info.get(0).equals("")) {
       incorrectNotification.setVisible(true);
       usernameTextField.clear();

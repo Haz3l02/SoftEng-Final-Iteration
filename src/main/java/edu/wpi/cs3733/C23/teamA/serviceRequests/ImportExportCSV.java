@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class ImportExportCSV {
-
-  @Getter @Setter public String tableType;
+  @Getter @Setter String tableType;
 
   public ImportExportCSV(String tableType) {
     this.tableType = tableType;

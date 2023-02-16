@@ -23,6 +23,16 @@ public class FacadeRepository {
   private final PatientTransportimpl pat = PatientTransportimpl.getInstance();
   private final ServiceRequestImpl serv = ServiceRequestImpl.getInstance();
 
+  private final Observer nodeObv = new EntityObserver(node);
+  private final Observer edgeObv = new EntityObserver(edge);
+  private final Observer moveObv = new EntityObserver(move);
+  private final Observer locObv = new EntityObserver(loc);
+  private final Observer sanObv = new EntityObserver(san);
+  private final Observer secObv = new EntityObserver(sec);
+  private final Observer servObv = new EntityObserver(serv);
+  private final Observer patObv = new EntityObserver(pat);
+  private final Observer compObv = new EntityObserver(serv);
+
   public static FacadeRepository getInstance() {
     return instance;
   }
@@ -43,6 +53,10 @@ public class FacadeRepository {
     return emp.getAll();
   }
 
+  public List<LocationNameEntity> getAllLocation() {
+    return loc.getAll();
+  }
+
   public List<MoveEntity> getAllMove() {
     return move.getAll();
   }
@@ -55,11 +69,11 @@ public class FacadeRepository {
     return san.getAll();
   }
 
-  public List<SecurityRequestEntity> getSecurityRequest() {
+  public List<SecurityRequestEntity> getAllSecurityRequest() {
     return sec.getAll();
   }
 
-  public List<PatientTransportRequestEntity> getPatientTransport() {
+  public List<PatientTransportRequestEntity> getAllPatientTransport() {
     return pat.getAll();
   }
 
@@ -282,6 +296,7 @@ public class FacadeRepository {
 
   public void collapseNode(NodeEntity e) {
     edge.collapseNode(e);
+    node.delete(e.getNodeid());
   }
 
   public List<String> getListEmployeeOfByJob(String job) {
@@ -316,8 +331,12 @@ public class FacadeRepository {
     return move.mostRecentLoc(id);
   }
 
-  public List<NodeEntity> nodeGetNodesOnFloor(String floor) {
+  public List<NodeEntity> getNodesOnFloor(String floor) {
     return node.getNodeOnFloor(floor);
+  }
+
+  public List<EdgeEntity> getEdgesOnFloor(String floor) {
+    return edge.getEdgeOnFloor(floor);
   }
 
   public List<String> getAllNodeIDs() {
@@ -342,5 +361,9 @@ public class FacadeRepository {
 
   public void updateServEmployee(String employee, Integer ID) {
     serv.updateEmployee(employee, ID);
+  }
+
+  public HashMap<MoveEntity, MoveEntity> getLocationChanges(LocalDate minDate, LocalDate maxDate) {
+    return move.locationChanges(minDate, maxDate);
   }
 }
