@@ -24,15 +24,12 @@ public class ImportCSVController {
   @FXML private StackPane reminderPane;
   @FXML private MFXTextField fileNameField;
   @FXML private MFXButton cancel;
-  EmployeeImpl employee = new EmployeeImpl();
-  NodeImpl node = new NodeImpl();
-  MoveImpl move = new MoveImpl();
-  ServiceRequestImpl sri = new ServiceRequestImpl();
 
   @FXML
   public void initialize() {
     reminder.setVisible(false);
     reminderPane.setVisible(false);
+    fileNameField.setDisable(true);
   }
 
   @FXML
@@ -44,10 +41,6 @@ public class ImportCSVController {
     if (selectedDirectory != null) {
       fileNameField.setText(selectedDirectory.getAbsolutePath());
     }
-  }
-
-  public void doStuff() {
-    System.out.println("hehe");
   }
 
   @FXML
@@ -79,15 +72,19 @@ public class ImportCSVController {
       reminderPane.setVisible(false);
 
       if (iecsv.getTableType().equals("employee")) {
+        EmployeeImpl employee = new EmployeeImpl();
         employee.importFromCSV(fileNameField.getText());
         Navigation.navigate(Screen.EMPLOYEE);
       } else if (iecsv.getTableType().equals("node")) {
+        NodeImpl node = new NodeImpl();
         node.importFromCSV(fileNameField.getText());
         Navigation.navigate(Screen.NODE);
       } else if (iecsv.getTableType().equals("move")) {
+        MoveImpl move = new MoveImpl();
         move.importFromCSV(fileNameField.getText());
         Navigation.navigate(Screen.MOVE);
       } else {
+        ServiceRequestImpl sri = new ServiceRequestImpl();
         sri.importFromCSV(fileNameField.getText());
         Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
       }
