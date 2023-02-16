@@ -96,6 +96,14 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     emp.setUsername(obj.getUsername());
     emp.setJob(obj.getJob());
 
+
+    ComputerRequestImpl.getInstance().refresh();
+    PatientTransportimpl.getInstance().refresh();
+    SecurityRequestImpl.getInstance().refresh();
+    SanitationRequestImpl.getInstance().refresh();
+    ServiceRequestImpl.getInstance().refresh();
+
+
     // employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
     tx.commit();
     session.close();
