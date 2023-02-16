@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import net.kurobako.gesturefx.GesturePane?>
+
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NiniTest">
+   <center>
+      <SplitPane dividerPositions="0.3" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
+         <items>
+            <BorderPane prefHeight="200.0" prefWidth="99.0" style="-fx-background-color: #d3e9f6;">
+               <top>
+                  <VBox BorderPane.alignment="TOP_LEFT">
+                     <BorderPane.margin>
+                        <Insets top="10.0" />
+                     </BorderPane.margin>
+                     <children>
+                        <HBox alignment="CENTER">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#transitionToNewNodeBox" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="New Node" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                        <TabPane fx:id="editorTabPane" tabClosingPolicy="UNAVAILABLE">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                           <tabs>
+                              <Tab fx:id="nodeEditorTab" closable="false" text="Node Editor">
+                                 <content>
+                                    <VBox fx:id="fieldBox" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X Coord">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXTextField fx:id="XCord" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></MFXTextField>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y Coord">
+                                             <font>
+                                                <Font name="Verdana" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXTextField fx:id="YCord" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></MFXTextField>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building">
+                                             <font>
+                                                <Font name="Verdana" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXComboBox fx:id="BuildingBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding></MFXComboBox>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floor">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXComboBox fx:id="FloorBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </MFXComboBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="addEdgeTab" closable="false" text="Add Edge">
+                                 <content>
+                                    <VBox fx:id="fieldBox1" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node 1">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXTextField fx:id="node1" maxWidth="1.7976931348623157E308" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node 2">
+                                             <font>
+                                                <Font name="Verdana" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXTextField fx:id="node2" maxWidth="1.7976931348623157E308" />
+                                          <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#addEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Edge" textFill="#224870">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#editEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Location" textFill="#d3e9f6">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#deleteEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Location" textFill="#bad1ea">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="addLocationTab" closable="false" text="Add Location">
+                                 <content>
+                                    <VBox fx:id="fieldBox11" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Longname">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXFilterComboBox fx:id="longNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="372.0" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node ID">
+                                             <font>
+                                                <Font name="Verdana" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXTextField fx:id="locationIDBox" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
+                                          <MFXButton fx:id="createLocation" buttonType="RAISED" minHeight="51.0" onAction="#addLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Location" textFill="#224870">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#editLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Location" textFill="#d3e9f6">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#delLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Location" textFill="#bad1ea">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </MFXButton>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                     </children>
+                  </VBox>
+               </top>
+               <center>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#createNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Node" textFill="#224870">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                              <MFXButton fx:id="saveButton" buttonType="RAISED" cancelButton="true" onAction="#saveNodeEdit" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Save Node" textFill="#224870">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#editNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Node" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Node" textFill="#bad1ea">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#switchToNodeScene" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets top="10.0" />
+                     </BorderPane.margin>
+                  </VBox>
+               </center>
+            </BorderPane>
+            <VBox prefHeight="858.0" prefWidth="1125.0" style="-fx-background-color: #d3e9f6;">
+               <children>
+                  <HBox prefHeight="44.0" prefWidth="1063.0">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map Editor" wrappingWidth="278.1484375">
+                           <font>
+                              <Font name="Verdana" size="36.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0" />
+                     </children>
+                  </HBox>
+                  <StackPane prefHeight="510.0" prefWidth="754.0">
+                     <children>
+                        <TabPane fx:id="mapTabPane" prefHeight="510.0" prefWidth="760.0" style="-fx-background-color: #224870;" tabClosingPolicy="UNAVAILABLE">
+                           <tabs>
+                              <Tab fx:id="tabL1" onSelectionChanged="#getTab" text="Lower Level One">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <StackPane fx:id="stackL1">
+                                             <children>
+                                                <ImageView fx:id="floorL1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
+                                                   </image></ImageView>
+                                                <Canvas fx:id="mapEditorCanvasL1" height="510.0" width="750.0" />
+                                                <AnchorPane fx:id="nodeAnchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
+                                             </children>
+                                          </StackPane>
+                                          <GesturePane fx:id="gestureL1" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabL2" onSelectionChanged="#getTab" text="Lower Level Two">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <StackPane fx:id="stackL2">
+                                             <children>
+                                                <ImageView fx:id="floorL2" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/unlabeledMaps/00_thelowerlevel2_unlabeled.png" />
+                                                   </image></ImageView>
+                                                <Canvas fx:id="mapEditorCanvasL2" height="510.0" width="750.0" />
+                                                <AnchorPane fx:id="nodeAnchorL2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
+                                             </children>
+                                          </StackPane>
+                                          <GesturePane fx:id="gestureL2" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabF1" onSelectionChanged="#getTab" text="Floor One">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <StackPane fx:id="stackF1">
+                                             <children>
+                                                <ImageView fx:id="floorF1" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
+                                                   </image></ImageView>
+                                                <Canvas fx:id="mapEditorCanvasF1" height="510.0" width="750.0" />
+                                                <AnchorPane fx:id="nodeAnchorF1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
+                                             </children>
+                                          </StackPane>
+                                          <GesturePane fx:id="gestureF1" layoutX="10.0" layoutY="10.0" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabF2" onSelectionChanged="#getTab" text="Floor Two">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <StackPane fx:id="stackF2">
+                                             <children>
+                                                <ImageView fx:id="floorF2" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
+                                                   </image></ImageView>
+                                                <Canvas fx:id="mapEditorCanvasF2" height="510.0" width="750.0" />
+                                                <AnchorPane fx:id="nodeAnchorF2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
+                                             </children>
+                                          </StackPane>
+                                          <GesturePane fx:id="gestureF2" layoutX="10.0" layoutY="10.0" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabF3" onSelectionChanged="#getTab" text="Floor Three">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <StackPane fx:id="stackF3">
+                                             <children>
+                                                <ImageView fx:id="floorF3" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
+                                                   </image></ImageView>
+                                                <Canvas fx:id="mapEditorCanvasF3" height="510.0" width="750.0" />
+                                                <AnchorPane fx:id="nodeAnchorF3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
+                                             </children>
+                                          </StackPane>
+                                          <GesturePane fx:id="gestureF3" layoutX="10.0" layoutY="10.0" prefHeight="378.0" prefWidth="818.6666666666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </StackPane>
+                  <Text fx:id="reminder" fill="#ff2121" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill out all fields in the form!" visible="false">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                  <VBox alignment="CENTER" prefHeight="71.0" prefWidth="917.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Toggle Location Names on Map">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#showLocations" prefHeight="51.0" prefWidth="224.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Show Locations" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                              <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hideLocations" prefHeight="51.0" prefWidth="224.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Hide Locations" textFill="#d3e9f6">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets top="18.0" />
+               </padding>
+            </VBox>
+         </items>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </SplitPane>
+   </center>
+</BorderPane>

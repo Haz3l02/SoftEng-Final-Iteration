@@ -54,9 +54,9 @@ public class NodeDraw {
   }
 
   public static void drawNodes(
-      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NodeMapController nmc) {
+      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NiniTest nmc) {
     // gc.setFill(Color.web("0x224870"));
-    locations.refresh();
+    //locations.refresh();
 
     // draw circle for each node
     for (NodeEntity n : allNodes) {
