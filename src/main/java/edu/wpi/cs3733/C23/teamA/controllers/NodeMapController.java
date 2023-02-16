@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
@@ -109,10 +110,6 @@ public class NodeMapController extends MenuController {
   private StackPane[] stacks = new StackPane[5];
   private GesturePane[] gestures = new GesturePane[5];
   private Boolean[] floorInitialized = new Boolean[5];
-  NodeImpl nodeimpl = new NodeImpl();
-  EdgeImpl edgeimpl = new EdgeImpl();
-  MoveImpl moveimpl = new MoveImpl();
-  LocationNameImpl locNameImp = new LocationNameImpl();
 
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulation
@@ -157,7 +154,6 @@ public class NodeMapController extends MenuController {
     System.out.println(tabID);
 
     if (tabID.equals("tabL1") && floorInitialized[0] == false) {
-      ///
     } else if (tabID.equals("tabL2") && floorInitialized[1] == false) {
       initializeFloorMap("L2");
       floorInitialized[1] = true;
@@ -185,8 +181,8 @@ public class NodeMapController extends MenuController {
     addFloorMapImage(floor, ivs[floorIndex]);
 
     // Get all nodes on floor names floor!
-    allNodes = nodeimpl.getNodeOnFloor(floor);
-    allEdges = edgeimpl.getEdgeOnFloor(floor);
+    allNodes = FacadeRepository.getInstance().getNodesOnFloor(floor);
+    allEdges = FacadeRepository.getInstance().getEdgesOnFloor(floor);
 
     LocationNameEntity locNameEnt;
     ArrayList<NodeEntity> nullNodes = new ArrayList<>();
@@ -252,8 +248,7 @@ public class NodeMapController extends MenuController {
     NodeEntity currentNode = NodeDraw.getSelected();
     Pane currentNodePane = NodeDraw.getSelectedPane();
     String id = currentNode.getNodeid();
-    nodeimpl.delete(id);
-    edgeimpl.collapseNode(currentNode);
+    FacadeRepository.getInstance().collapseNode(currentNode);
     currentNodePane.setVisible(false);
     int index = Floor.indexFromTableString(currentNode.getFloor());
     gcs[index].clearRect(
@@ -310,7 +305,7 @@ public class NodeMapController extends MenuController {
     //    System.out.println("ID: " + newNode.getNodeid());
 
     // Add new Node to database
-    nodeimpl.add(newNode);
+    FacadeRepository.getInstance().addNode(newNode);
 
     // switch box screen
     createNodeButton.setVisible(false);
@@ -370,7 +365,7 @@ public class NodeMapController extends MenuController {
     //    NodeDraw.setSelectedPane(currentPane);
 
     // old id, with new updated node
-    nodeimpl.update(id, currentNode);
+    FacadeRepository.getInstance().updateNode(id, currentNode);
     // node.delete(id);
     fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
     saveButton.setVisible(false);
@@ -391,14 +386,19 @@ public class NodeMapController extends MenuController {
   public void addLocationName(ActionEvent event) {
     NodeEntity currentNode = NodeDraw.getSelected();
     MoveEntity newLocation =
-        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-    moveimpl.add(newLocation);
-    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+        new MoveEntity(
+            currentNode,
+            FacadeRepository.getInstance().getLocation(longNameBox.getText()),
+            LocalDate.now());
+    FacadeRepository.getInstance().addMove(newLocation);
+    longNameBox.setText(
+        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
     locationIDBox.setText(currentNode.getNodeid());
     createLocation.setVisible(false);
 
     System.out.println("LongName");
-    System.out.println(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+    System.out.println(
+        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
     System.out.println();
 
     // added to redraw
@@ -416,13 +416,17 @@ public class NodeMapController extends MenuController {
   public void editLocationName(ActionEvent event) {
     NodeEntity currentNode = NodeDraw.getSelected();
     MoveEntity newLocation =
-        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
+        new MoveEntity(
+            currentNode,
+            FacadeRepository.getInstance().getLocation(longNameBox.getText()),
+            LocalDate.now());
     List<String> data = new ArrayList<>();
     data.add(currentNode.getNodeid());
     data.add(longNameBox.getText());
     data.add(LocalDate.now().toString());
-    moveimpl.update(data, newLocation);
-    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+    FacadeRepository.getInstance().updateMove(data, newLocation);
+    longNameBox.setText(
+        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
     locationIDBox.setText(currentNode.getNodeid());
   }
 
@@ -430,13 +434,17 @@ public class NodeMapController extends MenuController {
   public void delLocationName(ActionEvent event) {
     NodeEntity currentNode = NodeDraw.getSelected();
     MoveEntity newLocation =
-        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
+        new MoveEntity(
+            currentNode,
+            FacadeRepository.getInstance().getLocation(longNameBox.getText()),
+            LocalDate.now());
     List<String> data = new ArrayList<>();
     data.add(currentNode.getNodeid());
     data.add(longNameBox.getText());
     data.add(LocalDate.now().toString());
-    moveimpl.delete(data);
-    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+    FacadeRepository.getInstance().deleteMove(data);
+    longNameBox.setText(
+        FacadeRepository.getInstance().moveMostRecentLoc(currentNode.getNodeid()).getLongname());
     locationIDBox.setText(currentNode.getNodeid());
   }
 

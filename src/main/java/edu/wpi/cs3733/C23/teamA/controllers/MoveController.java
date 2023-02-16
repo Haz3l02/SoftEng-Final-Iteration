@@ -161,12 +161,12 @@ public class MoveController extends MenuController {
     }
   }
 
-  public void switchToEdgeScene(ActionEvent event) {
-    Navigation.navigate(Screen.EDGE);
+  public void switchToImportScreen(ActionEvent event) {
+    Navigation.navigate(Screen.IMPORT_CSV);
   }
 
-  public void switchToNodeScene(ActionEvent event) {
-    Navigation.navigate(Screen.NODE);
+  public void switchToExportScreen(ActionEvent event) {
+    Navigation.navigate(Screen.EXPORT_CSV);
   }
 
   public void switchToHomeDatabaseScene(ActionEvent event) {

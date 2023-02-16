@@ -2,10 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.iecsv;
 
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -25,10 +22,6 @@ public class ExportCSVController {
   @FXML private MFXTextField fileNameField;
   @FXML private MFXButton cancel;
   @FXML private MFXCheckbox checkBox;
-  EmployeeImpl employee = new EmployeeImpl();
-  NodeImpl node = new NodeImpl();
-  MoveImpl move = new MoveImpl();
-  ServiceRequestImpl sri = new ServiceRequestImpl();
 
   @FXML
   public void initialize() {
@@ -73,22 +66,22 @@ public class ExportCSVController {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
       if (checkBox.isSelected()) {
-        employee.exportToCSV(fileNameField.getText());
-        node.exportToCSV(fileNameField.getText());
-        move.exportToCSV(fileNameField.getText());
-        sri.exportToCSV(fileNameField.getText());
+        FacadeRepository.getInstance().exportEmployee(fileNameField.getText());
+        FacadeRepository.getInstance().exportNode(fileNameField.getText());
+        FacadeRepository.getInstance().exportMove(fileNameField.getText());
+        FacadeRepository.getInstance().exportService(fileNameField.getText());
       } else {
         if (iecsv.getTableType().equals("employee")) {
-          employee.exportToCSV(fileNameField.getText());
+          FacadeRepository.getInstance().exportEmployee(fileNameField.getText());
           Navigation.navigate(Screen.EMPLOYEE);
         } else if (iecsv.getTableType().equals("node")) {
-          node.exportToCSV(fileNameField.getText());
+          FacadeRepository.getInstance().exportNode(fileNameField.getText());
           Navigation.navigate(Screen.NODE);
         } else if (iecsv.getTableType().equals("move")) {
-          move.exportToCSV(fileNameField.getText());
+          FacadeRepository.getInstance().exportMove(fileNameField.getText());
           Navigation.navigate(Screen.MOVE);
         } else {
-          sri.exportToCSV(fileNameField.getText());
+          FacadeRepository.getInstance().exportEmployee(fileNameField.getText());
           Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
         }
       }
