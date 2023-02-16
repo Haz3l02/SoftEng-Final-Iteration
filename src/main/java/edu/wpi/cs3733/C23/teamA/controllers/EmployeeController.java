@@ -23,9 +23,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
-import org.controlsfx.control.PopOver;
 
 public class EmployeeController {
 
@@ -45,11 +42,6 @@ public class EmployeeController {
   @FXML private MFXButton editButton;
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createEmployee;
-  @FXML private Text reminder;
-  @FXML private StackPane reminderPane;
-  @FXML private MFXTextField fileNameField;
-  private static PopOver popup;
-  @FXML private MFXButton cancel;
 
   private String hospitalID;
   private String job;
@@ -71,10 +63,6 @@ public class EmployeeController {
   @FXML
   public void initialize() throws SQLException {
 
-    if (reminder != null) {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-    }
     IdNumberHolder holder = IdNumberHolder.getInstance();
     hospitalID = holder.getId();
     job = holder.getJob();

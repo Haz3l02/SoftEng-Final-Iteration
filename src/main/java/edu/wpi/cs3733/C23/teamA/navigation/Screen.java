@@ -31,8 +31,8 @@ public enum Screen {
   HOME_DATABASE("views/HomeDatabaseSMALLFXML.fxml"),
   // MAP_DISPLAY("views/PathDisplayFXML.fxml"),
   PATIENT_TRANSPORT("views/PatientTransportationFXML.fxml"),
-  EXPORT_CSV("views/ExportEmployeeCSVFXML.fxml"),
-  IMPORT_CSV("views/ImportEmployeeCSVFXML.fxml");
+  EXPORT_CSV("views/ExportCSVFXML.fxml"),
+  IMPORT_CSV("views/ImportCSVFXML.fxml");
 
   private final String filename;
 
