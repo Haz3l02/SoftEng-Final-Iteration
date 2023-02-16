@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -17,30 +18,31 @@ import java.util.ListIterator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, Integer> {
+public class ServiceRequestImpl extends Observable
+    implements IDatabaseAPI<ServiceRequestEntity, Integer> {
   private List<ServiceRequestEntity> services;
   private static final ServiceRequestImpl instance = new ServiceRequestImpl();
 
   private ServiceRequestImpl() {
-    Session session = getSessionFactory().openSession();
+    Session session;
     session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<ServiceRequestEntity> criteria = builder.createQuery(ServiceRequestEntity.class);
     criteria.from(ServiceRequestEntity.class);
     List<ServiceRequestEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    services=records;
+    services = records;
   }
 
-  public void refresh(){
-    Session session = getSessionFactory().openSession();
+  public void refresh() {
+    Session session;
     session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<ServiceRequestEntity> criteria = builder.createQuery(ServiceRequestEntity.class);
     criteria.from(ServiceRequestEntity.class);
     List<ServiceRequestEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    services=records;
+    services = records;
   }
 
   public List<ServiceRequestEntity> getAll() {
@@ -110,6 +112,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     session.persist(s);
     services.add(s);
     tx.commit();
+    notifyAllObservers();
   }
 
   public void delete(Integer s) {
@@ -129,6 +132,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     }
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void update(Integer ID, ServiceRequestEntity obj) {
@@ -156,6 +160,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     services.add(ser);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void addToList(ServiceRequestEntity ser) {

@@ -23,6 +23,16 @@ public class FacadeRepository {
   private final PatientTransportimpl pat = PatientTransportimpl.getInstance();
   private final ServiceRequestImpl serv = ServiceRequestImpl.getInstance();
 
+  private final Observer nodeObv = new EntityObserver(node);
+  private final Observer edgeObv = new EntityObserver(edge);
+  private final Observer moveObv = new EntityObserver(move);
+  private final Observer locObv = new EntityObserver(loc);
+  private final Observer sanObv = new EntityObserver(san);
+  private final Observer secObv = new EntityObserver(sec);
+  private final Observer servObv = new EntityObserver(serv);
+  private final Observer patObv = new EntityObserver(pat);
+  private final Observer compObv = new EntityObserver(serv);
+
   public static FacadeRepository getInstance() {
     return instance;
   }
@@ -286,6 +296,7 @@ public class FacadeRepository {
 
   public void collapseNode(NodeEntity e) {
     edge.collapseNode(e);
+    node.delete(e.getNodeid());
   }
 
   public List<String> getListEmployeeOfByJob(String job) {

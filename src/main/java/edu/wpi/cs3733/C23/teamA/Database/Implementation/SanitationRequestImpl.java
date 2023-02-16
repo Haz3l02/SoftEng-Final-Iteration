@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
@@ -17,9 +18,9 @@ import java.util.ListIterator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEntity, Integer> {
+public class SanitationRequestImpl extends Observable
+    implements IDatabaseAPI<SanitationRequestEntity, Integer> {
   private static final SanitationRequestImpl instance = new SanitationRequestImpl();
-
   private List<SanitationRequestEntity> sanrequests;
 
   private SanitationRequestImpl() {
@@ -32,12 +33,11 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     session.close();
   }
 
-
-  public void refresh(){
+  public void refresh() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<SanitationRequestEntity> criteria =
-            builder.createQuery(SanitationRequestEntity.class);
+        builder.createQuery(SanitationRequestEntity.class);
     criteria.from(SanitationRequestEntity.class);
     sanrequests = session.createQuery(criteria).getResultList();
     session.close();
@@ -76,6 +76,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     sanrequests.add(c);
     ServiceRequestImpl.getInstance().addToList(c);
     session.close();
+    notifyAllObservers();
   }
 
   public void delete(Integer c) {
@@ -91,6 +92,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
     ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void update(Integer ID, SanitationRequestEntity obj) {
@@ -135,6 +137,7 @@ public class SanitationRequestImpl implements IDatabaseAPI<SanitationRequestEnti
 
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {

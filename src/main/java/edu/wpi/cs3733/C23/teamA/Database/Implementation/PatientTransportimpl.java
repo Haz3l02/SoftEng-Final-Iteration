@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.PatientTransportRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -17,8 +18,8 @@ import javax.swing.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class PatientTransportimpl implements IDatabaseAPI<PatientTransportRequestEntity, Integer> {
-
+public class PatientTransportimpl extends Observable
+    implements IDatabaseAPI<PatientTransportRequestEntity, Integer> {
   private List<PatientTransportRequestEntity> patrequests;
   private static final PatientTransportimpl instance = new PatientTransportimpl();
 
@@ -32,11 +33,11 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
     session.close();
   }
 
-  public void refresh(){
+  public void refresh() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<PatientTransportRequestEntity> criteria =
-            builder.createQuery(PatientTransportRequestEntity.class);
+        builder.createQuery(PatientTransportRequestEntity.class);
     criteria.from(PatientTransportRequestEntity.class);
     patrequests = session.createQuery(criteria).getResultList();
     session.close();
@@ -56,6 +57,7 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
     patrequests.add(obj);
     ServiceRequestImpl.getInstance().addToList(obj);
     session.close();
+    notifyAllObservers();
   }
 
   @Override
@@ -133,6 +135,7 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
 
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   @Override
@@ -150,6 +153,7 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
     ServiceRequestImpl.getInstance().removeFromList(obj);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {
@@ -181,9 +185,6 @@ public class PatientTransportimpl implements IDatabaseAPI<PatientTransportReques
       }
     }
   }
-
-
-
 
   public void updateEmployee(Integer ID, String employee) {
     ListIterator<PatientTransportRequestEntity> li = patrequests.listIterator();

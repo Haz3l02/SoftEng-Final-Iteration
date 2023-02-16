@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -16,7 +17,8 @@ import java.util.ListIterator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, Integer> {
+public class ComputerRequestImpl extends Observable
+    implements IDatabaseAPI<ComputerRequestEntity, Integer> {
   private List<ComputerRequestEntity> comprequests;
   private static final ComputerRequestImpl instance = new ComputerRequestImpl();
 
@@ -31,11 +33,11 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
     comprequests = records;
   }
 
-  public void refresh(){
+  public void refresh() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<ComputerRequestEntity> criteria =
-            builder.createQuery(ComputerRequestEntity.class);
+        builder.createQuery(ComputerRequestEntity.class);
     criteria.from(ComputerRequestEntity.class);
     List<ComputerRequestEntity> records = session.createQuery(criteria).getResultList();
     session.close();
@@ -54,6 +56,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
     comprequests.add(c);
     ServiceRequestImpl.getInstance().addToList(c);
     session.close();
+    notifyAllObservers();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {}
@@ -116,6 +119,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
 
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void delete(Integer c) {
@@ -134,6 +138,7 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
     ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {

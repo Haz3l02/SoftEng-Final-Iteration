@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -17,13 +18,24 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
-public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String> {
-  // done
+public class LocationNameImpl extends Observable
+    implements IDatabaseAPI<LocationNameEntity, String> {
   private static final LocationNameImpl instance = new LocationNameImpl();
 
   private List<LocationNameEntity> locations;
 
   private LocationNameImpl() {
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<LocationNameEntity> criteria = builder.createQuery(LocationNameEntity.class);
+    criteria.from(LocationNameEntity.class);
+    List<LocationNameEntity> records = session.createQuery(criteria).getResultList();
+    locations = records;
+    session.close();
+  }
+
+  @Override
+  public void refresh() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<LocationNameEntity> criteria = builder.createQuery(LocationNameEntity.class);
@@ -85,6 +97,7 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     locations.add(l);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void delete(String l) {
@@ -101,6 +114,7 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
 
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void update(String ID, LocationNameEntity location) {
@@ -131,6 +145,7 @@ public class LocationNameImpl implements IDatabaseAPI<LocationNameEntity, String
     locations.add(session.get(LocationNameEntity.class, location.getLongname()));
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public String getType(String ID) {

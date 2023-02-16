@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import static java.lang.Integer.parseInt;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -16,13 +17,23 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
-public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
+public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, String> {
   // done
   private static final NodeImpl instance = new NodeImpl();
 
   private ArrayList<NodeEntity> nodes;
 
   private NodeImpl() {
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<NodeEntity> criteria = builder.createQuery(NodeEntity.class);
+    criteria.from(NodeEntity.class);
+    List<NodeEntity> records = session.createQuery(criteria).getResultList();
+    nodes = (ArrayList) records;
+    session.close();
+  }
+
+  public void refresh() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<NodeEntity> criteria = builder.createQuery(NodeEntity.class);
@@ -99,6 +110,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     nodes.add(n);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void delete(String n) {
@@ -113,6 +125,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     session.remove(session.get(NodeEntity.class, n));
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void update(String ID, NodeEntity obj) {
@@ -147,6 +160,7 @@ public class NodeImpl implements IDatabaseAPI<NodeEntity, String> {
     nodes.add(session.get(NodeEntity.class, obj.getNodeid()));
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public List<NodeEntity> getNodeOnFloor(String floor) {

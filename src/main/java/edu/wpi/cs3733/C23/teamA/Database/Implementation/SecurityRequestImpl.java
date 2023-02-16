@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
@@ -17,7 +18,8 @@ import java.util.ListIterator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, Integer> {
+public class SecurityRequestImpl extends Observable
+    implements IDatabaseAPI<SecurityRequestEntity, Integer> {
   private static final SecurityRequestImpl instance = new SecurityRequestImpl();
 
   private List<SecurityRequestEntity> secrequests;
@@ -32,11 +34,11 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     session.close();
   }
 
-  public void refresh(){
+  public void refresh() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<SecurityRequestEntity> criteria =
-            builder.createQuery(SecurityRequestEntity.class);
+        builder.createQuery(SecurityRequestEntity.class);
     criteria.from(SecurityRequestEntity.class);
     secrequests = session.createQuery(criteria).getResultList();
     session.close();
@@ -86,6 +88,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     ServiceRequestImpl.getInstance().addToList(ser);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void delete(Integer c) {
@@ -102,6 +105,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
     ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void update(Integer ID, SecurityRequestEntity obj) {
@@ -145,6 +149,7 @@ public class SecurityRequestImpl implements IDatabaseAPI<SecurityRequestEntity, 
 
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {
