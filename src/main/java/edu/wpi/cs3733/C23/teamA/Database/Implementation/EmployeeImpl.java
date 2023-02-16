@@ -97,11 +97,13 @@ public class EmployeeImpl implements IDatabaseAPI<EmployeeEntity, String> {
     emp.setJob(obj.getJob());
 
 
-    ComputerRequestImpl.getInstance().refresh();
-    PatientTransportimpl.getInstance().refresh();
-    SecurityRequestImpl.getInstance().refresh();
-    SanitationRequestImpl.getInstance().refresh();
-    ServiceRequestImpl.getInstance().refresh();
+    if(ID.equals(obj.getEmployeeid())) {
+      ComputerRequestImpl.getInstance().refresh();
+      PatientTransportimpl.getInstance().refresh();
+      SecurityRequestImpl.getInstance().refresh();
+      SanitationRequestImpl.getInstance().refresh();
+      ServiceRequestImpl.getInstance().refresh();
+    }
 
 
     // employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
