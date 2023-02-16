@@ -3,13 +3,11 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.acceptTheForm;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.SanitationRequestImpl;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -26,9 +24,6 @@ import javafx.fxml.FXML;
 
 public class SanitationController extends ServiceRequestController {
   private IssueCategory category;
-  SanitationRequestImpl sanI = new SanitationRequestImpl();
-  LocationNameImpl locationI = new LocationNameImpl();
-  EmployeeImpl employeeI = new EmployeeImpl();
 
   @FXML private MFXComboBox<String> categoryBox;
   @FXML private MFXButton clear;
@@ -42,6 +37,10 @@ public class SanitationController extends ServiceRequestController {
 
     if (categoryBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
+      reject.setDisable(true);
+      reject.setVisible(false);
+      accept.setDisable(true);
+      accept.setVisible(false);
       ObservableList<String> categories =
           FXCollections.observableArrayList(IssueCategory.issueList());
       categoryBox.setItems(categories);
@@ -51,7 +50,8 @@ public class SanitationController extends ServiceRequestController {
       accept.setVisible(false);
     }
     if (newEdit.needEdits && newEdit.getRequestType().equals("Sanitation")) {
-      SanitationRequestEntity editRequest = sanI.get(newEdit.getRequestID());
+      SanitationRequestEntity editRequest =
+          FacadeRepository.getInstance().getSanitationRequest(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       categoryBox.setText(editRequest.getCategory().getIssue());
@@ -68,7 +68,8 @@ public class SanitationController extends ServiceRequestController {
       reject.setVisible(false);
 
     } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Sanitation")) {
-      SanitationRequestEntity editRequest = sanI.get(acceptTheForm.getRequestID());
+      SanitationRequestEntity editRequest =
+          FacadeRepository.getInstance().getSanitationRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       categoryBox.setText(editRequest.getCategory().getIssue());
@@ -108,16 +109,18 @@ public class SanitationController extends ServiceRequestController {
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
 
-        SanitationRequestEntity submission = sanI.get(newEdit.getRequestID());
+        SanitationRequestEntity submission =
+            FacadeRepository.getInstance().getSanitationRequest(newEdit.getRequestID());
         submission.setName(nameBox.getText());
-        LocationNameEntity loc = locationI.get(locationBox.getValue());
+        LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
         submission.setLocation(loc);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
         submission.setCategory(category);
       } else {
-        EmployeeEntity person = employeeI.get(IDNum.getText());
-        LocationNameEntity location = locationI.get(locationBox.getText());
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        LocationNameEntity location =
+            FacadeRepository.getInstance().getLocation(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
@@ -133,7 +136,7 @@ public class SanitationController extends ServiceRequestController {
                 Status.NEW,
                 "Unassigned",
                 category);
-        sanI.add(submission);
+        FacadeRepository.getInstance().addSanitationRequest(submission);
       }
 
       newEdit.setNeedEdits(false);

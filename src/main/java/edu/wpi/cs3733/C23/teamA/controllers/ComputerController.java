@@ -3,10 +3,8 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.acceptTheForm;
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.ComputerRequestImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -27,7 +25,7 @@ public class ComputerController extends ServiceRequestController {
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
-  private ComputerRequestImpl compI = new ComputerRequestImpl();
+
   DevicesCategory device;
 
   @FXML
@@ -47,7 +45,8 @@ public class ComputerController extends ServiceRequestController {
     ComputerRequestEntity editComputerRequest = null;
     if (newEdit.needEdits && newEdit.getRequestType().equals("Computer")) {
       // ComputerRequestImpl compI = new ComputerRequestImpl();
-      editComputerRequest = compI.get(newEdit.getRequestID());
+      editComputerRequest =
+          FacadeRepository.getInstance().getComputerRequest(newEdit.getRequestID());
       nameBox.setText(editComputerRequest.getName());
       IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
       devicesBox.setText(editComputerRequest.getDevice().toString());
@@ -57,7 +56,8 @@ public class ComputerController extends ServiceRequestController {
       descBox.setText(editComputerRequest.getDescription());
       // compI.closeSession();
     } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Computer")) {
-      ComputerRequestEntity editRequest = compI.get(acceptTheForm.getRequestID());
+      ComputerRequestEntity editRequest =
+          FacadeRepository.getInstance().getComputerRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getEmployeeid());
       devicesBox.setText(editRequest.getDevice().toString());
@@ -81,8 +81,6 @@ public class ComputerController extends ServiceRequestController {
   @FXML
   void submitRequest(ActionEvent event) {
     // ComputerRequestImpl compI = new ComputerRequestImpl();
-    LocationNameImpl locationI = new LocationNameImpl();
-    EmployeeImpl employeeI = new EmployeeImpl();
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null
@@ -94,8 +92,9 @@ public class ComputerController extends ServiceRequestController {
       reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
-        ComputerRequestEntity submission = compI.get(newEdit.getRequestID());
-        LocationNameEntity loc = locationI.get(locationBox.getValue());
+        ComputerRequestEntity submission =
+            FacadeRepository.getInstance().getComputerRequest(newEdit.getRequestID());
+        LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());
@@ -107,8 +106,9 @@ public class ComputerController extends ServiceRequestController {
         submission.setDevice(device);
         submission.setDeviceid(deviceIDNum.getText());
       } else {
-        EmployeeEntity person = employeeI.get(IDNum.getText());
-        LocationNameEntity location = locationI.get(locationBox.getText());
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        LocationNameEntity location =
+            FacadeRepository.getInstance().getLocation(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
         device = DevicesCategory.valueOf(devicesBox.getValue().toUpperCase());
@@ -125,7 +125,7 @@ public class ComputerController extends ServiceRequestController {
                 "Unassigned",
                 deviceIDNum.getText(),
                 device);
-        compI.add(submission);
+        FacadeRepository.getInstance().addComputerRequest(submission);
       }
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);

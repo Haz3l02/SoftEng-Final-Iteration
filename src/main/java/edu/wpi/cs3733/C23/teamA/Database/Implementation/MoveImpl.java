@@ -2,7 +2,8 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
-import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.*;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
@@ -20,12 +21,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
-public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
+public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, List<String>> {
   private List<MoveEntity> moves;
   private static final MoveImpl instance = new MoveImpl();
 
   // done except importCSV
-  public MoveImpl() {
+  private MoveImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
@@ -139,6 +140,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
       throw new PersistenceException();
     }
     session.close();
+    notifyAllObservers();
   }
 
   public void delete(List<String> m) {
@@ -163,6 +165,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   /**
@@ -284,6 +287,7 @@ public class MoveImpl implements IDatabaseAPI<MoveEntity, List<String>> {
 
     delete(ID);
     add(obj);
+    notifyAllObservers();
   }
 
   public MoveEntity get(List<String> ID) {
