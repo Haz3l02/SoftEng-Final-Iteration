@@ -11,7 +11,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ExportCSVController">
    <bottom>
       <HBox alignment="CENTER" prefHeight="88.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
@@ -38,7 +37,7 @@
                <children>
                   <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #122c34; -fx-border-width: 2 2 2 2;">
                      <children>
-                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
+                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Select a Folder!" textAlignment="CENTER">
                            <font>
                               <Font name="Verdana" size="25.0" />
                            </font>
@@ -100,7 +99,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="81.0" prefWidth="1248.0" promptText="Folder Path" style="-fx-background-radius: 15; -fx-border-radius: 15;">
+                  <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="81.0" prefWidth="1248.0" promptText="Folder Path..." style="-fx-background-radius: 15; -fx-border-radius: 15;">
                      <font>
                         <Font name="Verdana" size="48.0" />
                      </font>
@@ -109,7 +108,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MFXButton fx:id="reset1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="200.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Select Folder" textAlignment="CENTER" textFill="#d3e9f6">
+                  <MFXButton fx:id="reset1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="200.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Select Folder" textAlignment="CENTER" textFill="#224870">
                      <font>
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
@@ -123,12 +122,12 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export Everything">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export all tables">
                      <font>
                         <Font size="48.0" />
                      </font>
                   </Text>
-                  <MFXCheckbox fx:id="checkBox">
+                  <MFXCheckbox fx:id="checkBox" alignment="CENTER">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
