@@ -10,10 +10,7 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
-import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
-import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +60,7 @@ public class MapEditorController extends MenuController {
   @FXML MFXFilterComboBox<String> longNameBox;
   @FXML MFXTextField locationIDBox;
   @FXML MFXButton createLocation;
+  @FXML MFXToggleButton toggleSwitch;
 
   @FXML
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
@@ -87,6 +85,14 @@ public class MapEditorController extends MenuController {
     // Makes gesture pane connect to correct parts
     this.mainGesturePane.setContent(mainStackPane);
     mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+
+    // Action Listener for toggle switch
+    toggleSwitch
+        .selectedProperty()
+        .addListener(
+            Observable -> {
+              changeLocations();
+            });
   }
 
   public void generateFloor(ActionEvent event) {
@@ -120,6 +126,7 @@ public class MapEditorController extends MenuController {
     NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
     NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
+    mainTextPane.setVisible(false);
   }
 
   @FXML
@@ -408,12 +415,7 @@ public class MapEditorController extends MenuController {
   public void delLocationName(ActionEvent event) {}
 
   // TODO by Sarah
-  public void hideLocations(ActionEvent event) {
-    mainTextPane.setVisible(false);
-  }
-
-  // TODO by Sarah
-  public void showLocations(ActionEvent event) {
-    mainTextPane.setVisible(true);
+  public void changeLocations() {
+    mainTextPane.setVisible(!mainTextPane.isVisible());
   }
 }
