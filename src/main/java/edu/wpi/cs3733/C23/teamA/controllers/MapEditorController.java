@@ -80,6 +80,7 @@ public class MapEditorController extends MenuController {
     saveButton.setVisible(false);
     gc = mainCanvas.getGraphicsContext2D();
 
+    mainTextPane.setVisible(false);
     initializeFloorMap("L1");
 
     // Makes gesture pane connect to correct parts
@@ -126,7 +127,6 @@ public class MapEditorController extends MenuController {
     NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
     NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
-    mainTextPane.setVisible(false);
   }
 
   @FXML
@@ -148,8 +148,8 @@ public class MapEditorController extends MenuController {
     String currentFloor = currentNode.getFloor();
 
     // Database //
-    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair
-    FacadeRepository.getInstance().deleteNode(id); // delete from database
+    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
+    // FacadeRepository.getInstance().deleteNode(id); // delete from database
 
     // Redraw map using database //
     // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
