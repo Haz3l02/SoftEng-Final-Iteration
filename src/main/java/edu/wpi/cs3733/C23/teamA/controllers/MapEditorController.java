@@ -408,8 +408,12 @@ public class MapEditorController extends MenuController {
   public void delLocationName(ActionEvent event) {}
 
   // TODO by Sarah
-  public void hideLocations(ActionEvent event) {}
+  public void hideLocations(ActionEvent event) {
+    mainTextPane.setVisible(false);
+  }
 
   // TODO by Sarah
-  public void showLocations(ActionEvent event) {}
+  public void showLocations(ActionEvent event) {
+    mainTextPane.setVisible(true);
+  }
 }
