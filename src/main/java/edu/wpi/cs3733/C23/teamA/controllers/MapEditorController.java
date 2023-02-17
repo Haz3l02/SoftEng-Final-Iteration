@@ -51,13 +51,13 @@ public class MapEditorController extends MenuController {
   @FXML MFXButton f3Button;
 
   // Buttons and Text
-  @FXML MFXTextField XCord;
-  @FXML MFXTextField YCord;
-  @FXML MFXComboBox FloorBox;
-  @FXML MFXComboBox BuildingBox;
-  @FXML MFXButton saveButton;
-  @FXML MFXTextField node1;
-  @FXML MFXTextField node2;
+  @FXML MFXTextField XCord; //delete later
+  @FXML MFXTextField YCord; //delete later
+  @FXML MFXComboBox FloorBox; //delete later
+  @FXML MFXComboBox BuildingBox; //delete later
+  @FXML MFXButton saveButton; //delete later
+  @FXML MFXTextField node1; //delete later
+  @FXML MFXTextField node2; //delete later
   @FXML VBox fieldBox;
   @FXML MFXButton createNodeButton;
   @FXML MFXFilterComboBox<String> longNameBox;
