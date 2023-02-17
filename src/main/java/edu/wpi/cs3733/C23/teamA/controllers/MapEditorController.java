@@ -194,6 +194,12 @@ public class MapEditorController extends MenuController {
 
   public void addEdge(ActionEvent event) {}
 
+  /**
+   * Method that creates a new node on click "Create" with CreateNodeButton Adds into database and
+   * draws on map
+   *
+   * @param event
+   */
   public void createNode(ActionEvent event) {
 
     // Create a new node entity
@@ -201,19 +207,12 @@ public class MapEditorController extends MenuController {
     fieldBox.setStyle("-fx-background-color: '013A75'; ");
     newNode.setXcoord(Integer.parseInt(XCord.getText()));
     newNode.setYcoord(Integer.parseInt(YCord.getText()));
-    Floor floor = Floor.valueOf(Floor.fromString(FloorBox.getText()));
-    String tableString = floor.getTableString();
+    String tableString = Floor.tableStringFromExtendedString(FloorBox.getText());
     newNode.setFloor(tableString);
     newNode.setBuilding(BuildingBox.getText());
     newNode.setNodeid(makeNewNodeID(newNode.getFloor(), newNode.getXcoord(), newNode.getYcoord()));
 
-    //    System.out.println("X: " + newNode.getXcoord());
-    //    System.out.println("Y: " + newNode.getYcoord());
-    //    System.out.println("Floor: " + newNode.getFloor());
-    //    System.out.println("Building: " + newNode.getBuilding());
-    //    System.out.println("ID: " + newNode.getNodeid());
-
-    // Add new Node to database
+    // Add new Node to database //
     nodeimpl.add(newNode);
 
     // switch box screen
@@ -235,10 +234,13 @@ public class MapEditorController extends MenuController {
       //      recentPane.setLayoutY(updatedCoords[1] - 2.5);
     }
 
-    // draw node onto the map
+    // draw node on map using database //
+    // initializeFloorMap(tableString);
+
+    // draw node onto the map (nonDatabase) //
     ArrayList<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(newNode);
-    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
+    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this); // draw node
   }
 
   public void editNode(ActionEvent event) {
@@ -246,29 +248,23 @@ public class MapEditorController extends MenuController {
     saveButton.setVisible(true);
   }
 
+  /**
+   * edits the selected node when "Save" button is clicked
+   *
+   * @param event
+   */
   public void saveNodeEdit(ActionEvent event) {
+
+    // Save info as a new node called currentNode
     NodeEntity currentNode = NodeDraw.getSelected();
-    Pane currentPane = NodeDraw.getSelectedPane();
-    if (currentPane != null) {
-      currentPane.setVisible(false);
-    }
     String id = currentNode.getNodeid();
     currentNode.setXcoord(Integer.parseInt(XCord.getText()));
     currentNode.setYcoord(Integer.parseInt(YCord.getText()));
     currentNode.setBuilding(BuildingBox.getText());
-    Floor floor = Floor.valueOf(Floor.fromString(FloorBox.getText())); // !!
-    currentNode.setFloor(floor.getTableString());
-
-    System.out.println("X: " + currentNode.getXcoord());
-    System.out.println("Y: " + currentNode.getYcoord());
-    System.out.println("Floor: " + currentNode.getFloor());
-    System.out.println("Building: " + currentNode.getBuilding());
-    System.out.println("ID: " + currentNode.getNodeid());
-
+    String newFloor = (Floor.valueOf(Floor.fromString(FloorBox.getText()))).getTableString();
+    currentNode.setFloor(newFloor);
     currentNode.setNodeid(
         makeNewNodeID(currentNode.getFloor(), currentNode.getXcoord(), currentNode.getYcoord()));
-
-    System.out.println("IDNew: " + currentNode.getNodeid());
 
     //    currentPane.setLayoutX(currentNode.getXcoord());
     //    currentPane.setLayoutY(currentNode.getYcoord());
@@ -280,127 +276,19 @@ public class MapEditorController extends MenuController {
     fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
     saveButton.setVisible(false);
 
-    // Remove old and draw new
-    Pane currentNodePane = NodeDraw.getSelectedPane();
-    currentNodePane.setVisible(false);
+    // database way to add in new node //
+    // initializeFloorMap(newFloor);
+
+    // Remove old and draw new (nondatabase) //
+    // Hide old node on map
+    Pane currentPane = NodeDraw.getSelectedPane();
+    if (currentPane != null) {
+      currentPane.setVisible(false);
+    }
+    // draw on map
     ArrayList<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(currentNode);
-    String tableString = currentNode.getFloor();
-    System.out.println("Floor: " + tableString);
     NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
-
-    //     initialize();
-  }
-
-  @FXML
-  public void addLocationName(ActionEvent event) {
-    NodeEntity currentNode = NodeDraw.getSelected();
-    MoveEntity newLocation =
-        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-    moveimpl.add(newLocation);
-    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-    locationIDBox.setText(currentNode.getNodeid());
-    createLocation.setVisible(false);
-
-    System.out.println("LongName");
-    System.out.println(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-    System.out.println();
-
-    // added to redraw
-    Pane currentNodePane = NodeDraw.getSelectedPane();
-    currentNodePane.setVisible(false);
-    List<NodeEntity> oneNode = new ArrayList<>();
-    oneNode.add(currentNode);
-    String tableString = currentNode.getFloor();
-    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
-
-    // initializeFloorMap("L1", stackL1, gestureL1);
-  }
-
-  @FXML
-  public void editLocationName(ActionEvent event) {
-    NodeEntity currentNode = NodeDraw.getSelected();
-    MoveEntity newLocation =
-        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-    List<String> data = new ArrayList<>();
-    data.add(currentNode.getNodeid());
-    data.add(longNameBox.getText());
-    data.add(LocalDate.now().toString());
-    moveimpl.update(data, newLocation);
-    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-    locationIDBox.setText(currentNode.getNodeid());
-  }
-
-  @FXML
-  public void delLocationName(ActionEvent event) {
-    NodeEntity currentNode = NodeDraw.getSelected();
-    MoveEntity newLocation =
-        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-    List<String> data = new ArrayList<>();
-    data.add(currentNode.getNodeid());
-    data.add(longNameBox.getText());
-    data.add(LocalDate.now().toString());
-    moveimpl.delete(data);
-    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-    locationIDBox.setText(currentNode.getNodeid());
-  }
-
-  @FXML
-  public void showLocations(ActionEvent event) {
-    // TODO
-    System.out.println("show locations");
-  }
-
-  @FXML
-  public void hideLocations(ActionEvent event) {
-
-    // TODO
-    System.out.println("show locations");
-  }
-
-  public void setXCord(String xLoc) {
-    this.XCord.setText(xLoc);
-  }
-
-  public void setYCord(String yLoc) {
-    this.YCord.setText(yLoc);
-  }
-
-  public void setFloorBox(String floor) {
-    this.FloorBox.setValue(floor);
-  }
-
-  public void setBuildingBox(String building) {
-    this.BuildingBox.setValue(building);
-  }
-
-  @FXML
-  public void editEdge(ActionEvent event) {}
-
-  @FXML
-  public void deleteEdge(ActionEvent event) {}
-
-  public void setLocationIDBox(String idString) {
-    locationIDBox.setText(idString);
-  }
-
-  public void setLongNameBox(String loc) {
-    longNameBox.setValue(loc);
-  }
-
-  public void setLocButtonVisibility(boolean eye) {
-    createLocation.setVisible(eye);
-  }
-
-  /**
-   * Updates the mapImage asset to contain an image (which is supposed to be a floor map)
-   *
-   * @param floor is the tablename of the floor
-   * @param iv is the image view to be updated
-   */
-  private void addFloorMapImage(String floor, ImageView iv) {
-    Image image = ImageLoader.getImage(floor);
-    iv.setImage(image);
   }
 
   public String makeNewNodeID(String floor, int x, int y) {
@@ -409,4 +297,105 @@ public class MapEditorController extends MenuController {
 
     return (floor + "X" + xCoord + "Y" + yCoord);
   }
+
+//  @FXML
+//  public void addLocationName(ActionEvent event) {
+//    NodeEntity currentNode = NodeDraw.getSelected();
+//    MoveEntity newLocation =
+//        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
+//    moveimpl.add(newLocation);
+//    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+//    locationIDBox.setText(currentNode.getNodeid());
+//    createLocation.setVisible(false);
+//
+//    System.out.println("LongName");
+//    System.out.println(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+//    System.out.println();
+//
+//    // added to redraw
+//    Pane currentNodePane = NodeDraw.getSelectedPane();
+//    currentNodePane.setVisible(false);
+//    List<NodeEntity> oneNode = new ArrayList<>();
+//    oneNode.add(currentNode);
+//    String tableString = currentNode.getFloor();
+//    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
+//
+//    // initializeFloorMap("L1", stackL1, gestureL1);
+//  }
+//
+//  @FXML
+//  public void editLocationName(ActionEvent event) {
+//    NodeEntity currentNode = NodeDraw.getSelected();
+//    MoveEntity newLocation =
+//        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
+//    List<String> data = new ArrayList<>();
+//    data.add(currentNode.getNodeid());
+//    data.add(longNameBox.getText());
+//    data.add(LocalDate.now().toString());
+//    moveimpl.update(data, newLocation);
+//    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+//    locationIDBox.setText(currentNode.getNodeid());
+//  }
+//
+//  @FXML
+//  public void delLocationName(ActionEvent event) {
+//    NodeEntity currentNode = NodeDraw.getSelected();
+//    MoveEntity newLocation =
+//        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
+//    List<String> data = new ArrayList<>();
+//    data.add(currentNode.getNodeid());
+//    data.add(longNameBox.getText());
+//    data.add(LocalDate.now().toString());
+//    moveimpl.delete(data);
+//    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+//    locationIDBox.setText(currentNode.getNodeid());
+//  }
+//
+//  @FXML
+//  public void showLocations(ActionEvent event) {
+//    // TODO
+//    System.out.println("show locations");
+//  }
+//
+//  @FXML
+//  public void hideLocations(ActionEvent event) {
+//
+//    // TODO
+//    System.out.println("show locations");
+//  }
+//
+//  public void setXCord(String xLoc) {
+//    this.XCord.setText(xLoc);
+//  }
+//
+//  public void setYCord(String yLoc) {
+//    this.YCord.setText(yLoc);
+//  }
+//
+//  public void setFloorBox(String floor) {
+//    this.FloorBox.setValue(floor);
+//  }
+//
+//  public void setBuildingBox(String building) {
+//    this.BuildingBox.setValue(building);
+//  }
+//
+//  @FXML
+//  public void editEdge(ActionEvent event) {}
+//
+//  @FXML
+//  public void deleteEdge(ActionEvent event) {}
+//
+//  public void setLocationIDBox(String idString) {
+//    locationIDBox.setText(idString);
+//  }
+//
+//  public void setLongNameBox(String loc) {
+//    longNameBox.setValue(loc);
+//  }
+//
+//  public void setLocButtonVisibility(boolean eye) {
+//    createLocation.setVisible(eye);
+//  }
+//
 }

@@ -163,7 +163,11 @@ public class EdgeImpl implements IDatabaseAPI<EdgeEntity, String> {
         newEdge = new EdgeEntity(n.getNode1(), m.getNode2());
         System.out.println(newEdge.getEdgeid());
         add(newEdge);
-        delete(m.getEdgeid());
+        try {
+          delete(m.getEdgeid());
+        } catch (Exception E) {
+          // don't delete edge
+        }
       }
       delete(n.getEdgeid());
     }
