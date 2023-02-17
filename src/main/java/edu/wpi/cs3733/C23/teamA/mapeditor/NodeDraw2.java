@@ -3,9 +3,8 @@ package edu.wpi.cs3733.C23.teamA.mapeditor;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
-import edu.wpi.cs3733.C23.teamA.controllers.NodeMapController;
+import edu.wpi.cs3733.C23.teamA.controllers.NiniTest;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-import java.awt.*;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,9 +12,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
-public class NodeDraw {
+public class NodeDraw2 {
 
   static Pane previousNode = null;
   static Pane selectNodePane = null;
@@ -53,10 +55,30 @@ public class NodeDraw {
     return scaledCoordinates;
   }
 
+  public static void drawLocations(
+      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NiniTest nmc) {
+
+    nodeAnchor.getChildren().clear();
+
+    for (NodeEntity n : allNodes) {
+      int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
+
+      if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
+        Text locName = new Text();
+        locName.setVisible(true);
+        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+        locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
+        locName.setLayoutX(updatedCoords[0] - 2.5);
+        locName.setLayoutY(updatedCoords[1] - 2.5);
+        nodeAnchor.getChildren().add(locName);
+      }
+    }
+  }
+
   public static void drawNodes(
-      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NodeMapController nmc) {
-    // gc.setFill(Color.web("0x224870"));
-    locations.refresh();
+      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NiniTest nmc) {
+
+    nodeAnchor.getChildren().clear();
 
     // draw circle for each node
     for (NodeEntity n : allNodes) {
@@ -73,19 +95,6 @@ public class NodeDraw {
               + "-fx-border-color: '#224870'; "
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
-      //      Text locName = new Text();
-      //      locName.setVisible(false);
-      //      if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
-      //        locName.setVisible(true);
-      //        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-      //        locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
-      //        locName.setLayoutX(updatedCoords[0] - 2.5);
-      //        locName.setLayoutY(updatedCoords[1] - 2.5);
-      //        NodeMapController nmcToggle = new NodeMapController();
-      //        //      if (nmcToggle.toggleLocations()) {
-      //        //        locName.setVisible(false);
-      //        //      }
-      //      }
 
       EventHandler<MouseEvent> eventHandler =
           new EventHandler<MouseEvent>() {
@@ -102,8 +111,6 @@ public class NodeDraw {
                           + "-fx-border-width: 1;"
                           + "-fx-border-radius: 13.5");
                   previousNode.setPrefSize(5, 5);
-                  //                  previousNode.setLayoutX(updatedCoords[0] - 2.5);
-                  //                  previousNode.setLayoutY(updatedCoords[1] - 2.5);
                 }
               }
 
@@ -114,8 +121,8 @@ public class NodeDraw {
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 13.5");
               nodeGraphic.setPrefSize(7, 7);
-              //              nodeGraphic.setLayoutX(updatedCoords[0] - 3.5);
-              //              nodeGraphic.setLayoutY(updatedCoords[1] - 3.5);
+              //                            nodeGraphic.setLayoutX(nodeGraphic.getXcoord() - 3.5);
+              //                            nodeGraphic.setLayoutY(nodeGraphic.getYcoord() - 3.5);
 
               previousNode = nodeGraphic;
               selectNode = n;
@@ -141,11 +148,12 @@ public class NodeDraw {
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
       nodeAnchor.getChildren().add(nodeGraphic);
-      // nodeAnchor.getChildren().add(locName);
+
     }
   }
 
   public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, GraphicsContext gc) {
+    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     gc.setStroke(Color.web("0x224870"));
     gc.setLineWidth(1);
 

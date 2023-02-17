@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
@@ -10,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
+import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
@@ -18,15 +18,16 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -37,21 +38,22 @@ import javafx.scene.text.Text;
 import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 public class NiniTest extends MenuController {
 
   @FXML private Canvas nodeMapCanvas; // to display the generated path
-  @FXML private ImageView nodeMapImage;
+  @FXML private ImageView mainImageView;
   @FXML private GesturePane mainGesturePane;
+  @FXML AnchorPane mainAnchorPane;
   @FXML StackPane mainStackPane;
-
   @FXML ImageView mainMapImage;
+  @FXML AnchorPane mainTextPane = new AnchorPane();
+  @FXML private Canvas mainCanvas = new Canvas();
 
-  // Anchor panes
+  @FXML MFXButton l1Button;
+  @FXML MFXButton l2Button;
+  @FXML MFXButton f1Button;
+  @FXML MFXButton f2Button;
+  @FXML MFXButton f3Button;
 
   // Buttons and Text
   @FXML MFXTextField XCord;
@@ -66,14 +68,7 @@ public class NiniTest extends MenuController {
   @FXML MFXFilterComboBox<String> longNameBox;
   @FXML MFXTextField locationIDBox;
   @FXML MFXButton createLocation;
-
-  @FXML TabPane editorTabPane;
-  @FXML TabPane mapTabPane;
-  @FXML Tab tabL1;
-  @FXML Tab tabL2;
-  @FXML Tab tabF1;
-  @FXML Tab tabF2;
-  @FXML Tab tabF3;
+  GraphicsContext gc;
 
   @FXML
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
@@ -83,12 +78,6 @@ public class NiniTest extends MenuController {
   // Lists of Nodes and Node Data
   private List<NodeEntity> allNodes;
   private List<EdgeEntity> allEdges;
-  private GraphicsContext[] gcs = new GraphicsContext[5];
-  private AnchorPane[] aps = new AnchorPane[5];
-  private ImageView[] ivs = new ImageView[5];
-  private StackPane[] stacks = new StackPane[5];
-  private GesturePane[] gestures = new GesturePane[5];
-  private Boolean[] floorInitialized = new Boolean[5];
   NodeImpl nodeimpl = new NodeImpl();
   EdgeImpl edgeimpl = new EdgeImpl();
   MoveImpl moveimpl = new MoveImpl();
@@ -100,45 +89,48 @@ public class NiniTest extends MenuController {
   /** Starting method called when screen is opened: Draws nodes and edges */
   public void initialize() {
 
-    NodeDraw.setSelectedPane(null);
+    NodeDraw2.setSelectedPane(null);
 
     createNodeButton.setVisible(false);
     saveButton.setVisible(false);
+    allNodes = nodeimpl.getNodeOnFloor("L1");
+    allEdges = edgeimpl.getEdgeOnFloor("L1");
+    gc = mainCanvas.getGraphicsContext2D();
+    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
+    addFloorMapImage("L1", mainImageView);
+    NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
+    NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
 
     this.mainGesturePane.setContent(mainStackPane);
-    /*
-    1) init map container imageView to the first floor
-    2) add map container to the parent stack pane
-    3) add layer of nodes/edges/locations to parent stack pane
-
-     */
-
-    floorInitialized[0] = false;
-    floorInitialized[1] = false;
-    floorInitialized[2] = false;
-    floorInitialized[3] = false;
-    floorInitialized[4] = false;
-
-    // set location name box
-    //    ObservableList<String> locationList =
-    //        FXCollections.observableArrayList(
-    //            locNameImp.getAll().stream()
-    //                .map(locationNameEntity -> locationNameEntity.getLongname())
-    //                .toList());
-    //    longNameBox.setItems(locationList);
-
-    // sets the arrays for GraphicContexts and AnchorPanes
-    setArrays();
-
-    // add nodes and edges per floor
-    initializeFloorMap("L1");
-    floorInitialized[0] = true;
-    // initializeFloorMap("L2");
-    // initializeFloorMap("1");
-    // initializeFloorMap("2", stackF2, gestureF2);
-    //    initializeFloorMap("3", stackF3, gestureF3);
   }
 
+  public void generateFloor(ActionEvent event) {
+    String floor = "L1";
+    if (event.getSource().equals(l1Button)) {
+      floor = "L1";
+    } else if (event.getSource().equals(l2Button)) {
+      floor = "L2";
+    } else if (event.getSource().equals(f1Button)) {
+      floor = "1";
+    } else if (event.getSource().equals(f2Button)) {
+      floor = "2";
+    } else if (event.getSource().equals(f3Button)) {
+      floor = "3";
+    }
+    NodeDraw2.setSelectedPane(null);
+    createNodeButton.setVisible(false);
+    saveButton.setVisible(false);
+    allNodes = nodeimpl.getNodeOnFloor(floor);
+    allEdges = edgeimpl.getEdgeOnFloor(floor);
+    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
+    addFloorMapImage(floor, mainImageView);
+    NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
+
+    NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
+    this.mainGesturePane.setContent(mainStackPane);
+  }
+
+  /*
   public void getTab() {
     System.out.println("HERE");
     Tab selectedTab = mapTabPane.getSelectionModel().getSelectedItem();
@@ -146,11 +138,9 @@ public class NiniTest extends MenuController {
 
     System.out.println(tabID);
 
-    /*
-    if (tabID.equals("tabL1") && floorInitialized[0] == false) {
+    // if (tabID.equals("tabL1") && floorInitialized[0] == false) {
       /// nothing since already loaded
-    } else
-    */
+    // } else
     if (tabID.equals("tabL2") && floorInitialized[1] == false) {
       initializeFloorMap("L2");
       floorInitialized[1] = true;
@@ -165,96 +155,97 @@ public class NiniTest extends MenuController {
       floorInitialized[4] = true;
     }
   }
+  */
 
-  /**
-   * Attaches the gesturepane with the stackpane and reads and adds all the nodes on a floor to the
-   * correct anchorPane
-   */
-  private void initializeFloorMap(String floor) {
-    int floorIndex = Floor.indexFromTableString(floor);
-    // add image
-    // addFloorMapImage(floor, ivs[floorIndex]); // !!!
-
-    // Get all nodes on floor names floor!
-    allNodes = nodeimpl.getNodeOnFloor(floor);
-    allEdges = edgeimpl.getEdgeOnFloor(floor);
-
-    LocationNameEntity locNameEnt;
-    ArrayList<NodeEntity> nullNodes = new ArrayList<>();
-
-    //    // for loop
-    //    for (NodeEntity n : allNodes) {
-    //      locNameEnt = location.mostRecentLoc(n.getNodeid());
-    //      if (locNameEnt == null) {
-    //        nullNodes.add(n);
-    //      }
-    //    }
-
-    GraphicsContext gc = gcs[floorIndex];
-
-    // Add nodes as circles
-    NodeDraw.drawNodes(allNodes, SCALE_FACTOR, aps[floorIndex], this);
-    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gc);
-
-    ObservableList<String> floors =
-        FXCollections.observableArrayList(
-            Floor.L1.getExtendedString(),
-            Floor.L2.getExtendedString(),
-            Floor.F1.getExtendedString(),
-            Floor.F2.getExtendedString(),
-            Floor.F3.getExtendedString());
-    FloorBox.setItems(floors);
-
-    ObservableList<String> buildings =
-        FXCollections.observableArrayList(
-            Building.FR45.getTableString(),
-            Building.TOWR.getTableString(),
-            Building._BTM.getTableString(),
-            Building.SHPR.getTableString(),
-            Building.FR15.getTableString());
-    BuildingBox.setItems(buildings);
-
-    Node node = stacks[floorIndex];
-    gestures[floorIndex].setContent(node);
-    gestures[floorIndex].setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
-  }
-
-  public void loadLocNames(ActionEvent event) {}
-
+  //  /**
+  //   * Attaches the gesturepane with the stackpane and reads and adds all the nodes on a floor to
+  // the
+  //   * correct anchorPane
+  //   */
+  //  private void initializeFloorMap(String floor) {
+  //    int floorIndex = Floor.indexFromTableString(floor);
+  //    // add image
+  //    // addFloorMapImage(floor, ivs[floorIndex]); // !!!
+  //
+  //    // Get all nodes on floor names floor!
+  //    allNodes = nodeimpl.getNodeOnFloor(floor);
+  //    allEdges = edgeimpl.getEdgeOnFloor(floor);
+  //
+  //    LocationNameEntity locNameEnt;
+  //    ArrayList<NodeEntity> nullNodes = new ArrayList<>();
+  //
+  //    //    // for loop
+  //    //    for (NodeEntity n : allNodes) {
+  //    //      locNameEnt = location.mostRecentLoc(n.getNodeid());
+  //    //      if (locNameEnt == null) {
+  //    //        nullNodes.add(n);
+  //    //      }
+  //    //    }
+  //
+  //    GraphicsContext gc = gcs[floorIndex];
+  //
+  //    // Add nodes as circles
+  //    // mainAnchorPane = NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
+  //    // NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
+  //
+  //    ObservableList<String> floors =
+  //        FXCollections.observableArrayList(
+  //            Floor.L1.getExtendedString(),
+  //            Floor.L2.getExtendedString(),
+  //            Floor.F1.getExtendedString(),
+  //            Floor.F2.getExtendedString(),
+  //            Floor.F3.getExtendedString());
+  //    FloorBox.setItems(floors);
+  //
+  //    ObservableList<String> buildings =
+  //        FXCollections.observableArrayList(
+  //            Building.FR45.getTableString(),
+  //            Building.TOWR.getTableString(),
+  //            Building._BTM.getTableString(),
+  //            Building.SHPR.getTableString(),
+  //            Building.FR15.getTableString());
+  //    BuildingBox.setItems(buildings);
+  //
+  //    Node node = stacks[floorIndex];
+  //    gestures[floorIndex].setContent(node);
+  //    gestures[floorIndex].setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+  //  }
+  //
+  //  public void loadLocNames(ActionEvent event) {}
+  //
   @FXML
   public void switchToNodeScene(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.HOME_DATABASE);
   }
 
-  public String makeNewNodeID(String floor, int x, int y) {
-    String xCoord = String.format("%04d", x);
-    String yCoord = String.format("%04d", y);
-
-    return (floor + "X" + xCoord + "Y" + yCoord);
-  }
-
-  public static String toString(char[] a) {
-    // Creating object of String class
-    String string = new String(a);
-    return string;
-  }
+  //    public String makeNewNodeID(String floor, int x, int y) {
+  //      String xCoord = String.format("%04d", x);
+  //      String yCoord = String.format("%04d", y);
+  //
+  //      return (floor + "X" + xCoord + "Y" + yCoord);
+  //    }
+  //
+  //  public static String toString(char[] a) {
+  //    // Creating object of String class
+  //    String string = new String(a);
+  //    return string;
+  //  }
 
   public void deleteSelectedNode(ActionEvent event) throws IOException {
-    NodeEntity currentNode = NodeDraw.getSelected();
-    Pane currentNodePane = NodeDraw.getSelectedPane();
+    NodeEntity currentNode = NodeDraw2.getSelected();
+    Pane currentNodePane = NodeDraw2.getSelectedPane();
     String id = currentNode.getNodeid();
     edgeimpl.collapseNode(currentNode);
     nodeimpl.delete(id);
     currentNodePane.setVisible(false);
     int index = Floor.indexFromTableString(currentNode.getFloor());
-    gcs[index].clearRect(
-        0, 0, gcs[index].getCanvas().getWidth(), gcs[index].getCanvas().getHeight());
+    gc.clearRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
 
     // fix this
     String currentFloor = currentNode.getFloor();
     allEdges = edgeimpl.getEdgeOnFloor(currentFloor);
     if (Floor.indexFromTableString(currentFloor) != -1)
-      NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gcs[Floor.indexFromTableString(currentFloor)]);
+      NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gc);
   }
 
   public void transitionToNewNodeBox(ActionEvent event) {
@@ -331,7 +322,7 @@ public class NiniTest extends MenuController {
     // draw node onto the map
     ArrayList<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(newNode);
-    NodeDraw.drawNodes(oneNode, SCALE_FACTOR, aps[Floor.indexFromTableString(tableString)], this);
+    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
   }
 
   public void editNode(ActionEvent event) {
@@ -380,9 +371,9 @@ public class NiniTest extends MenuController {
     oneNode.add(currentNode);
     String tableString = currentNode.getFloor();
     System.out.println("Floor: " + tableString);
-    NodeDraw.drawNodes(oneNode, SCALE_FACTOR, aps[Floor.indexFromTableString(tableString)], this);
+    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
 
-    // initialize();
+    //     initialize();
   }
 
   @FXML
@@ -405,7 +396,7 @@ public class NiniTest extends MenuController {
     List<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(currentNode);
     String tableString = currentNode.getFloor();
-    NodeDraw.drawNodes(oneNode, SCALE_FACTOR, aps[Floor.indexFromTableString(tableString)], this);
+    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
 
     // initializeFloorMap("L1", stackL1, gestureL1);
   }
@@ -465,40 +456,6 @@ public class NiniTest extends MenuController {
 
   public void setBuildingBox(String building) {
     this.BuildingBox.setValue(building);
-  }
-
-  private void setArrays() {
-    // set graphicContexts for each floor
-    gcs[0] = mapEditorCanvasL1.getGraphicsContext2D();
-    gcs[1] = mapEditorCanvasL2.getGraphicsContext2D();
-    gcs[2] = mapEditorCanvasF1.getGraphicsContext2D();
-    gcs[3] = mapEditorCanvasF2.getGraphicsContext2D();
-    gcs[4] = mapEditorCanvasF3.getGraphicsContext2D();
-
-    // set anchorpanes into an array for easy access
-    aps[0] = nodeAnchorL1;
-    aps[1] = nodeAnchorL2;
-    aps[2] = nodeAnchorF1;
-    aps[3] = nodeAnchorF2;
-    aps[4] = nodeAnchorF3;
-
-    ivs[0] = floorL1;
-    ivs[1] = floorL2;
-    ivs[2] = floorF1;
-    ivs[3] = floorF2;
-    ivs[4] = floorF3;
-
-    stacks[0] = stackL1;
-    stacks[1] = stackL2;
-    stacks[2] = stackF1;
-    stacks[3] = stackF2;
-    stacks[4] = stackF3;
-
-    gestures[0] = gestureL1;
-    gestures[1] = gestureL2;
-    gestures[2] = gestureF1;
-    gestures[3] = gestureF2;
-    gestures[4] = gestureF3;
   }
 
   @FXML
