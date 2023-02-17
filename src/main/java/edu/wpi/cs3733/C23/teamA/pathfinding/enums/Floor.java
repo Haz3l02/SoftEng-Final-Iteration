@@ -55,6 +55,15 @@ public enum Floor {
     return null;
   }
 
+  public static String tableStringFromExtendedString(String extendedString) {
+    for (Floor f : Floor.values()) {
+      if (f.getExtendedString().equals(extendedString)) {
+        return f.tableString;
+      }
+    }
+    return null;
+  }
+
   // get the index based off of the table string
   public static int indexFromTableString(String tableString) {
     for (Floor f : Floor.values()) {
