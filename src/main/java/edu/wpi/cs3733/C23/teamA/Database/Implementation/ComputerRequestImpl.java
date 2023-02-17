@@ -3,7 +3,9 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -15,11 +17,23 @@ import java.util.ListIterator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, Integer> {
+public class ComputerRequestImpl extends Observable
+    implements IDatabaseAPI<ComputerRequestEntity, Integer> {
   private List<ComputerRequestEntity> comprequests;
   private static final ComputerRequestImpl instance = new ComputerRequestImpl();
 
-  public ComputerRequestImpl() {
+  private ComputerRequestImpl() {
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<ComputerRequestEntity> criteria =
+        builder.createQuery(ComputerRequestEntity.class);
+    criteria.from(ComputerRequestEntity.class);
+    List<ComputerRequestEntity> records = session.createQuery(criteria).getResultList();
+    session.close();
+    comprequests = records;
+  }
+
+  public void refresh() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<ComputerRequestEntity> criteria =
@@ -36,13 +50,13 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
 
   public void add(ComputerRequestEntity c) {
     Session session = getSessionFactory().openSession();
-    ServiceRequestImpl serv = new ServiceRequestImpl();
     Transaction tx = session.beginTransaction();
     session.persist(c);
     tx.commit();
     comprequests.add(c);
-    serv.addToList(c);
+    ServiceRequestImpl.getInstance().addToList(c);
     session.close();
+    notifyAllObservers();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {}
@@ -99,12 +113,13 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
             obj.getStatus(),
             obj.getEmployeeAssigned(),
             obj.getDate());
-    ServiceRequestImpl serv = new ServiceRequestImpl();
-    serv.update(ID, ser);
+
+    ServiceRequestImpl.getInstance().update(ID, ser);
     comprequests.add(c);
 
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void delete(Integer c) {
@@ -120,8 +135,10 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
       }
     }
     removeFromList(c);
+    ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {
@@ -140,18 +157,31 @@ public class ComputerRequestImpl implements IDatabaseAPI<ComputerRequestEntity, 
         .orElseThrow();
   }
 
-  //  public void updateStatus(Integer ID, Status status){
-  //    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
-  //    while (li.hasNext()) {
-  //      ComputerRequestEntity san = li.next();
-  //      if (san.getRequestid() == ID) {
-  //        san.setStatus(status);
-  //        li.remove();
-  //        comprequests.add(san);
-  //        break;
-  //      }
-  //    }
-  //  }
+  public void updateStatus(Integer ID, Status status) {
+    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    while (li.hasNext()) {
+      ComputerRequestEntity san = li.next();
+      if (san.getRequestid() == ID) {
+        san.setStatus(status);
+        li.remove();
+        comprequests.add(san);
+        break;
+      }
+    }
+  }
+
+  public void updateEmployee(Integer ID, String employee) {
+    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    while (li.hasNext()) {
+      ComputerRequestEntity sec = li.next();
+      if (sec.getRequestid() == ID) {
+        sec.setEmployeeAssigned(employee);
+        li.remove();
+        comprequests.add(sec);
+        break;
+      }
+    }
+  }
 
   public static ComputerRequestImpl getInstance() {
     return instance;

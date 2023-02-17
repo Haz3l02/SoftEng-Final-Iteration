@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import java.io.IOException;
@@ -36,6 +37,10 @@ public class AApp extends Application {
     final BorderPane root = loader.load();
 
     AApp.rootPane = root;
+
+    // load images
+    ImageLoader.loadImages();
+    FacadeRepository.getInstance(); // wake up database instances
 
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);

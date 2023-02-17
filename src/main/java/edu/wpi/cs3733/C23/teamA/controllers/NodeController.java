@@ -1,8 +1,9 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -12,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,9 +41,6 @@ public class NodeController extends MenuController {
 
   private NodeEntity selected = null;
   private List<NodeEntity> data;
-
-  private NodeImpl nodeImpl = new NodeImpl();
-  private EdgeImpl edgeImpl = new EdgeImpl();
 
   private ObservableList<NodeEntity> dbTableRowsModel = FXCollections.observableArrayList();
 
@@ -85,8 +84,8 @@ public class NodeController extends MenuController {
 
   public void delete() {
     if (selected != null) {
-      edgeImpl.collapseNode(selected);
-      nodeImpl.delete(selected.getNodeid());
+      FacadeRepository.getInstance().collapseNode(selected);
+      FacadeRepository.getInstance().deleteNode(selected.getNodeid());
       reloadData();
     }
   }
@@ -102,7 +101,7 @@ public class NodeController extends MenuController {
         selected.setYcoord(Integer.parseInt(y));
         selected.setFloor(floor);
         selected.setBuilding(building);
-        nodeImpl.update(selected.getNodeid(), selected);
+        FacadeRepository.getInstance().updateNode(selected.getNodeid(), selected);
       } else {
         NodeEntity newNode =
             new NodeEntity(
@@ -111,7 +110,7 @@ public class NodeController extends MenuController {
                 Integer.parseInt(y),
                 floor,
                 building);
-        nodeImpl.add(newNode);
+        FacadeRepository.getInstance().addNode(newNode);
       }
     }
     reloadData();
@@ -131,10 +130,20 @@ public class NodeController extends MenuController {
     deleteButton.setDisable(true);
     dbTableRowsModel.clear();
     try {
-      data = nodeImpl.getAll();
+      data = FacadeRepository.getInstance().getAllNode();
       dbTableRowsModel.addAll(data);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @FXML
+  public void switchToImport(ActionEvent event) {
+    Navigation.navigate(Screen.IMPORT_CSV);
+  }
+
+  @FXML
+  public void switchToExport(ActionEvent event) {
+    Navigation.navigate(Screen.EXPORT_CSV);
   }
 }

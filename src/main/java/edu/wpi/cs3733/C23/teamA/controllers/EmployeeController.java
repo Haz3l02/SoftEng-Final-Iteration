@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EmployeeImpl;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
@@ -10,7 +10,6 @@ import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -59,7 +58,6 @@ public class EmployeeController {
   private String job;
 
   private ObservableList<EmployeeEntity> dbTableRowsModel = FXCollections.observableArrayList();
-  EmployeeImpl employee = new EmployeeImpl();
   List<EmployeeEntity> employeeData = new ArrayList<>();
 
   @FXML
@@ -75,15 +73,11 @@ public class EmployeeController {
   @FXML
   public void initialize() throws SQLException {
 
-    if (reminder != null) {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-    }
     IdNumberHolder holder = IdNumberHolder.getInstance();
     hospitalID = holder.getId();
     job = holder.getJob();
 
-    employeeData = employee.getAll();
+    employeeData = FacadeRepository.getInstance().getAllEmployee();
 
     if (nameCol != null) {
       nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -95,6 +89,8 @@ public class EmployeeController {
       dbTableRowsModel.addAll(employeeData);
       employeeTable.setItems(dbTableRowsModel);
     }
+    ObservableList<String> jobs = FXCollections.observableArrayList(Job.jobList());
+    jobBox.setItems(jobs);
     // Assign permissions to differentiate between medical and non-medical staff
 
   }
@@ -109,7 +105,7 @@ public class EmployeeController {
       IDNumBox.setText(String.valueOf(clickedEmployeeTableRow.getEmployeeid()));
       usernameBox.setText(String.valueOf(clickedEmployeeTableRow.getUsername()));
       passwordBox.setText(String.valueOf(clickedEmployeeTableRow.getPassword()));
-      jobBox.setText(String.valueOf(clickedEmployeeTableRow.getJob()));
+      jobBox.setValue(String.valueOf(clickedEmployeeTableRow.getJob()));
     }
     editButton.setDisable(false);
     deleteButton.setDisable(false);
@@ -129,21 +125,21 @@ public class EmployeeController {
             jobBox.getValue(),
             nameBox.getText());
 
-    employee.add(theEmployee);
+    FacadeRepository.getInstance().addEmployee(theEmployee);
     reloadData();
   }
 
   @FXML
   public void delete(ActionEvent event) {
     String currentRowId = IDNumBox.getText();
-    employee.delete(currentRowId);
+    FacadeRepository.getInstance().deleteEmployee(currentRowId);
     reloadData();
   }
 
   public void reloadData() {
     dbTableRowsModel.clear();
     try {
-      employeeData = employee.getAll();
+      employeeData = FacadeRepository.getInstance().getAllEmployee();
       dbTableRowsModel.addAll(employeeData);
       clearEdits();
     } catch (Exception e) {
@@ -171,7 +167,7 @@ public class EmployeeController {
           employees.setPassword(passwordBox.getText());
           employees.setJob(Job.value(jobBox.getValue()).getJob());
           employees.setEmployeeid(IDNumBox.getText());
-          employee.update(currentRowId, employees);
+          FacadeRepository.getInstance().updateEmployee(currentRowId, employees);
           employeeTable.setItems(currentTableData);
           reloadData();
           break;
@@ -214,7 +210,7 @@ public class EmployeeController {
   }
 
   @FXML
-  public void importEmployeeCSV(ActionEvent event) throws FileNotFoundException {
+  public void importEmployeeCSV(ActionEvent event) throws IOException {
     if (fileNameField.getText().equals("")) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
@@ -224,7 +220,7 @@ public class EmployeeController {
 
       System.out.println(fileNameField.getText());
 
-      employee.importFromCSV(fileNameField.getText());
+      FacadeRepository.getInstance().importEmployee(fileNameField.getText());
 
       popup.hide();
     }
@@ -236,6 +232,15 @@ public class EmployeeController {
   }
 
   @FXML
+  public void switchToImport(ActionEvent event) {
+    Navigation.navigate(Screen.IMPORT_CSV);
+  }
+
+  @FXML
+  public void switchToExport(ActionEvent event) {
+    Navigation.navigate(Screen.EXPORT_CSV);
+  }
+
   public void switchToExportPopup(ActionEvent event) throws IOException {
     System.out.println("opens popup");
     if (!event.getSource().equals(cancel)) {
@@ -260,7 +265,7 @@ public class EmployeeController {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
 
-      employee.exportToCSV(fileNameField.getText());
+      FacadeRepository.getInstance().exportEmployee(fileNameField.getText());
 
       popup.hide();
     }

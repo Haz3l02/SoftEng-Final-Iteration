@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
+import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -17,18 +18,31 @@ import java.util.ListIterator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, Integer> {
-  private final List<ServiceRequestEntity> services;
+public class ServiceRequestImpl extends Observable
+    implements IDatabaseAPI<ServiceRequestEntity, Integer> {
+  private List<ServiceRequestEntity> services;
   private static final ServiceRequestImpl instance = new ServiceRequestImpl();
 
-  public ServiceRequestImpl() {
-    Session session = getSessionFactory().openSession();
+  private ServiceRequestImpl() {
+    Session session;
     session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<ServiceRequestEntity> criteria = builder.createQuery(ServiceRequestEntity.class);
     criteria.from(ServiceRequestEntity.class);
-    services = session.createQuery(criteria).getResultList();
+    List<ServiceRequestEntity> records = session.createQuery(criteria).getResultList();
     session.close();
+    services = records;
+  }
+
+  public void refresh() {
+    Session session;
+    session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<ServiceRequestEntity> criteria = builder.createQuery(ServiceRequestEntity.class);
+    criteria.from(ServiceRequestEntity.class);
+    List<ServiceRequestEntity> records = session.createQuery(criteria).getResultList();
+    session.close();
+    services = records;
   }
 
   public List<ServiceRequestEntity> getAll() {
@@ -66,10 +80,10 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
               + "\n");
     }
     fileWriter.close();
-    new ComputerRequestImpl().exportToCSV(filename);
-    new SecurityRequestImpl().exportToCSV(filename);
-    new SanitationRequestImpl().exportToCSV(filename);
-    new PatientTransportimpl().exportToCSV(filename);
+    ComputerRequestImpl.getInstance().exportToCSV(filename);
+    SecurityRequestImpl.getInstance().exportToCSV(filename);
+    SanitationRequestImpl.getInstance().exportToCSV(filename);
+    PatientTransportimpl.getInstance().exportToCSV(filename);
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
@@ -98,15 +112,16 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     session.persist(s);
     services.add(s);
     tx.commit();
+    notifyAllObservers();
   }
 
   public void delete(Integer s) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    new ComputerRequestImpl().removeFromList(s);
-    new SanitationRequestImpl().removeFromList(s);
-    new SecurityRequestImpl().removeFromList(s);
-    new PatientTransportimpl().removeFromList(s);
+    ComputerRequestImpl.getInstance().removeFromList(s);
+    SecurityRequestImpl.getInstance().removeFromList(s);
+    PatientTransportimpl.getInstance().removeFromList(s);
+    SanitationRequestImpl.getInstance().removeFromList(s);
 
     session.remove(get(s));
     ListIterator<ServiceRequestEntity> li = services.listIterator();
@@ -117,6 +132,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     }
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void update(Integer ID, ServiceRequestEntity obj) {
@@ -144,6 +160,7 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     services.add(ser);
     tx.commit();
     session.close();
+    notifyAllObservers();
   }
 
   public void addToList(ServiceRequestEntity ser) {
@@ -216,10 +233,10 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
     }
     services.add(serv);
 
-    //    ComputerRequestImpl.getInstance().updateStatus(ID, status);
-    //    PatientTransportimpl.getInstance().updateStatus(ID, status);
-    //    SecurityRequestImpl.getInstance().updateStatus(ID, status);
-    //    SecurityRequestImpl.getInstance().updateStatus(ID, status);
+    ComputerRequestImpl.getInstance().updateStatus(ID, status);
+    PatientTransportimpl.getInstance().updateStatus(ID, status);
+    SecurityRequestImpl.getInstance().updateStatus(ID, status);
+    SecurityRequestImpl.getInstance().updateStatus(ID, status);
 
     tx.commit();
     session.close();
@@ -238,6 +255,10 @@ public class ServiceRequestImpl implements IDatabaseAPI<ServiceRequestEntity, In
       }
     }
 
+    ComputerRequestImpl.getInstance().updateEmployee(ID, employee);
+    PatientTransportimpl.getInstance().updateEmployee(ID, employee);
+    SecurityRequestImpl.getInstance().updateEmployee(ID, employee);
+    SecurityRequestImpl.getInstance().updateEmployee(ID, employee);
     services.add(serv);
 
     tx.commit();
