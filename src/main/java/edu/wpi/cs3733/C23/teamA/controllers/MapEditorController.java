@@ -38,17 +38,17 @@ import javafx.scene.text.Text;
 import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 
-public class NiniTest extends MenuController {
+public class MapEditorController extends MenuController {
 
-  @FXML private Canvas nodeMapCanvas; // to display the generated path
+  // FXML Elements
   @FXML private ImageView mainImageView;
   @FXML private GesturePane mainGesturePane;
-  @FXML AnchorPane mainAnchorPane;
-  @FXML StackPane mainStackPane;
-  @FXML ImageView mainMapImage;
-  @FXML AnchorPane mainTextPane = new AnchorPane();
+  @FXML private AnchorPane mainAnchorPane;
+  @FXML private StackPane mainStackPane;
+  @FXML private AnchorPane mainTextPane = new AnchorPane();
   @FXML private Canvas mainCanvas = new Canvas();
 
+  // Buttons to switch pages
   @FXML MFXButton l1Button;
   @FXML MFXButton l2Button;
   @FXML MFXButton f1Button;
@@ -68,7 +68,6 @@ public class NiniTest extends MenuController {
   @FXML MFXFilterComboBox<String> longNameBox;
   @FXML MFXTextField locationIDBox;
   @FXML MFXButton createLocation;
-  GraphicsContext gc;
 
   @FXML
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
@@ -76,8 +75,7 @@ public class NiniTest extends MenuController {
   @Setter NodeEntity selectedNode = null;
 
   // Lists of Nodes and Node Data
-  private List<NodeEntity> allNodes;
-  private List<EdgeEntity> allEdges;
+  private GraphicsContext gc;
   NodeImpl nodeimpl = new NodeImpl();
   EdgeImpl edgeimpl = new EdgeImpl();
   MoveImpl moveimpl = new MoveImpl();
@@ -86,22 +84,18 @@ public class NiniTest extends MenuController {
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulations
 
-  /** Starting method called when screen is opened: Draws nodes and edges */
+  /** Starting method called when screen is opened: Draws nodes and edges for floor L1 */
   public void initialize() {
-
-    NodeDraw2.setSelectedPane(null);
 
     createNodeButton.setVisible(false);
     saveButton.setVisible(false);
-    allNodes = nodeimpl.getNodeOnFloor("L1");
-    allEdges = edgeimpl.getEdgeOnFloor("L1");
     gc = mainCanvas.getGraphicsContext2D();
-    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
-    addFloorMapImage("L1", mainImageView);
-    NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-    NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
 
+    initializeFloorMap("L1");
+
+    // Makes gesture pane connect to correct parts
     this.mainGesturePane.setContent(mainStackPane);
+    mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
   }
 
   public void generateFloor(ActionEvent event) {
@@ -117,138 +111,60 @@ public class NiniTest extends MenuController {
     } else if (event.getSource().equals(f3Button)) {
       floor = "3";
     }
+    initializeFloorMap(floor);
+  }
+
+  /**
+   * Adds the image of the floor, nodes, edges, and location names
+   *
+   * @param floor is the String of the floor's name in tableview either "L1", "L2", "1", "2", "3"
+   */
+  private void initializeFloorMap(String floor) {
     NodeDraw2.setSelectedPane(null);
-    createNodeButton.setVisible(false);
-    saveButton.setVisible(false);
-    allNodes = nodeimpl.getNodeOnFloor(floor);
-    allEdges = edgeimpl.getEdgeOnFloor(floor);
-    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
-    addFloorMapImage(floor, mainImageView);
+    List<NodeEntity> allNodes = nodeimpl.getNodeOnFloor(floor);
+    List<EdgeEntity> allEdges = edgeimpl.getEdgeOnFloor(floor);
+    Image image = ImageLoader.getImage(floor);
+
+    mainImageView.setImage(image);
     NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-
+    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
-    this.mainGesturePane.setContent(mainStackPane);
   }
 
-  /*
-  public void getTab() {
-    System.out.println("HERE");
-    Tab selectedTab = mapTabPane.getSelectionModel().getSelectedItem();
-    String tabID = selectedTab.getId();
-
-    System.out.println(tabID);
-
-    // if (tabID.equals("tabL1") && floorInitialized[0] == false) {
-      /// nothing since already loaded
-    // } else
-    if (tabID.equals("tabL2") && floorInitialized[1] == false) {
-      initializeFloorMap("L2");
-      floorInitialized[1] = true;
-    } else if (tabID.equals("tabF1") && floorInitialized[2] == false) {
-      initializeFloorMap("1");
-      floorInitialized[2] = true;
-    } else if (tabID.equals("tabF2") && floorInitialized[3] == false) {
-      initializeFloorMap("2");
-      floorInitialized[3] = true;
-    } else if (tabID.equals("tabF3") && floorInitialized[4] == false) {
-      initializeFloorMap("3");
-      floorInitialized[4] = true;
-    }
-  }
-  */
-
-  //  /**
-  //   * Attaches the gesturepane with the stackpane and reads and adds all the nodes on a floor to
-  // the
-  //   * correct anchorPane
-  //   */
-  //  private void initializeFloorMap(String floor) {
-  //    int floorIndex = Floor.indexFromTableString(floor);
-  //    // add image
-  //    // addFloorMapImage(floor, ivs[floorIndex]); // !!!
-  //
-  //    // Get all nodes on floor names floor!
-  //    allNodes = nodeimpl.getNodeOnFloor(floor);
-  //    allEdges = edgeimpl.getEdgeOnFloor(floor);
-  //
-  //    LocationNameEntity locNameEnt;
-  //    ArrayList<NodeEntity> nullNodes = new ArrayList<>();
-  //
-  //    //    // for loop
-  //    //    for (NodeEntity n : allNodes) {
-  //    //      locNameEnt = location.mostRecentLoc(n.getNodeid());
-  //    //      if (locNameEnt == null) {
-  //    //        nullNodes.add(n);
-  //    //      }
-  //    //    }
-  //
-  //    GraphicsContext gc = gcs[floorIndex];
-  //
-  //    // Add nodes as circles
-  //    // mainAnchorPane = NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-  //    // NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
-  //
-  //    ObservableList<String> floors =
-  //        FXCollections.observableArrayList(
-  //            Floor.L1.getExtendedString(),
-  //            Floor.L2.getExtendedString(),
-  //            Floor.F1.getExtendedString(),
-  //            Floor.F2.getExtendedString(),
-  //            Floor.F3.getExtendedString());
-  //    FloorBox.setItems(floors);
-  //
-  //    ObservableList<String> buildings =
-  //        FXCollections.observableArrayList(
-  //            Building.FR45.getTableString(),
-  //            Building.TOWR.getTableString(),
-  //            Building._BTM.getTableString(),
-  //            Building.SHPR.getTableString(),
-  //            Building.FR15.getTableString());
-  //    BuildingBox.setItems(buildings);
-  //
-  //    Node node = stacks[floorIndex];
-  //    gestures[floorIndex].setContent(node);
-  //    gestures[floorIndex].setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
-  //  }
-  //
-  //  public void loadLocNames(ActionEvent event) {}
-  //
   @FXML
   public void switchToNodeScene(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.HOME_DATABASE);
   }
 
-  //    public String makeNewNodeID(String floor, int x, int y) {
-  //      String xCoord = String.format("%04d", x);
-  //      String yCoord = String.format("%04d", y);
-  //
-  //      return (floor + "X" + xCoord + "Y" + yCoord);
-  //    }
-  //
-  //  public static String toString(char[] a) {
-  //    // Creating object of String class
-  //    String string = new String(a);
-  //    return string;
-  //  }
-
+  /**
+   * Method to delete the node that is selected by the user Deletes from database and from the nodes
+   * on the map
+   *
+   * @param event
+   * @throws IOException
+   */
   public void deleteSelectedNode(ActionEvent event) throws IOException {
     NodeEntity currentNode = NodeDraw2.getSelected();
     Pane currentNodePane = NodeDraw2.getSelectedPane();
     String id = currentNode.getNodeid();
-    edgeimpl.collapseNode(currentNode);
-    nodeimpl.delete(id);
-    currentNodePane.setVisible(false);
-    int index = Floor.indexFromTableString(currentNode.getFloor());
-    gc.clearRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
-
-    // fix this
     String currentFloor = currentNode.getFloor();
-    allEdges = edgeimpl.getEdgeOnFloor(currentFloor);
-    if (Floor.indexFromTableString(currentFloor) != -1)
-      NodeDraw.drawEdges(allEdges, SCALE_FACTOR, gc);
+
+    // Database //
+    edgeimpl.collapseNode(currentNode); // edge repair
+    nodeimpl.delete(id); // delete from database
+
+    // Redraw map using database //
+    // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
+
+    // Redraw Map not using database //
+    currentNodePane.setVisible(false); // delete node from map view
+    List<EdgeEntity> allEdges = edgeimpl.getEdgeOnFloor(currentFloor);
+    if (Floor.indexFromTableString(currentFloor) != -1) {
+      NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc); // delete then redraw edges for this floor
+    }
   }
 
-  public void transitionToNewNodeBox(ActionEvent event) {
+  public void goToNewNodeScene(ActionEvent event) {
     XCord.clear();
     YCord.clear();
     FloorBox.clear();

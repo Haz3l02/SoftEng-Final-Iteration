@@ -3,7 +3,7 @@ package edu.wpi.cs3733.C23.teamA.mapeditor;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
-import edu.wpi.cs3733.C23.teamA.controllers.NiniTest;
+import edu.wpi.cs3733.C23.teamA.controllers.MapEditorController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -56,7 +56,10 @@ public class NodeDraw2 {
   }
 
   public static void drawLocations(
-      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NiniTest nmc) {
+      List<NodeEntity> allNodes,
+      double scaleFactor,
+      AnchorPane nodeAnchor,
+      MapEditorController nmc) {
 
     nodeAnchor.getChildren().clear();
 
@@ -76,7 +79,10 @@ public class NodeDraw2 {
   }
 
   public static void drawNodes(
-      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor, NiniTest nmc) {
+      List<NodeEntity> allNodes,
+      double scaleFactor,
+      AnchorPane nodeAnchor,
+      MapEditorController nmc) {
 
     nodeAnchor.getChildren().clear();
 
@@ -148,7 +154,6 @@ public class NodeDraw2 {
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
       nodeAnchor.getChildren().add(nodeGraphic);
-
     }
   }
 

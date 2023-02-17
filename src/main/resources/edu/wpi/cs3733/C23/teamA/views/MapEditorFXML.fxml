@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<SplitPane dividerPositions="0.3" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NiniTest">
+<SplitPane dividerPositions="0.3" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MapEditorController">
    <items>
       <BorderPane prefHeight="200.0" prefWidth="99.0" style="-fx-background-color: #d3e9f6;">
          <top>
