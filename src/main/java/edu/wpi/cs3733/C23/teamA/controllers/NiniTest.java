@@ -486,4 +486,11 @@ public class NiniTest extends MenuController {
     Image image = ImageLoader.getImage(floor);
     iv.setImage(image);
   }
+
+  public String makeNewNodeID(String floor, int x, int y) {
+    String xCoord = String.format("%04d", x);
+    String yCoord = String.format("%04d", y);
+
+    return (floor + "X" + xCoord + "Y" + yCoord);
+  }
 }
