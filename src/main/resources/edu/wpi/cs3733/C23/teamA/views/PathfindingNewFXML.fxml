@@ -194,7 +194,7 @@
                                     </Text>
                                     <MFXCheckbox fx:id="avoidStairsCheckbox" contentDisposition="CENTER">
                                        <HBox.margin>
-                                          <Insets left="12.0" />
+                                          <Insets left="12.0" top="1.0" />
                                        </HBox.margin>
                                     </MFXCheckbox>
                                  </children>
@@ -250,17 +250,23 @@
                     <children>
                         <VBox layoutX="1.0" layoutY="40.0" prefHeight="561.0" prefWidth="787.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                             <children>
-                                <HBox prefHeight="44.0" prefWidth="1063.0">
+                                <HBox alignment="BOTTOM_LEFT" prefHeight="44.0" prefWidth="1063.0">
                                     <VBox.margin>
                                         <Insets left="20.0" />
                                     </VBox.margin>
                                     <children>
-                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map" wrappingWidth="278.1484375">
+                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map" wrappingWidth="126.94842529296875">
                                             <font>
                                                 <Font name="Arial Black" size="36.0" />
                                             </font>
                                         </Text>
-                                        <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0" />
+                                        <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="650.0">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" />
+                                 </HBox.margin></Text>
                                     </children>
                                 </HBox>
                                 <StackPane prefHeight="510.0" prefWidth="754.0" VBox.vgrow="ALWAYS">

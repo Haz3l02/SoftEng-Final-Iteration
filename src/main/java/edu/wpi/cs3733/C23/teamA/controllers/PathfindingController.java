@@ -327,8 +327,19 @@ public class PathfindingController extends MenuController {
         ArrayList<GraphNode> path = pathInfo.getPath();
         pathMapText.setText(pathfindingSystem.generatePathString(path));
         callMapDraw(path);
+        if (pathInfo.isContainsStairs()) {
+          errorMessage.setText(
+              "Disclaimer: The path generated between "
+                  + start.getLongName()
+                  + " and "
+                  + end.getLongName()
+                  + " uses stairs.");
+        } else {
+          errorMessage.setText("");
+        }
       } else {
-        pathMapText.setText("No Path Found Between " + sName + " and " + eName + ".");
+        pathMapText.setText(
+            "No Path Found Between " + start.getLongName() + " and " + end.getLongName() + ".");
       }
     }
   }
