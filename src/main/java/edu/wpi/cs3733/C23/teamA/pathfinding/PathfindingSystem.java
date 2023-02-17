@@ -24,8 +24,13 @@ public class PathfindingSystem {
   }
 
   // run pathfinding using the System
-  public ArrayList<GraphNode> runPathfinding(GraphNode startNode, GraphNode endNode) {
+  public PathInfo runPathfinding(GraphNode startNode, GraphNode endNode) {
     return algorithmStrategy.traverse(startNode, endNode);
+  }
+
+  // run pathfinding using the System (no stairs)
+  public PathInfo runPathfindingNoStairs(GraphNode startNode, GraphNode endNode) {
+    return algorithmStrategy.traverseNoStairs(startNode, endNode);
   }
 
   // PathInterpreter

@@ -6,9 +6,11 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.sql.SQLException;
@@ -37,6 +39,7 @@ public class PathfindingController extends MenuController {
   @FXML private Text errorMessage;
   @FXML private Text pathMapText;
   @FXML private MFXButton clearButton;
+  @FXML private MFXCheckbox avoidStairsCheckbox;
 
   // canvases
   @FXML private Canvas floorL1Canvas;
@@ -132,9 +135,10 @@ public class PathfindingController extends MenuController {
     this.floorF3gPane.setContent(nodeF3);
 
     // autofill the date picker to the current date
-    navDatePicker.setValue(LocalDate.of(2023, 1, 1)); // hard coding this for iteration 2
-    // navDatePicker.setValue(navDatePicker.getCurrentDate()); // WILL NEED THIS LATER
+    // navDatePicker.setValue(LocalDate.of(2023, 1, 1));
+    navDatePicker.setValue(navDatePicker.getCurrentDate());
     navDate = navDatePicker.getValue();
+    navDatePicker.setDisable(false); // will eventually just do this in scenebuilder
   }
 
   /** Method to clear the fields on the form on the UI page */
@@ -305,15 +309,22 @@ public class PathfindingController extends MenuController {
       String sName = startNodeIDs.get(startIndex);
       String eName = endNodeIDs.get(endIndex);
 
-      // run A*
+      // run pathfinding
       GraphNode start = pathfindingSystem.getNode(sName);
       GraphNode end = pathfindingSystem.getNode(eName);
-      ArrayList<GraphNode> path =
-          pathfindingSystem.runPathfinding(
-              start, end); // makes a call to the algorithm that was selected
+      PathInfo pathInfo;
 
-      // if a path was found, draw a path
-      if (path != null) {
+      // makes a call to the algorithm that was selected
+      if (avoidStairsCheckbox.isSelected()) {
+        pathInfo = pathfindingSystem.runPathfindingNoStairs(start, end);
+      } else {
+        pathInfo = pathfindingSystem.runPathfinding(start, end);
+      }
+
+      // if pathInfo isn't null, grab the path and draw it
+      if (pathInfo != null) {
+        // get the path from pathInfo
+        ArrayList<GraphNode> path = pathInfo.getPath();
         pathMapText.setText(pathfindingSystem.generatePathString(path));
         callMapDraw(path);
       } else {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
@@ -62,7 +63,7 @@
                     <children>
                         <VBox layoutX="-2.0" layoutY="40.0" prefHeight="697.0" prefWidth="413.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <VBox fillWidth="false" minHeight="-Infinity" prefHeight="299.0" prefWidth="492.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
+                                <VBox fillWidth="false" minHeight="-Infinity" prefHeight="330.0" prefWidth="490.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
                                     <children>
                                         <VBox prefHeight="55.0" prefWidth="445.0">
                                             <children>
@@ -94,10 +95,10 @@
                                                         <Insets />
                                                     </HBox.margin>
                                                     <font>
-                                                        <Font name="Kohinoor Bangla" size="14.0" />
+                                                        <Font size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="275.0" promptText="Select Location..." HBox.hgrow="ALWAYS">
+                                                <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="275.0" promptText="  Select Location..." HBox.hgrow="ALWAYS">
                                                     <font>
                                                         <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
@@ -127,9 +128,9 @@
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
-                                                    <font>
-                                                        <Font name="Kohinoor Bangla" size="14.0" />
-                                                    </font>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
                                                 </MFXFilterComboBox>
                                                 <MFXFilterComboBox fx:id="endLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" prefHeight="35.0" prefWidth="275.0" promptText="Select Location..." HBox.hgrow="ALWAYS">
                                                     <font>
@@ -181,6 +182,23 @@
                                                 <Insets bottom="10.0" left="10.0" top="10.0" />
                                             </padding>
                                         </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Avoid All Stairs?">
+                                       <font>
+                                          <Font name="Verdana" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <MFXCheckbox fx:id="avoidStairsCheckbox" contentDisposition="CENTER">
+                                       <HBox.margin>
+                                          <Insets left="12.0" />
+                                       </HBox.margin>
+                                    </MFXCheckbox>
+                                 </children>
+                              </HBox>
                                         <Text fx:id="reminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
                                             <font>
                                                 <Font size="10.0" />

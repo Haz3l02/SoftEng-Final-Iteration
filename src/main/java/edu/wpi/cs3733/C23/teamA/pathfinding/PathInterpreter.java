@@ -12,14 +12,22 @@ public class PathInterpreter {
    * @param endNode Node that the search ends at or looks for
    * @return the path from the starting node to the ending node
    */
-  public static ArrayList<GraphNode> getPath(GraphNode startNode, GraphNode endNode) {
+  public static PathInfo getPath(GraphNode startNode, GraphNode endNode) {
     // initialize the array which will contain all the Nodes in the path and add the end node
     ArrayList<GraphNode> path = new ArrayList<>();
+    // initialize the array which will contain all the floors in the path, along with the order
+    ArrayList<String> floorPath = new ArrayList<>();
+    // prepare the containsStairs boolean
+    boolean containsStairs = false;
 
     // Check if startNode and endNode are the same. If they are, return the path with one Node
     if (startNode.equals(endNode)) {
+      if (startNode.getNodeType().equals("STAI")) {
+        containsStairs = true;
+      }
       path.add(startNode);
-      return path;
+      floorPath.add(startNode.getFloor());
+      return new PathInfo(path, floorPath, containsStairs);
     }
 
     // Check if endNode even has a parent. If not, something is definitely wrong; throw an error.
@@ -32,19 +40,41 @@ public class PathInterpreter {
     path.add(endNode);
     // create a tracker "node" to go through the path created by parent relationships
     GraphNode tracker = endNode;
+    // create a floor tracker as well; add the endNode's floor to the floorPath
+    String floorTracker = endNode.getFloor();
+    floorPath.add(floorTracker);
 
     // loop until the startNode is found as a parent
     while (!tracker.getParent().equals(startNode)) {
       tracker = tracker.getParent();
+
+      // check if the tracker node is a set of stairs
+      if (tracker.getNodeType().equals("STAI")) {
+        containsStairs = true;
+      }
+      // check if the tracker node's floor is different from the current one
+      if (!tracker.getFloor().equals(floorTracker)) {
+        // if so, update the tracker and add the floor to the floorPath
+        floorTracker = tracker.getFloor();
+        floorPath.add(floorTracker);
+      }
       path.add(tracker);
     }
 
     // add the start node to the list
     path.add(startNode);
+    // check if the startNode is a set of stairs, or on a new floor
+    if (startNode.getNodeType().equals("STAI")) {
+      containsStairs = true;
+    }
+    if (!startNode.getFloor().equals(floorTracker)) {
+      floorPath.add(startNode.getFloor());
+    }
 
-    // reverse the path (because it is currently backwards) and return it
+    // reverse the paths (because they are currently backwards) and return them in a PathInfo object
     Collections.reverse(path);
-    return path;
+    Collections.reverse(floorPath);
+    return new PathInfo(path, floorPath, containsStairs);
   }
 
   /**
