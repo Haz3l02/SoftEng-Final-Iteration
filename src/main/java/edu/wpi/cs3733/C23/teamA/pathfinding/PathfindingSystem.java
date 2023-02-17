@@ -34,8 +34,8 @@ public class PathfindingSystem {
   }
 
   // PathInterpreter
-  public String generatePathString(ArrayList<GraphNode> path) {
-    return PathInterpreter.generatePathString(path);
+  public String generatePathString(ArrayList<GraphNode> path, ArrayList<String> floorPath) {
+    return PathInterpreter.generatePathString(path, floorPath);
   }
 
   // MapDraw

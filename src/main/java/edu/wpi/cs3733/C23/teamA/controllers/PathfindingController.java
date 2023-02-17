@@ -9,10 +9,7 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
-import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXCheckbox;
-import io.github.palexdev.materialfx.controls.MFXDatePicker;
-import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
+import io.github.palexdev.materialfx.controls.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
@@ -40,6 +37,8 @@ public class PathfindingController extends MenuController {
   @FXML private Text pathMapText;
   @FXML private MFXButton clearButton;
   @FXML private MFXCheckbox avoidStairsCheckbox;
+  @FXML private MFXToggleButton toggleLocationNames;
+  @FXML private MFXToggleButton toggleServiceRequests;
 
   // canvases
   @FXML private Canvas floorL1Canvas;
@@ -323,10 +322,13 @@ public class PathfindingController extends MenuController {
 
       // if pathInfo isn't null, grab the path and draw it
       if (pathInfo != null) {
-        // get the path from pathInfo
+        // get the paths from pathInfo
         ArrayList<GraphNode> path = pathInfo.getPath();
-        pathMapText.setText(pathfindingSystem.generatePathString(path));
+        ArrayList<String> floorPath = pathInfo.getFloorPath();
+
+        pathMapText.setText(pathfindingSystem.generatePathString(path, floorPath));
         callMapDraw(path);
+
         if (pathInfo.isContainsStairs()) {
           errorMessage.setText(
               "Disclaimer: The path generated between "

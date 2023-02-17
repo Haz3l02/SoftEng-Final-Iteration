@@ -84,7 +84,7 @@ public class PathInterpreter {
    * @param path An ArrayList which represents a path from the node in index zero to the node in the
    *     last index
    */
-  public static String generatePathString(ArrayList<GraphNode> path) {
+  public static String generatePathString(ArrayList<GraphNode> path, ArrayList<String> floorPath) {
     // get the first and last node names to print
     String startName = path.get(0).getLongName();
     String endName = path.get(path.size() - 1).getLongName();
@@ -93,8 +93,19 @@ public class PathInterpreter {
     StringBuilder sb = new StringBuilder();
 
     sb.append("Path from " + startName + " to " + endName + ":\n\n");
-
     int numNodes = path.size();
+    int numFloors = floorPath.size();
+
+    // floor order
+    sb.append("(Floor Order: ");
+    for (int i = 0; i < numFloors; i++) {
+      sb.append(floorPath.get(i));
+      if (i != numFloors - 1) {
+        sb.append(" --> ");
+      } else if (i == numFloors - 1) {
+        sb.append(")\n\n");
+      }
+    }
 
     // loop through all of them to print the full path
     for (int i = 0; i < numNodes; i++) {
