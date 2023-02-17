@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.mapeditor;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
 import edu.wpi.cs3733.C23.teamA.controllers.MapEditorController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.util.List;
@@ -24,8 +24,6 @@ public class NodeDraw2 {
   static NodeEntity selectNode = null;
 
   static boolean setLocationVisibility;
-
-  static MoveImpl locations = new MoveImpl();
 
   public static void setVisibility(boolean b) {}
 
@@ -66,11 +64,12 @@ public class NodeDraw2 {
     for (NodeEntity n : allNodes) {
       int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
 
-      if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
+      if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
         Text locName = new Text();
         locName.setVisible(true);
         locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-        locName.setText(locations.mostRecentLoc(n.getNodeid()).getShortname());
+        locName.setText(
+            FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
         locName.setLayoutX(updatedCoords[0] - 2.5);
         locName.setLayoutY(updatedCoords[1] - 2.5);
         nodeAnchor.getChildren().add(locName);
@@ -140,8 +139,9 @@ public class NodeDraw2 {
               nmc.setBuildingBox(n.getBuilding());
               nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
 
-              if (!(locations.mostRecentLoc(n.getNodeid()) == null)) {
-                nmc.setLongNameBox(locations.mostRecentLoc(n.getNodeid()).getLongname());
+              if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
+                nmc.setLongNameBox(
+                    FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
                 nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
                 nmc.setLocButtonVisibility(false);
               } else {

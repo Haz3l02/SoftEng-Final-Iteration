@@ -1,12 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.EdgeImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.LocationNameImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.MoveImpl;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.NodeImpl;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
@@ -19,7 +15,6 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -76,10 +71,6 @@ public class MapEditorController extends MenuController {
 
   // Lists of Nodes and Node Data
   private GraphicsContext gc;
-  NodeImpl nodeimpl = new NodeImpl();
-  EdgeImpl edgeimpl = new EdgeImpl();
-  MoveImpl moveimpl = new MoveImpl();
-  LocationNameImpl locNameImp = new LocationNameImpl();
 
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulations
@@ -121,8 +112,8 @@ public class MapEditorController extends MenuController {
    */
   private void initializeFloorMap(String floor) {
     NodeDraw2.setSelectedPane(null);
-    List<NodeEntity> allNodes = nodeimpl.getNodeOnFloor(floor);
-    List<EdgeEntity> allEdges = edgeimpl.getEdgeOnFloor(floor);
+    List<NodeEntity> allNodes = FacadeRepository.getInstance().getNodesOnFloor(floor);
+    List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(floor);
     Image image = ImageLoader.getImage(floor);
 
     mainImageView.setImage(image);
@@ -150,15 +141,15 @@ public class MapEditorController extends MenuController {
     String currentFloor = currentNode.getFloor();
 
     // Database //
-    edgeimpl.collapseNode(currentNode); // edge repair
-    nodeimpl.delete(id); // delete from database
+    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair
+    FacadeRepository.getInstance().deleteNode(id); // delete from database
 
     // Redraw map using database //
     // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
 
     // Redraw Map not using database //
     currentNodePane.setVisible(false); // delete node from map view
-    List<EdgeEntity> allEdges = edgeimpl.getEdgeOnFloor(currentFloor);
+    List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
     if (Floor.indexFromTableString(currentFloor) != -1) {
       NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc); // delete then redraw edges for this floor
     }
@@ -213,7 +204,7 @@ public class MapEditorController extends MenuController {
     newNode.setNodeid(makeNewNodeID(newNode.getFloor(), newNode.getXcoord(), newNode.getYcoord()));
 
     // Add new Node to database //
-    nodeimpl.add(newNode);
+    FacadeRepository.getInstance().addNode(newNode);
 
     // switch box screen
     createNodeButton.setVisible(false);
@@ -271,7 +262,7 @@ public class MapEditorController extends MenuController {
     //    NodeDraw.setSelectedPane(currentPane);
 
     // old id, with new updated node
-    nodeimpl.update(id, currentNode);
+    FacadeRepository.getInstance().updateNode(id, currentNode);
     // node.delete(id);
     fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
     saveButton.setVisible(false);
@@ -298,104 +289,127 @@ public class MapEditorController extends MenuController {
     return (floor + "X" + xCoord + "Y" + yCoord);
   }
 
-//  @FXML
-//  public void addLocationName(ActionEvent event) {
-//    NodeEntity currentNode = NodeDraw.getSelected();
-//    MoveEntity newLocation =
-//        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-//    moveimpl.add(newLocation);
-//    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-//    locationIDBox.setText(currentNode.getNodeid());
-//    createLocation.setVisible(false);
-//
-//    System.out.println("LongName");
-//    System.out.println(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-//    System.out.println();
-//
-//    // added to redraw
-//    Pane currentNodePane = NodeDraw.getSelectedPane();
-//    currentNodePane.setVisible(false);
-//    List<NodeEntity> oneNode = new ArrayList<>();
-//    oneNode.add(currentNode);
-//    String tableString = currentNode.getFloor();
-//    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
-//
-//    // initializeFloorMap("L1", stackL1, gestureL1);
-//  }
-//
-//  @FXML
-//  public void editLocationName(ActionEvent event) {
-//    NodeEntity currentNode = NodeDraw.getSelected();
-//    MoveEntity newLocation =
-//        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-//    List<String> data = new ArrayList<>();
-//    data.add(currentNode.getNodeid());
-//    data.add(longNameBox.getText());
-//    data.add(LocalDate.now().toString());
-//    moveimpl.update(data, newLocation);
-//    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-//    locationIDBox.setText(currentNode.getNodeid());
-//  }
-//
-//  @FXML
-//  public void delLocationName(ActionEvent event) {
-//    NodeEntity currentNode = NodeDraw.getSelected();
-//    MoveEntity newLocation =
-//        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-//    List<String> data = new ArrayList<>();
-//    data.add(currentNode.getNodeid());
-//    data.add(longNameBox.getText());
-//    data.add(LocalDate.now().toString());
-//    moveimpl.delete(data);
-//    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-//    locationIDBox.setText(currentNode.getNodeid());
-//  }
-//
-//  @FXML
-//  public void showLocations(ActionEvent event) {
-//    // TODO
-//    System.out.println("show locations");
-//  }
-//
-//  @FXML
-//  public void hideLocations(ActionEvent event) {
-//
-//    // TODO
-//    System.out.println("show locations");
-//  }
-//
-//  public void setXCord(String xLoc) {
-//    this.XCord.setText(xLoc);
-//  }
-//
-//  public void setYCord(String yLoc) {
-//    this.YCord.setText(yLoc);
-//  }
-//
-//  public void setFloorBox(String floor) {
-//    this.FloorBox.setValue(floor);
-//  }
-//
-//  public void setBuildingBox(String building) {
-//    this.BuildingBox.setValue(building);
-//  }
-//
-//  @FXML
-//  public void editEdge(ActionEvent event) {}
-//
-//  @FXML
-//  public void deleteEdge(ActionEvent event) {}
-//
-//  public void setLocationIDBox(String idString) {
-//    locationIDBox.setText(idString);
-//  }
-//
-//  public void setLongNameBox(String loc) {
-//    longNameBox.setValue(loc);
-//  }
-//
-//  public void setLocButtonVisibility(boolean eye) {
-//    createLocation.setVisible(eye);
-//  }
-//
+  //  @FXML
+  //  public void addLocationName(ActionEvent event) {
+  //    NodeEntity currentNode = NodeDraw.getSelected();
+  //    MoveEntity newLocation =
+  //        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
+  //    moveimpl.add(newLocation);
+  //    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+  //    locationIDBox.setText(currentNode.getNodeid());
+  //    createLocation.setVisible(false);
+  //
+  //    System.out.println("LongName");
+  //    System.out.println(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+  //    System.out.println();
+  //
+  //    // added to redraw
+  //    Pane currentNodePane = NodeDraw.getSelectedPane();
+  //    currentNodePane.setVisible(false);
+  //    List<NodeEntity> oneNode = new ArrayList<>();
+  //    oneNode.add(currentNode);
+  //    String tableString = currentNode.getFloor();
+  //    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
+  //
+  //    // initializeFloorMap("L1", stackL1, gestureL1);
+  //  }
+  //
+  //  @FXML
+  //  public void editLocationName(ActionEvent event) {
+  //    NodeEntity currentNode = NodeDraw.getSelected();
+  //    MoveEntity newLocation =
+  //        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
+  //    List<String> data = new ArrayList<>();
+  //    data.add(currentNode.getNodeid());
+  //    data.add(longNameBox.getText());
+  //    data.add(LocalDate.now().toString());
+  //    moveimpl.update(data, newLocation);
+  //    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+  //    locationIDBox.setText(currentNode.getNodeid());
+  //  }
+  //
+  //  @FXML
+  //  public void delLocationName(ActionEvent event) {
+  //    NodeEntity currentNode = NodeDraw.getSelected();
+  //    MoveEntity newLocation =
+  //        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
+  //    List<String> data = new ArrayList<>();
+  //    data.add(currentNode.getNodeid());
+  //    data.add(longNameBox.getText());
+  //    data.add(LocalDate.now().toString());
+  //    moveimpl.delete(data);
+  //    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
+  //    locationIDBox.setText(currentNode.getNodeid());
+  //  }
+  //
+  //  @FXML
+  //  public void showLocations(ActionEvent event) {
+  //    // TODO
+  //    System.out.println("show locations");
+  //  }
+  //
+  //  @FXML
+  //  public void hideLocations(ActionEvent event) {
+  //
+  //    // TODO
+  //    System.out.println("show locations");
+  //  }
+  //
+  public void setXCord(String xLoc) {
+    this.XCord.setText(xLoc);
+  }
+
+  public void setYCord(String yLoc) {
+    this.YCord.setText(yLoc);
+  }
+
+  public void setFloorBox(String floor) {
+    this.FloorBox.setValue(floor);
+  }
+
+  public void setBuildingBox(String building) {
+    this.BuildingBox.setValue(building);
+  }
+  //
+  //  @FXML
+  //  public void editEdge(ActionEvent event) {}
+  //
+  //  @FXML
+  //  public void deleteEdge(ActionEvent event) {}
+  //
+  public void setLocationIDBox(String idString) {
+    locationIDBox.setText(idString);
+  }
+
+  public void setLongNameBox(String loc) {
+    longNameBox.setValue(loc);
+  }
+
+  public void setLocButtonVisibility(boolean eye) {
+    createLocation.setVisible(eye);
+  }
+
+  // TODO
+  public void transitionToNewNodeBox(ActionEvent event) {}
+
+  // TODO
+  public void editEdge(ActionEvent event) {}
+
+  // TODO
+  public void deleteEdge(ActionEvent event) {}
+
+  // TODO
+  public void addLocationName(ActionEvent event) {}
+
+  // TODO
+  public void editLocationName(ActionEvent event) {}
+
+  // TODO
+  public void delLocationName(ActionEvent event) {}
+
+  // TODO by Sarah
+  public void hideLocations(ActionEvent event) {}
+
+  // TODO by Sarah
+  public void showLocations(ActionEvent event) {}
 }
