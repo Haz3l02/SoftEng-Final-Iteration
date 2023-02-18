@@ -20,15 +20,20 @@ import javafx.scene.text.Text;
 public class NodeDraw2 {
 
   static Pane previousNode = null;
+  static Pane previousHoverNode = null;
   static Pane selectNodePane = null;
-  static NodeEntity selectNode = null;
+  static NodeEntity selectedNode = null;
+
+  // static MoveImpl moveImp = new MoveImpl();
 
   static boolean setLocationVisibility;
+
+  public void setNewLocation() {}
 
   public static void setVisibility(boolean b) {}
 
   public static NodeEntity getSelected() {
-    return selectNode;
+    return selectedNode;
   }
 
   public static Pane getSelectedPane() {
@@ -82,7 +87,6 @@ public class NodeDraw2 {
       double scaleFactor,
       AnchorPane nodeAnchor,
       MapEditorController nmc) {
-
     nodeAnchor.getChildren().clear();
 
     // draw circle for each node
@@ -101,6 +105,7 @@ public class NodeDraw2 {
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
 
+      // when mouse is clicked
       EventHandler<MouseEvent> eventHandler =
           new EventHandler<MouseEvent>() {
             @Override
@@ -130,7 +135,7 @@ public class NodeDraw2 {
               //                            nodeGraphic.setLayoutY(nodeGraphic.getYcoord() - 3.5);
 
               previousNode = nodeGraphic;
-              selectNode = n;
+              selectedNode = n;
 
               nmc.setXCord(n.getXcoord().toString());
               nmc.setYCord(n.getYcoord().toString());
@@ -152,6 +157,39 @@ public class NodeDraw2 {
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+
+      // for hover over node
+      EventHandler<MouseEvent> eventHandler2 =
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              if ((!nodeGraphic.equals(selectNodePane))) {
+                nodeGraphic.setStyle(
+                    "-fx-background-color: 'green'; "
+                        + "-fx-background-radius: 12.5; "
+                        + "-fx-border-color: 'green'; "
+                        + "-fx-border-width: 1;"
+                        + "-fx-border-radius: 13.5");
+              }
+            }
+          };
+      nodeGraphic.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
+
+      EventHandler<MouseEvent> eventHandler3 =
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              if ((!nodeGraphic.equals(selectNodePane))) {
+                nodeGraphic.setStyle(
+                    "-fx-background-color: '#224870'; "
+                        + "-fx-background-radius: 12.5; "
+                        + "-fx-border-color: '#224870'; "
+                        + "-fx-border-width: 1;"
+                        + "-fx-border-radius: 13.5");
+              }
+            }
+          };
+      nodeGraphic.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
 
       nodeAnchor.getChildren().add(nodeGraphic);
     }

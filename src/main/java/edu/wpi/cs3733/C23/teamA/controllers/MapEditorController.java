@@ -4,7 +4,6 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
-import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -129,6 +128,10 @@ public class MapEditorController extends MenuController {
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
   }
 
+  public void addLocation(ActionEvent event) {
+
+  }
+
   @FXML
   public void switchToNodeScene(ActionEvent event) throws IOException {
     Navigation.navigate(Screen.HOME_DATABASE);
@@ -218,7 +221,7 @@ public class MapEditorController extends MenuController {
     fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
 
     // take care of last selected node
-    Pane recentPane = NodeDraw.getSelectedPane();
+    Pane recentPane = NodeDraw2.getSelectedPane();
     if (recentPane != null) {
       recentPane.setPrefSize(5, 5);
       recentPane.setStyle(
@@ -254,7 +257,7 @@ public class MapEditorController extends MenuController {
   public void saveNodeEdit(ActionEvent event) {
 
     // Save info as a new node called currentNode
-    NodeEntity currentNode = NodeDraw.getSelected();
+    NodeEntity currentNode = NodeDraw2.getSelected();
     String id = currentNode.getNodeid();
     currentNode.setXcoord(Integer.parseInt(XCord.getText()));
     currentNode.setYcoord(Integer.parseInt(YCord.getText()));
@@ -279,7 +282,7 @@ public class MapEditorController extends MenuController {
 
     // Remove old and draw new (nondatabase) //
     // Hide old node on map
-    Pane currentPane = NodeDraw.getSelectedPane();
+    Pane currentPane = NodeDraw2.getSelectedPane();
     if (currentPane != null) {
       currentPane.setVisible(false);
     }
