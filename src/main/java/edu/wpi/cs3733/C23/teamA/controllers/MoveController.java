@@ -147,7 +147,7 @@ public class MoveController extends MenuController {
           move.setLocationName(loc);
           move.setMovedate(dateBox.getValue());
 
-          FacadeRepository.getInstance().updateMove(moveID, move);
+          FacadeRepository.getInstance().addMove(move);
           System.out.println("Updateing Node");
           dbTable.setItems(currentTableData);
           reloadData();
