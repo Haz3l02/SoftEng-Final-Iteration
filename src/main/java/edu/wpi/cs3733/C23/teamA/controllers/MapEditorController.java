@@ -6,14 +6,9 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
-import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
-import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +58,7 @@ public class MapEditorController extends MenuController {
   @FXML MFXFilterComboBox<String> longNameBox;
   @FXML MFXTextField locationIDBox;
   @FXML MFXButton createLocation;
+  @FXML MFXToggleButton toggleSwitch;
 
   @FXML
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
@@ -82,11 +78,20 @@ public class MapEditorController extends MenuController {
     saveButton.setVisible(false);
     gc = mainCanvas.getGraphicsContext2D();
 
+    mainTextPane.setVisible(false);
     initializeFloorMap("L1");
 
     // Makes gesture pane connect to correct parts
     this.mainGesturePane.setContent(mainStackPane);
     mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+
+    // Action Listener for toggle switch
+    toggleSwitch
+        .selectedProperty()
+        .addListener(
+            Observable -> {
+              changeLocations();
+            });
   }
 
   public void generateFloor(ActionEvent event) {
@@ -122,11 +127,6 @@ public class MapEditorController extends MenuController {
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
   }
 
-  @FXML
-  public void switchToNodeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME_DATABASE);
-  }
-
   /**
    * Method to delete the node that is selected by the user Deletes from database and from the nodes
    * on the map
@@ -141,8 +141,8 @@ public class MapEditorController extends MenuController {
     String currentFloor = currentNode.getFloor();
 
     // Database //
-    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair
-    FacadeRepository.getInstance().deleteNode(id); // delete from database
+    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
+    // FacadeRepository.getInstance().deleteNode(id); // delete from database
 
     // Redraw map using database //
     // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
@@ -408,8 +408,7 @@ public class MapEditorController extends MenuController {
   public void delLocationName(ActionEvent event) {}
 
   // TODO by Sarah
-  public void hideLocations(ActionEvent event) {}
-
-  // TODO by Sarah
-  public void showLocations(ActionEvent event) {}
+  public void changeLocations() {
+    mainTextPane.setVisible(!mainTextPane.isVisible());
+  }
 }

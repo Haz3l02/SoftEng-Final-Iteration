@@ -23,7 +23,7 @@ import org.controlsfx.control.PopOver;
 
 // import org.controlsfx.control.PopOver;
 
-public class MenuController {
+public class MenuController extends NavigationController {
 
   @FXML protected MFXTextField nameBox;
   @FXML protected MFXTextField IDNum;
@@ -103,16 +103,6 @@ public class MenuController {
     if (event.getSource().equals(backButton)) {
       popup.hide();
     }
-  }
-
-  @FXML
-  public void switchToHomeServiceRequestScene(ActionEvent event) throws IOException {
-    stop = true;
-    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
-  }
-
-  public void switchToHomeDatabaseScene(ActionEvent event) {
-    Navigation.navigateHome(Screen.HOME_DATABASE);
   }
 
   public void logout() {
