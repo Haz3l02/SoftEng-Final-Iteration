@@ -170,10 +170,7 @@ public class LocationNameImpl extends Observable
     return getAll().stream().map(locationNameEntity -> locationNameEntity.getLongname()).toList();
   }
 
-
-
-
-  public void newLocationOnNode(String nodeid, LocationNameEntity loc){
+  public void newLocationOnNode(String nodeid, LocationNameEntity loc) {
     LocationNameImpl.getInstance().add(loc);
     NodeEntity n = NodeImpl.getInstance().get(nodeid);
     MoveImpl.getInstance().add(new MoveEntity(n, loc, LocalDate.now()));
