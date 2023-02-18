@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.Database.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-import java.sql.Timestamp;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
@@ -14,12 +13,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.concurrent.TimeUnit;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -270,36 +268,34 @@ public class ServiceRequestImpl extends Observable
     session.close();
   }
 
-
-
-
-  public ArrayList<ServiceRequestEntity> getOutstandingRequests(){
+  public ArrayList<ServiceRequestEntity> getOutstandingRequests() {
     ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
 
-    for (ServiceRequestEntity ser : services){
-      if (Timestamp.from(Instant.now()).getDay()-ser.getDate().getDay()>1&&ser.getUrgency()== UrgencyLevel.EXTREMELY
-      || Timestamp.from(Instant.now()).getDay()-ser.getDate().getDay()>3&&ser.getUrgency()== UrgencyLevel.HIGH
-      || Timestamp.from(Instant.now()).getDay()-ser.getDate().getDay()>5&&ser.getUrgency()== UrgencyLevel.MEDIUM
-      || Timestamp.from(Instant.now()).getDay()-ser.getDate().getDay()>8&&ser.getUrgency()== UrgencyLevel.LOW){
+    for (ServiceRequestEntity ser : services) {
+      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 1
+              && ser.getUrgency() == UrgencyLevel.EXTREMELY
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 3
+              && ser.getUrgency() == UrgencyLevel.HIGH
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 5
+              && ser.getUrgency() == UrgencyLevel.MEDIUM
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 8
+              && ser.getUrgency() == UrgencyLevel.LOW) {
         fin.add(ser);
       }
     }
     return fin;
   }
 
-
-  public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname){
+  public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname) {
     ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
 
-    for (ServiceRequestEntity ser : services){
-      if (ser.getLocation().getLongname().equals(longname)){
+    for (ServiceRequestEntity ser : services) {
+      if (ser.getLocation().getLongname().equals(longname)) {
         fin.add(ser);
       }
     }
     return fin;
   }
-
-
 
   public static ServiceRequestImpl getInstance() {
     return instance;
