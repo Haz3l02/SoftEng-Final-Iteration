@@ -2,8 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -13,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -135,15 +132,5 @@ public class NodeController extends MenuController {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-  }
-
-  @FXML
-  public void switchToImport(ActionEvent event) {
-    Navigation.navigate(Screen.IMPORT_CSV);
-  }
-
-  @FXML
-  public void switchToExport(ActionEvent event) {
-    Navigation.navigate(Screen.EXPORT_CSV);
   }
 }
