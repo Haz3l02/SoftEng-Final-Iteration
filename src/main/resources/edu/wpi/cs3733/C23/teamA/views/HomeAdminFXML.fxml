@@ -15,9 +15,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="HomePageStyle" stylesheets="@../assets/HomePageStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
+<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <children>
-      <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
+      <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
          <children>
             <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
                <padding>
@@ -44,9 +44,9 @@
                                  <children>
                                     <VBox alignment="CENTER" prefHeight="63.0" prefWidth="499.0" style="-fx-background-color: #224870; -fx-background-radius: 15 15 0 0;">
                                        <children>
-                                          <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Unassigned Tasks" wrappingWidth="370.1331024169922">
+                                          <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Unassigned Tasks" wrappingWidth="282.93846130371094">
                                              <font>
-                                                <Font size="48.0" />
+                                                <Font size="36.0" />
                                              </font>
                                           </Text>
                                        </children>
@@ -82,69 +82,33 @@
                                     <Insets />
                                  </HBox.margin>
                               </HBox>
-                              <VBox prefHeight="284.0" prefWidth="676.0">
+                              <VBox prefHeight="284.0" prefWidth="676.0" style="-fx-background-color: F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15;">
                                  <children>
-                                    <StackPane prefHeight="183.0" prefWidth="676.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15;">
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" />
-                                       </VBox.margin>
+                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                          <VBox alignment="CENTER" prefHeight="54.0" prefWidth="492.0" style="-fx-border-color: #122c34; -fx-border-width: 0 0 2 0; -fx-background-color: #224870; -fx-background-radius: 15 15 0 0;">
                                              <children>
-                                                <VBox alignment="CENTER" prefHeight="54.0" prefWidth="492.0" style="-fx-border-color: #122c34; -fx-border-width: 0 0 2 0; -fx-background-color: #224870; -fx-background-radius: 15 15 0 0;">
-                                                   <children>
-                                                      <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Quote of the Day!" textAlignment="CENTER">
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                      </Text>
-                                                   </children>
-                                                </VBox>
-                                                <HBox prefHeight="77.0" prefWidth="536.0">
-                                                   <children>
-                                                      <Label fx:id="message" text="Label" textFill="#122c34" wrapText="true">
-                                                         <font>
-                                                            <Font name="Verdana" size="18.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                   <VBox.margin>
-                                                      <Insets left="10.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </HBox>
+                                                <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Maintenance Employees" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font size="36.0" />
+                                                   </font>
+                                                </Text>
                                              </children>
                                           </VBox>
-                                       </children>
-                                    </StackPane>
-                                    <StackPane prefHeight="89.0" prefWidth="676.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15;">
-                                       <children>
-                                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                          <HBox prefHeight="77.0" prefWidth="536.0">
                                              <children>
-                                                <VBox alignment="CENTER" prefHeight="42.0" prefWidth="492.0" style="-fx-border-color: #122c34; -fx-border-width: 0 0 2 0; -fx-background-color: #224870; -fx-background-radius: 15 15 0 0;">
-                                                   <children>
-                                                      <Text fill="#d3e9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Weather" textAlignment="CENTER">
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                      </Text>
-                                                   </children>
-                                                </VBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="482.0">
-                                                   <children>
-                                                      <Label fx:id="time" text="Label" textFill="#122c34">
-                                                         <font>
-                                                            <Font name="Verdana" size="18.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                   <VBox.margin>
-                                                      <Insets left="10.0" />
-                                                   </VBox.margin>
-                                                </HBox>
+                                                <Label fx:id="message" text="Label" textFill="#122c34" wrapText="true">
+                                                   <font>
+                                                      <Font name="Verdana" size="18.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
-                                          </VBox>
+                                             <VBox.margin>
+                                                <Insets left="10.0" top="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
                                        </children>
-                                    </StackPane>
+                                    </VBox>
                                  </children>
                               </VBox>
                            </children>
@@ -214,7 +178,7 @@
             </BorderPane>
          </children>
       </StackPane>
-      <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="283.0" prefWidth="676.0">
+      <VBox alignment="BOTTOM_LEFT" layoutX="9.0" layoutY="154.0" prefHeight="68.0" prefWidth="781.0">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham and Women's Hospital" textAlignment="RIGHT" textOrigin="BOTTOM">
                <font>
@@ -224,6 +188,15 @@
                   <Insets left="15.0" />
                </VBox.margin>
             </Text>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" layoutX="21.0" layoutY="3.0" prefHeight="31.0" prefWidth="646.0">
+         <children>
+            <Label fx:id="time" prefHeight="23.0" prefWidth="600.0" text="Label" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="18.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
    </children>

@@ -83,9 +83,7 @@ public class HomeController extends MenuController {
 
       Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
-
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
-
       dbTableRowsModel.addAll(requests);
 
       assignmentsTable.setItems(dbTableRowsModel);
