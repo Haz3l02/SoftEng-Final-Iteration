@@ -8,7 +8,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class NodeEditorPopupController {
+public class NodeEditorPopupController extends NavigationController {
 
   @FXML MFXTextField XCord;
   @FXML MFXTextField YCord;

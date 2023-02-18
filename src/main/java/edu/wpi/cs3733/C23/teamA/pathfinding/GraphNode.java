@@ -11,8 +11,8 @@ public class GraphNode implements Comparable<GraphNode> {
   @Getter @Setter private int xCoord; // x coordinate of where it is located
   @Getter @Setter private int yCoord; // y coordinate of where it is located
   @Getter @Setter private String floor; // floor identifier that it is on
-  private String building; // name of building it is in
-  private String nodeType; // type of node (ie hallway, restroom, etc)
+  @Getter private String building; // name of building it is in
+  @Getter private String nodeType; // type of node (ie hallway, restroom, etc)
   @Getter private String longName; // name of node
   private String shortName; // shortened name of node
 
