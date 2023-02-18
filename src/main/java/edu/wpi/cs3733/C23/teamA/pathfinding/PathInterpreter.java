@@ -49,7 +49,7 @@ public class PathInterpreter {
       tracker = tracker.getParent();
 
       // check if the tracker node is a set of stairs
-      if (tracker.getNodeType().equals("STAI")) {
+      if (!containsStairs && tracker.getNodeType().equals("STAI")) {
         containsStairs = true;
       }
       // check if the tracker node's floor is different from the current one
@@ -64,7 +64,7 @@ public class PathInterpreter {
     // add the start node to the list
     path.add(startNode);
     // check if the startNode is a set of stairs, or on a new floor
-    if (startNode.getNodeType().equals("STAI")) {
+    if (!containsStairs && startNode.getNodeType().equals("STAI")) {
       containsStairs = true;
     }
     if (!startNode.getFloor().equals(floorTracker)) {
