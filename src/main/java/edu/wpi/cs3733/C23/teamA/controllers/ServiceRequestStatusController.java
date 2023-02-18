@@ -70,8 +70,6 @@ public class ServiceRequestStatusController extends MenuController {
       FXCollections.observableArrayList();
   List<ServiceRequestEntity> serviceRequestData = new ArrayList<>();
 
-  private static PopOver popup;
-
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
     IdNumberHolder holder = IdNumberHolder.getInstance();
@@ -87,7 +85,7 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML
   public void initialize() throws SQLException, IOException {
     FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
-    popup = new PopOver(loader.load());
+    PopOver popup = new PopOver(loader.load());
     IdNumberHolder holder = IdNumberHolder.getInstance();
     hospitalID = holder.getId();
     name = holder.getName();
@@ -305,14 +303,5 @@ public class ServiceRequestStatusController extends MenuController {
         Navigation.navigateHome(Screen.HOME);
         break;
     }
-  }
-
-  public void switchToImport(ActionEvent event) {
-    Navigation.navigate(Screen.IMPORT_CSV);
-  }
-
-  @FXML
-  public void switchToExport(ActionEvent event) {
-    Navigation.navigate(Screen.EXPORT_CSV);
   }
 }
