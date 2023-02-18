@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding.algorithms;
 
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInterpreter;
 import java.util.*;
 
@@ -16,10 +17,10 @@ public class AStar implements IAlgorithmStrategy {
    *
    * @param startNode Node that the search begins at
    * @param endNode Node that the search ends at or looks for
-   * @return an ArrayList containing the nodes in the path from startNode to endNode, or null if
-   *     there isn't one.
+   * @return a PathInfo object containing an ArrayList containing the nodes in the path from
+   *     startNode to endNode, or null if there is no path.
    */
-  public ArrayList<GraphNode> traverse(GraphNode startNode, GraphNode endNode) {
+  public PathInfo traverse(GraphNode startNode, GraphNode endNode) {
     // initialize open and closed lists
     Queue<GraphNode> open = new PriorityQueue<>();
 
@@ -48,8 +49,68 @@ public class AStar implements IAlgorithmStrategy {
         // compute g(x) for the successor
         double tentativeGScore = current.getCostFromStart() + getDirectDistance(current, n);
 
-        //
         if (tentativeGScore < n.getCostFromStart()) {
+          // set the parent to current
+          n.setParent(current);
+
+          // set attributes of n
+          n.setCostFromStart(tentativeGScore);
+          n.setHeurCostToEnd(getDirectDistance(n, endNode));
+          n.setScore(n.getCostFromStart() + n.getHeurCostToEnd() + n.getPenalty());
+
+          // if n is not in the set, add it (can happen multiple times for a node)
+          if (!open.contains(n)) {
+            open.add(n);
+          }
+        }
+      }
+    }
+
+    // if we get here, no path was found. Return null
+    return null;
+  }
+
+  /**
+   * Uses the A* algorithm to find the shortest path between startNode and endNode, with the
+   * Euclidean distance between nodes used to track the distance from startNode and the estimated
+   * heuristic distance to the endNode. Avoids nodes that have a stair ("STAI") location tied to
+   * them.
+   *
+   * @param startNode Node that the search begins at
+   * @param endNode Node that the search ends at or looks for
+   * @return a PathInfo object containing an ArrayList containing the nodes in the path from
+   *     startNode to endNode, or null if there is no path.
+   */
+  public PathInfo traverseNoStairs(GraphNode startNode, GraphNode endNode) {
+    // initialize open and closed lists
+    Queue<GraphNode> open = new PriorityQueue<>();
+
+    // set the scoring values for the open list
+    startNode.setCostFromStart(0.0); // g(x) = 0, since it's the start
+    startNode.setHeurCostToEnd(getDirectDistance(startNode, endNode)); // h(x)
+    startNode.setScore(
+        startNode.getCostFromStart() + startNode.getHeurCostToEnd()); // f(x) = g(x) + h(x)
+
+    // add the starting node to the open list
+    open.add(startNode);
+
+    // start loopin'
+    while (!open.isEmpty()) {
+      // get the node from the top of the priority queue
+      GraphNode current = open.poll();
+
+      // if the current node equals the end node, we're done!
+      if (current.equals(endNode)) {
+        return PathInterpreter.getPath(startNode, endNode);
+      }
+
+      // if we're not at the end, add current's children to the queue
+      for (GraphNode n : current.getNeighbors()) {
+
+        // compute g(x) for the successor
+        double tentativeGScore = current.getCostFromStart() + getDirectDistance(current, n);
+
+        if (tentativeGScore < n.getCostFromStart() && !n.getNodeType().equals("STAI")) {
           // set the parent to current
           n.setParent(current);
 
