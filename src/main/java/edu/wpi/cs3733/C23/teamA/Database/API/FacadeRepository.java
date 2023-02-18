@@ -366,4 +366,10 @@ public class FacadeRepository {
   public HashMap<MoveEntity, MoveEntity> getLocationChanges(LocalDate minDate, LocalDate maxDate) {
     return move.locationChanges(minDate, maxDate);
   }
+
+
+
+  public void newLocationOnNode(String nodeid, LocationNameEntity l){
+    loc.newLocationOnNode(nodeid, l);
+  }
 }
