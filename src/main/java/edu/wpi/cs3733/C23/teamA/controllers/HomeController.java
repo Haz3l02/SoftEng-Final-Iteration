@@ -3,10 +3,12 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.MaintenanceAssignedAccepted;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.net.URI;
@@ -36,12 +38,19 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<ServiceRequestEntity, String> requestTypeCol;
   @FXML public TableColumn<ServiceRequestEntity, String> locationCol;
   @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
+  @FXML public TableView<MaintenanceAssignedAccepted> employeeTable;
+  @FXML public TableColumn<MaintenanceAssignedAccepted, String> nameCol;
+  @FXML public TableColumn<MaintenanceAssignedAccepted, Integer> assignedCol;
+  @FXML public TableColumn<MaintenanceAssignedAccepted, Integer> acceptedCol;
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
   @FXML private MFXButton assignmentsButton;
 
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
+      FXCollections.observableArrayList();
+
+  private ObservableList<MaintenanceAssignedAccepted> dbTableRowsModel2 =
       FXCollections.observableArrayList();
 
   @FXML
@@ -81,13 +90,29 @@ public class HomeController extends MenuController {
           param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
-      Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
       dbTableRowsModel.addAll(requests);
-
       assignmentsTable.setItems(dbTableRowsModel);
-      session.close();
+
+      nameCol.setCellValueFactory(
+          new PropertyValueFactory<MaintenanceAssignedAccepted, String>("name"));
+      assignedCol.setCellValueFactory(
+          new PropertyValueFactory<MaintenanceAssignedAccepted, Integer>("assignedCol"));
+      assignedCol.setCellValueFactory(
+          new PropertyValueFactory<MaintenanceAssignedAccepted, Integer>("acceptedCol"));
+
+      List<EmployeeEntity> maintenanceEmployees =
+          FacadeRepository.getInstance().getEmployeeByJob("maintenance");
+      List<MaintenanceAssignedAccepted> maa = new ArrayList<MaintenanceAssignedAccepted>();
+      for (EmployeeEntity employee : maintenanceEmployees) {
+        maa.add(new MaintenanceAssignedAccepted(employee.getName()));
+      }
+      System.out.println(maa.size());
+      dbTableRowsModel2.addAll(maa);
+      System.out.println(dbTableRowsModel2.size());
+      employeeTable.setItems(dbTableRowsModel2);
+
     } else {
       // Code for medical homepage
     }

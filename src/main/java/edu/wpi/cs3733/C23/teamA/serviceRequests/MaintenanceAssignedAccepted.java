@@ -8,8 +8,8 @@ import java.util.List;
 public class MaintenanceAssignedAccepted {
 
   String name;
-  int numAssigned;
-  int numAccepted;
+  Integer numAssigned;
+  Integer numAccepted;
 
   public MaintenanceAssignedAccepted(String name) {
     this.name = name;
