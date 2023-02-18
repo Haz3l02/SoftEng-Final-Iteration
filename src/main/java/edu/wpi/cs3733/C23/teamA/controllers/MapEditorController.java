@@ -6,8 +6,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.*;
@@ -66,7 +64,6 @@ public class MapEditorController extends MenuController {
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
 
   @Setter NodeEntity selectedNode = null;
-  @Setter LocationNameEntity locNameEntity;
 
   // Lists of Nodes and Node Data
   private GraphicsContext gc;

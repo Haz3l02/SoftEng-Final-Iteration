@@ -3,7 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class NodeEditorPopupController {
+public class NodeEditorPopupController extends NavigationController {
 
   @FXML
   public void addEdge(ActionEvent actionEvent) {}
