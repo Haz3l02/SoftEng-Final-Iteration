@@ -368,8 +368,12 @@ public class FacadeRepository {
   }
 
 
-
-  public void newLocationOnNode(String nodeid, LocationNameEntity l){
+  public void newLocationOnNode(String nodeid, LocationNameEntity l) {
     loc.newLocationOnNode(nodeid, l);
+  }
+
+
+  public ArrayList<ServiceRequestEntity> getOutstandingServRequests() {
+    return serv.getOutstandingRequests();
   }
 }
