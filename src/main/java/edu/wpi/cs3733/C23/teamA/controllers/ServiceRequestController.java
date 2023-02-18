@@ -6,8 +6,6 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
@@ -71,41 +69,6 @@ public abstract class ServiceRequestController extends MenuController {
     descBox.clear();
     urgencyBox.clear();
     locationBox.clear();
-  }
-
-  @FXML
-  public void switchToSecurityScene(ActionEvent event) {
-    Navigation.navigate(Screen.SECURITY);
-  }
-
-  @FXML
-  public void switchToSanitationScene(ActionEvent event) {
-    Navigation.navigate(Screen.SANITATION);
-  }
-
-  @FXML
-  public void switchToComputerScene(ActionEvent event) {
-    Navigation.navigate(Screen.COMPUTER);
-  }
-
-  @FXML
-  public void switchToPatientTransportScene(ActionEvent event) {
-    Navigation.navigate(Screen.PATIENT_TRANSPORT);
-  }
-
-  @FXML
-  public void switchToHomeServiceRequestScene(ActionEvent event) {
-    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
-  }
-
-  @FXML
-  public void switchToServiceRequestStatus(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
-  }
-
-  @FXML
-  public void switchToConfirmationScene(ActionEvent event) {
-    Navigation.navigate(Screen.CONFIRMATION);
   }
 
   @FXML

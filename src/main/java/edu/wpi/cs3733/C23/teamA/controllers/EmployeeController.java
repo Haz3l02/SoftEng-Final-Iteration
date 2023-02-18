@@ -4,8 +4,6 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -59,16 +57,6 @@ public class EmployeeController {
 
   private ObservableList<EmployeeEntity> dbTableRowsModel = FXCollections.observableArrayList();
   List<EmployeeEntity> employeeData = new ArrayList<>();
-
-  @FXML
-  public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME);
-  }
-
-  @FXML
-  public void switchToHomeDatabase(ActionEvent event) throws IOException {
-    Navigation.navigateHome(Screen.HOME_DATABASE);
-  }
 
   @FXML
   public void initialize() throws SQLException {
@@ -229,16 +217,6 @@ public class EmployeeController {
   @FXML
   public void close(ActionEvent event) {
     popup.hide();
-  }
-
-  @FXML
-  public void switchToImport(ActionEvent event) {
-    Navigation.navigate(Screen.IMPORT_CSV);
-  }
-
-  @FXML
-  public void switchToExport(ActionEvent event) {
-    Navigation.navigate(Screen.EXPORT_CSV);
   }
 
   public void switchToExportPopup(ActionEvent event) throws IOException {
