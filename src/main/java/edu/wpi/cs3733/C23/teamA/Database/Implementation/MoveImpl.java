@@ -186,7 +186,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<MoveEntity> ids = session.createQuery(criteria).getResultList();
     for (MoveEntity id : ids) {
       List<MoveEntity> loc =
-          locationRecord(id.getNode().getNodeid(), id.getMovedate()).stream().toList();
+          locationRecord(id.getLocationName().getLongname(), id.getMovedate()).stream().toList();
       changes.put(id, loc.stream().findFirst().orElse(id));
     }
     return changes;
@@ -199,11 +199,11 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
    * @param date
    * @return
    */
-  public List<MoveEntity> locationRecord(String id, LocalDate date) {
+  public List<MoveEntity> locationRecord(String longname, LocalDate date) {
     return moves.stream()
         .filter(
             moveEntity ->
-                (moveEntity.getNode().getNodeid().equals(id)
+                (moveEntity.getLocationName().getLongname().equalsIgnoreCase(longname)
                     && moveEntity.getMovedate().compareTo(date) < 0))
         .sorted((move1, move2) -> move2.getMovedate().compareTo(move1.getMovedate()))
         .toList();
