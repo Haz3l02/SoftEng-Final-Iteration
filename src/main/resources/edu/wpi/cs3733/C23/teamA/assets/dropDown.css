@@ -1,0 +1,34 @@
+
+
+.combo-box {
+    -fx-background-color:  #224870;
+    -fx-background-radius: 15 ;
+}
+
+/*on list hover*/
+.combo-box .list-cell:hover {
+    -fx-background-color: #F6BD3A ;
+    -fx-text-fill: #224870;
+    -fx-font-weight: normal;
+}
+/*on button hover*/
+.combo-box-base:hover {
+    /*-fx-background-color:  #F6BD3A;*/
+    /*-fx-border-color: #F6BD3A ;*/
+    /*-fx-border-width: 3 3 3 3;*/
+    -fx-text-fill: #F6BD3A;
+    -fx-font-weight: bold;
+}
+.combo-box .list-cell {
+    -fx-font-size: 20;
+    -fx-text-fill: #d3e9f6;
+    -fx-background-color:  #224870;
+    -fx-box-border:  transparent;
+    -fx-border-color: transparent -fx-box-border  transparent;
+    /*-fx-font-weight: normal;*/
+}
+.combo-box .arrow, .combo-box .arrow-button{
+    -fx-background-color: transparent;
+}
+
+

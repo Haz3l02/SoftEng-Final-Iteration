@@ -14,7 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
@@ -31,6 +33,11 @@ public class MenuController {
   @FXML protected MFXComboBox locationBox;
   @FXML protected Text reminder;
   @FXML protected StackPane reminderPane;
+  @FXML protected ImageView home = new ImageView();
+  @FXML protected ImageView help;
+  @FXML protected ImageView logout;
+  @FXML protected Button testButton = new Button();
+  // Button testButton = new Button;
 
   // for the timer
   public volatile boolean stop = false;
@@ -42,6 +49,9 @@ public class MenuController {
   public void initialize() throws SQLException, IOException, InterruptedException {
     FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
     popup = new PopOver(loader.load());
+    // ImageView view = new ImageView(new Image("download.png"));
+
+    testButton.setGraphic(home);
   }
 
   @FXML
