@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
@@ -65,6 +66,7 @@ public class MapEditorController extends MenuController {
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
 
   @Setter NodeEntity selectedNode = null;
+  @Setter LocationNameEntity locNameEntity;
 
   // Lists of Nodes and Node Data
   private GraphicsContext gc;
@@ -128,9 +130,7 @@ public class MapEditorController extends MenuController {
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
   }
 
-  public void addLocation(ActionEvent event) {
-
-  }
+  public void addLocation(ActionEvent event) {}
 
   @FXML
   public void switchToNodeScene(ActionEvent event) throws IOException {
