@@ -287,6 +287,20 @@ public class ServiceRequestImpl extends Observable
     return fin;
   }
 
+
+  public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname){
+    ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
+
+    for (ServiceRequestEntity ser : services){
+      if (ser.getLocation().getLongname().equals(longname)){
+        fin.add(ser);
+      }
+    }
+    return fin;
+  }
+
+
+
   public static ServiceRequestImpl getInstance() {
     return instance;
   }

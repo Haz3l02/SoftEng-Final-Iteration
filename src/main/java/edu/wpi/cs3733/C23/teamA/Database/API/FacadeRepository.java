@@ -376,4 +376,8 @@ public class FacadeRepository {
   public ArrayList<ServiceRequestEntity> getOutstandingServRequests() {
     return serv.getOutstandingRequests();
   }
+
+  public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname){
+    return serv.getRequestAtLocation(longname);
+  }
 }
