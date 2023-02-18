@@ -86,11 +86,6 @@ public class PatientTransportController extends ServiceRequestController {
     // Otherwise Initialize service requests as normal
   }
 
-  //  @FXML
-  //  public void switchToConfirmationScene(ActionEvent event) throws IOException {
-  //    Navigation.navigate(Screen.PATIENT_CONFIRMATION);
-  //  }
-
   @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
 

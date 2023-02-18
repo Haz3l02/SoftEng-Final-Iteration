@@ -2,14 +2,11 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -80,13 +77,5 @@ public class EdgeController extends MenuController {
             refresh.setText("Invalid Node: Refresh");
           }
         });
-  }
-
-  public void switchToMoveScene(ActionEvent event) {
-    Navigation.navigate(Screen.MOVE);
-  }
-
-  public void switchToMapScene(ActionEvent event) {
-    Navigation.navigate(Screen.NODE_MAP);
   }
 }

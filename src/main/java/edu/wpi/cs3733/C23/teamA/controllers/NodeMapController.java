@@ -5,8 +5,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
 import io.github.palexdev.materialfx.controls.*;
 import java.io.IOException;
@@ -225,11 +223,6 @@ public class NodeMapController extends MenuController {
   }
 
   public void loadLocNames(ActionEvent event) {}
-
-  @FXML
-  public void switchToNodeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME_DATABASE);
-  }
 
   public String makeNewNodeID(String floor, int x, int y) {
     String xCoord = String.format("%04d", x);
