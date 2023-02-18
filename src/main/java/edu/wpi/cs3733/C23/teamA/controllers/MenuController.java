@@ -14,9 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
@@ -33,11 +33,10 @@ public class MenuController {
   @FXML protected MFXComboBox locationBox;
   @FXML protected Text reminder;
   @FXML protected StackPane reminderPane;
-  @FXML protected ImageView home = new ImageView();
+  @FXML protected ImageView home;
+  @FXML protected ImageView home2;
   @FXML protected ImageView help;
   @FXML protected ImageView logout;
-  @FXML protected Button testButton = new Button();
-  // Button testButton = new Button;
 
   // for the timer
   public volatile boolean stop = false;
@@ -49,13 +48,32 @@ public class MenuController {
   public void initialize() throws SQLException, IOException, InterruptedException {
     FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
     popup = new PopOver(loader.load());
-    // ImageView view = new ImageView(new Image("download.png"));
 
-    testButton.setGraphic(home);
+    // testButton.setGraphic(home);
+    home.setOnMouseClicked(
+        (MouseEvent e) -> {
+          switchToHomeScene();
+        });
+    home2.setOnMouseClicked(
+        (MouseEvent e) -> {
+          switchToHomeScene();
+        });
+    help.setOnMouseClicked(
+        (MouseEvent e) -> {
+          try {
+            switchToHelpScene(e);
+          } catch (IOException ex) {
+            throw new RuntimeException(ex);
+          }
+        });
+    logout.setOnMouseClicked(
+        (MouseEvent e) -> {
+          logout();
+        });
   }
 
   @FXML
-  public void switchToHomeScene(ActionEvent event) throws IOException {
+  public void switchToHomeScene() {
     IdNumberHolder holder = IdNumberHolder.getInstance();
     if (holder.getJob().equalsIgnoreCase("Maintenance")) {
       Navigation.navigateHome(Screen.HOME_MAINTENANCE);
@@ -74,7 +92,7 @@ public class MenuController {
    * @throws IOException
    */
   @FXML
-  public void switchToHelpScene(ActionEvent event) throws IOException {
+  public void switchToHelpScene(MouseEvent event) throws IOException {
 
     if (!event.getSource().equals(backButton)) {
       FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
@@ -97,7 +115,7 @@ public class MenuController {
     Navigation.navigateHome(Screen.HOME_DATABASE);
   }
 
-  public void logout(ActionEvent event) {
+  public void logout() {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Logout");
     alert.setHeaderText("You are about to log out!");

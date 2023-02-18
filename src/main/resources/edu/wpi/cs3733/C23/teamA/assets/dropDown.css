@@ -3,6 +3,7 @@
 .combo-box {
     -fx-background-color:  #224870;
     -fx-background-radius: 15 ;
+
 }
 
 /*on list hover*/
@@ -20,7 +21,7 @@
     -fx-font-weight: bold;
 }
 .combo-box .list-cell {
-    -fx-font-size: 20;
+    -fx-font-size: 27;
     -fx-text-fill: #d3e9f6;
     -fx-background-color:  #224870;
     -fx-box-border:  transparent;
