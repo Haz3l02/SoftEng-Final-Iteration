@@ -4,6 +4,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.SplitPane?>
@@ -263,7 +264,7 @@
                   <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="550.0" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefWidth="200.0">
                <children>
                   <MFXButton fx:id="l1Button" onAction="#generateFloor" text="Level 1">
                      <HBox.margin>
@@ -292,12 +293,12 @@
                   </MFXButton>
                </children>
             </HBox>
-            <StackPane prefHeight="510.0" prefWidth="737.0">
+            <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="900.0" style="-fx-background-color: #224870;">
                <VBox.margin>
-                  <Insets bottom="20.0" left="20.0" right="10.0" top="10.0" />
+                  <Insets left="30.0" right="30.0" />
                </VBox.margin>
                <children>
-                  <StackPane fx:id="mainStackPane" prefHeight="150.0" prefWidth="200.0">
+                  <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="900.0">
                      <children>
                         <ImageView fx:id="mainImageView" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
                         <Canvas fx:id="mainCanvas" height="510.0" width="750.0" />
@@ -305,42 +306,29 @@
                         <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                      </children>
                   </StackPane>
-                  <GesturePane fx:id="mainGesturePane" />
+                  <GesturePane fx:id="mainGesturePane" prefHeight="510.0" prefWidth="750.0" />
                </children>
             </StackPane>
-            <Text fx:id="reminder" fill="#ff2121" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill out all fields in the form!" visible="false">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
-            <VBox alignment="CENTER" prefHeight="71.0" prefWidth="917.0">
+            <VBox alignment="CENTER" prefHeight="45.0" prefWidth="958.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Toggle Location Names on Map">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Location Names">
                      <font>
-                        <Font name="Verdana" size="24.0" />
+                        <Font name="Verdana" size="18.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets />
                      </VBox.margin>
                   </Text>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#showLocations" prefHeight="51.0" prefWidth="224.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Show Locations" textFill="#d3e9f6">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </MFXButton>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hideLocations" prefHeight="51.0" prefWidth="224.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Hide Locations" textFill="#d3e9f6">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
-                  </HBox>
+                  <MFXToggleButton fx:id="toggleSwitch" />
+                  <Text fx:id="reminder" fill="#ff2121" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill out all fields in the form!" visible="false">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
                </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </VBox>
          </children>
          <padding>
