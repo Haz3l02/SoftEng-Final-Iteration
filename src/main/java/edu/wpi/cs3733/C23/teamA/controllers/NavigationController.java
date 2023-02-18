@@ -8,6 +8,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 
 public abstract class NavigationController {
+  public volatile boolean stop = false;
 
   public static ImportExportCSV iecsv = new ImportExportCSV("");
 

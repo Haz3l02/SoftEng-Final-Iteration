@@ -9,12 +9,12 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -34,12 +34,16 @@ public class MenuController extends NavigationController {
   @FXML protected Text reminder;
   @FXML protected StackPane reminderPane;
   @FXML protected ImageView home;
+  // @FXML protected Image homeYellow = new Image("assets/BioHazSmall.png");
+
   @FXML protected ImageView home2;
   @FXML protected ImageView help;
   @FXML protected ImageView logout;
+  @FXML ComboBox<String> serviceRequest = new ComboBox<>();
+  @FXML ComboBox<String> admin = new ComboBox<>();
 
   // for the timer
-  public volatile boolean stop = false;
+  //  public volatile boolean stop = false;
 
   @FXML MFXButton backButton;
   private static PopOver popup;
@@ -54,6 +58,10 @@ public class MenuController extends NavigationController {
         (MouseEvent e) -> {
           switchToHomeScene();
         });
+    //    home.setOnMouseDragEntered(
+    //        (MouseEvent e) -> {
+    //          home.setImage(homeYellow);
+    //        });
     home2.setOnMouseClicked(
         (MouseEvent e) -> {
           switchToHomeScene();
@@ -70,6 +78,18 @@ public class MenuController extends NavigationController {
         (MouseEvent e) -> {
           logout();
         });
+    admin
+        .getItems()
+        .addAll("Map Editor", "Access Employee Records", "Department Moves", "Create Nodes");
+    serviceRequest
+        .getItems()
+        .addAll(
+            "Sanitation",
+            "Security",
+            "Computer",
+            "Patient Transportation",
+            "Audio/Visual Request",
+            "Accessibility");
   }
 
   @FXML

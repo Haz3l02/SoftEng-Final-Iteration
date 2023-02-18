@@ -206,7 +206,7 @@ public class AStarTest {
     String[] correctPath = {"b1", "b3", "b4"};
     pathInfo = astar.runPathfinding(b1, b4);
     path = pathInfo.getPath();
-    System.out.println(PathInterpreter.generatePathString(path));
+    // System.out.println(PathInterpreter.generatePathString(path));
     for (int i = 0; i < path.size(); i++) {
       GraphNode current = path.get(i);
       assertEquals(current.getNodeID(), correctPath[i]);
