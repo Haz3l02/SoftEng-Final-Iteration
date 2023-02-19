@@ -1,7 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.util.ArrayList;
+import java.util.List;
+import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -88,7 +92,7 @@ public class MapDraw {
   }
 
   public static void drawPathClickable(
-      AnchorPane[] aps, ArrayList<GraphNode> path, double scaleFactor) {
+      AnchorPane[] aps, ArrayList<GraphNode> path, double scaleFactor, Group[] groups) {
 
     // coordinates for the previous point in the path
     int prevX = 0;
@@ -97,6 +101,8 @@ public class MapDraw {
 
     // set the prev values and draw the starting circle
     int size = path.size();
+
+    // get start node
     if (size > 0) {
       int[] updatedCoords =
           scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), scaleFactor);
@@ -106,6 +112,15 @@ public class MapDraw {
       prevFloor = Floor.indexFromTableString(floor);
       Circle currentCircle =
           new Circle(prevX, prevY, radius, Color.web("0x224870")); // starting circle
+      List<ServiceRequestEntity> srs = FacadeRepository.getInstance().getAllServiceRequest();
+
+      if (FacadeRepository.getInstance().getRequestAtLocation(path.get(0).getLongName()).size()
+          > 0) {
+        Circle otherCircle = new Circle(prevX + 5, prevY, radius, Color.web("0x000000"));
+        // group.getChildren().add(currentCircle);
+        groups[prevFloor].getChildren().add(otherCircle); // service request icon
+      }
+
       aps[prevFloor].getChildren().add(currentCircle);
     }
 
@@ -121,13 +136,20 @@ public class MapDraw {
       currentY = updatedCoords[1];
       currentFloor = Floor.indexFromTableString(g.getFloor());
 
+      // draw line on floor
       if (currentFloor == prevFloor) {
         Line currentLine = new Line(prevX, prevY, currentX, currentY);
         currentLine.setStroke(Color.web("0x224870"));
         aps[currentFloor].getChildren().add(currentLine);
       }
+
+      // draw node
       Circle currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
       aps[currentFloor].getChildren().add(currentCircle);
+      if (FacadeRepository.getInstance().getRequestAtLocation(g.getLongName()).size() > 0) {
+        Circle otherCircle = new Circle(currentX + 5, currentY, radius, Color.web("0x000000"));
+        groups[currentFloor].getChildren().add(otherCircle);
+      }
       prevX = currentX;
       prevY = currentY;
       prevFloor = currentFloor;
@@ -135,5 +157,9 @@ public class MapDraw {
 
     Circle currentCircle = new Circle(prevX, prevY, radius, Color.web("0x224870"));
     aps[prevFloor].getChildren().add(currentCircle); // ending open circle
+
+    for (int i = 0; i < 5; i++) {
+      aps[i].getChildren().add(groups[i]);
+    }
   }
 }

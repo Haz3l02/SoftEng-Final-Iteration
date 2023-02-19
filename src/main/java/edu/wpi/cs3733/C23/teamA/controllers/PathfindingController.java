@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.canvas.*;
 import javafx.scene.control.Button;
@@ -91,6 +92,7 @@ public class PathfindingController extends MenuController {
   @FXML private GesturePane mainGesturePane;
 
   private AnchorPane[] aps = new AnchorPane[5];
+  private Group[] groups = new Group[5];
   private int currentFloor = 0;
 
   // Lists of Nodes and Node Data
@@ -143,6 +145,12 @@ public class PathfindingController extends MenuController {
     aps[2] = anchorF1;
     aps[3] = anchorF2;
     aps[4] = anchorF3;
+
+    groups[0] = new Group();
+    groups[1] = new Group();
+    groups[2] = new Group();
+    groups[3] = new Group();
+    groups[4] = new Group();
 
     // add the map images (also already done in SceneBuilder)
     addFloorMapImage("L1", mainImageView);
@@ -295,10 +303,18 @@ public class PathfindingController extends MenuController {
       ap.setDisable(true);
     }
 
+    for (Group gr : groups) {
+      gr.getChildren().clear();
+      gr.setVisible(false);
+      gr.setDisable(true);
+    }
+
     aps[currentFloor].setVisible(true);
     aps[currentFloor].setDisable(false);
+    groups[currentFloor].setVisible(true);
+    groups[currentFloor].setDisable(false);
 
-    pathfindingSystem.drawPath(aps, path, SCALE_FACTOR);
+    pathfindingSystem.drawPath(aps, path, SCALE_FACTOR, groups);
   }
 
   @FXML
@@ -405,5 +421,9 @@ public class PathfindingController extends MenuController {
     aps[previousFloor].setDisable(true);
     aps[currentFloor].setVisible(true);
     aps[currentFloor].setDisable(false);
+    groups[previousFloor].setVisible(false);
+    groups[previousFloor].setDisable(true);
+    groups[currentFloor].setVisible(true);
+    groups[currentFloor].setDisable(false);
   }
 }
