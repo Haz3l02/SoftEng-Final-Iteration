@@ -22,6 +22,7 @@ public class FacadeRepository {
   private final SecurityRequestImpl sec = SecurityRequestImpl.getInstance();
   private final PatientTransportimpl pat = PatientTransportimpl.getInstance();
   private final ServiceRequestImpl serv = ServiceRequestImpl.getInstance();
+  private final AccessabilityImpl acc = AccessabilityImpl.getInstance();
 
   private final Observer nodeObv = new EntityObserver(node);
   private final Observer edgeObv = new EntityObserver(edge);
@@ -32,10 +33,13 @@ public class FacadeRepository {
   private final Observer servObv = new EntityObserver(serv);
   private final Observer patObv = new EntityObserver(pat);
   private final Observer compObv = new EntityObserver(serv);
+  private final Observer accObv = new EntityObserver(acc);
 
   public static FacadeRepository getInstance() {
     return instance;
   }
+
+  // GETALL METHODS
 
   public List<ServiceRequestEntity> getAllServiceRequest() {
     return serv.getAll();
@@ -77,6 +81,12 @@ public class FacadeRepository {
     return pat.getAll();
   }
 
+  public List<AccessibilityRequestEntity> getAllAccessabilityRequest() {
+    return acc.getAll();
+  }
+
+  // ADD METHODS
+
   public void addComputerRequest(ComputerRequestEntity c) {
     comp.add(c);
   }
@@ -116,6 +126,12 @@ public class FacadeRepository {
   public void addServiceRequest(ServiceRequestEntity c) {
     serv.add(c);
   }
+
+  public void addAccessability(AccessibilityRequestEntity c) {
+    acc.add(c);
+  }
+
+  // DELETE METHODS
 
   public void deleteComputerRequest(Integer id) {
     comp.delete(id);
@@ -157,6 +173,12 @@ public class FacadeRepository {
     serv.delete(id);
   }
 
+  public void deleteAccessability(Integer id) {
+    acc.delete(id);
+  }
+
+  // EXPORT METHODS
+
   public void exportEdges(String filename) throws IOException {
     edge.exportToCSV(filename);
   }
@@ -181,6 +203,12 @@ public class FacadeRepository {
     serv.exportToCSV(filename);
   }
 
+  public void exportAccesability(String filename) throws IOException {
+    acc.exportToCSV(filename);
+  }
+
+  // IMPORT METHODS
+
   public void importEdge(String filename) throws IOException {
     edge.importFromCSV(filename);
   }
@@ -196,6 +224,12 @@ public class FacadeRepository {
   public void importEmployee(String filename) throws IOException {
     emp.importFromCSV(filename);
   }
+
+  public void importAccessability(String filename) throws IOException {
+    acc.importFromCSV(filename);
+  }
+
+  // GET ID METHODS
 
   public ComputerRequestEntity getComputerRequest(Integer id) {
     return comp.get(id);
@@ -237,6 +271,12 @@ public class FacadeRepository {
     return serv.get(id);
   }
 
+  public AccessibilityRequestEntity getAccessabilityRequest(Integer id) {
+    return acc.get(id);
+  }
+
+  // UPDATE METHODS
+
   public void updateComputerRequest(Integer id, ComputerRequestEntity c) {
     comp.update(id, c);
   }
@@ -276,6 +316,12 @@ public class FacadeRepository {
   public void updateServiceRequest(Integer id, ServiceRequestEntity c) {
     serv.update(id, c);
   }
+
+  public void accessabilityServiceRequest(Integer id, AccessibilityRequestEntity c) {
+    acc.update(id, c);
+  }
+
+  // miscellaneous
 
   public HashMap<EdgeEntity, List<EdgeEntity>> getNodeVectors(NodeEntity e) {
     return edge.nodeVectors(e);
