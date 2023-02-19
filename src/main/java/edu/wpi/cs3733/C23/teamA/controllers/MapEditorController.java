@@ -13,6 +13,7 @@ import io.github.palexdev.materialfx.controls.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,7 +80,7 @@ public class MapEditorController extends MenuController {
   private static PopOver edgeEditorPopup;
   private static PopOver locationEditorPopup;
 
-  static MapEditorController mapEditor = new MapEditorController();
+  static MapEditorController mapEditor;
 
   /** Starting method called when screen is opened: Draws nodes and edges for floor L1 */
   public void initialize() {
@@ -102,6 +103,7 @@ public class MapEditorController extends MenuController {
             Observable -> {
               changeLocations();
             });
+    mapEditor = new MapEditorController();
   }
 
   public void generateFloor(ActionEvent event) {
@@ -200,48 +202,10 @@ public class MapEditorController extends MenuController {
    * Method that creates a new node on click "Create" with CreateNodeButton Adds into database and
    * draws on map
    */
-  public void createNode(
-      String xCoord,
-      String yCoord,
-      String building,
-      String floor,
-      ImageView mainImageView,
-      AnchorPane mainAnchorPane) {
-    System.out.println(mainAnchorPane == null); // remove
+  public void closePopup(String type) {
     // hide popups
-    nodeEditorPopup.hide();
-
-    System.out.println(mainAnchorPane == null); // remove
-    // Create a new node entity
-    NodeEntity newNode = new NodeEntity();
-
-    newNode.setXcoord(Integer.parseInt(xCoord));
-    newNode.setYcoord(Integer.parseInt(yCoord));
-    String tableString = Floor.tableStringFromExtendedString(floor);
-    newNode.setFloor(tableString);
-    newNode.setBuilding(building);
-    newNode.setNodeid(makeNewNodeID(newNode.getFloor(), newNode.getXcoord(), newNode.getYcoord()));
-    System.out.println(mainAnchorPane == null); // remove
-    // Add new Node to database //
-    FacadeRepository.getInstance().addNode(newNode);
-
-    // switch box screen
-    // createNodeButton.setVisible(false);
-    // fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
-
-    // take care of last selected node
-    Pane recentPane = NodeDraw.getSelectedPane();
-    if (recentPane != null) {
-      recentPane.setPrefSize(5, 5);
-      recentPane.setStyle(
-          "-fx-background-color: '#224870'; "
-              + "-fx-background-radius: 12.5; "
-              + "-fx-border-color: '#224870'; "
-              + "-fx-border-width: 1;"
-              + "-fx-border-radius: 13.5");
-      //      int[] updatedCoords = NodeDraw.scaleCoordinates();
-      //      recentPane.setLayoutX(updatedCoords[0] - 2.5);
-      //      recentPane.setLayoutY(updatedCoords[1] - 2.5);
+    if (Objects.equals(type, "node")) {
+      nodeEditorPopup.hide();
     }
 
     // draw node on map using database //
@@ -249,13 +213,18 @@ public class MapEditorController extends MenuController {
 
     // draw node onto the map (nonDatabase) //
 
+    /*
     ArrayList<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(newNode);
     System.out.println(mainAnchorPane == null);
 
     // draw node
     assert mainAnchorPane != null;
-    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this); // TODO: fix this
+    NodeDraw2.drawNodes(
+        oneNode, SCALE_FACTOR, NodeEditorPopupController.mainAnchorPane, this);
+
+     */
+
   }
 
   public void editNode(ActionEvent event) {
