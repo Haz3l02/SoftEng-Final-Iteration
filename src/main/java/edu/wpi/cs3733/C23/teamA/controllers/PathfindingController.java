@@ -209,7 +209,8 @@ public class PathfindingController extends MenuController {
   public void fillStartLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
 
-    List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
+    List<MoveEntity> moveEntities =
+        FacadeRepository.getInstance().moveAllMostRecentFloor(navDate, floor.getTableString());
     System.out.println(moveEntities.size());
 
     ArrayList<String> idsFloor = new ArrayList<>();

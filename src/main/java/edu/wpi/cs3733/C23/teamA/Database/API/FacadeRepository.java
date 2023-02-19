@@ -398,11 +398,16 @@ public class FacadeRepository {
     return move.allMostRecent(date);
   }
 
+  public List<MoveEntity> moveAllMostRecentFloor(LocalDate date, String floor) {
+    return move.allMostRecentFloor(date, floor);
+  }
+
   public List<MoveEntity> moveLocationRecord(String id, LocalDate date) {
     return move.locationRecord(id, date);
   }
-  public List<MoveEntity> moveLocationRecord(String id, LocalDate date, String floor) {
-    return move.locationRecord(id, date, floor);
+
+  public List<MoveEntity> moveLocationRecordFloor(String id, LocalDate date, String floor) {
+    return move.locationRecordFloor(id, date, floor);
   }
 
   public MoveEntity moveLocationOnOrBeforeDate(String id, LocalDate date) {
@@ -447,6 +452,11 @@ public class FacadeRepository {
 
   public HashMap<MoveEntity, MoveEntity> getLocationChanges(LocalDate minDate, LocalDate maxDate) {
     return move.locationChanges(minDate, maxDate);
+  }
+
+  public HashMap<MoveEntity, MoveEntity> getLocationChangesFloor(
+      LocalDate minDate, LocalDate maxDate, String floor) {
+    return move.locationChangesFloor(minDate, maxDate, floor);
   }
 
   public void newLocationOnNode(String nodeid, LocationNameEntity l) {
