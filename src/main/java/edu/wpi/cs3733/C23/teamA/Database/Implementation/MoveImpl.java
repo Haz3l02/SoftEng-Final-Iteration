@@ -141,7 +141,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       throw new PersistenceException();
     }
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(List<String> m) {
@@ -166,7 +165,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   /**
@@ -214,15 +212,23 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<MoveEntity> records = q.getResultList();
     session.close();
     return records;
-    /*List<MoveEntity> first = new ArrayList<>();
-    for (MoveEntity move : moves) {
-      if (move.getLocationName().getLongname().equals(longname)) {
-        first.add(move);
-      }
-    }
-    return first.stream()
-        .sorted((move1, move2) -> move2.getMovedate().compareTo(move1.getMovedate()))
-        .toList();*/
+  }
+
+  public List<MoveEntity> locationRecord(String longname, LocalDate date, String floor) {
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    Query q =
+            session.createQuery(
+                    "from MoveEntity mov where mov.locationName.longname ='"
+                            + longname
+                            + "' and mov.movedate <= '"
+                            + date
+                            + "' and mov.node.floor =='" +floor + "' order by mov.movedate desc",
+                    MoveEntity.class);
+    List<MoveEntity> records = q.getResultList();
+    session.close();
+    return records;
   }
 
   /*

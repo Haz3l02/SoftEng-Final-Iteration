@@ -3,11 +3,10 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Implementation.ServiceRequestImpl;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.*;
@@ -36,6 +35,7 @@ public class MapEditorController extends MenuController {
   @FXML private ImageView mainImageView;
   @FXML private GesturePane mainGesturePane;
   @FXML private AnchorPane mainAnchorPane;
+  @FXML private AnchorPane edgeAnchorPane;
   @FXML private StackPane mainStackPane;
   @FXML private AnchorPane mainTextPane = new AnchorPane();
   @FXML private Canvas mainCanvas = new Canvas();
@@ -125,13 +125,8 @@ public class MapEditorController extends MenuController {
 
     mainImageView.setImage(image);
     NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
+    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, edgeAnchorPane);
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
-  }
-
-  @FXML
-  public void switchToNodeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME_DATABASE);
   }
 
   /**
@@ -146,7 +141,6 @@ public class MapEditorController extends MenuController {
     Pane currentNodePane = NodeDraw2.getSelectedPane();
     String id = currentNode.getNodeid();
     String currentFloor = currentNode.getFloor();
-
     // Database //
     FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
     // FacadeRepository.getInstance().deleteNode(id); // delete from database
@@ -158,7 +152,8 @@ public class MapEditorController extends MenuController {
     currentNodePane.setVisible(false); // delete node from map view
     List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
     if (Floor.indexFromTableString(currentFloor) != -1) {
-      NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc); // delete then redraw edges for this floor
+      NodeDraw2.drawEdges(
+          allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
     }
   }
 

@@ -56,7 +56,6 @@ public class ComputerRequestImpl extends Observable
     comprequests.add(c);
     ServiceRequestImpl.getInstance().addToList(c);
     session.close();
-    notifyAllObservers();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {}
@@ -119,7 +118,6 @@ public class ComputerRequestImpl extends Observable
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(Integer c) {
@@ -138,7 +136,6 @@ public class ComputerRequestImpl extends Observable
     ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {

@@ -5,8 +5,6 @@ import static java.lang.String.valueOf;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
@@ -157,10 +155,6 @@ public class MoveController extends MenuController {
     }
   }
 
-  public void switchToHomeDatabaseScene(ActionEvent event) {
-    Navigation.navigateHome(Screen.HOME_DATABASE);
-  }
-
   public void clearEdits() {
     nodeBox.clear();
     locationBox.clear();
@@ -190,15 +184,5 @@ public class MoveController extends MenuController {
 
     nodeBox.setItems(node);
     locationBox.setItems(location);
-  }
-
-  @FXML
-  public void switchToImport(ActionEvent event) {
-    Navigation.navigate(Screen.IMPORT_CSV);
-  }
-
-  @FXML
-  public void switchToExport(ActionEvent event) {
-    Navigation.navigate(Screen.EXPORT_CSV);
   }
 }

@@ -17,8 +17,7 @@ public class AccessibilityRequestEntity extends ServiceRequestEntity {
   @Column(name = "subject", nullable = false, length = -1)
   @Getter
   @Setter
-  @Enumerated(EnumType.STRING)
-  private Subject subject;
+  private String subject;
 
   @Basic
   @Column(name = "disability", nullable = false, length = -1)
@@ -44,7 +43,7 @@ public class AccessibilityRequestEntity extends ServiceRequestEntity {
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Subject subject,
+      String subject,
       String disability,
       String accommodation,
       Timestamp date) {
@@ -73,7 +72,7 @@ public class AccessibilityRequestEntity extends ServiceRequestEntity {
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      Subject subject,
+      String subject,
       String disability,
       String accommodation) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
