@@ -88,7 +88,6 @@ public class SecurityRequestImpl extends Observable
     ServiceRequestImpl.getInstance().addToList(ser);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(Integer c) {
@@ -105,7 +104,6 @@ public class SecurityRequestImpl extends Observable
     ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void update(Integer ID, SecurityRequestEntity obj) {
@@ -149,7 +147,6 @@ public class SecurityRequestImpl extends Observable
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {
