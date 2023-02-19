@@ -1,12 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.controllers.MapEditorController.makeNewNodeID;
+import static edu.wpi.cs3733.C23.teamA.controllers.MapEditorController.mapEditor;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import edu.wpi.cs3733.C23.teamA.navigation.*;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -16,8 +16,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class NodeEditorPopupController extends NavigationController {
@@ -27,9 +25,6 @@ public class NodeEditorPopupController extends NavigationController {
   private @FXML MFXComboBox<String> FloorBox;
   private @FXML MFXComboBox<String> BuildingBox;
   @FXML MFXButton createNodeButton;
-  @FXML MFXButton saveButton;
-  static ImageView mainImageView;
-  static AnchorPane mainAnchorPane;
 
   public void initialize() {
     populateStuff();
@@ -57,8 +52,12 @@ public class NodeEditorPopupController extends NavigationController {
   }
 
   @FXML
-  public void createNode(ActionEvent actionEvent) throws InterruptedException {
+  public void hidePopup(ActionEvent event) {
+    mapEditor.closePopup("node");
+  }
 
+  @FXML
+  public void createNode(ActionEvent actionEvent) {
 
     // Create a new node entity
     NodeEntity newNode = new NodeEntity();
@@ -90,6 +89,7 @@ public class NodeEditorPopupController extends NavigationController {
       //      recentPane.setLayoutX(updatedCoords[0] - 2.5);
       //      recentPane.setLayoutY(updatedCoords[1] - 2.5);
     }
+
     MapEditorController.mapEditor.closePopup("node");
 
     Navigation.navigate(Screen.NODE_MAP);
@@ -103,9 +103,4 @@ public class NodeEditorPopupController extends NavigationController {
 
   @FXML
   public void deleteSelectedNode(ActionEvent actionEvent) {}
-
-  public void updateFXMLStuff(AnchorPane mainAnchorPane, ImageView mainImageView) {
-    NodeEditorPopupController.mainAnchorPane = mainAnchorPane;
-    NodeEditorPopupController.mainImageView = mainImageView;
-  }
 }

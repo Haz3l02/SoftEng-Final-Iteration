@@ -206,6 +206,10 @@ public class MapEditorController extends MenuController {
     // hide popups
     if (Objects.equals(type, "node")) {
       nodeEditorPopup.hide();
+    } else if (Objects.equals(type, "edge")) {
+      edgeEditorPopup.hide();
+    } else if (Objects.equals(type, "location")) {
+      locationEditorPopup.hide();
     }
 
     // draw node on map using database //
@@ -214,17 +218,14 @@ public class MapEditorController extends MenuController {
     // draw node onto the map (nonDatabase) //
 
     /*
-    ArrayList<NodeEntity> oneNode = new ArrayList<>();
-    oneNode.add(newNode);
-    System.out.println(mainAnchorPane == null);
+    List<NodeEntity> oneNode;
 
+    oneNode = FacadeRepository.getInstance().getNodesOnFloor("L1");
     // draw node
     assert mainAnchorPane != null;
-    NodeDraw2.drawNodes(
-        oneNode, SCALE_FACTOR, NodeEditorPopupController.mainAnchorPane, this);
+    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mapEditor.mainAnchorPane, this);
 
      */
-
   }
 
   public void editNode(ActionEvent event) {
@@ -407,25 +408,14 @@ public class MapEditorController extends MenuController {
 
   @FXML
   public void popupNodeEditor(ActionEvent event) throws IOException {
-    System.out.println(mainAnchorPane == null);
-    System.out.println("popup node editor");
 
     FXMLLoader nodeLoader =
         new FXMLLoader(Main.class.getResource("views/NodeEditorPopupFXML.fxml"));
-    System.out.println(mainAnchorPane == null);
 
     // popup stuff
     nodeEditorPopup = new PopOver(nodeLoader.load());
-    System.out.println(mainAnchorPane == null);
 
     nodeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
-    System.out.println(mainAnchorPane == null);
-
-    NodeEditorPopupController nodeEditorPopupController = new NodeEditorPopupController();
-    NodeEditorPopupController.mainImageView = mainImageView;
-    NodeEditorPopupController.mainAnchorPane = mainAnchorPane;
-    // nodeEditorPopupController.updateFXMLStuff(mainAnchorPane, mainImageView);
-    // NodeEditorPopupController.populateStuff();
   }
 
   @FXML
@@ -452,10 +442,9 @@ public class MapEditorController extends MenuController {
     locationEditorPopup.show((mainAnchorPane.getScene().getWindow()));
   }
 
-  @Deprecated
   public static void hideLastNode(NodeEntity newNode) {
 
-    nodeEditorPopup.hide();
+    // nodeEditorPopup.hide();
     // take care of last selected node
     Pane recentPane = NodeDraw.getSelectedPane();
     if (recentPane != null) {
@@ -471,7 +460,7 @@ public class MapEditorController extends MenuController {
       //      recentPane.setLayoutY(updatedCoords[1] - 2.5);
 
       // draw node onto the map (nonDatabase) //
-      ArrayList<NodeEntity> oneNode = new ArrayList<>();
+      List<NodeEntity> oneNode = FacadeRepository.getInstance().getAllNode();
       oneNode.add(newNode);
 
       NodeDraw2.drawNodes(

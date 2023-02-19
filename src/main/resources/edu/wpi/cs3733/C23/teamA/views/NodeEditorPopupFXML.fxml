@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="567.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NodeEditorPopupController">
+<AnchorPane prefHeight="475.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NodeEditorPopupController">
    <children>
-      <VBox fx:id="fieldBox" prefHeight="482.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="fieldBox" prefHeight="567.0" prefWidth="241.0" spacing="10.0" style="-fx-background-color: #bad1ea;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X Coord">
                <font>
@@ -75,39 +75,19 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </MFXButton>
-                        <MFXButton fx:id="saveButton" buttonType="RAISED" cancelButton="true" onAction="#saveNodeEdit" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Save Node" textFill="#224870">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </MFXButton>
                      </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER">
-                     <children>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#editNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Node" textFill="#d3e9f6">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </MFXButton>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Node" textFill="#bad1ea">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER">
                      <children>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#switchToNodeScene" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6">
+                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hidePopup" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6">
                            <font>
                               <Font size="24.0" />
                            </font>
