@@ -319,6 +319,10 @@ public class FacadeRepository {
     return move.locationChanges(minDate, maxDate);
   }
 
+  public List<MoveEntity> moveAllMostRecent(LocalDate date) {
+    return move.allMostRecent(date);
+  }
+
   public List<MoveEntity> moveLocationRecord(String id, LocalDate date) {
     return move.locationRecord(id, date);
   }

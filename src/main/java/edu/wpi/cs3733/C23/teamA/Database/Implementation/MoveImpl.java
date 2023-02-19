@@ -209,6 +209,15 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
         .toList();
   }
 
+  public List<MoveEntity> allMostRecent(LocalDate date) {
+    List<MoveEntity> m = new ArrayList<>();
+    List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
+    for(LocationNameEntity loc : locations) {
+      m.add(locationRecord(loc.getLongname(), date).get(0));
+    }
+    return m;
+  }
+
   public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
     MoveEntity mov = new MoveEntity();
     List<MoveEntity> ids =
