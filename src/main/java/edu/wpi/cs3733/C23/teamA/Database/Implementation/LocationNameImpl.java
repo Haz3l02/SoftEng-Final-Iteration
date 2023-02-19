@@ -5,12 +5,15 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -165,6 +168,12 @@ public class LocationNameImpl extends Observable
 
   public List<String> getAllIDs() {
     return getAll().stream().map(locationNameEntity -> locationNameEntity.getLongname()).toList();
+  }
+
+  public void newLocationOnNode(String nodeid, LocationNameEntity loc) {
+    LocationNameImpl.getInstance().add(loc);
+    NodeEntity n = NodeImpl.getInstance().get(nodeid);
+    MoveImpl.getInstance().add(new MoveEntity(n, loc, LocalDate.now()));
   }
 
   public static LocationNameImpl getInstance() {

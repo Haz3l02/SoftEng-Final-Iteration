@@ -34,6 +34,7 @@ public class MapEditorController extends MenuController {
   @FXML private ImageView mainImageView;
   @FXML private GesturePane mainGesturePane;
   @FXML private AnchorPane mainAnchorPane;
+  @FXML private AnchorPane edgeAnchorPane;
   @FXML private StackPane mainStackPane;
   @FXML private AnchorPane mainTextPane = new AnchorPane();
   @FXML private Canvas mainCanvas = new Canvas();
@@ -123,7 +124,7 @@ public class MapEditorController extends MenuController {
 
     mainImageView.setImage(image);
     NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
+    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, edgeAnchorPane);
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
   }
 
@@ -151,7 +152,8 @@ public class MapEditorController extends MenuController {
     currentNodePane.setVisible(false); // delete node from map view
     List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
     if (Floor.indexFromTableString(currentFloor) != -1) {
-      NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc); // delete then redraw edges for this floor
+      NodeDraw2.drawEdges(
+          allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
     }
   }
 

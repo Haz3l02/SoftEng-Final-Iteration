@@ -6,12 +6,15 @@ import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
+import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -263,6 +266,35 @@ public class ServiceRequestImpl extends Observable
 
     tx.commit();
     session.close();
+  }
+
+  public ArrayList<ServiceRequestEntity> getOutstandingRequests() {
+    ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
+
+    for (ServiceRequestEntity ser : services) {
+      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 1
+              && ser.getUrgency() == UrgencyLevel.EXTREMELY
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 3
+              && ser.getUrgency() == UrgencyLevel.HIGH
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 5
+              && ser.getUrgency() == UrgencyLevel.MEDIUM
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 8
+              && ser.getUrgency() == UrgencyLevel.LOW) {
+        fin.add(ser);
+      }
+    }
+    return fin;
+  }
+
+  public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname) {
+    ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
+
+    for (ServiceRequestEntity ser : services) {
+      if (ser.getLocation().getLongname().equals(longname)) {
+        fin.add(ser);
+      }
+    }
+    return fin;
   }
 
   public static ServiceRequestImpl getInstance() {
