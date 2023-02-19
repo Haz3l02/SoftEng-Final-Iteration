@@ -108,53 +108,50 @@ public class NodeDraw2 {
 
       // when mouse is clicked
       EventHandler<MouseEvent> eventHandler =
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              selectNodePane = nodeGraphic;
+          event -> {
+            selectNodePane = nodeGraphic;
 
-              if ((previousNode != null)) {
-                if (!previousNode.equals(nodeGraphic)) {
-                  previousNode.setStyle(
-                      "-fx-background-color: '#224870'; "
-                          + "-fx-background-radius: 12.5; "
-                          + "-fx-border-color: '#224870'; "
-                          + "-fx-border-width: 1;"
-                          + "-fx-border-radius: 13.5");
-                  previousNode.setPrefSize(5, 5);
-                }
+            if ((previousNode != null)) {
+              if (!previousNode.equals(nodeGraphic)) {
+                previousNode.setStyle(
+                    "-fx-background-color: '#224870'; "
+                        + "-fx-background-radius: 12.5; "
+                        + "-fx-border-color: '#224870'; "
+                        + "-fx-border-width: 1;"
+                        + "-fx-border-radius: 13.5");
+                previousNode.setPrefSize(5, 5);
               }
+            }
 
-              nodeGraphic.setStyle(
-                  "-fx-background-color: '#D3E9F6'; "
-                      + "-fx-background-radius: 12.5; "
-                      + "-fx-border-color: '#224870'; "
-                      + "-fx-border-width: 1;"
-                      + "-fx-border-radius: 13.5");
-              nodeGraphic.setPrefSize(7, 7);
-              //                            nodeGraphic.setLayoutX(nodeGraphic.getXcoord() - 3.5);
-              //                            nodeGraphic.setLayoutY(nodeGraphic.getYcoord() - 3.5);
+            nodeGraphic.setStyle(
+                "-fx-background-color: '#D3E9F6'; "
+                    + "-fx-background-radius: 12.5; "
+                    + "-fx-border-color: '#224870'; "
+                    + "-fx-border-width: 1;"
+                    + "-fx-border-radius: 13.5");
+            nodeGraphic.setPrefSize(7, 7);
+            //                            nodeGraphic.setLayoutX(nodeGraphic.getXcoord() - 3.5);
+            //                            nodeGraphic.setLayoutY(nodeGraphic.getYcoord() - 3.5);
 
               previousNode = nodeGraphic;
               selectedNode = n;
 
-              nmc.setXCord(n.getXcoord().toString());
-              nmc.setYCord(n.getYcoord().toString());
-              nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
-              // nmc.setFloorBox(n.getFloor());
-              nmc.setBuildingBox(n.getBuilding());
-              nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
+            nmc.setXCord(n.getXcoord().toString());
+            nmc.setYCord(n.getYcoord().toString());
+            nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
+            // nmc.setFloorBox(n.getFloor());
+            nmc.setBuildingBox(n.getBuilding());
+            nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
 
-              if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
-                nmc.setLongNameBox(
-                    FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
-                nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-                nmc.setLocButtonVisibility(false);
-              } else {
-                // nmc.setLongNameBox(null);
-                nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-                nmc.setLocButtonVisibility(true);
-              }
+            if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
+              nmc.setLongNameBox(
+                  FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
+              nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
+              nmc.setLocButtonVisibility(false);
+            } else {
+              // nmc.setLongNameBox(null);
+              nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
+              nmc.setLocButtonVisibility(true);
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
