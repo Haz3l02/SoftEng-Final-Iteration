@@ -163,7 +163,7 @@
                                        </font>
                                     </Text>
                                     <MFXTextField fx:id="locationIDBox" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
-                                    <MFXButton fx:id="createLocation" buttonType="RAISED" minHeight="51.0" onAction="#addLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Location" textFill="#224870">
+                                    <MFXButton fx:id="createLocation" buttonType="RAISED" minHeight="51.0" onAction="#addLocation" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Location" textFill="#224870">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
