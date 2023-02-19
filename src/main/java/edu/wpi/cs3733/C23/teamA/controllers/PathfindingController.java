@@ -19,9 +19,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.*;
+import javafx.scene.control.Button;
 import javafx.scene.image.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 
 public class PathfindingController extends MenuController {
@@ -39,34 +42,56 @@ public class PathfindingController extends MenuController {
   @FXML private MFXCheckbox avoidStairsCheckbox;
   @FXML private MFXToggleButton toggleLocationNames;
   @FXML private MFXToggleButton toggleServiceRequests;
+  //
+  //  // canvases
+  //  @FXML private Canvas floorL1Canvas;
+  //  @FXML private Canvas floorL2Canvas;
+  //  @FXML private Canvas floorF1Canvas;
+  //  @FXML private Canvas floorF2Canvas;
+  //  @FXML private Canvas floorF3Canvas;
+  //
+  //  // image views
+  //  @FXML private ImageView floorL2;
+  //  @FXML private ImageView floorL1;
+  //  @FXML private ImageView floorF1;
+  //  @FXML private ImageView floorF2;
+  //  @FXML private ImageView floorF3;
+  //
+  //  // stack panes
+  //  @FXML private StackPane floorL1Stack;
+  //  @FXML private StackPane floorL2Stack;
+  //  @FXML private StackPane floorF1Stack;
+  //  @FXML private StackPane floorF2Stack;
+  //  @FXML private StackPane floorF3Stack;
+  //
+  //  // gesture panes
+  //  @FXML private GesturePane floorL1gPane;
+  //  @FXML private GesturePane floorL2gPane;
+  //  @FXML private GesturePane floorF1gPane;
+  //  @FXML private GesturePane floorF2gPane;
+  //  @FXML private GesturePane floorF3gPane;
 
-  // canvases
-  @FXML private Canvas floorL1Canvas;
-  @FXML private Canvas floorL2Canvas;
-  @FXML private Canvas floorF1Canvas;
-  @FXML private Canvas floorF2Canvas;
-  @FXML private Canvas floorF3Canvas;
+  // New FXML Data
+  @FXML private Button l1Button;
+  @FXML private Button l2Button;
+  @FXML private Button f1Button;
+  @FXML private Button f2Button;
+  @FXML private Button f3Button;
 
-  // image views
-  @FXML private ImageView floorL2;
-  @FXML private ImageView floorL1;
-  @FXML private ImageView floorF1;
-  @FXML private ImageView floorF2;
-  @FXML private ImageView floorF3;
+  @FXML private ImageView mainImageView;
 
-  // stack panes
-  @FXML private StackPane floorL1Stack;
-  @FXML private StackPane floorL2Stack;
-  @FXML private StackPane floorF1Stack;
-  @FXML private StackPane floorF2Stack;
-  @FXML private StackPane floorF3Stack;
+  @FXML private AnchorPane anchorF3;
+  @FXML private AnchorPane anchorF2;
+  @FXML private AnchorPane anchorF1;
+  @FXML private AnchorPane anchorL2;
+  @FXML private AnchorPane anchorL1;
 
-  // gesture panes
-  @FXML private GesturePane floorL1gPane;
-  @FXML private GesturePane floorL2gPane;
-  @FXML private GesturePane floorF1gPane;
-  @FXML private GesturePane floorF2gPane;
-  @FXML private GesturePane floorF3gPane;
+  @FXML private StackPane mainStackPane;
+
+  @FXML private GesturePane mainGesturePane;
+
+  private AnchorPane[] aps = new AnchorPane[5];
+  private int currentFloor = 0;
 
   // Lists of Nodes and Node Data
   private List<String> startNodeIDs; // List of all Node IDs in specific order
@@ -112,9 +137,16 @@ public class PathfindingController extends MenuController {
     endFloorBox.setItems(floors);
     algosBox.setItems(algos);
 
+    // anchor panes
+    aps[0] = anchorL1;
+    aps[1] = anchorL2;
+    aps[2] = anchorF1;
+    aps[3] = anchorF2;
+    aps[4] = anchorF3;
+
     // add the map images (also already done in SceneBuilder)
+    addFloorMapImage("L1", mainImageView);
     /*
-    addFloorMapImage("L1", floorL2);
     addFloorMapImage("L2", floorL1);
     addFloorMapImage("1", floorF1);
     addFloorMapImage("2", floorF2);
@@ -122,16 +154,8 @@ public class PathfindingController extends MenuController {
     */
 
     // prepare the gesture panes
-    Node nodeL1 = floorL1Stack;
-    this.floorL1gPane.setContent(nodeL1);
-    Node nodeL2 = floorL2Stack;
-    this.floorL2gPane.setContent(nodeL2);
-    Node nodeF1 = floorF1Stack;
-    this.floorF1gPane.setContent(nodeF1);
-    Node nodeF2 = floorF2Stack;
-    this.floorF2gPane.setContent(nodeF2);
-    Node nodeF3 = floorF3Stack;
-    this.floorF3gPane.setContent(nodeF3);
+    Node nodeL1 = mainStackPane;
+    this.mainGesturePane.setContent(nodeL1);
 
     // autofill the date picker to the current date
     // navDatePicker.setValue(LocalDate.of(2023, 1, 1));
@@ -155,11 +179,6 @@ public class PathfindingController extends MenuController {
     ObservableList<String> empty = FXCollections.observableArrayList();
     startLocBox.setItems(empty);
     endLocBox.setItems(empty);
-
-    // canvases
-    for (GraphicsContext gc : gcs) {
-      gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-    }
 
     // text
     pathMapText.setText("Directions on how to get to your destination go here...");
@@ -268,19 +287,18 @@ public class PathfindingController extends MenuController {
    * @param path the path that you want to be drawn
    */
   private void callMapDraw(ArrayList<GraphNode> path) {
-    // getting graphicsContents for each canvas and put in array
-    gcs[0] = floorL1Canvas.getGraphicsContext2D();
-    gcs[1] = floorL2Canvas.getGraphicsContext2D();
-    gcs[2] = floorF1Canvas.getGraphicsContext2D();
-    gcs[3] = floorF2Canvas.getGraphicsContext2D();
-    gcs[4] = floorF3Canvas.getGraphicsContext2D();
 
     // clear the canvases w/ the drawn paths
-    for (GraphicsContext gc : gcs) {
-      gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    for (AnchorPane ap : aps) {
+      ap.getChildren().clear();
+      ap.setVisible(false);
+      ap.setDisable(true);
     }
 
-    pathfindingSystem.drawPath(gcs, path, SCALE_FACTOR);
+    aps[currentFloor].setVisible(true);
+    aps[currentFloor].setDisable(false);
+
+    pathfindingSystem.drawPath(aps, path, SCALE_FACTOR);
   }
 
   @FXML
@@ -355,5 +373,37 @@ public class PathfindingController extends MenuController {
   private void addFloorMapImage(String floor, ImageView iv) {
     Image image = ImageLoader.getImage(floor);
     iv.setImage(image);
+  }
+
+  public void generateFloor(ActionEvent event) {
+    int previousFloor = currentFloor;
+    System.out.println("Button pressed");
+    String floor = "L1";
+    if (event.getSource().equals(l1Button)) {
+      floor = "L1";
+      currentFloor = 0;
+    } else if (event.getSource().equals(l2Button)) {
+      floor = "L2";
+      currentFloor = 1;
+    } else if (event.getSource().equals(f1Button)) {
+      floor = "1";
+      currentFloor = 2;
+    } else if (event.getSource().equals(f2Button)) {
+      floor = "2";
+      currentFloor = 3;
+    } else if (event.getSource().equals(f3Button)) {
+      floor = "3";
+      currentFloor = 4;
+    }
+    initializeFloorMap(floor, previousFloor);
+  }
+
+  private void initializeFloorMap(String floor, int previousFloor) {
+
+    addFloorMapImage(floor, mainImageView);
+    aps[previousFloor].setVisible(false);
+    aps[previousFloor].setDisable(true);
+    aps[currentFloor].setVisible(true);
+    aps[currentFloor].setDisable(false);
   }
 }

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,8 +39,8 @@ public class PathfindingSystem {
   }
 
   // MapDraw
-  public void drawPath(GraphicsContext[] gcs, ArrayList<GraphNode> path, double scaleFactor) {
-    MapDraw.drawPath(gcs, path, scaleFactor);
+  public void drawPath(AnchorPane[] aps, ArrayList<GraphNode> path, double scaleFactor) {
+    MapDraw.drawPathClickable(aps, path, scaleFactor);
   }
 
   // Methods relating to Graph
