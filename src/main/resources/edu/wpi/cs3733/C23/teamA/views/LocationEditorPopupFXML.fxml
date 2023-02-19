@@ -17,7 +17,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="locationIDBox1" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
+            <MFXTextField fx:id="longNameBox" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node ID">
                <font>
                   <Font name="Verdana" size="24.0" />

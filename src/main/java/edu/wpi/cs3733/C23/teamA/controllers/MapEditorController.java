@@ -4,6 +4,7 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
+import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
@@ -16,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -27,6 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.PopOver;
 
 public class MapEditorController extends MenuController {
 
@@ -46,13 +49,13 @@ public class MapEditorController extends MenuController {
   @FXML MFXButton f3Button;
 
   // Buttons and Text
-  @FXML MFXTextField XCord; //delete later
-  @FXML MFXTextField YCord; //delete later
-  @FXML MFXComboBox FloorBox; //delete later
-  @FXML MFXComboBox BuildingBox; //delete later
-  @FXML MFXButton saveButton; //delete later
-  @FXML MFXTextField node1; //delete later
-  @FXML MFXTextField node2; //delete later
+  @FXML MFXTextField XCord; // delete later
+  @FXML MFXTextField YCord; // delete later
+  @FXML MFXComboBox FloorBox; // delete later
+  @FXML MFXComboBox BuildingBox; // delete later
+  @FXML MFXButton saveButton; // delete later
+  @FXML MFXTextField node1; // delete later
+  @FXML MFXTextField node2; // delete later
   @FXML VBox fieldBox;
   @FXML MFXButton createNodeButton;
   @FXML MFXFilterComboBox<String> longNameBox;
@@ -70,6 +73,12 @@ public class MapEditorController extends MenuController {
 
   // scaling constant
   private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulations
+
+  private static PopOver nodeEditorPopup;
+  private static PopOver edgeEditorPopup;
+  private static PopOver locationEditorPopup;
+
+  static MapEditorController mapEditor = new MapEditorController();
 
   /** Starting method called when screen is opened: Draws nodes and edges for floor L1 */
   public void initialize() {
@@ -188,27 +197,28 @@ public class MapEditorController extends MenuController {
   /**
    * Method that creates a new node on click "Create" with CreateNodeButton Adds into database and
    * draws on map
-   *
-   * @param event
    */
-  public void createNode(ActionEvent event) {
+  public void createNode(String xCoord, String yCoord, String building, String floor)
+      throws InterruptedException {
+    // hide popups
+    nodeEditorPopup.hide();
 
     // Create a new node entity
     NodeEntity newNode = new NodeEntity();
-    fieldBox.setStyle("-fx-background-color: '013A75'; ");
-    newNode.setXcoord(Integer.parseInt(XCord.getText()));
-    newNode.setYcoord(Integer.parseInt(YCord.getText()));
-    String tableString = Floor.tableStringFromExtendedString(FloorBox.getText());
+
+    newNode.setXcoord(Integer.parseInt(xCoord));
+    newNode.setYcoord(Integer.parseInt(yCoord));
+    String tableString = Floor.tableStringFromExtendedString(floor);
     newNode.setFloor(tableString);
-    newNode.setBuilding(BuildingBox.getText());
+    newNode.setBuilding(building);
     newNode.setNodeid(makeNewNodeID(newNode.getFloor(), newNode.getXcoord(), newNode.getYcoord()));
 
     // Add new Node to database //
     FacadeRepository.getInstance().addNode(newNode);
 
     // switch box screen
-    createNodeButton.setVisible(false);
-    fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
+    // createNodeButton.setVisible(false);
+    // fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
 
     // take care of last selected node
     Pane recentPane = NodeDraw.getSelectedPane();
@@ -229,9 +239,13 @@ public class MapEditorController extends MenuController {
     // initializeFloorMap(tableString);
 
     // draw node onto the map (nonDatabase) //
+
     ArrayList<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(newNode);
-    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this); // draw node
+    System.out.println(mainAnchorPane == null);
+
+    // draw node
+    // NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this); // TODO: fix this
   }
 
   public void editNode(ActionEvent event) {
@@ -282,7 +296,7 @@ public class MapEditorController extends MenuController {
     NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
   }
 
-  public String makeNewNodeID(String floor, int x, int y) {
+  public static String makeNewNodeID(String floor, int x, int y) {
     String xCoord = String.format("%04d", x);
     String yCoord = String.format("%04d", y);
 
@@ -410,5 +424,71 @@ public class MapEditorController extends MenuController {
   // TODO by Sarah
   public void changeLocations() {
     mainTextPane.setVisible(!mainTextPane.isVisible());
+  }
+
+  @FXML
+  public void popupNodeEditor(ActionEvent event) throws IOException {
+
+    System.out.println("popup node editor");
+
+    FXMLLoader nodeLoader =
+        new FXMLLoader(Main.class.getResource("views/NodeEditorPopupFXML.fxml"));
+
+    // popup stuff
+    nodeEditorPopup = new PopOver(nodeLoader.load());
+    nodeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+
+    // NodeEditorPopupController.populateStuff();
+  }
+
+  @FXML
+  public void popupEdgeEditor(ActionEvent event) throws IOException {
+
+    System.out.println("popup edge editor");
+
+    FXMLLoader edgeLoader =
+        new FXMLLoader(Main.class.getResource("views/EdgeEditorPopupFXML.fxml"));
+
+    edgeEditorPopup = new PopOver(edgeLoader.load());
+    edgeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+  }
+
+  @FXML
+  public void popupLocationEditor(ActionEvent event) throws IOException {
+
+    System.out.println("popup location editor");
+
+    FXMLLoader locationLoader =
+        new FXMLLoader(Main.class.getResource("views/LocationEditorPopupFXML.fxml"));
+
+    locationEditorPopup = new PopOver(locationLoader.load());
+    locationEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+  }
+
+  @Deprecated
+  public static void hideLastNode(NodeEntity newNode) {
+
+    nodeEditorPopup.hide();
+    // take care of last selected node
+    Pane recentPane = NodeDraw.getSelectedPane();
+    if (recentPane != null) {
+      recentPane.setPrefSize(5, 5);
+      recentPane.setStyle(
+          "-fx-background-color: '#224870'; "
+              + "-fx-background-radius: 12.5; "
+              + "-fx-border-color: '#224870'; "
+              + "-fx-border-width: 1;"
+              + "-fx-border-radius: 13.5");
+      //      int[] updatedCoords = NodeDraw.scaleCoordinates();
+      //      recentPane.setLayoutX(updatedCoords[0] - 2.5);
+      //      recentPane.setLayoutY(updatedCoords[1] - 2.5);
+
+      // draw node onto the map (nonDatabase) //
+      ArrayList<NodeEntity> oneNode = new ArrayList<>();
+      oneNode.add(newNode);
+
+      NodeDraw2.drawNodes(
+          oneNode, mapEditor.SCALE_FACTOR, mapEditor.mainAnchorPane, mapEditor); // draw node
+    }
   }
 }
