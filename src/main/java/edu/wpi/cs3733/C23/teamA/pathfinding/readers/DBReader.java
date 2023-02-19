@@ -53,7 +53,7 @@ public class DBReader {
                 LocationType.UNKN.getTableString(), // what to do here?
                 n.getFloor());
       }
-      // create the graph and add the nodes (id, xcoord, ycoord, longName, locationType)
+      // create the graph and add the nodes (id, xcoord, ycoord, longName, locationType, floor)
       graph.addNode(n.getNodeid(), g);
     }
 

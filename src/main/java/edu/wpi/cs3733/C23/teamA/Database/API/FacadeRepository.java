@@ -53,6 +53,16 @@ public class FacadeRepository {
     return emp.getAll();
   }
 
+  public List<EmployeeEntity> getEmployeeByJob(String job) {
+    List<EmployeeEntity> temp = new ArrayList<EmployeeEntity>();
+    for (EmployeeEntity employee : emp.getAll()) {
+      if (employee.getJob().equalsIgnoreCase(job)) {
+        temp.add(employee);
+      }
+    }
+    return temp;
+  }
+
   public List<LocationNameEntity> getAllLocation() {
     return loc.getAll();
   }
@@ -367,17 +377,15 @@ public class FacadeRepository {
     return move.locationChanges(minDate, maxDate);
   }
 
-
   public void newLocationOnNode(String nodeid, LocationNameEntity l) {
     loc.newLocationOnNode(nodeid, l);
   }
-
 
   public ArrayList<ServiceRequestEntity> getOutstandingServRequests() {
     return serv.getOutstandingRequests();
   }
 
-  public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname){
+  public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname) {
     return serv.getRequestAtLocation(longname);
   }
 }

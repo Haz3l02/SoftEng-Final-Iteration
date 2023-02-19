@@ -15,9 +15,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="HomePageStyle" stylesheets="@../assets/HomePageStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
+<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <children>
-      <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
+      <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
          <children>
             <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
                <padding>
@@ -127,13 +127,6 @@
                                                    </children>
                                                 </VBox>
                                                 <HBox alignment="CENTER_LEFT" prefHeight="103.0" prefWidth="666.0">
-                                                   <children>
-                                                      <Label fx:id="time" text="Label" textFill="#122c34">
-                                                         <font>
-                                                            <Font name="Verdana" size="18.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
                                                    <VBox.margin>
                                                       <Insets left="10.0" />
                                                    </VBox.margin>
@@ -211,16 +204,31 @@
             </BorderPane>
          </children>
       </StackPane>
-      <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="283.0" prefWidth="676.0">
+      <VBox alignment="BOTTOM_LEFT" layoutX="11.0" layoutY="159.0" prefHeight="65.0" prefWidth="781.0">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham and Women's Hospital" textAlignment="RIGHT" textOrigin="BOTTOM">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham and Women's Hospital" textAlignment="RIGHT" textOrigin="BOTTOM" wrappingWidth="765.06591796875">
                <font>
                   <Font name="Arial Black" size="45.0" />
                </font>
-               <VBox.margin>
-                  <Insets left="15.0" />
-               </VBox.margin>
             </Text>
+         </children>
+      </VBox>
+      <VBox layoutX="12.0" layoutY="140.0" prefHeight="37.0" prefWidth="297.0">
+         <children>
+            <Label fx:id="date" text="Label" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="12.0" prefHeight="37.0" prefWidth="297.0">
+         <children>
+            <Label fx:id="time" text="Label" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
    </children>

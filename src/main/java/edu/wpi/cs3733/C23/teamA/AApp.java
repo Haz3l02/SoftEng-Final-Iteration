@@ -5,10 +5,12 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
+import java.awt.*;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -41,6 +43,11 @@ public class AApp extends Application {
     // load images
     ImageLoader.loadImages();
     FacadeRepository.getInstance(); // wake up database instances
+
+    // add the icon and name to the application
+    var icon = new Image("edu/wpi/cs3733/C23/teamA/assets/Brigham_and_Womens_Hospital_logo.png");
+    primaryStage.getIcons().add(icon);
+    primaryStage.setTitle("CS3733-C23: Team A");
 
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
