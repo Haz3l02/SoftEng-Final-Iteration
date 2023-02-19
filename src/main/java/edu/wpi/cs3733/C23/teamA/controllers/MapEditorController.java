@@ -6,8 +6,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.*;
@@ -127,11 +125,6 @@ public class MapEditorController extends MenuController {
     NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
     NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, gc);
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
-  }
-
-  @FXML
-  public void switchToNodeScene(ActionEvent event) throws IOException {
-    Navigation.navigate(Screen.HOME_DATABASE);
   }
 
   /**
