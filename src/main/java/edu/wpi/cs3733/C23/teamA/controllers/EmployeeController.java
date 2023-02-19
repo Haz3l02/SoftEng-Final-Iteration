@@ -28,7 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
-public class EmployeeController {
+public class EmployeeController extends NavigationController {
 
   @FXML private TableView<EmployeeEntity> employeeTable;
   @FXML public TableColumn<EmployeeEntity, String> nameCol;
@@ -184,7 +184,7 @@ public class EmployeeController {
   }
 
   @FXML
-  public void switchToImportPopup(ActionEvent event) throws IOException {
+  public void switchToImport(ActionEvent event) throws IOException {
     if (!event.getSource().equals(cancel)) {
       FXMLLoader loader =
           new FXMLLoader(Main.class.getResource("views/ImportEmployeeCSVFXML.fxml"));
@@ -219,7 +219,7 @@ public class EmployeeController {
     popup.hide();
   }
 
-  public void switchToExportPopup(ActionEvent event) throws IOException {
+  public void switchToExport(ActionEvent event) throws IOException {
     System.out.println("opens popup");
     if (!event.getSource().equals(cancel)) {
       FXMLLoader loader =

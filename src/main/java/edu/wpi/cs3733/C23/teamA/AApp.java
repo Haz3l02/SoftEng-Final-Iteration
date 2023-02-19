@@ -54,7 +54,7 @@ public class AApp extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
     primaryStage.setMaximized(true);
-    Navigation.navigateHome(Screen.HOME_DATABASE);
+    Navigation.navigateHome(Screen.LOGIN);
     primaryStage.setMinWidth(615);
     primaryStage.setMinHeight(450);
   }

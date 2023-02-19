@@ -91,9 +91,10 @@
                                           <Font size="25.0" />
                                        </font>
                                     </Text>
-                                    <TableView maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" style="-fx-background-color: F6BD3A;" VBox.vgrow="ALWAYS">
+                                    <TableView fx:id="moveTable" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" style="-fx-background-color: F6BD3A;" VBox.vgrow="ALWAYS">
                                        <columns>
                                           <TableColumn fx:id="moveCol" prefWidth="-1.0" text="Move Location" />
+                                          <TableColumn fx:id="destinationCol" prefWidth="-1.0" text="Destination" />
                                           <TableColumn fx:id="dateCol" prefWidth="-1.0" text="Date" />
                                        </columns>
                                        <columnResizePolicy>

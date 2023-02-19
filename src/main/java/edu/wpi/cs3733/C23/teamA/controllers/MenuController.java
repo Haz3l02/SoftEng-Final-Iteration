@@ -34,8 +34,6 @@ public class MenuController extends NavigationController {
   @FXML protected Text reminder;
   @FXML protected StackPane reminderPane;
   @FXML protected ImageView home;
-  // @FXML protected Image homeYellow = new Image("assets/BioHazSmall.png");
-
   @FXML protected ImageView home2;
   @FXML protected ImageView help;
   @FXML protected ImageView logout;
@@ -50,18 +48,15 @@ public class MenuController extends NavigationController {
 
   @FXML
   public void initialize() throws SQLException, IOException, InterruptedException {
-    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
-    popup = new PopOver(loader.load());
+    //    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
+    //    popup = new PopOver(loader.load());
 
     // testButton.setGraphic(home);
     home.setOnMouseClicked(
         (MouseEvent e) -> {
           switchToHomeScene();
         });
-    //    home.setOnMouseDragEntered(
-    //        (MouseEvent e) -> {
-    //          home.setImage(homeYellow);
-    //        });
+
     home2.setOnMouseClicked(
         (MouseEvent e) -> {
           switchToHomeScene();
@@ -84,12 +79,99 @@ public class MenuController extends NavigationController {
     serviceRequest
         .getItems()
         .addAll(
-            "Sanitation",
-            "Security",
-            "Computer",
+            "Sanitation Request",
+            "Security Request",
+            "Computer Request",
             "Patient Transportation",
             "Audio/Visual Request",
-            "Accessibility");
+            "Accessibility Request",
+            "View Previous Submissions");
+
+    serviceRequest
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              switch (newValue) {
+                case "Computer Request":
+                  switchToComputer();
+                  break;
+                case "Security Request":
+                  switchToSecurity();
+                  break;
+                case "Sanitation Request":
+                  switchToSanitation();
+                  break;
+                case "Accessibility Request":
+                  // switchToAccessibility();
+                  System.out.println("Accessibility");
+                  break;
+                case "Patient Transportation":
+                  switchToPatientTransport();
+                  break;
+                case "View Past Submissions":
+                  switchToServiceRequestStatus();
+                  break;
+                case "Audio/Visual Request":
+                  // switchToAudioVisual();
+                  System.out.println("Audio/Visual");
+                  break;
+                default:
+                  break;
+              }
+              System.out.println(newValue);
+            });
+
+    System.out.println("HELOPOOOOOOS");
+    admin
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              switch (newValue) {
+                case "Map Editor":
+                  System.out.println("HELOPOOOOOOSKJDHBvafcjhadsvbfhjwf");
+                  switchToMapScene();
+                  break;
+                case "Access Employee Records":
+                  switchToEmployeeScene();
+                  break;
+                case "Sanitation Request":
+                  switchToSanitation();
+                case "Department Moves":
+                  switchToMoveScene();
+                  break;
+                case "Create Nodes":
+                  switchToNodeScene();
+                  break;
+                default:
+                  break;
+              }
+            });
+
+    //    if (admin.getValue() != null) {
+    //      System.out.println("HELO");
+    //
+    //      switch (admin.getValue()) {
+    //        case "Map Editor":
+    //          System.out.println("HELOPOOOOOOSKJDHBvafcjhadsvbfhjwf");
+    //          switchToMapScene();
+    //          break;
+    //        case "Access Employee Records":
+    //          switchToEmployeeScene();
+    //          break;
+    //        case "Sanitation Request":
+    //          switchToSanitation();
+    //        case "Department Moves":
+    //          switchToMoveScene();
+    //          break;
+    //        case "Create Nodes":
+    //          switchToNodeScene();
+    //          break;
+    //        default:
+    //          break;
+    //      }
+    //    }
   }
 
   @FXML
@@ -113,7 +195,6 @@ public class MenuController extends NavigationController {
    */
   @FXML
   public void switchToHelpScene(MouseEvent event) throws IOException {
-
     if (!event.getSource().equals(backButton)) {
       FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
       popup = new PopOver(loader.load());

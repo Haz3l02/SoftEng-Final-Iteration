@@ -83,9 +83,9 @@
       <Insets top="10.0" />
    </padding>
    <center>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox style="-fx-background-color: D3E9F6;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Form Submissions">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Submitted Requests">
                <font>
                   <Font size="36.0" />
                </font>
@@ -93,10 +93,15 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Text>
-            <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" prefHeight="750.0" prefWidth="611.0">
+            <SplitPane fx:id="mainSplitPane" dividerPositions="0.5, 0.5" maxHeight="1.7976931348623157E308" prefHeight="750.0" prefWidth="611.0">
                <items>
-                  <VBox maxWidth="-Infinity" prefHeight="500.0" spacing="10.0" style="-fx-background-color: D3E9F6;">
+                  <VBox maxWidth="-Infinity" prefHeight="570.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: D3E9F6;">
                      <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Edits">
+                           <font>
+                              <Font name="Verdana Bold" size="25.0" />
+                           </font>
+                        </Text>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form Type">
                            <font>
                               <Font name="Verdana" size="20.0" />
@@ -154,7 +159,7 @@
                               <Font name="Verdana" size="20.0" />
                            </font>
                         </Text>
-                        <MFXComboBox fx:id="employeeBox" floatMode="ABOVE" prefHeight="50.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
+                        <MFXComboBox fx:id="employeeBox" floatMode="ABOVE" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -169,16 +174,49 @@
                         </MFXButton>
                      </children>
                      <padding>
-                        <Insets right="15.0" />
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox maxWidth="-Infinity" prefHeight="500.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: D3E9F6;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Outstanding Requests">
+                           <font>
+                              <Font name="Verdana Bold" size="25.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Assigned">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Verdana" size="20.0" />
+                           </font>
+                        </Text>
+                        <MFXComboBox fx:id="assigned" floatMode="ABOVE" prefHeight="50.0" prefWidth="357.0" promptText="Employee Assigned" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </MFXComboBox>
+                        <MFXButton fx:id="submit1" buttonType="RAISED" defaultButton="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onAction="#outstanding" prefHeight="50.0" prefWidth="250.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="View Outstanding" textFill="#224870">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
                      </padding>
                   </VBox>
                   <TableView fx:id="serviceReqsTable" editable="true" onMouseClicked="#rowClicked" prefHeight="650.0" prefWidth="462.0" style="-fx-background-color: d3e9f6;">
                      <columns>
                         <TableColumn fx:id="IDCol" minWidth="0.0" prefWidth="0.0" text="ID" />
-                        <TableColumn fx:id="formTypeCol" prefWidth="322.0" text="Form Type" />
-                        <TableColumn fx:id="dateCol" prefWidth="266.0" text="Date" />
-                        <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="271.0" text="Status" />
-                        <TableColumn fx:id="urgencyCol" minWidth="7.0" prefWidth="254.0" text="Urgency" />
+                        <TableColumn fx:id="formTypeCol" prefWidth="216.0" text="Form Type" />
+                        <TableColumn fx:id="dateCol" prefWidth="179.0" text="Date" />
+                        <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="208.0" text="Status" />
+                        <TableColumn fx:id="urgencyCol" minWidth="7.0" prefWidth="510.0" text="Urgency" />
                         <TableColumn fx:id="employeeAssignedCol" minWidth="0.0" prefWidth="378.0" text="Employee Assigned" />
                      </columns>
                   </TableView>

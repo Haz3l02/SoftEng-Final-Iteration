@@ -21,8 +21,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class SanitationController extends ServiceRequestController {
-  private IssueCategory category;
 
+  private IssueCategory category;
   @FXML private MFXComboBox<String> categoryBox;
   @FXML private MFXButton clear;
   @FXML private MFXButton submit;
