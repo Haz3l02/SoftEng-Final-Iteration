@@ -40,8 +40,9 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
   @FXML public TableView<MaintenanceAssignedAccepted> employeeTable;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> nameCol;
-  @FXML public TableColumn<MaintenanceAssignedAccepted, Integer> assignedCol;
-  @FXML public TableColumn<MaintenanceAssignedAccepted, Integer> acceptedCol;
+  @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
+  @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
+  @FXML private Label date = new Label("hello");
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
@@ -56,7 +57,8 @@ public class HomeController extends MenuController {
   @FXML
   public void initialize() throws IOException, InterruptedException {
     grabQuote();
-    dateAndTime();
+    date();
+    time();
     IdNumberHolder userInfo = new IdNumberHolder();
     userInfo = IdNumberHolder.getInstance();
     welcome.setText("Welcome " + userInfo.getName() + "!");
@@ -95,12 +97,11 @@ public class HomeController extends MenuController {
       dbTableRowsModel.addAll(requests);
       assignmentsTable.setItems(dbTableRowsModel);
 
-      nameCol.setCellValueFactory(
-          new PropertyValueFactory<MaintenanceAssignedAccepted, String>("name"));
+      nameCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
       assignedCol.setCellValueFactory(
-          new PropertyValueFactory<MaintenanceAssignedAccepted, Integer>("assignedCol"));
-      assignedCol.setCellValueFactory(
-          new PropertyValueFactory<MaintenanceAssignedAccepted, Integer>("acceptedCol"));
+          param -> new SimpleStringProperty(param.getValue().getNumAssigned()));
+      acceptedCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getNumAccepted()));
 
       List<EmployeeEntity> maintenanceEmployees =
           FacadeRepository.getInstance().getEmployeeByJob("maintenance");
@@ -110,6 +111,9 @@ public class HomeController extends MenuController {
       }
       System.out.println(maa.size());
       dbTableRowsModel2.addAll(maa);
+      for (int i = 0; i < maa.size(); i++) {
+        System.out.println(maa.get(i).getName());
+      }
       System.out.println(dbTableRowsModel2.size());
       employeeTable.setItems(dbTableRowsModel2);
 
@@ -137,11 +141,35 @@ public class HomeController extends MenuController {
   }
 
   @FXML
-  public void dateAndTime() throws InterruptedException {
+  public void date() throws InterruptedException {
     Thread thread =
         new Thread(
             () -> {
-              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+              // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("E, MMM dd, yyyy");
+              while (!stop) {
+                LocalDateTime now = LocalDateTime.now();
+                try {
+                  Thread.sleep(1000);
+                } catch (Exception e) {
+                  System.out.print(e);
+                }
+                String currentTimeDate = dtf.format(now);
+                Platform.runLater(
+                    () -> {
+                      date.setText(currentTimeDate);
+                    });
+              }
+            });
+    thread.start();
+  }
+
+  @FXML
+  public void time() throws InterruptedException {
+    Thread thread =
+        new Thread(
+            () -> {
+              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
 
               while (!stop) {
                 LocalDateTime now = LocalDateTime.now();
@@ -153,7 +181,7 @@ public class HomeController extends MenuController {
                 String currentTimeDate = dtf.format(now);
                 Platform.runLater(
                     () -> {
-                      time.setText("Today's Date: " + currentTimeDate);
+                      time.setText(currentTimeDate);
                     });
               }
             });
