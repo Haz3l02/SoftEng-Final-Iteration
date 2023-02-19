@@ -1,10 +1,15 @@
 package edu.wpi.cs3733.C23.teamA;
 
+import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
+
 import java.io.IOException;
+import org.hibernate.Session;
 
 public class Main {
 
   public static void main(String[] args) throws IOException {
-    AApp.launch(AApp.class, args);
+    // AApp.launch(AApp.class, args);
+    Session session = getSessionFactory().openSession();
+    session.close();
   }
 }
