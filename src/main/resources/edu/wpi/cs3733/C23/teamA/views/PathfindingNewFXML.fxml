@@ -99,7 +99,7 @@
                                                         <Font size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="275.0" promptText="  Select Location..." HBox.hgrow="ALWAYS">
+                                                <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" onAction="#checkForMoves" prefHeight="35.0" prefWidth="275.0" promptText="  Select Location..." HBox.hgrow="ALWAYS">
                                                     <font>
                                                         <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
@@ -133,7 +133,7 @@
                                           <Font size="14.0" />
                                        </font>
                                                 </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="endLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" prefHeight="35.0" prefWidth="275.0" promptText="Select Location..." HBox.hgrow="ALWAYS">
+                                                <MFXFilterComboBox fx:id="endLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" onAction="#checkForMoves" prefHeight="35.0" prefWidth="275.0" promptText="Select Location..." HBox.hgrow="ALWAYS">
                                                     <font>
                                                         <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
@@ -170,7 +170,7 @@
                                                         <Font name="Kohinoor Bangla" size="14.0" />
                                                     </font>
                                                 </MFXFilterComboBox>
-                                                <MFXDatePicker fx:id="navDatePicker" disable="true" minHeight="-Infinity" onAction="#setNavigationDate" prefHeight="35.0" prefWidth="275.0" promptText="Select Date..." HBox.hgrow="ALWAYS">
+                                                <MFXDatePicker fx:id="navDatePicker" minHeight="-Infinity" onAction="#setNavigationDate" prefHeight="35.0" prefWidth="275.0" promptText="Select Date..." HBox.hgrow="ALWAYS">
                                                     <HBox.margin>
                                                         <Insets left="10.0" />
                                                     </HBox.margin>

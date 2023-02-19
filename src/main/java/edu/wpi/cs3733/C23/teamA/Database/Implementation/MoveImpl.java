@@ -20,6 +20,7 @@ import java.util.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
+import org.hibernate.query.Query;
 
 public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, List<String>> {
   private List<MoveEntity> moves;
@@ -185,8 +186,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     criteria.select(location).where(builder.between(location.get("movedate"), minDate, maxDate));
     List<MoveEntity> ids = session.createQuery(criteria).getResultList();
     for (MoveEntity id : ids) {
-      List<MoveEntity> loc =
-          locationRecord(id.getLocationName().getLongname(), id.getMovedate()).stream().toList();
+      List<MoveEntity> loc = locationRecord(id.getLocationName().getLongname(), id.getMovedate());
       changes.put(id, loc.stream().findFirst().orElse(id));
     }
     return changes;
@@ -200,13 +200,32 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
    * @return
    */
   public List<MoveEntity> locationRecord(String longname, LocalDate date) {
-    return moves.stream()
-        .filter(
-            moveEntity ->
-                (moveEntity.getLocationName().getLongname().equals(longname)
-                    && moveEntity.getMovedate().compareTo(date) < 0))
-        .sorted((move1, move2) -> move2.getMovedate().compareTo(move1.getMovedate()))
-        .toList();
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    Query q =
+        session.createQuery(
+            "from MoveEntity mov where mov.locationName.longname ='"
+                + longname
+                + "' and mov.movedate <= '"
+                + date
+                + "' order by mov.movedate desc",
+            MoveEntity.class);
+    List<MoveEntity> records = q.getResultList();
+    session.close();
+    return records;
+  }
+
+  public List<MoveEntity> allMostRecent(LocalDate date) {
+    List<MoveEntity> m = new ArrayList<>();
+    List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
+    for (LocationNameEntity loc : locations) {
+      try {
+        m.add(locationRecord(loc.getLongname(), date).get(0));
+      } catch (Exception e) {
+      }
+    }
+    return m;
   }
 
   public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
@@ -287,7 +306,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
 
     delete(ID);
     add(obj);
-    notifyAllObservers();
   }
 
   public MoveEntity get(List<String> ID) {

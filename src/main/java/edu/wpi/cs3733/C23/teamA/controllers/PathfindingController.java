@@ -73,12 +73,14 @@ public class PathfindingController extends MenuController {
   private List<String> endNodeIDs;
   private List<String> allLongNames; // List of corresponding long names in order
   private List<NodeEntity> allNodes;
+  private HashMap<MoveEntity, MoveEntity> movesInNextWeek;
 
   // a PathfindingSystem to run methods in the pathfinding package
   private static PathfindingSystem pathfindingSystem;
 
   // the date of navigation
   private LocalDate navDate;
+  private LocalDate weekLater;
 
   // objects needed for the maps
   private GraphicsContext[] gcs = new GraphicsContext[5];
@@ -137,7 +139,10 @@ public class PathfindingController extends MenuController {
     // navDatePicker.setValue(LocalDate.of(2023, 1, 1));
     navDatePicker.setValue(navDatePicker.getCurrentDate());
     navDate = navDatePicker.getValue();
-    navDatePicker.setDisable(false); // will eventually just do this in scenebuilder
+
+    // get the moves in the next week
+    weekLater = navDate.plusDays(7);
+    movesInNextWeek = FacadeRepository.getInstance().getLocationChanges(navDate, weekLater);
   }
 
   /** Method to clear the fields on the form on the UI page */
@@ -149,7 +154,7 @@ public class PathfindingController extends MenuController {
     startFloorBox.clearSelection();
     endFloorBox.clearSelection();
     algosBox.clearSelection();
-    // navDatePicker.clear(); WILL NEED THIS LATER
+    navDatePicker.clear();
 
     // reset the location lists
     ObservableList<String> empty = FXCollections.observableArrayList();
@@ -190,6 +195,10 @@ public class PathfindingController extends MenuController {
     ObservableList<String> empty = FXCollections.observableArrayList();
     startLocBox.setItems(empty);
     endLocBox.setItems(empty);
+
+    // get the moves in the next week
+    weekLater = navDate.plusDays(7);
+    movesInNextWeek = FacadeRepository.getInstance().getLocationChanges(navDate, weekLater);
   }
 
   @FXML
@@ -210,12 +219,11 @@ public class PathfindingController extends MenuController {
       moveEntity =
           FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
       locNameEnt = moveEntity.getLocationName();
-      // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
-      // location attached
+      // if the LocationNameEntity isn't null, add it to the dropdown.
+      // If it is null, it's a node w/ no location attached, and doesn't need to be there
       if (locNameEnt != null) {
         idsFloor.add(n.getNodeid()); // get nodeId
         namesFloor.add(locNameEnt.getLongname()); // get longName
-        // System.out.println(n.getNodeid());
       }
     }
 
@@ -260,6 +268,47 @@ public class PathfindingController extends MenuController {
     endLocBox.setItems(locs);
     endLocBox.setDisable(false);
     endLocBox.clear();
+  }
+
+  public void checkForMoves() throws SQLException {
+    int startIndex = startLocBox.getSelectedIndex();
+    int endIndex = endLocBox.getSelectedIndex();
+    int algoIndex = algosBox.getSelectedIndex();
+
+    // if neither location box or the algorithm box actually contains any info, don't do anything
+    if ((startIndex == -1 && endIndex == -1) || algoIndex == -1) {
+      // then don't run anything
+    } else {
+      // get the location names
+      String startLocName = startLocBox.getValue();
+      String endLocName = endLocBox.getValue();
+
+      // loop through the keys (moveEntities) hashMap of move entities
+      for (MoveEntity m : movesInNextWeek.keySet()) {
+        // long name of the current key (most recent)
+        LocationNameEntity locName = m.getLocationName();
+
+        if (locName != null) {
+          if (locName.getLongname().equals(startLocName)
+              || locName.getLongname().equals(endLocName)) {
+
+            // now strip the user of their agency and do things for them (change this later)
+            // get the IDs from the initial (value) and final (key) moves
+            String startID = movesInNextWeek.get(m).getNode().getNodeid();
+            String endID = m.getNode().getNodeid();
+
+            System.out.println(startID);
+            System.out.println(endID);
+            System.out.println(movesInNextWeek.get(m).getMovedate());
+            System.out.println(m.getMovedate());
+
+            generatePathFromMovePopup(startID, endID);
+            // if/else inside popup; if yes, execute and break
+            break; // so that it doesn't check the rest of the moves
+          }
+        }
+      }
+    }
   }
 
   /**
@@ -343,6 +392,49 @@ public class PathfindingController extends MenuController {
         pathMapText.setText(
             "No Path Found Between " + start.getLongName() + " and " + end.getLongName() + ".");
       }
+    }
+  }
+
+  @FXML
+  public void generatePathFromMovePopup(String startID, String endID)
+      throws SQLException, RuntimeException {
+    // create the graph hashMap where String is nodeId and GraphNode is the node
+    pathfindingSystem.prepGraphDB(navDate); // don't know if this will work tbh
+
+    // run pathfinding
+    GraphNode start = pathfindingSystem.getNode(startID);
+    GraphNode end = pathfindingSystem.getNode(endID);
+    PathInfo pathInfo;
+
+    // makes a call to the algorithm that was selected
+    if (avoidStairsCheckbox.isSelected()) {
+      pathInfo = pathfindingSystem.runPathfindingNoStairs(start, end);
+    } else {
+      pathInfo = pathfindingSystem.runPathfinding(start, end);
+    }
+
+    // if pathInfo isn't null, grab the path and draw it
+    if (pathInfo != null) {
+      // get the paths from pathInfo
+      ArrayList<GraphNode> path = pathInfo.getPath();
+      ArrayList<String> floorPath = pathInfo.getFloorPath();
+
+      pathMapText.setText(pathfindingSystem.generatePathString(path, floorPath));
+      callMapDraw(path);
+
+      if (pathInfo.isContainsStairs()) {
+        errorMessage.setText(
+            "Disclaimer: The path generated between "
+                + start.getLongName()
+                + " and "
+                + end.getLongName()
+                + " uses stairs.");
+      } else {
+        errorMessage.setText("");
+      }
+    } else {
+      pathMapText.setText(
+          "No Path Found Between " + start.getLongName() + " and " + end.getLongName() + ".");
     }
   }
 
