@@ -377,17 +377,15 @@ public class FacadeRepository {
     return move.locationChanges(minDate, maxDate);
   }
 
-
   public void newLocationOnNode(String nodeid, LocationNameEntity l) {
     loc.newLocationOnNode(nodeid, l);
   }
-
 
   public ArrayList<ServiceRequestEntity> getOutstandingServRequests() {
     return serv.getOutstandingRequests();
   }
 
-  public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname){
+  public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname) {
     return serv.getRequestAtLocation(longname);
   }
 }
