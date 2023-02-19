@@ -3,10 +3,12 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.MaintenanceAssignedAccepted;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.net.URI;
@@ -36,6 +38,11 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<ServiceRequestEntity, String> requestTypeCol;
   @FXML public TableColumn<ServiceRequestEntity, String> locationCol;
   @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
+  @FXML public TableView<MaintenanceAssignedAccepted> employeeTable;
+  @FXML public TableColumn<MaintenanceAssignedAccepted, String> nameCol;
+  @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
+  @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
+  @FXML private Label date = new Label("hello");
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
@@ -44,10 +51,14 @@ public class HomeController extends MenuController {
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
 
+  private ObservableList<MaintenanceAssignedAccepted> dbTableRowsModel2 =
+      FXCollections.observableArrayList();
+
   @FXML
   public void initialize() throws IOException, InterruptedException {
     grabQuote();
-    dateAndTime();
+    date();
+    time();
     IdNumberHolder userInfo = new IdNumberHolder();
     userInfo = IdNumberHolder.getInstance();
     welcome.setText("Welcome " + userInfo.getName() + "!");
@@ -81,15 +92,31 @@ public class HomeController extends MenuController {
           param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
-      Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
-
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
-
       dbTableRowsModel.addAll(requests);
-
       assignmentsTable.setItems(dbTableRowsModel);
-      session.close();
+
+      nameCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
+      assignedCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getNumAssigned()));
+      acceptedCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getNumAccepted()));
+
+      List<EmployeeEntity> maintenanceEmployees =
+          FacadeRepository.getInstance().getEmployeeByJob("maintenance");
+      List<MaintenanceAssignedAccepted> maa = new ArrayList<MaintenanceAssignedAccepted>();
+      for (EmployeeEntity employee : maintenanceEmployees) {
+        maa.add(new MaintenanceAssignedAccepted(employee.getName()));
+      }
+      System.out.println(maa.size());
+      dbTableRowsModel2.addAll(maa);
+      for (int i = 0; i < maa.size(); i++) {
+        System.out.println(maa.get(i).getName());
+      }
+      System.out.println(dbTableRowsModel2.size());
+      employeeTable.setItems(dbTableRowsModel2);
+
     } else {
       // Code for medical homepage
     }
@@ -114,11 +141,35 @@ public class HomeController extends MenuController {
   }
 
   @FXML
-  public void dateAndTime() throws InterruptedException {
+  public void date() throws InterruptedException {
     Thread thread =
         new Thread(
             () -> {
-              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+              // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("E, MMM dd, yyyy");
+              while (!stop) {
+                LocalDateTime now = LocalDateTime.now();
+                try {
+                  Thread.sleep(1000);
+                } catch (Exception e) {
+                  System.out.print(e);
+                }
+                String currentTimeDate = dtf.format(now);
+                Platform.runLater(
+                    () -> {
+                      date.setText(currentTimeDate);
+                    });
+              }
+            });
+    thread.start();
+  }
+
+  @FXML
+  public void time() throws InterruptedException {
+    Thread thread =
+        new Thread(
+            () -> {
+              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
 
               while (!stop) {
                 LocalDateTime now = LocalDateTime.now();
@@ -130,7 +181,7 @@ public class HomeController extends MenuController {
                 String currentTimeDate = dtf.format(now);
                 Platform.runLater(
                     () -> {
-                      time.setText("Today's Date: " + currentTimeDate);
+                      time.setText(currentTimeDate);
                     });
               }
             });

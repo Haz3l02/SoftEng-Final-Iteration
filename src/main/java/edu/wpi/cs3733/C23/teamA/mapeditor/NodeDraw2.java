@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -157,7 +158,8 @@ public class NodeDraw2 {
     }
   }
 
-  public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, GraphicsContext gc) {
+  public static void drawEdgesOld(
+      List<EdgeEntity> allEdges, double scaleFactor, GraphicsContext gc) {
     gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     gc.setStroke(Color.web("0x224870"));
     gc.setLineWidth(1);
@@ -174,6 +176,27 @@ public class NodeDraw2 {
           updatedCoordsNode1[1],
           updatedCoordsNode2[0],
           updatedCoordsNode2[1]);
+    }
+  }
+
+  public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, AnchorPane ap) {
+    ap.getChildren().clear();
+
+    for (EdgeEntity edge : allEdges) {
+      int[] updatedCoordsNode1 =
+          scaleCoordinates(edge.getNode1().getXcoord(), edge.getNode1().getYcoord(), scaleFactor);
+      int[] updatedCoordsNode2 =
+          scaleCoordinates(edge.getNode2().getXcoord(), edge.getNode2().getYcoord(), scaleFactor);
+
+      // make line
+      Line currentLine =
+          new Line(
+              updatedCoordsNode1[0],
+              updatedCoordsNode1[1],
+              updatedCoordsNode2[0],
+              updatedCoordsNode2[1]);
+      currentLine.setStroke(Color.web("0x224870"));
+      ap.getChildren().add(currentLine);
     }
   }
 }
