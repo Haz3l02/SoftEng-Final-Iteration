@@ -15,7 +15,7 @@
 
 <BorderPane styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.LoginController">
    <left>
-      <VBox prefHeight="500.0" prefWidth="525.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="500.0" prefWidth="360.0" BorderPane.alignment="CENTER">
          <children>
             <StackPane opacity="0.85" prefHeight="97.0" prefWidth="389.0" style="-fx-background-color: #f6bd3a; -fx-background-radius: 15;">
                <children>
@@ -50,12 +50,12 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="314.0" prefWidth="364.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Login" underline="true">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello!">
                                  <font>
                                     <Font name="Verdana" size="48.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="25.0" />
+                                    <Insets bottom="15.0" />
                                  </VBox.margin>
                               </Text>
                               <MFXTextField fx:id="usernameTextField" floatMode="DISABLED" prefColumnCount="1" prefHeight="37.0" prefWidth="246.0" promptText="Username" style="-fx-border-radius: 15; -fx-background-radius: 15;">
