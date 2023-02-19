@@ -11,8 +11,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
@@ -89,13 +87,7 @@ public class SanitationController extends ServiceRequestController {
   }
 
   @FXML
-  public void switchToConfirmationScene(ActionEvent event) {
-    Navigation.navigate(Screen.CONFIRMATION);
-  }
-
-  @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
-
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null

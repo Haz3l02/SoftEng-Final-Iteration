@@ -39,6 +39,7 @@ public class PathfindingController extends MenuController {
   @FXML private MFXCheckbox avoidStairsCheckbox;
   @FXML private MFXToggleButton toggleLocationNames;
   @FXML private MFXToggleButton toggleServiceRequests;
+  @FXML private MFXToggleButton toggleUpcomingMoves;
 
   // canvases
   @FXML private Canvas floorL1Canvas;
@@ -84,9 +85,12 @@ public class PathfindingController extends MenuController {
 
   // objects needed for the maps
   private GraphicsContext[] gcs = new GraphicsContext[5];
-  private double SCALE_FACTOR = 0.135;
+  private final double SCALE_FACTOR = 0.135;
 
-  // database objects
+  // popup stuff (move elsewhere?)
+  @FXML private MFXButton okButton; // return true from popup
+  @FXML private MFXButton cancelButton; // return false from popup
+  @FXML private Text popupText; // set the location name in the rest of the text
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -205,24 +209,24 @@ public class PathfindingController extends MenuController {
   public void fillStartLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
 
-    List<NodeEntity> allNodesStartFloor =
-        FacadeRepository.getInstance()
-            .getNodesOnFloor(floor.getTableString()); // get all nodes from Database
+    List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
+    System.out.println(moveEntities.size());
 
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
-    LocationNameEntity locNameEnt;
-    MoveEntity moveEntity;
 
-    for (NodeEntity n : allNodesStartFloor) {
-      // THIS WILL NEED TO CHANGE IN ITERATION 3
-      moveEntity =
-          FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
-      locNameEnt = moveEntity.getLocationName();
+    LocationNameEntity locNameEnt;
+    NodeEntity node;
+
+    for (MoveEntity m : moveEntities) {
+      locNameEnt = m.getLocationName();
+      node = m.getNode();
       // if the LocationNameEntity isn't null, add it to the dropdown.
       // If it is null, it's a node w/ no location attached, and doesn't need to be there
-      if (locNameEnt != null) {
-        idsFloor.add(n.getNodeid()); // get nodeId
+      if (locNameEnt != null
+          && node.getFloor().equals(floor.getTableString())
+          && !idsFloor.contains(node.getNodeid())) {
+        idsFloor.add(node.getNodeid()); // get nodeId
         namesFloor.add(locNameEnt.getLongname()); // get longName
       }
     }
@@ -239,26 +243,25 @@ public class PathfindingController extends MenuController {
   public void fillEndLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(endFloorBox.getValue()));
 
-    List<NodeEntity> allNodesStartFloor =
-        FacadeRepository.getInstance()
-            .getNodesOnFloor(floor.getTableString()); // get all nodes from Database
+    List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
+    System.out.println(moveEntities.size());
 
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
-    LocationNameEntity locNameEnt;
-    MoveEntity moveEntity;
 
-    for (NodeEntity n : allNodesStartFloor) {
-      // THIS WILL NEED TO CHANGE IN ITERATION 3
-      moveEntity =
-          FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
-      locNameEnt = moveEntity.getLocationName();
-      // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
-      // location attached
-      if (locNameEnt != null && !idsFloor.contains(n.getNodeid())) {
-        idsFloor.add(n.getNodeid()); // get nodeId
+    LocationNameEntity locNameEnt;
+    NodeEntity node;
+
+    for (MoveEntity m : moveEntities) {
+      locNameEnt = m.getLocationName();
+      node = m.getNode();
+      // if the LocationNameEntity isn't null, add it to the dropdown.
+      // If it is null, it's a node w/ no location attached, and doesn't need to be there
+      if (locNameEnt != null
+          && node.getFloor().equals(floor.getTableString())
+          && !idsFloor.contains(node.getNodeid())) {
+        idsFloor.add(node.getNodeid()); // get nodeId
         namesFloor.add(locNameEnt.getLongname()); // get longName
-        // System.out.println(n.getNodeid());
       }
     }
 
@@ -275,9 +278,9 @@ public class PathfindingController extends MenuController {
     int endIndex = endLocBox.getSelectedIndex();
     int algoIndex = algosBox.getSelectedIndex();
 
-    // if neither location box or the algorithm box actually contains any info, don't do anything
+    // if the locBoxes or algosBox are empty, don't do anything
     if ((startIndex == -1 && endIndex == -1) || algoIndex == -1) {
-      // then don't run anything
+      // then don't run anything :)
     } else {
       // get the location names
       String startLocName = startLocBox.getValue();
@@ -297,13 +300,13 @@ public class PathfindingController extends MenuController {
             String startID = movesInNextWeek.get(m).getNode().getNodeid();
             String endID = m.getNode().getNodeid();
 
-            System.out.println(startID);
-            System.out.println(endID);
-            System.out.println(movesInNextWeek.get(m).getMovedate());
-            System.out.println(m.getMovedate());
+            // System.out.println(startID);
+            // System.out.println(endID);
+            // System.out.println(movesInNextWeek.get(m).getMovedate());
+            // System.out.println(m.getMovedate());
 
+            // TODO if/else inside popup; if yes, execute and break- also add message
             generatePathFromMovePopup(startID, endID);
-            // if/else inside popup; if yes, execute and break
             break; // so that it doesn't check the rest of the moves
           }
         }

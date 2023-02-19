@@ -195,7 +195,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
   /**
    * Finds a list of moves matching node id that happened on or before certain date
    *
-   * @param id
+   * @param longname
    * @param date
    * @return
    */
@@ -224,6 +224,19 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
         .sorted((move1, move2) -> move2.getMovedate().compareTo(move1.getMovedate()))
         .toList();*/
   }
+
+  /*
+  // todo I want to use this but might not be able to
+  public List<MoveEntity> locationRecordPathfinding(String longname, LocalDate date) {
+    return moves.stream()
+            .filter(
+                    moveEntity ->
+                            (moveEntity.getLocationName().getLongname().equalsIgnoreCase(longname)
+                                    && moveEntity.getMovedate().compareTo(date) <= 0))
+            .sorted((move1, move2) -> move2.getMovedate().compareTo(move1.getMovedate()))
+            .toList();
+  }
+   */
 
   public List<MoveEntity> allMostRecent(LocalDate date) {
     List<MoveEntity> m = new ArrayList<>();
