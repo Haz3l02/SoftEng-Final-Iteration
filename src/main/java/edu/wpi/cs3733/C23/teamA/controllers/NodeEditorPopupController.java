@@ -9,6 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 public class NodeEditorPopupController extends NavigationController {
 
@@ -18,6 +20,8 @@ public class NodeEditorPopupController extends NavigationController {
   private @FXML MFXComboBox BuildingBox;
   @FXML MFXButton createNodeButton;
   @FXML MFXButton saveButton;
+  static ImageView mainImageView;
+  static AnchorPane mainAnchorPane;
 
   public void initialize() {
     populateStuff();
@@ -54,26 +58,14 @@ public class NodeEditorPopupController extends NavigationController {
             + BuildingBox.getText()
             + " "
             + FloorBox.getText());
+
     MapEditorController.mapEditor.createNode(
-        xCoord.getText(), yCoord.getText(), BuildingBox.getText(), FloorBox.getText());
-
-    /*
-    NodeEntity newNode = new NodeEntity();
-    newNode.setXcoord(Integer.parseInt(XCord.getText()));
-    newNode.setYcoord(Integer.parseInt(YCord.getText()));
-    String tableString = Floor.tableStringFromExtendedString(FloorBox.getText());
-    newNode.setFloor(tableString);
-    newNode.setBuilding(BuildingBox.getText());
-    newNode.setNodeid(
-        MapEditorController.makeNewNodeID(
-            newNode.getFloor(), newNode.getXcoord(), newNode.getYcoord()));
-
-    // Add new Node to database //
-    FacadeRepository.getInstance().addNode(newNode);
-
-    MapEditorController.hideLastSelected("node", newNode);
-
-     */
+        xCoord.getText(),
+        yCoord.getText(),
+        BuildingBox.getText(),
+        FloorBox.getText(),
+        mainImageView,
+        mainAnchorPane);
   }
 
   @FXML
@@ -84,4 +76,9 @@ public class NodeEditorPopupController extends NavigationController {
 
   @FXML
   public void deleteSelectedNode(ActionEvent actionEvent) {}
+
+  public void updateFXMLStuff(AnchorPane mainAnchorPane, ImageView mainImageView) {
+    NodeEditorPopupController.mainAnchorPane = mainAnchorPane;
+    NodeEditorPopupController.mainImageView = mainImageView;
+  }
 }

@@ -34,13 +34,13 @@ import org.controlsfx.control.PopOver;
 public class MapEditorController extends MenuController {
 
   // FXML Elements
-  @FXML private ImageView mainImageView;
-  @FXML private GesturePane mainGesturePane;
-  @FXML private AnchorPane mainAnchorPane;
-  @FXML private AnchorPane edgeAnchorPane;
-  @FXML private StackPane mainStackPane;
-  @FXML private AnchorPane mainTextPane = new AnchorPane();
-  @FXML private Canvas mainCanvas = new Canvas();
+  @FXML ImageView mainImageView;
+  @FXML GesturePane mainGesturePane;
+  @FXML AnchorPane mainAnchorPane;
+  @FXML AnchorPane edgeAnchorPane;
+  @FXML StackPane mainStackPane;
+  @FXML AnchorPane mainTextPane = new AnchorPane();
+  @FXML Canvas mainCanvas = new Canvas();
 
   // Buttons to switch pages
   @FXML MFXButton l1Button;
@@ -200,11 +200,18 @@ public class MapEditorController extends MenuController {
    * Method that creates a new node on click "Create" with CreateNodeButton Adds into database and
    * draws on map
    */
-  public void createNode(String xCoord, String yCoord, String building, String floor)
-      throws InterruptedException {
+  public void createNode(
+      String xCoord,
+      String yCoord,
+      String building,
+      String floor,
+      ImageView mainImageView,
+      AnchorPane mainAnchorPane) {
+    System.out.println(mainAnchorPane == null); // remove
     // hide popups
     nodeEditorPopup.hide();
 
+    System.out.println(mainAnchorPane == null); // remove
     // Create a new node entity
     NodeEntity newNode = new NodeEntity();
 
@@ -214,7 +221,7 @@ public class MapEditorController extends MenuController {
     newNode.setFloor(tableString);
     newNode.setBuilding(building);
     newNode.setNodeid(makeNewNodeID(newNode.getFloor(), newNode.getXcoord(), newNode.getYcoord()));
-
+    System.out.println(mainAnchorPane == null); // remove
     // Add new Node to database //
     FacadeRepository.getInstance().addNode(newNode);
 
@@ -247,7 +254,8 @@ public class MapEditorController extends MenuController {
     System.out.println(mainAnchorPane == null);
 
     // draw node
-    // NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this); // TODO: fix this
+    assert mainAnchorPane != null;
+    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this); // TODO: fix this
   }
 
   public void editNode(ActionEvent event) {
@@ -430,16 +438,24 @@ public class MapEditorController extends MenuController {
 
   @FXML
   public void popupNodeEditor(ActionEvent event) throws IOException {
-
+    System.out.println(mainAnchorPane == null);
     System.out.println("popup node editor");
 
     FXMLLoader nodeLoader =
         new FXMLLoader(Main.class.getResource("views/NodeEditorPopupFXML.fxml"));
+    System.out.println(mainAnchorPane == null);
 
     // popup stuff
     nodeEditorPopup = new PopOver(nodeLoader.load());
-    nodeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+    System.out.println(mainAnchorPane == null);
 
+    nodeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+    System.out.println(mainAnchorPane == null);
+
+    NodeEditorPopupController nodeEditorPopupController = new NodeEditorPopupController();
+    NodeEditorPopupController.mainImageView = mainImageView;
+    NodeEditorPopupController.mainAnchorPane = mainAnchorPane;
+    // nodeEditorPopupController.updateFXMLStuff(mainAnchorPane, mainImageView);
     // NodeEditorPopupController.populateStuff();
   }
 
