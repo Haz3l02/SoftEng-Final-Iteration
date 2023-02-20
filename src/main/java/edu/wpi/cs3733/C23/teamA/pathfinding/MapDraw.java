@@ -207,17 +207,5 @@ public class MapDraw {
         anchorPane.getChildren().add(rect);
       }
     }
-
-
-
-    //    for (NodeEntity node : allNodesOnFloor) {
-    //      int[] updatedCoords = scaleCoordinates(node.getXcoord(), node.getYcoord(), scaleFactor);
-    //
-    //      Rectangle rect =
-    //              new Rectangle(updatedCoords[0] + 5, updatedCoords[1] - 5, radius + 1, radius +
-    // 1);
-    //      rect.setFill(Color.web("0x000000"));
-    //      anchorPane.getChildren().add(rect);
-    //    }
   }
 }
