@@ -125,7 +125,7 @@ public class EmployeeController {
 
   @FXML
   public void delete(ActionEvent event) {
-    String currentRowId = IDNumBox.getText();
+    int currentRowId = Integer.parseInt(IDBoxSaver.getText());
     FacadeRepository.getInstance().deleteEmployee(currentRowId);
     reloadData();
   }

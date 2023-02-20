@@ -52,7 +52,7 @@ public class SecurityController extends ServiceRequestController {
       SecurityRequestEntity editRequest =
           FacadeRepository.getInstance().getSecurityRequest(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
-      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      IDNum.setText(editRequest.getEmployee().getHospitalid());
       requestsBox.setText(editRequest.getRequestType().requestType);
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
@@ -70,7 +70,7 @@ public class SecurityController extends ServiceRequestController {
       SecurityRequestEntity editRequest =
           FacadeRepository.getInstance().getSecurityRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
-      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      IDNum.setText(editRequest.getEmployee().getHospitalid());
       requestsBox.setText(editRequest.getRequestType().requestType);
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
@@ -122,7 +122,7 @@ public class SecurityController extends ServiceRequestController {
         FacadeRepository.getInstance().updateSecurityRequest(submission.getRequestid(), submission);
 
       } else {
-        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 

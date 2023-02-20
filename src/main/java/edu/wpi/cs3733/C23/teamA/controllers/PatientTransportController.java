@@ -51,7 +51,7 @@ public class PatientTransportController extends ServiceRequestController {
       PatientTransportRequestEntity editPatientRequest =
           FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
       nameBox.setText(editPatientRequest.getName());
-      IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
+      IDNum.setText(editPatientRequest.getEmployee().getHospitalid());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editPatientRequest.getDescription());
       pNameBox.setText(editPatientRequest.getPatientName());
@@ -64,7 +64,7 @@ public class PatientTransportController extends ServiceRequestController {
       PatientTransportRequestEntity editPatientRequest =
           FacadeRepository.getInstance().getPatientTransport(acceptTheForm.getRequestID());
       nameBox.setText(editPatientRequest.getName());
-      IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
+      IDNum.setText(editPatientRequest.getEmployee().getHospitalid());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editPatientRequest.getDescription());
       pNameBox.setText(editPatientRequest.getPatientName());
@@ -121,7 +121,7 @@ public class PatientTransportController extends ServiceRequestController {
         submission.setMoveTo(loc2);
         submission.setEquipment(equipmentBox.getText());
       } else {
-        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
         // IDNum.getText()
         LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getText());
         LocationNameEntity moveTo =

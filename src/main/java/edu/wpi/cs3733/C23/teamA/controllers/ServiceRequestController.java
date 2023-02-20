@@ -30,6 +30,7 @@ public abstract class ServiceRequestController extends MenuController {
   @FXML protected MFXFilterComboBox<String> locationBox;
   @FXML protected Text reminder;
   @FXML protected StackPane reminderPane;
+  protected int employeeID;
   protected UrgencyLevel urgent;
 
   @FXML
@@ -37,6 +38,7 @@ public abstract class ServiceRequestController extends MenuController {
     IdNumberHolder holder = IdNumberHolder.getInstance();
     String name = holder.getName();
     String id = holder.getId();
+    employeeID = holder.getEmployeeID();
 
     if (reminder != null) {
       reminder.setVisible(false);
