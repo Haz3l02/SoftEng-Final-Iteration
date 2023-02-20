@@ -127,7 +127,7 @@ public class SanitationController extends ServiceRequestController {
                 urgent,
                 ServiceRequestEntity.RequestType.SANITATION,
                 Status.NEW,
-                "Unassigned",
+                null,
                 category);
         FacadeRepository.getInstance().addSanitationRequest(submission);
       }

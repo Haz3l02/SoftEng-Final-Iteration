@@ -43,7 +43,7 @@ public class SecurityRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
+      EmployeeEntity employeeassigned,
       RequestCategory assistance,
       String secphone,
       Timestamp date) {
@@ -70,7 +70,7 @@ public class SecurityRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
+      EmployeeEntity employeeassigned,
       RequestCategory assistance,
       String secphone) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);

@@ -138,7 +138,7 @@ public class SecurityController extends ServiceRequestController {
                 urgent,
                 ServiceRequestEntity.RequestType.SECURITY,
                 Status.NEW,
-                "Unassigned",
+                null,
                 assistance,
                 phone.getText());
         FacadeRepository.getInstance().addSecurityRequest(submission);

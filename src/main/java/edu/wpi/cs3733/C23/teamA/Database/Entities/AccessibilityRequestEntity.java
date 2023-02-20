@@ -43,7 +43,7 @@ public class AccessibilityRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
+      EmployeeEntity employeeassigned,
       Subject subject,
       String disability,
       String accommodation,
@@ -72,7 +72,7 @@ public class AccessibilityRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
+      EmployeeEntity employeeassigned,
       Subject subject,
       String disability,
       String accommodation) {
