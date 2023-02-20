@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 
@@ -174,5 +176,46 @@ public class MapDraw {
     for (int i = 0; i < 5; i++) {
       aps[i].getChildren().add(groups[i]);
     }
+  }
+
+  public static void drawServiceRequestIcons(List<NodeEntity> allNodesOnFloor, AnchorPane anchorPane, double scaleFactor, String floor) {
+    anchorPane.getChildren().clear();
+    List<MoveEntity> moves = FacadeRepository.getInstance().getAllMove();
+
+    for (MoveEntity move : moves) {
+      if (FacadeRepository.getInstance()
+                  .getRequestAtLocation(move.getLocationName().getLongname())
+                  .size()
+              > 0
+          && floor.equals(move.getNode().getFloor())) {
+        int[] updatedCoords =
+            scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
+
+
+        Rectangle rect =
+            new Rectangle(updatedCoords[0] + 5, updatedCoords[1] - 5, radius + 1, radius + 1);
+        rect.setFill(Color.web("0x000000"));
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            rect.setFill(Color.web("0x00FF00"));
+            System.out.println("clicked");
+          }
+        };
+        anchorPane.getChildren().add(rect);
+      }
+    }
+
+
+
+    //    for (NodeEntity node : allNodesOnFloor) {
+    //      int[] updatedCoords = scaleCoordinates(node.getXcoord(), node.getYcoord(), scaleFactor);
+    //
+    //      Rectangle rect =
+    //              new Rectangle(updatedCoords[0] + 5, updatedCoords[1] - 5, radius + 1, radius +
+    // 1);
+    //      rect.setFill(Color.web("0x000000"));
+    //      anchorPane.getChildren().add(rect);
+    //    }
   }
 }
