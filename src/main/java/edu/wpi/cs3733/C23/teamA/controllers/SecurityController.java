@@ -5,7 +5,6 @@ import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusControlle
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.enums.RequestCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -52,7 +51,7 @@ public class SecurityController extends ServiceRequestController {
       SecurityRequestEntity editRequest =
           FacadeRepository.getInstance().getSecurityRequest(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
-      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
       requestsBox.setText(editRequest.getRequestType().requestType);
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
@@ -70,7 +69,7 @@ public class SecurityController extends ServiceRequestController {
       SecurityRequestEntity editRequest =
           FacadeRepository.getInstance().getSecurityRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
-      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
       requestsBox.setText(editRequest.getRequestType().requestType);
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
@@ -122,7 +121,8 @@ public class SecurityController extends ServiceRequestController {
         FacadeRepository.getInstance().updateSecurityRequest(submission.getRequestid(), submission);
 
       } else {
-        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        EmployeeEntity person =
+            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 

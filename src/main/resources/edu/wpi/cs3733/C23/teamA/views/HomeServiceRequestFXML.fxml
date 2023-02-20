@@ -89,7 +89,7 @@
                                  <graphic>
                                     <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../OneDrive%20-%20Worcester%20Polytechnic%20Institute%20(wpi.edu)/Pictures/noun-spray-4351673.png" />
+                                          <Image url="@../assets/icons/speaker.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -101,7 +101,7 @@
                                  <graphic>
                                     <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../OneDrive%20-%20Worcester%20Polytechnic%20Institute%20(wpi.edu)/Pictures/noun-computer-2787331.png" />
+                                          <Image url="@../assets/icons/computer.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -113,7 +113,7 @@
                                  <graphic>
                                     <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../OneDrive%20-%20Worcester%20Polytechnic%20Institute%20(wpi.edu)/Pictures/noun-police-3883315.png" />
+                                          <Image url="@../assets/icons/security.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -132,7 +132,7 @@
                                  <graphic>
                                     <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../Downloads/noun-wheelchair-5463449.png" />
+                                          <Image url="@../assets/icons/wheelchair.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -144,19 +144,19 @@
                                  <graphic>
                                     <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../Downloads/noun-wheelchair-5463449.png" />
+                                          <Image url="@../assets/icons/wheelchair.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </MFXButton>
-                              <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" prefHeight="170.0" prefWidth="556.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Audio/Visual Request" textAlignment="CENTER" wrapText="true">
+                              <MFXButton buttonType="RAISED" graphicTextGap="15.0" maxHeight="-Infinity" onAction="#switchToAudioVisual" prefHeight="170.0" prefWidth="556.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A; -fx-background-radius: 30;" styleClass="BioHaz_container" text="Audio/Visual Request" textAlignment="CENTER" wrapText="true">
                                  <font>
                                     <Font size="45.0" />
                                  </font>
                                  <graphic>
                                     <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../Downloads/noun-speaker-1024704.png" />
+                                          <Image url="@../assets/icons/speaker.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

@@ -180,7 +180,6 @@ public class MapEditorController extends MenuController {
     Pane currentNodePane = NodeDraw2.getSelectedPane();
     String id = currentNode.getNodeid();
     String currentFloor = currentNode.getFloor();
-
     // Database //
     FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
     // FacadeRepository.getInstance().deleteNode(id); // delete from database

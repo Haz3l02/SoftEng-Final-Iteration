@@ -33,7 +33,10 @@
 <!--    <mapping resource="SecurityrequestEntity.hbm.xml"/>-->
     <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity"/>
     <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.PatientTransportRequestEntity"/>
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.AccessibilityRequestEntity"/>
 <!--    <mapping resource="ServicerequestEntity.hbm.xml"/>-->
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.AudioVisualRequestEntity"/>
+    <!--    <mapping resource="ServicerequestEntity.hbm.xml"/>-->
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
