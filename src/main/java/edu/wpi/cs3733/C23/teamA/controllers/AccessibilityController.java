@@ -53,9 +53,10 @@ public class AccessibilityController extends ServiceRequestController {
 
       nameBox.setText(editRequest.getName());
       IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
-      subjectBox.setValue(editRequest.getSubject());
-      locationBox.setValue(editRequest.getLocation().getLongname());
-      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
+      // had issues with setValue()
+      subjectBox.setText(editRequest.getSubject());
+      locationBox.setText(editRequest.getLocation().getLongname());
+      urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       disabilityDescBox.setText(editRequest.getDisability());
       accommodationBox.setText(editRequest.getAccommodation());
@@ -75,9 +76,10 @@ public class AccessibilityController extends ServiceRequestController {
           FacadeRepository.getInstance().getAccessabilityRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
-      subjectBox.setValue(editRequest.getSubject());
-      locationBox.setValue(editRequest.getLocation().getLongname());
-      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
+      // had issues w/ setValue()
+      subjectBox.setText(editRequest.getSubject());
+      locationBox.setText(editRequest.getLocation().getLongname());
+      urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       disabilityDescBox.setText(editRequest.getDisability());
       accommodationBox.setText(editRequest.getAccommodation());

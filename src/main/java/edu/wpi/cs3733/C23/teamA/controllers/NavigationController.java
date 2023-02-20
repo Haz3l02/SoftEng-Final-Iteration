@@ -86,6 +86,11 @@ public abstract class NavigationController {
   }
 
   @FXML
+  public void switchToAccessibility(javafx.event.ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.ACCESSIBILITY);
+  }
+
+  @FXML
   public void switchToComputer(javafx.event.ActionEvent event) throws IOException {
     Navigation.navigate(Screen.COMPUTER);
   }
