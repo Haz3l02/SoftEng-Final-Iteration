@@ -212,25 +212,6 @@ public class NodeDraw2 {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, AnchorPane ap) {
     ap.getChildren().clear();
 
