@@ -419,7 +419,7 @@ public class FacadeRepository {
     serv.updateStatus(status, ID);
   }
 
-  public void updateServEmployee(String employee, Integer ID) {
+  public void updateServEmployee(EmployeeEntity employee, Integer ID) {
     serv.updateEmployee(employee, ID);
   }
 

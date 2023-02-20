@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.PatientTransportRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -186,7 +187,7 @@ public class PatientTransportimpl extends Observable
     }
   }
 
-  public void updateEmployee(Integer ID, String employee) {
+  public void updateEmployee(Integer ID, EmployeeEntity employee) {
     ListIterator<PatientTransportRequestEntity> li = patrequests.listIterator();
     while (li.hasNext()) {
       PatientTransportRequestEntity sec = li.next();

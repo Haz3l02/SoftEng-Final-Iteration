@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -240,12 +241,13 @@ public class ServiceRequestImpl extends Observable
     PatientTransportimpl.getInstance().updateStatus(ID, status);
     SecurityRequestImpl.getInstance().updateStatus(ID, status);
     SecurityRequestImpl.getInstance().updateStatus(ID, status);
+    AccessabilityImpl.getInstance().updateStatus(ID, status);
 
     tx.commit();
     session.close();
   }
 
-  public void updateEmployee(String employee, Integer ID) {
+  public void updateEmployee(EmployeeEntity employee, Integer ID) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
@@ -262,6 +264,7 @@ public class ServiceRequestImpl extends Observable
     PatientTransportimpl.getInstance().updateEmployee(ID, employee);
     SecurityRequestImpl.getInstance().updateEmployee(ID, employee);
     SecurityRequestImpl.getInstance().updateEmployee(ID, employee);
+    AccessabilityImpl.getInstance().updateEmployee(ID, employee);
     services.add(serv);
 
     tx.commit();

@@ -82,7 +82,7 @@ public abstract class ServiceRequestController extends MenuController {
 
   @FXML
   public void rejectRequest(ActionEvent event) throws IOException {
-    FacadeRepository.getInstance().updateServEmployee("Unassigned", acceptTheForm.getRequestID());
+    FacadeRepository.getInstance().updateServEmployee(null, acceptTheForm.getRequestID());
     FacadeRepository.getInstance().updateStatusOfServ(Status.NEW, acceptTheForm.getRequestID());
     switchToServiceRequestStatus(event);
   }
