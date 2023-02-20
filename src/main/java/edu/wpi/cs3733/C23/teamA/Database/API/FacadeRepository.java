@@ -176,7 +176,7 @@ public class FacadeRepository {
     edge.delete(id);
   }
 
-  public void deleteEmployee(String id) {
+  public void deleteEmployee(Integer id) {
     emp.delete(id);
   }
 
@@ -278,7 +278,7 @@ public class FacadeRepository {
     return edge.get(id);
   }
 
-  public EmployeeEntity getEmployee(String id) {
+  public EmployeeEntity getEmployee(Integer id) {
     return emp.get(id);
   }
 
@@ -324,7 +324,7 @@ public class FacadeRepository {
     edge.update(id, c);
   }
 
-  public void updateEmployee(String id, EmployeeEntity c) {
+  public void updateEmployee(Integer id, EmployeeEntity c) {
     emp.update(id, c);
   }
 

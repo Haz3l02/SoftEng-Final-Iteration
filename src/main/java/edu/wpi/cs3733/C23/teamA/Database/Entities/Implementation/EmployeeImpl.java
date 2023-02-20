@@ -18,7 +18,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
 
-public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEntity, String> {
+public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEntity, Integer> {
   private static final EmployeeImpl instance = new EmployeeImpl();
 
   private List<EmployeeEntity> employees;
@@ -58,12 +58,12 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     fileWriter.close();
   }
 
-  public void update(String ID, EmployeeEntity obj) {
+  public void update(Integer ID, EmployeeEntity obj) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
     employees.stream()
-        .filter(employee -> employee.getEmployeeid().equals(ID))
+        .filter(employee -> employee.getEmployeeid()==ID)
         .toList()
         .forEach(
             employee -> {
@@ -88,14 +88,15 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     //                + "'")
     //        .executeUpdate();
 
-    EmployeeEntity emp = session.get(EmployeeEntity.class, obj);
+    EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
+
     emp.setName(obj.getName());
     emp.setPassword(obj.getPassword());
-    emp.setEmployeeid(obj.getEmployeeid());
+    emp.setHospitalid(obj.getHospitalid());
     emp.setUsername(obj.getUsername());
     emp.setJob(obj.getJob());
 
-    if (ID.equals(obj.getEmployeeid())) {
+    if (ID==obj.getEmployeeid()) {
       ComputerRequestImpl.getInstance().refresh();
       PatientTransportimpl.getInstance().refresh();
       SecurityRequestImpl.getInstance().refresh();
@@ -113,7 +114,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     ArrayList<String> info = new ArrayList<>();
     for (EmployeeEntity emp : employees) {
       if (emp.getUsername().equals(user) && emp.getPassword().equals(pass)) {
-        info.add(emp.getEmployeeid());
+        info.add(emp.getHospitalid());
         info.add(emp.getJob());
         info.add(emp.getName());
         return info;
@@ -182,11 +183,11 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
    *
    * @param e EmployeeId
    */
-  public void delete(String e) {
+  public void delete(Integer e) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     employees.stream()
-        .filter(employee -> employee.getEmployeeid().equals(e))
+        .filter(employee -> employee.getEmployeeid()==(e))
         .toList()
         .forEach(
             employee -> {
@@ -215,9 +216,9 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     return theList;
   }
 
-  public EmployeeEntity get(String ID) {
+  public EmployeeEntity get(Integer ID) {
     return employees.stream()
-        .filter(employee -> employee.getEmployeeid().equals(ID))
+        .filter(employee -> employee.getEmployeeid()==(ID))
         .findFirst()
         .orElseThrow();
   }

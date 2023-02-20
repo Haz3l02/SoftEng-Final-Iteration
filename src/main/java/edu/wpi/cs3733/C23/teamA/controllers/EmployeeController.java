@@ -34,6 +34,8 @@ import org.controlsfx.control.PopOver;
 public class EmployeeController {
 
   @FXML private TableView<EmployeeEntity> employeeTable;
+  @FXML public TableColumn<EmployeeEntity, Integer> IDCol;
+
   @FXML public TableColumn<EmployeeEntity, String> nameCol;
   @FXML public TableColumn<EmployeeEntity, String> employeeCol;
   @FXML public TableColumn<EmployeeEntity, String> usernameCol;
@@ -42,6 +44,8 @@ public class EmployeeController {
 
   // text boxes for editing
   @FXML public MFXTextField IDNumBox;
+  @FXML public Text IDBoxSaver;
+
   @FXML public MFXTextField nameBox;
   @FXML public MFXTextField usernameBox;
   @FXML public MFXTextField passwordBox;
@@ -71,8 +75,9 @@ public class EmployeeController {
     employeeData = FacadeRepository.getInstance().getAllEmployee();
 
     if (nameCol != null) {
+      IDCol.setCellValueFactory(new PropertyValueFactory<>("employeeid"));
       nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-      employeeCol.setCellValueFactory(new PropertyValueFactory<>("employeeid"));
+      employeeCol.setCellValueFactory(new PropertyValueFactory<>("hospitalid"));
       usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
       passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
       jobCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getJob()));
@@ -92,8 +97,9 @@ public class EmployeeController {
     EmployeeEntity clickedEmployeeTableRow = employeeTable.getSelectionModel().getSelectedItem();
 
     if (clickedEmployeeTableRow != null) {
+      IDBoxSaver.setText(String.valueOf(clickedEmployeeTableRow.getEmployeeid()));
       nameBox.setText(String.valueOf(clickedEmployeeTableRow.getName()));
-      IDNumBox.setText(String.valueOf(clickedEmployeeTableRow.getEmployeeid()));
+      IDNumBox.setText(String.valueOf(clickedEmployeeTableRow.getHospitalid()));
       usernameBox.setText(String.valueOf(clickedEmployeeTableRow.getUsername()));
       passwordBox.setText(String.valueOf(clickedEmployeeTableRow.getPassword()));
       jobBox.setValue(String.valueOf(clickedEmployeeTableRow.getJob()));
@@ -148,16 +154,16 @@ public class EmployeeController {
 
       ObservableList<EmployeeEntity> currentTableData = employeeTable.getItems();
 
-      String currentRowId = IDNumBox.getText();
+      int currentRowId = Integer.parseInt(IDBoxSaver.getText());
 
       for (EmployeeEntity employees : currentTableData) {
-        if (employees.getEmployeeid().equals(currentRowId)) {
+        if (employees.getEmployeeid() == (currentRowId)) {
 
           employees.setName(nameBox.getText());
           employees.setUsername(usernameBox.getText());
           employees.setPassword(passwordBox.getText());
           employees.setJob(Job.value(jobBox.getValue()).getJob());
-          employees.setEmployeeid(IDNumBox.getText());
+          employees.setHospitalid(IDNumBox.getText());
           FacadeRepository.getInstance().updateEmployee(currentRowId, employees);
           employeeTable.setItems(currentTableData);
           reloadData();
