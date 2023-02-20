@@ -5,7 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.controllers.MapEditorController.mapEditor
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
+import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.LocationType;
@@ -54,7 +54,7 @@ public class LocationEditorPopupController {
     locNameEntity.setLongname(longNameBox.getText());
     locNameEntity.setShortname(shortNameBox.getText());
     locNameEntity.setLocationtype(locTypeBox.getSelectedItem());
-    selected = NodeDraw2.getSelected();
+    selected = NodeDraw.getSelected();
     FacadeRepository.getInstance().newLocationOnNode(selected.getNodeid(), locNameEntity);
     // longNameBox.setText();
     System.out.println("done");
@@ -94,7 +94,7 @@ public class LocationEditorPopupController {
 
   @FXML
   public void deleteLocation(ActionEvent actionEvent) {
-    selected = NodeDraw2.getSelected();
+    selected = NodeDraw.getSelected();
     System.out.println(
         FacadeRepository.getInstance().moveMostRecentLoc(selected.getNodeid()).getLongname());
     FacadeRepository.getInstance()

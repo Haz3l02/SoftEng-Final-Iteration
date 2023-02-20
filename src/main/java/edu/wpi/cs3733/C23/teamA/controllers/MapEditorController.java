@@ -5,7 +5,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.Main;
-import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
+import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
@@ -30,6 +30,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import lombok.Getter;
 import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
@@ -38,7 +39,7 @@ public class MapEditorController extends MenuController {
 
   // FXML Elements
   @FXML ImageView mainImageView = new ImageView();
-  @FXML GesturePane mainGesturePane = new GesturePane();
+  @FXML @Getter GesturePane mainGesturePane = new GesturePane();
   @FXML AnchorPane mainAnchorPane = new AnchorPane();
   @FXML AnchorPane edgeAnchorPane = new AnchorPane();
   @FXML StackPane mainStackPane = new StackPane();
@@ -109,10 +110,10 @@ public class MapEditorController extends MenuController {
             });
     mapEditor = new MapEditorController();
 
-    if (!(NodeDraw2.getSelected() == null)) {
+    if (!(NodeDraw.getSelected() == null)) {
       longNameBox.setText(
           FacadeRepository.getInstance()
-              .moveMostRecentLoc(NodeDraw2.getSelected().getNodeid())
+              .moveMostRecentLoc(NodeDraw.getSelected().getNodeid())
               .getLongname());
     }
     mainAnchorPane.setPickOnBounds(false);
@@ -140,15 +141,15 @@ public class MapEditorController extends MenuController {
    * @param floor is the String of the floor's name in tableview either "L1", "L2", "1", "2", "3"
    */
   private void initializeFloorMap(String floor) {
-    NodeDraw2.setSelectedPane(null);
+    NodeDraw.setSelectedPane(null);
     List<NodeEntity> allNodes = FacadeRepository.getInstance().getNodesOnFloor(floor);
     List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(floor);
     Image image = ImageLoader.getImage(floor);
 
     mainImageView.setImage(image);
-    NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, edgeAnchorPane);
-    NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
+    NodeDraw.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
+    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, edgeAnchorPane);
+    NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
   }
 
   //  public void addLocation(ActionEvent event) {
@@ -176,8 +177,8 @@ public class MapEditorController extends MenuController {
    * @throws IOException
    */
   public void deleteSelectedNode(ActionEvent event) throws IOException {
-    NodeEntity currentNode = NodeDraw2.getSelected();
-    Pane currentNodePane = NodeDraw2.getSelectedPane();
+    NodeEntity currentNode = NodeDraw.getSelected();
+    Pane currentNodePane = NodeDraw.getSelectedPane();
     String id = currentNode.getNodeid();
     String currentFloor = currentNode.getFloor();
     // Database //
@@ -191,7 +192,7 @@ public class MapEditorController extends MenuController {
     currentNodePane.setVisible(false); // delete node from map view
     List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
     if (Floor.indexFromTableString(currentFloor) != -1) {
-      NodeDraw2.drawEdges(
+      NodeDraw.drawEdges(
           allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
     }
   }
@@ -269,7 +270,7 @@ public class MapEditorController extends MenuController {
   public void saveNodeEdit(ActionEvent event) {
 
     // Save info as a new node called currentNode
-    NodeEntity currentNode = NodeDraw2.getSelected();
+    NodeEntity currentNode = NodeDraw.getSelected();
     String id = currentNode.getNodeid();
     currentNode.setXcoord(Integer.parseInt(XCord.getText()));
     currentNode.setYcoord(Integer.parseInt(YCord.getText()));
@@ -294,14 +295,14 @@ public class MapEditorController extends MenuController {
 
     // Remove old and draw new (nondatabase) //
     // Hide old node on map
-    Pane currentPane = NodeDraw2.getSelectedPane();
+    Pane currentPane = NodeDraw.getSelectedPane();
     if (currentPane != null) {
       currentPane.setVisible(false);
     }
     // draw on map
     ArrayList<NodeEntity> oneNode = new ArrayList<>();
     oneNode.add(currentNode);
-    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
+    NodeDraw.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
   }
 
   public static String makeNewNodeID(String floor, int x, int y) {
@@ -460,7 +461,7 @@ public class MapEditorController extends MenuController {
 
   @FXML
   public void popupLocationEditor(ActionEvent event) throws IOException {
-    if (NodeDraw2.getSelected() == null) {
+    if (NodeDraw.getSelected() == null) {
       System.out.println("No node selected");
     } else {
       System.out.println("popup location editor");
@@ -477,7 +478,7 @@ public class MapEditorController extends MenuController {
 
     // nodeEditorPopup.hide();
     // take care of last selected node
-    Pane recentPane = NodeDraw2.getSelectedPane();
+    Pane recentPane = NodeDraw.getSelectedPane();
     if (recentPane != null) {
       recentPane.setPrefSize(5, 5);
       recentPane.setStyle(
@@ -494,7 +495,7 @@ public class MapEditorController extends MenuController {
       List<NodeEntity> oneNode = FacadeRepository.getInstance().getAllNode();
       oneNode.add(newNode);
 
-      NodeDraw2.drawNodes(
+      NodeDraw.drawNodes(
           oneNode, mapEditor.SCALE_FACTOR, mapEditor.mainAnchorPane, mapEditor); // draw node
     }
   }

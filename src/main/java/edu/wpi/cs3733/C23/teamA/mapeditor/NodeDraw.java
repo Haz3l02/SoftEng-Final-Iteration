@@ -18,7 +18,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class NodeDraw2 {
+public class NodeDraw {
 
   static Pane previousNode = null;
   static Pane selectNodePane = null;
@@ -27,6 +27,8 @@ public class NodeDraw2 {
   static Line selectedLine = null;
   static Line previousLine = null;
   static EdgeEntity selectedEdge = null;
+
+  static MapEditorController MEC = new MapEditorController();
 
   static MakeDraggable draggable = new MakeDraggable();
 
@@ -125,6 +127,8 @@ public class NodeDraw2 {
                         + "-fx-border-width: 1;"
                         + "-fx-border-radius: 13.5");
                 previousNode.setPrefSize(5, 5);
+                selectedLine.setStroke(Color.web("0x224870"));
+                previousLine.setStrokeWidth(1);
               }
             }
 
@@ -140,7 +144,6 @@ public class NodeDraw2 {
 
             previousNode = nodeGraphic;
             selectedNode = n;
-
             nmc.setXCord(n.getXcoord().toString());
             nmc.setYCord(n.getYcoord().toString());
             nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
@@ -208,9 +211,30 @@ public class NodeDraw2 {
             }
           });
 
+      nodeGraphic.setOnMouseDragged(
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+              nmc.getMainGesturePane().setGestureEnabled(false);
+              selectNodePane.setLayoutX(nodeGraphic.getLayoutX() + mouseEvent.getX());
+              selectNodePane.setLayoutY(nodeGraphic.getLayoutY() + mouseEvent.getY());
+            }
+          });
+
+      nodeGraphic.setOnMouseDragReleased(
+          new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+              System.out.println("node dropped");
+              nmc.getMainGesturePane().setGestureEnabled(true);
+            }
+          });
+
       nodeAnchor.getChildren().add(nodeGraphic);
     }
   }
+  // end _________________________________________________________________
 
   public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, AnchorPane ap) {
     ap.getChildren().clear();
@@ -235,15 +259,23 @@ public class NodeDraw2 {
           event -> {
             selectedLine = currentLine;
 
-            if ((previousNode != null)) {
-              if (!previousNode.equals(currentLine)) {
+            if ((previousLine != null)) {
+              if (!previousLine.equals(currentLine)) {
                 previousLine.setStroke(Color.web("0x224870"));
                 previousLine.setStrokeWidth(1);
+
+                previousNode.setStyle(
+                    "-fx-background-color: '#224870'; "
+                        + "-fx-background-radius: 12.5; "
+                        + "-fx-border-color: '#224870'; "
+                        + "-fx-border-width: 1;"
+                        + "-fx-border-radius: 13.5");
+                previousNode.setPrefSize(5, 5);
               }
             }
 
             currentLine.setStroke(Color.web("yellow"));
-            currentLine.setStrokeWidth(1);
+            currentLine.setStrokeWidth(2);
 
             previousLine = currentLine;
             selectedEdge = edge;
@@ -278,7 +310,7 @@ public class NodeDraw2 {
           new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-              if ((!currentLine.equals(selectNodePane))) {
+              if ((!currentLine.equals(selectedLine))) {
                 currentLine.setStroke(Color.web("green"));
                 currentLine.setStrokeWidth(2);
                 System.out.println("Hovering");
@@ -291,7 +323,7 @@ public class NodeDraw2 {
           new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-              if ((!currentLine.equals(selectNodePane))) {
+              if ((!currentLine.equals(selectedLine))) {
                 currentLine.setStroke(Color.web("0x224870"));
                 currentLine.setStrokeWidth(1);
                 System.out.println("exit");

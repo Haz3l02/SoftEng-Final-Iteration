@@ -5,7 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.controllers.MapEditorController.mapEditor
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw2;
+import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.*;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
@@ -76,7 +76,7 @@ public class NodeEditorPopupController extends NavigationController {
     // fieldBox.setStyle("-fx-background-color: '#bad1ea'; ");
 
     // take care of last selected node
-    Pane recentPane = NodeDraw2.getSelectedPane();
+    Pane recentPane = NodeDraw.getSelectedPane();
     if (recentPane != null) {
       recentPane.setPrefSize(5, 5);
       recentPane.setStyle(
