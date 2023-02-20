@@ -9,7 +9,6 @@ import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -28,7 +27,8 @@ public class MapDraw {
 
   private IdNumberHolder holder = IdNumberHolder.getInstance();
 
-  private static double radius = 6;
+  private static final double radius = 3;
+  private static final double width = 6;
 
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
   // hospital image scale factor to fit on screen (popover - 1250 x 850): 25% (0.25)
@@ -105,7 +105,7 @@ public class MapDraw {
   }
 
   public static void drawPathClickable(
-      AnchorPane[] aps, ArrayList<GraphNode> path, double scaleFactor, Group[] groups) {
+      AnchorPane[] aps, ArrayList<GraphNode> path, double scaleFactor) {
 
     // coordinates for the previous point in the path
     int prevX = 0;
@@ -127,13 +127,14 @@ public class MapDraw {
           new Circle(prevX, prevY, radius, Color.web("0x224870")); // starting circle
       List<ServiceRequestEntity> srs = FacadeRepository.getInstance().getAllServiceRequest();
 
-      if (FacadeRepository.getInstance().getRequestAtLocation(path.get(0).getLongName()).size()
-          > 0) {
-        Rectangle rect = new Rectangle(prevX + 5, prevY + 5, radius + 1, radius + 1);
-        rect.setFill(Color.web("0x000000"));
-        // group.getChildren().add(currentCircle);
-        groups[prevFloor].getChildren().add(rect); // service request icon
-      }
+      //      if
+      // (FacadeRepository.getInstance().getRequestAtLocation(path.get(0).getLongName()).size()
+      //          > 0) {
+      //        Rectangle rect = new Rectangle(prevX + 5, prevY + 5, radius + 1, radius + 1);
+      //        rect.setFill(Color.web("0x000000"));
+      //        // group.getChildren().add(currentCircle);
+      //        groups[prevFloor].getChildren().add(rect); // service request icon
+      //      }
 
       aps[prevFloor].getChildren().add(currentCircle);
     }
@@ -160,11 +161,11 @@ public class MapDraw {
       // draw node
       Circle currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
       aps[currentFloor].getChildren().add(currentCircle);
-      if (FacadeRepository.getInstance().getRequestAtLocation(g.getLongName()).size() > 0) {
-        Rectangle rect = new Rectangle(currentX + 5, currentY - 5, radius + 1, radius + 1);
-        rect.setFill(Color.web("0x000000"));
-        groups[currentFloor].getChildren().add(rect);
-      }
+      //      if (FacadeRepository.getInstance().getRequestAtLocation(g.getLongName()).size() > 0) {
+      //        Rectangle rect = new Rectangle(currentX + 5, currentY - 5, radius + 1, radius + 1);
+      //        rect.setFill(Color.web("0x000000"));
+      //        groups[currentFloor].getChildren().add(rect);
+      //      }
       prevX = currentX;
       prevY = currentY;
       prevFloor = currentFloor;
@@ -173,13 +174,13 @@ public class MapDraw {
     Circle currentCircle = new Circle(prevX, prevY, radius, Color.web("0x224870"));
     aps[prevFloor].getChildren().add(currentCircle); // ending open circle
 
-    for (int i = 0; i < 5; i++) {
-      aps[i].getChildren().add(groups[i]);
-    }
+    //    for (int i = 0; i < 5; i++) {
+    //      aps[i].getChildren().add(groups[i]);
+    //    }
   }
 
   public static void drawServiceRequestIcons(
-      List<NodeEntity> allNodesOnFloor, AnchorPane anchorPane, double scaleFactor, String floor) {
+      AnchorPane anchorPane, double scaleFactor, String floor) {
     anchorPane.getChildren().clear();
     List<MoveEntity> moves = FacadeRepository.getInstance().getAllMove();
 
@@ -193,7 +194,7 @@ public class MapDraw {
             scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
 
         Rectangle rect =
-            new Rectangle(updatedCoords[0] + 5, updatedCoords[1] - 5, radius + 1, radius + 1);
+            new Rectangle(updatedCoords[0] + 5, updatedCoords[1] - 5, width + 1, width + 1);
         rect.setFill(Color.web("0x000000"));
         EventHandler<MouseEvent> eventHandler =
             new EventHandler<MouseEvent>() {

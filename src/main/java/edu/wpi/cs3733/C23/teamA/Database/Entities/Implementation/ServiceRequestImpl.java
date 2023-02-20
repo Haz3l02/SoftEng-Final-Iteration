@@ -297,7 +297,7 @@ public class ServiceRequestImpl extends Observable
         } else if (holder.getJob().equalsIgnoreCase("admin")) {
           fin.add(ser);
         } else {
-          if (ser.getEmployee().getEmployeeid().equals(holder.getId())) {
+          if (ser.getEmployee().getEmployeeid() == Integer.parseInt(holder.getId())) {
             fin.add(ser);
           }
         }

@@ -42,7 +42,7 @@ public class PathfindingSystem {
   // MapDraw
   public void drawPath(
       AnchorPane[] aps, ArrayList<GraphNode> path, double scaleFactor, Group[] groups) {
-    MapDraw.drawPathClickable(aps, path, scaleFactor, groups);
+    MapDraw.drawPathClickable(aps, path, scaleFactor);
   }
 
   // Methods relating to Graph

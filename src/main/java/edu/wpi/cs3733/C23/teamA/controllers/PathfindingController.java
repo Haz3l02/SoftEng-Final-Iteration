@@ -22,8 +22,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.canvas.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.*;
 import javafx.scene.layout.AnchorPane;
@@ -575,7 +575,6 @@ public class PathfindingController extends MenuController {
 
   public void generateFloor(ActionEvent event) {
     int previousFloor = currentFloor;
-    System.out.println("Button pressed");
     String floor = "L1";
     if (event.getSource().equals(l1Button)) {
       floor = "L1";
@@ -605,6 +604,6 @@ public class PathfindingController extends MenuController {
     aps[currentFloor].setDisable(false);
 
     List<NodeEntity> allNodes = FacadeRepository.getInstance().getNodesOnFloor(floor);
-    MapDraw.drawServiceRequestIcons(allNodes, serviceRequestPane, SCALE_FACTOR, floor);
+    MapDraw.drawServiceRequestIcons(serviceRequestPane, SCALE_FACTOR, floor);
   }
 }
