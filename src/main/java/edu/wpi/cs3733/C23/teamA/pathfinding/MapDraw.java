@@ -5,22 +5,19 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-
-
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.input.MouseEvent;
 
 // Class for Controller to call to add the map
 public class MapDraw {
@@ -181,7 +178,8 @@ public class MapDraw {
     }
   }
 
-  public static void drawServiceRequestIcons(List<NodeEntity> allNodesOnFloor, AnchorPane anchorPane, double scaleFactor, String floor) {
+  public static void drawServiceRequestIcons(
+      List<NodeEntity> allNodesOnFloor, AnchorPane anchorPane, double scaleFactor, String floor) {
     anchorPane.getChildren().clear();
     List<MoveEntity> moves = FacadeRepository.getInstance().getAllMove();
 
@@ -197,13 +195,14 @@ public class MapDraw {
         Rectangle rect =
             new Rectangle(updatedCoords[0] + 5, updatedCoords[1] - 5, radius + 1, radius + 1);
         rect.setFill(Color.web("0x000000"));
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent event) {
-            rect.setFill(Color.web("0x00FF00"));
-            System.out.println("clicked");
-          }
-        };
+        EventHandler<MouseEvent> eventHandler =
+            new EventHandler<MouseEvent>() {
+              @Override
+              public void handle(MouseEvent event) {
+                rect.setFill(Color.web("0x00FF00"));
+                System.out.println("clicked");
+              }
+            };
         anchorPane.getChildren().add(rect);
       }
     }

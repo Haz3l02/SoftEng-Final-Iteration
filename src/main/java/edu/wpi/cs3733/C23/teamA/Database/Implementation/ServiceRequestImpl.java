@@ -293,14 +293,14 @@ public class ServiceRequestImpl extends Observable
 
     for (ServiceRequestEntity ser : services) {
       if (ser.getLocation().getLongname().equals(longname)) {
-        if(holder.getJob().equalsIgnoreCase("maintenance")) {
-          if(ser.getEmployeeAssigned().equalsIgnoreCase(holder.getName())) {
+        if (holder.getJob().equalsIgnoreCase("maintenance")) {
+          if (ser.getEmployeeAssigned().equalsIgnoreCase(holder.getName())) {
             fin.add(ser);
           }
-        } else if(holder.getJob().equalsIgnoreCase("admin")) {
+        } else if (holder.getJob().equalsIgnoreCase("admin")) {
           fin.add(ser);
         } else {
-          if(ser.getEmployee().getEmployeeid().equals(holder.getId())) {
+          if (ser.getEmployee().getEmployeeid().equals(holder.getId())) {
             fin.add(ser);
           }
         }
