@@ -7,6 +7,7 @@ import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -24,6 +25,7 @@ import org.hibernate.Transaction;
 public class ServiceRequestImpl extends Observable
     implements IDatabaseAPI<ServiceRequestEntity, Integer> {
   private List<ServiceRequestEntity> services;
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
   private static final ServiceRequestImpl instance = new ServiceRequestImpl();
 
   private ServiceRequestImpl() {
@@ -291,7 +293,17 @@ public class ServiceRequestImpl extends Observable
 
     for (ServiceRequestEntity ser : services) {
       if (ser.getLocation().getLongname().equals(longname)) {
-        fin.add(ser);
+        if(holder.getJob().equalsIgnoreCase("maintenance")) {
+          if(ser.getEmployeeAssigned().equalsIgnoreCase(holder.getName())) {
+            fin.add(ser);
+          }
+        } else if(holder.getJob().equalsIgnoreCase("admin")) {
+          fin.add(ser);
+        } else {
+          if(ser.getEmployee().getEmployeeid().equals(holder.getId())) {
+            fin.add(ser);
+          }
+        }
       }
     }
     return fin;

@@ -10,6 +10,7 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,6 +28,8 @@ public class MapDraw {
   static Pane previousSR = null;
   static Pane selectSRPane = null;
   static NodeEntity selectNode = null;
+
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   private static double radius = 6;
 
@@ -190,7 +193,6 @@ public class MapDraw {
           && floor.equals(move.getNode().getFloor())) {
         int[] updatedCoords =
             scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
-
 
         Rectangle rect =
             new Rectangle(updatedCoords[0] + 5, updatedCoords[1] - 5, radius + 1, radius + 1);
