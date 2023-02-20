@@ -165,12 +165,12 @@
                                        </font>
                                     </Text>
                                     <MFXTextField fx:id="locationIDBox" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
-                                    <MFXButton fx:id="createLocation" buttonType="RAISED" minHeight="51.0" onAction="#addLocation" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Location" textFill="#224870">
+                                    <MFXButton fx:id="createLocation" buttonType="RAISED" minHeight="51.0" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Location" textFill="#224870">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#editLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Location" textFill="#d3e9f6">
+                                    <MFXButton buttonType="RAISED" minHeight="51.0" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Location" textFill="#d3e9f6">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -303,15 +303,15 @@
                   <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="900.0">
                      <children>
                         <ImageView fx:id="mainImageView" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
-                        <AnchorPane fx:id="edgeAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                         <Canvas fx:id="mainCanvas" height="510.0" width="750.0" />
                         <AnchorPane fx:id="mainTextPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
+                        <AnchorPane fx:id="edgeAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                         <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                      </children>
                   </StackPane>
                   <GesturePane fx:id="mainGesturePane" prefHeight="510.0" prefWidth="750.0">
                      <contextMenu>
-                        <ContextMenu opacity="0.77">
+                        <ContextMenu fx:id="contextMenu" opacity="0.77">
                           <items>
                             <MenuItem mnemonicParsing="false" onAction="#popupNodeEditor" text="Add Node" />
                               <MenuItem mnemonicParsing="false" onAction="#popupEdgeEditor" text="Add Edge" />

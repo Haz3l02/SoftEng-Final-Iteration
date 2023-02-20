@@ -2,7 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.Main;
@@ -23,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -37,13 +37,15 @@ import org.controlsfx.control.PopOver;
 public class MapEditorController extends MenuController {
 
   // FXML Elements
-  @FXML ImageView mainImageView;
-  @FXML GesturePane mainGesturePane;
-  @FXML AnchorPane mainAnchorPane;
-  @FXML AnchorPane edgeAnchorPane;
-  @FXML StackPane mainStackPane;
+  @FXML ImageView mainImageView = new ImageView();
+  @FXML GesturePane mainGesturePane = new GesturePane();
+  @FXML AnchorPane mainAnchorPane = new AnchorPane();
+  @FXML AnchorPane edgeAnchorPane = new AnchorPane();
+  @FXML StackPane mainStackPane = new StackPane();
   @FXML AnchorPane mainTextPane = new AnchorPane();
   @FXML Canvas mainCanvas = new Canvas();
+
+  @FXML ContextMenu contextMenu = new ContextMenu();
 
   // Buttons to switch pages
   @FXML MFXButton l1Button;
@@ -62,16 +64,15 @@ public class MapEditorController extends MenuController {
   @FXML MFXTextField node2; // delete later
   @FXML VBox fieldBox;
   @FXML MFXButton createNodeButton;
-  @FXML MFXFilterComboBox<String> longNameBox;
+  @FXML MFXFilterComboBox<String> longNameBox = new MFXFilterComboBox<>();
   @FXML MFXTextField locationIDBox;
   @FXML MFXButton createLocation;
-  @FXML MFXToggleButton toggleSwitch;
+  @FXML MFXToggleButton toggleSwitch = new MFXToggleButton();
 
   @FXML
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
 
   @Setter NodeEntity selectedNode = null;
-  LocationNameEntity locNameEntity;
 
   // Lists of Nodes and Node Data
   private GraphicsContext gc;
@@ -88,8 +89,8 @@ public class MapEditorController extends MenuController {
   /** Starting method called when screen is opened: Draws nodes and edges for floor L1 */
   public void initialize() {
 
-    createNodeButton.setVisible(false);
-    saveButton.setVisible(false);
+    // createNodeButton.setVisible(false);
+    // saveButton.setVisible(false);
     gc = mainCanvas.getGraphicsContext2D();
 
     mainTextPane.setVisible(false);
@@ -107,6 +108,14 @@ public class MapEditorController extends MenuController {
               changeLocations();
             });
     mapEditor = new MapEditorController();
+
+    if (!(NodeDraw2.getSelected() == null)) {
+      longNameBox.setText(
+          FacadeRepository.getInstance()
+              .moveMostRecentLoc(NodeDraw2.getSelected().getNodeid())
+              .getLongname());
+    }
+    mainAnchorPane.setPickOnBounds(false);
   }
 
   public void generateFloor(ActionEvent event) {
@@ -142,12 +151,17 @@ public class MapEditorController extends MenuController {
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
   }
 
-  public void addLocation(ActionEvent event) {
-    locNameEntity.setLongname("Freddy Fazbears Pizzarea");
-    NodeEntity selected = NodeDraw2.getSelected();
-    FacadeRepository.getInstance().newLocationOnNode(selected.getNodeid(), locNameEntity);
-    initialize();
-  }
+  //  public void addLocation(ActionEvent event) {
+  //    //    this.locNameEntity.setLongname("Freddy Fazbears Pizzarea 2 ");
+  //    //    locNameEntity.setShortname("FNAF");
+  //    //    locNameEntity.setLocationtype("LABS");
+  //
+  //    NodeEntity selected = NodeDraw2.getSelected();
+  //    FacadeRepository.getInstance().newLocationOnNode(selected.getNodeid(), locNameEntity);
+  //    // longNameBox.setText();
+  //    System.out.println("done");
+  //    initialize();
+  //  }
 
   @FXML
   public void switchToNodeScene(ActionEvent event) {
@@ -447,21 +461,24 @@ public class MapEditorController extends MenuController {
 
   @FXML
   public void popupLocationEditor(ActionEvent event) throws IOException {
+    if (NodeDraw2.getSelected() == null) {
+      System.out.println("No node selected");
+    } else {
+      System.out.println("popup location editor");
 
-    System.out.println("popup location editor");
+      FXMLLoader locationLoader =
+          new FXMLLoader(Main.class.getResource("views/LocationEditorPopupFXML.fxml"));
 
-    FXMLLoader locationLoader =
-        new FXMLLoader(Main.class.getResource("views/LocationEditorPopupFXML.fxml"));
-
-    locationEditorPopup = new PopOver(locationLoader.load());
-    locationEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+      locationEditorPopup = new PopOver(locationLoader.load());
+      locationEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+    }
   }
 
   public static void hideLastNode(NodeEntity newNode) {
 
     // nodeEditorPopup.hide();
     // take care of last selected node
-    Pane recentPane = NodeDraw.getSelectedPane();
+    Pane recentPane = NodeDraw2.getSelectedPane();
     if (recentPane != null) {
       recentPane.setPrefSize(5, 5);
       recentPane.setStyle(

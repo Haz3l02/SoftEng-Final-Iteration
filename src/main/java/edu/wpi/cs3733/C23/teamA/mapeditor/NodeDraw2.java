@@ -7,7 +7,7 @@ import edu.wpi.cs3733.C23.teamA.controllers.MapEditorController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.util.List;
 import javafx.event.EventHandler;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -21,9 +21,14 @@ import javafx.scene.text.Text;
 public class NodeDraw2 {
 
   static Pane previousNode = null;
-  static Pane previousHoverNode = null;
   static Pane selectNodePane = null;
   static NodeEntity selectedNode = null;
+
+  static Line selectedLine = null;
+  static Line previousLine = null;
+  static EdgeEntity selectedEdge = null;
+
+  static MakeDraggable draggable = new MakeDraggable();
 
   // static MoveImpl moveImp = new MoveImpl();
 
@@ -133,8 +138,8 @@ public class NodeDraw2 {
             //                            nodeGraphic.setLayoutX(nodeGraphic.getXcoord() - 3.5);
             //                            nodeGraphic.setLayoutY(nodeGraphic.getYcoord() - 3.5);
 
-              previousNode = nodeGraphic;
-              selectedNode = n;
+            previousNode = nodeGraphic;
+            selectedNode = n;
 
             nmc.setXCord(n.getXcoord().toString());
             nmc.setYCord(n.getYcoord().toString());
@@ -149,7 +154,7 @@ public class NodeDraw2 {
               nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
               nmc.setLocButtonVisibility(false);
             } else {
-              // nmc.setLongNameBox(null);
+              nmc.setLongNameBox("NO LOCATION ASSIGNED");
               nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
               nmc.setLocButtonVisibility(true);
             }
@@ -189,30 +194,42 @@ public class NodeDraw2 {
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
 
+      nodeGraphic.setOnMouseClicked(
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+              if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                if (mouseEvent.getClickCount() == 2) {
+                  System.out.println("Double clicked");
+                  // draggable.makeDraggable(nodeGraphic);
+
+                }
+              }
+            }
+          });
+
       nodeAnchor.getChildren().add(nodeGraphic);
     }
   }
 
-  public static void drawEdgesOld(
-      List<EdgeEntity> allEdges, double scaleFactor, GraphicsContext gc) {
-    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-    gc.setStroke(Color.web("0x224870"));
-    gc.setLineWidth(1);
 
-    for (EdgeEntity edge : allEdges) {
-      // get x and y values
-      int[] updatedCoordsNode1 =
-          scaleCoordinates(edge.getNode1().getXcoord(), edge.getNode1().getYcoord(), scaleFactor);
-      int[] updatedCoordsNode2 =
-          scaleCoordinates(edge.getNode2().getXcoord(), edge.getNode2().getYcoord(), scaleFactor);
 
-      gc.strokeLine(
-          updatedCoordsNode1[0],
-          updatedCoordsNode1[1],
-          updatedCoordsNode2[0],
-          updatedCoordsNode2[1]);
-    }
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, AnchorPane ap) {
     ap.getChildren().clear();
@@ -231,6 +248,77 @@ public class NodeDraw2 {
               updatedCoordsNode2[0],
               updatedCoordsNode2[1]);
       currentLine.setStroke(Color.web("0x224870"));
+
+      // when mouse is clicked
+      EventHandler<MouseEvent> eventHandler =
+          event -> {
+            selectedLine = currentLine;
+
+            if ((previousNode != null)) {
+              if (!previousNode.equals(currentLine)) {
+                previousLine.setStroke(Color.web("0x224870"));
+                previousLine.setStrokeWidth(1);
+              }
+            }
+
+            currentLine.setStroke(Color.web("yellow"));
+            currentLine.setStrokeWidth(1);
+
+            previousLine = currentLine;
+            selectedEdge = edge;
+
+            //                    nmc.setXCord(n.getXcoord().toString());
+            //                    nmc.setYCord(n.getYcoord().toString());
+            //
+            // nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
+            //                    // nmc.setFloorBox(n.getFloor());
+            //                    nmc.setBuildingBox(n.getBuilding());
+            //                    nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
+            //
+            //                    if
+            // (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
+            //                        nmc.setLongNameBox(
+            //
+            // FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
+            //                        nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(),
+            // n.getXcoord(), n.getYcoord()));
+            //                        nmc.setLocButtonVisibility(false);
+            //                    } else {
+            //                        nmc.setLongNameBox("NO LOCATION ASSIGNED");
+            //                        nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(),
+            // n.getXcoord(), n.getYcoord()));
+            //                        nmc.setLocButtonVisibility(true);
+            //                    }
+          };
+      currentLine.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+
+      // for hover over node
+      EventHandler<MouseEvent> eventHandler2 =
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              if ((!currentLine.equals(selectNodePane))) {
+                currentLine.setStroke(Color.web("green"));
+                currentLine.setStrokeWidth(2);
+                System.out.println("Hovering");
+              }
+            }
+          };
+      currentLine.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
+
+      EventHandler<MouseEvent> eventHandler3 =
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              if ((!currentLine.equals(selectNodePane))) {
+                currentLine.setStroke(Color.web("0x224870"));
+                currentLine.setStrokeWidth(1);
+                System.out.println("exit");
+              }
+            }
+          };
+      currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
+
       ap.getChildren().add(currentLine);
     }
   }
