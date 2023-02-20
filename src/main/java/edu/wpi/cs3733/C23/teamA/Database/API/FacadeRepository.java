@@ -22,20 +22,43 @@ public class FacadeRepository {
   private final SecurityRequestImpl sec = SecurityRequestImpl.getInstance();
   private final PatientTransportimpl pat = PatientTransportimpl.getInstance();
   private final ServiceRequestImpl serv = ServiceRequestImpl.getInstance();
+  private final AccessabilityImpl acc = AccessabilityImpl.getInstance();
 
-  private final Observer nodeObv = new EntityObserver(node);
+  private final Observer nodeObv = new EntityObserver(node); // Notify for edge, move
   private final Observer edgeObv = new EntityObserver(edge);
   private final Observer moveObv = new EntityObserver(move);
-  private final Observer locObv = new EntityObserver(loc);
+  private final Observer locObv = new EntityObserver(loc); // Notify all requests, move
   private final Observer sanObv = new EntityObserver(san);
+  private final Observer empObv = new EntityObserver(emp); // Notify all requests
   private final Observer secObv = new EntityObserver(sec);
   private final Observer servObv = new EntityObserver(serv);
   private final Observer patObv = new EntityObserver(pat);
   private final Observer compObv = new EntityObserver(serv);
+  private final Observer accObv = new EntityObserver(acc);
+
+  private FacadeRepository() {
+    loc.attach(sanObv);
+    loc.attach(secObv);
+    loc.attach(servObv);
+    loc.attach(patObv);
+    loc.attach(compObv);
+    loc.attach(accObv);
+    loc.attach(accObv);
+    loc.attach(moveObv);
+    emp.attach(secObv);
+    emp.attach(servObv);
+    emp.attach(patObv);
+    emp.attach(compObv);
+    emp.attach(accObv);
+    node.attach(edgeObv);
+    node.attach(moveObv);
+  }
 
   public static FacadeRepository getInstance() {
     return instance;
   }
+
+  // GETALL METHODS
 
   public List<ServiceRequestEntity> getAllServiceRequest() {
     return serv.getAll();
@@ -87,6 +110,12 @@ public class FacadeRepository {
     return pat.getAll();
   }
 
+  public List<AccessibilityRequestEntity> getAllAccessabilityRequest() {
+    return acc.getAll();
+  }
+
+  // ADD METHODS
+
   public void addComputerRequest(ComputerRequestEntity c) {
     comp.add(c);
   }
@@ -126,6 +155,12 @@ public class FacadeRepository {
   public void addServiceRequest(ServiceRequestEntity c) {
     serv.add(c);
   }
+
+  public void addAccessability(AccessibilityRequestEntity c) {
+    acc.add(c);
+  }
+
+  // DELETE METHODS
 
   public void deleteComputerRequest(Integer id) {
     comp.delete(id);
@@ -167,6 +202,12 @@ public class FacadeRepository {
     serv.delete(id);
   }
 
+  public void deleteAccessability(Integer id) {
+    acc.delete(id);
+  }
+
+  // EXPORT METHODS
+
   public void exportEdges(String filename) throws IOException {
     edge.exportToCSV(filename);
   }
@@ -191,6 +232,12 @@ public class FacadeRepository {
     serv.exportToCSV(filename);
   }
 
+  public void exportAccesability(String filename) throws IOException {
+    acc.exportToCSV(filename);
+  }
+
+  // IMPORT METHODS
+
   public void importEdge(String filename) throws IOException {
     edge.importFromCSV(filename);
   }
@@ -206,6 +253,12 @@ public class FacadeRepository {
   public void importEmployee(String filename) throws IOException {
     emp.importFromCSV(filename);
   }
+
+  public void importAccessability(String filename) throws IOException {
+    acc.importFromCSV(filename);
+  }
+
+  // GET ID METHODS
 
   public ComputerRequestEntity getComputerRequest(Integer id) {
     return comp.get(id);
@@ -247,6 +300,12 @@ public class FacadeRepository {
     return serv.get(id);
   }
 
+  public AccessibilityRequestEntity getAccessabilityRequest(Integer id) {
+    return acc.get(id);
+  }
+
+  // UPDATE METHODS
+
   public void updateComputerRequest(Integer id, ComputerRequestEntity c) {
     comp.update(id, c);
   }
@@ -286,6 +345,12 @@ public class FacadeRepository {
   public void updateServiceRequest(Integer id, ServiceRequestEntity c) {
     serv.update(id, c);
   }
+
+  public void accessabilityServiceRequest(Integer id, AccessibilityRequestEntity c) {
+    acc.update(id, c);
+  }
+
+  // miscellaneous
 
   public HashMap<EdgeEntity, List<EdgeEntity>> getNodeVectors(NodeEntity e) {
     return edge.nodeVectors(e);
@@ -329,8 +394,20 @@ public class FacadeRepository {
     return move.locationChanges(minDate, maxDate);
   }
 
+  public List<MoveEntity> moveAllMostRecent(LocalDate date) {
+    return move.allMostRecent(date);
+  }
+
+  public List<MoveEntity> moveAllMostRecentFloor(LocalDate date, String floor) {
+    return move.allMostRecentFloor(date, floor);
+  }
+
   public List<MoveEntity> moveLocationRecord(String id, LocalDate date) {
     return move.locationRecord(id, date);
+  }
+
+  public List<MoveEntity> moveLocationRecordFloor(String id, LocalDate date, String floor) {
+    return move.locationRecordFloor(id, date, floor);
   }
 
   public MoveEntity moveLocationOnOrBeforeDate(String id, LocalDate date) {
@@ -375,6 +452,11 @@ public class FacadeRepository {
 
   public HashMap<MoveEntity, MoveEntity> getLocationChanges(LocalDate minDate, LocalDate maxDate) {
     return move.locationChanges(minDate, maxDate);
+  }
+
+  public HashMap<MoveEntity, MoveEntity> getLocationChangesFloor(
+      LocalDate minDate, LocalDate maxDate, String floor) {
+    return move.locationChangesFloor(minDate, maxDate, floor);
   }
 
   public void newLocationOnNode(String nodeid, LocationNameEntity l) {

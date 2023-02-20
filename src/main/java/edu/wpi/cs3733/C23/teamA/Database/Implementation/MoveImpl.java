@@ -10,6 +10,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,6 +21,7 @@ import java.util.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
+import org.hibernate.query.Query;
 
 public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, List<String>> {
   private List<MoveEntity> moves;
@@ -140,7 +142,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       throw new PersistenceException();
     }
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(List<String> m) {
@@ -165,7 +166,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   /**
@@ -185,8 +185,27 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     criteria.select(location).where(builder.between(location.get("movedate"), minDate, maxDate));
     List<MoveEntity> ids = session.createQuery(criteria).getResultList();
     for (MoveEntity id : ids) {
+      List<MoveEntity> loc = locationRecord(id.getLocationName().getLongname(), id.getMovedate());
+      changes.put(id, loc.stream().findFirst().orElse(id));
+    }
+    return changes;
+  }
+
+  public HashMap<MoveEntity, MoveEntity> locationChangesFloor(
+      LocalDate minDate, LocalDate maxDate, String floor) {
+    HashMap<MoveEntity, MoveEntity> changes = new HashMap<>();
+
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    Root<MoveEntity> location = criteria.from(MoveEntity.class);
+    Predicate dateRange = builder.between(location.get("movedate"), minDate, maxDate);
+    Predicate floorFilter = builder.equal(location.get("node").get("floor"), floor);
+    criteria.select(location).where(builder.and(dateRange, floorFilter));
+    List<MoveEntity> ids = session.createQuery(criteria).getResultList();
+    for (MoveEntity id : ids) {
       List<MoveEntity> loc =
-          locationRecord(id.getNode().getNodeid(), id.getMovedate()).stream().toList();
+          locationRecordFloor(id.getLocationName().getLongname(), id.getMovedate(), floor);
       changes.put(id, loc.stream().findFirst().orElse(id));
     }
     return changes;
@@ -195,18 +214,81 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
   /**
    * Finds a list of moves matching node id that happened on or before certain date
    *
-   * @param id
+   * @param longname
    * @param date
    * @return
    */
-  public List<MoveEntity> locationRecord(String id, LocalDate date) {
+  public List<MoveEntity> locationRecord(String longname, LocalDate date) {
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    Query q =
+        session.createQuery(
+            "from MoveEntity mov where mov.locationName.longname ='"
+                + longname
+                + "' and mov.movedate <= '"
+                + date
+                + "' order by mov.movedate desc",
+            MoveEntity.class);
+    List<MoveEntity> records = q.getResultList();
+    session.close();
+    return records;
+  }
+
+  public List<MoveEntity> locationRecordFloor(String longname, LocalDate date, String floor) {
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    Query q =
+        session.createQuery(
+            "select mov from MoveEntity mov where mov.locationName.longname ='"
+                + longname
+                + "' and mov.movedate <= '"
+                + date
+                + "' and mov.node.floor ='"
+                + floor
+                + "' order by mov.movedate desc",
+            MoveEntity.class);
+    List<MoveEntity> records = q.getResultList();
+    session.close();
+    return records;
+  }
+
+  /*
+  // todo I want to use this but might not be able to
+  public List<MoveEntity> locationRecordPathfinding(String longname, LocalDate date) {
     return moves.stream()
-        .filter(
-            moveEntity ->
-                (moveEntity.getNode().getNodeid().equals(id)
-                    && moveEntity.getMovedate().compareTo(date) < 0))
-        .sorted((move1, move2) -> move2.getMovedate().compareTo(move1.getMovedate()))
-        .toList();
+            .filter(
+                    moveEntity ->
+                            (moveEntity.getLocationName().getLongname().equalsIgnoreCase(longname)
+                                    && moveEntity.getMovedate().compareTo(date) <= 0))
+            .sorted((move1, move2) -> move2.getMovedate().compareTo(move1.getMovedate()))
+            .toList();
+  }
+   */
+
+  public List<MoveEntity> allMostRecent(LocalDate date) {
+    List<MoveEntity> m = new ArrayList<>();
+    List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
+    for (LocationNameEntity loc : locations) {
+      try {
+        m.add(locationRecord(loc.getLongname(), date).get(0));
+      } catch (Exception e) {
+      }
+    }
+    return m;
+  }
+
+  public List<MoveEntity> allMostRecentFloor(LocalDate date, String floor) {
+    List<MoveEntity> m = new ArrayList<>();
+    List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
+    for (LocationNameEntity loc : locations) {
+      try {
+        m.add(locationRecordFloor(loc.getLongname(), date, floor).get(0));
+      } catch (Exception e) {
+      }
+    }
+    return m;
   }
 
   public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
@@ -287,7 +369,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
 
     delete(ID);
     add(obj);
-    notifyAllObservers();
   }
 
   public MoveEntity get(List<String> ID) {
