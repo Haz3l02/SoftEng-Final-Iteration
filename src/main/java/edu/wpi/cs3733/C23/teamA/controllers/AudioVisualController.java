@@ -33,7 +33,8 @@ public class AudioVisualController extends ServiceRequestController {
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
-    ObservableList<String> subjects = FXCollections.observableArrayList(AVDevice.deviceList());
+    ObservableList<String> subjects = FXCollections.observableArrayList(Subject.subjectList());
+
     returnDate.setValue(LocalDate.now().plusWeeks(1L));
     subjectBox.setItems(subjects);
 
@@ -50,7 +51,7 @@ public class AudioVisualController extends ServiceRequestController {
       accept.setDisable(true);
       accept.setVisible(false);
     }
-    if (newEdit.needEdits && newEdit.getRequestType().equals("AudioVisual")) {
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Audio\\Visual")) {
       AudioVisualRequestEntity editRequest =
           FacadeRepository.getInstance().getAVRequest(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
@@ -73,7 +74,7 @@ public class AudioVisualController extends ServiceRequestController {
       reject.setDisable(true);
       reject.setVisible(false);
 
-    } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("AudioVisual")) {
+    } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Audio\\Visual")) {
       AudioVisualRequestEntity editRequest =
           FacadeRepository.getInstance().getAVRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
@@ -153,7 +154,6 @@ public class AudioVisualController extends ServiceRequestController {
                 returnDate.getValue());
         FacadeRepository.getInstance().addAudioVisualRequest(submission);
       }
-
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }
