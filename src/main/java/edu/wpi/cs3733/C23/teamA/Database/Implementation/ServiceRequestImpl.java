@@ -270,15 +270,18 @@ public class ServiceRequestImpl extends Observable
 
   public ArrayList<ServiceRequestEntity> getOutstandingRequests() {
     ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
+    System.out.println("Current date" + Timestamp.from(Instant.now()).getDay());
 
     for (ServiceRequestEntity ser : services) {
-      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 1
+      System.out.println("The string" + ser.getUrgency() + " the date:" + ser.getDate().getDay());
+
+      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
               && ser.getUrgency() == UrgencyLevel.EXTREMELY
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 3
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
               && ser.getUrgency() == UrgencyLevel.HIGH
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 5
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
               && ser.getUrgency() == UrgencyLevel.MEDIUM
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 8
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
               && ser.getUrgency() == UrgencyLevel.LOW) {
         fin.add(ser);
       }

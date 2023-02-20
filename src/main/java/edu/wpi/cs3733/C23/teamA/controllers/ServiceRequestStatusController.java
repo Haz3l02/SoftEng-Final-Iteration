@@ -88,7 +88,9 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML
   public void initialize() throws SQLException, IOException {
     editingForm = mainSplitPane.getItems().get(0);
+    outstandingForms = mainSplitPane.getItems().get(1);
     mainSplitPane.getItems().remove(editingForm);
+
     ObservableList<String> maintenance =
         FXCollections.observableArrayList(
             FacadeRepository.getInstance().getListEmployeeOfByJob("Maintenance"));
@@ -165,9 +167,10 @@ public class ServiceRequestStatusController extends MenuController {
 
   @FXML
   public void rowClicked(MouseEvent event) {
-    mainSplitPane.getItems().add(0, editingForm);
-    outstandingForms = mainSplitPane.getItems().get(1);
-    mainSplitPane.getItems().remove(outstandingForms);
+    if (mainSplitPane.getItems().get(0) != editingForm) {
+      mainSplitPane.getItems().add(0, editingForm);
+      mainSplitPane.getItems().remove(outstandingForms);
+    }
 
     ServiceRequestEntity clickedServiceReqTableRow =
         serviceReqsTable.getSelectionModel().getSelectedItem();
@@ -275,10 +278,14 @@ public class ServiceRequestStatusController extends MenuController {
     urgencyBox.clear();
     employeeBox.clear();
   }
-  public void outstanding() {
-    //serviceRequestData = FacadeRepository.getInstance().get(hospitalID);
-    dbTableRowsModel.addAll(serviceRequestData);
 
+  public void outstanding() {
+    dbTableRowsModel.clear();
+    if (assigned != null) {
+      serviceRequestData =
+          FacadeRepository.getInstance().getOutstandingServRequests(); // For SPECIFCI TODO
+    } else serviceRequestData = FacadeRepository.getInstance().getOutstandingServRequests();
+    dbTableRowsModel.addAll(serviceRequestData);
   }
 
   public void acceptForm(ActionEvent event) {
