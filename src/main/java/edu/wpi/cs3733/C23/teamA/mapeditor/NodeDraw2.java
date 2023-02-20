@@ -224,7 +224,7 @@ public class NodeDraw2 {
   }
 
   /**
-   * Changes color of line on click and resets previously selected node and line
+   * Changes color of the line edge on click and resets previously selected node and line
    *
    * @return a mouse event handler that changes te color of a line on click
    */
