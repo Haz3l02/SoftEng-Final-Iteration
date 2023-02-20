@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -17,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import org.controlsfx.control.PopOver;
 
 // Class for Controller to call to add the map
 public class MapDraw {
@@ -31,6 +33,7 @@ public class MapDraw {
   private static final double width = 6;
 
   private static Rectangle previousRect;
+  private static Label previousLabel;
 
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
   // hospital image scale factor to fit on screen (popover - 1250 x 850): 25% (0.25)
@@ -198,7 +201,7 @@ public class MapDraw {
         Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 1, width + 1);
         rect.setFill(Color.web("0x000000"));
 
-        rect.setOnMouseClicked(squareChangeColor());
+        rect.setOnMouseClicked(squareChangeColor(anchorPane));
 
         anchorPane.getChildren().add(rect);
       }
@@ -209,9 +212,9 @@ public class MapDraw {
    * Changes color of the square service request icon on click and resets previously selected square
    * color
    *
-   * @return a mouse event handler that changes te color of a square on click
+   * @return a mouse event handler that changes the color of a square on click
    */
-  private static EventHandler<MouseEvent> squareChangeColor() {
+  private static EventHandler<MouseEvent> squareChangeColor(AnchorPane anchorPane) {
     EventHandler<MouseEvent> eventHandler =
         new EventHandler<MouseEvent>() {
           @Override
@@ -225,9 +228,25 @@ public class MapDraw {
               Rectangle rect = ((Rectangle) (t.getSource()));
               rect.setFill(Color.web("0x00FF00"));
               previousRect = rect;
+              addSRLabel(
+                  anchorPane,
+                  ((Rectangle) t.getSource()).getX(),
+                  ((Rectangle) t.getSource()).getY());
             }
           }
         };
     return eventHandler;
+  }
+
+  public static void addSRLabel(AnchorPane anchorPane, double xcoord, double ycoord) {
+    PopOver popover = new PopOver();
+    Label label = new Label("My Service Request");
+    label.setTranslateX(xcoord);
+    label.setTranslateY(ycoord + 5);
+    System.out.println(xcoord);
+    System.out.println(ycoord);
+    previousLabel = label;
+    // Circle circ = new Circle(xcoord, ycoord, 10);
+    // anchorPane.getChildren().add(circ);
   }
 }
