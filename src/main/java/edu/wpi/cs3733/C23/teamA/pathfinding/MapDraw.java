@@ -3,19 +3,30 @@ package edu.wpi.cs3733.C23.teamA.pathfinding;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
+
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.input.MouseEvent;
 
 // Class for Controller to call to add the map
 public class MapDraw {
 
-  private static double radius = 3;
+  static Pane previousSR = null;
+  static Pane selectSRPane = null;
+  static NodeEntity selectNode = null;
+
+  private static double radius = 6;
 
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
   // hospital image scale factor to fit on screen (popover - 1250 x 850): 25% (0.25)
@@ -116,9 +127,10 @@ public class MapDraw {
 
       if (FacadeRepository.getInstance().getRequestAtLocation(path.get(0).getLongName()).size()
           > 0) {
-        Circle otherCircle = new Circle(prevX + 5, prevY, radius, Color.web("0x000000"));
+        Rectangle rect = new Rectangle(prevX + 5, prevY + 5, radius + 1, radius + 1);
+        rect.setFill(Color.web("0x000000"));
         // group.getChildren().add(currentCircle);
-        groups[prevFloor].getChildren().add(otherCircle); // service request icon
+        groups[prevFloor].getChildren().add(rect); // service request icon
       }
 
       aps[prevFloor].getChildren().add(currentCircle);
@@ -147,8 +159,9 @@ public class MapDraw {
       Circle currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
       aps[currentFloor].getChildren().add(currentCircle);
       if (FacadeRepository.getInstance().getRequestAtLocation(g.getLongName()).size() > 0) {
-        Circle otherCircle = new Circle(currentX + 5, currentY, radius, Color.web("0x000000"));
-        groups[currentFloor].getChildren().add(otherCircle);
+        Rectangle rect = new Rectangle(currentX + 5, currentY - 5, radius + 1, radius + 1);
+        rect.setFill(Color.web("0x000000"));
+        groups[currentFloor].getChildren().add(rect);
       }
       prevX = currentX;
       prevY = currentY;

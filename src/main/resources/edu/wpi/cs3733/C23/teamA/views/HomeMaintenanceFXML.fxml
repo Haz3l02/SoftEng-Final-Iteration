@@ -102,35 +102,7 @@
                                           </Text>
                                        </children>
                                     </HBox>
-                                    <HBox alignment="CENTER" prefHeight="37.0" prefWidth="797.0">
-                                       <children>
-                                          <MFXButton fx:id="l1Button" onAction="#generateFloor" text="Level 1">
-                                             <HBox.margin>
-                                                <Insets left="20.0" top="10.0" />
-                                             </HBox.margin>
-                                          </MFXButton>
-                                          <MFXButton fx:id="l2Button" onAction="#generateFloor" text="Level 2">
-                                             <HBox.margin>
-                                                <Insets top="10.0" />
-                                             </HBox.margin>
-                                          </MFXButton>
-                                          <MFXButton fx:id="f1Button" onAction="#generateFloor" text="Floor 1">
-                                             <HBox.margin>
-                                                <Insets top="10.0" />
-                                             </HBox.margin>
-                                          </MFXButton>
-                                          <MFXButton fx:id="f2Button" onAction="#generateFloor" text="Floor 2">
-                                             <HBox.margin>
-                                                <Insets top="10.0" />
-                                             </HBox.margin>
-                                          </MFXButton>
-                                          <MFXButton fx:id="f3Button" onAction="#generateFloor" text="Floor 3">
-                                             <HBox.margin>
-                                                <Insets top="10.0" />
-                                             </HBox.margin>
-                                          </MFXButton>
-                                       </children>
-                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="37.0" prefWidth="797.0" />
                                     <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="269.0" prefWidth="400.0" style="-fx-background-color: #224870;">
                                        <VBox.margin>
                                           <Insets left="20.0" />

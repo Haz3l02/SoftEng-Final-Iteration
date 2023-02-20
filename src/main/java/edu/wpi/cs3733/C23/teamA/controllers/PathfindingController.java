@@ -43,6 +43,7 @@ public class PathfindingController extends MenuController {
   @FXML private MFXCheckbox avoidStairsCheckbox;
   @FXML private MFXToggleButton toggleLocationNames;
   @FXML private MFXToggleButton toggleServiceRequests;
+  @FXML MFXToggleButton toggleSwitch;
   //
   //  // canvases
   //  @FXML private Canvas floorL1Canvas;
@@ -86,6 +87,7 @@ public class PathfindingController extends MenuController {
   @FXML private AnchorPane anchorF1;
   @FXML private AnchorPane anchorL2;
   @FXML private AnchorPane anchorL1;
+  @FXML private AnchorPane serviceRequestPane;
 
   @FXML private StackPane mainStackPane;
 
@@ -170,6 +172,15 @@ public class PathfindingController extends MenuController {
     navDatePicker.setValue(navDatePicker.getCurrentDate());
     navDate = navDatePicker.getValue();
     navDatePicker.setDisable(false); // will eventually just do this in scenebuilder
+
+    serviceRequestPane.setVisible(false);
+    // Action Listener for toggle switch
+    toggleServiceRequests
+        .selectedProperty()
+        .addListener(
+            Observable -> {
+              changeSRs();
+            });
   }
 
   /** Method to clear the fields on the form on the UI page */
@@ -191,6 +202,10 @@ public class PathfindingController extends MenuController {
     // text
     pathMapText.setText("Directions on how to get to your destination go here...");
     errorMessage.setText("");
+  }
+
+  public void changeSRs() {
+    serviceRequestPane.setVisible(!serviceRequestPane.isVisible());
   }
 
   /**
@@ -421,9 +436,8 @@ public class PathfindingController extends MenuController {
     aps[previousFloor].setDisable(true);
     aps[currentFloor].setVisible(true);
     aps[currentFloor].setDisable(false);
-    groups[previousFloor].setVisible(false);
-    groups[previousFloor].setDisable(true);
-    groups[currentFloor].setVisible(true);
-    groups[currentFloor].setDisable(false);
+
+    List<NodeEntity> allNodes = FacadeRepository.getInstance().getNodesOnFloor(floor);
+    MapDraw.drawServiceRequestIcons(allNodes, serviceRequestPane, SCALE_FACTOR, floor);
   }
 }

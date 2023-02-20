@@ -310,6 +310,7 @@
                                           <AnchorPane fx:id="anchorF1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                           <AnchorPane fx:id="anchorL2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                           <AnchorPane fx:id="anchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="serviceRequestPane" prefHeight="200.0" prefWidth="200.0" />
                                        </children>
                                        <StackPane.margin>
                                           <Insets />
