@@ -52,7 +52,7 @@ public class AccessibilityController extends ServiceRequestController {
           FacadeRepository.getInstance().getAccessabilityRequest(newEdit.getRequestID());
 
       nameBox.setText(editRequest.getName());
-      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
       subjectBox.setValue(editRequest.getSubject());
       locationBox.setValue(editRequest.getLocation().getLongname());
       urgencyBox.setValue(editRequest.getUrgency().getUrgency());
@@ -74,7 +74,7 @@ public class AccessibilityController extends ServiceRequestController {
       AccessibilityRequestEntity editRequest =
           FacadeRepository.getInstance().getAccessabilityRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
-      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
       subjectBox.setValue(editRequest.getSubject());
       locationBox.setValue(editRequest.getLocation().getLongname());
       urgencyBox.setValue(editRequest.getUrgency().getUrgency());
@@ -121,7 +121,8 @@ public class AccessibilityController extends ServiceRequestController {
         submission.setUrgency(urgent);
         submission.setSubject(subject.getSubject()); // currently a string - enum instead?
       } else {
-        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        EmployeeEntity person =
+            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 

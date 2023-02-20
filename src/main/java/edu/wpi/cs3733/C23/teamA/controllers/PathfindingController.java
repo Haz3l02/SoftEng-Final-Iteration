@@ -219,7 +219,8 @@ public class PathfindingController extends MenuController {
   public void fillStartLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
 
-    // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still works though,
+    // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still
+    // works though,
     // and isn't that much slower.
     List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
     ArrayList<String> idsFloor = new ArrayList<>();
@@ -253,7 +254,8 @@ public class PathfindingController extends MenuController {
   public void fillEndLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(endFloorBox.getValue()));
 
-    // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still works though,
+    // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still
+    // works though,
     // and isn't that much slower.
     List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
     ArrayList<String> idsFloor = new ArrayList<>();
