@@ -1,9 +1,9 @@
-employeeid,job,name,password,username
-123,Medical,Wilson Wong PhD,staff,staff
-321,Admin,Admin Wong,admin,admin
-001,Maintenance,Maintenance Wong,maintenance,maintenance
-007,Medical,Harrison,ilovehibernate,harrisonbruh
-69420,Medical,Isabella Lucas,softeng,RoboticsVictim
-101,Maintenance,Steve Rosario,yourmom,goldstig101
-2117,Maintenance,Audrey Gross,pathfinder,nagikiko
-8008,Maintenance,Hazel Green,lebiab,haz3l
+employeeid,hospitalid,job,name,password,username
+123,123,Medical,Wilson Wong PhD,staff,staff
+321,321,Admin,Admin Wong,admin,admin
+1,1,Maintenance,Maintenance Wong,maintenance,maintenance
+7,7,Medical,Harrison,ilovehibernate,harrisonbruh
+69420,69420,Medical,Isabella Lucas,softeng,RoboticsVictim
+101,101,Maintenance,Steve Rosario,yourmom,goldstig101
+2117,2117,Maintenance,Audrey Gross,pathfinder,nagikiko
+8008,8008,Maintenance,Hazel Green,lebiab,haz3l

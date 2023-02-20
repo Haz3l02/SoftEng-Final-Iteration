@@ -7,7 +7,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.pathfinding.Graph;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.LocationType;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -50,7 +49,7 @@ public class DBReader {
                 n.getXcoord(),
                 n.getYcoord(),
                 "UNNAMED NODE",
-                LocationType.UNKN.getTableString(), // what to do here?
+                "UNKN", // what to do here?
                 n.getFloor());
       }
       // create the graph and add the nodes (id, xcoord, ycoord, longName, locationType, floor)

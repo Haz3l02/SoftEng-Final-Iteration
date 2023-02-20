@@ -47,11 +47,11 @@ public class PatientTransportController extends ServiceRequestController {
       moveToBox.setItems(locations);
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
-    if (newEdit.needEdits && newEdit.getRequestType().equals("PatientTransport")) {
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Patient Transport")) {
       PatientTransportRequestEntity editPatientRequest =
           FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
       nameBox.setText(editPatientRequest.getName());
-      IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
+      IDNum.setText(String.valueOf(editPatientRequest.getEmployee().getEmployeeid()));
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editPatientRequest.getDescription());
       pNameBox.setText(editPatientRequest.getPatientName());
@@ -64,7 +64,7 @@ public class PatientTransportController extends ServiceRequestController {
       PatientTransportRequestEntity editPatientRequest =
           FacadeRepository.getInstance().getPatientTransport(acceptTheForm.getRequestID());
       nameBox.setText(editPatientRequest.getName());
-      IDNum.setText(editPatientRequest.getEmployee().getEmployeeid());
+      IDNum.setText(String.valueOf(editPatientRequest.getEmployee().getEmployeeid()));
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editPatientRequest.getDescription());
       pNameBox.setText(editPatientRequest.getPatientName());
@@ -121,7 +121,8 @@ public class PatientTransportController extends ServiceRequestController {
         submission.setMoveTo(loc2);
         submission.setEquipment(equipmentBox.getText());
       } else {
-        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        EmployeeEntity person =
+            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
         // IDNum.getText()
         LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getText());
         LocationNameEntity moveTo =

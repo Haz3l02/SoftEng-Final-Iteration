@@ -71,7 +71,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../../../../../../../../../OneDrive%20-%20Worcester%20Polytechnic%20Institute%20(wpi.edu)/Pictures/move.png" />
+                                                            <Image url="@../assets/move.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>
@@ -83,7 +83,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../../../../../../../../../Downloads/map.png" />
+                                                            <Image url="@../assets/map.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>
@@ -105,7 +105,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../../../../../../../../../OneDrive%20-%20Worcester%20Polytechnic%20Institute%20(wpi.edu)/Pictures/noun-node-1145751.png" />
+                                                            <Image url="@../assets/node.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>
@@ -117,7 +117,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../../../../../../../../../Downloads/noun-records-2499327.png" />
+                                                            <Image url="@../assets/icons/employeeRecords.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>

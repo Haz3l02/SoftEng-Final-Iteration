@@ -4,25 +4,27 @@ import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusControlle
 import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController.newEdit;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
-import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
-import edu.wpi.cs3733.C23.teamA.enums.Status;
-import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
-import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
+import edu.wpi.cs3733.C23.teamA.enums.*;
+import io.github.palexdev.materialfx.controls.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class SanitationController extends ServiceRequestController {
-  private IssueCategory category;
-  @FXML private MFXComboBox<String> categoryBox;
+public class AudioVisualController extends ServiceRequestController {
+  private AVDevice category;
+  private Subject subject;
+
+  @FXML private MFXComboBox<String> devicesBox;
+  @FXML private MFXComboBox<String> subjectBox;
+  @FXML private MFXDatePicker returnDate;
+  @FXML private MFXToggleButton installation;
+
+  @FXML private MFXTextField numDevices;
   @FXML private MFXButton clear;
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
@@ -31,30 +33,38 @@ public class SanitationController extends ServiceRequestController {
   @FXML
   public void initialize() throws SQLException {
     super.initialize();
+    ObservableList<String> subjects = FXCollections.observableArrayList(Subject.subjectList());
 
-    if (categoryBox
+    returnDate.setValue(LocalDate.now().plusWeeks(1L));
+    subjectBox.setItems(subjects);
+
+    if (devicesBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
       reject.setDisable(true);
       reject.setVisible(false);
       accept.setDisable(true);
       accept.setVisible(false);
-      ObservableList<String> categories =
-          FXCollections.observableArrayList(IssueCategory.issueList());
-      categoryBox.setItems(categories);
+      ObservableList<String> categories = FXCollections.observableArrayList(AVDevice.deviceList());
+      devicesBox.setItems(categories);
       reject.setDisable(true);
       reject.setVisible(false);
       accept.setDisable(true);
       accept.setVisible(false);
     }
-    if (newEdit.needEdits && newEdit.getRequestType().equals("Sanitation")) {
-      SanitationRequestEntity editRequest =
-          FacadeRepository.getInstance().getSanitationRequest(newEdit.getRequestID());
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Audio\\Visual")) {
+      AudioVisualRequestEntity editRequest =
+          FacadeRepository.getInstance().getAVRequest(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
-      categoryBox.setText(editRequest.getCategory().getIssue());
+      devicesBox.setText(editRequest.getAvdevice().getDevice());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
-      descBox.setText(editRequest.getDescription());
+      descBox.setText(editRequest.getAdditionalequipment());
+      returnDate.setValue(editRequest.getReturndate());
+      subjectBox.setText(editRequest.getSubject().getSubject());
+      numDevices.setText(String.valueOf(editRequest.getNumdevices()));
+      installation.setSelected(editRequest.isInstallationrequired());
+
       accept.setDisable(true);
       accept.setVisible(false);
       clear.setDisable(false);
@@ -64,16 +74,19 @@ public class SanitationController extends ServiceRequestController {
       reject.setDisable(true);
       reject.setVisible(false);
 
-    } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Sanitation")) {
-      SanitationRequestEntity editRequest =
-          FacadeRepository.getInstance().getSanitationRequest(acceptTheForm.getRequestID());
+    } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Audio\\Visual")) {
+      AudioVisualRequestEntity editRequest =
+          FacadeRepository.getInstance().getAVRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
-      categoryBox.setText(editRequest.getCategory().getIssue());
+      devicesBox.setText(editRequest.getAvdevice().getDevice());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
-      descBox.setText(editRequest.getDescription());
-      // sanI.closeSession();
+      descBox.setText(editRequest.getAdditionalequipment());
+      returnDate.setValue(editRequest.getReturndate());
+      subjectBox.setText(editRequest.getSubject().getSubject());
+      numDevices.setText(String.valueOf(editRequest.getNumdevices()));
+      installation.setSelected(editRequest.isInstallationrequired());
       accept.setDisable(false);
       accept.setVisible(true);
       clear.setDisable(true);
@@ -87,27 +100,32 @@ public class SanitationController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
+
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null
         || descBox.getText().equals("")
-        || categoryBox.getValue() == null
-        || urgencyBox.getValue() == null) {
+        || devicesBox.getValue() == null
+        || urgencyBox.getValue() == null
+        || subjectBox.getText().equals("")
+        || numDevices.getText().equals("")) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
-        category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
+        category = AVDevice.valueOf(devicesBox.getValue().toUpperCase());
 
-        SanitationRequestEntity submission =
-            FacadeRepository.getInstance().getSanitationRequest(newEdit.getRequestID());
+        AudioVisualRequestEntity submission =
+            FacadeRepository.getInstance().getAVRequest(newEdit.getRequestID());
         submission.setName(nameBox.getText());
         LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
         submission.setLocation(loc);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
-        submission.setCategory(category);
+        submission.setAvdevice(category);
+        submission.setNumdevices(Integer.parseInt(numDevices.getText()));
+        submission.setAdditionalequipment(descBox.getText());
       } else {
         EmployeeEntity person =
             FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
@@ -115,22 +133,27 @@ public class SanitationController extends ServiceRequestController {
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
-        category = IssueCategory.valueOf(categoryBox.getValue().toUpperCase());
+        category = AVDevice.valueOf(devicesBox.getValue().toUpperCase());
+        subject = Subject.valueOf(subjectBox.getValue().toUpperCase());
 
-        SanitationRequestEntity submission =
-            new SanitationRequestEntity(
+        AudioVisualRequestEntity submission =
+            new AudioVisualRequestEntity(
                 nameBox.getText(),
                 person,
                 location,
                 descBox.getText(),
                 urgent,
-                ServiceRequestEntity.RequestType.SANITATION,
+                ServiceRequestEntity.RequestType.AV,
                 Status.NEW,
                 "Unassigned",
-                category);
-        FacadeRepository.getInstance().addSanitationRequest(submission);
+                installation.isSelected(),
+                Integer.parseInt(numDevices.getText()),
+                category,
+                subject,
+                descBox.getText(),
+                returnDate.getValue());
+        FacadeRepository.getInstance().addAudioVisualRequest(submission);
       }
-
       newEdit.setNeedEdits(false);
       switchToConfirmationScene(event);
     }
@@ -139,6 +162,6 @@ public class SanitationController extends ServiceRequestController {
   @FXML
   void clearForm() {
     super.clearForm();
-    categoryBox.clear();
+    devicesBox.clear();
   }
 }

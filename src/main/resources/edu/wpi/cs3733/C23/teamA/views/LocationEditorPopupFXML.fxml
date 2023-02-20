@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="390.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu/wpi/cs3733/C23/teamA/controllers/LocationEditorPopupController.java">
+<AnchorPane prefHeight="390.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.LocationEditorPopupController">
    <children>
       <VBox fx:id="fieldBox11" prefHeight="200.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #bad1ea;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -36,7 +36,7 @@
                   <Font size="24.0" />
                </font>
             </MFXButton>
-            <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#delLocation" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Location" textFill="#bad1ea">
+            <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#deleteLocation" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Location" textFill="#bad1ea">
                <font>
                   <Font size="24.0" />
                </font>

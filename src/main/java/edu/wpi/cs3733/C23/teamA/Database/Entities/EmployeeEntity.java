@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.Database.Entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(
@@ -10,14 +11,22 @@ import lombok.Setter;
     uniqueConstraints =
         @UniqueConstraint(
             name = "uk_emp_username",
-            columnNames = {"username"}))
+            columnNames = {"username", "employeeid"}))
 public class EmployeeEntity {
 
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // , generator = "serviceseq")
   @Id
-  @Column(name = "employeeid", nullable = false, length = -1)
+  @Cascade(org.hibernate.annotations.CascadeType.ALL)
+  @Column(name = "employeeid")
+  @Setter
+  @Getter
+  private int employeeid;
+
+  @Basic
+  @Column(name = "hospitalid", nullable = false, length = -1)
   @Getter
   @Setter
-  private String employeeid;
+  private String hospitalid;
 
   @Basic
   @Column(name = "username", nullable = false, length = -1, unique = true)
@@ -43,19 +52,23 @@ public class EmployeeEntity {
   @Setter
   private String name;
 
-  //  @Column(name = "requests", nullable = false)
-  //  @Getter
-  //  @Setter
-  //  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-  //  private Set<ServicerequestEntity> requests;
-  //
-  //  public EmployeeEntity addServiceRequest(ServicerequestEntity req) {
-  //    this.requests.add(req);
-  //    return this;
-  //  }
+  public EmployeeEntity(
+      String hospitalid, String username, String password, String job, String name) {
+    this.hospitalid = hospitalid;
+    this.username = username;
+    this.password = password;
+    this.job = job;
+    this.name = name;
+  }
 
   public EmployeeEntity(
-      String employeeid, String username, String password, String job, String name) {
+      int employeeid,
+      String hospitalid,
+      String username,
+      String password,
+      String job,
+      String name) {
+    this.hospitalid = hospitalid;
     this.employeeid = employeeid;
     this.username = username;
     this.password = password;

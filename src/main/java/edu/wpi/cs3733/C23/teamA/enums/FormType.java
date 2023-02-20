@@ -6,7 +6,9 @@ public enum FormType {
   SANITATION("Sanitation Request"),
   COMPUTER("Computer Request"),
   TRANSPORT("Transportation Request"),
-  SECURITY("Security Request");
+  SECURITY("Security Request"),
+  AV("Audio/Visual Request"),
+  ACCESSIBILITY("Accessibility Request");
 
   private final String formType;
 
