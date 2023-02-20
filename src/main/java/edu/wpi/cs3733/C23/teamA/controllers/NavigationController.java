@@ -12,12 +12,12 @@ public abstract class NavigationController {
 
   public static ImportExportCSV iecsv = new ImportExportCSV("");
 
-  public void switchToImport(javafx.event.ActionEvent event) throws IOException {
+  public void switchToImport(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.IMPORT_CSV);
   }
 
   @FXML
-  public void switchToExport(javafx.event.ActionEvent event) throws IOException {
+  public void switchToExport(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.EXPORT_CSV);
   }
   /*
@@ -79,6 +79,11 @@ public abstract class NavigationController {
   @FXML
   public void switchToSecurity() {
     Navigation.navigate(Screen.SECURITY);
+  }
+
+  @FXML
+  public void switchToAudioVisual() {
+    Navigation.navigate(Screen.AUDIOVISUAL);
   }
 
   @FXML

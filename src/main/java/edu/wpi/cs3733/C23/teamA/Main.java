@@ -6,5 +6,7 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     AApp.launch(AApp.class, args);
+    // Session session = getSessionFactory().openSession();
+    // session.close();
   }
 }

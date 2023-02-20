@@ -1,10 +1,10 @@
-package edu.wpi.cs3733.C23.teamA.Database.Implementation;
+package edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.SecurityRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -18,49 +18,48 @@ import java.util.ListIterator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class SecurityRequestImpl extends Observable
-    implements IDatabaseAPI<SecurityRequestEntity, Integer> {
-  private static final SecurityRequestImpl instance = new SecurityRequestImpl();
+public class SanitationRequestImpl extends Observable
+    implements IDatabaseAPI<SanitationRequestEntity, Integer> {
+  private static final SanitationRequestImpl instance = new SanitationRequestImpl();
+  private List<SanitationRequestEntity> sanrequests;
 
-  private List<SecurityRequestEntity> secrequests;
-
-  private SecurityRequestImpl() {
+  private SanitationRequestImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
-    CriteriaQuery<SecurityRequestEntity> criteria =
-        builder.createQuery(SecurityRequestEntity.class);
-    criteria.from(SecurityRequestEntity.class);
-    secrequests = session.createQuery(criteria).getResultList();
+    CriteriaQuery<SanitationRequestEntity> criteria =
+        builder.createQuery(SanitationRequestEntity.class);
+    criteria.from(SanitationRequestEntity.class);
+    sanrequests = session.createQuery(criteria).getResultList();
     session.close();
   }
 
   public void refresh() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
-    CriteriaQuery<SecurityRequestEntity> criteria =
-        builder.createQuery(SecurityRequestEntity.class);
-    criteria.from(SecurityRequestEntity.class);
-    secrequests = session.createQuery(criteria).getResultList();
+    CriteriaQuery<SanitationRequestEntity> criteria =
+        builder.createQuery(SanitationRequestEntity.class);
+    criteria.from(SanitationRequestEntity.class);
+    sanrequests = session.createQuery(criteria).getResultList();
     session.close();
   }
 
-  public List<SecurityRequestEntity> getAll() {
-    return secrequests;
+  public List<SanitationRequestEntity> getAll() {
+    return sanrequests;
   }
 
   public void exportToCSV(String filename) throws IOException {
-    filename += "/securityrequest.csv";
+    filename += "/sanitationrequest.csv";
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write("assistance,secphone,requestid\n");
-    for (SecurityRequestEntity ser : secrequests) {
-      fileWriter.write(
-          ser.getAssistance() + "," + ser.getSecphone() + "," + ser.getRequestid() + "\n");
+    fileWriter.write("category,requestid\n");
+    for (SanitationRequestEntity ser : sanrequests) {
+      fileWriter.write(ser.getCategory() + "," + ser.getRequestid() + "\n");
     }
     fileWriter.close();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
+
     if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
         filename += ".csv";
@@ -68,60 +67,44 @@ public class SecurityRequestImpl extends Observable
     } else filename += ".csv";
   }
 
-  public void add(SecurityRequestEntity c) {
+  public void add(SanitationRequestEntity c) {
     Session session = getSessionFactory().openSession();
+
     Transaction tx = session.beginTransaction();
     session.persist(c);
-    secrequests.add(c);
-    ServiceRequestEntity ser =
-        new ServiceRequestEntity(
-            c.getRequestid(),
-            c.getName(),
-            c.getEmployee(),
-            c.getLocation(),
-            c.getDescription(),
-            c.getUrgency(),
-            c.getRequestType(),
-            c.getStatus(),
-            c.getEmployeeAssigned(),
-            c.getDate());
-    ServiceRequestImpl.getInstance().addToList(ser);
     tx.commit();
+    sanrequests.add(c);
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(Integer c) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.remove(get(c));
-
-    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
     while (li.hasNext()) {
       if (li.next().getRequestid() == c) {
         li.remove();
       }
     }
-    ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
-  public void update(Integer ID, SecurityRequestEntity obj) {
+  public void update(Integer ID, SanitationRequestEntity obj) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
-    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
     while (li.hasNext()) {
       if (li.next().getRequestid() == ID) {
         li.remove();
       }
     }
-    SecurityRequestEntity c = session.get(SecurityRequestEntity.class, ID);
 
-    c.setSecphone(obj.getSecphone());
-    c.setAssistance(obj.getAssistance());
+    SanitationRequestEntity c = get(ID);
+
+    c.setCategory(obj.getCategory());
     c.setName(obj.getName());
     c.setDate(obj.getDate());
     c.setDescription(obj.getDescription());
@@ -144,16 +127,16 @@ public class SecurityRequestImpl extends Observable
             obj.getStatus(),
             obj.getEmployeeAssigned(),
             obj.getDate());
-    ServiceRequestImpl.getInstance().updateList(ID, ser);
-    secrequests.add(c);
+
+    ServiceRequestImpl.getInstance().update(ID, ser);
+    sanrequests.add(c);
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {
-    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
     while (li.hasNext()) {
       if (li.next().getRequestid() == s) {
         li.remove();
@@ -161,41 +144,41 @@ public class SecurityRequestImpl extends Observable
     }
   }
 
-  public SecurityRequestEntity get(Integer ID) {
-
-    for (SecurityRequestEntity ser : secrequests) {
-      if (ser.getRequestid() == ID) return ser;
-    }
-    return null;
-  }
-
   public void updateStatus(Integer ID, Status status) {
-    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
     while (li.hasNext()) {
-      SecurityRequestEntity sec = li.next();
-      if (sec.getRequestid() == ID) {
-        sec.setStatus(status);
+      SanitationRequestEntity san = li.next();
+      if (san.getRequestid() == ID) {
+        san.setStatus(status);
         li.remove();
-        secrequests.add(sec);
+        sanrequests.add(san);
         break;
       }
     }
   }
 
   public void updateEmployee(Integer ID, String employee) {
-    ListIterator<SecurityRequestEntity> li = secrequests.listIterator();
+    ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
     while (li.hasNext()) {
-      SecurityRequestEntity sec = li.next();
+      SanitationRequestEntity sec = li.next();
       if (sec.getRequestid() == ID) {
         sec.setEmployeeAssigned(employee);
         li.remove();
-        secrequests.add(sec);
+        sanrequests.add(sec);
         break;
       }
     }
   }
 
-  public static SecurityRequestImpl getInstance() {
+  public SanitationRequestEntity get(Integer ID) {
+
+    for (SanitationRequestEntity ser : sanrequests) {
+      if (ser.getRequestid() == ID) return ser;
+    }
+    return null;
+  }
+
+  public static SanitationRequestImpl getInstance() {
     return instance;
   }
 }

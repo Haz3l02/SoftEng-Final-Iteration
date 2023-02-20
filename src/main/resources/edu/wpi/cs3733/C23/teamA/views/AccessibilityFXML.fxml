@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.AccessibilityController">
+   <top>
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Accessibility Accommodation Request">
+               <font>
+                  <Font name="Verdana" size="35.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="30.0" top="5.0" />
+               </VBox.margin>
+            </Text>
+            <HBox prefHeight="60.0" prefWidth="1376.0">
+               <children>
+                  <VBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" minWidth="-Infinity" prefHeight="60.0" prefWidth="500.0">
+                     <children>
+                        <MFXTextField fx:id="nameBox" alignment="TOP_LEFT" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </MFXTextField>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER_RIGHT" minWidth="-Infinity" prefHeight="60.0" prefWidth="290.0">
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Hospital ID Number:" wrappingWidth="254.63214111328125">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" minWidth="-Infinity" prefHeight="60.0" prefWidth="380.0">
+                     <children>
+                        <MFXTextField fx:id="IDNum" alignment="TOP_LEFT" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </MFXTextField>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Info">
+               <font>
+                  <Font name="Verdana" size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="30.0" top="25.0" />
+               </VBox.margin>
+            </Text>
+            <HBox prefHeight="311.0" prefWidth="1376.0">
+               <children>
+                  <VBox alignment="TOP_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="186.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject of Request:" wrappingWidth="146.42652893066406">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" wrappingWidth="152.33905029296875">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency:" wrappingWidth="152.33905029296875">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="35.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Disability Description:" wrappingWidth="148.79998016357422">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox minWidth="-Infinity" prefHeight="315.0" prefWidth="500.0">
+                     <opaqueInsets>
+                        <Insets left="15.0" />
+                     </opaqueInsets>
+                     <children>
+                        <MFXComboBox fx:id="subjectBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Patient, Visitor, Staff" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </MFXComboBox>
+                        <MFXFilterComboBox fx:id="locationBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select Location..." style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </MFXFilterComboBox>
+                        <MFXComboBox fx:id="urgencyBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High, Extremely" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                        </MFXComboBox>
+                        <MFXTextField fx:id="disabilityDescBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="450.0" promptText="Describe the nature, extent, and duration of your disability." style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1; -fx-max-width: 450;">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="35.0" />
+                           </VBox.margin>
+                        </MFXTextField>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </VBox>
+                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="690.0">
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Accomodation Required:" wrappingWidth="305.5998396873474">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <MFXTextField fx:id="accommodationBox" alignment="TOP_LEFT" floatMode="DISABLED" maxWidth="604.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="604.0" promptText="Interpreter, TDD Access, Sighted Guide, Document Reader, Mobility Aids, etc..." style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1; -fx-max-width: 450;">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </MFXTextField>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Additional Details:" wrappingWidth="305.5998396873474">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                        </Text>
+                        <MFXTextField fx:id="descBox" alignment="TOP_LEFT" floatMode="DISABLED" maxWidth="604.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="604.0" promptText="Enter Text Here..." style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1; -fx-max-width: 450;">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </MFXTextField>
+                     </children>
+                  </VBox>
+               </children>
+               <opaqueInsets>
+                  <Insets left="15.0" />
+               </opaqueInsets>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets left="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </top>
+   <bottom>
+      <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="818.0">
+               <children>
+                  <StackPane prefHeight="50.0" prefWidth="115.0">
+                     <children>
+                        <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="reject" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#rejectRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reject" textAlignment="CENTER" textFill="#d3e9f6">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </StackPane>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1100.0">
+               <children>
+                  <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #F6BD3A; -fx-border-width: 5;">
+                     <children>
+                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </StackPane>
+                  <MFXButton fx:id="cancel" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <StackPane prefHeight="50.0" prefWidth="134.0">
+                     <children>
+                        <MFXButton fx:id="accept" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#acceptRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Accept" textAlignment="CENTER" textFill="#224870">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Submit" textFill="#224870">
+                           <font>
+                              <Font name="Kohinoor Bangla" size="25.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </StackPane>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+</BorderPane>

@@ -4,6 +4,8 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -26,11 +28,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javax.swing.*;
 import org.controlsfx.control.PopOver;
 
-public class EmployeeController extends NavigationController {
+public class EmployeeController extends MenuController {
 
   @FXML private TableView<EmployeeEntity> employeeTable;
+  @FXML public TableColumn<EmployeeEntity, Integer> IDCol;
+
   @FXML public TableColumn<EmployeeEntity, String> nameCol;
   @FXML public TableColumn<EmployeeEntity, String> employeeCol;
   @FXML public TableColumn<EmployeeEntity, String> usernameCol;
@@ -39,6 +44,8 @@ public class EmployeeController extends NavigationController {
 
   // text boxes for editing
   @FXML public MFXTextField IDNumBox;
+  @FXML public Text IDBoxSaver;
+
   @FXML public MFXTextField nameBox;
   @FXML public MFXTextField usernameBox;
   @FXML public MFXTextField passwordBox;
@@ -68,8 +75,9 @@ public class EmployeeController extends NavigationController {
     employeeData = FacadeRepository.getInstance().getAllEmployee();
 
     if (nameCol != null) {
+      IDCol.setCellValueFactory(new PropertyValueFactory<>("employeeid"));
       nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-      employeeCol.setCellValueFactory(new PropertyValueFactory<>("employeeid"));
+      employeeCol.setCellValueFactory(new PropertyValueFactory<>("hospitalid"));
       usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
       passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
       jobCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getJob()));
@@ -89,8 +97,9 @@ public class EmployeeController extends NavigationController {
     EmployeeEntity clickedEmployeeTableRow = employeeTable.getSelectionModel().getSelectedItem();
 
     if (clickedEmployeeTableRow != null) {
+      IDBoxSaver.setText(String.valueOf(clickedEmployeeTableRow.getEmployeeid()));
       nameBox.setText(String.valueOf(clickedEmployeeTableRow.getName()));
-      IDNumBox.setText(String.valueOf(clickedEmployeeTableRow.getEmployeeid()));
+      IDNumBox.setText(String.valueOf(clickedEmployeeTableRow.getHospitalid()));
       usernameBox.setText(String.valueOf(clickedEmployeeTableRow.getUsername()));
       passwordBox.setText(String.valueOf(clickedEmployeeTableRow.getPassword()));
       jobBox.setValue(String.valueOf(clickedEmployeeTableRow.getJob()));
@@ -120,7 +129,7 @@ public class EmployeeController extends NavigationController {
   @FXML
   public void delete(ActionEvent event) {
     String currentRowId = IDNumBox.getText();
-    FacadeRepository.getInstance().deleteEmployee(currentRowId);
+    FacadeRepository.getInstance().deleteEmployee(Integer.parseInt(currentRowId));
     reloadData();
   }
 
@@ -145,16 +154,16 @@ public class EmployeeController extends NavigationController {
 
       ObservableList<EmployeeEntity> currentTableData = employeeTable.getItems();
 
-      String currentRowId = IDNumBox.getText();
+      int currentRowId = Integer.parseInt(IDBoxSaver.getText());
 
       for (EmployeeEntity employees : currentTableData) {
-        if (employees.getEmployeeid().equals(currentRowId)) {
+        if (employees.getEmployeeid() == (currentRowId)) {
 
           employees.setName(nameBox.getText());
           employees.setUsername(usernameBox.getText());
           employees.setPassword(passwordBox.getText());
           employees.setJob(Job.value(jobBox.getValue()).getJob());
-          employees.setEmployeeid(IDNumBox.getText());
+          employees.setHospitalid(IDNumBox.getText());
           FacadeRepository.getInstance().updateEmployee(currentRowId, employees);
           employeeTable.setItems(currentTableData);
           reloadData();
@@ -181,6 +190,11 @@ public class EmployeeController extends NavigationController {
   @FXML
   void clearForm(ActionEvent event) {
     fileNameField.clear();
+  }
+
+  @FXML
+  public void switchToDatabaseHome(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.HOME_DATABASE);
   }
 
   @FXML

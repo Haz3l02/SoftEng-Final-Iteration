@@ -109,7 +109,8 @@
                         </VBox>
                         <TableView fx:id="employeeTable" editable="true" onMouseClicked="#rowClicked" prefHeight="253.0" prefWidth="527.0" style="-fx-background-color: d3e9f6;">
                            <columns>
-                              <TableColumn fx:id="nameCol" prefWidth="281.0" text="Name" />
+                              <TableColumn fx:id="IDCol" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" text="ID" />
+                              <TableColumn fx:id="nameCol" prefWidth="562.6666361490888" text="Name" />
                               <TableColumn fx:id="employeeCol" prefWidth="131.0" text="Employee ID" />
                               <TableColumn fx:id="usernameCol" prefWidth="271.0" text="Username" />
                               <TableColumn fx:id="passwordCol" prefWidth="167.0" text="Password" />
@@ -137,12 +138,12 @@
                               <Font size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImport" prefHeight="53.0" prefWidth="170.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Import CSV" textFill="#d3e9f6">
+                        <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImportPopup" prefHeight="53.0" prefWidth="170.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Import CSV" textFill="#d3e9f6">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExport" prefHeight="53.0" prefWidth="170.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Export CSV" textFill="#d3e9f6">
+                        <MFXButton id="helpButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExportPopup" prefHeight="53.0" prefWidth="170.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Export CSV" textFill="#d3e9f6">
                            <font>
                               <Font size="25.0" />
                            </font>

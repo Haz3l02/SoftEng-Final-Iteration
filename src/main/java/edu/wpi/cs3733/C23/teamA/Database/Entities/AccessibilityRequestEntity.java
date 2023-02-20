@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
-import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
@@ -9,26 +8,31 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "computerrequest")
+@Table(name = "accessibility")
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
-public class ComputerRequestEntity extends ServiceRequestEntity {
+public class AccessibilityRequestEntity extends ServiceRequestEntity {
 
   @Basic
-  @Column(name = "deviceid", nullable = false, length = -1)
+  @Column(name = "subject", nullable = false, length = -1)
   @Getter
   @Setter
-  private String deviceid;
+  private String subject;
 
   @Basic
-  @Column(name = "device", nullable = false, length = -1)
+  @Column(name = "disability", nullable = false, length = -1)
   @Getter
   @Setter
-  @Enumerated(EnumType.STRING)
-  private DevicesCategory device;
+  private String disability;
 
-  public ComputerRequestEntity() {}
+  @Basic
+  @Column(name = "accommodation", nullable = false, length = -1)
+  @Getter
+  @Setter
+  private String accommodation;
 
-  public ComputerRequestEntity(
+  public AccessibilityRequestEntity() {}
+
+  public AccessibilityRequestEntity(
       int requestid,
       String name,
       EmployeeEntity employee,
@@ -38,8 +42,9 @@ public class ComputerRequestEntity extends ServiceRequestEntity {
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      String deviceid,
-      DevicesCategory device,
+      String subject,
+      String disability,
+      String accommodation,
       Timestamp date) {
     super(
         requestid,
@@ -52,11 +57,12 @@ public class ComputerRequestEntity extends ServiceRequestEntity {
         status,
         employeeassigned,
         date);
-    this.deviceid = deviceid;
-    this.device = device;
+    this.subject = subject;
+    this.disability = disability;
+    this.accommodation = accommodation;
   }
 
-  public ComputerRequestEntity(
+  public AccessibilityRequestEntity(
       String name,
       EmployeeEntity employee,
       LocationNameEntity location,
@@ -65,10 +71,12 @@ public class ComputerRequestEntity extends ServiceRequestEntity {
       RequestType requesttype,
       Status status,
       String employeeassigned,
-      String deviceid,
-      DevicesCategory device) {
+      String subject,
+      String disability,
+      String accommodation) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
-    this.deviceid = deviceid;
-    this.device = device;
+    this.subject = subject;
+    this.disability = disability;
+    this.accommodation = accommodation;
   }
 }
