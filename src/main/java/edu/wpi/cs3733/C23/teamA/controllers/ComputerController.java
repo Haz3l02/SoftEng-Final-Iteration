@@ -48,7 +48,7 @@ public class ComputerController extends ServiceRequestController {
       editComputerRequest =
           FacadeRepository.getInstance().getComputerRequest(newEdit.getRequestID());
       nameBox.setText(editComputerRequest.getName());
-      IDNum.setText(editComputerRequest.getEmployee().getEmployeeid());
+      IDNum.setText(editComputerRequest.getEmployee().getHospitalid());
       devicesBox.setText(editComputerRequest.getDevice().toString());
       deviceIDNum.setText(editComputerRequest.getDeviceid());
       locationBox.setText(editComputerRequest.getLocation().getLongname());
@@ -59,7 +59,7 @@ public class ComputerController extends ServiceRequestController {
       ComputerRequestEntity editRequest =
           FacadeRepository.getInstance().getComputerRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
-      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      IDNum.setText(editRequest.getEmployee().getHospitalid());
       devicesBox.setText(editRequest.getDevice().toString());
       deviceIDNum.setText(editRequest.getDeviceid());
       locationBox.setText(editRequest.getLocation().getLongname());
@@ -106,7 +106,8 @@ public class ComputerController extends ServiceRequestController {
         submission.setDevice(device);
         submission.setDeviceid(deviceIDNum.getText());
       } else {
-        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        EmployeeEntity person =
+            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 

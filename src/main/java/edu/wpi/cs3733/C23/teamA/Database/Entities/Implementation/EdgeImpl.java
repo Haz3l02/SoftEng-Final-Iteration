@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.Database.Implementation;
+package edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
@@ -138,7 +138,6 @@ public class EdgeImpl extends Observable implements IDatabaseAPI<EdgeEntity, Str
     edges.add(e);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(String e) {
@@ -153,7 +152,6 @@ public class EdgeImpl extends Observable implements IDatabaseAPI<EdgeEntity, Str
     session.remove(session.get(EdgeEntity.class, e));
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   /**
@@ -183,7 +181,6 @@ public class EdgeImpl extends Observable implements IDatabaseAPI<EdgeEntity, Str
     }
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void update(String s, EdgeEntity obj) {
@@ -207,7 +204,6 @@ public class EdgeImpl extends Observable implements IDatabaseAPI<EdgeEntity, Str
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public EdgeEntity get(String ID) {

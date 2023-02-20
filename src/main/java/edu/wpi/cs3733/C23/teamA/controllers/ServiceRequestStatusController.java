@@ -276,6 +276,12 @@ public class ServiceRequestStatusController extends MenuController {
       case "Patient Transport":
         Navigation.navigate(Screen.PATIENT_TRANSPORT);
         break;
+      case "Audio\\Visual":
+        Navigation.navigate(Screen.AUDIOVISUAL);
+        break;
+      case "Accessibility":
+        Navigation.navigate(Screen.ACCESSIBILITY);
+        break;
       default:
         Navigation.navigateHome(Screen.HOME);
         break;
@@ -296,9 +302,14 @@ public class ServiceRequestStatusController extends MenuController {
       case "Security":
         Navigation.navigate(Screen.SECURITY);
         break;
-      case "Transportation":
+      case "Patient Transport":
         Navigation.navigate(Screen.PATIENT_TRANSPORT);
         break;
+      case "Audio\\Visual":
+        Navigation.navigate(Screen.AUDIOVISUAL);
+        break;
+      case "Accessibility":
+        Navigation.navigate(Screen.ACCESSIBILITY);
       default:
         Navigation.navigateHome(Screen.HOME);
         break;
