@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.Database.Implementation;
+package edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
@@ -14,7 +14,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
-import javax.swing.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

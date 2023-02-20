@@ -13,12 +13,6 @@ import lombok.Setter;
 @PrimaryKeyJoinColumn(name = "requestid", foreignKey = @ForeignKey(name = "requestid"))
 public class ComputerRequestEntity extends ServiceRequestEntity {
 
-  //  @Id
-  //  @Column(name = "requestid", nullable = false)
-  //  @Getter
-  //  @Setter
-  //  private int requestid;
-
   @Basic
   @Column(name = "deviceid", nullable = false, length = -1)
   @Getter

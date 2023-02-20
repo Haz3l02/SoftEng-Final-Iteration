@@ -96,7 +96,9 @@ public class ServiceRequestEntity {
     SECURITY("Security"),
     COMPUTER("Computer"),
     SANITATION("Sanitation"),
-    PATIENT_TRANSPORT("Patient Transport");
+    PATIENT_TRANSPORT("Patient Transport"),
+    AV("Audio\\Visual"),
+    ACCESSIBILITY("Accessibility");
 
     // FILL OUT TOMORROW WITH ISABELLA
     @NonNull public final String requestType;
