@@ -289,6 +289,37 @@ public class ServiceRequestImpl extends Observable
     return fin;
   }
 
+  public ArrayList<ServiceRequestEntity> getOutstandingRequestsByID(String user) {
+    ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
+    System.out.println("Current date" + Timestamp.from(Instant.now()).getDay());
+
+    for (ServiceRequestEntity ser : services) {
+      System.out.println(
+          "The string"
+              + ser.getUrgency()
+              + "Thename "
+              + ser.getEmployee().getUsername()
+              + " the date:"
+              + ser.getDate().getDay());
+
+      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
+              && ser.getUrgency() == UrgencyLevel.EXTREMELY
+              && ser.getEmployeeAssigned().equals(user)
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
+              && ser.getUrgency() == UrgencyLevel.HIGH
+              && ser.getEmployee().getUsername().equals(user)
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
+              && ser.getUrgency() == UrgencyLevel.MEDIUM
+              && ser.getEmployee().getUsername().equals(user)
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
+              && ser.getUrgency() == UrgencyLevel.LOW
+              && ser.getEmployee().getUsername().equals(user)) {
+        fin.add(ser);
+      }
+    }
+    return fin;
+  }
+
   public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname) {
     ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
 

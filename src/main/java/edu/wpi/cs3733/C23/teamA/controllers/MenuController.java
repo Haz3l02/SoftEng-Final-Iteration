@@ -85,7 +85,7 @@ public class MenuController extends NavigationController {
             "Patient Transportation",
             "Audio/Visual Request",
             "Accessibility Request",
-            "View Previous Submissions");
+            "View Submissions");
 
     serviceRequest
         .getSelectionModel()
@@ -109,7 +109,7 @@ public class MenuController extends NavigationController {
                 case "Patient Transportation":
                   switchToPatientTransport();
                   break;
-                case "View Past Submissions":
+                case "View Submissions":
                   switchToServiceRequestStatus();
                   break;
                 case "Audio/Visual Request":

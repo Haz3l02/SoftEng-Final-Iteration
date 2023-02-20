@@ -209,7 +209,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     ArrayList<String> theList = new ArrayList<>();
     for (EmployeeEntity emp : employees) {
       if (emp.getJob().equals(job)) {
-        theList.add(emp.getName());
+        theList.add(emp.getUsername());
       }
     }
     return theList;

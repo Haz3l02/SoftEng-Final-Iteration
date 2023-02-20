@@ -219,9 +219,10 @@ public class ServiceRequestStatusController extends MenuController {
   }
 
   public void reloadData() {
-    // serviceReqsTable.getSelectionModel().clearSelection();
-    mainSplitPane.getItems().remove(editingForm);
-    mainSplitPane.getItems().add(0, outstandingForms);
+    if (mainSplitPane.getItems().get(0) != outstandingForms) {
+      mainSplitPane.getItems().remove(editingForm);
+      mainSplitPane.getItems().add(0, outstandingForms);
+    }
 
     dbTableRowsModel.clear();
 
@@ -283,8 +284,9 @@ public class ServiceRequestStatusController extends MenuController {
     dbTableRowsModel.clear();
     if (assigned != null) {
       serviceRequestData =
-          FacadeRepository.getInstance().getOutstandingServRequests(); // For SPECIFCI TODO
+          FacadeRepository.getInstance().getOutstandingRequestsByID(assigned.getValue());
     } else serviceRequestData = FacadeRepository.getInstance().getOutstandingServRequests();
+    System.out.println(serviceRequestData.toString());
     dbTableRowsModel.addAll(serviceRequestData);
   }
 
