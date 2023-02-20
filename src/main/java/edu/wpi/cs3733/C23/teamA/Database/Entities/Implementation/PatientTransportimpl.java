@@ -56,7 +56,6 @@ public class PatientTransportimpl extends Observable
     patrequests.add(obj);
     ServiceRequestImpl.getInstance().addToList(obj);
     session.close();
-    notifyAllObservers();
   }
 
   @Override
@@ -134,7 +133,6 @@ public class PatientTransportimpl extends Observable
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   @Override
@@ -152,7 +150,6 @@ public class PatientTransportimpl extends Observable
     ServiceRequestImpl.getInstance().removeFromList(obj);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {

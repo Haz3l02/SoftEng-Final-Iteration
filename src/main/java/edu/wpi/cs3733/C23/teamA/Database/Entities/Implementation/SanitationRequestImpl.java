@@ -74,9 +74,7 @@ public class SanitationRequestImpl extends Observable
     session.persist(c);
     tx.commit();
     sanrequests.add(c);
-    ServiceRequestImpl.getInstance().addToList(c);
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(Integer c) {
@@ -89,10 +87,8 @@ public class SanitationRequestImpl extends Observable
         li.remove();
       }
     }
-    ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void update(Integer ID, SanitationRequestEntity obj) {
@@ -137,7 +133,6 @@ public class SanitationRequestImpl extends Observable
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="615.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
+   <top>
+      <HBox prefHeight="49.0" prefWidth="615.0" style="-fx-background-color: #224870; -fx-border-color: BLACK; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 2 0;" text="Brigham &amp; Women's Hospital" wrappingWidth="401.1484375">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Notice for Upcoming Moves" textAlignment="CENTER" underline="true">
+               <font>
+                  <Font name="Verdana" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Text>
+            <Text fx:id="popupText" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;location name&gt; has an upcoming move, set to occur sometime in the next week." textAlignment="CENTER" wrappingWidth="550.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Verdana" size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="43.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to navigate from its current location to its new location?" textAlignment="CENTER" wrappingWidth="550.0">
+               <font>
+                  <Font name="Verdana" size="18.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <MFXButton fx:id="cancelButton" prefHeight="50.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textAlignment="CENTER" textFill="#d3e9f6">
+                     <font>
+                        <Font name="Verdana" size="20.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="okButton" prefHeight="50.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="OK" textAlignment="CENTER" textFill="#224870">
+                     <font>
+                        <Font name="Verdana" size="20.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="-15.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

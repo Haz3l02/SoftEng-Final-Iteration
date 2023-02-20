@@ -396,13 +396,13 @@
                               </Text>
                               <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="598.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Location Names">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Names">
                                        <font>
                                           <Font name="Verdana" size="18.0" />
                                        </font>
                                     </Text>
                                     <MFXToggleButton fx:id="toggleLocationNames" stylesheets="@../assets/toggleButton.css" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Service Requests">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests">
                                        <font>
                                           <Font name="Verdana" size="18.0" />
                                        </font>
@@ -411,6 +411,15 @@
                                        </HBox.margin>
                                     </Text>
                                     <MFXToggleButton fx:id="toggleServiceRequests" stylesheets="@../assets/toggleButton.css" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Upcoming Moves">
+                                       <font>
+                                          <Font name="Verdana" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <MFXToggleButton fx:id="toggleUpcomingMoves" layoutX="394.0" layoutY="10.0" stylesheets="@../assets/toggleButton.css" />
                                  </children>
                                  <VBox.margin>
                                     <Insets left="20.0" />

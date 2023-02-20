@@ -25,17 +25,36 @@ public class FacadeRepository {
   private final AccessabilityImpl acc = AccessabilityImpl.getInstance();
   private final AudioVisualImpl av = AudioVisualImpl.getInstance();
 
-  private final Observer nodeObv = new EntityObserver(node);
+  private final Observer nodeObv = new EntityObserver(node); // Notify for edge, move
   private final Observer edgeObv = new EntityObserver(edge);
   private final Observer moveObv = new EntityObserver(move);
-  private final Observer locObv = new EntityObserver(loc);
+  private final Observer locObv = new EntityObserver(loc); // Notify all requests, move
   private final Observer sanObv = new EntityObserver(san);
+  private final Observer empObv = new EntityObserver(emp); // Notify all requests
   private final Observer secObv = new EntityObserver(sec);
   private final Observer servObv = new EntityObserver(serv);
   private final Observer patObv = new EntityObserver(pat);
   private final Observer compObv = new EntityObserver(serv);
   private final Observer accObv = new EntityObserver(acc);
   private final Observer avObv = new EntityObserver(av);
+
+  private FacadeRepository() {
+    loc.attach(sanObv);
+    loc.attach(secObv);
+    loc.attach(servObv);
+    loc.attach(patObv);
+    loc.attach(compObv);
+    loc.attach(accObv);
+    loc.attach(accObv);
+    loc.attach(moveObv);
+    emp.attach(secObv);
+    emp.attach(servObv);
+    emp.attach(patObv);
+    emp.attach(compObv);
+    emp.attach(accObv);
+    node.attach(edgeObv);
+    node.attach(moveObv);
+  }
 
   public static FacadeRepository getInstance() {
     return instance;
@@ -389,8 +408,16 @@ public class FacadeRepository {
     return move.allMostRecent(date);
   }
 
+  public List<MoveEntity> moveAllMostRecentFloor(LocalDate date, String floor) {
+    return move.allMostRecentFloor(date, floor);
+  }
+
   public List<MoveEntity> moveLocationRecord(String id, LocalDate date) {
     return move.locationRecord(id, date);
+  }
+
+  public List<MoveEntity> moveLocationRecordFloor(String id, LocalDate date, String floor) {
+    return move.locationRecordFloor(id, date, floor);
   }
 
   public MoveEntity moveLocationOnOrBeforeDate(String id, LocalDate date) {
@@ -435,6 +462,11 @@ public class FacadeRepository {
 
   public HashMap<MoveEntity, MoveEntity> getLocationChanges(LocalDate minDate, LocalDate maxDate) {
     return move.locationChanges(minDate, maxDate);
+  }
+
+  public HashMap<MoveEntity, MoveEntity> getLocationChangesFloor(
+      LocalDate minDate, LocalDate maxDate, String floor) {
+    return move.locationChangesFloor(minDate, maxDate, floor);
   }
 
   public void newLocationOnNode(String nodeid, LocationNameEntity l) {

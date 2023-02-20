@@ -24,7 +24,7 @@ import org.hibernate.Transaction;
 public class ServiceRequestImpl extends Observable
     implements IDatabaseAPI<ServiceRequestEntity, Integer> {
   private List<ServiceRequestEntity> services;
-  private static final ServiceRequestImpl instance = new ServiceRequestImpl();
+  protected static final ServiceRequestImpl instance = new ServiceRequestImpl();
 
   private ServiceRequestImpl() {
     Session session;
@@ -115,7 +115,6 @@ public class ServiceRequestImpl extends Observable
     session.persist(s);
     services.add(s);
     tx.commit();
-    notifyAllObservers();
   }
 
   public void delete(Integer s) {
@@ -135,7 +134,6 @@ public class ServiceRequestImpl extends Observable
     }
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void update(Integer ID, ServiceRequestEntity obj) {
@@ -163,7 +161,6 @@ public class ServiceRequestImpl extends Observable
     services.add(ser);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void addToList(ServiceRequestEntity ser) {

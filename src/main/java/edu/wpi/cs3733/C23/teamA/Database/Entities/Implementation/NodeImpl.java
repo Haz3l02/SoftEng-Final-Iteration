@@ -110,7 +110,6 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
     nodes.add(n);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(String n) {

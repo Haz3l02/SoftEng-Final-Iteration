@@ -57,7 +57,6 @@ public class AccessabilityImpl extends Observable
     accrequests.add(c);
     ServiceRequestImpl.getInstance().addToList(c);
     session.close();
-    notifyAllObservers();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {}
@@ -128,7 +127,6 @@ public class AccessabilityImpl extends Observable
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(Integer c) {
@@ -147,7 +145,6 @@ public class AccessabilityImpl extends Observable
     ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {
