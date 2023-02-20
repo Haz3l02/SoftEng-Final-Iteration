@@ -82,12 +82,12 @@ public class ServiceRequestEntity {
 
   @ManyToOne
   @JoinColumn(
-          name = "employeeid",
-          foreignKey =
+      name = "employeeassignedid",
+      foreignKey =
           @ForeignKey(
-                  name = "employeeid",
-                  foreignKeyDefinition =
-                          "FOREIGN KEY (employeeid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
+              name = "assignedemployee_fk",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (employeeassignedid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
   @Setter
   @Getter
   private EmployeeEntity employeeAssigned;
