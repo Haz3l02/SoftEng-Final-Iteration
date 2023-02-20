@@ -10,6 +10,7 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
 import io.github.palexdev.materialfx.controls.*;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
@@ -19,6 +20,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -87,11 +90,6 @@ public class PathfindingController extends MenuController {
   private GraphicsContext[] gcs = new GraphicsContext[5];
   private final double SCALE_FACTOR = 0.135;
 
-  // popup stuff (move elsewhere?)
-  @FXML private MFXButton okButton; // return true from popup
-  @FXML private MFXButton cancelButton; // return false from popup
-  @FXML private Text popupText; // set the location name in the rest of the text
-
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
    * that needs to exist in the page before pathfinding is called.
@@ -100,6 +98,7 @@ public class PathfindingController extends MenuController {
    */
   public void initialize() throws SQLException {
     // prepare floor/algorithm dropdowns
+
     ObservableList<String> floors =
         FXCollections.observableArrayList(
             Floor.L1.getExtendedString(),
@@ -160,6 +159,12 @@ public class PathfindingController extends MenuController {
     algosBox.clearSelection();
     navDatePicker.clear();
 
+    // disable stuff
+    startFloorBox.setDisable(true);
+    endFloorBox.setDisable(true);
+    startLocBox.setDisable(true);
+    endLocBox.setDisable(true);
+
     // reset the location lists
     ObservableList<String> empty = FXCollections.observableArrayList();
     startLocBox.setItems(empty);
@@ -184,6 +189,8 @@ public class PathfindingController extends MenuController {
   @FXML
   public void setPathfindingAlgorithm(ActionEvent event) {
     pathfindingSystem = new PathfindingSystem(Algorithm.fromString(algosBox.getValue()));
+    startFloorBox.setDisable(false);
+    endFloorBox.setDisable(false);
   }
 
   @FXML
@@ -195,6 +202,9 @@ public class PathfindingController extends MenuController {
     endLocBox.clear();
     startFloorBox.clear();
     endFloorBox.clear();
+
+    startLocBox.setDisable(true);
+    endLocBox.setDisable(true);
 
     ObservableList<String> empty = FXCollections.observableArrayList();
     startLocBox.setItems(empty);
@@ -209,10 +219,9 @@ public class PathfindingController extends MenuController {
   public void fillStartLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
 
-    List<MoveEntity> moveEntities =
-        FacadeRepository.getInstance().moveAllMostRecentFloor(navDate, floor.getTableString());
-    System.out.println(moveEntities.size());
-
+    // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still works though,
+    // and isn't that much slower.
+    List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
 
@@ -244,9 +253,9 @@ public class PathfindingController extends MenuController {
   public void fillEndLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(endFloorBox.getValue()));
 
+    // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still works though,
+    // and isn't that much slower.
     List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
-    System.out.println(moveEntities.size());
-
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
 
@@ -274,41 +283,100 @@ public class PathfindingController extends MenuController {
     endLocBox.clear();
   }
 
-  public void checkForMoves() throws SQLException {
+  /**
+   * pain
+   *
+   * @throws SQLException
+   */
+  public void checkForMovesStart() throws SQLException, IOException {
     int startIndex = startLocBox.getSelectedIndex();
+    int algoIndex = algosBox.getSelectedIndex();
+
+    // make sure the algorithm is picked and the box has a value
+    if (algoIndex != -1 && startIndex != -1) {
+      // get the location name
+      String startLocName = startLocBox.getValue();
+
+      // loop through the keys (moveEntities) hashMap of move entities
+      for (MoveEntity m : movesInNextWeek.keySet()) {
+
+        // long name of the current key (most recent) and the date
+        LocationNameEntity locName = m.getLocationName();
+        LocalDate moveDate = m.getMovedate();
+
+        if (locName != null) {
+          if (locName.getLongname().equals(startLocName)) {
+            // Ask the user if they want the path from current to future displayed
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Notice for Upcoming Moves");
+            alert.setHeaderText(
+                "The location selected has an upcoming move, set to happen on "
+                    + moveDate.toString()
+                    + ".");
+            alert.setContentText(
+                "Would you like to navigate from its current location to its new location?");
+
+            if (alert.showAndWait().get() == ButtonType.OK) {
+              // get the IDs from the initial (value) and final (key) moves
+              String startID = startNodeIDs.get(startIndex);
+              String endID = movesInNextWeek.get(m).getNode().getNodeid();
+
+              try {
+                generatePathFromMovePopup(startID, endID);
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * pain II, electric boogaloo
+   *
+   * @throws SQLException
+   */
+  public void checkForMovesEnd() throws SQLException {
     int endIndex = endLocBox.getSelectedIndex();
     int algoIndex = algosBox.getSelectedIndex();
 
-    // if the locBoxes or algosBox are empty, don't do anything
-    if ((startIndex == -1 && endIndex == -1) || algoIndex == -1) {
-      // then don't run anything :)
-    } else {
-      // get the location names
-      String startLocName = startLocBox.getValue();
+    // make sure the algorithm is picked and the box has a value
+    if (algoIndex != -1 && endIndex != -1) {
+      // get the location name
       String endLocName = endLocBox.getValue();
 
       // loop through the keys (moveEntities) hashMap of move entities
       for (MoveEntity m : movesInNextWeek.keySet()) {
+
         // long name of the current key (most recent)
         LocationNameEntity locName = m.getLocationName();
+        LocalDate moveDate = m.getMovedate();
 
         if (locName != null) {
-          if (locName.getLongname().equals(startLocName)
-              || locName.getLongname().equals(endLocName)) {
+          if (locName.getLongname().equals(endLocName)) {
+            // Ask the user if they want the path from current to future displayed
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Notice for Upcoming Moves");
+            alert.setHeaderText(
+                "The location selected has an upcoming move, set to happen on "
+                    + moveDate.toString()
+                    + ".");
+            alert.setContentText(
+                "Would you like to navigate from its current location to its new location?");
 
-            // now strip the user of their agency and do things for them (change this later)
-            // get the IDs from the initial (value) and final (key) moves
-            String startID = movesInNextWeek.get(m).getNode().getNodeid();
-            String endID = m.getNode().getNodeid();
+            if (alert.showAndWait().get() == ButtonType.OK) {
+              // get the IDs from the initial (value) and final (key) moves
+              String startID = endNodeIDs.get(endIndex);
+              String endID = movesInNextWeek.get(m).getNode().getNodeid();
 
-            // System.out.println(startID);
-            // System.out.println(endID);
-            // System.out.println(movesInNextWeek.get(m).getMovedate());
-            // System.out.println(m.getMovedate());
-
-            // TODO if/else inside popup; if yes, execute and break- also add message
-            generatePathFromMovePopup(startID, endID);
-            break; // so that it doesn't check the rest of the moves
+              try {
+                generatePathFromMovePopup(startID, endID);
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+            }
           }
         }
       }
