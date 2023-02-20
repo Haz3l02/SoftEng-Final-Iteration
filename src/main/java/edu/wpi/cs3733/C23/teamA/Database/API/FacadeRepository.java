@@ -480,4 +480,9 @@ public class FacadeRepository {
   public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname) {
     return serv.getRequestAtLocation(longname);
   }
+
+
+  public void removeAssociatedLocationsOnMove(String nodeid){
+    move.removeAssociatedLocations(nodeid);
+  }
 }
