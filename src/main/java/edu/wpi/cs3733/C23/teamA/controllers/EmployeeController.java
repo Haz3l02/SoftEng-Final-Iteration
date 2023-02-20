@@ -4,6 +4,8 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -26,6 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javax.swing.*;
 import org.controlsfx.control.PopOver;
 
 public class EmployeeController {
@@ -181,6 +184,11 @@ public class EmployeeController {
   @FXML
   void clearForm(ActionEvent event) {
     fileNameField.clear();
+  }
+
+  @FXML
+  public void switchToDatabaseHome(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.HOME_DATABASE);
   }
 
   @FXML

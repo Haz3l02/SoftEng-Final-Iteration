@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import edu.wpi.cs3733.C23.teamA.enums.Status;
+import edu.wpi.cs3733.C23.teamA.enums.Subject;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.security.auth.Subject;
 
 @Entity
 @Table(name = "accessibility")

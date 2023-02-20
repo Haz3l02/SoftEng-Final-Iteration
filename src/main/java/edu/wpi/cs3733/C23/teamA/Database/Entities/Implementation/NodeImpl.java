@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.Database.Implementation;
+package edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static java.lang.Integer.parseInt;

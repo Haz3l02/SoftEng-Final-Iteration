@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.Database.API;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -23,6 +23,7 @@ public class FacadeRepository {
   private final PatientTransportimpl pat = PatientTransportimpl.getInstance();
   private final ServiceRequestImpl serv = ServiceRequestImpl.getInstance();
   private final AccessabilityImpl acc = AccessabilityImpl.getInstance();
+  private final AudioVisualImpl av = AudioVisualImpl.getInstance();
 
   private final Observer nodeObv = new EntityObserver(node);
   private final Observer edgeObv = new EntityObserver(edge);
@@ -34,6 +35,7 @@ public class FacadeRepository {
   private final Observer patObv = new EntityObserver(pat);
   private final Observer compObv = new EntityObserver(serv);
   private final Observer accObv = new EntityObserver(acc);
+  private final Observer avObv = new EntityObserver(av);
 
   public static FacadeRepository getInstance() {
     return instance;
@@ -99,6 +101,10 @@ public class FacadeRepository {
 
   public void addComputerRequest(ComputerRequestEntity c) {
     comp.add(c);
+  }
+
+  public void addAudioVisualRequest(AudioVisualRequestEntity c) {
+    av.add(c);
   }
 
   public void addEdge(EdgeEntity c) {
@@ -243,6 +249,10 @@ public class FacadeRepository {
 
   public ComputerRequestEntity getComputerRequest(Integer id) {
     return comp.get(id);
+  }
+
+  public AudioVisualRequestEntity getAVRequest(Integer id) {
+    return av.get(id);
   }
 
   public EdgeEntity getEdge(String id) {
