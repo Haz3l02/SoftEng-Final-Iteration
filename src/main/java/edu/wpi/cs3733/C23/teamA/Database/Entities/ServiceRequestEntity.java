@@ -97,6 +97,7 @@ public class ServiceRequestEntity {
     COMPUTER("Computer"),
     SANITATION("Sanitation"),
     PATIENT_TRANSPORT("Patient Transport"),
+    AV("Audio\\Visual"),
     ACCESSIBILITY("Accessibility");
 
     // FILL OUT TOMORROW WITH ISABELLA

@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.Database.API;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
-import edu.wpi.cs3733.C23.teamA.Database.Implementation.*;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation.*;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -23,6 +23,7 @@ public class FacadeRepository {
   private final PatientTransportimpl pat = PatientTransportimpl.getInstance();
   private final ServiceRequestImpl serv = ServiceRequestImpl.getInstance();
   private final AccessabilityImpl acc = AccessabilityImpl.getInstance();
+  private final AudioVisualImpl av = AudioVisualImpl.getInstance();
 
   private final Observer nodeObv = new EntityObserver(node); // Notify for edge, move
   private final Observer edgeObv = new EntityObserver(edge);
@@ -35,6 +36,7 @@ public class FacadeRepository {
   private final Observer patObv = new EntityObserver(pat);
   private final Observer compObv = new EntityObserver(serv);
   private final Observer accObv = new EntityObserver(acc);
+  private final Observer avObv = new EntityObserver(av);
 
   private FacadeRepository() {
     loc.attach(sanObv);
@@ -120,6 +122,10 @@ public class FacadeRepository {
     comp.add(c);
   }
 
+  public void addAudioVisualRequest(AudioVisualRequestEntity c) {
+    av.add(c);
+  }
+
   public void addEdge(EdgeEntity c) {
     edge.add(c);
   }
@@ -170,7 +176,7 @@ public class FacadeRepository {
     edge.delete(id);
   }
 
-  public void deleteEmployee(String id) {
+  public void deleteEmployee(Integer id) {
     emp.delete(id);
   }
 
@@ -264,11 +270,15 @@ public class FacadeRepository {
     return comp.get(id);
   }
 
+  public AudioVisualRequestEntity getAVRequest(Integer id) {
+    return av.get(id);
+  }
+
   public EdgeEntity getEdge(String id) {
     return edge.get(id);
   }
 
-  public EmployeeEntity getEmployee(String id) {
+  public EmployeeEntity getEmployee(Integer id) {
     return emp.get(id);
   }
 
@@ -314,7 +324,7 @@ public class FacadeRepository {
     edge.update(id, c);
   }
 
-  public void updateEmployee(String id, EmployeeEntity c) {
+  public void updateEmployee(Integer id, EmployeeEntity c) {
     emp.update(id, c);
   }
 

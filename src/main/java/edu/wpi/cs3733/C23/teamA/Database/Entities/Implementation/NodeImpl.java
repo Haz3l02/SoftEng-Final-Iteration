@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.Database.Implementation;
+package edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 import static java.lang.Integer.parseInt;
@@ -110,7 +110,6 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
     nodes.add(n);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(String n) {

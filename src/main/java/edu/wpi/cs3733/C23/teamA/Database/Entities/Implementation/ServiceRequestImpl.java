@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.Database.Implementation;
+package edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
@@ -189,7 +189,7 @@ public class ServiceRequestImpl extends Observable
   public ArrayList<ServiceRequestEntity> getAllByEmployee(String id) {
     ArrayList<ServiceRequestEntity> fin = new ArrayList<ServiceRequestEntity>();
     for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployee().getEmployeeid().equals(id)) {
+      if (ser.getEmployee().getEmployeeid() == Integer.parseInt(id)) {
         fin.add(ser);
       }
     }
