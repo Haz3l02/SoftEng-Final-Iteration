@@ -31,7 +31,7 @@ import javafx.scene.text.Text;
 import javax.swing.*;
 import org.controlsfx.control.PopOver;
 
-public class EmployeeController {
+public class EmployeeController extends MenuController {
 
   @FXML private TableView<EmployeeEntity> employeeTable;
   @FXML public TableColumn<EmployeeEntity, Integer> IDCol;
@@ -129,7 +129,7 @@ public class EmployeeController {
   @FXML
   public void delete(ActionEvent event) {
     String currentRowId = IDNumBox.getText();
-    FacadeRepository.getInstance().deleteEmployee(currentRowId);
+    FacadeRepository.getInstance().deleteEmployee(Integer.parseInt(currentRowId));
     reloadData();
   }
 

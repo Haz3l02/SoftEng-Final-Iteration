@@ -189,7 +189,7 @@ public class ServiceRequestImpl extends Observable
   public ArrayList<ServiceRequestEntity> getAllByEmployee(String id) {
     ArrayList<ServiceRequestEntity> fin = new ArrayList<ServiceRequestEntity>();
     for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployee().getEmployeeid().equals(id)) {
+      if (ser.getEmployee().getEmployeeid() == Integer.parseInt(id)) {
         fin.add(ser);
       }
     }

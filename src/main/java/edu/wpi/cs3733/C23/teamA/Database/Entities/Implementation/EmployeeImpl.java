@@ -63,7 +63,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     Transaction tx = session.beginTransaction();
 
     employees.stream()
-        .filter(employee -> employee.getEmployeeid()==ID)
+        .filter(employee -> employee.getEmployeeid() == ID)
         .toList()
         .forEach(
             employee -> {
@@ -96,7 +96,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     emp.setUsername(obj.getUsername());
     emp.setJob(obj.getJob());
 
-    if (ID==obj.getEmployeeid()) {
+    if (ID == obj.getEmployeeid()) {
       ComputerRequestImpl.getInstance().refresh();
       PatientTransportimpl.getInstance().refresh();
       SecurityRequestImpl.getInstance().refresh();
@@ -187,7 +187,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     employees.stream()
-        .filter(employee -> employee.getEmployeeid()==(e))
+        .filter(employee -> employee.getEmployeeid() == (e))
         .toList()
         .forEach(
             employee -> {
@@ -218,7 +218,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
 
   public EmployeeEntity get(Integer ID) {
     return employees.stream()
-        .filter(employee -> employee.getEmployeeid()==(ID))
+        .filter(employee -> employee.getEmployeeid() == (ID))
         .findFirst()
         .orElseThrow();
   }

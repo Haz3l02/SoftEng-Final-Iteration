@@ -106,7 +106,8 @@ public class ComputerController extends ServiceRequestController {
         submission.setDevice(device);
         submission.setDeviceid(deviceIDNum.getText());
       } else {
-        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        EmployeeEntity person =
+            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 

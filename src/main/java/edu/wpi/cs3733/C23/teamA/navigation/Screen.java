@@ -11,7 +11,7 @@ public enum Screen {
   COMPUTER("views/ComputerFXML.fxml"),
   SANITATION("views/SanitationFXML.fxml"),
   SECURITY("views/SecurityFXML.fxml"),
-  AUDIOVISUAL("views/AudioVisual.fxml"),
+  AUDIOVISUAL("views/AudioVisualFXML.fxml"),
   HELP("views/HelpFXML.fxml"),
   HOME_SERVICE_REQUEST("views/HomeServiceRequestSMALLFXML.fxml"),
   SERVICE_REQUEST("views/ServiceRequest.fxml"),

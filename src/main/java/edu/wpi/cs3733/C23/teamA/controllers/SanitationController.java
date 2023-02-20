@@ -50,7 +50,7 @@ public class SanitationController extends ServiceRequestController {
       SanitationRequestEntity editRequest =
           FacadeRepository.getInstance().getSanitationRequest(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
-      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
       categoryBox.setText(editRequest.getCategory().getIssue());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
@@ -68,7 +68,7 @@ public class SanitationController extends ServiceRequestController {
       SanitationRequestEntity editRequest =
           FacadeRepository.getInstance().getSanitationRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
-      IDNum.setText(editRequest.getEmployee().getEmployeeid());
+      IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
       categoryBox.setText(editRequest.getCategory().getIssue());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
@@ -109,7 +109,8 @@ public class SanitationController extends ServiceRequestController {
         submission.setUrgency(urgent);
         submission.setCategory(category);
       } else {
-        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(IDNum.getText());
+        EmployeeEntity person =
+            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 
