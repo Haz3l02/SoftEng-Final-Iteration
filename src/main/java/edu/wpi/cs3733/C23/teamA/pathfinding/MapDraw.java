@@ -30,6 +30,8 @@ public class MapDraw {
   private static final double radius = 3;
   private static final double width = 6;
 
+  private static Rectangle previousRect;
+
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
   // hospital image scale factor to fit on screen (popover - 1250 x 850): 25% (0.25)
   // hospital image scale factor for our prototype (on-page - 250 x 170): 5% (0.05)
@@ -193,19 +195,39 @@ public class MapDraw {
         int[] updatedCoords =
             scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
 
-        Rectangle rect =
-            new Rectangle(updatedCoords[0] + 5, updatedCoords[1] - 5, width + 1, width + 1);
+        Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 1, width + 1);
         rect.setFill(Color.web("0x000000"));
-        EventHandler<MouseEvent> eventHandler =
-            new EventHandler<MouseEvent>() {
-              @Override
-              public void handle(MouseEvent event) {
-                rect.setFill(Color.web("0x00FF00"));
-                System.out.println("clicked");
-              }
-            };
+
+        rect.setOnMouseClicked(squareChangeColor());
+
         anchorPane.getChildren().add(rect);
       }
     }
+  }
+
+  /**
+   * Changes color of the square service request icon on click and resets previously selected square
+   * color
+   *
+   * @return a mouse event handler that changes te color of a square on click
+   */
+  private static EventHandler<MouseEvent> squareChangeColor() {
+    EventHandler<MouseEvent> eventHandler =
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent t) {
+
+            if (t.getSource() instanceof Rectangle) {
+
+              if (previousRect != null) {
+                previousRect.setFill(Color.web("0x000000"));
+              }
+              Rectangle rect = ((Rectangle) (t.getSource()));
+              rect.setFill(Color.web("0x00FF00"));
+              previousRect = rect;
+            }
+          }
+        };
+    return eventHandler;
   }
 }
