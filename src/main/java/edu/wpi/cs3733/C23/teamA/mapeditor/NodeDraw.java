@@ -66,11 +66,11 @@ public class NodeDraw implements KeyListener {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = Math.floor(xCoord) * scaleFactor;
-    yCoord = Math.floor(yCoord) * scaleFactor;
+    xCoord = (xCoord) * scaleFactor;
+    yCoord = (yCoord) * scaleFactor;
 
     // put the values in an array to return
-    int[] scaledCoordinates = {(int) xCoord, (int) yCoord};
+    int[] scaledCoordinates = {(int) Math.round(xCoord), (int) Math.round(yCoord)};
 
     // return the scaled coordinates
     return scaledCoordinates;
@@ -86,11 +86,11 @@ public class NodeDraw implements KeyListener {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = Math.floor(xCoord / scaleFactor);
-    yCoord = Math.floor(yCoord / scaleFactor);
+    xCoord = (xCoord / scaleFactor);
+    yCoord = (yCoord / scaleFactor);
 
     // put the values in an array to return
-    int[] scaledCoordinates = {(int) xCoord, (int) yCoord};
+    int[] scaledCoordinates = {(int) Math.round(xCoord), (int) Math.round(yCoord)};
 
     // return the scaled coordinates
     return scaledCoordinates;
@@ -102,7 +102,7 @@ public class NodeDraw implements KeyListener {
       AnchorPane nodeAnchor,
       MapEditorController nmc) {
 
-    nodeAnchor.getChildren().clear();
+    // nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
       int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
@@ -125,7 +125,7 @@ public class NodeDraw implements KeyListener {
       double scaleFactor,
       AnchorPane nodeAnchor,
       MapEditorController nmc) {
-    nodeAnchor.getChildren().clear();
+    // nodeAnchor.getChildren().clear();
 
     // draw circle for each node
     for (NodeEntity n : allNodes) {
@@ -304,7 +304,11 @@ public class NodeDraw implements KeyListener {
                   FacadeRepository.getInstance()
                       .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
                 }
-
+                nodeAnchor.getChildren().clear();
+                drawEdges(
+                    FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
+                    scaleFactor,
+                    nodeAnchor);
                 drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
               }
             }
