@@ -310,6 +310,9 @@ public class ServiceRequestStatusController extends MenuController {
       case "Audio\\Visual":
         Navigation.navigate(Screen.AUDIOVISUAL);
         break;
+      case "Accessibility":
+        Navigation.navigate(Screen.ACCESSIBILITY);
+        break;
       default:
         Navigation.navigateHome(Screen.HOME);
         break;

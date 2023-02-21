@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
+   <children>
+      <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
+         <children>
+            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
+               <padding>
+                  <Insets bottom="-20.0" />
+               </padding>
+               <top>
+                  <SplitPane orientation="VERTICAL" prefHeight="80.0" prefWidth="1374.0" BorderPane.alignment="CENTER">
+                     <items>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                           <center>
+                              <HBox prefHeight="78.0" prefWidth="1027.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER" />
+                           </center>
+                        </BorderPane>
+                     </items>
+                  </SplitPane>
+               </top>
+               <right>
+                  <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="554.0" prefWidth="347.0" style="-fx-background-color: #BAD1EA;" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets top="-100.0" />
+                     </BorderPane.margin>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome,">
+                           <font>
+                              <Font name="Verdana" size="48.0" />
+                           </font>
+                        </Text>
+                        <Label fx:id="welcome" alignment="CENTER" text="Label">
+                           <font>
+                              <Font name="Verdana" size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </right>
+               <center>
+                  <VBox alignment="TOP_CENTER" prefHeight="572.0" prefWidth="614.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <StackPane prefHeight="150.0" prefWidth="646.0" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-border-radius: 15;">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="30.0" />
+                           </VBox.margin>
+                        </StackPane>
+                        <ImageView fitHeight="241.0" fitWidth="516.0" pickOnBounds="true" smooth="false">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </center>
+               <left>
+                  <VBox alignment="CENTER" prefHeight="494.0" prefWidth="427.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <StackPane prefHeight="302.0" prefWidth="436.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-border-radius: 15;">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <TableView minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="302.0" prefWidth="427.0">
+                                 <columns>
+                                    <TableColumn fx:id="locationCol" prefWidth="455.0" text="Department" />
+                                    <TableColumn fx:id="node1Col" prefWidth="199.0" text="Location 1" />
+                                    <TableColumn fx:id="node2Col" prefWidth="199.0" text="Location  2" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <StackPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </StackPane.margin>
+                              </TableView>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </VBox>
+               </left>
+            </BorderPane>
+         </children>
+      </StackPane>
+      <VBox alignment="BOTTOM_LEFT" layoutX="11.0" layoutY="159.0" prefHeight="65.0" prefWidth="781.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brigham and Women's Hospital" textAlignment="RIGHT" textOrigin="BOTTOM" wrappingWidth="765.06591796875">
+               <font>
+                  <Font name="Arial Black" size="45.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <VBox layoutX="12.0" layoutY="140.0" prefHeight="37.0" prefWidth="297.0">
+         <children>
+            <Label fx:id="date" text="Label" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="12.0" prefHeight="37.0" prefWidth="297.0">
+         <children>
+            <Label fx:id="time" text="Label" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
