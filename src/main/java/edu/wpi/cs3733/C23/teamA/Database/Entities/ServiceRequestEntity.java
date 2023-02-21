@@ -80,14 +80,15 @@ public class ServiceRequestEntity {
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @ManyToOne
+  @ManyToOne(optional = true)
   @JoinColumn(
       name = "employeeassignedid",
       foreignKey =
           @ForeignKey(
               name = "assignedemployee_fk",
               foreignKeyDefinition =
-                  "FOREIGN KEY (employeeassignedid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
+                  "FOREIGN KEY (employeeassignedid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE SET NULL"),
+      nullable = true)
   @Setter
   private EmployeeEntity employeeAssigned;
 
@@ -158,11 +159,11 @@ public class ServiceRequestEntity {
   }
 
   public EmployeeEntity getEmployeeAssigned() {
-    if (employeeAssigned == null) {
-      EmployeeEntity unassigned =
-          new EmployeeEntity("0", "Unassigned", "unassigned", "maintenance", "unassigned");
-      return unassigned;
-    }
+    //    if (employeeAssigned == null) {
+    //      EmployeeEntity unassigned =
+    //          new EmployeeEntity("0", "Unassigned", "unassigned", "maintenance", "unassigned");
+    //      return unassigned;
+    //    }
     return employeeAssigned;
   }
 }

@@ -166,6 +166,7 @@ public class ServiceRequestImpl extends Observable
     ser.setStatus(obj.getStatus());
 
     services.add(ser);
+    session.persist(ser);
     tx.commit();
     session.close();
   }
@@ -223,7 +224,7 @@ public class ServiceRequestImpl extends Observable
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
     for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployeeAssigned().getUsername().equalsIgnoreCase("unassigned")) sers.add(ser);
+      if (ser.getEmployeeAssigned() == null) sers.add(ser);
     }
     return sers;
   }

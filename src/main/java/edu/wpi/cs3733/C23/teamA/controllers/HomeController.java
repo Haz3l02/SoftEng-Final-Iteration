@@ -155,9 +155,13 @@ public class HomeController extends MenuController {
         (MouseEvent e) -> {
           switchToPathfinding();
         });
-    mapImage.setOnMouseDragOver(
+    mapImage.setOnMouseEntered(
         (MouseEvent e) -> {
           findPath.setVisible(true);
+        });
+    mapImage.setOnMouseExited(
+        (MouseEvent e) -> {
+          findPath.setVisible(false);
         });
     about.setOnMouseClicked(
         (MouseEvent e) -> {

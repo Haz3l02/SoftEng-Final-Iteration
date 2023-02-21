@@ -155,7 +155,11 @@ public class ServiceRequestStatusController extends MenuController {
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
       // try {
       employeeAssignedCol.setCellValueFactory(
-          param -> new SimpleStringProperty(param.getValue().getEmployeeAssigned().getUsername()));
+          param ->
+              new SimpleStringProperty(
+                  param.getValue().getEmployeeAssigned() == null
+                      ? "Unassigned"
+                      : param.getValue().getEmployeeAssigned().getUsername()));
       //      } catch (NullPointerException e) {
       //        employeeAssignedCol.setCellValueFactory(param -> new
       // SimpleStringProperty("Unassigned"));
@@ -192,7 +196,15 @@ public class ServiceRequestStatusController extends MenuController {
       statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
       urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
       employeeBox.setValue(
-          String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned().getUsername()));
+          String.valueOf(
+              clickedServiceReqTableRow.getEmployeeAssigned() == null
+                  ? null
+                  : clickedServiceReqTableRow.getEmployeeAssigned().getUsername()));
+      employeeBox.setText(
+          String.valueOf(
+              clickedServiceReqTableRow.getEmployeeAssigned() == null
+                  ? "Unassigned"
+                  : clickedServiceReqTableRow.getEmployeeAssigned().getUsername()));
       if (job.equalsIgnoreCase("medical")) {
         editForm.setVisible(true);
         editForm.setDisable(false);

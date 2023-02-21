@@ -123,7 +123,7 @@ public class SecurityController extends ServiceRequestController {
 
       } else {
         EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
-        EmployeeEntity unassigned = FacadeRepository.getInstance().getEmployee(0);
+        // EmployeeEntity unassigned = FacadeRepository.getInstance().getEmployee(0);
 
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
