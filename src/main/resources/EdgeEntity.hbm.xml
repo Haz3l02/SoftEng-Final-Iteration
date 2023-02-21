@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity" table="edge" schema="public" catalog="dba">
+    <class name="edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity" table="edge" schema="employeetester" catalog="dba">
         <composite-id mapped="true" class="edu.wpi.cs3733.C23.teamA.Database.EdgeEntityPK">
             <key-property name="edgeid">
                 <column name="edgeid" sql-type="text"/>
