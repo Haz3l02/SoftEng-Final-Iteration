@@ -8,16 +8,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="300.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="600.0" style="-fx-background-color: #224870; -fx-border-color: BLACK; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER_LEFT">
+      <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="24.0" prefWidth="400.0" style="-fx-background-color: #224870; -fx-border-color: BLACK; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: false; -fx-border-width: 0 0 0 0;" text="About" wrappingWidth="479.1484375">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests:">
                <font>
-                  <Font name="Arial Black" size="30.0" />
+                  <Font name="Arial Black" size="24.0" />
                </font>
                <HBox.margin>
-                  <Insets left="10.0" top="10.0" />
+                  <Insets left="10.0" />
                </HBox.margin>
             </Text>
          </children>
@@ -26,14 +26,6 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests at location:">
-               <font>
-                  <Font name="Arial Black" size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="25.0" />
-               </VBox.margin>
-            </Text>
             <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Team A - Artificial Axolotls">
                <VBox.margin>
                   <Insets />
@@ -42,7 +34,7 @@
                   <Font name="Verdana Bold" size="18.0" />
                </font>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 1" textAlignment="CENTER" wrappingWidth="500.0">
+            <Text fx:id="req1" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 1" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
                   <Font name="Verdana Italic" size="14.0" />
                </font>
@@ -50,24 +42,24 @@
                   <Insets />
                </VBox.margin>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 2" textAlignment="CENTER" wrappingWidth="500.0">
+            <Text fx:id="req2" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 2" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
                   <Font name="Verdana Italic" size="14.0" />
                </font>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 3" textAlignment="CENTER" wrappingWidth="500.0">
+            <Text fx:id="req3" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 3" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
                   <Font name="Verdana Italic" size="14.0" />
                </font>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 4" textAlignment="CENTER" wrappingWidth="500.0">
+            <Text fx:id="req4" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 4" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
                   <Font name="Verdana Italic" size="14.0" />
                </font>
             </Text>
-            <MFXButton fx:id="backButton" prefHeight="30.0" prefWidth="75.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 5;" text="Back" textFill="#d3e9f6">
+            <MFXButton fx:id="closeButton" onAction="#closePopup" prefHeight="30.0" prefWidth="75.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 5;" text="Close" textFill="#d3e9f6">
                <VBox.margin>
-                  <Insets top="15.0" />
+                  <Insets bottom="5.0" />
                </VBox.margin>
             </MFXButton>
          </children>

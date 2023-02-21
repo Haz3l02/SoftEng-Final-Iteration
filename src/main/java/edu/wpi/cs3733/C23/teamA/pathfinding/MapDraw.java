@@ -211,17 +211,17 @@ public class MapDraw {
 
       // draw node
       Circle currentCircle;
-       // janky but maybe ok?
-            if (floorTracker < floorPath.size() - 1) {
-              if (!floorPath.get(floorTracker + 1).equals(g.getFloor())) {
-                currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
-              } else {
-                currentCircle = new Circle(currentX, currentY, radius, Color.web("0xFFD470"));
-                floorTracker++;
-              }
-            } else {
-              currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
-            }
+      // janky but maybe ok?
+      if (floorTracker < floorPath.size() - 1) {
+        if (!floorPath.get(floorTracker + 1).equals(g.getFloor())) {
+          currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
+        } else {
+          currentCircle = new Circle(currentX, currentY, radius, Color.web("0xFFD470"));
+          floorTracker++;
+        }
+      } else {
+        currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
+      }
       // currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
       aps[currentFloor].getChildren().add(currentCircle);
       //      if (FacadeRepository.getInstance().getRequestAtLocation(g.getLongName()).size() > 0) {
