@@ -6,6 +6,7 @@ import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusControlle
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.enums.*;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
@@ -36,6 +37,7 @@ public class PatientTransportController extends ServiceRequestController {
   private Gender gender;
   private ModeOfTransfer mode;
   private Mobility mobility;
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   @FXML
   public void initialize() throws SQLException {
@@ -105,14 +107,19 @@ public class PatientTransportController extends ServiceRequestController {
       babyCheckBox.setText(String.valueOf(editPatientRequest.isBaby()));
       immuneCheckBox.setText(String.valueOf(editPatientRequest.isImmuneComp()));
       // sanI.closeSession();
-      accept.setDisable(false);
+      if (holder.getJob().equalsIgnoreCase("admin")) {
+        accept.setDisable(true);
+        reject.setDisable(true);
+      } else {
+        accept.setDisable(false);
+        reject.setDisable(false);
+        reject.setVisible(true);
+      }
       accept.setVisible(true);
       clear.setDisable(true);
       clear.setVisible(false);
       submit.setDisable(true);
       submit.setVisible(false);
-      reject.setDisable(false);
-      reject.setVisible(true);
     }
 
     // Otherwise Initialize service requests as normal

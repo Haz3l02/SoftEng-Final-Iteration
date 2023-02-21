@@ -11,6 +11,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.IssueCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class SanitationController extends ServiceRequestController {
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   @FXML
   public void initialize() throws SQLException {
@@ -75,14 +77,19 @@ public class SanitationController extends ServiceRequestController {
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       // sanI.closeSession();
-      accept.setDisable(false);
+      if (holder.getJob().equalsIgnoreCase("admin")) {
+        accept.setDisable(true);
+        reject.setDisable(true);
+      } else {
+        accept.setDisable(false);
+        reject.setDisable(false);
+        reject.setVisible(true);
+      }
       accept.setVisible(true);
       clear.setDisable(true);
       clear.setVisible(false);
       submit.setDisable(true);
       submit.setVisible(false);
-      reject.setDisable(false);
-      reject.setVisible(true);
     }
   }
 

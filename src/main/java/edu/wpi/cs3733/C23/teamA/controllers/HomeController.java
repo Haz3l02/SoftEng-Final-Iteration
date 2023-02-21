@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
@@ -35,7 +33,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.controlsfx.control.PopOver;
-import org.hibernate.Session;
 
 public class HomeController extends MenuController {
 
@@ -189,7 +186,6 @@ public class HomeController extends MenuController {
           param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
-      Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
       requests =

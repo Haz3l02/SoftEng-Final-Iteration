@@ -151,7 +151,7 @@
                               <Font size="14.0" />
                            </font>
                         </MFXFilterComboBox>
-                        <MFXFilterComboBox fx:id="moveToBox1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXFilterComboBox fx:id="locationBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
