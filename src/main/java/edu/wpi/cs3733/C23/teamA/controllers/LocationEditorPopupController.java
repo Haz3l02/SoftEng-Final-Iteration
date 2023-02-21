@@ -95,13 +95,15 @@ public class LocationEditorPopupController {
   @FXML
   public void deleteLocation(ActionEvent actionEvent) {
     selected = NodeDraw.getSelected();
-    System.out.println(
-        FacadeRepository.getInstance().moveMostRecentLoc(selected.getNodeid()).getLongname());
+
+    //    System.out.println(
+    //        FacadeRepository.getInstance().moveMostRecentLoc(selected.getNodeid()).getLongname());
+    FacadeRepository.getInstance().removeAssociatedLocationsOnMove(selected.getNodeid());
+    System.out.println("deleted all locations!!!");
     FacadeRepository.getInstance()
         .deleteLocation(
             FacadeRepository.getInstance().moveMostRecentLoc(selected.getNodeid()).getLongname());
-
-    FacadeRepository.getInstance().deleteMove(FacadeRepository.getInstance().getAllLocationIDS());
+    System.out.println("deleted all locations!!!");
     MEC.initialize();
   }
 }

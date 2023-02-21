@@ -110,12 +110,13 @@ public class MapEditorController extends MenuController {
             });
     mapEditor = new MapEditorController();
 
-    if (!(NodeDraw.getSelected() == null)) {
-      longNameBox.setText(
-          FacadeRepository.getInstance()
-              .moveMostRecentLoc(NodeDraw.getSelected().getNodeid())
-              .getLongname());
-    }
+    //    if (!(NodeDraw.getSelected() == null &&
+    // FacadeRepository.getInstance().getLocation(NodeDraw.getSelected().getNodeid()))) {
+    //      longNameBox.setText(
+    //          FacadeRepository.getInstance()
+    //              .moveMostRecentLoc(NodeDraw.getSelected().getNodeid())
+    //              .getLongname());
+    //    }
     mainAnchorPane.setPickOnBounds(false);
   }
 

@@ -125,15 +125,17 @@ public class NodeDraw implements KeyListener {
             boolean shiftPressed = event.isShiftDown();
             selectNodePane = nodeGraphic;
 
-            if ((previousSelectedNode != null && previousLine != null)) {
-              if (!previousSelectedNode.equals(nodeGraphic)) {
-                previousSelectedNode.setStyle(
-                    "-fx-background-color: '#224870'; "
-                        + "-fx-background-radius: 12.5; "
-                        + "-fx-border-color: '#224870'; "
-                        + "-fx-border-width: 1;"
-                        + "-fx-border-radius: 13.5");
-                previousSelectedNode.setPrefSize(5, 5);
+            if (previousSelectedNode != null && !(previousSelectedNode.equals(nodeGraphic))) {
+
+              previousSelectedNode.setStyle(
+                  "-fx-background-color: '#224870'; "
+                      + "-fx-background-radius: 12.5; "
+                      + "-fx-border-color: '#224870'; "
+                      + "-fx-border-width: 1;"
+                      + "-fx-border-radius: 13.5");
+              previousSelectedNode.setPrefSize(5, 5);
+
+              if (previousLine != null) {
                 selectedLine.setStroke(Color.web("0x224870"));
                 previousLine.setStrokeWidth(1);
               }
@@ -232,8 +234,8 @@ public class NodeDraw implements KeyListener {
       //          };
       //      nodeGraphic.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
 
-      final int newX = (int) nodeGraphic.getLayoutX();
-      final int newY = (int) nodeGraphic.getLayoutY();
+      //      final int newX = (int) nodeGraphic.getLayoutX();
+      //      final int newY = (int) nodeGraphic.getLayoutY();
 
       // pass in a node entity and new ID
 
