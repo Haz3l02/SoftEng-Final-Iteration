@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import edu.wpi.cs3733.C23.teamA.AApp;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
@@ -7,9 +8,11 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +43,7 @@ public class MapDraw {
 
   private static Rectangle previousRect;
   private static Label previousLabel;
+  private static PopOver previousPopup;
 
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
   // hospital image scale factor to fit on screen (popover - 1250 x 850): 25% (0.25)
@@ -224,9 +228,6 @@ public class MapDraw {
           && floor.equals(move.getNode().getFloor())) {
         int[] updatedCoords =
             scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
-        System.out.println(updatedCoords[0]);
-        System.out.println(updatedCoords[1]);
-        System.out.println();
 
         Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 1, width + 1);
         rect.setFill(Color.web("0x000000"));
@@ -259,40 +260,61 @@ public class MapDraw {
               Rectangle rect = ((Rectangle) (t.getSource()));
               rect.setFill(Color.web("0x00FF00"));
               previousRect = rect;
-              int[] updatedCoords =
-                  scaleCoordinates(
-                      ((Rectangle) t.getSource()).getX(),
-                      ((Rectangle) t.getSource()).getY(),
-                      scaleFactor);
-              System.out.println(((Rectangle) t.getSource()).getX());
-              System.out.println(((Rectangle) t.getSource()).getY());
-              final Point location = MouseInfo.getPointerInfo().getLocation();
-              addSRLabel(
+              //              int[] updatedCoords =
+              //                  scaleCoordinates(
+              //                      ((Rectangle) t.getSource()).getX(),
+              //                      ((Rectangle) t.getSource()).getY(),
+              //                      scaleFactor);
+              //              System.out.println(((Rectangle) t.getSource()).getX());
+              //              System.out.println(((Rectangle) t.getSource()).getY());
+              //              final Point location = MouseInfo.getPointerInfo().getLocation();
+              String text = "Service request";
+              addSRPopup(
                   anchorPane,
                   ((Rectangle) t.getSource()).getX(),
-                  ((Rectangle) t.getSource()).getY());
+                  ((Rectangle) t.getSource()).getY(),
+                  text);
             }
           }
         };
     return eventHandler;
   }
 
-  public static void addSRLabel(AnchorPane anchorPane, double xcoord, double ycoord) {
+  public static void addSRLabel(AnchorPane anchorPane, double xcoord, double ycoord, String text) {
     if (previousLabel != null) {
       previousLabel.setVisible(false);
     }
 
-    PopOver popover = new PopOver();
-    Label label = new Label("My Service Request");
+    // PopOver popover = new PopOver();
+    Label label = new Label(text);
     label.setVisible(true);
     label.setBackground(Background.fill(Color.web("0xffffff")));
-    //    label.setTranslateX(xcoord - 610);
-    //    label.setTranslateY(ycoord - 140);
-    label.setTranslateX(xcoord);
-    label.setTranslateY(ycoord);
+    label.setTranslateX(xcoord - 2);
+    label.setTranslateY(ycoord + 10);
     previousLabel = label;
-    // Circle circ = new Circle(xcoord, ycoord, 10);
     anchorPane.getChildren().add(label);
+    // AApp.getPrimaryStage();
+  }
+
+  public static void addSRPopup(AnchorPane anchorPane, double xcoord, double ycoord, String text) {
+    if (previousPopup != null) {
+      previousPopup.hide();
+    }
+
+    PopOver popover = new PopOver();
+    try {
+      FXMLLoader loader =
+          new FXMLLoader(
+              AApp.class.getResource(
+                  "resources/edu/wpi/cs3733/C23/teamA/views/EdgeEditorPopupFXML.fxml"));
+      popover.setContentNode(loader.load());
+      popover.setTitle("hello there popover");
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    final Point location = MouseInfo.getPointerInfo().getLocation();
+    popover.show(AApp.getPrimaryStage(), location.getX(), location.getY());
     // AApp.getPrimaryStage();
   }
 }
