@@ -23,6 +23,15 @@
     <bottom>
         <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="1342.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fx:id="srReminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Locations with Service Requests are displayed by a black square.">
+                     <font>
+                        <Font name="Verdana" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
                 <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Back" textFill="#d3e9f6">
                     <HBox.margin>
                         <Insets />

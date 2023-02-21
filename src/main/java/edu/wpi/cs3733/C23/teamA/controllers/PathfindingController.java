@@ -50,6 +50,7 @@ public class PathfindingController extends MenuController {
   @FXML private MFXToggleButton toggleServiceRequests;
   @FXML private MFXToggleButton toggleUpcomingMoves;
   @FXML MFXToggleButton toggleSwitch;
+  @FXML Text srReminder;
 
   // New FXML Data
   @FXML private Button l1Button;
@@ -107,6 +108,7 @@ public class PathfindingController extends MenuController {
   public void initialize() throws SQLException {
     // prepare floor/algorithm dropdowns
 
+    srReminder.setVisible(false);
     ObservableList<String> floors =
         FXCollections.observableArrayList(
             Floor.L1.getExtendedString(),
@@ -162,6 +164,7 @@ public class PathfindingController extends MenuController {
         .addListener(
             Observable -> {
               changeSRs();
+              srReminder.setVisible(true);
             });
     toggleLocationNames
         .selectedProperty()

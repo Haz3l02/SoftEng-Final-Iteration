@@ -229,7 +229,7 @@ public class MapDraw {
         int[] updatedCoords =
             scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
 
-        Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 1, width + 1);
+        Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 5, width + 5);
         rect.setFill(Color.web("0x000000"));
 
         rect.setOnMouseClicked(squareChangeColor(anchorPane, scaleFactor));
@@ -306,7 +306,7 @@ public class MapDraw {
       FXMLLoader loader =
           new FXMLLoader(
               AApp.class.getResource(
-                  "resources/edu/wpi/cs3733/C23/teamA/views/EdgeEditorPopupFXML.fxml"));
+                  "resources/edu/wpi/cs3733/C23/teamA/views/DisplayServiceRequestsFXML.fxml"));
       popover.setContentNode(loader.load());
       popover.setTitle("hello there popover");
     } catch (IOException e) {

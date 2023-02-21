@@ -35,7 +35,7 @@ public abstract class NavigationController {
 
   @FXML
   public void switchToHomeServiceRequestScene(javafx.event.ActionEvent event) {
-    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
 
   @FXML
