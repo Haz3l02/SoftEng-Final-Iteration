@@ -17,6 +17,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
@@ -39,7 +40,8 @@ public class MenuController extends NavigationController {
   @FXML protected ImageView logout;
   @FXML ComboBox<String> serviceRequest = new ComboBox<>();
   @FXML ComboBox<String> admin = new ComboBox<>();
-
+  @FXML MFXButton myAssignments;
+  @FXML HBox menuBar;
   // for the timer
   //  public volatile boolean stop = false;
 
@@ -58,6 +60,10 @@ public class MenuController extends NavigationController {
 
     // testButton.setGraphic(home);
     if (userInfo.getJob().equalsIgnoreCase("admin")) admin.setVisible(true);
+    if (userInfo.getJob().equalsIgnoreCase("maintenance")) {
+      serviceRequest.getItems().add("My Assignments");
+      myAssignments.setVisible(true);
+    }
 
     home.setOnMouseClicked(
         (MouseEvent e) -> {
@@ -110,7 +116,7 @@ public class MenuController extends NavigationController {
                   switchToSanitation();
                   break;
                 case "Accessibility Request":
-                  // switchToAccessibility();
+                  switchToAccessibility();
                   break;
                 case "Patient Transportation":
                   switchToPatientTransport();
@@ -120,6 +126,9 @@ public class MenuController extends NavigationController {
                   break;
                 case "Audio/Visual Request":
                   switchToAudioVisual();
+                  break;
+                case "My Assignments":
+                  switchToServiceRequestStatus();
                   break;
                 default:
                   break;

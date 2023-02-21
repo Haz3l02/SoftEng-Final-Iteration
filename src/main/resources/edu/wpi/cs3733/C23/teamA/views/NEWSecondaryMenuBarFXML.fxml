@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="60.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MenuController">
@@ -38,7 +39,7 @@
             </HBox>
          </right>
          <left>
-            <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <HBox fx:id="menuBar" alignment="CENTER" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="home2" blendMode="LIGHTEN" fitHeight="55.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
@@ -54,10 +55,19 @@
                         <Font size="27.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="15.0" />
+                        <Insets right="25.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <ComboBox fx:id="admin" prefHeight="93.0" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
+                  <StackPane>
+                     <children>
+                        <ComboBox fx:id="admin" prefHeight="93.0" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
+                        <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </StackPane>
                </children>
                <BorderPane.margin>
                   <Insets left="10.0" />
