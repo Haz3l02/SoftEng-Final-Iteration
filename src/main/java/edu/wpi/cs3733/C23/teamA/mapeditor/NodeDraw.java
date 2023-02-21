@@ -244,19 +244,16 @@ public class NodeDraw implements KeyListener {
 
       // for hover over node
       EventHandler<MouseEvent> eventHandler2 =
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              if ((!nodeGraphic.equals(selectNodePane))) {
-                nodeGraphic.setStyle(
-                    "-fx-background-color: 'green'; "
-                        + "-fx-background-radius: 12.5; "
-                        + "-fx-border-color: 'green'; "
-                        + "-fx-border-width: 1;"
-                        + "-fx-border-radius: 13.5");
-              }
-            }
-          };
+              event -> {
+                  if ((!nodeGraphic.equals(selectNodePane))) {
+                      nodeGraphic.setStyle(
+                              "-fx-background-color: 'green'; "
+                                      + "-fx-background-radius: 12.5; "
+                                      + "-fx-border-color: 'green'; "
+                                      + "-fx-border-width: 1;"
+                                      + "-fx-border-radius: 13.5");
+                  }
+              };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
 
       EventHandler<MouseEvent> eventHandler3 =
