@@ -12,12 +12,12 @@ public abstract class NavigationController {
 
   public static ImportExportCSV iecsv = new ImportExportCSV("");
 
-  public void switchToImport(javafx.event.ActionEvent event) {
+  public void switchToImportPopup(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.IMPORT_CSV);
   }
 
   @FXML
-  public void switchToExport(javafx.event.ActionEvent event) {
+  public void switchToExportPopup(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.EXPORT_CSV);
   }
   /*
@@ -123,11 +123,17 @@ public abstract class NavigationController {
 
   @FXML
   public void switchToHomeScene(javafx.event.ActionEvent event) throws IOException {
-    Navigation.navigateHome(Screen.HOME);
+    Navigation.navigateHome(Screen.HOME_ADMIN);
   }
 
   @FXML
   public void switchToHomeDatabase(javafx.event.ActionEvent event) throws IOException {
     Navigation.navigateHome(Screen.HOME_DATABASE);
+  }
+
+  @FXML
+  public void switchToPathfinding(javafx.event.ActionEvent event) throws IOException {
+    stop = true;
+    Navigation.navigate(Screen.PATHFINDING);
   }
 }

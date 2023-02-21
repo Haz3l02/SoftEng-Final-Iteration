@@ -44,14 +44,21 @@ public class MenuController extends NavigationController {
   //  public volatile boolean stop = false;
 
   @FXML MFXButton backButton;
+  @FXML MFXButton naviagation;
+
   private static PopOver popup;
 
   @FXML
   public void initialize() throws SQLException, IOException, InterruptedException {
+    IdNumberHolder userInfo = new IdNumberHolder();
+    userInfo = IdNumberHolder.getInstance();
+
     //    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
     //    popup = new PopOver(loader.load());
 
     // testButton.setGraphic(home);
+    if (userInfo.getJob().equalsIgnoreCase("admin")) admin.setVisible(true);
+
     home.setOnMouseClicked(
         (MouseEvent e) -> {
           switchToHomeScene();
@@ -104,7 +111,6 @@ public class MenuController extends NavigationController {
                   break;
                 case "Accessibility Request":
                   // switchToAccessibility();
-                  System.out.println("Accessibility");
                   break;
                 case "Patient Transportation":
                   switchToPatientTransport();
@@ -113,16 +119,13 @@ public class MenuController extends NavigationController {
                   switchToServiceRequestStatus();
                   break;
                 case "Audio/Visual Request":
-                  // switchToAudioVisual();
-                  System.out.println("Audio/Visual");
+                  switchToAudioVisual();
                   break;
                 default:
                   break;
               }
-              System.out.println(newValue);
             });
 
-    System.out.println("HELOPOOOOOOS");
     admin
         .getSelectionModel()
         .selectedItemProperty()
@@ -130,7 +133,6 @@ public class MenuController extends NavigationController {
             (options, oldValue, newValue) -> {
               switch (newValue) {
                 case "Map Editor":
-                  System.out.println("HELOPOOOOOOSKJDHBvafcjhadsvbfhjwf");
                   switchToMapScene();
                   break;
                 case "Access Employee Records":
@@ -148,30 +150,6 @@ public class MenuController extends NavigationController {
                   break;
               }
             });
-
-    //    if (admin.getValue() != null) {
-    //      System.out.println("HELO");
-    //
-    //      switch (admin.getValue()) {
-    //        case "Map Editor":
-    //          System.out.println("HELOPOOOOOOSKJDHBvafcjhadsvbfhjwf");
-    //          switchToMapScene();
-    //          break;
-    //        case "Access Employee Records":
-    //          switchToEmployeeScene();
-    //          break;
-    //        case "Sanitation Request":
-    //          switchToSanitation();
-    //        case "Department Moves":
-    //          switchToMoveScene();
-    //          break;
-    //        case "Create Nodes":
-    //          switchToNodeScene();
-    //          break;
-    //        default:
-    //          break;
-    //      }
-    //    }
   }
 
   @FXML

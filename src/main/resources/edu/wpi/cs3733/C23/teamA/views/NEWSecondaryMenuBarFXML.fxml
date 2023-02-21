@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.image.Image?>
@@ -7,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="60.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MenuController">
    <children>
@@ -47,7 +49,15 @@
                      </image>
                   </ImageView>
                   <ComboBox fx:id="serviceRequest" prefHeight="71.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS" />
-                  <ComboBox fx:id="admin" prefHeight="93.0" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" />
+                  <MFXButton fx:id="navigation" onAction="#switchToPathfinding" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textFill="#d3e9f6">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </MFXButton>
+                  <ComboBox fx:id="admin" prefHeight="93.0" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
                </children>
                <BorderPane.margin>
                   <Insets left="10.0" />

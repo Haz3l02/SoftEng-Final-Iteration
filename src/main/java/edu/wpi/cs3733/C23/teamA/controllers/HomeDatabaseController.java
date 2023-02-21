@@ -50,4 +50,6 @@ public class HomeDatabaseController extends MenuController {
     PopOver creditsPopUp = new PopOver(loader.load());
     creditsPopUp.show(((Node) event.getSource()).getScene().getWindow());
   }
+
+
 }
