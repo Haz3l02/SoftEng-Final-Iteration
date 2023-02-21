@@ -70,23 +70,6 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
               employees.remove(employee);
             });
 
-    //    session
-    //        .createMutationQuery(
-    //            "UPDATE EmployeeEntity SET "
-    //                + "employeeid = '"
-    //                + obj.getEmployeeid()
-    //                + "', job = '"
-    //                + obj.getJob()
-    //                + "', name = '"
-    //                + obj.getName()
-    //                + "', password = '"
-    //                + obj.getPassword()
-    //                + "', username = '"
-    //                + obj.getUsername()
-    //                + "' WHERE employeeid = '"
-    //                + ID
-    //                + "'")
-    //        .executeUpdate();
 
     EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
 
@@ -96,16 +79,10 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     emp.setUsername(obj.getUsername());
     emp.setJob(obj.getJob());
 
-    if (ID == obj.getEmployeeid()) {
-      ComputerRequestImpl.getInstance().refresh();
-      PatientTransportimpl.getInstance().refresh();
-      SecurityRequestImpl.getInstance().refresh();
-      SanitationRequestImpl.getInstance().refresh();
-      ServiceRequestImpl.getInstance().refresh();
-    }
 
-    // employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
+
     tx.commit();
+    employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
     session.close();
     notifyAllObservers();
   }
