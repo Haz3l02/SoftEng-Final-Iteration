@@ -70,7 +70,6 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
               employees.remove(employee);
             });
 
-
     EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
 
     emp.setName(obj.getName());
@@ -78,8 +77,6 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     emp.setHospitalid(obj.getHospitalid());
     emp.setUsername(obj.getUsername());
     emp.setJob(obj.getJob());
-
-
 
     tx.commit();
     employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
@@ -195,10 +192,10 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
   }
 
   public EmployeeEntity get(Integer ID) {
-//    return employees.stream()
-//        .filter(employee -> employee.getEmployeeid() == (ID))
-//        .findFirst()
-//        .orElseThrow();
+    //    return employees.stream()
+    //        .filter(employee -> employee.getEmployeeid() == (ID))
+    //        .findFirst()
+    //        .orElseThrow();
     Session session = getSessionFactory().openSession();
     EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
     session.close();
