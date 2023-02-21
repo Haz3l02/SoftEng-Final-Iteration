@@ -5,6 +5,8 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.controllers.MapEditorController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +19,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class NodeDraw {
+public class NodeDraw implements KeyListener {
 
   static Pane previousSelectedNode = null;
   static Pane selectNodePane = null;
@@ -29,6 +31,9 @@ public class NodeDraw {
   static Line previousLine = null;
   static EdgeEntity selectedEdge = null;
 
+  static NodeEntity node1;
+  static NodeEntity node2;
+
   static boolean setLocationVisibility;
 
   public void setNewLocation() {}
@@ -37,6 +42,10 @@ public class NodeDraw {
 
   public static NodeEntity getSelected() {
     return selectedNodeEntity;
+  }
+
+  public static EdgeEntity getSelectedEdge() {
+    return selectedEdge;
   }
 
   public static Pane getSelectedPane() {
@@ -113,9 +122,10 @@ public class NodeDraw {
       // when mouse is clicked
       EventHandler<MouseEvent> eventHandler =
           event -> {
+            boolean shiftPressed = event.isShiftDown();
             selectNodePane = nodeGraphic;
 
-            if ((previousSelectedNode != null)) {
+            if ((previousSelectedNode != null && previousLine != null)) {
               if (!previousSelectedNode.equals(nodeGraphic)) {
                 previousSelectedNode.setStyle(
                     "-fx-background-color: '#224870'; "
@@ -158,6 +168,34 @@ public class NodeDraw {
               nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
               nmc.setLocButtonVisibility(true);
             }
+            if (shiftPressed) {
+
+              if (node1 != null) {
+                // save 2nd node stuff and add edge
+                node2 =
+                    new NodeEntity(
+                        selectedNodeEntity.getNodeid(),
+                        selectedNodeEntity.getXcoord(),
+                        selectedNodeEntity.getYcoord(),
+                        selectedNodeEntity.getFloor(),
+                        selectedNodeEntity.getBuilding());
+
+                Line l =
+                    new Line(
+                        node1.getXcoord(), node1.getYcoord(), node2.getXcoord(), node2.getYcoord());
+                l.setStrokeWidth(500);
+                FacadeRepository.getInstance().addEdge(new EdgeEntity(node1, node2));
+
+              } else {
+                node1 =
+                    new NodeEntity(
+                        selectedNodeEntity.getNodeid(),
+                        selectedNodeEntity.getXcoord(),
+                        selectedNodeEntity.getYcoord(),
+                        selectedNodeEntity.getFloor(),
+                        selectedNodeEntity.getBuilding());
+              }
+            }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
@@ -194,14 +232,22 @@ public class NodeDraw {
       //          };
       //      nodeGraphic.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
 
+      final int newX = (int) nodeGraphic.getLayoutX();
+      final int newY = (int) nodeGraphic.getLayoutY();
+
+      // pass in a node entity and new ID
+
       nodeGraphic.setOnMouseDragged(
           new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
               if (selectNodePane != null) {
                 nmc.getMainGesturePane().setGestureEnabled(false);
+
                 selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
                 selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
+                System.out.println((int) selectNodePane.getLayoutX());
+                System.out.println((int) selectNodePane.getLayoutX());
               }
             }
           });
@@ -216,9 +262,10 @@ public class NodeDraw {
                 nmc.getMainGesturePane().setGestureEnabled(true);
                 System.out.println((int) selectNodePane.getLayoutX());
                 System.out.println((int) selectNodePane.getLayoutY());
-                n.setXcoord((int) selectNodePane.getLayoutX());
-                n.setYcoord((int) selectNodePane.getLayoutY());
-
+                selectedNodeEntity.setXcoord((int) selectNodePane.getLayoutX());
+                selectedNodeEntity.setYcoord((int) selectNodePane.getLayoutY());
+                FacadeRepository.getInstance()
+                    .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
                 drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
               }
             }
@@ -256,7 +303,6 @@ public class NodeDraw {
               if (!previousLine.equals(currentLine)) {
                 previousLine.setStroke(Color.web("0x224870"));
                 previousLine.setStrokeWidth(1);
-
                 previousSelectedNode.setStyle(
                     "-fx-background-color: '#224870'; "
                         + "-fx-background-radius: 12.5; "
@@ -328,4 +374,21 @@ public class NodeDraw {
       ap.getChildren().add(currentLine);
     }
   }
+
+  @Override
+  public void keyTyped(java.awt.event.KeyEvent e) {}
+
+  @Override
+  public void keyPressed(java.awt.event.KeyEvent e) {
+    int key = e.getKeyCode();
+    System.out.println(key);
+    if (key == KeyEvent.VK_DELETE) {
+      System.out.println("delete that fucker");
+
+      FacadeRepository.getInstance().deleteEdge(getSelectedEdge().getEdgeid());
+    }
+  }
+
+  @Override
+  public void keyReleased(java.awt.event.KeyEvent e) {}
 }
