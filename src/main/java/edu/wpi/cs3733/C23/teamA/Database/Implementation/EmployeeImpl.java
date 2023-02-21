@@ -128,7 +128,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(e);
-    employees.add(e);
+    EmployeeImpl.getInstance().refresh();
     tx.commit();
     session.close();
     notifyAllObservers();

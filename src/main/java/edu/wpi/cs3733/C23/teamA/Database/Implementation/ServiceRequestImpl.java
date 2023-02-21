@@ -114,7 +114,7 @@ public class ServiceRequestImpl extends Observable
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(s);
-    services.add(s);
+    ServiceRequestImpl.getInstance().refresh();
     tx.commit();
     notifyAllObservers();
   }
