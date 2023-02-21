@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
-import edu.wpi.cs3733.C23.teamA.enums.Status;
-import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.enums.*;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import lombok.Getter;
@@ -48,6 +47,39 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
   @Getter
   private String equipment;
 
+  @Basic
+  @Column(name = "gender", nullable = false, length = -1)
+  @Setter
+  @Getter
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
+
+  @Basic
+  @Column(name = "mode", nullable = false, length = -1)
+  @Setter
+  @Getter
+  @Enumerated(EnumType.STRING)
+  private ModeOfTransfer mode;
+
+  @Basic
+  @Column(name = "mobility", nullable = false, length = -1)
+  @Setter
+  @Getter
+  @Enumerated(EnumType.STRING)
+  private Mobility mobility;
+
+  @Basic
+  @Column(name = "isbaby", nullable = false, length = -1)
+  @Setter
+  @Getter
+  private boolean isBaby;
+
+  @Basic
+  @Column(name = "isimmunecomp", nullable = false, length = -1)
+  @Setter
+  @Getter
+  private boolean isImmuneComp;
+
   public PatientTransportRequestEntity() {}
 
   public PatientTransportRequestEntity(
@@ -64,6 +96,11 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
       String patientID,
       LocationNameEntity moveTo, // moveTo--there's already a location in servicerequest super
       String equipment,
+      Gender gender,
+      ModeOfTransfer mode,
+      Mobility mobility,
+      boolean isBaby,
+      boolean isImmuneComp,
       Timestamp date) {
     super(
         requestid,
@@ -80,6 +117,11 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
     this.patientID = patientID;
     this.moveTo = moveTo;
     this.equipment = equipment;
+    this.gender = gender;
+    this.mode = mode;
+    this.mobility = mobility;
+    this.isBaby = isBaby;
+    this.isImmuneComp = isImmuneComp;
   }
 
   public PatientTransportRequestEntity(
@@ -94,11 +136,21 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
       String patientName,
       String patientID,
       LocationNameEntity moveTo, // moveTo--there's already a location in servicerequest super
-      String equipment) {
+      String equipment,
+      Gender gender,
+      ModeOfTransfer mode,
+      Mobility mobility,
+      boolean isBaby,
+      boolean isImmuneComp) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.patientName = patientName;
     this.patientID = patientID;
     this.moveTo = moveTo;
     this.equipment = equipment;
+    this.gender = gender;
+    this.mode = mode;
+    this.mobility = mobility;
+    this.isBaby = isBaby;
+    this.isImmuneComp = isImmuneComp;
   }
 }

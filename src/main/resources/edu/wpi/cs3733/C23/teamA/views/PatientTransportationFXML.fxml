@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -72,9 +73,9 @@
             </Text>
             <HBox prefHeight="430.0" prefWidth="1376.0">
                <children>
-                  <VBox alignment="TOP_RIGHT" prefHeight="430.0" prefWidth="280.0">
+                  <VBox alignment="TOP_RIGHT" prefHeight="430.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name:" wrappingWidth="188.2774874687202">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name:" wrappingWidth="173.3441836357124">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
@@ -82,71 +83,109 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move from:" wrappingWidth="149.87744779586865">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Gender:" wrappingWidth="191.47749204635693">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency:" wrappingWidth="119.47742338180615">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mode of Transfer:" wrappingWidth="214.94412870407177">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reason:" wrappingWidth="106.67749662399365">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move from:" wrappingWidth="140.27742643356396">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency:" wrappingWidth="110.94409794807507">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reason:" wrappingWidth="99.21076102256848">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
                            </VBox.margin>
                         </Text>
                      </children>
                   </VBox>
-                  <VBox prefHeight="430.0" prefWidth="394.0">
+                  <VBox prefHeight="430.0" prefWidth="394.0" spacing="5.0">
                      <children>
                         <MFXTextField fx:id="pNameBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter name" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
                            <VBox.margin>
-                              <Insets left="2.0" top="20.0" />
+                              <Insets left="2.0" top="17.0" />
                            </VBox.margin>
                            <font>
                               <Font size="14.0" />
                            </font>
                         </MFXTextField>
-                        <MFXFilterComboBox fx:id="locationBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXFilterComboBox fx:id="genderBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Female, male, other" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                            <VBox.margin>
-                              <Insets left="2.0" top="28.0" />
+                              <Insets left="2.0" top="11.0" />
+                           </VBox.margin>
+                        </MFXFilterComboBox>
+                        <MFXFilterComboBox fx:id="modeBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose Mode Of Transportation" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <VBox.margin>
+                              <Insets left="2.0" top="10.0" />
                            </VBox.margin>
                            <font>
                               <Font size="14.0" />
                            </font>
+                        </MFXFilterComboBox>
+                        <MFXFilterComboBox fx:id="moveToBox1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="2.0" top="8.0" />
+                           </VBox.margin>
                         </MFXFilterComboBox>
                         <MFXFilterComboBox fx:id="urgencyBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
                            <VBox.margin>
-                              <Insets left="2.0" top="30.0" />
+                              <Insets left="2.0" top="10.0" />
                            </VBox.margin>
                            <font>
                               <Font size="14.0" />
                            </font>
                         </MFXFilterComboBox>
-                        <MFXTextField fx:id="descBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="390.0" promptText="Enter name" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXTextField fx:id="descBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="390.0" promptText="Reason for Transportation" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
                            <VBox.margin>
-                              <Insets left="2.0" top="31.0" />
+                              <Insets left="2.0" top="10.0" />
                            </VBox.margin>
                            <font>
                               <Font size="14.0" />
                            </font>
                         </MFXTextField>
                      </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
                   </VBox>
-                  <VBox alignment="TOP_RIGHT" prefHeight="430.0" prefWidth="241.0">
+                  <VBox alignment="TOP_RIGHT" prefHeight="430.0" prefWidth="241.0" spacing="5.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID Number:" wrappingWidth="249.07747077941895">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID Number:" wrappingWidth="236.27742099761963">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
@@ -154,25 +193,60 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move to:" wrappingWidth="113.07747077941895">
+                        <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="241.0">
+                           <children>
+                              <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="143.0">
+                                 <children>
+                                    <MFXCheckbox fx:id="babyCheckBox" prefHeight="20.0" prefWidth="23.0" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="207.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Baby (0-2 years)" wrappingWidth="156.01069831848145">
+                                       <font>
+                                          <Font name="Verdana" size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="13.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Mobility:" wrappingWidth="196.81086921691895">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Equipment:" wrappingWidth="149.87751960754395">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move to:" wrappingWidth="106.67750763893127">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Equipment:" wrappingWidth="142.41084480285645">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
                            </VBox.margin>
                         </Text>
                      </children>
                   </VBox>
-                  <VBox prefHeight="430.0" prefWidth="310.0">
+                  <VBox prefHeight="430.0" prefWidth="310.0" spacing="5.0">
                      <children>
                         <MFXTextField fx:id="pIDBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter patient ID" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
                            <VBox.margin>
@@ -182,9 +256,48 @@
                               <Font size="14.0" />
                            </font>
                         </MFXTextField>
+                        <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
+                           <children>
+                              <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="42.0">
+                                 <children>
+                                    <MFXCheckbox fx:id="immuneCheckBox" contentDisposition="CENTER" prefHeight="20.0" prefWidth="19.0">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </MFXCheckbox>
+                                 </children>
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="229.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Immune Compromised" wrappingWidth="217.87739753723145">
+                                       <font>
+                                          <Font name="Verdana" size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="9.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <MFXFilterComboBox fx:id="mobilityBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose level of Mobility" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </MFXFilterComboBox>
                         <MFXFilterComboBox fx:id="moveToBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
                            <VBox.margin>
-                              <Insets top="33.0" />
+                              <Insets top="11.0" />
                            </VBox.margin>
                            <opaqueInsets>
                               <Insets />
@@ -195,13 +308,16 @@
                         </MFXFilterComboBox>
                         <MFXTextField fx:id="equipmentBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter equipment needed" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
                            <VBox.margin>
-                              <Insets top="30.0" />
+                              <Insets top="9.0" />
                            </VBox.margin>
                            <font>
                               <Font size="14.0" />
                            </font>
                         </MFXTextField>
                      </children>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
                   </VBox>
                </children>
             </HBox>

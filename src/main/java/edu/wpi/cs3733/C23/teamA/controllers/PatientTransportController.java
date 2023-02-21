@@ -5,9 +5,9 @@ import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusControlle
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
-import edu.wpi.cs3733.C23.teamA.enums.Status;
-import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.enums.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
@@ -24,10 +24,18 @@ public class PatientTransportController extends ServiceRequestController {
   @FXML private MFXTextField equipmentBox;
   @FXML private MFXTextField pIDBox;
   @FXML private MFXFilterComboBox<String> moveToBox;
+  @FXML private MFXFilterComboBox<String> genderBox;
+  @FXML private MFXFilterComboBox<String> modeBox;
+  @FXML private MFXFilterComboBox<String> mobilityBox;
+  @FXML private MFXCheckbox babyCheckBox;
+  @FXML private MFXCheckbox immuneCheckBox;
   @FXML private MFXButton clear;
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
+  private Gender gender;
+  private ModeOfTransfer mode;
+  private Mobility mobility;
 
   @FXML
   public void initialize() throws SQLException {
@@ -38,13 +46,27 @@ public class PatientTransportController extends ServiceRequestController {
       reject.setVisible(false);
       accept.setDisable(true);
       accept.setVisible(false);
+      // locations
       List<LocationNameEntity> temp = FacadeRepository.getInstance().getAllLocation();
       ObservableList<String> locations = FXCollections.observableArrayList();
       for (LocationNameEntity move : temp) {
         locations.add(move.getLongname());
       }
       Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
+      // genders
+      ObservableList<String> genders = FXCollections.observableArrayList(Gender.genderList());
+      // modes
+      ObservableList<String> modes =
+          FXCollections.observableArrayList(ModeOfTransfer.modeOfTransfersList());
+      // mobility
+      ObservableList<String> mobilities =
+          FXCollections.observableArrayList(Mobility.mobilityList());
+
+      // setting
       moveToBox.setItems(locations);
+      genderBox.setItems(genders);
+      modeBox.setItems(modes);
+      mobilityBox.setItems(mobilities);
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
     if (newEdit.needEdits && newEdit.getRequestType().equals("Patient Transport")) {
@@ -59,6 +81,11 @@ public class PatientTransportController extends ServiceRequestController {
       moveToBox.setText(editPatientRequest.getMoveTo().getLongname());
       pIDBox.setText(editPatientRequest.getPatientID());
       equipmentBox.setText(editPatientRequest.getEquipment());
+      genderBox.setText(editPatientRequest.getGender().getGender());
+      modeBox.setText(editPatientRequest.getMode().getMode());
+      mobilityBox.setText(editPatientRequest.getMobility().getMobility());
+      babyCheckBox.setText(String.valueOf(editPatientRequest.isBaby()));
+      immuneCheckBox.setText(String.valueOf(editPatientRequest.isImmuneComp()));
     } else if (acceptTheForm.acceptance
         && acceptTheForm.getRequestType().equals("Patient Transport")) {
       PatientTransportRequestEntity editPatientRequest =
@@ -72,6 +99,11 @@ public class PatientTransportController extends ServiceRequestController {
       moveToBox.setText(editPatientRequest.getMoveTo().getLongname());
       pIDBox.setText(editPatientRequest.getPatientID());
       equipmentBox.setText(editPatientRequest.getEquipment());
+      genderBox.setText(editPatientRequest.getGender().getGender());
+      modeBox.setText(editPatientRequest.getMode().getMode());
+      mobilityBox.setText(editPatientRequest.getMobility().getMobility());
+      babyCheckBox.setText(String.valueOf(editPatientRequest.isBaby()));
+      immuneCheckBox.setText(String.valueOf(editPatientRequest.isImmuneComp()));
       // sanI.closeSession();
       accept.setDisable(false);
       accept.setVisible(true);
@@ -97,38 +129,63 @@ public class PatientTransportController extends ServiceRequestController {
         || pNameBox.getText().equals("")
         || pIDBox.getText().equals("")
         || moveToBox.getValue() == null
-        || equipmentBox.getText().equals("")) {
+        || equipmentBox.getText().equals("")
+        || genderBox.getValue() == null
+        || modeBox.getValue() == null
+        || mobilityBox.getValue() == null) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
       if (newEdit.needEdits) {
         // something that submits it
-        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
 
-        PatientTransportRequestEntity submission =
-            FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
-        // supers
-        submission.setName(nameBox.getText());
+        // enums
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+        gender = Gender.valueOf(genderBox.getValue().toUpperCase());
+        mode = ModeOfTransfer.valueOf(modeBox.getValue().toUpperCase());
+        mobility = Mobility.valueOf(mobilityBox.getValue().toUpperCase());
+        // bools
+        boolean babyBool = babyCheckBox.isSelected();
+        boolean immuneBool = immuneCheckBox.isSelected();
+        // locations
         LocationNameEntity loc1 =
             FacadeRepository.getInstance().getLocation(locationBox.getValue());
+        LocationNameEntity loc2 = FacadeRepository.getInstance().getLocation(moveToBox.getValue());
+
+        // create submission
+        PatientTransportRequestEntity submission =
+            FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
+
+        // supers
+        submission.setName(nameBox.getText());
         submission.setLocation(loc1);
         submission.setDescription(descBox.getText());
         submission.setUrgency(urgent);
-        // sub fields
+        // sub-fields
         submission.setPatientID(pIDBox.getText());
-        submission.setPatientID(pIDBox.getText());
-        LocationNameEntity loc2 = FacadeRepository.getInstance().getLocation(moveToBox.getValue());
         submission.setMoveTo(loc2);
         submission.setEquipment(equipmentBox.getText());
+        submission.setGender(gender);
+        submission.setMode(mode);
+        submission.setMobility(mobility);
+        submission.setBaby(babyBool);
+        submission.setImmuneComp(immuneBool);
       } else {
         EmployeeEntity person =
             FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
-        // IDNum.getText()
-        LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getText());
+
+        // enums
+        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+        gender = Gender.valueOf(genderBox.getValue().toUpperCase());
+        mode = ModeOfTransfer.valueOf(modeBox.getValue().toUpperCase());
+        mobility = Mobility.valueOf(mobilityBox.getValue().toUpperCase());
+        // bools
+        boolean babyBool = babyCheckBox.isSelected();
+        boolean immuneBool = immuneCheckBox.isSelected();
+        // locations
+        LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
         LocationNameEntity moveTo =
             FacadeRepository.getInstance().getLocation(moveToBox.getValue());
-        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
-
         PatientTransportRequestEntity submission =
             new PatientTransportRequestEntity(
                 nameBox.getText(),
@@ -142,7 +199,12 @@ public class PatientTransportController extends ServiceRequestController {
                 pNameBox.getText(),
                 pIDBox.getText(),
                 moveTo,
-                equipmentBox.getText());
+                equipmentBox.getText(),
+                gender,
+                mode,
+                mobility,
+                babyBool,
+                immuneBool);
         FacadeRepository.getInstance().addPatientTransport(submission);
         // submission.insert(); // *some db thing for getting the request in there*
       }
@@ -163,5 +225,10 @@ public class PatientTransportController extends ServiceRequestController {
     pIDBox.clear();
     moveToBox.clear();
     equipmentBox.clear();
+    genderBox.clear();
+    modeBox.clear();
+    mobilityBox.clear();
+    babyCheckBox.setSelected(false);
+    immuneCheckBox.setSelected(false);
   }
 }
