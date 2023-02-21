@@ -249,8 +249,12 @@ public class ServiceRequestStatusController extends MenuController {
           SRTable.setDate(Timestamp.valueOf(dateBox.getText()));
           SRTable.setStatus(Status.valueOf(statusBox.getText().toUpperCase()));
           SRTable.setUrgency(UrgencyLevel.valueOf(urgencyBox.getText().toUpperCase()));
-          SRTable.setEmployeeAssigned(
-              FacadeRepository.getInstance().getEmployeeByUser(employeeBox.getText())); // MAKE INT
+
+          if (employeeBox.getText().equalsIgnoreCase("unassigned"))
+            SRTable.setEmployeeAssigned(null); // MAKE INT
+          else
+            SRTable.setEmployeeAssigned(
+                FacadeRepository.getInstance().getEmployeeByUser(employeeBox.getText()));
 
           FacadeRepository.getInstance().updateServiceRequest(currentRowId, SRTable);
 

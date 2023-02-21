@@ -124,7 +124,7 @@ public class ComputerController extends ServiceRequestController {
                 urgent,
                 ServiceRequestEntity.RequestType.COMPUTER,
                 Status.NEW,
-                unassigned,
+                null,
                 deviceIDNum.getText(),
                 device);
         FacadeRepository.getInstance().addComputerRequest(submission);

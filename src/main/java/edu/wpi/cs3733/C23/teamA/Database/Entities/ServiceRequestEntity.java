@@ -156,11 +156,11 @@ public class ServiceRequestEntity {
   }
 
   public EmployeeEntity getEmployeeAssigned() {
-    //    if (employeeAssigned == null) {
-    //      EmployeeEntity unassigned =
-    //          new EmployeeEntity("0", "Unassigned", "unassigned", "maintenance", "unassigned");
-    //      return unassigned;
-    //    }
+    if (employeeAssigned == null) {
+      EmployeeEntity unassigned =
+          new EmployeeEntity("0", "Unassigned", "unassigned", "maintenance", "unassigned");
+      return unassigned;
+    }
     return employeeAssigned;
   }
 }
