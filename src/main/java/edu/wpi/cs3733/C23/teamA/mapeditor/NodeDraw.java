@@ -75,6 +75,26 @@ public class NodeDraw implements KeyListener {
     return scaledCoordinates;
   }
 
+  /**
+   * @param xCoord the x-coordinate to scale
+   * @param yCoord the y-coordinate to scale
+   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on.
+   * @return an int array with the pair of new coordinates
+   */
+  private static int[] scaleCoordinatesReversed(double xCoord, double yCoord, double scaleFactor) {
+    // get the coordinates from the node
+
+    // apply the scale factor to the coordinates and floor them (so they remain a whole number)
+    xCoord = Math.floor(xCoord / scaleFactor);
+    yCoord = Math.floor(yCoord / scaleFactor);
+
+    // put the values in an array to return
+    int[] scaledCoordinates = {(int) xCoord, (int) yCoord};
+
+    // return the scaled coordinates
+    return scaledCoordinates;
+  }
+
   public static void drawLocations(
       List<NodeEntity> allNodes,
       double scaleFactor,
@@ -258,21 +278,7 @@ public class NodeDraw implements KeyListener {
       //      final int newY = (int) nodeGraphic.getLayoutY();
 
       // pass in a node entity and new ID
-      nodeGraphic.setOnMouseDragged(
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-              if (selectNodePane != null) {
-                nmc.getMainGesturePane().setGestureEnabled(false);
-
-                selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
-                selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
-
-                System.out.println((int) selectNodePane.getLayoutX());
-                System.out.println((int) selectNodePane.getLayoutX());
-              }
-            }
-          });
+      nodeGraphic.setOnMouseDragged(dragEvent(nmc));
 
       nodeGraphic.setOnMouseReleased(
           new EventHandler<MouseEvent>() {
@@ -302,6 +308,25 @@ public class NodeDraw implements KeyListener {
 
       nodeAnchor.getChildren().add(nodeGraphic);
     }
+  }
+
+  private static EventHandler<? super MouseEvent> dragEvent(MapEditorController nmc) {
+    EventHandler event =
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent mouseEvent) {
+            if (selectNodePane != null) {
+              nmc.getMainGesturePane().setGestureEnabled(false);
+
+              selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
+              selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
+
+              System.out.println((int) selectNodePane.getLayoutX());
+              System.out.println((int) selectNodePane.getLayoutX());
+            }
+          }
+        };
+    return event;
   }
   // end _________________________________________________________________
 
