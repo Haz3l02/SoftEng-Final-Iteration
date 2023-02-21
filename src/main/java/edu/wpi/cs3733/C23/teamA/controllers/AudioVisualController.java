@@ -145,7 +145,7 @@ public class AudioVisualController extends ServiceRequestController {
                 urgent,
                 ServiceRequestEntity.RequestType.AV,
                 Status.NEW,
-                "Unassigned",
+                null,
                 installation.isSelected(),
                 Integer.parseInt(numDevices.getText()),
                 category,

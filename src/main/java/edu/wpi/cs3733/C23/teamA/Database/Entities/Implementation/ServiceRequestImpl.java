@@ -90,6 +90,8 @@ public class ServiceRequestImpl extends Observable
     SecurityRequestImpl.getInstance().exportToCSV(filename);
     SanitationRequestImpl.getInstance().exportToCSV(filename);
     PatientTransportimpl.getInstance().exportToCSV(filename);
+    AccessabilityImpl.getInstance().exportToCSV(filename);
+    AudioVisualImpl.getInstance().exportToCSV(filename);
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {
@@ -127,6 +129,8 @@ public class ServiceRequestImpl extends Observable
     SecurityRequestImpl.getInstance().removeFromList(s);
     PatientTransportimpl.getInstance().removeFromList(s);
     SanitationRequestImpl.getInstance().removeFromList(s);
+    AudioVisualImpl.getInstance().removeFromList(s);
+    AccessabilityImpl.getInstance().removeFromList(s);
 
     session.remove(get(s));
     ListIterator<ServiceRequestEntity> li = services.listIterator();
@@ -243,6 +247,7 @@ public class ServiceRequestImpl extends Observable
     SecurityRequestImpl.getInstance().updateStatus(ID, status);
     SecurityRequestImpl.getInstance().updateStatus(ID, status);
     AccessabilityImpl.getInstance().updateStatus(ID, status);
+    AudioVisualImpl.getInstance().updateStatus(ID, status);
 
     tx.commit();
     session.close();
@@ -266,6 +271,7 @@ public class ServiceRequestImpl extends Observable
     SecurityRequestImpl.getInstance().updateEmployee(ID, employee);
     SecurityRequestImpl.getInstance().updateEmployee(ID, employee);
     AccessabilityImpl.getInstance().updateEmployee(ID, employee);
+    AudioVisualImpl.getInstance().updateEmployee(ID, employee);
     services.add(serv);
 
     tx.commit();
@@ -327,7 +333,7 @@ public class ServiceRequestImpl extends Observable
     for (ServiceRequestEntity ser : services) {
       if (ser.getLocation().getLongname().equals(longname)) {
         if (holder.getJob().equalsIgnoreCase("maintenance")) {
-          if (ser.getEmployeeAssigned().equalsIgnoreCase(holder.getName())) {
+          if (ser.getEmployeeAssigned().getName().equalsIgnoreCase(holder.getName())) {
             fin.add(ser);
           }
         } else if (holder.getJob().equalsIgnoreCase("admin")) {

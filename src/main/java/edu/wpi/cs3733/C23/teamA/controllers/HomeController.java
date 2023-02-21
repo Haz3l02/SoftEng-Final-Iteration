@@ -34,6 +34,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 import org.hibernate.Session;
 
@@ -59,6 +60,7 @@ public class HomeController extends MenuController {
   @FXML public ImageView exit;
 
   @FXML private Label date = new Label("hello");
+  @FXML private Text findPath;
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
@@ -153,6 +155,10 @@ public class HomeController extends MenuController {
         (MouseEvent e) -> {
           switchToPathfinding();
         });
+    mapImage.setOnMouseDragOver(
+        (MouseEvent e) -> {
+          findPath.setVisible(true);
+        });
     about.setOnMouseClicked(
         (MouseEvent e) -> {
           try {
@@ -224,24 +230,25 @@ public class HomeController extends MenuController {
       dbTableRowsModel.addAll(requests);
       adminTable.setItems(dbTableRowsModel);
 
-      myAssignments.setDisable(true);//its already hidden doesnt need to be disabled
-      myAssignments.setVisible(false);//It is automatically not visible redundent
-      admin.setDisable(false);//Redundent its never going to be disabled
+      myAssignments.setDisable(true); // its already hidden doesnt need to be disabled
+      myAssignments.setVisible(false); // It is automatically not visible redundent
+      admin.setDisable(false); // Redundent its never going to be disabled
       admin.setVisible(true);
-//NOT IN MAIN FOR SOME REASON NOT SURE IF WE WANT TO KEEP
-//      List<EmployeeEntity> maintenanceEmployees =
-//          FacadeRepository.getInstance().getEmployeeByJob("maintenance");
-//      List<MaintenanceAssignedAccepted> maa = new ArrayList<MaintenanceAssignedAccepted>();
-//      for (EmployeeEntity employee : maintenanceEmployees) {
-//        maa.add(new MaintenanceAssignedAccepted(employee.getName(), employee.getEmployeeid()));
-//      }
-//      System.out.println(maa.size());
-//      dbTableRowsModel2.addAll(maa);
-//      for (int i = 0; i < maa.size(); i++) {
-//        System.out.println(maa.get(i).getName());
-//      }
-//      System.out.println(dbTableRowsModel2.size());
-//      employeeTable.setItems(dbTableRowsModel2);
+      // NOT IN MAIN FOR SOME REASON NOT SURE IF WE WANT TO KEEP
+      //      List<EmployeeEntity> maintenanceEmployees =
+      //          FacadeRepository.getInstance().getEmployeeByJob("maintenance");
+      //      List<MaintenanceAssignedAccepted> maa = new ArrayList<MaintenanceAssignedAccepted>();
+      //      for (EmployeeEntity employee : maintenanceEmployees) {
+      //        maa.add(new MaintenanceAssignedAccepted(employee.getName(),
+      // employee.getEmployeeid()));
+      //      }
+      //      System.out.println(maa.size());
+      //      dbTableRowsModel2.addAll(maa);
+      //      for (int i = 0; i < maa.size(); i++) {
+      //        System.out.println(maa.get(i).getName());
+      //      }
+      //      System.out.println(dbTableRowsModel2.size());
+      //      employeeTable.setItems(dbTableRowsModel2);
       admin
           .getItems()
           .addAll("Map Editor", "Access Employee Records", "Department Moves", "Create Nodes");

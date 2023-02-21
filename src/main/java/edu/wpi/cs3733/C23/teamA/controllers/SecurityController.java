@@ -110,6 +110,7 @@ public class SecurityController extends ServiceRequestController {
 
         SecurityRequestEntity submission =
             FacadeRepository.getInstance().getSecurityRequest(newEdit.getRequestID());
+
         submission.setName(nameBox.getText());
         LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
         submission.setLocation(loc);
@@ -122,7 +123,7 @@ public class SecurityController extends ServiceRequestController {
 
       } else {
         EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
-        EmployeeEntity unassigned = FacadeRepository.getInstance().getEmployee(1);
+        EmployeeEntity unassigned = FacadeRepository.getInstance().getEmployee(0);
 
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
@@ -139,7 +140,7 @@ public class SecurityController extends ServiceRequestController {
                 urgent,
                 ServiceRequestEntity.RequestType.SECURITY,
                 Status.NEW,
-                unassigned,
+                null,
                 assistance,
                 phone.getText());
         FacadeRepository.getInstance().addSecurityRequest(submission);
