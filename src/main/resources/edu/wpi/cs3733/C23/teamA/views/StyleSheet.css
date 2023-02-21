@@ -26,7 +26,7 @@
 
 /* Submit button */
 .yellow-Button{
-    -fx-background-color: #F6BD3A;
+    -fx-background-color: #f1a94f;
     -fx-background-radius: 15;
     -fx-border-color: #122c34;
     -fx-border-radius: 15;
@@ -42,7 +42,7 @@
 
 /* Reject button */
 .reject{
-    -fx-background-color: red;
+    -fx-background-color: #f63c3c;
     -fx-background-radius: 15;
     -fx-border-color: #122c34;
     -fx-border-radius: 15;
@@ -104,6 +104,18 @@
     -fx-stroke-type: OUTSIDE;
     -fx-stroke-width: 0;
     -fx-text-alignment: CENTER;
+}
+
+.SR-Heading{
+    -fx-font-size: 35px;
+    -fx-font-family: Verdana;
+    -fx-text-fill: #122c34;
+}
+
+.SR-SubHeading{
+    -fx-font-size: 30px;
+    -fx-font-family: Verdana;
+    -fx-text-fill: #122c34;
 }
 
 

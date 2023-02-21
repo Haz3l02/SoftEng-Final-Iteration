@@ -22,7 +22,7 @@
    <top>
       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Service Request">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="SR-Heading" text="Computer Service Request">
                <font>
                   <Font name="Verdana" size="35.0" />
                </font>
@@ -79,7 +79,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </HBox>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Info">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="SR-SubHeading" text="Request Info">
                <font>
                   <Font name="Verdana" size="30.0" />
                </font>
