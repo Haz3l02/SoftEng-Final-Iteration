@@ -4,6 +4,8 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -184,13 +186,13 @@ public class EmployeeController extends MenuController {
     editButton.setDisable(true);
   }
 
-  @FXML
-  void clearForm(ActionEvent event) {
-    fileNameField.clear();
-  }
+//  @FXML
+//  void clearForm(ActionEvent event) {
+//    fileNameField.clear();
+//  }
 
   @FXML
-  public void switchToImportPopup(ActionEvent event) throws IOException {
+  public void switchToImport(ActionEvent event) throws IOException {
     if (!event.getSource().equals(cancel)) {
       FXMLLoader loader =
           new FXMLLoader(Main.class.getResource("views/ImportEmployeeCSVFXML.fxml"));
@@ -225,7 +227,7 @@ public class EmployeeController extends MenuController {
     popup.hide();
   }
 
-  public void switchToExportPopup(ActionEvent event) throws IOException {
+  public void switchToExport(ActionEvent event) throws IOException {
     System.out.println("opens popup");
     if (!event.getSource().equals(cancel)) {
       FXMLLoader loader =

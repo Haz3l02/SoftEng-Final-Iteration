@@ -47,7 +47,7 @@ public class PatientTransportController extends ServiceRequestController {
       moveToBox.setItems(locations);
     }
     // If Edit past submissions is pressed. Open Service request with form fields filled out.
-    if (newEdit.needEdits && newEdit.getRequestType().equals("PatientTransport")) {
+    if (newEdit.needEdits && newEdit.getRequestType().equals("Patient Transport")) {
       PatientTransportRequestEntity editPatientRequest =
           FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
       nameBox.setText(editPatientRequest.getName());

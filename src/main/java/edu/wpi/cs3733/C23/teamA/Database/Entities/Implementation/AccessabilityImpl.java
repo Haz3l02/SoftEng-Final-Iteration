@@ -1,10 +1,12 @@
-package edu.wpi.cs3733.C23.teamA.Database.Implementation;
+package edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.AccessibilityRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -17,80 +19,87 @@ import java.util.ListIterator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ComputerRequestImpl extends Observable
-    implements IDatabaseAPI<ComputerRequestEntity, Integer> {
-  private List<ComputerRequestEntity> comprequests;
-  private static final ComputerRequestImpl instance = new ComputerRequestImpl();
+public class AccessabilityImpl extends Observable
+    implements IDatabaseAPI<AccessibilityRequestEntity, Integer> {
+  private List<AccessibilityRequestEntity> accrequests;
+  private static final AccessabilityImpl instance = new AccessabilityImpl();
 
-  private ComputerRequestImpl() {
+  private AccessabilityImpl() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
-    CriteriaQuery<ComputerRequestEntity> criteria =
-        builder.createQuery(ComputerRequestEntity.class);
-    criteria.from(ComputerRequestEntity.class);
-    List<ComputerRequestEntity> records = session.createQuery(criteria).getResultList();
+    CriteriaQuery<AccessibilityRequestEntity> criteria =
+        builder.createQuery(AccessibilityRequestEntity.class);
+    criteria.from(AccessibilityRequestEntity.class);
+    List<AccessibilityRequestEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    comprequests = records;
+    accrequests = records;
   }
 
   public void refresh() {
     Session session = getSessionFactory().openSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
-    CriteriaQuery<ComputerRequestEntity> criteria =
-        builder.createQuery(ComputerRequestEntity.class);
-    criteria.from(ComputerRequestEntity.class);
-    List<ComputerRequestEntity> records = session.createQuery(criteria).getResultList();
+    CriteriaQuery<AccessibilityRequestEntity> criteria =
+        builder.createQuery(AccessibilityRequestEntity.class);
+    criteria.from(AccessibilityRequestEntity.class);
+    List<AccessibilityRequestEntity> records = session.createQuery(criteria).getResultList();
     session.close();
-    comprequests = records;
+    accrequests = records;
   }
 
-  public List<ComputerRequestEntity> getAll() {
-    return comprequests;
+  public List<AccessibilityRequestEntity> getAll() {
+    return accrequests;
   }
 
-  public void add(ComputerRequestEntity c) {
+  public void add(AccessibilityRequestEntity c) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(c);
     tx.commit();
-    comprequests.add(c);
+    accrequests.add(c);
     ServiceRequestImpl.getInstance().addToList(c);
     session.close();
-    notifyAllObservers();
   }
 
   public void importFromCSV(String filename) throws FileNotFoundException {}
 
   public void exportToCSV(String filename) throws IOException {
     Session session = getSessionFactory().openSession();
-    filename += "/computerrequest.csv";
+    filename += "/accessabilityrequest.csv";
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write("device,deviceid,requestid\n");
-    for (ComputerRequestEntity comp : comprequests) {
+    fileWriter.write("subject,disability,accommodation,requestid\n");
+    for (AccessibilityRequestEntity acc : accrequests) {
       fileWriter.write(
-          comp.getDevice() + "," + comp.getDeviceid() + "," + comp.getRequestid() + "\n");
+          acc.getSubject()
+              + ","
+              + acc.getDisability()
+              + ","
+              + acc.getAccommodation()
+              + ","
+              + acc.getRequestid()
+              + "\n");
     }
     fileWriter.close();
     session.close();
   }
 
-  public void update(Integer ID, ComputerRequestEntity obj) {
+  public void update(Integer ID, AccessibilityRequestEntity obj) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
 
-    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    ListIterator<AccessibilityRequestEntity> li = accrequests.listIterator();
     while (li.hasNext()) {
       if (li.next().getRequestid() == ID) {
         li.remove();
       }
     }
 
-    ComputerRequestEntity c = get(ID);
+    AccessibilityRequestEntity c = get(ID);
 
-    c.setDevice(obj.getDevice());
-    c.setDeviceid(obj.getDeviceid());
+    c.setSubject(obj.getSubject());
+    c.setDisability(obj.getDisability());
+    c.setAccommodation(obj.getAccommodation());
     c.setName(obj.getName());
     c.setDate(obj.getDate());
     c.setDescription(obj.getDescription());
@@ -115,11 +124,10 @@ public class ComputerRequestImpl extends Observable
             obj.getDate());
 
     ServiceRequestImpl.getInstance().update(ID, ser);
-    comprequests.add(c);
+    accrequests.add(c);
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void delete(Integer c) {
@@ -128,7 +136,7 @@ public class ComputerRequestImpl extends Observable
     Transaction tx = session.beginTransaction();
     session.remove(get(c));
 
-    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    ListIterator<AccessibilityRequestEntity> li = accrequests.listIterator();
     while (li.hasNext()) {
       if (li.next().getRequestid() == c) {
         li.remove();
@@ -138,11 +146,10 @@ public class ComputerRequestImpl extends Observable
     ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void removeFromList(Integer s) {
-    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    ListIterator<AccessibilityRequestEntity> li = accrequests.listIterator();
     while (li.hasNext()) {
       if (li.next().getRequestid() == s) {
         li.remove();
@@ -150,40 +157,40 @@ public class ComputerRequestImpl extends Observable
     }
   }
 
-  public ComputerRequestEntity get(Integer ID) {
-    return comprequests.stream()
-        .filter(computerRequestEntity -> computerRequestEntity.getRequestid() == ID)
+  public AccessibilityRequestEntity get(Integer ID) {
+    return accrequests.stream()
+        .filter(AccessibilityRequestEntity -> AccessibilityRequestEntity.getRequestid() == ID)
         .findFirst()
         .orElseThrow();
   }
 
   public void updateStatus(Integer ID, Status status) {
-    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    ListIterator<AccessibilityRequestEntity> li = accrequests.listIterator();
     while (li.hasNext()) {
-      ComputerRequestEntity san = li.next();
+      AccessibilityRequestEntity san = li.next();
       if (san.getRequestid() == ID) {
         san.setStatus(status);
         li.remove();
-        comprequests.add(san);
+        accrequests.add(san);
         break;
       }
     }
   }
 
   public void updateEmployee(Integer ID, EmployeeEntity employee) {
-    ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
+    ListIterator<AccessibilityRequestEntity> li = accrequests.listIterator();
     while (li.hasNext()) {
-      ComputerRequestEntity sec = li.next();
+      AccessibilityRequestEntity sec = li.next();
       if (sec.getRequestid() == ID) {
         sec.setEmployeeAssigned(employee);
         li.remove();
-        comprequests.add(sec);
+        accrequests.add(sec);
         break;
       }
     }
   }
 
-  public static ComputerRequestImpl getInstance() {
+  public static AccessabilityImpl getInstance() {
     return instance;
   }
 }

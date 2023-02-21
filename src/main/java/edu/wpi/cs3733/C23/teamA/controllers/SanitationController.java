@@ -21,8 +21,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class SanitationController extends ServiceRequestController {
-  private IssueCategory category;
 
+  private IssueCategory category;
   @FXML private MFXComboBox<String> categoryBox;
   @FXML private MFXButton clear;
   @FXML private MFXButton submit;
@@ -88,7 +88,6 @@ public class SanitationController extends ServiceRequestController {
 
   @FXML
   void submitRequest(ActionEvent event) throws IOException, SQLException {
-
     if (nameBox.getText().equals("")
         || IDNum.getText().equals("")
         || locationBox.getValue() == null

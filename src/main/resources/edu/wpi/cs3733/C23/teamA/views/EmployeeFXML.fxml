@@ -28,7 +28,7 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </Text>
-                  <SplitPane dividerPositions="0.5" prefHeight="9999.0" prefWidth="600.0">
+                  <SplitPane dividerPositions="0.5" prefHeight="9999.0" prefWidth="600.0" styleClass="split-pane-divider" stylesheets="@../assets/PathfindingStyle.css">
                      <items>
                         <VBox maxWidth="-Infinity" prefHeight="500.0" spacing="10.0" style="-fx-background-color: D3E9F6;">
                            <children>

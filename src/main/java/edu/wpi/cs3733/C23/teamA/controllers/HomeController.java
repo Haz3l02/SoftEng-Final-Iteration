@@ -3,8 +3,8 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -15,6 +15,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,28 +26,44 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import org.controlsfx.control.PopOver;
 import org.hibernate.Session;
 
 public class HomeController extends MenuController {
 
-  @FXML private TableView<ServiceRequestEntity> assignmentsTable;
+  @FXML private TableView<ServiceRequestEntity> adminTable;
+  @FXML private TableView<ServiceRequestEntity> employeeTable;
+  @FXML private TableView<ServiceRequestEntity> maintenanceTable;
   @FXML public TableColumn<ServiceRequestEntity, Integer> IDCol;
   @FXML public TableColumn<ServiceRequestEntity, String> requestTypeCol;
   @FXML public TableColumn<ServiceRequestEntity, String> locationCol;
   @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
-  @FXML public TableView<MaintenanceAssignedAccepted> employeeTable;
+  @FXML public TableColumn<ServiceRequestEntity, Integer> IDCol1;
+  @FXML public TableColumn<ServiceRequestEntity, String> requestTypeCol1;
+  @FXML public TableColumn<ServiceRequestEntity, String> locationCol1;
+  @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol1;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> nameCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
+  @FXML public ImageView mapImage;
+  @FXML public ImageView about;
+  @FXML public ImageView credits;
+  @FXML public ImageView exit;
+
   @FXML private Label date = new Label("hello");
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
-  @FXML private MFXButton assignmentsButton;
+  @FXML private MFXButton myAssignments;
+  private static PopOver popup;
 
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
@@ -55,14 +72,116 @@ public class HomeController extends MenuController {
       FXCollections.observableArrayList();
 
   @FXML
-  public void initialize() throws IOException, InterruptedException {
+  public void initialize() throws IOException, InterruptedException, SQLException {
+
     grabQuote();
     date();
     time();
     IdNumberHolder userInfo = new IdNumberHolder();
     userInfo = IdNumberHolder.getInstance();
-    welcome.setText("Welcome " + userInfo.getName() + "!");
-    if (userInfo.getJob().equalsIgnoreCase("Maintenance") && IDCol != null) {
+    welcome.setText(userInfo.getName() + "!");
+    serviceRequest
+        .getItems()
+        .addAll(
+            "Sanitation Request",
+            "Security Request",
+            "Computer Request",
+            "Patient Transportation",
+            "Audio/Visual Request",
+            "Accessibility Request",
+            "View Submissions");
+    serviceRequest
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              switch (newValue) {
+                case "Computer Request":
+                  switchToComputer();
+                  break;
+                case "Security Request":
+                  switchToSecurity();
+                  break;
+                case "Sanitation Request":
+                  switchToSanitation();
+                  break;
+                case "Accessibility Request":
+                  switchToAccessibility();
+                  break;
+                case "Patient Transportation":
+                  switchToPatientTransport();
+                  break;
+                case "View Submissions":
+                  switchToServiceRequestStatus();
+                  break;
+                case "Audio/Visual Request":
+                  switchToAudioVisual();
+                  break;
+                case "My Assignments":
+                  switchToServiceRequestStatus();
+                  break;
+                default:
+                  break;
+              }
+            });
+
+    admin
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              switch (newValue) {
+                case "Map Editor":
+                  switchToMapScene();
+                  break;
+                case "Access Employee Records":
+                  switchToEmployeeScene();
+                  break;
+                case "Sanitation Request":
+                  switchToSanitation();
+                case "Department Moves":
+                  switchToMoveScene();
+                  break;
+                case "Create Nodes":
+                  switchToNodeScene();
+                  break;
+                default:
+                  break;
+              }
+            });
+    mapImage.setOnMouseClicked(
+        (MouseEvent e) -> {
+          switchToPathfinding();
+        });
+    about.setOnMouseClicked(
+        (MouseEvent e) -> {
+          try {
+            switchToAbout(e);
+          } catch (IOException ex) {
+            throw new RuntimeException(ex);
+          }
+        });
+    credits.setOnMouseClicked(
+        (MouseEvent e) -> {
+          try {
+            switchToCredits(e);
+          } catch (IOException ex) {
+            throw new RuntimeException(ex);
+          }
+        });
+    exit.setOnMouseClicked(
+        (MouseEvent e) -> {
+          logout();
+        });
+
+    if (userInfo.getJob().equalsIgnoreCase("maintenance") && IDCol != null) {
+      adminTable.setVisible(false);
+      adminTable.setDisable(true);
+      employeeTable.setVisible(false);
+      employeeTable.setDisable(true);
+      maintenanceTable.setVisible(true);
+      maintenanceTable.setDisable(false);
+      myAssignments.setVisible(true);
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
@@ -76,50 +195,59 @@ public class HomeController extends MenuController {
 
       requests =
           FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getEmployeeID());
-      if (requests.size() == 0) {
-        assignmentsButton.setDisable(true);
-      } else {
-        assignmentsButton.setDisable(false);
-      }
       dbTableRowsModel.addAll(requests);
+      maintenanceTable.setItems(dbTableRowsModel);
 
-      assignmentsTable.setItems(dbTableRowsModel);
-      session.close();
-    } else if (userInfo.getJob().equalsIgnoreCase("Admin") && IDCol != null) {
-      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
-      requestTypeCol.setCellValueFactory(
+      if (requests.size() == 0) {
+        myAssignments.setDisable(true);
+      } else {
+        myAssignments.setDisable(false);
+      }
+
+    } else if (userInfo.getJob().equalsIgnoreCase("Admin") && adminTable != null) {
+      adminTable.setVisible(true);
+      adminTable.setDisable(false);
+      employeeTable.setVisible(false);
+      employeeTable.setDisable(true);
+      maintenanceTable.setVisible(false);
+      maintenanceTable.setDisable(true);
+
+      IDCol1.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+      requestTypeCol1.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-      locationCol.setCellValueFactory(
+      locationCol1.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
-      urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
+      urgencyCol1.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
       dbTableRowsModel.addAll(requests);
-      assignmentsTable.setItems(dbTableRowsModel);
+      adminTable.setItems(dbTableRowsModel);
 
-      nameCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
-      assignedCol.setCellValueFactory(
-          param -> new SimpleStringProperty(param.getValue().getNumAssigned()));
-      acceptedCol.setCellValueFactory(
-          param -> new SimpleStringProperty(param.getValue().getNumAccepted()));
-
-      List<EmployeeEntity> maintenanceEmployees =
-          FacadeRepository.getInstance().getEmployeeByJob("maintenance");
-      List<MaintenanceAssignedAccepted> maa = new ArrayList<MaintenanceAssignedAccepted>();
-      for (EmployeeEntity employee : maintenanceEmployees) {
-        maa.add(new MaintenanceAssignedAccepted(employee.getName(), employee.getEmployeeid()));
-      }
-      System.out.println(maa.size());
-      dbTableRowsModel2.addAll(maa);
-      for (int i = 0; i < maa.size(); i++) {
-        System.out.println(maa.get(i).getName());
-      }
-      System.out.println(dbTableRowsModel2.size());
-      employeeTable.setItems(dbTableRowsModel2);
+      myAssignments.setDisable(true);//its already hidden doesnt need to be disabled
+      myAssignments.setVisible(false);//It is automatically not visible redundent
+      admin.setDisable(false);//Redundent its never going to be disabled
+      admin.setVisible(true);
+//NOT IN MAIN FOR SOME REASON NOT SURE IF WE WANT TO KEEP
+//      List<EmployeeEntity> maintenanceEmployees =
+//          FacadeRepository.getInstance().getEmployeeByJob("maintenance");
+//      List<MaintenanceAssignedAccepted> maa = new ArrayList<MaintenanceAssignedAccepted>();
+//      for (EmployeeEntity employee : maintenanceEmployees) {
+//        maa.add(new MaintenanceAssignedAccepted(employee.getName(), employee.getEmployeeid()));
+//      }
+//      System.out.println(maa.size());
+//      dbTableRowsModel2.addAll(maa);
+//      for (int i = 0; i < maa.size(); i++) {
+//        System.out.println(maa.get(i).getName());
+//      }
+//      System.out.println(dbTableRowsModel2.size());
+//      employeeTable.setItems(dbTableRowsModel2);
+      admin
+          .getItems()
+          .addAll("Map Editor", "Access Employee Records", "Department Moves", "Create Nodes");
 
     } else {
-      // Code for medical homepage
+
     }
   }
 
@@ -127,6 +255,32 @@ public class HomeController extends MenuController {
   public void switchToStatus(ActionEvent event) throws IOException {
     stop = true;
     Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
+  }
+
+  @FXML
+  public void switchToCredits(MouseEvent event) throws IOException {
+    if (!event.getSource().equals(backButton)) {
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/CreditsFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(backButton)) {
+      popup.hide();
+    }
+  }
+
+  @FXML
+  public void switchToAbout(MouseEvent event) throws IOException {
+    if (!event.getSource().equals(backButton)) {
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/AboutFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(backButton)) {
+      popup.hide();
+    }
   }
 
   @FXML

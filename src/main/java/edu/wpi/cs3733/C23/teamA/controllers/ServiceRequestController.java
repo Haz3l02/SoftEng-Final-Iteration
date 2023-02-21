@@ -77,13 +77,13 @@ public abstract class ServiceRequestController extends MenuController {
   void acceptRequest(ActionEvent event) throws IOException {
     FacadeRepository.getInstance()
         .updateStatusOfServ(Status.PROCESSING, acceptTheForm.getRequestID());
-    switchToServiceRequestStatus(event);
+    switchToServiceRequestStatus();
   }
 
   @FXML
   public void rejectRequest(ActionEvent event) throws IOException {
     FacadeRepository.getInstance().updateServEmployee(null, acceptTheForm.getRequestID());
     FacadeRepository.getInstance().updateStatusOfServ(Status.NEW, acceptTheForm.getRequestID());
-    switchToServiceRequestStatus(event);
+    switchToServiceRequestStatus();
   }
 }

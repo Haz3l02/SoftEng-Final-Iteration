@@ -10,7 +10,7 @@
     <property name="connection.username">teama</property>
     <property name="connection.password">teama10</property>
     <property name="connection.autocommit">false</property>
-    <property name="default_schema">employeetester</property>
+    <property name="default_schema">iterationone</property>
 
 
 
@@ -35,6 +35,8 @@
     <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.PatientTransportRequestEntity"/>
     <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.AccessibilityRequestEntity"/>
 <!--    <mapping resource="ServicerequestEntity.hbm.xml"/>-->
+    <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.AudioVisualRequestEntity"/>
+    <!--    <mapping resource="ServicerequestEntity.hbm.xml"/>-->
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

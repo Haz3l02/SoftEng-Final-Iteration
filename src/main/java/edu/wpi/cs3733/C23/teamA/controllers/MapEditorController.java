@@ -123,8 +123,8 @@ public class MapEditorController extends MenuController {
     Image image = ImageLoader.getImage(floor);
 
     mainImageView.setImage(image);
+    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
     NodeDraw2.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-    NodeDraw2.drawEdges(allEdges, SCALE_FACTOR, edgeAnchorPane);
     NodeDraw2.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
   }
 
@@ -140,7 +140,6 @@ public class MapEditorController extends MenuController {
     Pane currentNodePane = NodeDraw2.getSelectedPane();
     String id = currentNode.getNodeid();
     String currentFloor = currentNode.getFloor();
-
     // Database //
     FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
     // FacadeRepository.getInstance().deleteNode(id); // delete from database
@@ -153,7 +152,7 @@ public class MapEditorController extends MenuController {
     List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
     if (Floor.indexFromTableString(currentFloor) != -1) {
       NodeDraw2.drawEdges(
-          allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
+          allEdges, SCALE_FACTOR, mainAnchorPane); // delete then redraw edges for this floor
     }
   }
 

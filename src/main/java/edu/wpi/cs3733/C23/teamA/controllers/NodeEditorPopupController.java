@@ -6,11 +6,17 @@ import javafx.fxml.FXML;
 public class NodeEditorPopupController extends NavigationController {
 
   @FXML
-  public void addEdge(ActionEvent actionEvent) {}
+  public void addNode(ActionEvent actionEvent) {}
 
   @FXML
-  public void editEdge(ActionEvent actionEvent) {}
+  public void editNode(ActionEvent actionEvent) {}
 
   @FXML
-  public void deleteEdge(ActionEvent actionEvent) {}
+  public void deleteNode(ActionEvent actionEvent) {}
+
+  public void createNode(ActionEvent actionEvent) {}
+
+  public void saveNodeEdit(ActionEvent actionEvent) {}
+
+  public void deleteSelectedNode(ActionEvent actionEvent) {}
 }

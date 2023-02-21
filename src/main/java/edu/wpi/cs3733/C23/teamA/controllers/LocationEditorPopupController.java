@@ -6,11 +6,11 @@ import javafx.fxml.FXML;
 public class LocationEditorPopupController {
 
   @FXML
-  public void addEdge(ActionEvent actionEvent) {}
+  public void addLocation(ActionEvent actionEvent) {}
 
   @FXML
-  public void editEdge(ActionEvent actionEvent) {}
+  public void editLocation(ActionEvent actionEvent) {}
 
   @FXML
-  public void deleteEdge(ActionEvent actionEvent) {}
+  public void deleteLocation(ActionEvent actionEvent) {}
 }

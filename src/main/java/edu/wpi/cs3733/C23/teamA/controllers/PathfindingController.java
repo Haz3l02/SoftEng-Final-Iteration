@@ -5,11 +5,15 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
 import io.github.palexdev.materialfx.controls.*;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
@@ -17,11 +21,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.canvas.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 
 public class PathfindingController extends MenuController {
@@ -39,34 +49,60 @@ public class PathfindingController extends MenuController {
   @FXML private MFXCheckbox avoidStairsCheckbox;
   @FXML private MFXToggleButton toggleLocationNames;
   @FXML private MFXToggleButton toggleServiceRequests;
+  @FXML private MFXToggleButton toggleUpcomingMoves;
+  @FXML MFXToggleButton toggleSwitch;
+  //
+  //  // canvases
+  //  @FXML private Canvas floorL1Canvas;
+  //  @FXML private Canvas floorL2Canvas;
+  //  @FXML private Canvas floorF1Canvas;
+  //  @FXML private Canvas floorF2Canvas;
+  //  @FXML private Canvas floorF3Canvas;
+  //
+  //  // image views
+  //  @FXML private ImageView floorL2;
+  //  @FXML private ImageView floorL1;
+  //  @FXML private ImageView floorF1;
+  //  @FXML private ImageView floorF2;
+  //  @FXML private ImageView floorF3;
+  //
+  //  // stack panes
+  //  @FXML private StackPane floorL1Stack;
+  //  @FXML private StackPane floorL2Stack;
+  //  @FXML private StackPane floorF1Stack;
+  //  @FXML private StackPane floorF2Stack;
+  //  @FXML private StackPane floorF3Stack;
+  //
+  //  // gesture panes
+  //  @FXML private GesturePane floorL1gPane;
+  //  @FXML private GesturePane floorL2gPane;
+  //  @FXML private GesturePane floorF1gPane;
+  //  @FXML private GesturePane floorF2gPane;
+  //  @FXML private GesturePane floorF3gPane;
 
-  // canvases
-  @FXML private Canvas floorL1Canvas;
-  @FXML private Canvas floorL2Canvas;
-  @FXML private Canvas floorF1Canvas;
-  @FXML private Canvas floorF2Canvas;
-  @FXML private Canvas floorF3Canvas;
+  // New FXML Data
+  @FXML private Button l1Button;
+  @FXML private Button l2Button;
+  @FXML private Button f1Button;
+  @FXML private Button f2Button;
+  @FXML private Button f3Button;
 
-  // image views
-  @FXML private ImageView floorL2;
-  @FXML private ImageView floorL1;
-  @FXML private ImageView floorF1;
-  @FXML private ImageView floorF2;
-  @FXML private ImageView floorF3;
+  @FXML private ImageView mainImageView;
 
-  // stack panes
-  @FXML private StackPane floorL1Stack;
-  @FXML private StackPane floorL2Stack;
-  @FXML private StackPane floorF1Stack;
-  @FXML private StackPane floorF2Stack;
-  @FXML private StackPane floorF3Stack;
+  @FXML private AnchorPane anchorF3;
+  @FXML private AnchorPane anchorF2;
+  @FXML private AnchorPane anchorF1;
+  @FXML private AnchorPane anchorL2;
+  @FXML private AnchorPane anchorL1;
+  @FXML private AnchorPane serviceRequestPane;
 
-  // gesture panes
-  @FXML private GesturePane floorL1gPane;
-  @FXML private GesturePane floorL2gPane;
-  @FXML private GesturePane floorF1gPane;
-  @FXML private GesturePane floorF2gPane;
-  @FXML private GesturePane floorF3gPane;
+  @FXML private StackPane mainStackPane;
+
+  @FXML private GesturePane mainGesturePane;
+
+  private AnchorPane[] aps = new AnchorPane[5];
+  private Group[] groups = new Group[5];
+  private int currentFloor = 0;
 
   // Lists of Nodes and Node Data
   private List<String> startNodeIDs; // List of all Node IDs in specific order
@@ -84,9 +120,13 @@ public class PathfindingController extends MenuController {
 
   // objects needed for the maps
   private GraphicsContext[] gcs = new GraphicsContext[5];
-  private double SCALE_FACTOR = 0.135;
+  private final double SCALE_FACTOR = 0.135;
 
-  // database objects
+  @FXML
+  public void switchToHomeScene() {
+    System.out.println("Hehehehehehehehehehehehehehehe");
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
+  }
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
@@ -96,6 +136,7 @@ public class PathfindingController extends MenuController {
    */
   public void initialize() throws SQLException {
     // prepare floor/algorithm dropdowns
+
     ObservableList<String> floors =
         FXCollections.observableArrayList(
             Floor.L1.getExtendedString(),
@@ -114,9 +155,22 @@ public class PathfindingController extends MenuController {
     endFloorBox.setItems(floors);
     algosBox.setItems(algos);
 
+    // anchor panes
+    aps[0] = anchorL1;
+    aps[1] = anchorL2;
+    aps[2] = anchorF1;
+    aps[3] = anchorF2;
+    aps[4] = anchorF3;
+
+    groups[0] = new Group();
+    groups[1] = new Group();
+    groups[2] = new Group();
+    groups[3] = new Group();
+    groups[4] = new Group();
+
     // add the map images (also already done in SceneBuilder)
+    addFloorMapImage("L1", mainImageView);
     /*
-    addFloorMapImage("L1", floorL2);
     addFloorMapImage("L2", floorL1);
     addFloorMapImage("1", floorF1);
     addFloorMapImage("2", floorF2);
@@ -124,16 +178,8 @@ public class PathfindingController extends MenuController {
     */
 
     // prepare the gesture panes
-    Node nodeL1 = floorL1Stack;
-    this.floorL1gPane.setContent(nodeL1);
-    Node nodeL2 = floorL2Stack;
-    this.floorL2gPane.setContent(nodeL2);
-    Node nodeF1 = floorF1Stack;
-    this.floorF1gPane.setContent(nodeF1);
-    Node nodeF2 = floorF2Stack;
-    this.floorF2gPane.setContent(nodeF2);
-    Node nodeF3 = floorF3Stack;
-    this.floorF3gPane.setContent(nodeF3);
+    Node nodeL1 = mainStackPane;
+    this.mainGesturePane.setContent(nodeL1);
 
     // autofill the date picker to the current date
     // navDatePicker.setValue(LocalDate.of(2023, 1, 1));
@@ -143,6 +189,15 @@ public class PathfindingController extends MenuController {
     // get the moves in the next week
     weekLater = navDate.plusDays(7);
     movesInNextWeek = FacadeRepository.getInstance().getLocationChanges(navDate, weekLater);
+
+    serviceRequestPane.setVisible(false);
+    // Action Listener for toggle switch
+    toggleServiceRequests
+        .selectedProperty()
+        .addListener(
+            Observable -> {
+              changeSRs();
+            });
   }
 
   /** Method to clear the fields on the form on the UI page */
@@ -156,19 +211,24 @@ public class PathfindingController extends MenuController {
     algosBox.clearSelection();
     navDatePicker.clear();
 
+    // disable stuff
+    startFloorBox.setDisable(true);
+    endFloorBox.setDisable(true);
+    startLocBox.setDisable(true);
+    endLocBox.setDisable(true);
+
     // reset the location lists
     ObservableList<String> empty = FXCollections.observableArrayList();
     startLocBox.setItems(empty);
     endLocBox.setItems(empty);
 
-    // canvases
-    for (GraphicsContext gc : gcs) {
-      gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-    }
-
     // text
     pathMapText.setText("Directions on how to get to your destination go here...");
     errorMessage.setText("");
+  }
+
+  public void changeSRs() {
+    serviceRequestPane.setVisible(!serviceRequestPane.isVisible());
   }
 
   /**
@@ -180,6 +240,8 @@ public class PathfindingController extends MenuController {
   @FXML
   public void setPathfindingAlgorithm(ActionEvent event) {
     pathfindingSystem = new PathfindingSystem(Algorithm.fromString(algosBox.getValue()));
+    startFloorBox.setDisable(false);
+    endFloorBox.setDisable(false);
   }
 
   @FXML
@@ -191,6 +253,9 @@ public class PathfindingController extends MenuController {
     endLocBox.clear();
     startFloorBox.clear();
     endFloorBox.clear();
+
+    startLocBox.setDisable(true);
+    endLocBox.setDisable(true);
 
     ObservableList<String> empty = FXCollections.observableArrayList();
     startLocBox.setItems(empty);
@@ -205,24 +270,25 @@ public class PathfindingController extends MenuController {
   public void fillStartLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(startFloorBox.getValue()));
 
-    List<NodeEntity> allNodesStartFloor =
-        FacadeRepository.getInstance()
-            .getNodesOnFloor(floor.getTableString()); // get all nodes from Database
-
+    // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still
+    // works though,
+    // and isn't that much slower.
+    List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
-    LocationNameEntity locNameEnt;
-    MoveEntity moveEntity;
 
-    for (NodeEntity n : allNodesStartFloor) {
-      // THIS WILL NEED TO CHANGE IN ITERATION 3
-      moveEntity =
-          FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
-      locNameEnt = moveEntity.getLocationName();
+    LocationNameEntity locNameEnt;
+    NodeEntity node;
+
+    for (MoveEntity m : moveEntities) {
+      locNameEnt = m.getLocationName();
+      node = m.getNode();
       // if the LocationNameEntity isn't null, add it to the dropdown.
       // If it is null, it's a node w/ no location attached, and doesn't need to be there
-      if (locNameEnt != null) {
-        idsFloor.add(n.getNodeid()); // get nodeId
+      if (locNameEnt != null
+          && node.getFloor().equals(floor.getTableString())
+          && !idsFloor.contains(node.getNodeid())) {
+        idsFloor.add(node.getNodeid()); // get nodeId
         namesFloor.add(locNameEnt.getLongname()); // get longName
       }
     }
@@ -239,26 +305,26 @@ public class PathfindingController extends MenuController {
   public void fillEndLocationBox() {
     Floor floor = Floor.valueOf(Floor.fromString(endFloorBox.getValue()));
 
-    List<NodeEntity> allNodesStartFloor =
-        FacadeRepository.getInstance()
-            .getNodesOnFloor(floor.getTableString()); // get all nodes from Database
-
+    // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still
+    // works though,
+    // and isn't that much slower.
+    List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
-    LocationNameEntity locNameEnt;
-    MoveEntity moveEntity;
 
-    for (NodeEntity n : allNodesStartFloor) {
-      // THIS WILL NEED TO CHANGE IN ITERATION 3
-      moveEntity =
-          FacadeRepository.getInstance().moveLocationOnOrBeforeDate(n.getNodeid(), navDate);
-      locNameEnt = moveEntity.getLocationName();
-      // if the LocationNameEntity isn't null, add it to the dropdown. If it is, it's a node w/ no
-      // location attached
-      if (locNameEnt != null && !idsFloor.contains(n.getNodeid())) {
-        idsFloor.add(n.getNodeid()); // get nodeId
+    LocationNameEntity locNameEnt;
+    NodeEntity node;
+
+    for (MoveEntity m : moveEntities) {
+      locNameEnt = m.getLocationName();
+      node = m.getNode();
+      // if the LocationNameEntity isn't null, add it to the dropdown.
+      // If it is null, it's a node w/ no location attached, and doesn't need to be there
+      if (locNameEnt != null
+          && node.getFloor().equals(floor.getTableString())
+          && !idsFloor.contains(node.getNodeid())) {
+        idsFloor.add(node.getNodeid()); // get nodeId
         namesFloor.add(locNameEnt.getLongname()); // get longName
-        // System.out.println(n.getNodeid());
       }
     }
 
@@ -270,41 +336,100 @@ public class PathfindingController extends MenuController {
     endLocBox.clear();
   }
 
-  public void checkForMoves() throws SQLException {
+  /**
+   * pain
+   *
+   * @throws SQLException
+   */
+  public void checkForMovesStart() throws SQLException, IOException {
     int startIndex = startLocBox.getSelectedIndex();
+    int algoIndex = algosBox.getSelectedIndex();
+
+    // make sure the algorithm is picked and the box has a value
+    if (algoIndex != -1 && startIndex != -1) {
+      // get the location name
+      String startLocName = startLocBox.getValue();
+
+      // loop through the keys (moveEntities) hashMap of move entities
+      for (MoveEntity m : movesInNextWeek.keySet()) {
+
+        // long name of the current key (most recent) and the date
+        LocationNameEntity locName = m.getLocationName();
+        LocalDate moveDate = m.getMovedate();
+
+        if (locName != null) {
+          if (locName.getLongname().equals(startLocName)) {
+            // Ask the user if they want the path from current to future displayed
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Notice for Upcoming Moves");
+            alert.setHeaderText(
+                "The location selected has an upcoming move, set to happen on "
+                    + moveDate.toString()
+                    + ".");
+            alert.setContentText(
+                "Would you like to navigate from its current location to its new location?");
+
+            if (alert.showAndWait().get() == ButtonType.OK) {
+              // get the IDs from the initial (value) and final (key) moves
+              String startID = startNodeIDs.get(startIndex);
+              String endID = movesInNextWeek.get(m).getNode().getNodeid();
+
+              try {
+                generatePathFromMovePopup(startID, endID);
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * pain II, electric boogaloo
+   *
+   * @throws SQLException
+   */
+  public void checkForMovesEnd() throws SQLException {
     int endIndex = endLocBox.getSelectedIndex();
     int algoIndex = algosBox.getSelectedIndex();
 
-    // if neither location box or the algorithm box actually contains any info, don't do anything
-    if ((startIndex == -1 && endIndex == -1) || algoIndex == -1) {
-      // then don't run anything
-    } else {
-      // get the location names
-      String startLocName = startLocBox.getValue();
+    // make sure the algorithm is picked and the box has a value
+    if (algoIndex != -1 && endIndex != -1) {
+      // get the location name
       String endLocName = endLocBox.getValue();
 
       // loop through the keys (moveEntities) hashMap of move entities
       for (MoveEntity m : movesInNextWeek.keySet()) {
+
         // long name of the current key (most recent)
         LocationNameEntity locName = m.getLocationName();
+        LocalDate moveDate = m.getMovedate();
 
         if (locName != null) {
-          if (locName.getLongname().equals(startLocName)
-              || locName.getLongname().equals(endLocName)) {
+          if (locName.getLongname().equals(endLocName)) {
+            // Ask the user if they want the path from current to future displayed
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Notice for Upcoming Moves");
+            alert.setHeaderText(
+                "The location selected has an upcoming move, set to happen on "
+                    + moveDate.toString()
+                    + ".");
+            alert.setContentText(
+                "Would you like to navigate from its current location to its new location?");
 
-            // now strip the user of their agency and do things for them (change this later)
-            // get the IDs from the initial (value) and final (key) moves
-            String startID = movesInNextWeek.get(m).getNode().getNodeid();
-            String endID = m.getNode().getNodeid();
+            if (alert.showAndWait().get() == ButtonType.OK) {
+              // get the IDs from the initial (value) and final (key) moves
+              String startID = endNodeIDs.get(endIndex);
+              String endID = movesInNextWeek.get(m).getNode().getNodeid();
 
-            System.out.println(startID);
-            System.out.println(endID);
-            System.out.println(movesInNextWeek.get(m).getMovedate());
-            System.out.println(m.getMovedate());
-
-            generatePathFromMovePopup(startID, endID);
-            // if/else inside popup; if yes, execute and break
-            break; // so that it doesn't check the rest of the moves
+              try {
+                generatePathFromMovePopup(startID, endID);
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+            }
           }
         }
       }
@@ -317,19 +442,26 @@ public class PathfindingController extends MenuController {
    * @param path the path that you want to be drawn
    */
   private void callMapDraw(ArrayList<GraphNode> path) {
-    // getting graphicsContents for each canvas and put in array
-    gcs[0] = floorL1Canvas.getGraphicsContext2D();
-    gcs[1] = floorL2Canvas.getGraphicsContext2D();
-    gcs[2] = floorF1Canvas.getGraphicsContext2D();
-    gcs[3] = floorF2Canvas.getGraphicsContext2D();
-    gcs[4] = floorF3Canvas.getGraphicsContext2D();
 
     // clear the canvases w/ the drawn paths
-    for (GraphicsContext gc : gcs) {
-      gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    for (AnchorPane ap : aps) {
+      ap.getChildren().clear();
+      ap.setVisible(false);
+      ap.setDisable(true);
     }
 
-    pathfindingSystem.drawPath(gcs, path, SCALE_FACTOR);
+    for (Group gr : groups) {
+      gr.getChildren().clear();
+      gr.setVisible(false);
+      gr.setDisable(true);
+    }
+
+    aps[currentFloor].setVisible(true);
+    aps[currentFloor].setDisable(false);
+    groups[currentFloor].setVisible(true);
+    groups[currentFloor].setDisable(false);
+
+    pathfindingSystem.drawPath(aps, path, SCALE_FACTOR, groups);
   }
 
   @FXML
@@ -447,5 +579,39 @@ public class PathfindingController extends MenuController {
   private void addFloorMapImage(String floor, ImageView iv) {
     Image image = ImageLoader.getImage(floor);
     iv.setImage(image);
+  }
+
+  public void generateFloor(ActionEvent event) {
+    int previousFloor = currentFloor;
+    String floor = "L1";
+    if (event.getSource().equals(l1Button)) {
+      floor = "L1";
+      currentFloor = 0;
+    } else if (event.getSource().equals(l2Button)) {
+      floor = "L2";
+      currentFloor = 1;
+    } else if (event.getSource().equals(f1Button)) {
+      floor = "1";
+      currentFloor = 2;
+    } else if (event.getSource().equals(f2Button)) {
+      floor = "2";
+      currentFloor = 3;
+    } else if (event.getSource().equals(f3Button)) {
+      floor = "3";
+      currentFloor = 4;
+    }
+    initializeFloorMap(floor, previousFloor);
+  }
+
+  private void initializeFloorMap(String floor, int previousFloor) {
+
+    addFloorMapImage(floor, mainImageView);
+    aps[previousFloor].setVisible(false);
+    aps[previousFloor].setDisable(true);
+    aps[currentFloor].setVisible(true);
+    aps[currentFloor].setDisable(false);
+
+    List<NodeEntity> allNodes = FacadeRepository.getInstance().getNodesOnFloor(floor);
+    MapDraw.drawServiceRequestIcons(serviceRequestPane, SCALE_FACTOR, floor);
   }
 }

@@ -2,7 +2,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.FormType;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -24,14 +23,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import org.controlsfx.control.PopOver;
 
 public class ServiceRequestStatusController extends MenuController {
 
@@ -42,11 +41,15 @@ public class ServiceRequestStatusController extends MenuController {
   @FXML public TableColumn<ServiceRequestEntity, String> statusCol;
   @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
   @FXML public TableColumn<ServiceRequestEntity, String> employeeAssignedCol;
+  @FXML public SplitPane mainSplitPane;
+  @FXML public Node editingForm;
+  @FXML public Node outstandingForms;
 
   // text boxes for editing
   @FXML public MFXComboBox<String> formTypeBox;
   @FXML public MFXTextField dateBox; // make a MFXDatePicker ?????? or not??
   @FXML public MFXComboBox<String> employeeBox;
+  @FXML public MFXComboBox<String> assigned;
   @FXML public MFXComboBox<String> statusBox;
   @FXML public Text IDBoxSaver;
   @FXML private MFXButton editForm;
@@ -86,8 +89,16 @@ public class ServiceRequestStatusController extends MenuController {
 
   @FXML
   public void initialize() throws SQLException, IOException {
-    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
-    PopOver popup = new PopOver(loader.load());
+    editingForm = mainSplitPane.getItems().get(0);
+    outstandingForms = mainSplitPane.getItems().get(1);
+    mainSplitPane.getItems().remove(editingForm);
+
+    ObservableList<String> maintenance =
+        FXCollections.observableArrayList(
+            FacadeRepository.getInstance().getListEmployeeOfByJob("Maintenance"));
+    assigned.setItems(maintenance);
+    //    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/HelpFXML.fxml"));
+    //    PopOver popup = new PopOver(loader.load());
     IdNumberHolder holder = IdNumberHolder.getInstance();
     hospitalID = holder.getId();
     name = holder.getName();
@@ -165,6 +176,10 @@ public class ServiceRequestStatusController extends MenuController {
 
   @FXML
   public void rowClicked(MouseEvent event) {
+    if (mainSplitPane.getItems().get(0) != editingForm) {
+      mainSplitPane.getItems().add(0, editingForm);
+      mainSplitPane.getItems().remove(outstandingForms);
+    }
 
     ServiceRequestEntity clickedServiceReqTableRow =
         serviceReqsTable.getSelectionModel().getSelectedItem();
@@ -214,7 +229,13 @@ public class ServiceRequestStatusController extends MenuController {
   }
 
   public void reloadData() {
+    if (mainSplitPane.getItems().get(0) != outstandingForms) {
+      mainSplitPane.getItems().remove(editingForm);
+      mainSplitPane.getItems().add(0, outstandingForms);
+    }
+
     dbTableRowsModel.clear();
+
     try {
       if (job.equalsIgnoreCase("medical")) {
         serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
@@ -274,6 +295,16 @@ public class ServiceRequestStatusController extends MenuController {
     employeeBox.clear();
   }
 
+  public void outstanding() {
+    dbTableRowsModel.clear();
+    if (assigned != null) {
+      serviceRequestData =
+          FacadeRepository.getInstance().getOutstandingRequestsByID(assigned.getValue());
+    } else serviceRequestData = FacadeRepository.getInstance().getOutstandingServRequests();
+    System.out.println(serviceRequestData.toString());
+    dbTableRowsModel.addAll(serviceRequestData);
+  }
+
   public void acceptForm(ActionEvent event) {
     ServiceRequestEntity clickedRow = serviceReqsTable.getSelectionModel().getSelectedItem();
     acceptTheForm =
@@ -290,6 +321,12 @@ public class ServiceRequestStatusController extends MenuController {
         break;
       case "Patient Transport":
         Navigation.navigate(Screen.PATIENT_TRANSPORT);
+        break;
+      case "Audio\\Visual":
+        Navigation.navigate(Screen.AUDIOVISUAL);
+        break;
+      case "Accessibility":
+        Navigation.navigate(Screen.ACCESSIBILITY);
         break;
       default:
         Navigation.navigateHome(Screen.HOME);
@@ -311,9 +348,14 @@ public class ServiceRequestStatusController extends MenuController {
       case "Security":
         Navigation.navigate(Screen.SECURITY);
         break;
-      case "Transportation":
+      case "Patient Transport":
         Navigation.navigate(Screen.PATIENT_TRANSPORT);
         break;
+      case "Audio\\Visual":
+        Navigation.navigate(Screen.AUDIOVISUAL);
+        break;
+      case "Accessibility":
+        Navigation.navigate(Screen.ACCESSIBILITY);
       default:
         Navigation.navigateHome(Screen.HOME);
         break;

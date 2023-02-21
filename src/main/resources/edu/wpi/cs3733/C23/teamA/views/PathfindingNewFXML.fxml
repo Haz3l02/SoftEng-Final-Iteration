@@ -10,9 +10,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -81,68 +78,6 @@
                                                 <Insets />
                                             </VBox.margin>
                                         </VBox>
-                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Starting Location:" wrappingWidth="230.66659545898438">
-                                            <font>
-                                                <Font name="Verdana" size="18.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets left="10.0" />
-                                            </VBox.margin>
-                                        </Text>
-                                        <HBox prefWidth="364.0" spacing="10.0" VBox.vgrow="ALWAYS">
-                                            <children>
-                                                <MFXFilterComboBox fx:id="startFloorBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" onAction="#fillStartLocationBox" prefHeight="35.0" prefWidth="183.0" promptText="Select Floor..." HBox.hgrow="ALWAYS">
-                                                    <HBox.margin>
-                                                        <Insets />
-                                                    </HBox.margin>
-                                                    <font>
-                                                        <Font size="14.0" />
-                                                    </font>
-                                                </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" onAction="#checkForMoves" prefHeight="35.0" prefWidth="275.0" promptText="  Select Location..." HBox.hgrow="ALWAYS">
-                                                    <font>
-                                                        <Font name="Kohinoor Bangla" size="14.0" />
-                                                    </font>
-                                                    <padding>
-                                                        <Insets right="10.0" />
-                                                    </padding>
-                                                    <HBox.margin>
-                                                        <Insets />
-                                                    </HBox.margin>
-                                                </MFXFilterComboBox>
-                                            </children>
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" left="10.0" top="10.0" />
-                                            </VBox.margin>
-                                        </HBox>
-                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Ending Location:" wrappingWidth="193.3333282470703">
-                                            <font>
-                                                <Font name="Verdana" size="18.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets left="10.0" />
-                                            </VBox.margin>
-                                        </Text>
-                                        <HBox prefHeight="33.0" prefWidth="477.0" VBox.vgrow="ALWAYS">
-                                            <children>
-                                                <MFXFilterComboBox fx:id="endFloorBox" floatMode="DISABLED" minHeight="-Infinity" onAction="#fillEndLocationBox" prefHeight="35.0" prefWidth="183.0" promptText="Select Floor..." HBox.hgrow="ALWAYS">
-                                                    <HBox.margin>
-                                                        <Insets right="10.0" />
-                                                    </HBox.margin>
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                                </MFXFilterComboBox>
-                                                <MFXFilterComboBox fx:id="endLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" onAction="#checkForMoves" prefHeight="35.0" prefWidth="275.0" promptText="Select Location..." HBox.hgrow="ALWAYS">
-                                                    <font>
-                                                        <Font name="Kohinoor Bangla" size="14.0" />
-                                                    </font>
-                                                </MFXFilterComboBox>
-                                            </children>
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                            </VBox.margin>
-                                        </HBox>
                                         <HBox VBox.vgrow="ALWAYS">
                                             <children>
                                                 <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Algorithm" wrappingWidth="116.0">
@@ -182,6 +117,68 @@
                                             <padding>
                                                 <Insets bottom="10.0" left="10.0" top="10.0" />
                                             </padding>
+                                        </HBox>
+                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Starting Location:" wrappingWidth="230.66659545898438">
+                                            <font>
+                                                <Font name="Verdana" size="18.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets left="10.0" />
+                                            </VBox.margin>
+                                        </Text>
+                                        <HBox prefWidth="364.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <MFXFilterComboBox fx:id="startFloorBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" onAction="#fillStartLocationBox" prefHeight="35.0" prefWidth="183.0" promptText="Select Floor..." HBox.hgrow="ALWAYS">
+                                                    <HBox.margin>
+                                                        <Insets />
+                                                    </HBox.margin>
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </MFXFilterComboBox>
+                                                <MFXFilterComboBox fx:id="startLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" onAction="#checkForMovesStart" prefHeight="35.0" prefWidth="275.0" promptText="  Select Location..." HBox.hgrow="ALWAYS">
+                                                    <font>
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
+                                                    </font>
+                                                    <padding>
+                                                        <Insets right="10.0" />
+                                                    </padding>
+                                                    <HBox.margin>
+                                                        <Insets />
+                                                    </HBox.margin>
+                                                </MFXFilterComboBox>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Ending Location:" wrappingWidth="193.3333282470703">
+                                            <font>
+                                                <Font name="Verdana" size="18.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets left="10.0" />
+                                            </VBox.margin>
+                                        </Text>
+                                        <HBox prefHeight="33.0" prefWidth="477.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <MFXFilterComboBox fx:id="endFloorBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" onAction="#fillEndLocationBox" prefHeight="35.0" prefWidth="183.0" promptText="Select Floor..." HBox.hgrow="ALWAYS">
+                                                    <HBox.margin>
+                                                        <Insets right="10.0" />
+                                                    </HBox.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                                </MFXFilterComboBox>
+                                                <MFXFilterComboBox fx:id="endLocBox" disable="true" floatMode="DISABLED" minHeight="-Infinity" onAction="#checkForMovesEnd" prefHeight="35.0" prefWidth="275.0" promptText="Select Location..." HBox.hgrow="ALWAYS">
+                                                    <font>
+                                                        <Font name="Kohinoor Bangla" size="14.0" />
+                                                    </font>
+                                                </MFXFilterComboBox>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                            </VBox.margin>
                                         </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
@@ -273,151 +270,97 @@
                                     </Text>
                                           </children>
                                       </HBox>
-                                      <StackPane prefHeight="510.0" prefWidth="754.0" VBox.vgrow="ALWAYS">
-                                          <children>
-                                              <TabPane prefHeight="476.0" prefWidth="818.0" style="-fx-background-color: #224870;" tabClosingPolicy="UNAVAILABLE">
-                                                  <tabs>
-                                                      <Tab text="Lower Level One">
-                                                          <content>
-                                                              <AnchorPane minHeight="0.0" minWidth="0.0">
-                                                                  <children>
-                                                                      <StackPane fx:id="floorL1Stack">
-                                                                          <children>
-                                                                              <ImageView fx:id="floorL1" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
-                                                                                  <image>
-                                                                                      <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
-                                                                                  </image>
-                                                                              </ImageView>
-                                                                              <Canvas fx:id="floorL1Canvas" height="459.0" width="675.0" />
-                                                                          </children>
-                                                                      </StackPane>
-                                                                      <GesturePane fx:id="floorL1gPane" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                                  </children>
-                                                              </AnchorPane>
-                                                          </content>
-                                                      </Tab>
-                                                      <Tab text="Lower Level Two">
-                                                          <content>
-                                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                  <children>
-                                                                      <StackPane fx:id="floorL2Stack">
-                                                                          <children>
-                                                                              <ImageView fx:id="floorL2" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
-                                                                                  <image>
-                                                                                      <Image url="@../assets/unlabeledMaps/00_thelowerlevel2_unlabeled.png" />
-                                                                                  </image>
-                                                                              </ImageView>
-                                                                              <Canvas fx:id="floorL2Canvas" height="459.0" width="675.0" />
-                                                                          </children>
-                                                                      </StackPane>
-                                                                      <GesturePane fx:id="floorL2gPane" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                                  </children>
-                                                              </AnchorPane>
-                                                          </content>
-                                                      </Tab>
-                                                      <Tab text="Floor One">
-                                                          <content>
-                                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                  <children>
-                                                                      <StackPane fx:id="floorF1Stack">
-                                                                          <children>
-                                                                              <ImageView fx:id="floorF1" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
-                                                                                  <image>
-                                                                                      <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
-                                                                                  </image>
-                                                                              </ImageView>
-                                                                              <Canvas fx:id="floorF1Canvas" height="459.0" width="675.0" />
-                                                                          </children>
-                                                                      </StackPane>
-                                                                      <GesturePane fx:id="floorF1gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.4" prefWidth="747.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                                  </children>
-                                                              </AnchorPane>
-                                                          </content>
-                                                      </Tab>
-                                                      <Tab text="Floor Two">
-                                                          <content>
-                                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                  <children>
-                                                                      <StackPane fx:id="floorF2Stack">
-                                                                          <children>
-                                                                              <ImageView fx:id="floorF2" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
-                                                                                  <image>
-                                                                                      <Image url="@../assets/unlabeledMaps/02_thesecondfloor_unlabeled.png" />
-                                                                                  </image>
-                                                                              </ImageView>
-                                                                              <Canvas fx:id="floorF2Canvas" height="459.0" width="675.0" />
-                                                                          </children>
-                                                                      </StackPane>
-                                                                      <GesturePane fx:id="floorF2gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.0" prefWidth="747.3333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                                  </children>
-                                                              </AnchorPane>
-                                                          </content>
-                                                      </Tab>
-                                                      <Tab text="Floor Three">
-                                                          <content>
-                                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                  <children>
-                                                                      <StackPane fx:id="floorF3Stack">
-                                                                          <children>
-                                                                              <ImageView fx:id="floorF3" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true">
-                                                                                  <image>
-                                                                                      <Image url="@../assets/unlabeledMaps/03_thethirdfloor_unlabeled.png" />
-                                                                                  </image>
-                                                                              </ImageView>
-                                                                              <Canvas fx:id="floorF3Canvas" height="459.0" width="675.0" />
-                                                                          </children>
-                                                                      </StackPane>
-                                                                      <GesturePane fx:id="floorF3gPane" layoutX="10.0" layoutY="10.0" prefHeight="458.0" prefWidth="747.3333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                                  </children>
-                                                              </AnchorPane>
-                                                          </content>
-                                                      </Tab>
-                                                  </tabs>
-                                              </TabPane>
-                                          </children>
-                                          <VBox.margin>
-                                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                          </VBox.margin>
-                                      </StackPane>
-                                  </children>
-                              </VBox>
-                        <VBox alignment="CENTER_LEFT" prefHeight="107.0" prefWidth="838.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                           <children>
-                              <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Display Options" wrappingWidth="211.20001220703125">
-                                 <font>
-                                    <Font name="Arial Black" size="24.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="20.0" top="5.0" />
-                                 </VBox.margin>
-                              </Text>
-                              <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="598.0">
+                              <HBox prefWidth="200.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Location Names">
-                                       <font>
-                                          <Font name="Verdana" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <MFXToggleButton fx:id="toggleLocationNames" stylesheets="@../assets/toggleButton.css" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Service Requests">
-                                       <font>
-                                          <Font name="Verdana" size="18.0" />
-                                       </font>
+                                    <MFXButton fx:id="l1Button" onAction="#generateFloor" text="Level 1">
                                        <HBox.margin>
-                                          <Insets left="20.0" />
+                                          <Insets left="30.0" top="5.0" />
                                        </HBox.margin>
-                                    </Text>
-                                    <MFXToggleButton fx:id="toggleServiceRequests" stylesheets="@../assets/toggleButton.css" />
+                                    </MFXButton>
+                                    <MFXButton fx:id="l2Button" onAction="#generateFloor" text="Level 2">
+                                       <HBox.margin>
+                                          <Insets top="5.0" />
+                                       </HBox.margin>
+                                    </MFXButton>
+                                    <MFXButton fx:id="f1Button" onAction="#generateFloor" text="Floor 1">
+                                       <HBox.margin>
+                                          <Insets top="5.0" />
+                                       </HBox.margin>
+                                    </MFXButton>
+                                    <MFXButton fx:id="f2Button" onAction="#generateFloor" text="Floor 2">
+                                       <HBox.margin>
+                                          <Insets top="5.0" />
+                                       </HBox.margin>
+                                    </MFXButton>
+                                    <MFXButton fx:id="f3Button" onAction="#generateFloor" text="Floor 3">
+                                       <HBox.margin>
+                                          <Insets top="5.0" />
+                                       </HBox.margin>
+                                    </MFXButton>
+                                 </children>
+                              </HBox>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="818.0" style="-fx-background-color: #224870;">
+                                 <children>
+                                    <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="818.0">
+                                       <children>
+                                          <ImageView fx:id="mainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Canvas fx:id="mainCanvas" height="459.0" layoutX="675.0" layoutY="459.0" width="675.0" />
+                                          <AnchorPane fx:id="anchorF3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="anchorF2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="anchorF1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="anchorL2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="anchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="serviceRequestPane" prefHeight="200.0" prefWidth="200.0" />
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </StackPane>
+                                    <GesturePane fx:id="mainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                  </children>
                                  <VBox.margin>
-                                    <Insets left="20.0" />
+                                    <Insets left="30.0" right="30.0" />
                                  </VBox.margin>
-                              </HBox>
-                           </children>
-                        </VBox>
+                              </StackPane>
+                              <VBox alignment="CENTER_LEFT" prefHeight="107.0" prefWidth="839.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Display Options" wrappingWidth="211.20001220703125">
+                                       <font>
+                                          <Font name="Arial Black" size="24.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="20.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="598.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Location Names">
+                                             <font>
+                                                <Font name="Verdana" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXToggleButton fx:id="toggleLocationNames" stylesheets="@../assets/toggleButton.css" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Service Requests">
+                                             <font>
+                                                <Font name="Verdana" size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <MFXToggleButton fx:id="toggleServiceRequests" stylesheets="@../assets/toggleButton.css" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="20.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                                  </children>
+                              </VBox>
                      </children>
                   </VBox>
                     </children>

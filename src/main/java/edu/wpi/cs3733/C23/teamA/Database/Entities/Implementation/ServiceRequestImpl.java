@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.Database.Implementation;
+package edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
@@ -8,6 +8,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -25,7 +26,8 @@ import org.hibernate.Transaction;
 public class ServiceRequestImpl extends Observable
     implements IDatabaseAPI<ServiceRequestEntity, Integer> {
   private List<ServiceRequestEntity> services;
-  private static final ServiceRequestImpl instance = new ServiceRequestImpl();
+  protected static final ServiceRequestImpl instance = new ServiceRequestImpl();
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   private ServiceRequestImpl() {
     Session session;
@@ -116,7 +118,6 @@ public class ServiceRequestImpl extends Observable
     session.persist(s);
     ServiceRequestImpl.getInstance().refresh();
     tx.commit();
-    notifyAllObservers();
   }
 
   public void delete(Integer s) {
@@ -136,7 +137,6 @@ public class ServiceRequestImpl extends Observable
     }
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void update(Integer ID, ServiceRequestEntity obj) {
@@ -164,7 +164,6 @@ public class ServiceRequestImpl extends Observable
     services.add(ser);
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public void addToList(ServiceRequestEntity ser) {
@@ -218,7 +217,6 @@ public class ServiceRequestImpl extends Observable
   }
 
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
-    System.out.println("helpsdfhbsdk");
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
     for (ServiceRequestEntity ser : services) {
       if (ser.getEmployeeAssigned().getUsername().equalsIgnoreCase("unassigned")) sers.add(ser);
@@ -278,14 +276,45 @@ public class ServiceRequestImpl extends Observable
     ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
 
     for (ServiceRequestEntity ser : services) {
-      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 1
+      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
               && ser.getUrgency() == UrgencyLevel.EXTREMELY
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 3
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
               && ser.getUrgency() == UrgencyLevel.HIGH
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 5
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
               && ser.getUrgency() == UrgencyLevel.MEDIUM
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 8
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
               && ser.getUrgency() == UrgencyLevel.LOW) {
+        fin.add(ser);
+      }
+    }
+    return fin;
+  }
+
+  public ArrayList<ServiceRequestEntity> getOutstandingRequestsByID(String user) {
+    ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
+    System.out.println("Current date" + Timestamp.from(Instant.now()).getDay());
+
+    for (ServiceRequestEntity ser : services) {
+      System.out.println(
+          "The string"
+              + ser.getUrgency()
+              + "Thename "
+              + ser.getEmployee().getUsername()
+              + " the date:"
+              + ser.getDate().getDay());
+
+      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
+              && ser.getUrgency() == UrgencyLevel.EXTREMELY
+              && ser.getEmployeeAssigned().equals(user)
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
+              && ser.getUrgency() == UrgencyLevel.HIGH
+              && ser.getEmployee().getUsername().equals(user)
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
+              && ser.getUrgency() == UrgencyLevel.MEDIUM
+              && ser.getEmployee().getUsername().equals(user)
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
+              && ser.getUrgency() == UrgencyLevel.LOW
+              && ser.getEmployee().getUsername().equals(user)) {
         fin.add(ser);
       }
     }
@@ -297,7 +326,17 @@ public class ServiceRequestImpl extends Observable
 
     for (ServiceRequestEntity ser : services) {
       if (ser.getLocation().getLongname().equals(longname)) {
-        fin.add(ser);
+        if (holder.getJob().equalsIgnoreCase("maintenance")) {
+          if (ser.getEmployeeAssigned().equalsIgnoreCase(holder.getName())) {
+            fin.add(ser);
+          }
+        } else if (holder.getJob().equalsIgnoreCase("admin")) {
+          fin.add(ser);
+        } else {
+          if (ser.getEmployee().getEmployeeid() == Integer.parseInt(holder.getId())) {
+            fin.add(ser);
+          }
+        }
       }
     }
     return fin;
