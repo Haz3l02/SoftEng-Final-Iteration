@@ -1,0 +1,121 @@
+.root{
+    -fx-background-color: #D3E9F6;
+}
+
+.boarder-Pane{
+    -fx-background-color: #D3E9F6;
+    -fx-border-color: black;
+    -fx-font-family: Verdana;
+}
+
+/* clear and reset button */
+.blue-Button{
+    -fx-background-color: #224870;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
+    -fx-text-fill: #d3e9f6;
+    -fx-font-size: 25px;
+    -fx-font-family: Verdana;
+    -fx-pref-height: 50;
+    -fx-pref-width: 130;
+    -fx-rippler-fill: #c0cced;
+    -fx-text-alignment: CENTER;
+    -fx-button-type: RAISED;
+}
+
+/* Submit button */
+.yellow-Button{
+    -fx-background-color: #f1a94f;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
+    -fx-text-fill: #122C34;
+    -fx-font-size: 25px;
+    -fx-font-family: Verdana;
+    -fx-pref-height: 50;
+    -fx-pref-width: 130;
+    -fx-rippler-fill: #c0cced;
+    -fx-text-alignment: CENTER;
+    -fx-button-type: RAISED;
+}
+
+/* Reject button */
+.reject{
+    -fx-background-color: #f63c3c;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
+    -fx-text-fill: #122C34;
+    -fx-font-size: 25px;
+    -fx-font-family: Verdana;
+    -fx-pref-height: 50;
+    -fx-pref-width: 130;
+    -fx-rippler-fill: #c0cced;
+    -fx-text-alignment: CENTER;
+    -fx-button-type: RAISED;
+}
+
+/* MFXFilterComboBox */
+.dropDowns{
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #122c34;
+    -fx-font-size: 14px;
+    -fx-font-family: Verdana;
+    -fx-pref-width: 300;
+    -fx-pref-height: 40;
+}
+
+/* MFXTextField */
+.textBox{
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #122c34;
+    -fx-font-size: 14px;
+    -fx-font-family: Verdana;
+    -fx-pref-width: 300;
+    -fx-pref-height: 40;
+}
+
+/* Labels or Text */
+.labels{
+    -fx-font-size: 24px;
+    -fx-font-family: Verdana;
+    -fx-text-fill: #F6BD3A;
+    -fx-stroke-type: OUTSIDE;
+    -fx-stroke-width: 0;
+}
+
+/* Decision Box */
+.decBox{
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #122c34;
+    -fx-font-size: 14px;
+    -fx-font-family: Verdana;
+    -fx-pref-width: 300;
+    -fx-pref-height: 150;
+}
+
+/* Reminder text */
+.reminder{
+    -fx-font-size: 24px;
+    -fx-font-family: Verdana;
+    -fx-text-fill: #122c34;
+    -fx-stroke-type: OUTSIDE;
+    -fx-stroke-width: 0;
+    -fx-text-alignment: CENTER;
+}
+
+.SR-Heading{
+    -fx-font-size: 35px;
+    -fx-font-family: Verdana;
+    -fx-text-fill: #122c34;
+}
+
+.SR-SubHeading{
+    -fx-font-size: 30px;
+    -fx-font-family: Verdana;
+    -fx-text-fill: #122c34;
+}
+
+
+
