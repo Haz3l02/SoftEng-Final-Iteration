@@ -5,6 +5,8 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Main;
+import edu.wpi.cs3733.C23.teamA.controllers.EdgeEditorPopupController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import java.awt.*;
@@ -13,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -73,8 +74,7 @@ public class MapDraw {
   /**
    * @param xCoord the x-coordinate to scale
    * @param yCoord the y-coordinate to scale
-   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on;
-   *     for us, this is going to be 0.30 (subject to change)
+   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
    * @return an int array with the pair of new coordinates
    */
   private static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
@@ -91,57 +91,80 @@ public class MapDraw {
     return scaledCoordinates;
   }
 
-  public static void drawPathOld2(
-      GraphicsContext[] gcs, ArrayList<GraphNode> path, double scaleFactor) {
+  /**
+   * @param xCoord the x-coordinate to scale
+   * @param yCoord the y-coordinate to scale
+   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on.
+   * @return an int array with the pair of new coordinates
+   */
+  private static int[] scaleCoordinatesReversed(double xCoord, double yCoord, double scaleFactor) {
+    // get the coordinates from the node
 
-    for (GraphicsContext gc : gcs) {
-      gc.setFill(Color.web("0x224870"));
-      gc.setStroke(Color.web("0x224870"));
-      gc.setLineWidth(2);
-    }
+    // apply the scale factor to the coordinates and floor them (so they remain a whole number)
+    xCoord = Math.floor(xCoord / scaleFactor);
+    yCoord = Math.floor(yCoord / scaleFactor);
 
-    // coordinates for the previous point in the path
-    int prevX = 0;
-    int prevY = 0;
-    int prevFloor = 0;
+    // put the values in an array to return
+    int[] scaledCoordinates = {(int) xCoord, (int) yCoord};
 
-    // set the prev values and draw the starting circle
-    int size = path.size();
-    if (size > 0) {
-      int[] updatedCoords =
-          scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), scaleFactor);
-      prevX = updatedCoords[0];
-      prevY = updatedCoords[1];
-      String floor = path.get(0).getFloor();
-      prevFloor = Floor.indexFromTableString(floor);
-      gcs[prevFloor].fillOval(prevX - 5, prevY - 5, 10, 10); // starting circle
-    }
-
-    // current holders for coordinates
-    int currentX;
-    int currentY;
-    int currentFloor;
-
-    // get all node x and y coords to draw lines between them
-    for (GraphNode g : path) {
-      int[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), scaleFactor);
-      currentX = updatedCoords[0];
-      currentY = updatedCoords[1];
-      currentFloor = Floor.indexFromTableString(g.getFloor());
-
-      if (currentFloor == prevFloor) {
-        gcs[currentFloor].strokeLine(prevX, prevY, currentX, currentY);
-      }
-      prevX = currentX;
-      prevY = currentY;
-      prevFloor = currentFloor;
-    }
-
-    gcs[prevFloor].strokeOval(prevX - 5, prevY - 5, 10, 10); // ending open circle
+    // return the scaled coordinates
+    return scaledCoordinates;
   }
 
+  //  public static void drawPathOld2(
+  //      GraphicsContext[] gcs, ArrayList<GraphNode> path, double scaleFactor) {
+  //
+  //    for (GraphicsContext gc : gcs) {
+  //      gc.setFill(Color.web("0x224870"));
+  //      gc.setStroke(Color.web("0x224870"));
+  //      gc.setLineWidth(2);
+  //    }
+  //
+  //    // coordinates for the previous point in the path
+  //    int prevX = 0;
+  //    int prevY = 0;
+  //    int prevFloor = 0;
+  //
+  //    // set the prev values and draw the starting circle
+  //    int size = path.size();
+  //    if (size > 0) {
+  //      int[] updatedCoords =
+  //          scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), scaleFactor);
+  //      prevX = updatedCoords[0];
+  //      prevY = updatedCoords[1];
+  //      String floor = path.get(0).getFloor();
+  //      prevFloor = Floor.indexFromTableString(floor);
+  //      gcs[prevFloor].fillOval(prevX - 5, prevY - 5, 10, 10); // starting circle
+  //    }
+  //
+  //    // current holders for coordinates
+  //    int currentX;
+  //    int currentY;
+  //    int currentFloor;
+  //
+  //    // get all node x and y coords to draw lines between them
+  //    for (GraphNode g : path) {
+  //      int[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), scaleFactor);
+  //      currentX = updatedCoords[0];
+  //      currentY = updatedCoords[1];
+  //      currentFloor = Floor.indexFromTableString(g.getFloor());
+  //
+  //      if (currentFloor == prevFloor) {
+  //        gcs[currentFloor].strokeLine(prevX, prevY, currentX, currentY);
+  //      }
+  //      prevX = currentX;
+  //      prevY = currentY;
+  //      prevFloor = currentFloor;
+  //    }
+  //
+  //    gcs[prevFloor].strokeOval(prevX - 5, prevY - 5, 10, 10); // ending open circle
+  //  }
+
   public static void drawPathClickable(
-      AnchorPane[] aps, ArrayList<GraphNode> path, double scaleFactor) {
+      AnchorPane[] aps,
+      ArrayList<GraphNode> path,
+      ArrayList<String> floorPath,
+      double scaleFactor) {
 
     // coordinates for the previous point in the path
     int prevX = 0;
@@ -160,17 +183,8 @@ public class MapDraw {
       String floor = path.get(0).getFloor();
       prevFloor = Floor.indexFromTableString(floor);
       Circle currentCircle =
-          new Circle(prevX, prevY, radius, Color.web("0x224870")); // starting circle
+          new Circle(prevX, prevY, radius, Color.web("0x3DA867")); // starting circle
       List<ServiceRequestEntity> srs = FacadeRepository.getInstance().getAllServiceRequest();
-
-      //      if
-      // (FacadeRepository.getInstance().getRequestAtLocation(path.get(0).getLongName()).size()
-      //          > 0) {
-      //        Rectangle rect = new Rectangle(prevX + 5, prevY + 5, radius + 1, radius + 1);
-      //        rect.setFill(Color.web("0x000000"));
-      //        // group.getChildren().add(currentCircle);
-      //        groups[prevFloor].getChildren().add(rect); // service request icon
-      //      }
 
       aps[prevFloor].getChildren().add(currentCircle);
     }
@@ -179,6 +193,7 @@ public class MapDraw {
     int currentX;
     int currentY;
     int currentFloor;
+    int floorTracker = 0; // corresponds to an index in the floorPath()
 
     // get all node x and y coords to draw lines between them
     for (GraphNode g : path) {
@@ -195,7 +210,19 @@ public class MapDraw {
       }
 
       // draw node
-      Circle currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
+      Circle currentCircle;
+       // janky but maybe ok?
+            if (floorTracker < floorPath.size() - 1) {
+              if (!floorPath.get(floorTracker + 1).equals(g.getFloor())) {
+                currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
+              } else {
+                currentCircle = new Circle(currentX, currentY, radius, Color.web("0xFFD470"));
+                floorTracker++;
+              }
+            } else {
+              currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
+            }
+      // currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
       aps[currentFloor].getChildren().add(currentCircle);
       //      if (FacadeRepository.getInstance().getRequestAtLocation(g.getLongName()).size() > 0) {
       //        Rectangle rect = new Rectangle(currentX + 5, currentY - 5, radius + 1, radius + 1);
@@ -300,15 +327,18 @@ public class MapDraw {
     if (previousPopup != null) {
       previousPopup.hide();
     }
+    PopOver popover;
 
-    PopOver popover = new PopOver();
     try {
       FXMLLoader loader =
-          new FXMLLoader(
-              AApp.class.getResource(
-                  "resources/edu/wpi/cs3733/C23/teamA/views/DisplayServiceRequestsFXML.fxml"));
-      popover.setContentNode(loader.load());
+          new FXMLLoader(Main.class.getResource("views/DisplayServiceRequestsFXML.fxml"));
+      popover = new PopOver(loader.load());
+      // popover.setContentNode(loader.load());
       popover.setTitle("hello there popover");
+      popover.show((anchorPane.getScene().getWindow()));
+
+      final EdgeEditorPopupController ec = loader.getController();
+
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
