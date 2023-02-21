@@ -116,6 +116,10 @@ public class FacadeRepository {
     return acc.getAll();
   }
 
+  public List<AudioVisualRequestEntity> getAllAudioVisualRequest() {
+    return av.getAll();
+  }
+
   // ADD METHODS
 
   public void addComputerRequest(ComputerRequestEntity c) {
@@ -208,8 +212,12 @@ public class FacadeRepository {
     serv.delete(id);
   }
 
-  public void deleteAccessability(Integer id) {
+  public void deleteAccessibilityRequest(Integer id) {
     acc.delete(id);
+  }
+
+  public void deleteAudioVisualRequest(Integer id) {
+    av.delete(id);
   }
 
   // EXPORT METHODS
@@ -238,8 +246,12 @@ public class FacadeRepository {
     serv.exportToCSV(filename);
   }
 
-  public void exportAccesability(String filename) throws IOException {
+  public void exportAccessibility(String filename) throws IOException {
     acc.exportToCSV(filename);
+  }
+
+  public void exportAudioVisual(String filename) throws IOException {
+    av.exportToCSV(filename);
   }
 
   // IMPORT METHODS
@@ -356,8 +368,12 @@ public class FacadeRepository {
     serv.update(id, c);
   }
 
-  public void accessabilityServiceRequest(Integer id, AccessibilityRequestEntity c) {
+  public void updateAccessibilityRequest(Integer id, AccessibilityRequestEntity c) {
     acc.update(id, c);
+  }
+
+  public void updateAudioVisualRequest(Integer id, AudioVisualRequestEntity c) {
+    av.update(id, c);
   }
 
   // miscellaneous
@@ -483,5 +499,13 @@ public class FacadeRepository {
 
   public ArrayList<ServiceRequestEntity> getRequestAtLocation(String longname) {
     return serv.getRequestAtLocation(longname);
+  }
+
+  public void removeAssociatedLocationsOnMove(String nodeid) {
+    move.removeAssociatedLocations(nodeid);
+  }
+
+  public ArrayList<ServiceRequestEntity> getOutstandingRequestsByID(String user) {
+    return serv.getOutstandingRequestsByID(user);
   }
 }

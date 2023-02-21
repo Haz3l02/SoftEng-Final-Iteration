@@ -1,0 +1,7 @@
+.imageView {
+    -fx-graphic: url("edu/wpi/cs3733/C23/teamA/assets/icons/Home_blue.png");
+}
+
+.imageView:hover {
+    -fx-graphic: url("edu/wpi/cs3733/C23/teamA/assets/icons/Home_yellow.png");
+}

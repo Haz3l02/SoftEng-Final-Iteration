@@ -94,15 +94,15 @@
                         <Insets />
                      </opaqueInsets>
                      <children>
-                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject of Request:" wrappingWidth="146.42652893066406">
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject of Request:" textAlignment="RIGHT" wrappingWidth="150.0">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="20.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
                         </Text>
-                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" wrappingWidth="152.33905029296875">
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" textAlignment="RIGHT" wrappingWidth="150.0">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
@@ -110,7 +110,7 @@
                               <Insets top="30.0" />
                            </VBox.margin>
                         </Text>
-                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency:" wrappingWidth="152.33905029296875">
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Urgency:" textAlignment="RIGHT" wrappingWidth="150.0">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
@@ -118,7 +118,7 @@
                               <Insets top="35.0" />
                            </VBox.margin>
                         </Text>
-                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Disability Description:" wrappingWidth="148.79998016357422">
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Disability Description:" textAlignment="RIGHT" wrappingWidth="150.0">
                            <font>
                               <Font name="Verdana" size="24.0" />
                            </font>
@@ -138,12 +138,12 @@
                               <Font name="Kohinoor Bangla" size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="25.0" />
                            </VBox.margin>
                         </MFXComboBox>
                         <MFXFilterComboBox fx:id="locationBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select Location..." style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;">
                            <VBox.margin>
-                              <Insets top="25.0" />
+                              <Insets top="30.0" />
                            </VBox.margin>
                            <font>
                               <Font name="Verdana" size="14.0" />
@@ -160,7 +160,7 @@
                               <Insets top="25.0" />
                            </VBox.margin>
                         </MFXComboBox>
-                        <MFXTextField fx:id="disabilityDescBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="450.0" promptText="Describe the nature, extent, and duration of your disability." style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1; -fx-max-width: 450;">
+                        <MFXTextField fx:id="disabilityDescBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="450.0" promptText="Describe the nature, extent, and duration of your disability." style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1; -fx-max-width: 450;">
                            <font>
                               <Font name="Kohinoor Bangla" size="14.0" />
                            </font>

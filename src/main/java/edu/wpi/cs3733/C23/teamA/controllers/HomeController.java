@@ -74,7 +74,9 @@ public class HomeController extends MenuController {
       Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
-      requests = FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getName());
+      requests =
+          FacadeRepository.getInstance()
+              .getServiceRequestByAssigned(userInfo.getUsername()); // BY USERNAME
       if (requests.size() == 0) {
         assignmentsButton.setDisable(true);
       } else {

@@ -198,7 +198,7 @@ public class EmployeeController extends MenuController {
   }
 
   @FXML
-  public void switchToImportPopup(ActionEvent event) throws IOException {
+  public void switchToImport(ActionEvent event) throws IOException {
     if (!event.getSource().equals(cancel)) {
       FXMLLoader loader =
           new FXMLLoader(Main.class.getResource("views/ImportEmployeeCSVFXML.fxml"));
@@ -233,7 +233,7 @@ public class EmployeeController extends MenuController {
     popup.hide();
   }
 
-  public void switchToExportPopup(ActionEvent event) throws IOException {
+  public void switchToExport(ActionEvent event) throws IOException {
     System.out.println("opens popup");
     if (!event.getSource().equals(cancel)) {
       FXMLLoader loader =
