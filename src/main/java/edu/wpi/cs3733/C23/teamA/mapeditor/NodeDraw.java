@@ -42,6 +42,8 @@ public class NodeDraw implements KeyListener {
 
   static boolean setLocationVisibility;
 
+  static int[] previousCoords = new int[2];
+
   public void setNewLocation() {}
 
   public static void setVisibility(boolean b) {}
@@ -99,10 +101,9 @@ public class NodeDraw implements KeyListener {
   public static void drawLocations(
       List<NodeEntity> allNodes,
       double scaleFactor,
-      AnchorPane nodeAnchor,
-      MapEditorController nmc) {
+      AnchorPane nodeAnchor) {
 
-    // nodeAnchor.getChildren().clear();
+    nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
       int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
@@ -160,6 +161,8 @@ public class NodeDraw implements KeyListener {
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 13.5");
               previousSelectedNode.setPrefSize(5, 5);
+              //              previousSelectedNode.setLayoutX(previousCoords[0] - 2.5);
+              //              previousSelectedNode.setLayoutY(previousCoords[1] - 2.5);
 
               if (previousLine != null) {
                 previousLine.setStroke(Color.web("0x224870"));
@@ -174,9 +177,10 @@ public class NodeDraw implements KeyListener {
                     + "-fx-border-width: 1;"
                     + "-fx-border-radius: 13.5");
             nodeGraphic.setPrefSize(7, 7);
-            //                            nodeGraphic.setLayoutX(nodeGraphic.getXcoord() -3.5);
-            //                            nodeGraphic.setLayoutY(nodeGraphic.getYcoord() -3.5);
+            //            nodeGraphic.setLayoutX(nodeGraphic.getLayoutX() - 3.5);
+            //            nodeGraphic.setLayoutY(nodeGraphic.getLayoutY() - 3.5);
 
+            previousCoords = updatedCoords;
             previousSelectedNode = nodeGraphic;
             selectedNodeEntity = n;
 
@@ -216,7 +220,10 @@ public class NodeDraw implements KeyListener {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Edge Creation");
-                alert.setHeaderText("Are you sure you want to create an edge between " + FacadeRepository.getInstance().getLocation(selectedNodeEntity.getNodeid()));
+                alert.setHeaderText(
+                    "Are you sure you want to create an edge between "
+                        + FacadeRepository.getInstance()
+                            .getLocation(selectedNodeEntity.getNodeid()));
 
                 if (alert.showAndWait().get() == ButtonType.OK) {
                   Line l =
@@ -244,16 +251,16 @@ public class NodeDraw implements KeyListener {
 
       // for hover over node
       EventHandler<MouseEvent> eventHandler2 =
-              event -> {
-                  if ((!nodeGraphic.equals(selectNodePane))) {
-                      nodeGraphic.setStyle(
-                              "-fx-background-color: 'green'; "
-                                      + "-fx-background-radius: 12.5; "
-                                      + "-fx-border-color: 'green'; "
-                                      + "-fx-border-width: 1;"
-                                      + "-fx-border-radius: 13.5");
-                  }
-              };
+          event -> {
+            if ((!nodeGraphic.equals(selectNodePane))) {
+              nodeGraphic.setStyle(
+                  "-fx-background-color: 'green'; "
+                      + "-fx-background-radius: 12.5; "
+                      + "-fx-border-color: 'green'; "
+                      + "-fx-border-width: 1;"
+                      + "-fx-border-radius: 13.5");
+            }
+          };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
 
       EventHandler<MouseEvent> eventHandler3 =
