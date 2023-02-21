@@ -224,6 +224,9 @@ public class MapDraw {
           && floor.equals(move.getNode().getFloor())) {
         int[] updatedCoords =
             scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
+        System.out.println(updatedCoords[0]);
+        System.out.println(updatedCoords[1]);
+        System.out.println();
 
         Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 1, width + 1);
         rect.setFill(Color.web("0x000000"));
@@ -261,8 +264,13 @@ public class MapDraw {
                       ((Rectangle) t.getSource()).getX(),
                       ((Rectangle) t.getSource()).getY(),
                       scaleFactor);
+              System.out.println(((Rectangle) t.getSource()).getX());
+              System.out.println(((Rectangle) t.getSource()).getY());
               final Point location = MouseInfo.getPointerInfo().getLocation();
-              addSRLabel(anchorPane, location.getX(), location.getY());
+              addSRLabel(
+                  anchorPane,
+                  ((Rectangle) t.getSource()).getX(),
+                  ((Rectangle) t.getSource()).getY());
             }
           }
         };
@@ -278,10 +286,10 @@ public class MapDraw {
     Label label = new Label("My Service Request");
     label.setVisible(true);
     label.setBackground(Background.fill(Color.web("0xffffff")));
-    label.setTranslateX(xcoord - 610);
-    label.setTranslateY(ycoord - 140);
-    System.out.println(xcoord);
-    System.out.println(ycoord);
+    //    label.setTranslateX(xcoord - 610);
+    //    label.setTranslateY(ycoord - 140);
+    label.setTranslateX(xcoord);
+    label.setTranslateY(ycoord);
     previousLabel = label;
     // Circle circ = new Circle(xcoord, ycoord, 10);
     anchorPane.getChildren().add(label);
