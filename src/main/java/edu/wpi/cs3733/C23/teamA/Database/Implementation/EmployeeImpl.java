@@ -194,14 +194,11 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
   }
 
   public EmployeeEntity get(Integer ID) {
-//    return employees.stream()
-//        .filter(employee -> employee.getEmployeeid() == (ID))
-//        .findFirst()
-//        .orElseThrow();
-    Session session = getSessionFactory().openSession();
-    EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
-    session.close();
-    return emp;
+    return employees.stream()
+        .filter(employee -> employee.getEmployeeid() == (ID))
+        .findFirst()
+        .orElseThrow();
+
   }
 
   @Override

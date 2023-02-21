@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity" table="move" schema="public" catalog="dba">
+    <class name="edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity" table="move" schema="employeetester" catalog="dba">
         <composite-id mapped="true" class="edu.wpi.cs3733.C23.teamA.Database.MoveEntityPK">
             <key-property name="nodeid">
                 <column name="nodeid" sql-type="text"/>
