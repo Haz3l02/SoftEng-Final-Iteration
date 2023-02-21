@@ -8,7 +8,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -68,11 +67,25 @@ public class AudioVisualImpl extends Observable
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write("additionalequipment,avdevice,installationrequired,numdevices,returndate,subject,requestid\n");
+    fileWriter.write(
+        "additionalequipment,avdevice,installationrequired,numdevices,returndate,subject,requestid\n");
     for (AudioVisualRequestEntity av : audiovisualrequests) {
-      fileWriter.write(av.getAdditionalequipment() + "," + av.getAvdevice().getDevice() + "," + av.isInstallationrequired() + "," + av.getNumdevices() + "," + av.getReturndate().toString() + "," +av.getSubject().getSubject() + "," + av.getRequestid() +
-    "\n");
-           }
+      fileWriter.write(
+          av.getAdditionalequipment()
+              + ","
+              + av.getAvdevice().getDevice()
+              + ","
+              + av.isInstallationrequired()
+              + ","
+              + av.getNumdevices()
+              + ","
+              + av.getReturndate().toString()
+              + ","
+              + av.getSubject().getSubject()
+              + ","
+              + av.getRequestid()
+              + "\n");
+    }
     fileWriter.close();
     session.close();
   }
