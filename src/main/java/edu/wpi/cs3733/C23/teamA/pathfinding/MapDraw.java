@@ -6,7 +6,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
-import edu.wpi.cs3733.C23.teamA.controllers.EdgeEditorPopupController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import java.awt.*;
@@ -337,7 +336,7 @@ public class MapDraw {
       popover.setTitle("hello there popover");
       popover.show((anchorPane.getScene().getWindow()));
 
-      final EdgeEditorPopupController ec = loader.getController();
+      // final EdgeEditorPopupController ec = loader.getController();
 
     } catch (IOException e) {
       throw new RuntimeException(e);
