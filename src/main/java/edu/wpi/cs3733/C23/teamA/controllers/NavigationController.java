@@ -6,9 +6,11 @@ import edu.wpi.cs3733.C23.teamA.serviceRequests.ImportExportCSV;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import javafx.fxml.FXML;
+import org.controlsfx.control.PopOver;
 
 public abstract class NavigationController {
   public volatile boolean stop = false;
+  private static PopOver popup;
 
   public static ImportExportCSV iecsv = new ImportExportCSV("");
 
@@ -128,7 +130,7 @@ public abstract class NavigationController {
 
   @FXML
   public void switchToHomeScene(javafx.event.ActionEvent event) throws IOException {
-    Navigation.navigateHome(Screen.HOME_ADMIN);
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
 
   @FXML

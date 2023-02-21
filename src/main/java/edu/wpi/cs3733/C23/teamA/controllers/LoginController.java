@@ -61,11 +61,11 @@ public class LoginController {
       holder.setJob(info.get(1));
       holder.setName(info.get(2));
       if (holder.getJob().equalsIgnoreCase("Maintenance")) {
-        Navigation.navigateHome(Screen.HOME_MAINTENANCE);
+        Navigation.navigateHome(Screen.HOME_ACTUAL);
       } else if (holder.getJob().equalsIgnoreCase("Admin")) {
-        Navigation.navigateHome(Screen.HOME_ADMIN);
+        Navigation.navigateHome(Screen.HOME_ACTUAL);
       } else {
-        Navigation.navigateHome(Screen.HOME_EMPLOYEE);
+        Navigation.navigateHome(Screen.HOME_ACTUAL);
       }
     }
   }

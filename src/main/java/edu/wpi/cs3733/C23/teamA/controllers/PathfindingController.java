@@ -5,6 +5,8 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
@@ -119,6 +121,12 @@ public class PathfindingController extends MenuController {
   // objects needed for the maps
   private GraphicsContext[] gcs = new GraphicsContext[5];
   private final double SCALE_FACTOR = 0.135;
+
+  @FXML
+  public void switchToHomeScene() {
+    System.out.println("Hehehehehehehehehehehehehehehe");
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
+  }
 
   /**
    * Runs when the pathfinding page is opened, grabbing nodes from the database and anything else
