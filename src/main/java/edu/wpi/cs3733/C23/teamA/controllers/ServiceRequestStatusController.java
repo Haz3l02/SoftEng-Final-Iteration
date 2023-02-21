@@ -142,9 +142,13 @@ public class ServiceRequestStatusController extends MenuController {
       dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
       statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
+      // try {
       employeeAssignedCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getEmployeeAssigned().getUsername()));
-
+      //      } catch (NullPointerException e) {
+      //        employeeAssignedCol.setCellValueFactory(param -> new
+      // SimpleStringProperty("Unassigned"));
+      //      }
       if (job.equalsIgnoreCase("medical")) {
         serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
       } else if (job.equalsIgnoreCase("Maintenance")) {

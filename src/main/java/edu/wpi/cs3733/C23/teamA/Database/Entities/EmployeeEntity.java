@@ -30,7 +30,6 @@ public class EmployeeEntity {
 
   @Basic
   @Column(name = "username", nullable = false, length = -1, unique = true)
-  @Getter
   @Setter
   private String username;
 
@@ -77,4 +76,11 @@ public class EmployeeEntity {
   }
 
   public EmployeeEntity() {}
+
+  public String getUsername() {
+    if (this == null) {
+      return "unassigned";
+    }
+    return username;
+  }
 }

@@ -218,9 +218,10 @@ public class ServiceRequestImpl extends Observable
   }
 
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
+    System.out.println("helpsdfhbsdk");
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
     for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployeeAssigned() == (null)) sers.add(ser);
+      if (ser.getEmployeeAssigned().getUsername().equalsIgnoreCase("unassigned")) sers.add(ser);
     }
     return sers;
   }
