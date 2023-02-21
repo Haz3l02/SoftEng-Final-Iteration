@@ -14,7 +14,7 @@ public class Navigation {
       final var resource = AApp.class.getResource(filename);
       final FXMLLoader loader = new FXMLLoader(resource);
 
-      final var source = AApp.class.getResource("views/SecondaryMenuBarFXML.fxml");
+      final var source = AApp.class.getResource("views/NEWSecondaryMenuBarFXML.fxml");
       final FXMLLoader please = new FXMLLoader(source);
       AApp.getRootPane().setTop(please.load());
       AApp.getRootPane().setCenter(loader.load());

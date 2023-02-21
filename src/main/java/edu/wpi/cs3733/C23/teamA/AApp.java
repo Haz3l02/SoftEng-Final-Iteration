@@ -45,7 +45,8 @@ public class AApp extends Application {
     FacadeRepository.getInstance(); // wake up database instances
 
     // add the icon and name to the application
-    var icon = new Image("edu/wpi/cs3733/C23/teamA/assets/Brigham_and_Womens_Hospital_logo.png");
+    var icon =
+        new Image("edu/wpi/cs3733/C23/teamA/assets/Brigham_and_Womens_Hospital_logo_iconSize.png");
     primaryStage.getIcons().add(icon);
     primaryStage.setTitle("CS3733-C23: Team A");
 
