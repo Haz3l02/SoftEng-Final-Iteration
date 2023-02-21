@@ -111,7 +111,10 @@ public class SanitationController extends ServiceRequestController {
         submission.setUrgency(urgent);
         submission.setCategory(category);
       } else {
+        System.out.println("FUCKKKK" + employeeID);
         EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
+        System.out.println("FUCKKKK YOU " + person.getName());
+
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 

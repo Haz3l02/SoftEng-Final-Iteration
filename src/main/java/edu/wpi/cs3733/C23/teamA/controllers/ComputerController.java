@@ -51,7 +51,7 @@ public class ComputerController extends ServiceRequestController {
       IDNum.setText(editComputerRequest.getEmployee().getHospitalid());
       devicesBox.setText(editComputerRequest.getDevice().toString());
       deviceIDNum.setText(editComputerRequest.getDeviceid());
-      locationBox.setText(editComputerRequest.getLocation().getLongname());
+      locationBox.setValue(editComputerRequest.getLocation().getLongname());
       urgencyBox.setText(editComputerRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editComputerRequest.getDescription());
       // compI.closeSession();
@@ -62,7 +62,7 @@ public class ComputerController extends ServiceRequestController {
       IDNum.setText(editRequest.getEmployee().getHospitalid());
       devicesBox.setText(editRequest.getDevice().toString());
       deviceIDNum.setText(editRequest.getDeviceid());
-      locationBox.setText(editRequest.getLocation().getLongname());
+      locationBox.setValue(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       // sanI.closeSession();

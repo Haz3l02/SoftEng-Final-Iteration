@@ -59,4 +59,8 @@ public final class IdNumberHolder {
   public int getEmployeeID() {
     return this.employeeID;
   }
+
+  public void setEmployeeID(int employeeID) {
+    this.employeeID = employeeID;
+  }
 }

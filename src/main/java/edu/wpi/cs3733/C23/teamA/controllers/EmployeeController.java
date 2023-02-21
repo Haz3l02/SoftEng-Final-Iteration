@@ -28,7 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
-public class EmployeeController {
+public class EmployeeController extends MenuController {
 
   @FXML private TableView<EmployeeEntity> employeeTable;
   @FXML public TableColumn<EmployeeEntity, Integer> IDCol;

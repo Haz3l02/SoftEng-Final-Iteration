@@ -117,6 +117,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
         info.add(emp.getHospitalid());
         info.add(emp.getJob());
         info.add(emp.getName());
+        info.add(Integer.toString(emp.getEmployeeid()));
         return info;
       }
     }
