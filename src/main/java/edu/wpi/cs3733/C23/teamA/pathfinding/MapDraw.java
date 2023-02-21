@@ -18,6 +18,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
 // Class for Controller to call to add the map
@@ -38,6 +42,27 @@ public class MapDraw {
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
   // hospital image scale factor to fit on screen (popover - 1250 x 850): 25% (0.25)
   // hospital image scale factor for our prototype (on-page - 250 x 170): 5% (0.05)
+
+  public static void drawLocations(
+      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
+
+    nodeAnchor.getChildren().clear();
+
+    for (NodeEntity n : allNodes) {
+      int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
+
+      if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
+        Text locName = new Text();
+        locName.setVisible(true);
+        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+        locName.setText(
+            FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
+        locName.setLayoutX(updatedCoords[0] - 2.5);
+        locName.setLayoutY(updatedCoords[1] - 2.5);
+        nodeAnchor.getChildren().add(locName);
+      }
+    }
+  }
 
   /**
    * @param xCoord the x-coordinate to scale
