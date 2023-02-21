@@ -122,7 +122,7 @@ public class PatientTransportController extends ServiceRequestController {
         submission.setEquipment(equipmentBox.getText());
       } else {
         EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
-        // IDNum.getText()
+        EmployeeEntity unassigned = FacadeRepository.getInstance().getEmployee(0);
         LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getText());
         LocationNameEntity moveTo =
             FacadeRepository.getInstance().getLocation(moveToBox.getValue());
@@ -137,7 +137,7 @@ public class PatientTransportController extends ServiceRequestController {
                 urgent,
                 PatientTransportRequestEntity.RequestType.PATIENT_TRANSPORT,
                 Status.NEW,
-                null,
+                unassigned,
                 pNameBox.getText(),
                 pIDBox.getText(),
                 moveTo,
