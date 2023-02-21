@@ -2,10 +2,10 @@ package edu.wpi.cs3733.C23.teamA.mapeditor;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.controllers.MapEditorController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
@@ -216,7 +216,32 @@ public class NodeDraw implements KeyListener {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Edge Creation");
-                alert.setHeaderText("Are you sure you want to create an edge between " + FacadeRepository.getInstance().getLocation(selectedNodeEntity.getNodeid()));
+                LocationNameEntity locNameEnt =
+                    FacadeRepository.getInstance().getLocation(selectedNodeEntity.getNodeid());
+
+                String startLoc;
+                String endLoc;
+
+                if (locNameEnt == null) {
+                  startLoc = "Unnamed Node (Start)";
+                  endLoc = "Unnamed Node (End)"; // the second one
+                  alert.setHeaderText(
+                      "Are you sure you want to create an edge between "
+                          + startLoc
+                          + " and "
+                          + endLoc);
+                } else {
+                  alert.setHeaderText(
+                      "Are you sure you want to create an edge between: ("
+                          + selectedEdge.getNode1().getXcoord()
+                          + ", "
+                          + selectedEdge.getNode1().getYcoord()
+                          + " and ("
+                          + selectedEdge.getNode2().getXcoord()
+                          + ", "
+                          + selectedEdge.getNode2().getYcoord()
+                          + ") ?");
+                }
 
                 if (alert.showAndWait().get() == ButtonType.OK) {
                   Line l =
@@ -225,11 +250,24 @@ public class NodeDraw implements KeyListener {
                           node1.getYcoord(),
                           node2.getXcoord(),
                           node2.getYcoord());
-                  l.setStrokeWidth(5);
+
+                  l.setStrokeWidth(500);
+                  l.setVisible(true);
+                  System.out.println(
+                      l.getStartX()
+                          + ", "
+                          + l.getStartY()
+                          + ") , ("
+                          + l.getEndX()
+                          + ", "
+                          + l.getEndY()
+                          + ")");
                   FacadeRepository.getInstance().addEdge(new EdgeEntity(node1, node2));
+                  node1 = null;
+                  node2 = null;
                 }
 
-              } else {
+              } else if (node1 == null) { // don't fucking touch this
                 node1 =
                     new NodeEntity(
                         selectedNodeEntity.getNodeid(),
@@ -244,16 +282,16 @@ public class NodeDraw implements KeyListener {
 
       // for hover over node
       EventHandler<MouseEvent> eventHandler2 =
-              event -> {
-                  if ((!nodeGraphic.equals(selectNodePane))) {
-                      nodeGraphic.setStyle(
-                              "-fx-background-color: 'green'; "
-                                      + "-fx-background-radius: 12.5; "
-                                      + "-fx-border-color: 'green'; "
-                                      + "-fx-border-width: 1;"
-                                      + "-fx-border-radius: 13.5");
-                  }
-              };
+          event -> {
+            if ((!nodeGraphic.equals(selectNodePane))) {
+              nodeGraphic.setStyle(
+                  "-fx-background-color: 'green'; "
+                      + "-fx-background-radius: 12.5; "
+                      + "-fx-border-color: 'green'; "
+                      + "-fx-border-width: 1;"
+                      + "-fx-border-radius: 13.5");
+            }
+          };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
 
       EventHandler<MouseEvent> eventHandler3 =
@@ -348,13 +386,15 @@ public class NodeDraw implements KeyListener {
             }
           });
 
+      nodeGraphic.setOnContextMenuRequested(event -> {});
+
       nodeAnchor.getChildren().add(nodeGraphic);
     }
   }
 
   private static EventHandler<? super MouseEvent> dragEvent(MapEditorController nmc) {
-    EventHandler event =
-        new EventHandler<MouseEvent>() {
+    EventHandler<MouseEvent> event =
+        new EventHandler<>() {
           @Override
           public void handle(MouseEvent mouseEvent) {
             if (selectNodePane != null) {
@@ -475,18 +515,6 @@ public class NodeDraw implements KeyListener {
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
-
-      // TODO: fix delete key stuff
-      EventHandler<javafx.scene.input.KeyEvent> deleteHandler =
-          event -> {
-            System.out.println(event.getCharacter());
-            System.out.println(event.getCode());
-            System.out.println(event.getText());
-            System.out.println(event.getEventType().toString());
-            System.out.println("help");
-          };
-
-      currentLine.addEventHandler(javafx.scene.input.KeyEvent.KEY_PRESSED, deleteHandler);
 
       currentLine.setOnMouseClicked(
           event -> {
