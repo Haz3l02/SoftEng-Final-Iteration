@@ -234,7 +234,7 @@ public class MapDraw {
       prevFloor = currentFloor;
     }
 
-    Circle currentCircle = new Circle(prevX, prevY, radius, Color.web("0x224870"));
+    Circle currentCircle = new Circle(prevX, prevY, radius, Color.web("0xAD663D"));
     aps[prevFloor].getChildren().add(currentCircle); // ending open circle
 
     //    for (int i = 0; i < 5; i++) {

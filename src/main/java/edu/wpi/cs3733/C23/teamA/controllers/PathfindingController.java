@@ -419,7 +419,7 @@ public class PathfindingController extends MenuController {
    *
    * @param path the path that you want to be drawn
    */
-  private void callMapDraw(ArrayList<GraphNode> path) {
+  private void callMapDraw(ArrayList<GraphNode> path, ArrayList<String> floorPath) {
 
     // clear the canvases w/ the drawn paths
     for (AnchorPane ap : aps) {
@@ -439,7 +439,7 @@ public class PathfindingController extends MenuController {
     //    groups[currentFloor].setVisible(true);
     //    groups[currentFloor].setDisable(false);
 
-    pathfindingSystem.drawPath(aps, path, SCALE_FACTOR);
+    pathfindingSystem.drawPath(aps, path, floorPath, SCALE_FACTOR);
   }
 
   @FXML
@@ -486,7 +486,7 @@ public class PathfindingController extends MenuController {
         ArrayList<String> floorPath = pathInfo.getFloorPath();
 
         pathMapText.setText(pathfindingSystem.generatePathString(path, floorPath));
-        callMapDraw(path);
+        callMapDraw(path, floorPath);
 
         if (pathInfo.isContainsStairs()) {
           errorMessage.setText(
@@ -530,7 +530,7 @@ public class PathfindingController extends MenuController {
       ArrayList<String> floorPath = pathInfo.getFloorPath();
 
       pathMapText.setText(pathfindingSystem.generatePathString(path, floorPath));
-      callMapDraw(path);
+      callMapDraw(path, floorPath);
 
       if (pathInfo.isContainsStairs()) {
         errorMessage.setText(
