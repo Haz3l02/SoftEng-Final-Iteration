@@ -295,8 +295,11 @@ public class NodeDraw implements KeyListener {
                 alert.setHeaderText("Would you like to make this change?");
 
                 if (alert.showAndWait().get() == ButtonType.OK) {
-                  selectedNodeEntity.setXcoord((int) selectNodePane.getLayoutX());
-                  selectedNodeEntity.setYcoord((int) selectNodePane.getLayoutY());
+                  int[] revertedCoords =
+                      scaleCoordinatesReversed(
+                          selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
+                  selectedNodeEntity.setXcoord(revertedCoords[0]);
+                  selectedNodeEntity.setYcoord(revertedCoords[1]);
                   FacadeRepository.getInstance()
                       .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
                 }
@@ -317,6 +320,13 @@ public class NodeDraw implements KeyListener {
           public void handle(MouseEvent mouseEvent) {
             if (selectNodePane != null) {
               nmc.getMainGesturePane().setGestureEnabled(false);
+
+              System.out.println("get mouse location");
+              System.out.println(mouseEvent.getX());
+              System.out.println(mouseEvent.getY());
+              System.out.println("Get layout");
+              System.out.println(selectNodePane.getLayoutX());
+              System.out.println(selectNodePane.getLayoutY());
 
               selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
               selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
