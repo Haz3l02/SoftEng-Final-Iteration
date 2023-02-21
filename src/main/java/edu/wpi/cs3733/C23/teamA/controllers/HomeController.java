@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -15,6 +14,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,24 +29,30 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import org.hibernate.Session;
 
 public class HomeController extends MenuController {
 
-  @FXML private TableView<ServiceRequestEntity> assignmentsTable;
+  @FXML private TableView<ServiceRequestEntity> adminTable;
+  @FXML private TableView<ServiceRequestEntity> employeeTable;
+  @FXML private TableView<ServiceRequestEntity> maintenanceTable;
   @FXML public TableColumn<ServiceRequestEntity, Integer> IDCol;
   @FXML public TableColumn<ServiceRequestEntity, String> requestTypeCol;
   @FXML public TableColumn<ServiceRequestEntity, String> locationCol;
   @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
-  @FXML public TableView<MaintenanceAssignedAccepted> employeeTable;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> nameCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
+  @FXML public ImageView mapImage;
+  @FXML public ImageView home;
+
   @FXML private Label date = new Label("hello");
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
-  @FXML private MFXButton assignmentsButton;
+  @FXML private MFXButton myAssignments;
 
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
@@ -55,14 +61,95 @@ public class HomeController extends MenuController {
       FXCollections.observableArrayList();
 
   @FXML
-  public void initialize() throws IOException, InterruptedException {
+  public void initialize() throws IOException, InterruptedException, SQLException {
+
     grabQuote();
     date();
     time();
     IdNumberHolder userInfo = new IdNumberHolder();
     userInfo = IdNumberHolder.getInstance();
-    welcome.setText("Welcome " + userInfo.getName() + "!");
-    if (userInfo.getJob().equalsIgnoreCase("Maintenance") && IDCol != null) {
+    welcome.setText(userInfo.getName() + "!");
+    serviceRequest
+        .getItems()
+        .addAll(
+            "Sanitation Request",
+            "Security Request",
+            "Computer Request",
+            "Patient Transportation",
+            "Audio/Visual Request",
+            "Accessibility Request",
+            "View Submissions");
+    serviceRequest
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              switch (newValue) {
+                case "Computer Request":
+                  switchToComputer();
+                  break;
+                case "Security Request":
+                  switchToSecurity();
+                  break;
+                case "Sanitation Request":
+                  switchToSanitation();
+                  break;
+                case "Accessibility Request":
+                  switchToAccessibility();
+                  break;
+                case "Patient Transportation":
+                  switchToPatientTransport();
+                  break;
+                case "View Submissions":
+                  switchToServiceRequestStatus();
+                  break;
+                case "Audio/Visual Request":
+                  switchToAudioVisual();
+                  break;
+                case "My Assignments":
+                  switchToServiceRequestStatus();
+                  break;
+                default:
+                  break;
+              }
+            });
+
+    admin
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              switch (newValue) {
+                case "Map Editor":
+                  switchToMapScene();
+                  break;
+                case "Access Employee Records":
+                  switchToEmployeeScene();
+                  break;
+                case "Sanitation Request":
+                  switchToSanitation();
+                case "Department Moves":
+                  switchToMoveScene();
+                  break;
+                case "Create Nodes":
+                  switchToNodeScene();
+                  break;
+                default:
+                  break;
+              }
+            });
+    mapImage.setOnMouseClicked(
+        (MouseEvent e) -> {
+          switchToPathfinding();
+        });
+
+    if (userInfo.getJob().equalsIgnoreCase("maintenance") && IDCol != null) {
+      adminTable.setVisible(false);
+      adminTable.setDisable(true);
+      employeeTable.setVisible(false);
+      employeeTable.setDisable(true);
+      maintenanceTable.setVisible(true);
+      maintenanceTable.setDisable(false);
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
@@ -77,16 +164,25 @@ public class HomeController extends MenuController {
       requests =
           FacadeRepository.getInstance()
               .getServiceRequestByAssigned(userInfo.getUsername()); // BY USERNAME
-      if (requests.size() == 0) {
-        assignmentsButton.setDisable(true);
-      } else {
-        assignmentsButton.setDisable(false);
-      }
       dbTableRowsModel.addAll(requests);
 
-      assignmentsTable.setItems(dbTableRowsModel);
-      session.close();
-    } else if (userInfo.getJob().equalsIgnoreCase("Admin") && IDCol != null) {
+      maintenanceTable.setItems(dbTableRowsModel);
+
+      myAssignments.setVisible(true);
+      if (requests.size() == 0) {
+        myAssignments.setDisable(true);
+      } else {
+        myAssignments.setDisable(false);
+      }
+
+    } else if (userInfo.getJob().equalsIgnoreCase("Admin") && adminTable != null) {
+      adminTable.setVisible(true);
+      adminTable.setDisable(false);
+      employeeTable.setVisible(false);
+      employeeTable.setDisable(true);
+      maintenanceTable.setVisible(false);
+      maintenanceTable.setDisable(true);
+
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
@@ -97,30 +193,19 @@ public class HomeController extends MenuController {
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
       dbTableRowsModel.addAll(requests);
-      assignmentsTable.setItems(dbTableRowsModel);
+      adminTable.setItems(dbTableRowsModel);
 
-      nameCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
-      assignedCol.setCellValueFactory(
-          param -> new SimpleStringProperty(param.getValue().getNumAssigned()));
-      acceptedCol.setCellValueFactory(
-          param -> new SimpleStringProperty(param.getValue().getNumAccepted()));
+      myAssignments.setDisable(true);
+      myAssignments.setVisible(false);
+      admin.setDisable(false);
+      admin.setVisible(true);
 
-      List<EmployeeEntity> maintenanceEmployees =
-          FacadeRepository.getInstance().getEmployeeByJob("maintenance");
-      List<MaintenanceAssignedAccepted> maa = new ArrayList<MaintenanceAssignedAccepted>();
-      for (EmployeeEntity employee : maintenanceEmployees) {
-        maa.add(new MaintenanceAssignedAccepted(employee.getName()));
-      }
-      System.out.println(maa.size());
-      dbTableRowsModel2.addAll(maa);
-      for (int i = 0; i < maa.size(); i++) {
-        System.out.println(maa.get(i).getName());
-      }
-      System.out.println(dbTableRowsModel2.size());
-      employeeTable.setItems(dbTableRowsModel2);
+      admin
+          .getItems()
+          .addAll("Map Editor", "Access Employee Records", "Department Moves", "Create Nodes");
 
     } else {
-      // Code for medical homepage
+
     }
   }
 

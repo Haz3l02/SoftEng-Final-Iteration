@@ -128,7 +128,7 @@ public abstract class NavigationController {
 
   @FXML
   public void switchToHomeScene(javafx.event.ActionEvent event) throws IOException {
-    Navigation.navigateHome(Screen.HOME_ADMIN);
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
 
   @FXML
