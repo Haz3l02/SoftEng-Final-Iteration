@@ -80,7 +80,7 @@ public class ServiceRequestEntity {
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(
       name = "employeeassignedid",
       foreignKey =
