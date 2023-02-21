@@ -444,6 +444,15 @@ public class MapEditorController extends MenuController {
     nodeEditorPopup = new PopOver(nodeLoader.load());
 
     nodeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+
+    NodeEditorPopupController.mouseX = mainGesturePane.getCurrentX();
+    NodeEditorPopupController.mouseY = mainGesturePane.getCurrentY();
+    System.out.println(
+        "updated coords to: ("
+            + mainGesturePane.getCurrentX()
+            + ", "
+            + mainGesturePane.getCurrentY()
+            + ")");
   }
 
   @FXML

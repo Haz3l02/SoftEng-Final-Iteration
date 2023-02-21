@@ -26,6 +26,9 @@ public class NodeEditorPopupController extends NavigationController {
   private @FXML MFXComboBox<String> BuildingBox;
   @FXML MFXButton createNodeButton;
 
+  public static double mouseX;
+  public static double mouseY;
+
   public void initialize() {
     populateStuff();
   }
@@ -49,6 +52,12 @@ public class NodeEditorPopupController extends NavigationController {
             Building.SHPR.getTableString(),
             Building.FR15.getTableString());
     BuildingBox.setItems(buildings);
+
+    mouseX = Math.round(mouseX);
+    mouseY = Math.round(mouseY);
+    xCoord.setText(String.valueOf(mouseX));
+    yCoord.setText(String.valueOf(mouseY));
+
   }
 
   @FXML
