@@ -91,7 +91,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Text>
-            <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" prefHeight="750.0" prefWidth="611.0">
+            <SplitPane fx:id="mainSplitPane" dividerPositions="0.5" maxHeight="1.7976931348623157E308" prefHeight="750.0" prefWidth="611.0">
               <items>
                   <VBox maxWidth="-Infinity" prefHeight="500.0" prefWidth="405.0" spacing="10.0" style="-fx-background-color: D3E9F6;">
                      <children>

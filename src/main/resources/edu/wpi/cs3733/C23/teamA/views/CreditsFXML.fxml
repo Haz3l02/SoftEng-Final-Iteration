@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -24,54 +25,44 @@
       </HBox>
    </top>
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Database: Harrison, John, and Andrei">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Graphical Components:">
+               <font>
+                  <Font name="Verdana Bold" size="18.0" />
+               </font>
                <VBox.margin>
-                  <Insets />
+                  <Insets top="15.0" />
                </VBox.margin>
+            </Text>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Login Image &amp; Homepage Image(s), Map Images, Application Logo: Brigham &amp; Women's Hospital" wrappingWidth="500.0">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Sanitation: Hazel and Steve">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <font>
-                  <Font name="Verdana" size="14.0" />
-               </font>
-            </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer: Isabella and Izzy">
-               <font>
-                  <Font name="Verdana" size="14.0" />
-               </font>
-            </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Security: Isabella and Izzy">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Assorted Icons: The Noun Project" wrappingWidth="500.0">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>
                <VBox.margin>
-                  <Insets />
+                  <Insets bottom="10.0" />
                </VBox.margin>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Transportation: John and Izzy">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="APIs:">
+               <font>
+                  <Font name="Verdana Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="(none)" textAlignment="CENTER" wrappingWidth="500.0">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Pathfinding: Sarah, Audrey and Hazel">
-               <font>
-                  <Font name="Verdana" size="14.0" />
-               </font></Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Page: Chris">
-               <font>
-                  <Font name="Verdana" size="14.0" />
-               </font></Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Systems: Chris and Isabella">
-               <font>
-                  <Font name="Verdana" size="14.0" />
-               </font></Text>
+            <MFXButton fx:id="backButton" prefHeight="30.0" prefWidth="75.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 5;" text="Back" textFill="#d3e9f6">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </MFXButton>
          </children>
       </VBox>
    </center>

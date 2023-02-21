@@ -7,6 +7,7 @@ import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -25,6 +26,7 @@ public class ServiceRequestImpl extends Observable
     implements IDatabaseAPI<ServiceRequestEntity, Integer> {
   private List<ServiceRequestEntity> services;
   protected static final ServiceRequestImpl instance = new ServiceRequestImpl();
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   private ServiceRequestImpl() {
     Session session;
@@ -267,16 +269,50 @@ public class ServiceRequestImpl extends Observable
 
   public ArrayList<ServiceRequestEntity> getOutstandingRequests() {
     ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
+    System.out.println("Current date" + Timestamp.from(Instant.now()).getDay());
 
     for (ServiceRequestEntity ser : services) {
-      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 1
+      System.out.println("The string" + ser.getUrgency() + " the date:" + ser.getDate().getDay());
+
+      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
               && ser.getUrgency() == UrgencyLevel.EXTREMELY
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 3
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
               && ser.getUrgency() == UrgencyLevel.HIGH
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 5
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
               && ser.getUrgency() == UrgencyLevel.MEDIUM
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() > 8
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
               && ser.getUrgency() == UrgencyLevel.LOW) {
+        fin.add(ser);
+      }
+    }
+    return fin;
+  }
+
+  public ArrayList<ServiceRequestEntity> getOutstandingRequestsByID(String user) {
+    ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
+    System.out.println("Current date" + Timestamp.from(Instant.now()).getDay());
+
+    for (ServiceRequestEntity ser : services) {
+      System.out.println(
+          "The string"
+              + ser.getUrgency()
+              + "Thename "
+              + ser.getEmployee().getUsername()
+              + " the date:"
+              + ser.getDate().getDay());
+
+      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
+              && ser.getUrgency() == UrgencyLevel.EXTREMELY
+              && ser.getEmployeeAssigned().equals(user)
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
+              && ser.getUrgency() == UrgencyLevel.HIGH
+              && ser.getEmployee().getUsername().equals(user)
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
+              && ser.getUrgency() == UrgencyLevel.MEDIUM
+              && ser.getEmployee().getUsername().equals(user)
+          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
+              && ser.getUrgency() == UrgencyLevel.LOW
+              && ser.getEmployee().getUsername().equals(user)) {
         fin.add(ser);
       }
     }
@@ -288,7 +324,17 @@ public class ServiceRequestImpl extends Observable
 
     for (ServiceRequestEntity ser : services) {
       if (ser.getLocation().getLongname().equals(longname)) {
-        fin.add(ser);
+        if (holder.getJob().equalsIgnoreCase("maintenance")) {
+          if (ser.getEmployeeAssigned().equalsIgnoreCase(holder.getName())) {
+            fin.add(ser);
+          }
+        } else if (holder.getJob().equalsIgnoreCase("admin")) {
+          fin.add(ser);
+        } else {
+          if (ser.getEmployee().getEmployeeid() == Integer.parseInt(holder.getId())) {
+            fin.add(ser);
+          }
+        }
       }
     }
     return fin;

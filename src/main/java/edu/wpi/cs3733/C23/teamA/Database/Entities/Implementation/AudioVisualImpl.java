@@ -8,7 +8,9 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
@@ -61,17 +63,30 @@ public class AudioVisualImpl extends Observable
 
   public void exportToCSV(String filename) throws IOException {
     Session session = getSessionFactory().openSession();
-    filename += "/computerrequest.csv";
+    filename += "/audiovisualrequest.csv";
 
-    //        File csvFile = new File(filename);
-    //        FileWriter fileWriter = new FileWriter(csvFile);
-    //        fileWriter.write("device,deviceid,requestid\n");
-    //        for (AudioVisualRequestEntity comp : audiovisualrequests) {
-    //            fileWriter.write(
-    //                    comp.getDevice() + "," + comp.getDeviceid() + "," + comp.getRequestid() +
-    // "\n");
-    //        }
-    // fileWriter.close();
+    File csvFile = new File(filename);
+    FileWriter fileWriter = new FileWriter(csvFile);
+    fileWriter.write(
+        "additionalequipment,avdevice,installationrequired,numdevices,returndate,subject,requestid\n");
+    for (AudioVisualRequestEntity av : audiovisualrequests) {
+      fileWriter.write(
+          av.getAdditionalequipment()
+              + ","
+              + av.getAvdevice().getDevice()
+              + ","
+              + av.isInstallationrequired()
+              + ","
+              + av.getNumdevices()
+              + ","
+              + av.getReturndate().toString()
+              + ","
+              + av.getSubject().getSubject()
+              + ","
+              + av.getRequestid()
+              + "\n");
+    }
+    fileWriter.close();
     session.close();
   }
 
