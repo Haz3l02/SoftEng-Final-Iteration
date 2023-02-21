@@ -42,6 +42,8 @@ public class NodeDraw implements KeyListener {
 
   static boolean setLocationVisibility;
 
+  static int[] previousCoords = new int[2];
+
   public void setNewLocation() {}
 
   public static void setVisibility(boolean b) {}
@@ -79,7 +81,7 @@ public class NodeDraw implements KeyListener {
   /**
    * @param xCoord the x-coordinate to scale
    * @param yCoord the y-coordinate to scale
-   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on.
+   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
    * @return an int array with the pair of new coordinates
    */
   private static int[] scaleCoordinatesReversed(double xCoord, double yCoord, double scaleFactor) {
@@ -97,12 +99,9 @@ public class NodeDraw implements KeyListener {
   }
 
   public static void drawLocations(
-      List<NodeEntity> allNodes,
-      double scaleFactor,
-      AnchorPane nodeAnchor,
-      MapEditorController nmc) {
+      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
 
-    // nodeAnchor.getChildren().clear();
+    nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
       int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
@@ -160,6 +159,8 @@ public class NodeDraw implements KeyListener {
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 13.5");
               previousSelectedNode.setPrefSize(5, 5);
+              previousSelectedNode.setLayoutX(previousCoords[0] - 2.5);
+              previousSelectedNode.setLayoutY(previousCoords[1] - 2.5);
 
               if (previousLine != null) {
                 previousLine.setStroke(Color.web("0x224870"));
@@ -174,9 +175,10 @@ public class NodeDraw implements KeyListener {
                     + "-fx-border-width: 1;"
                     + "-fx-border-radius: 13.5");
             nodeGraphic.setPrefSize(7, 7);
-            //                            nodeGraphic.setLayoutX(nodeGraphic.getXcoord() -3.5);
-            //                            nodeGraphic.setLayoutY(nodeGraphic.getYcoord() -3.5);
+            nodeGraphic.setLayoutX(updatedCoords[0] - 3.5);
+            nodeGraphic.setLayoutY(updatedCoords[1] - 3.5);
 
+            previousCoords = updatedCoords;
             previousSelectedNode = nodeGraphic;
             selectedNodeEntity = n;
 
@@ -216,6 +218,10 @@ public class NodeDraw implements KeyListener {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Edge Creation");
+                alert.setHeaderText(
+                    "Are you sure you want to create an edge between "
+                        + FacadeRepository.getInstance()
+                            .getLocation(selectedNodeEntity.getNodeid()));
                 LocationNameEntity locNameEnt =
                     FacadeRepository.getInstance().getLocation(selectedNodeEntity.getNodeid());
 
@@ -386,7 +392,6 @@ public class NodeDraw implements KeyListener {
             }
           });
 
-      nodeGraphic.setOnContextMenuRequested(event -> {});
 
       nodeAnchor.getChildren().add(nodeGraphic);
     }

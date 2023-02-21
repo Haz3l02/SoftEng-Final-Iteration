@@ -149,7 +149,7 @@ public class MapEditorController extends MenuController {
     mainImageView.setImage(image);
     NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-    NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
+    NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);
   }
 
   //  public void addLocation(ActionEvent event) {
@@ -430,7 +430,6 @@ public class MapEditorController extends MenuController {
   // TODO
   public void delLocationName(ActionEvent event) {}
 
-  // TODO by Sarah
   public void changeLocations() {
     mainTextPane.setVisible(!mainTextPane.isVisible());
   }
