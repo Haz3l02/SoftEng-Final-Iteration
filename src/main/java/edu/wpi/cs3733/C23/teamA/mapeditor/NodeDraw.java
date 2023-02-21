@@ -99,9 +99,7 @@ public class NodeDraw implements KeyListener {
   }
 
   public static void drawLocations(
-      List<NodeEntity> allNodes,
-      double scaleFactor,
-      AnchorPane nodeAnchor) {
+      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
 
     nodeAnchor.getChildren().clear();
 
@@ -161,8 +159,8 @@ public class NodeDraw implements KeyListener {
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 13.5");
               previousSelectedNode.setPrefSize(5, 5);
-              //              previousSelectedNode.setLayoutX(previousCoords[0] - 2.5);
-              //              previousSelectedNode.setLayoutY(previousCoords[1] - 2.5);
+              previousSelectedNode.setLayoutX(previousCoords[0] - 2.5);
+              previousSelectedNode.setLayoutY(previousCoords[1] - 2.5);
 
               if (previousLine != null) {
                 previousLine.setStroke(Color.web("0x224870"));
@@ -177,8 +175,8 @@ public class NodeDraw implements KeyListener {
                     + "-fx-border-width: 1;"
                     + "-fx-border-radius: 13.5");
             nodeGraphic.setPrefSize(7, 7);
-            //            nodeGraphic.setLayoutX(nodeGraphic.getLayoutX() - 3.5);
-            //            nodeGraphic.setLayoutY(nodeGraphic.getLayoutY() - 3.5);
+            nodeGraphic.setLayoutX(updatedCoords[0] - 3.5);
+            nodeGraphic.setLayoutY(updatedCoords[1] - 3.5);
 
             previousCoords = updatedCoords;
             previousSelectedNode = nodeGraphic;

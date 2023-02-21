@@ -430,7 +430,6 @@ public class MapEditorController extends MenuController {
   // TODO
   public void delLocationName(ActionEvent event) {}
 
-  // TODO by Sarah
   public void changeLocations() {
     mainTextPane.setVisible(!mainTextPane.isVisible());
   }
