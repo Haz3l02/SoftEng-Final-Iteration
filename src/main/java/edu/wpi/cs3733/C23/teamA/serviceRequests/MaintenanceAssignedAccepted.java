@@ -10,14 +10,16 @@ import lombok.Setter;
 public class MaintenanceAssignedAccepted {
 
   @Getter @Setter String name;
+  @Getter @Setter int employeeID;
   @Getter @Setter String numAssigned;
   @Getter @Setter String numAccepted;
 
-  public MaintenanceAssignedAccepted(String name) {
+  public MaintenanceAssignedAccepted(String name, int employeeID) {
     this.name = name;
+    this.employeeID = employeeID;
     int temp = 0;
     List<ServiceRequestEntity> sre =
-        FacadeRepository.getInstance().getServiceRequestByAssigned(name);
+        FacadeRepository.getInstance().getServiceRequestByAssigned(employeeID);
     for (ServiceRequestEntity sr : sre) {
       if (sr.getStatus() == Status.PROCESSING) {
         temp++;

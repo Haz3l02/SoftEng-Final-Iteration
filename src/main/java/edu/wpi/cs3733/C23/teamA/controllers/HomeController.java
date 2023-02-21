@@ -74,7 +74,8 @@ public class HomeController extends MenuController {
       Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
-      requests = FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getName());
+      requests =
+          FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getEmployeeID());
       if (requests.size() == 0) {
         assignmentsButton.setDisable(true);
       } else {
@@ -107,7 +108,7 @@ public class HomeController extends MenuController {
           FacadeRepository.getInstance().getEmployeeByJob("maintenance");
       List<MaintenanceAssignedAccepted> maa = new ArrayList<MaintenanceAssignedAccepted>();
       for (EmployeeEntity employee : maintenanceEmployees) {
-        maa.add(new MaintenanceAssignedAccepted(employee.getName()));
+        maa.add(new MaintenanceAssignedAccepted(employee.getName(), employee.getEmployeeid()));
       }
       System.out.println(maa.size());
       dbTableRowsModel2.addAll(maa);

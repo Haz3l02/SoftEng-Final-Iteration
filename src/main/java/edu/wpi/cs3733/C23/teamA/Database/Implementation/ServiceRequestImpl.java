@@ -207,10 +207,12 @@ public class ServiceRequestImpl extends Observable
     return null;
   }
 
-  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(String name) {
+  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(int ID) {
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
     for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployeeAssigned().equals(name)) sers.add(ser);
+      if (ser.getEmployeeAssigned() != null) {
+        if (ser.getEmployeeAssigned().getEmployeeid() == (ID)) sers.add(ser);
+      }
     }
     return sers;
   }
@@ -218,7 +220,7 @@ public class ServiceRequestImpl extends Observable
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
     ArrayList<ServiceRequestEntity> sers = new ArrayList<>();
     for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployeeAssigned().equals("Unassigned")) sers.add(ser);
+      if (ser.getEmployeeAssigned() == (null)) sers.add(ser);
     }
     return sers;
   }

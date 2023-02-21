@@ -64,6 +64,8 @@ public class ServiceRequestStatusController extends MenuController {
   public static ImportExportCSV iecsv = new ImportExportCSV("");
 
   private String hospitalID;
+  private int employeeID;
+
   private String job;
   private String name;
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
@@ -90,6 +92,8 @@ public class ServiceRequestStatusController extends MenuController {
     hospitalID = holder.getId();
     name = holder.getName();
     job = holder.getJob();
+    employeeID = holder.getEmployeeID();
+
     if (reminder != null) {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
@@ -138,13 +142,14 @@ public class ServiceRequestStatusController extends MenuController {
       dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
       statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
-      employeeAssignedCol.setCellValueFactory(new PropertyValueFactory<>("employeeAssigned"));
+      employeeAssignedCol.setCellValueFactory(
+          param -> new SimpleStringProperty(param.getValue().getEmployeeAssigned().getUsername()));
 
       if (job.equalsIgnoreCase("medical")) {
         serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
       } else if (job.equalsIgnoreCase("Maintenance")) {
         serviceRequestData =
-            FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getName());
+            FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getEmployeeID());
       } else if (job.equalsIgnoreCase("Admin")) {
         serviceRequestData = FacadeRepository.getInstance().getServiceRequestByUnassigned();
       }
@@ -167,7 +172,8 @@ public class ServiceRequestStatusController extends MenuController {
       dateBox.setText(String.valueOf(clickedServiceReqTableRow.getDate()));
       statusBox.setText(String.valueOf(clickedServiceReqTableRow.getStatus()));
       urgencyBox.setText(String.valueOf(clickedServiceReqTableRow.getUrgency()));
-      employeeBox.setText(String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned()));
+      employeeBox.setValue(
+          String.valueOf(clickedServiceReqTableRow.getEmployeeAssigned().getUsername()));
       if (job.equalsIgnoreCase("medical")) {
         editForm.setVisible(true);
         editForm.setDisable(false);
@@ -209,7 +215,7 @@ public class ServiceRequestStatusController extends MenuController {
       if (job.equalsIgnoreCase("medical")) {
         serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
       } else if (job.equalsIgnoreCase("Maintenance")) {
-        serviceRequestData = FacadeRepository.getInstance().getServiceRequestByAssigned(name);
+        serviceRequestData = FacadeRepository.getInstance().getServiceRequestByAssigned(employeeID);
       } else if (job.equalsIgnoreCase("Admin")) {
         serviceRequestData = FacadeRepository.getInstance().getServiceRequestByUnassigned();
       }

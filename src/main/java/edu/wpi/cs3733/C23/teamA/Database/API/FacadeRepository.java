@@ -407,8 +407,8 @@ public class FacadeRepository {
     return serv.getAllByEmployee(id);
   }
 
-  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(String name) {
-    return serv.getServiceRequestByAssigned(name);
+  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(int ID) {
+    return serv.getServiceRequestByAssigned(ID);
   }
 
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
