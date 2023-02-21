@@ -20,7 +20,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.image.Image;
@@ -44,7 +43,7 @@ public class MapEditorController extends MenuController {
   @FXML AnchorPane edgeAnchorPane = new AnchorPane();
   @FXML StackPane mainStackPane = new StackPane();
   @FXML AnchorPane mainTextPane = new AnchorPane();
-  @FXML Canvas mainCanvas = new Canvas();
+  // @FXML Canvas mainCanvas = new Canvas();
 
   @FXML ContextMenu contextMenu = new ContextMenu();
 
@@ -92,7 +91,7 @@ public class MapEditorController extends MenuController {
 
     // createNodeButton.setVisible(false);
     // saveButton.setVisible(false);
-    gc = mainCanvas.getGraphicsContext2D();
+    // gc = mainCanvas.getGraphicsContext2D();
 
     mainTextPane.setVisible(false);
     initializeFloorMap("L1");
@@ -148,8 +147,8 @@ public class MapEditorController extends MenuController {
     Image image = ImageLoader.getImage(floor);
 
     mainImageView.setImage(image);
+    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, edgeAnchorPane);
     NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane, this);
   }
 
