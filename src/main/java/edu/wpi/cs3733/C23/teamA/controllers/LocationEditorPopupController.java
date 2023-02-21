@@ -100,9 +100,9 @@ public class LocationEditorPopupController {
     //        FacadeRepository.getInstance().moveMostRecentLoc(selected.getNodeid()).getLongname());
     FacadeRepository.getInstance().removeAssociatedLocationsOnMove(selected.getNodeid());
     System.out.println("deleted all locations!!!");
-    FacadeRepository.getInstance()
-        .deleteLocation(
-            FacadeRepository.getInstance().moveMostRecentLoc(selected.getNodeid()).getLongname());
+    /*FacadeRepository.getInstance()
+    .deleteLocation(
+        FacadeRepository.getInstance().moveMostRecentLoc(selected.getNodeid()).getLongname());*/
     System.out.println("deleted all locations!!!");
     MEC.initialize();
   }

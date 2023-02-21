@@ -170,34 +170,35 @@ public class NodeDraw implements KeyListener {
               nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
               nmc.setLocButtonVisibility(true);
             }
-            if (shiftPressed) {
-
-              if (node1 != null) {
-                // save 2nd node stuff and add edge
-                node2 =
-                    new NodeEntity(
-                        selectedNodeEntity.getNodeid(),
-                        selectedNodeEntity.getXcoord(),
-                        selectedNodeEntity.getYcoord(),
-                        selectedNodeEntity.getFloor(),
-                        selectedNodeEntity.getBuilding());
-
-                Line l =
-                    new Line(
-                        node1.getXcoord(), node1.getYcoord(), node2.getXcoord(), node2.getYcoord());
-                l.setStrokeWidth(500);
-                FacadeRepository.getInstance().addEdge(new EdgeEntity(node1, node2));
-
-              } else {
-                node1 =
-                    new NodeEntity(
-                        selectedNodeEntity.getNodeid(),
-                        selectedNodeEntity.getXcoord(),
-                        selectedNodeEntity.getYcoord(),
-                        selectedNodeEntity.getFloor(),
-                        selectedNodeEntity.getBuilding());
-              }
-            }
+            //            if (shiftPressed) {
+            //
+            //              if (node1 != null) {
+            //                // save 2nd node stuff and add edge
+            //                node2 =
+            //                    new NodeEntity(
+            //                        selectedNodeEntity.getNodeid(),
+            //                        selectedNodeEntity.getXcoord(),
+            //                        selectedNodeEntity.getYcoord(),
+            //                        selectedNodeEntity.getFloor(),
+            //                        selectedNodeEntity.getBuilding());
+            //
+            //                Line l =
+            //                    new Line(
+            //                        node1.getXcoord(), node1.getYcoord(), node2.getXcoord(),
+            // node2.getYcoord());
+            //                l.setStrokeWidth(500);
+            //                FacadeRepository.getInstance().addEdge(new EdgeEntity(node1, node2));
+            //
+            //              } else {
+            //                node1 =
+            //                    new NodeEntity(
+            //                        selectedNodeEntity.getNodeid(),
+            //                        selectedNodeEntity.getXcoord(),
+            //                        selectedNodeEntity.getYcoord(),
+            //                        selectedNodeEntity.getFloor(),
+            //                        selectedNodeEntity.getBuilding());
+            //              }
+            //            }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
