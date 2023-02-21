@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -25,12 +26,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import org.controlsfx.control.PopOver;
 import org.hibernate.Session;
 
 public class HomeController extends MenuController {
@@ -42,17 +46,24 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<ServiceRequestEntity, String> requestTypeCol;
   @FXML public TableColumn<ServiceRequestEntity, String> locationCol;
   @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol;
+  @FXML public TableColumn<ServiceRequestEntity, Integer> IDCol1;
+  @FXML public TableColumn<ServiceRequestEntity, String> requestTypeCol1;
+  @FXML public TableColumn<ServiceRequestEntity, String> locationCol1;
+  @FXML public TableColumn<ServiceRequestEntity, String> urgencyCol1;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> nameCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
   @FXML public ImageView mapImage;
-  @FXML public ImageView home;
+  @FXML public ImageView about;
+  @FXML public ImageView credits;
+  @FXML public ImageView exit;
 
   @FXML private Label date = new Label("hello");
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
   @FXML private MFXButton myAssignments;
+  private static PopOver popup;
 
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
       FXCollections.observableArrayList();
@@ -142,6 +153,26 @@ public class HomeController extends MenuController {
         (MouseEvent e) -> {
           switchToPathfinding();
         });
+    about.setOnMouseClicked(
+        (MouseEvent e) -> {
+          try {
+            switchToAbout(e);
+          } catch (IOException ex) {
+            throw new RuntimeException(ex);
+          }
+        });
+    credits.setOnMouseClicked(
+        (MouseEvent e) -> {
+          try {
+            switchToCredits(e);
+          } catch (IOException ex) {
+            throw new RuntimeException(ex);
+          }
+        });
+    exit.setOnMouseClicked(
+        (MouseEvent e) -> {
+          logout();
+        });
 
     if (userInfo.getJob().equalsIgnoreCase("maintenance") && IDCol != null) {
       adminTable.setVisible(false);
@@ -183,12 +214,12 @@ public class HomeController extends MenuController {
       maintenanceTable.setVisible(false);
       maintenanceTable.setDisable(true);
 
-      IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
-      requestTypeCol.setCellValueFactory(
+      IDCol1.setCellValueFactory(new PropertyValueFactory<>("requestid"));
+      requestTypeCol1.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getRequestType().requestType));
-      locationCol.setCellValueFactory(
+      locationCol1.setCellValueFactory(
           param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
-      urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
+      urgencyCol1.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
@@ -213,6 +244,32 @@ public class HomeController extends MenuController {
   public void switchToStatus(ActionEvent event) throws IOException {
     stop = true;
     Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
+  }
+
+  @FXML
+  public void switchToCredits(MouseEvent event) throws IOException {
+    if (!event.getSource().equals(backButton)) {
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/CreditsFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(backButton)) {
+      popup.hide();
+    }
+  }
+
+  @FXML
+  public void switchToAbout(MouseEvent event) throws IOException {
+    if (!event.getSource().equals(backButton)) {
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/AboutFXML.fxml"));
+      popup = new PopOver(loader.load());
+      popup.show(((Node) event.getSource()).getScene().getWindow());
+    }
+
+    if (event.getSource().equals(backButton)) {
+      popup.hide();
+    }
   }
 
   @FXML

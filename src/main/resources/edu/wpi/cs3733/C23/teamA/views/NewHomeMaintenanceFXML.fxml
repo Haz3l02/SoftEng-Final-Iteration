@@ -108,7 +108,17 @@
                                     </VBox>
                                     <VBox alignment="TOP_CENTER" prefHeight="427.0" prefWidth="481.0" spacing="25.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <StackPane prefHeight="150.0" prefWidth="234.0" style="-fx-background-color: #F1A94F; -fx-background-radius: 15; -fx-border-radius: 15;" />
+                                          <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="234.0" style="-fx-background-color: #F1A94F; -fx-background-radius: 15; -fx-border-radius: 15;">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
+                                                   <StackPane.margin>
+                                                      <Insets top="10.0" />
+                                                   </StackPane.margin>
+                                                   <font>
+                                                      <Font name="Verdana" size="36.0" />
+                                                   </font>
+                                                </Text>
+                                             </children></StackPane>
                                           <ImageView fx:id="mapImage" fitHeight="247.0" fitWidth="512.0" pickOnBounds="true">
                                              <image>
                                                 <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
@@ -147,20 +157,27 @@
                         </Label>
                         <VBox alignment="BOTTOM_CENTER" prefHeight="393.0" prefWidth="278.0">
                            <children>
-                              <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
+                              <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <ImageView fitHeight="73.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="about" fitHeight="73.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/icons/about.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="credits" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/icons/credits.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="exit" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/icons/exit_darkBlue.png" />
+                                       </image>
+                                    </ImageView>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin>
                               </HBox>
                            </children>
                         </VBox>
