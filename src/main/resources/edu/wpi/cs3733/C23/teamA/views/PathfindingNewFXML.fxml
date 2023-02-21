@@ -248,7 +248,7 @@
                     <children>
                   <VBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                              <VBox prefHeight="561.0" prefWidth="787.0" style="-fx-background-color: bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
+                              <VBox prefHeight="561.0" prefWidth="787.0" style="-fx-background-color: bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;" VBox.vgrow="ALWAYS">
                                   <children>
                                       <HBox alignment="BOTTOM_LEFT" prefHeight="44.0" prefWidth="1063.0">
                                           <VBox.margin>
