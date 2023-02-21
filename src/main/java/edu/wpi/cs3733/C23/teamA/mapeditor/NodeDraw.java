@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -33,6 +35,9 @@ public class NodeDraw implements KeyListener {
 
   static NodeEntity node1;
   static NodeEntity node2;
+
+  static int xCoordUpdate = 0;
+  static int yCoordUpdate = 0;
 
   static boolean setLocationVisibility;
 
@@ -136,7 +141,7 @@ public class NodeDraw implements KeyListener {
               previousSelectedNode.setPrefSize(5, 5);
 
               if (previousLine != null) {
-                selectedLine.setStroke(Color.web("0x224870"));
+                previousLine.setStroke(Color.web("0x224870"));
                 previousLine.setStrokeWidth(1);
               }
             }
@@ -153,6 +158,12 @@ public class NodeDraw implements KeyListener {
 
             previousSelectedNode = nodeGraphic;
             selectedNodeEntity = n;
+
+            if (selectedLine != null) {
+              selectedLine.setStroke(Color.web("0x224870"));
+              selectedLine.setStrokeWidth(1);
+            }
+
             nmc.setXCord(n.getXcoord().toString());
             nmc.setYCord(n.getYcoord().toString());
             nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
@@ -170,76 +181,83 @@ public class NodeDraw implements KeyListener {
               nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
               nmc.setLocButtonVisibility(true);
             }
-            //            if (shiftPressed) {
-            //
-            //              if (node1 != null) {
-            //                // save 2nd node stuff and add edge
-            //                node2 =
-            //                    new NodeEntity(
-            //                        selectedNodeEntity.getNodeid(),
-            //                        selectedNodeEntity.getXcoord(),
-            //                        selectedNodeEntity.getYcoord(),
-            //                        selectedNodeEntity.getFloor(),
-            //                        selectedNodeEntity.getBuilding());
-            //
-            //                Line l =
-            //                    new Line(
-            //                        node1.getXcoord(), node1.getYcoord(), node2.getXcoord(),
-            // node2.getYcoord());
-            //                l.setStrokeWidth(500);
-            //                FacadeRepository.getInstance().addEdge(new EdgeEntity(node1, node2));
-            //
-            //              } else {
-            //                node1 =
-            //                    new NodeEntity(
-            //                        selectedNodeEntity.getNodeid(),
-            //                        selectedNodeEntity.getXcoord(),
-            //                        selectedNodeEntity.getYcoord(),
-            //                        selectedNodeEntity.getFloor(),
-            //                        selectedNodeEntity.getBuilding());
-            //              }
-            //            }
+            if (shiftPressed) {
+
+              if (node1 != null) {
+                // save 2nd node stuff and add edge
+                node2 =
+                    new NodeEntity(
+                        selectedNodeEntity.getNodeid(),
+                        selectedNodeEntity.getXcoord(),
+                        selectedNodeEntity.getYcoord(),
+                        selectedNodeEntity.getFloor(),
+                        selectedNodeEntity.getBuilding());
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Edge Creation");
+                alert.setHeaderText("Would you like to make this change?");
+
+                if (alert.showAndWait().get() == ButtonType.OK) {
+                  Line l =
+                      new Line(
+                          node1.getXcoord(),
+                          node1.getYcoord(),
+                          node2.getXcoord(),
+                          node2.getYcoord());
+                  l.setStrokeWidth(500);
+                  FacadeRepository.getInstance().addEdge(new EdgeEntity(node1, node2));
+                }
+
+              } else {
+                node1 =
+                    new NodeEntity(
+                        selectedNodeEntity.getNodeid(),
+                        selectedNodeEntity.getXcoord(),
+                        selectedNodeEntity.getYcoord(),
+                        selectedNodeEntity.getFloor(),
+                        selectedNodeEntity.getBuilding());
+              }
+            }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
       // for hover over node
-      //            EventHandler<MouseEvent> eventHandler2 =
-      //                new EventHandler<MouseEvent>() {
-      //                  @Override
-      //                  public void handle(MouseEvent event) {
-      //                    if ((!nodeGraphic.equals(selectNodePane))) {
-      //                      nodeGraphic.setStyle(
-      //                          "-fx-background-color: 'green'; "
-      //                              + "-fx-background-radius: 12.5; "
-      //                              + "-fx-border-color: 'green'; "
-      //                              + "-fx-border-width: 1;"
-      //                              + "-fx-border-radius: 13.5");
-      //                    }
-      //                  }
-      //                };
-      //            nodeGraphic.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
-      //
-      //      EventHandler<MouseEvent> eventHandler3 =
-      //          new EventHandler<MouseEvent>() {
-      //            @Override
-      //            public void handle(MouseEvent event) {
-      //              if ((!nodeGraphic.equals(selectNodePane))) {
-      //                nodeGraphic.setStyle(
-      //                    "-fx-background-color: '#224870'; "
-      //                        + "-fx-background-radius: 12.5; "
-      //                        + "-fx-border-color: '#224870'; "
-      //                        + "-fx-border-width: 1;"
-      //                        + "-fx-border-radius: 13.5");
-      //              }
-      //            }
-      //          };
-      //      nodeGraphic.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
+      EventHandler<MouseEvent> eventHandler2 =
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              if ((!nodeGraphic.equals(selectNodePane))) {
+                nodeGraphic.setStyle(
+                    "-fx-background-color: 'green'; "
+                        + "-fx-background-radius: 12.5; "
+                        + "-fx-border-color: 'green'; "
+                        + "-fx-border-width: 1;"
+                        + "-fx-border-radius: 13.5");
+              }
+            }
+          };
+      nodeGraphic.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
+
+      EventHandler<MouseEvent> eventHandler3 =
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              if ((!nodeGraphic.equals(selectNodePane))) {
+                nodeGraphic.setStyle(
+                    "-fx-background-color: '#224870'; "
+                        + "-fx-background-radius: 12.5; "
+                        + "-fx-border-color: '#224870'; "
+                        + "-fx-border-width: 1;"
+                        + "-fx-border-radius: 13.5");
+              }
+            }
+          };
+      nodeGraphic.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
 
       //      final int newX = (int) nodeGraphic.getLayoutX();
       //      final int newY = (int) nodeGraphic.getLayoutY();
 
       // pass in a node entity and new ID
-
       nodeGraphic.setOnMouseDragged(
           new EventHandler<MouseEvent>() {
             @Override
@@ -249,6 +267,7 @@ public class NodeDraw implements KeyListener {
 
                 selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
                 selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
+
                 System.out.println((int) selectNodePane.getLayoutX());
                 System.out.println((int) selectNodePane.getLayoutX());
               }
@@ -265,10 +284,17 @@ public class NodeDraw implements KeyListener {
                 nmc.getMainGesturePane().setGestureEnabled(true);
                 System.out.println((int) selectNodePane.getLayoutX());
                 System.out.println((int) selectNodePane.getLayoutY());
-                selectedNodeEntity.setXcoord((int) selectNodePane.getLayoutX());
-                selectedNodeEntity.setYcoord((int) selectNodePane.getLayoutY());
-                FacadeRepository.getInstance()
-                    .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Node Drag and Drop");
+                alert.setHeaderText("Would you like to make this change?");
+
+                if (alert.showAndWait().get() == ButtonType.OK) {
+                  selectedNodeEntity.setXcoord((int) selectNodePane.getLayoutX());
+                  selectedNodeEntity.setYcoord((int) selectNodePane.getLayoutY());
+                  FacadeRepository.getInstance()
+                      .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
+                }
+
                 drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
               }
             }
@@ -306,13 +332,15 @@ public class NodeDraw implements KeyListener {
               if (!previousLine.equals(currentLine)) {
                 previousLine.setStroke(Color.web("0x224870"));
                 previousLine.setStrokeWidth(1);
-                previousSelectedNode.setStyle(
-                    "-fx-background-color: '#224870'; "
-                        + "-fx-background-radius: 12.5; "
-                        + "-fx-border-color: '#224870'; "
-                        + "-fx-border-width: 1;"
-                        + "-fx-border-radius: 13.5");
-                previousSelectedNode.setPrefSize(5, 5);
+                if (previousSelectedNode != null) {
+                  previousSelectedNode.setStyle(
+                      "-fx-background-color: '#224870'; "
+                          + "-fx-background-radius: 12.5; "
+                          + "-fx-border-color: '#224870'; "
+                          + "-fx-border-width: 1;"
+                          + "-fx-border-radius: 13.5");
+                  previousSelectedNode.setPrefSize(5, 5);
+                }
               }
             }
 
