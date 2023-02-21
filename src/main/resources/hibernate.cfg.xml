@@ -14,7 +14,7 @@
 
 
 
-    <property name="hibernate.hbm2ddl.auto">create</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.ComputerRequestEntity"/>
 <!--    <mapping resource="ComputerrequestEntity.hbm.xml"/>-->
     <mapping class="edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity"/>
