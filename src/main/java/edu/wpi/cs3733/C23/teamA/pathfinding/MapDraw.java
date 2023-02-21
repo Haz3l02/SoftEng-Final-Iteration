@@ -6,6 +6,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -13,6 +14,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -226,7 +228,7 @@ public class MapDraw {
         Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 1, width + 1);
         rect.setFill(Color.web("0x000000"));
 
-        rect.setOnMouseClicked(squareChangeColor(anchorPane));
+        rect.setOnMouseClicked(squareChangeColor(anchorPane, scaleFactor));
 
         anchorPane.getChildren().add(rect);
       }
@@ -239,7 +241,8 @@ public class MapDraw {
    *
    * @return a mouse event handler that changes the color of a square on click
    */
-  private static EventHandler<MouseEvent> squareChangeColor(AnchorPane anchorPane) {
+  private static EventHandler<MouseEvent> squareChangeColor(
+      AnchorPane anchorPane, double scaleFactor) {
     EventHandler<MouseEvent> eventHandler =
         new EventHandler<MouseEvent>() {
           @Override
@@ -253,10 +256,13 @@ public class MapDraw {
               Rectangle rect = ((Rectangle) (t.getSource()));
               rect.setFill(Color.web("0x00FF00"));
               previousRect = rect;
-              addSRLabel(
-                  anchorPane,
-                  ((Rectangle) t.getSource()).getX(),
-                  ((Rectangle) t.getSource()).getY());
+              int[] updatedCoords =
+                  scaleCoordinates(
+                      ((Rectangle) t.getSource()).getX(),
+                      ((Rectangle) t.getSource()).getY(),
+                      scaleFactor);
+              final Point location = MouseInfo.getPointerInfo().getLocation();
+              addSRLabel(anchorPane, location.getX(), location.getY());
             }
           }
         };
@@ -264,14 +270,21 @@ public class MapDraw {
   }
 
   public static void addSRLabel(AnchorPane anchorPane, double xcoord, double ycoord) {
+    if (previousLabel != null) {
+      previousLabel.setVisible(false);
+    }
+
     PopOver popover = new PopOver();
     Label label = new Label("My Service Request");
-    label.setTranslateX(xcoord);
-    label.setTranslateY(ycoord + 5);
+    label.setVisible(true);
+    label.setBackground(Background.fill(Color.web("0xffffff")));
+    label.setTranslateX(xcoord - 610);
+    label.setTranslateY(ycoord - 140);
     System.out.println(xcoord);
     System.out.println(ycoord);
     previousLabel = label;
     // Circle circ = new Circle(xcoord, ycoord, 10);
-    // anchorPane.getChildren().add(circ);
+    anchorPane.getChildren().add(label);
+    // AApp.getPrimaryStage();
   }
 }
