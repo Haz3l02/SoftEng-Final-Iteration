@@ -11,7 +11,7 @@ import org.hibernate.annotations.Cascade;
     uniqueConstraints =
         @UniqueConstraint(
             name = "uk_emp_username",
-            columnNames = {"username", "employeeid"}))
+            columnNames = {"username", "hospitalid"}))
 public class EmployeeEntity {
 
   @GeneratedValue(strategy = GenerationType.IDENTITY) // , generator = "serviceseq")

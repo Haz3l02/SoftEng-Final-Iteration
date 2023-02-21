@@ -34,7 +34,7 @@ public class ServiceRequestEntity {
       name = "employeeid",
       foreignKey =
           @ForeignKey(
-              name = "employeeid",
+              name = "employeeid_fk",
               foreignKeyDefinition =
                   "FOREIGN KEY (employeeid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
   @Setter
