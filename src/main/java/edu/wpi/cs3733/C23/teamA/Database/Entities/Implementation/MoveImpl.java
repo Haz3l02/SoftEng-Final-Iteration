@@ -399,4 +399,19 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     }
     return nodeID;
   }
+
+
+
+
+  public void removeAssociatedLocations(String nodeid){
+    for (MoveEntity m : moves){
+      if (m.getNode().getNodeid().equals(nodeid)){
+        List<String> mov = new ArrayList();
+        mov.add(m.getNode().getNodeid());
+        mov.add(m.getLocationName().getLongname());
+        mov.add(m.getMovedate().toString());
+        MoveImpl.getInstance().delete(mov);
+      }
+    }
+  }
 }
