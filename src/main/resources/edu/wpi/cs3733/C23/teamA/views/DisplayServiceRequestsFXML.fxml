@@ -26,7 +26,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-C23 Software Engineering, Prof. Wilson Wong">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests at location:">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
@@ -42,195 +42,27 @@
                   <Font name="Verdana Bold" size="18.0" />
                </font>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach: Nini Aquista" textAlignment="CENTER" wrappingWidth="500.0">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 1" textAlignment="CENTER" wrappingWidth="500.0">
                <font>
                   <Font name="Verdana Italic" size="14.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets />
                </VBox.margin>
             </Text>
-            <HBox>
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Sarah LaRusso:" wrappingWidth="120.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Software Developer" wrappingWidth="200.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Andrei Bornstein:" wrappingWidth="135.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Software Developer (Back-End)" wrappingWidth="344.79998779296875">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" top="-5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Chris Walczak:" wrappingWidth="115.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Software Developer (Front-End), Feature Engineer" wrappingWidth="500.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" top="-5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="John Mezzo:" wrappingWidth="100.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" text="Database Engineer (Back-End)" wrappingWidth="475.1999816894531">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" top="-5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Harrison Taylor:" wrappingWidth="125.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" text="Database Engineer (Back-End)" wrappingWidth="475.1999816894531">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" top="-5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Hazel Green:" wrappingWidth="100.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" text="Full-Time Developer (Front-End)" wrappingWidth="475.1999816894531">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" top="-5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Isabella Lucas:" wrappingWidth="115.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" text="Project Manager, Part-Time Developer (Front-End)" wrappingWidth="475.1999816894531">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" top="-5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Isabelle Lachaux:" wrappingWidth="135.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master, Part-Time Developer (Front-End)" wrappingWidth="475.1999816894531">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" top="-5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Steve Rosario:" wrappingWidth="115.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner, Part-Time Developer (Front-End)" wrappingWidth="475.1999816894531">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" top="-5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Audrey Gross:" wrappingWidth="110.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" text="Documentation Analyst, Part-Time Developer (Back-End)" wrappingWidth="550.0">
-                     <font>
-                        <Font name="Verdana" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" top="-5.0" />
-               </VBox.margin>
-            </HBox>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="To Brigham &amp; Women's Hospital and their representative, Andrew Shinn:" textAlignment="CENTER" wrappingWidth="700.0">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 2" textAlignment="CENTER" wrappingWidth="500.0">
                <font>
-                  <Font name="Verdana Italic" size="18.0" />
+                  <Font name="Verdana Italic" size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you for this opportunity, and for your continued feedback." textAlignment="CENTER" wrappingWidth="700.0">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 3" textAlignment="CENTER" wrappingWidth="500.0">
                <font>
-                  <Font name="Verdana" size="14.0" />
+                  <Font name="Verdana Italic" size="14.0" />
+               </font>
+            </Text>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 4" textAlignment="CENTER" wrappingWidth="500.0">
+               <font>
+                  <Font name="Verdana Italic" size="14.0" />
                </font>
             </Text>
             <MFXButton fx:id="backButton" prefHeight="30.0" prefWidth="75.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 5;" text="Back" textFill="#d3e9f6">
