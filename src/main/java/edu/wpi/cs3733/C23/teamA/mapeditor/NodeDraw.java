@@ -78,7 +78,7 @@ public class NodeDraw implements KeyListener {
   /**
    * @param xCoord the x-coordinate to scale
    * @param yCoord the y-coordinate to scale
-   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on.
+   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
    * @return an int array with the pair of new coordinates
    */
   private static int[] scaleCoordinatesReversed(double xCoord, double yCoord, double scaleFactor) {
