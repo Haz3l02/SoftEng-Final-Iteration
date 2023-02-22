@@ -140,23 +140,22 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
 
     session
         .createMutationQuery(
-            "UPDATE NodeEntity SET "
-                + "nodeid = '"
+            "UPDATE NodeEntity nod SET "
+                + "nod.nodeid = '"
                 + obj.getNodeid()
-                + "', floor = '"
+                + "', nod.floor = '"
                 + obj.getFloor()
-                + "', ycoord = "
+                + "', nod.ycoord = "
                 + obj.getYcoord()
-                + ", xcoord = "
+                + ", nod.xcoord = "
                 + obj.getXcoord()
-                + ", building = '"
+                + ", nod.building = '"
                 + obj.getBuilding()
-                + "' WHERE nodeid = '"
+                + "' WHERE nod.nodeid = '"
                 + ID
                 + "'")
         .executeUpdate();
 
-    nodes.add(session.get(NodeEntity.class, obj.getNodeid()));
     tx.commit();
     session.close();
     notifyAllObservers();

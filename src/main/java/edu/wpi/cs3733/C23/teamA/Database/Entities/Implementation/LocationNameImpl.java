@@ -133,14 +133,14 @@ public class LocationNameImpl extends Observable
 
     session
         .createMutationQuery(
-            "UPDATE LocationNameEntity SET "
-                + "longname = '"
+            "UPDATE LocationNameEntity loc SET "
+                + "loc.longname = '"
                 + location.getLongname()
-                + "', shortname = '"
+                + "', loc.shortname = '"
                 + location.getShortname()
-                + "', locationtype = '"
-                + location.getLongname()
-                + "' WHERE longname = '"
+                + "', loc.locationtype = '"
+                + location.getLocationtype()
+                + "' WHERE loc.longname = '"
                 + ID
                 + "'")
         .executeUpdate();
@@ -148,7 +148,6 @@ public class LocationNameImpl extends Observable
     locations.add(session.get(LocationNameEntity.class, location.getLongname()));
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public String getType(String ID) {
