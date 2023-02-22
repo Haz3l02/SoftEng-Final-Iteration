@@ -127,21 +127,6 @@
                                        </font>
                                     </Text>
                                     <MFXTextField fx:id="node2" maxWidth="1.7976931348623157E308" />
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#addEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Edge" textFill="#224870">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#editEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Location" textFill="#d3e9f6">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#deleteEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Location" textFill="#bad1ea">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -158,28 +143,13 @@
                                           <Font size="24.0" />
                                        </font>
                                     </Text>
-                                    <MFXFilterComboBox fx:id="longNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="372.0" />
+                                    <MFXFilterComboBox fx:id="longNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="369.0" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node ID">
                                        <font>
                                           <Font name="Verdana" size="24.0" />
                                        </font>
                                     </Text>
                                     <MFXTextField fx:id="locationIDBox" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
-                                    <MFXButton fx:id="createLocation" buttonType="RAISED" minHeight="51.0" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Location" textFill="#224870">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Location" textFill="#d3e9f6">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#delLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Location" textFill="#bad1ea">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -196,41 +166,11 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER">
-                     <children>
-                        <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Node" textFill="#224870">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </MFXButton>
-                        <MFXButton fx:id="saveButton" buttonType="RAISED" cancelButton="true" onAction="#saveNodeEdit" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Save Node" textFill="#224870">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER">
-                     <children>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#editNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Node" textFill="#d3e9f6">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </MFXButton>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Node" textFill="#bad1ea">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>

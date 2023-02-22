@@ -6,8 +6,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.*;
@@ -18,12 +16,15 @@ import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -92,6 +93,25 @@ public class MapEditorController extends MenuController {
     // createNodeButton.setVisible(false);
     // saveButton.setVisible(false);
     // gc = mainCanvas.getGraphicsContext2D();
+
+    mainGesturePane.setOnKeyPressed(
+        new EventHandler<KeyEvent>() {
+          @Override
+          public void handle(KeyEvent event) {
+            if (event.getCode().equals(KeyCode.BACK_SPACE)) {
+
+              if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
+                System.out.println("delete edge only");
+                NodeDraw.delEdge();
+              } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
+                System.out.println("delete node only");
+                NodeDraw.delNode();
+              } else {
+                System.out.println("idk");
+              }
+            }
+          }
+        });
 
     mainTextPane.setVisible(false);
     initializeFloorMap("L1");
@@ -163,11 +183,6 @@ public class MapEditorController extends MenuController {
   //    System.out.println("done");
   //    initialize();
   //  }
-
-  @FXML
-  public void switchToNodeScene(ActionEvent event) {
-    Navigation.navigate(Screen.HOME_DATABASE);
-  }
 
   /**
    * Method to delete the node that is selected by the user Deletes from database and from the nodes

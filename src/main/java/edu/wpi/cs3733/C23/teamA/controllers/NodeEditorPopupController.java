@@ -57,7 +57,7 @@ public class NodeEditorPopupController extends NavigationController {
     mouseY = Math.round(mouseY);
     xCoord.setText(String.valueOf(mouseX));
     yCoord.setText(String.valueOf(mouseY));
-
+    FloorBox.setValue(floor);
   }
 
   @FXML

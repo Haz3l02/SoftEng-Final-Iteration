@@ -41,6 +41,8 @@ public class NodeDraw implements KeyListener {
   static int yCoordUpdate = 0;
 
   static boolean setLocationVisibility;
+  static MenuItem locMenu = new MenuItem("edit location");
+  static MenuItem nodeMenu = new MenuItem("edit node");
 
   static int[] previousCoords = new int[2];
 
@@ -109,6 +111,7 @@ public class NodeDraw implements KeyListener {
       if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
         Text locName = new Text();
         locName.setVisible(true);
+        locName.rotateProperty().set(45);
         locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
         locName.setText(
             FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
@@ -149,7 +152,7 @@ public class NodeDraw implements KeyListener {
           event -> {
             boolean shiftPressed = event.isShiftDown();
             selectNodePane = nodeGraphic;
-
+            selectedEdge = null;
             if (previousSelectedNode != null && !(previousSelectedNode.equals(nodeGraphic))) {
 
               previousSelectedNode.setStyle(
@@ -273,7 +276,7 @@ public class NodeDraw implements KeyListener {
                   node2 = null;
                 }
 
-              } else if (node1 == null) { // don't fucking touch this
+              } else if (node1 == null) { // don't fucking touch this <3
                 node1 =
                     new NodeEntity(
                         selectedNodeEntity.getNodeid(),
@@ -327,9 +330,10 @@ public class NodeDraw implements KeyListener {
 
             @Override
             public void handle(MouseEvent event) {
+              nmc.getMainGesturePane().setGestureEnabled(true);
               if (!event.isStillSincePress()) {
                 System.out.println("node dropped");
-                nmc.getMainGesturePane().setGestureEnabled(true);
+
                 System.out.println((int) selectNodePane.getLayoutX());
                 System.out.println((int) selectNodePane.getLayoutY());
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -391,9 +395,82 @@ public class NodeDraw implements KeyListener {
               }
             }
           });
+      /*
+      nodeGraphic.setOnContextMenuRequested(
+          event -> {
+            nodeMenu.setOnAction(event1 -> {
+              System.out.println("aaaa");
+            });
+            ContextMenu nodeCM = new ContextMenu(nodeMenu, locMenu);
 
+            nodeCM.show(nodeAnchor, event.getScreenX(), event.getScreenY());
+          });
+
+       */
 
       nodeAnchor.getChildren().add(nodeGraphic);
+    }
+  }
+
+  public static void delNode() {
+
+    Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+    a.setTitle("Delete Node?");
+    a.setHeaderText("Are you sure you want to delete this node?");
+    a.setContentText(
+        "Node to be deleted has ID "
+            + selectedNodeEntity.getNodeid()
+            + " and coordinates ("
+            + selectedNodeEntity.getXcoord()
+            + ", "
+            + selectedNodeEntity.getYcoord()
+            + ")");
+
+    if (a.showAndWait().get() == ButtonType.OK) {
+
+      // transports the node over to fucking narnia (gives the appearance of being updated
+      // immediately)
+      selectNodePane.setMaxSize(0, 0);
+      selectNodePane.setMinSize(0, 0);
+      selectNodePane.setLayoutX(-100);
+      selectNodePane.setLayoutY(-100);
+
+      Alert aa = new Alert(Alert.AlertType.CONFIRMATION);
+      aa.setTitle("Commence Edge Repair?");
+      aa.setHeaderText("Would you like to repair the edges of the deleted node?");
+      aa.setContentText("If not repaired, connected edges will be permanently deleted!!");
+      if (aa.showAndWait().get() == ButtonType.OK) { // && node has connected edges
+        FacadeRepository.getInstance().collapseNode(selectedNodeEntity);
+      } else {
+        FacadeRepository.getInstance().deleteNode(selectedNodeEntity.getNodeid());
+      }
+    }
+  }
+
+  public static void delEdge() {
+    Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+    a.setTitle("Delete Edge?");
+    a.setHeaderText("Are you sure you want to delete this edge?");
+    a.setContentText(
+        "edge to be deleted has start coordinates: ("
+            + selectedLine.getStartX()
+            + ", "
+            + selectedLine.getStartY()
+            + ") and end coordinates: ("
+            + selectedLine.getEndX()
+            + ", "
+            + selectedLine.getEndY()
+            + ")");
+
+    if (a.showAndWait().get() == ButtonType.OK) {
+
+      // transports the edge over to fucking narnia (gives the appearance of being updated
+      // immediately)
+      selectedLine.setStartX(-100);
+      selectedLine.setStartY(-100);
+      selectedLine.setEndX(-100);
+      selectedLine.setEndY(-100);
+      FacadeRepository.getInstance().deleteEdge(selectedEdge.getEdgeid());
     }
   }
 
@@ -446,7 +523,7 @@ public class NodeDraw implements KeyListener {
       EventHandler<MouseEvent> eventHandler =
           event -> {
             selectedLine = currentLine;
-
+            selectedNodeEntity = null;
             if ((previousLine != null)) {
               if (!previousLine.equals(currentLine)) {
                 previousLine.setStroke(Color.web("0x224870"));
