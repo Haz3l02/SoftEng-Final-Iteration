@@ -194,10 +194,10 @@ public class ServiceRequestImpl extends Observable
     }
   }
 
-  public ArrayList<ServiceRequestEntity> getAllByEmployee(String id) {
-    ArrayList<ServiceRequestEntity> fin = new ArrayList<ServiceRequestEntity>();
+  public ArrayList<ServiceRequestEntity> getAllByEmployee(Integer id) {
+    ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
     for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployee().getHospitalid().equals(id)) {
+      if (ser.getEmployee().getEmployeeid()==(id)) {
         fin.add(ser);
       }
     }

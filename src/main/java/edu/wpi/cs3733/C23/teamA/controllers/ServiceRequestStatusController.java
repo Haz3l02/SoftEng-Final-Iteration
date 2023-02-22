@@ -165,7 +165,7 @@ public class ServiceRequestStatusController extends MenuController {
       // SimpleStringProperty("Unassigned"));
       //      }
       if (job.equalsIgnoreCase("medical")) {
-        serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
+        serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(employeeID);
       } else if (job.equalsIgnoreCase("Maintenance")) {
         serviceRequestData =
             FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getEmployeeID());
@@ -250,7 +250,7 @@ public class ServiceRequestStatusController extends MenuController {
 
     try {
       if (job.equalsIgnoreCase("medical")) {
-        serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
+        serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(employeeID);
       } else if (job.equalsIgnoreCase("Maintenance")) {
         serviceRequestData = FacadeRepository.getInstance().getServiceRequestByAssigned(employeeID);
       } else if (job.equalsIgnoreCase("Admin")) {

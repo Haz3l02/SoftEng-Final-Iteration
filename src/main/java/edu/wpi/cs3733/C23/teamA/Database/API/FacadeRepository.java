@@ -456,7 +456,7 @@ public class FacadeRepository {
     return node.getAllIDs();
   }
 
-  public ArrayList<ServiceRequestEntity> getAllServByEmployee(String id) {
+  public ArrayList<ServiceRequestEntity> getAllServByEmployee(Integer id) {
     return serv.getAllByEmployee(id);
   }
 

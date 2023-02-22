@@ -29,7 +29,7 @@ public class HomeServiceRequestController extends MenuController {
     }
 
     ArrayList<ServiceRequestEntity> specificRequests =
-        FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
+        FacadeRepository.getInstance().getAllServByEmployee(holder.getEmployeeID());
 
     if (specificRequests.size() == 0 && (job.equalsIgnoreCase("medical"))) {
       pastSubmissions.setDisable(true);
