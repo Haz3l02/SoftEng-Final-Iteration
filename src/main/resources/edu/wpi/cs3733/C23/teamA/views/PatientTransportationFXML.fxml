@@ -268,7 +268,7 @@
                               </VBox>
                               <VBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="229.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Immune Compromised" wrappingWidth="217.87739753723145">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Immunocompromised" wrappingWidth="217.87739753723145">
                                        <font>
                                           <Font name="Verdana" size="18.0" />
                                        </font>
