@@ -259,7 +259,7 @@ public class MapDraw {
         Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 5, width + 5);
         rect.setFill(Color.web("0x000000"));
 
-        rect.setOnMouseClicked(squareChangeColor(anchorPane, scaleFactor));
+        rect.setOnMouseClicked(squareChangeColor(anchorPane, scaleFactor, floor));
 
         anchorPane.getChildren().add(rect);
       }
@@ -273,7 +273,7 @@ public class MapDraw {
    * @return a mouse event handler that changes the color of a square on click
    */
   private static EventHandler<MouseEvent> squareChangeColor(
-      AnchorPane anchorPane, double scaleFactor) {
+      AnchorPane anchorPane, double scaleFactor, String floor) {
     EventHandler<MouseEvent> eventHandler =
         new EventHandler<MouseEvent>() {
           @Override
@@ -287,20 +287,12 @@ public class MapDraw {
               Rectangle rect = ((Rectangle) (t.getSource()));
               rect.setFill(Color.web("0x00FF00"));
               previousRect = rect;
-              //              int[] updatedCoords =
-              //                  scaleCoordinates(
-              //                      ((Rectangle) t.getSource()).getX(),
-              //                      ((Rectangle) t.getSource()).getY(),
-              //                      scaleFactor);
-              //              System.out.println(((Rectangle) t.getSource()).getX());
-              //              System.out.println(((Rectangle) t.getSource()).getY());
-              //              final Point location = MouseInfo.getPointerInfo().getLocation();
-              String text = "Service request";
+
               addSRPopup(
                   anchorPane,
                   ((Rectangle) t.getSource()).getX(),
                   ((Rectangle) t.getSource()).getY(),
-                  "L2",
+                  floor,
                   scaleFactor);
             }
           }
@@ -347,9 +339,6 @@ public class MapDraw {
 
       final DisplayServiceRequestsPopupController controller = loader.getController();
 
-      System.out.println("Updated2");
-      System.out.println(xcoord);
-      System.out.println(ycoord);
       System.out.println("Estimated hopefully");
       System.out.println((int) Math.round(invertedCoords[0]));
       System.out.println((int) Math.round(invertedCoords[1]));
@@ -360,7 +349,8 @@ public class MapDraw {
 
       String[] texts = new String[4];
       for (int i = 0; i < Math.min(requests.size(), 4); i++) {
-        texts[i] = requests.get(i).getName();
+        texts[i] =
+            requests.get(i).getRequestType().toString() + " : " + requests.get(i).getDescription();
       }
       System.out.println(texts);
       controller.addText(texts);
