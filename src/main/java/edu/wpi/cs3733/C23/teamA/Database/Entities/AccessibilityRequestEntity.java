@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import edu.wpi.cs3733.C23.teamA.enums.Status;
+import edu.wpi.cs3733.C23.teamA.enums.Subject;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
@@ -16,7 +17,8 @@ public class AccessibilityRequestEntity extends ServiceRequestEntity {
   @Column(name = "subject", nullable = false, length = -1)
   @Getter
   @Setter
-  private String subject;
+  @Enumerated(EnumType.STRING)
+  private Subject subject;
 
   @Basic
   @Column(name = "disability", nullable = false, length = -1)
@@ -41,8 +43,8 @@ public class AccessibilityRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
-      String subject,
+      EmployeeEntity employeeassigned,
+      Subject subject,
       String disability,
       String accommodation,
       Timestamp date) {
@@ -70,8 +72,8 @@ public class AccessibilityRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
-      String subject,
+      EmployeeEntity employeeassigned,
+      Subject subject,
       String disability,
       String accommodation) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);

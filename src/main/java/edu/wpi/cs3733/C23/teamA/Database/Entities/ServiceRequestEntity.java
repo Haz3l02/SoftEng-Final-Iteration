@@ -34,7 +34,7 @@ public class ServiceRequestEntity {
       name = "employeeid",
       foreignKey =
           @ForeignKey(
-              name = "employeeid",
+              name = "employeeid_fk",
               foreignKeyDefinition =
                   "FOREIGN KEY (employeeid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
   @Setter
@@ -80,11 +80,18 @@ public class ServiceRequestEntity {
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @Basic
-  @Column(name = "employeeassigned", nullable = false, length = -1)
+  @ManyToOne(optional = true)
+  @JoinColumn(
+      name = "employeeassignedid",
+      foreignKey =
+          @ForeignKey(
+              name = "assignedemployee_fk",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (employeeassignedid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE SET NULL"),
+      nullable = true)
   @Setter
   @Getter
-  private String employeeAssigned;
+  private EmployeeEntity employeeAssigned;
 
   @Setter
   @Getter
@@ -119,7 +126,7 @@ public class ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requestType,
       Status status,
-      String employeeAssigned,
+      EmployeeEntity employeeAssigned,
       Timestamp date) {
     this.requestid = requestid;
     this.name = name;
@@ -141,7 +148,7 @@ public class ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requestType,
       Status status,
-      String employeeAssigned) {
+      EmployeeEntity employeeAssigned) {
     this.name = name;
     this.employee = employee;
     this.location = location;

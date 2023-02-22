@@ -29,11 +29,13 @@ public class HomeServiceRequestController extends MenuController {
     }
 
     ArrayList<ServiceRequestEntity> specificRequests =
-        FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
+        FacadeRepository.getInstance().getAllServByEmployee(holder.getEmployeeID());
 
     if (specificRequests.size() == 0 && (job.equalsIgnoreCase("medical"))) {
       pastSubmissions.setDisable(true);
-    } else if (FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getName()).size()
+    } else if (FacadeRepository.getInstance()
+                .getServiceRequestByAssigned(holder.getEmployeeID())
+                .size()
             == 0
         && (job.equalsIgnoreCase("Maintenance"))) {
       pastSubmissions.setDisable(true);

@@ -56,9 +56,12 @@ public class AccessibilityController extends ServiceRequestController {
       nameBox.setText(editRequest.getName());
       IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
       // had issues with setValue()
-      subjectBox.setText(editRequest.getSubject());
+      subjectBox.setText(editRequest.getSubject().getSubject());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      subjectBox.setValue(editRequest.getSubject().getSubject());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       disabilityDescBox.setText(editRequest.getDisability());
       accommodationBox.setText(editRequest.getAccommodation());
@@ -79,9 +82,12 @@ public class AccessibilityController extends ServiceRequestController {
       nameBox.setText(editRequest.getName());
       IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
       // had issues w/ setValue()
-      subjectBox.setText(editRequest.getSubject());
+      subjectBox.setText(editRequest.getSubject().getSubject());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      subjectBox.setValue(editRequest.getSubject().getSubject());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       disabilityDescBox.setText(editRequest.getDisability());
       accommodationBox.setText(editRequest.getAccommodation());
@@ -128,10 +134,9 @@ public class AccessibilityController extends ServiceRequestController {
         submission.setDisability(disabilityDescBox.getText());
         submission.setAccommodation(accommodationBox.getText());
         submission.setUrgency(urgent);
-        submission.setSubject(subject.getSubject()); // currently a string - enum instead?
+        submission.setSubject(subject); // currently a string - enum instead?
       } else {
-        EmployeeEntity person =
-            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 
@@ -147,8 +152,8 @@ public class AccessibilityController extends ServiceRequestController {
                 urgent,
                 ServiceRequestEntity.RequestType.ACCESSIBILITY,
                 Status.NEW,
-                "Unassigned",
-                subject.getSubject(),
+                null,
+                subject,
                 disabilityDescBox.getText(),
                 accommodationBox.getText());
         FacadeRepository.getInstance().addAccessability(submission);

@@ -37,7 +37,7 @@ public class SanitationRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
+      EmployeeEntity employeeassigned,
       IssueCategory category,
       Timestamp date) {
     super(
@@ -62,7 +62,7 @@ public class SanitationRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
+      EmployeeEntity employeeassigned,
       IssueCategory category) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);
     this.category = category;

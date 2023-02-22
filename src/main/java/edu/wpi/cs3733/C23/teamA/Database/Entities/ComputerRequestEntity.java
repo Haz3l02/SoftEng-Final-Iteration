@@ -37,7 +37,7 @@ public class ComputerRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
+      EmployeeEntity employeeassigned,
       String deviceid,
       DevicesCategory device,
       Timestamp date) {
@@ -64,7 +64,7 @@ public class ComputerRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
+      EmployeeEntity employeeassigned,
       String deviceid,
       DevicesCategory device) {
     super(name, employee, location, description, urgency, requesttype, status, employeeassigned);

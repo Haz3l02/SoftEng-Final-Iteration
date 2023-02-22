@@ -23,7 +23,7 @@
          <children>
             <BorderPane prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
                <right>
-                  <VBox alignment="TOP_CENTER" prefHeight="554.0" prefWidth="254.0" style="-fx-background-color: #BAD1EA;" BorderPane.alignment="CENTER">
+                  <VBox alignment="TOP_CENTER" prefHeight="554.0" prefWidth="254.0" style="-fx-background-color: #BAD1EA;" BorderPane.alignment="BOTTOM_RIGHT">
                      <BorderPane.margin>
                         <Insets />
                      </BorderPane.margin>
@@ -41,7 +41,7 @@
                               <Font name="Verdana" size="36.0" />
                            </font>
                         </Label>
-                        <VBox alignment="CENTER" prefHeight="282.0" prefWidth="278.0" spacing="20.0">
+                        <VBox alignment="CENTER" prefHeight="282.0" prefWidth="278.0" spacing="20.0" VBox.vgrow="ALWAYS">
                            <children>
                               <MFXTextField fx:id="adminAnnouncementField" alignment="TOP_LEFT" floatMode="ABOVE" prefHeight="133.0" prefWidth="256.0" promptText="Enter announcement..." style="-fx-background-radius: 15; -fx-border-radius: 15;" VBox.vgrow="ALWAYS">
                                  <font>
@@ -61,45 +61,41 @@
                               </MFXButton>
                            </children>
                         </VBox>
-                        <VBox alignment="BOTTOM_CENTER" prefHeight="190.0" prefWidth="278.0">
+                        <HBox alignment="BASELINE_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                            <children>
-                              <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <ImageView fx:id="about" fitHeight="73.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/icons/about.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets left="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <ImageView fx:id="credits" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/icons/credits.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="exit" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/icons/exit_darkBlue.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets right="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="20.0" />
-                                 </VBox.margin>
-                              </HBox>
+                              <ImageView fx:id="about" fitHeight="73.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/icons/about.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <ImageView fx:id="credits" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/icons/credits.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="exit" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/icons/exit_darkBlue.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
                            </children>
-                        </VBox>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </HBox>
                      </children>
                   </VBox>
                </right>
                <center>
                   <VBox prefHeight="554.0" prefWidth="1025.0" spacing="20.0" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="1025.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="69.0" prefWidth="1025.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
                            <children>
                               <ComboBox fx:id="serviceRequest" prefHeight="71.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" />
                               <MFXButton fx:id="navigation" onAction="#switchToPathfinding" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textFill="#d3e9f6">
@@ -202,12 +198,12 @@
                                              </children></StackPane>
                                           <StackPane fx:id="mapImage" prefHeight="150.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fitHeight="247.0" fitWidth="512.0" pickOnBounds="true">
+                                                <ImageView fitHeight="247.0" fitWidth="512.0" pickOnBounds="true" StackPane.alignment="CENTER">
                                                    <image>
                                                       <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
                                                    </image>
                                                 </ImageView>
-                                                <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" StackPane.alignment="BOTTOM_RIGHT">
+                                                <HBox alignment="BOTTOM_RIGHT" StackPane.alignment="BOTTOM_RIGHT">
                                                    <children>
                                                       <Text fx:id="findAPath" strokeType="OUTSIDE" strokeWidth="0.0" text="Find a Path" textAlignment="CENTER" visible="false" wrappingWidth="203.009765625">
                                                          <font>

@@ -60,7 +60,7 @@
                   </MFXButton>
                   <StackPane>
                      <children>
-                        <ComboBox fx:id="admin" prefHeight="93.0" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
+                        <ComboBox fx:id="admin" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
                         <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
                            <font>
                               <Font size="27.0" />

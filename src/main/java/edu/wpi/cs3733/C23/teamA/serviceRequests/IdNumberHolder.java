@@ -7,6 +7,7 @@ public final class IdNumberHolder {
   private String idNumber;
   private String job;
   private String name;
+  private int employeeID;
   private static final IdNumberHolder INSTANCE = new IdNumberHolder();
 
   public IdNumberHolder() {}
@@ -53,5 +54,13 @@ public final class IdNumberHolder {
 
   public String getJob() {
     return this.job;
+  }
+
+  public int getEmployeeID() {
+    return this.employeeID;
+  }
+
+  public void setEmployeeID(int employeeID) {
+    this.employeeID = employeeID;
   }
 }

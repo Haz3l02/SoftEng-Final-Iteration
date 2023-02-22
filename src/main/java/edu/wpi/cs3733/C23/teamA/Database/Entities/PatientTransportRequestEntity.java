@@ -91,7 +91,7 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
+      EmployeeEntity employeeassigned,
       String patientName,
       String patientID,
       LocationNameEntity moveTo, // moveTo--there's already a location in servicerequest super
@@ -132,7 +132,7 @@ public class PatientTransportRequestEntity extends ServiceRequestEntity {
       UrgencyLevel urgency,
       RequestType requesttype,
       Status status,
-      String employeeassigned,
+      EmployeeEntity employeeassigned,
       String patientName,
       String patientID,
       LocationNameEntity moveTo, // moveTo--there's already a location in servicerequest super

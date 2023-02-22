@@ -167,7 +167,7 @@ public class ComputerRequestImpl extends Observable
     }
   }
 
-  public void updateEmployee(Integer ID, String employee) {
+  public void updateEmployee(Integer ID, EmployeeEntity employee) {
     ListIterator<ComputerRequestEntity> li = comprequests.listIterator();
     while (li.hasNext()) {
       ComputerRequestEntity sec = li.next();
