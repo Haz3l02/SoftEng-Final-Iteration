@@ -78,7 +78,6 @@ public class PathfindingController extends MenuController {
   @FXML Text messageText;
 
   private AnchorPane[] aps = new AnchorPane[5];
-  // private Group[] groups = new Group[5];
   private int currentFloor = 0;
   private IdNumberHolder holder = IdNumberHolder.getInstance();
 
@@ -443,16 +442,8 @@ public class PathfindingController extends MenuController {
       ap.setDisable(true);
     }
 
-    //    for (Group gr : groups) {
-    //      gr.getChildren().clear();
-    //      gr.setVisible(false);
-    //      gr.setDisable(true);
-    //    }
-
     aps[currentFloor].setVisible(true);
     aps[currentFloor].setDisable(false);
-    //    groups[currentFloor].setVisible(true);
-    //    groups[currentFloor].setDisable(false);
 
     pathfindingSystem.drawPath(aps, path, floorPath, SCALE_FACTOR);
   }
