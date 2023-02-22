@@ -41,7 +41,8 @@ public class AApp extends Application {
     AApp.rootPane = root;
 
     // load images
-    ImageLoader.loadImages();
+    ImageLoader imgLoader = new ImageLoader();
+    imgLoader.loadImages();
     FacadeRepository.getInstance(); // wake up database instances
 
     // add the icon and name to the application

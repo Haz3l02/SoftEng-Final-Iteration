@@ -11,7 +11,5 @@ public class Main {
       System.out.println("EXCEPTION\n\n\n");
       e.printStackTrace();
     }
-    // Session session = getSessionFactory().openSession();
-    // session.close();
   }
 }
