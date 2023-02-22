@@ -312,16 +312,16 @@ public class ServiceRequestImpl extends Observable
 
       if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
               && ser.getUrgency() == UrgencyLevel.EXTREMELY
-              && ser.getEmployeeAssigned().equals(user)
+              && ser.getEmployeeAssigned().getUsername().equals(user)
           || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
               && ser.getUrgency() == UrgencyLevel.HIGH
-              && ser.getEmployee().getUsername().equals(user)
+              && ser.getEmployeeAssigned().getUsername().equals(user)
           || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
               && ser.getUrgency() == UrgencyLevel.MEDIUM
-              && ser.getEmployee().getUsername().equals(user)
+              && ser.getEmployeeAssigned().getUsername().equals(user)
           || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
               && ser.getUrgency() == UrgencyLevel.LOW
-              && ser.getEmployee().getUsername().equals(user)) {
+              && ser.getEmployeeAssigned().getUsername().equals(user))
         fin.add(ser);
       }
     }
