@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.AApp;
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -10,6 +12,8 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -75,6 +79,16 @@ public class MenuController extends NavigationController {
     if (userInfo.getJob().equalsIgnoreCase("maintenance")) {
       serviceRequest.getItems().add("My Assignments");
       myAssignments.setVisible(true);
+      List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
+
+      requests =
+          FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getEmployeeID());
+      if (requests.size() == 0) {
+        myAssignments.setDisable(true);
+
+      } else {
+        myAssignments.setDisable(false);
+      }
     }
 
     home.setOnMouseClicked(

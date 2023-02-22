@@ -234,6 +234,7 @@ public class HomeController extends MenuController {
       adminAnnouncementField.setDisable(true);
       adminAnnouncementField.setVisible(false);
       adminAnnouncementButton.setVisible(false);
+      myAssignments.setVisible(true);
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
@@ -248,9 +249,10 @@ public class HomeController extends MenuController {
           FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getEmployeeID());
       dbTableRowsModel.addAll(requests);
       maintenanceTable.setItems(dbTableRowsModel);
-
+      System.out.println(requests.size());
       if (requests.size() == 0) {
         myAssignments.setDisable(true);
+
       } else {
         myAssignments.setDisable(false);
       }
