@@ -313,7 +313,6 @@ public class ServiceRequestStatusController extends MenuController {
       serviceRequestData =
           FacadeRepository.getInstance().getOutstandingRequestsByID(assigned.getValue());
     } else serviceRequestData = FacadeRepository.getInstance().getOutstandingServRequests();
-    System.out.println(serviceRequestData.toString());
     dbTableRowsModel.addAll(serviceRequestData);
   }
 

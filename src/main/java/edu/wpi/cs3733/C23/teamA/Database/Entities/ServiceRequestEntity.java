@@ -90,6 +90,7 @@ public class ServiceRequestEntity {
                   "FOREIGN KEY (employeeassignedid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE SET NULL"),
       nullable = true)
   @Setter
+  @Getter
   private EmployeeEntity employeeAssigned;
 
   @Setter
@@ -156,14 +157,5 @@ public class ServiceRequestEntity {
     this.requestType = requestType;
     this.status = status;
     this.employeeAssigned = employeeAssigned;
-  }
-
-  public EmployeeEntity getEmployeeAssigned() {
-    //    if (employeeAssigned == null) {
-    //      EmployeeEntity unassigned =
-    //          new EmployeeEntity("0", "Unassigned", "unassigned", "maintenance", "unassigned");
-    //      return unassigned;
-    //    }
-    return employeeAssigned;
   }
 }

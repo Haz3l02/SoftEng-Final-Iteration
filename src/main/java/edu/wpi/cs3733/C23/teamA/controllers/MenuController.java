@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.AApp;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -15,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -50,6 +52,19 @@ public class MenuController extends NavigationController {
 
   private static PopOver popup;
 
+  private final Image homeYellow =
+      new Image(AApp.class.getResourceAsStream("assets/icons/home_yellow.png"));
+  private final Image homeWhite =
+      new Image(AApp.class.getResourceAsStream("assets/icons/home_blue.png"));
+  private final Image helpYellow =
+      new Image(AApp.class.getResourceAsStream("assets/icons/help_yellow.png"));
+  private final Image helpWhite =
+      new Image(AApp.class.getResourceAsStream("assets/icons/help_blue.png"));
+  private final Image logoutYellow =
+      new Image(AApp.class.getResourceAsStream("assets/icons/exit_yellow.png"));
+  private final Image logoutWhite =
+      new Image(AApp.class.getResourceAsStream("assets/icons/exit_blue.png"));
+
   @FXML
   public void initialize() throws SQLException, IOException, InterruptedException {
     IdNumberHolder userInfo = new IdNumberHolder();
@@ -69,7 +84,33 @@ public class MenuController extends NavigationController {
         (MouseEvent e) -> {
           switchToHomeScene();
         });
+    home.setOnMouseEntered(
+        event -> {
+          home.setImage(this.homeYellow);
+        });
 
+    home.setOnMouseExited(
+        event -> {
+          home.setImage(this.homeWhite);
+        });
+    help.setOnMouseEntered(
+        event -> {
+          help.setImage(this.helpYellow);
+        });
+
+    help.setOnMouseExited(
+        event -> {
+          help.setImage(this.helpWhite);
+        });
+    logout.setOnMouseEntered(
+        event -> {
+          logout.setImage(this.logoutYellow);
+        });
+
+    logout.setOnMouseExited(
+        event -> {
+          logout.setImage(this.logoutWhite);
+        });
     home2.setOnMouseClicked(
         (MouseEvent e) -> {
           switchToHomeScene();
