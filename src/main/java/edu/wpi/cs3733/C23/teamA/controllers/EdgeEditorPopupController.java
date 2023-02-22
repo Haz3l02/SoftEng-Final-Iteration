@@ -23,10 +23,13 @@ public class EdgeEditorPopupController {
   @FXML
   public void addEdge(ActionEvent actionEvent) {
 
-    EdgeEntity newEdge = new EdgeEntity();
+    EdgeEntity newEdge =
+        new EdgeEntity(
+            FacadeRepository.getInstance().getNode(node1.getText()),
+            FacadeRepository.getInstance().getNode(node2.getText()));
 
-    newEdge.setNode1(FacadeRepository.getInstance().getNode(node1.getText()));
-    newEdge.setNode2(FacadeRepository.getInstance().getNode(node2.getText()));
+    //    newEdge.setNode1(FacadeRepository.getInstance().getNode(node1.getText()));
+    //    newEdge.setNode2(FacadeRepository.getInstance().getNode(node2.getText()));
 
     FacadeRepository.getInstance().addEdge(newEdge);
 

@@ -70,6 +70,12 @@ public class MapEditorController extends MenuController {
   @FXML MFXButton createLocation;
   @FXML MFXToggleButton toggleSwitch = new MFXToggleButton();
 
+  @FXML MFXTextField node1Box;
+  @FXML MFXTextField node2Box;
+
+  @FXML MFXTextField shortNameBox;
+  @FXML MFXTextField locTypeBox;
+
   @FXML
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
 
@@ -84,6 +90,8 @@ public class MapEditorController extends MenuController {
   private static PopOver nodeEditorPopup;
   private static PopOver edgeEditorPopup;
   private static PopOver locationEditorPopup;
+  private static PopOver nodeEditorEditPopup;
+  private static PopOver locationEditorEditPopup;
 
   static MapEditorController mapEditor;
 
@@ -98,7 +106,8 @@ public class MapEditorController extends MenuController {
         new EventHandler<KeyEvent>() {
           @Override
           public void handle(KeyEvent event) {
-            if (event.getCode().equals(KeyCode.BACK_SPACE)) {
+            if (event.getCode().equals(KeyCode.BACK_SPACE)
+                || event.getCode().equals(KeyCode.DELETE)) {
 
               if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
                 System.out.println("delete edge only");
@@ -423,9 +432,17 @@ public class MapEditorController extends MenuController {
     longNameBox.setValue(loc);
   }
 
-  public void setLocButtonVisibility(boolean eye) {
-    createLocation.setVisible(eye);
+  public void setShortNameBox(String sName) {
+    shortNameBox.setText(sName);
   }
+
+  public void setLocTypeBox(String type) {
+    locTypeBox.setText(type);
+  }
+
+  //  public void setLocButtonVisibility(boolean eye) {
+  //    createLocation.setVisible(eye);
+  //  }
 
   // TODO
   public void transitionToNewNodeBox(ActionEvent event) {}
@@ -460,8 +477,10 @@ public class MapEditorController extends MenuController {
 
     nodeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
 
-    NodeEditorPopupController.mouseX = mainGesturePane.getCurrentX();
-    NodeEditorPopupController.mouseY = mainGesturePane.getCurrentY();
+    NodeEditorPopupController.mouseX = NodeDraw.getSelected().getXcoord();
+    NodeEditorPopupController.mouseY = NodeDraw.getSelected().getYcoord();
+    NodeEditorPopupController.floor = NodeDraw.getSelected().getFloor();
+
     System.out.println(
         "updated coords to: ("
             + mainGesturePane.getCurrentX()
@@ -494,6 +513,31 @@ public class MapEditorController extends MenuController {
 
       locationEditorPopup = new PopOver(locationLoader.load());
       locationEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+    }
+  }
+
+  @FXML
+  public void popupEditNode(ActionEvent event) throws IOException {
+
+    FXMLLoader locationLoader =
+        new FXMLLoader(Main.class.getResource("views/NodeEditorPopupEditFXML.fxml"));
+
+    nodeEditorEditPopup = new PopOver(locationLoader.load());
+    nodeEditorEditPopup.show((mainAnchorPane.getScene().getWindow()));
+  }
+
+  @FXML
+  public void popupEditLoc(ActionEvent event) throws IOException {
+    if (NodeDraw.getSelected() == null) {
+      System.out.println("No node selected");
+    } else {
+      System.out.println("popup location editor");
+
+      FXMLLoader locationLoader =
+          new FXMLLoader(Main.class.getResource("views/LocationEditorPopupEditFXML.fxml"));
+
+      locationEditorEditPopup = new PopOver(locationLoader.load());
+      locationEditorEditPopup.show((mainAnchorPane.getScene().getWindow()));
     }
   }
 

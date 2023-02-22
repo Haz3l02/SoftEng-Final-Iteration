@@ -44,6 +44,9 @@ public class NodeDraw implements KeyListener {
   static MenuItem locMenu = new MenuItem("edit location");
   static MenuItem nodeMenu = new MenuItem("edit node");
 
+  static NodeEditorEditPopupController nodeEditPopup = new NodeEditorEditPopupController();
+  static LocationEditorEditPopupController locEditPopup = new LocationEditorEditPopupController();
+
   static int[] previousCoords = new int[2];
 
   public void setNewLocation() {}
@@ -201,14 +204,20 @@ public class NodeDraw implements KeyListener {
               nmc.setLongNameBox(
                   FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
               nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-              nmc.setLocButtonVisibility(false);
+              nmc.setShortNameBox(
+                  FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
+              nmc.setLocTypeBox(
+                  FacadeRepository.getInstance()
+                      .moveMostRecentLoc(n.getNodeid())
+                      .getLocationtype());
+              // nmc.setLocButtonVisibility(false);
             } else {
               nmc.setLongNameBox("NO LOCATION ASSIGNED");
               nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-              nmc.setLocButtonVisibility(true);
+              // nmc.setLocButtonVisibility(true);
             }
             if (shiftPressed) {
-
+              System.out.println("shift pressed");
               if (node1 != null) {
                 // save 2nd node stuff and add edge
                 node2 =
@@ -231,26 +240,16 @@ public class NodeDraw implements KeyListener {
                 String startLoc;
                 String endLoc;
 
-                if (locNameEnt == null) {
-                  startLoc = "Unnamed Node (Start)";
-                  endLoc = "Unnamed Node (End)"; // the second one
-                  alert.setHeaderText(
-                      "Are you sure you want to create an edge between "
-                          + startLoc
-                          + " and "
-                          + endLoc);
-                } else {
-                  alert.setHeaderText(
-                      "Are you sure you want to create an edge between: ("
-                          + selectedEdge.getNode1().getXcoord()
-                          + ", "
-                          + selectedEdge.getNode1().getYcoord()
-                          + " and ("
-                          + selectedEdge.getNode2().getXcoord()
-                          + ", "
-                          + selectedEdge.getNode2().getYcoord()
-                          + ") ?");
-                }
+                alert.setHeaderText(
+                    "Are you sure you want to create an edge between: ("
+                        + node1.getNodeid()
+                        + ", "
+                        //                          + selectedEdge.getNode1().getYcoord()
+                        + " and ("
+                        + node2.getNodeid()
+                        + ", "
+                        //                          + selectedEdge.getNode2().getYcoord()
+                        + ") ?");
 
                 if (alert.showAndWait().get() == ButtonType.OK) {
                   Line l =
@@ -274,6 +273,8 @@ public class NodeDraw implements KeyListener {
                   FacadeRepository.getInstance().addEdge(new EdgeEntity(node1, node2));
                   node1 = null;
                   node2 = null;
+
+                  nmc.initialize();
                 }
 
               } else if (node1 == null) { // don't fucking touch this <3
@@ -407,6 +408,30 @@ public class NodeDraw implements KeyListener {
           });
 
        */
+
+      nodeGraphic.setOnMouseClicked(
+          event -> {
+            if (event.getButton() == MouseButton.SECONDARY) {
+              System.out.println("right clicked");
+              NodeEditorEditPopupController.setNode(selectedNodeEntity);
+              NodeEditorEditPopupController.setXCord(selectedNodeEntity.getXcoord());
+              NodeEditorEditPopupController.setYCord(selectedNodeEntity.getYcoord());
+              NodeEditorEditPopupController.setFloor(selectedNodeEntity.getFloor());
+              NodeEditorEditPopupController.setBuilding(selectedNodeEntity.getBuilding());
+
+              System.out.println(
+                  selectedNodeEntity.getXcoord() + ", " + selectedNodeEntity.getYcoord());
+
+              LocationNameEntity loc =
+                  FacadeRepository.getInstance().moveMostRecentLoc(selectedNodeEntity.getNodeid());
+              if (loc != null) {
+                LocationEditorEditPopupController.setLocNameEntity(loc);
+                LocationEditorEditPopupController.setLongname(loc.getLongname());
+                LocationEditorEditPopupController.setShortname(loc.getShortname());
+                LocationEditorEditPopupController.setLocType(loc.getLocationtype());
+              }
+            }
+          });
 
       nodeAnchor.getChildren().add(nodeGraphic);
     }
@@ -598,35 +623,36 @@ public class NodeDraw implements KeyListener {
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
 
-      currentLine.setOnMouseClicked(
-          event -> {
-            if (event.getButton() == MouseButton.SECONDARY) {
-              Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-              a.setTitle("Delete Edge?");
-              a.setHeaderText("Are you sure you want to delete this edge?");
-              a.setContentText(
-                  "edge to be deleted has start coordinates: ("
-                      + selectedLine.getStartX()
-                      + ", "
-                      + selectedLine.getStartY()
-                      + ") and end coordinates: ("
-                      + selectedLine.getEndX()
-                      + ", "
-                      + selectedLine.getEndY()
-                      + ")");
-
-              if (a.showAndWait().get() == ButtonType.OK) {
-
-                // transports the edge over to fucking narnia (gives the appearance of being updated
-                // immediately)
-                selectedLine.setStartX(-100);
-                selectedLine.setStartY(-100);
-                selectedLine.setEndX(-100);
-                selectedLine.setEndY(-100);
-                FacadeRepository.getInstance().deleteEdge(selectedEdge.getEdgeid());
-              }
-            }
-          });
+      //      currentLine.setOnMouseClicked(
+      //          event -> {
+      //            if (event.getButton() == MouseButton.SECONDARY) {
+      //              Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+      //              a.setTitle("Delete Edge?");
+      //              a.setHeaderText("Are you sure you want to delete this edge?");
+      //              a.setContentText(
+      //                  "edge to be deleted has start coordinates: ("
+      //                      + selectedLine.getStartX()
+      //                      + ", "
+      //                      + selectedLine.getStartY()
+      //                      + ") and end coordinates: ("
+      //                      + selectedLine.getEndX()
+      //                      + ", "
+      //                      + selectedLine.getEndY()
+      //                      + ")");
+      //
+      //              if (a.showAndWait().get() == ButtonType.OK) {
+      //
+      //                // transports the edge over to fucking narnia (gives the appearance of being
+      // updated
+      //                // immediately)
+      //                selectedLine.setStartX(-100);
+      //                selectedLine.setStartY(-100);
+      //                selectedLine.setEndX(-100);
+      //                selectedLine.setEndY(-100);
+      //                FacadeRepository.getInstance().deleteEdge(selectedEdge.getEdgeid());
+      //              }
+      //            }
+      //          });
 
       ap.getChildren().add(currentLine);
     }
