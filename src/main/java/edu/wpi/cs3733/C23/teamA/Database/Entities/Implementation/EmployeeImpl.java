@@ -41,11 +41,13 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write("employeeid,job,name,password,username\n");
+    fileWriter.write("employeeid,hospitalid,job,name,password,username\n");
     for (EmployeeEntity emp : employees) {
       fileWriter.write(
           emp.getEmployeeid()
               + ","
+                  + emp.getHospitalid()
+                  + ","
               + emp.getJob()
               + ","
               + emp.getName()
@@ -134,6 +136,18 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     q = session.createMutationQuery(hql);
     q.executeUpdate();
 
+    hql = "delete from AccessibilityRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from AudioVisualRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from PatientTransportRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
     employees.forEach(
         employee -> session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid())));
     employees.clear();
@@ -146,7 +160,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
 
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");
-      session.persist(new EmployeeEntity(b[0], b[4], b[3], b[1], b[2]));
+      session.persist(new EmployeeEntity(Integer.parseInt(b[0]), b[1], b[4], b[3], b[1], b[2]));
       employees.add(session.get(EmployeeEntity.class, b[0]));
     }
     tx.commit();
