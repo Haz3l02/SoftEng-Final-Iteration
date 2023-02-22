@@ -35,7 +35,7 @@ public abstract class NavigationController {
 
   @FXML
   public void switchToHomeServiceRequestScene(javafx.event.ActionEvent event) {
-    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
 
   @FXML
@@ -50,7 +50,7 @@ public abstract class NavigationController {
 
   @FXML
   public void switchToHomeDatabaseScene(javafx.event.ActionEvent event) {
-    Navigation.navigateHome(Screen.HOME_DATABASE);
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
 
   @FXML
@@ -135,7 +135,7 @@ public abstract class NavigationController {
 
   @FXML
   public void switchToHomeDatabase(javafx.event.ActionEvent event) throws IOException {
-    Navigation.navigateHome(Screen.HOME_DATABASE);
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
 
   @FXML
