@@ -504,4 +504,9 @@ public class FacadeRepository {
   public ArrayList<ServiceRequestEntity> getOutstandingRequestsByID(String user) {
     return serv.getOutstandingRequestsByID(user);
   }
+
+
+  public boolean employeeUsernameExists(String user){
+    return emp.usernameExists(user);
+  }
 }
