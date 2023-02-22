@@ -8,6 +8,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.enums.DevicesCategory;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -25,6 +26,7 @@ public class ComputerController extends ServiceRequestController {
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   DevicesCategory device;
 
@@ -66,14 +68,19 @@ public class ComputerController extends ServiceRequestController {
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       // sanI.closeSession();
-      accept.setDisable(false);
+      if (holder.getJob().equalsIgnoreCase("admin")) {
+        accept.setDisable(true);
+        reject.setDisable(true);
+      } else {
+        accept.setDisable(false);
+        reject.setDisable(false);
+        reject.setVisible(true);
+      }
       accept.setVisible(true);
       clear.setDisable(true);
       clear.setVisible(false);
       submit.setDisable(true);
       submit.setVisible(false);
-      reject.setDisable(false);
-      reject.setVisible(true);
     }
     // Otherwise Initialize service requests as normal
   }

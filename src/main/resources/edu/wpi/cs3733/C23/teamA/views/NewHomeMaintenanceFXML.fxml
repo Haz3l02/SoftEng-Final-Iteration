@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -22,7 +23,7 @@
          <children>
             <BorderPane prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
                <right>
-                  <VBox alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="554.0" prefWidth="350.0" style="-fx-background-color: #BAD1EA;" BorderPane.alignment="CENTER">
+                  <VBox alignment="TOP_CENTER" prefHeight="554.0" prefWidth="254.0" style="-fx-background-color: #BAD1EA;" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets />
                      </BorderPane.margin>
@@ -35,19 +36,42 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Text>
-                        <Label fx:id="welcome" alignment="TOP_CENTER" graphicTextGap="15.0" prefHeight="155.0" prefWidth="278.0" text="Label" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
+                        <Label fx:id="welcome" alignment="TOP_CENTER" graphicTextGap="15.0" prefHeight="145.0" prefWidth="278.0" text="Label" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="Verdana" size="36.0" />
                            </font>
                         </Label>
-                        <VBox alignment="BOTTOM_CENTER" prefHeight="393.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
+                        <VBox alignment="CENTER" prefHeight="282.0" prefWidth="278.0" spacing="20.0">
                            <children>
-                              <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                              <MFXTextField fx:id="adminAnnouncementField" alignment="TOP_LEFT" floatMode="ABOVE" prefHeight="133.0" prefWidth="256.0" promptText="Enter announcement..." style="-fx-background-radius: 15; -fx-border-radius: 15;" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </MFXTextField>
+                              <MFXButton fx:id="adminAnnouncementButton" buttonType="RAISED" onAction="#submitAnnouncement" prefHeight="51.0" prefWidth="116.0" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15;" text="Send" textFill="#d3e9f6" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Verdana" size="24.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </MFXButton>
+                           </children>
+                        </VBox>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="190.0" prefWidth="278.0">
+                           <children>
+                              <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                  <children>
                                     <ImageView fx:id="about" fitHeight="73.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/icons/about.png" />
                                        </image>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
                                     </ImageView>
                                     <ImageView fx:id="credits" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -58,6 +82,9 @@
                                        <image>
                                           <Image url="@../assets/icons/exit_darkBlue.png" />
                                        </image>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
                                     </ImageView>
                                  </children>
                                  <VBox.margin>
@@ -72,7 +99,7 @@
                <center>
                   <VBox prefHeight="554.0" prefWidth="1025.0" spacing="20.0" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="69.0" prefWidth="1181.0" style="-fx-background-color: #224870;">
+                        <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="1025.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
                            <children>
                               <ComboBox fx:id="serviceRequest" prefHeight="71.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" />
                               <MFXButton fx:id="navigation" onAction="#switchToPathfinding" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textFill="#d3e9f6">
@@ -101,7 +128,7 @@
                                  <children>
                                     <VBox prefHeight="464.0" prefWidth="356.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <StackPane prefHeight="381.0" prefWidth="450.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-border-radius: 15;" VBox.vgrow="ALWAYS">
+                                          <StackPane prefHeight="381.0" prefWidth="483.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-border-radius: 15;" VBox.vgrow="ALWAYS">
                                              <children>
                                                 <TableView fx:id="maintenanceTable" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="340.0" prefWidth="463.0">
                                                    <columns>
@@ -114,7 +141,7 @@
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                    </columnResizePolicy>
                                                    <StackPane.margin>
-                                                      <Insets bottom="15.0" left="15.0" right="15.0" top="20.0" />
+                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                    </StackPane.margin>
                                                 </TableView>
                                                 <TableView fx:id="adminTable" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="206.0" prefWidth="499.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
@@ -128,7 +155,7 @@
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                    </columnResizePolicy>
                                                    <StackPane.margin>
-                                                      <Insets bottom="15.0" left="15.0" right="15.0" top="20.0" />
+                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                    </StackPane.margin>
                                                 </TableView>
                                                 <TableView fx:id="employeeTable" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="182.0" prefWidth="499.0">
@@ -141,7 +168,7 @@
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                    </columnResizePolicy>
                                                    <StackPane.margin>
-                                                      <Insets bottom="15.0" left="15.0" right="15.0" top="20.0" />
+                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                    </StackPane.margin>
                                                 </TableView>
                                              </children>
@@ -156,32 +183,42 @@
                                     </VBox>
                                     <VBox alignment="TOP_CENTER" prefHeight="427.0" prefWidth="481.0" spacing="25.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <StackPane alignment="TOP_CENTER" prefHeight="114.0" prefWidth="512.0" style="-fx-background-color: #F1A94F; -fx-background-radius: 15; -fx-border-radius: 15;">
+                                          <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="234.0" style="-fx-background-color: #F1A94F; -fx-background-radius: 15; -fx-border-radius: 15;">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
-                                                   <StackPane.margin>
-                                                      <Insets top="10.0" />
-                                                   </StackPane.margin>
-                                                   <font>
-                                                      <Font name="Verdana" size="36.0" />
-                                                   </font>
-                                                </Text>
+                                                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
+                                                         <font>
+                                                            <Font name="Verdana" size="36.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="announcementText" strokeType="OUTSIDE" strokeWidth="0.0" text="No Announcements" textAlignment="CENTER" wrappingWidth="386.3779296875">
+                                                         <font>
+                                                            <Font name="Verdana" size="18.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </VBox>
                                              </children></StackPane>
-                                          <StackPane>
+                                          <StackPane fx:id="mapImage" prefHeight="150.0" prefWidth="200.0">
                                              <children>
-                                                <ImageView fx:id="mapImage" fitHeight="247.0" fitWidth="512.0" pickOnBounds="true">
+                                                <ImageView fitHeight="247.0" fitWidth="512.0" pickOnBounds="true">
                                                    <image>
                                                       <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Text fx:id="findPath" strokeType="OUTSIDE" strokeWidth="0.0" text="Find Path" visible="false" StackPane.alignment="BOTTOM_RIGHT">
-                                                   <StackPane.margin>
-                                                      <Insets bottom="10.0" right="10.0" />
-                                                   </StackPane.margin>
-                                                   <font>
-                                                      <Font size="25.0" />
-                                                   </font>
-                                                </Text>
+                                                <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" StackPane.alignment="BOTTOM_RIGHT">
+                                                   <children>
+                                                      <Text fx:id="findAPath" strokeType="OUTSIDE" strokeWidth="0.0" text="Find a Path" textAlignment="CENTER" visible="false" wrappingWidth="203.009765625">
+                                                         <font>
+                                                            <Font name="Verdana" size="36.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets bottom="10.0" right="10.0" />
+                                                         </HBox.margin>
+                                                      </Text>
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </StackPane>
                                        </children>
@@ -210,7 +247,7 @@
       </VBox>
       <VBox layoutX="12.0" layoutY="140.0" prefHeight="37.0" prefWidth="297.0">
          <children>
-            <Label fx:id="date" text="Label" textFill="WHITE">
+            <Label fx:id="date" text="Date" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>
@@ -219,7 +256,7 @@
       </VBox>
       <VBox layoutX="12.0" prefHeight="37.0" prefWidth="297.0">
          <children>
-            <Label fx:id="time" text="Label" textFill="WHITE">
+            <Label fx:id="time" text="Time" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>

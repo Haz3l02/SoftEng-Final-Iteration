@@ -9,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.*;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -24,6 +25,7 @@ public class AccessibilityController extends ServiceRequestController {
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   // combo boxes
   @FXML
@@ -85,14 +87,19 @@ public class AccessibilityController extends ServiceRequestController {
       accommodationBox.setText(editRequest.getAccommodation());
 
       // set buttons enabled/disabled and visible/invisible
-      accept.setDisable(false);
+      if (holder.getJob().equalsIgnoreCase("admin")) {
+        accept.setDisable(true);
+        reject.setDisable(true);
+      } else {
+        accept.setDisable(false);
+        reject.setDisable(false);
+        reject.setVisible(true);
+      }
       accept.setVisible(true);
       clear.setDisable(true);
       clear.setVisible(false);
       submit.setDisable(true);
       submit.setVisible(false);
-      reject.setDisable(false);
-      reject.setVisible(true);
     }
   }
 

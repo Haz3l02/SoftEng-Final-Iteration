@@ -11,6 +11,7 @@ import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.MaintenanceAssignedAccepted;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -37,8 +38,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.scene.layout.StackPane;
 import org.controlsfx.control.PopOver;
-import org.hibernate.Session;
 
 public class HomeController extends MenuController {
 
@@ -56,7 +57,8 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> nameCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
-  @FXML public ImageView mapImage;
+  @FXML public StackPane mapImage;
+  @FXML public Text findAPath;
   @FXML public ImageView about;
   @FXML public ImageView credits;
   @FXML public ImageView exit;
@@ -72,9 +74,11 @@ public class HomeController extends MenuController {
       new Image(AApp.class.getResourceAsStream("assets/icons/exit_yellow.png"));
   private final Image logoutWhite =
       new Image(AApp.class.getResourceAsStream("assets/icons/exit_darkBlue.png"));
+  @FXML public MFXTextField adminAnnouncementField;
+  @FXML public MFXButton adminAnnouncementButton;
+  @FXML public Text announcementText;
 
   @FXML private Label date = new Label("hello");
-  @FXML private Text findPath;
   @FXML private Label time = new Label("hello");
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
@@ -169,14 +173,6 @@ public class HomeController extends MenuController {
         (MouseEvent e) -> {
           switchToPathfinding();
         });
-    mapImage.setOnMouseEntered(
-        (MouseEvent e) -> {
-          findPath.setVisible(true);
-        });
-    mapImage.setOnMouseExited(
-        (MouseEvent e) -> {
-          findPath.setVisible(false);
-        });
     about.setOnMouseEntered(
         (MouseEvent e) -> {
           about.setImage(this.aboutYellow);
@@ -200,6 +196,14 @@ public class HomeController extends MenuController {
     exit.setOnMouseExited(
         (MouseEvent e) -> {
           exit.setImage(this.logoutWhite);
+        });
+    mapImage.setOnMouseEntered(
+        (MouseEvent e) -> {
+          findAPath.setVisible(true);
+        });
+    mapImage.setOnMouseExited(
+        (MouseEvent e) -> {
+          findAPath.setVisible(false);
         });
     about.setOnMouseClicked(
         (MouseEvent e) -> {
@@ -229,7 +233,9 @@ public class HomeController extends MenuController {
       employeeTable.setDisable(true);
       maintenanceTable.setVisible(true);
       maintenanceTable.setDisable(false);
-      myAssignments.setVisible(true);
+      adminAnnouncementField.setDisable(true);
+      adminAnnouncementField.setVisible(false);
+      adminAnnouncementButton.setVisible(false);
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
@@ -238,7 +244,6 @@ public class HomeController extends MenuController {
           param -> new SimpleStringProperty(param.getValue().getLocation().getLongname()));
       urgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
-      Session session = getSessionFactory().openSession();
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
 
       requests =
@@ -296,8 +301,22 @@ public class HomeController extends MenuController {
           .addAll("Map Editor", "Access Employee Records", "Department Moves", "Create Nodes");
 
     } else {
-
+      adminTable.setVisible(false);
+      adminTable.setDisable(true);
+      employeeTable.setVisible(true);
+      employeeTable.setDisable(false);
+      maintenanceTable.setVisible(false);
+      maintenanceTable.setDisable(true);
+      adminAnnouncementField.setDisable(true);
+      adminAnnouncementField.setVisible(false);
+      adminAnnouncementButton.setVisible(false);
     }
+  }
+
+  @FXML
+  public void submitAnnouncement(ActionEvent event) {
+    announcementText.setText(adminAnnouncementField.getText());
+    adminAnnouncementField.clear();
   }
 
   @FXML

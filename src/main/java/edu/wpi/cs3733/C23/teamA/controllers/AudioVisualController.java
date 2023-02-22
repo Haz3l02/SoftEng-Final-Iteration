@@ -6,6 +6,7 @@ import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusControlle
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.enums.*;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class AudioVisualController extends ServiceRequestController {
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   @FXML
   public void initialize() throws SQLException {
@@ -64,7 +66,7 @@ public class AudioVisualController extends ServiceRequestController {
       subjectBox.setText(editRequest.getSubject().getSubject());
       numDevices.setText(String.valueOf(editRequest.getNumdevices()));
       installation.setSelected(editRequest.isInstallationrequired());
-
+      // set buttons enabled/disabled and visible/invisible
       accept.setDisable(true);
       accept.setVisible(false);
       clear.setDisable(false);
@@ -87,14 +89,20 @@ public class AudioVisualController extends ServiceRequestController {
       subjectBox.setText(editRequest.getSubject().getSubject());
       numDevices.setText(String.valueOf(editRequest.getNumdevices()));
       installation.setSelected(editRequest.isInstallationrequired());
-      accept.setDisable(false);
+
+      if (holder.getJob().equalsIgnoreCase("admin")) {
+        accept.setDisable(true);
+        reject.setDisable(true);
+      } else {
+        accept.setDisable(false);
+        reject.setDisable(false);
+        reject.setVisible(true);
+      }
       accept.setVisible(true);
       clear.setDisable(true);
       clear.setVisible(false);
       submit.setDisable(true);
       submit.setVisible(false);
-      reject.setDisable(false);
-      reject.setVisible(true);
     }
   }
 
