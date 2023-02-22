@@ -70,10 +70,10 @@ public class SanitationRequestImpl extends Observable
 
   public void add(SanitationRequestEntity c) {
     Session session = getSessionFactory().openSession();
-
     Transaction tx = session.beginTransaction();
     session.persist(c);
     tx.commit();
+    ServiceRequestImpl.getInstance().addToList(c);
     sanrequests.add(c);
     session.close();
   }
