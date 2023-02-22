@@ -15,6 +15,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.text.Text;
+import javafx.util.converter.IntegerStringConverter;
 
 public class AudioVisualController extends ServiceRequestController {
   private AVDevice category;
@@ -30,6 +33,7 @@ public class AudioVisualController extends ServiceRequestController {
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
+  @FXML private Text numberOnlyReminder;
   private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   @FXML
@@ -39,6 +43,10 @@ public class AudioVisualController extends ServiceRequestController {
 
     returnDate.setValue(LocalDate.now().plusWeeks(1L));
     subjectBox.setItems(subjects);
+
+    if (numberOnlyReminder != null) {
+      numberOnlyReminder.setVisible(false);
+    }
 
     if (devicesBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
@@ -92,8 +100,9 @@ public class AudioVisualController extends ServiceRequestController {
       descBox.setText(editRequest.getAdditionalequipment());
       returnDate.setValue(editRequest.getReturndate());
       subjectBox.setText(editRequest.getSubject().getSubject());
+      // numDevices.setText(String.valueOf(editRequest.getNumdevices()));
+      numDevices.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
       subjectBox.setValue(editRequest.getSubject().getSubject());
-      numDevices.setText(String.valueOf(editRequest.getNumdevices()));
       installation.setSelected(editRequest.isInstallationrequired());
 
       if (holder.getJob().equalsIgnoreCase("admin")) {
@@ -109,6 +118,15 @@ public class AudioVisualController extends ServiceRequestController {
       clear.setVisible(false);
       submit.setDisable(true);
       submit.setVisible(false);
+    }
+  }
+
+  public static boolean isNumber(String str) {
+    try {
+      Double.parseDouble(str);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
     }
   }
 
@@ -140,35 +158,46 @@ public class AudioVisualController extends ServiceRequestController {
         submission.setAvdevice(category);
         submission.setNumdevices(Integer.parseInt(numDevices.getText()));
         submission.setAdditionalequipment(descBox.getText());
+        switchToConfirmationScene(event);
+        newEdit.setNeedEdits(false);
       } else {
         EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
+        if (!isNumber(numDevices.getText())) {
+          numberOnlyReminder.setVisible(true);
+        } else {
+          EmployeeEntity person =
+              FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
+          LocationNameEntity location =
+              FacadeRepository.getInstance().getLocation(locationBox.getText());
 
-        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
-        category = AVDevice.valueOf(devicesBox.getValue().toUpperCase());
-        subject = Subject.valueOf(subjectBox.getValue().toUpperCase());
+          urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+          category = AVDevice.valueOf(devicesBox.getValue().toUpperCase());
+          subject = Subject.valueOf(subjectBox.getValue().toUpperCase());
 
-        AudioVisualRequestEntity submission =
-            new AudioVisualRequestEntity(
-                nameBox.getText(),
-                person,
-                location,
-                descBox.getText(),
-                urgent,
-                ServiceRequestEntity.RequestType.AV,
-                Status.NEW,
-                null,
-                installation.isSelected(),
-                Integer.parseInt(numDevices.getText()),
-                category,
-                subject,
-                descBox.getText(),
-                returnDate.getValue());
-        FacadeRepository.getInstance().addAudioVisualRequest(submission);
+          AudioVisualRequestEntity submission =
+              new AudioVisualRequestEntity(
+                  nameBox.getText(),
+                  person,
+                  location,
+                  descBox.getText(),
+                  urgent,
+                  ServiceRequestEntity.RequestType.AV,
+                  Status.NEW,
+                  null,
+                  installation.isSelected(),
+                  Integer.parseInt(numDevices.getText()),
+                  category,
+                  subject,
+                  descBox.getText(),
+                  returnDate.getValue());
+          FacadeRepository.getInstance().addAudioVisualRequest(submission);
+
+        }
+        newEdit.setNeedEdits(false);
+        switchToConfirmationScene(event);
       }
-      newEdit.setNeedEdits(false);
-      switchToConfirmationScene(event);
     }
   }
 

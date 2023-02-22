@@ -7,10 +7,7 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.enums.*;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
-import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXCheckbox;
-import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
-import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -28,8 +25,8 @@ public class PatientTransportController extends ServiceRequestController {
   @FXML private MFXFilterComboBox<String> genderBox;
   @FXML private MFXFilterComboBox<String> modeBox;
   @FXML private MFXFilterComboBox<String> mobilityBox;
-  @FXML private MFXCheckbox babyCheckBox;
-  @FXML private MFXCheckbox immuneCheckBox;
+  @FXML private MFXToggleButton babyCheckBox;
+  @FXML private MFXToggleButton immuneCheckBox;
   @FXML private MFXButton clear;
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
@@ -90,8 +87,8 @@ public class PatientTransportController extends ServiceRequestController {
       genderBox.setText(editPatientRequest.getGender().getGender());
       modeBox.setText(editPatientRequest.getMode().getMode());
       mobilityBox.setText(editPatientRequest.getMobility().getMobility());
-      babyCheckBox.setText(String.valueOf(editPatientRequest.isBaby()));
-      immuneCheckBox.setText(String.valueOf(editPatientRequest.isImmuneComp()));
+      babyCheckBox.setSelected(editPatientRequest.isBaby());
+      immuneCheckBox.setSelected(editPatientRequest.isImmuneComp());
     } else if (acceptTheForm.acceptance
         && acceptTheForm.getRequestType().equals("Patient Transport")) {
       PatientTransportRequestEntity editPatientRequest =
@@ -112,8 +109,8 @@ public class PatientTransportController extends ServiceRequestController {
       genderBox.setValue(editPatientRequest.getGender().getGender());
       modeBox.setText(editPatientRequest.getMode().getMode());
       mobilityBox.setText(editPatientRequest.getMobility().getMobility());
-      babyCheckBox.setText(String.valueOf(editPatientRequest.isBaby()));
-      immuneCheckBox.setText(String.valueOf(editPatientRequest.isImmuneComp()));
+      babyCheckBox.setSelected(editPatientRequest.isBaby());
+      immuneCheckBox.setSelected(editPatientRequest.isImmuneComp());
       // sanI.closeSession();
       if (holder.getJob().equalsIgnoreCase("admin")) {
         accept.setDisable(true);
