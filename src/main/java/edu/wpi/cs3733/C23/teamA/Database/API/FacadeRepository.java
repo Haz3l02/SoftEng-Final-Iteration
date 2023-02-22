@@ -508,4 +508,8 @@ public class FacadeRepository {
   public ArrayList<ServiceRequestEntity> getOutstandingRequestsByID(String user) {
     return serv.getOutstandingRequestsByID(user);
   }
+
+  public List<ServiceRequestEntity> getRequestAtCoordinate(int x, int y, String floor) {
+    return serv.getRequestAtCoordinate(x, y, floor);
+  }
 }

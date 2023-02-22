@@ -6,6 +6,7 @@ import static edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusControlle
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.enums.*;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,6 +15,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.text.Text;
+import javafx.util.converter.IntegerStringConverter;
 
 public class AudioVisualController extends ServiceRequestController {
   private AVDevice category;
@@ -29,6 +33,8 @@ public class AudioVisualController extends ServiceRequestController {
   @FXML private MFXButton submit;
   @FXML private MFXButton accept;
   @FXML private MFXButton reject;
+  @FXML private Text numberOnlyReminder;
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   @FXML
   public void initialize() throws SQLException {
@@ -37,6 +43,10 @@ public class AudioVisualController extends ServiceRequestController {
 
     returnDate.setValue(LocalDate.now().plusWeeks(1L));
     subjectBox.setItems(subjects);
+
+    if (numberOnlyReminder != null) {
+      numberOnlyReminder.setVisible(false);
+    }
 
     if (devicesBox
         != null) { // this is here because SubmissionConfirmation page reuses this controller
@@ -64,7 +74,7 @@ public class AudioVisualController extends ServiceRequestController {
       subjectBox.setText(editRequest.getSubject().getSubject());
       numDevices.setText(String.valueOf(editRequest.getNumdevices()));
       installation.setSelected(editRequest.isInstallationrequired());
-
+      // set buttons enabled/disabled and visible/invisible
       accept.setDisable(true);
       accept.setVisible(false);
       clear.setDisable(false);
@@ -85,16 +95,32 @@ public class AudioVisualController extends ServiceRequestController {
       descBox.setText(editRequest.getAdditionalequipment());
       returnDate.setValue(editRequest.getReturndate());
       subjectBox.setText(editRequest.getSubject().getSubject());
-      numDevices.setText(String.valueOf(editRequest.getNumdevices()));
+      // numDevices.setText(String.valueOf(editRequest.getNumdevices()));
+      numDevices.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
       installation.setSelected(editRequest.isInstallationrequired());
-      accept.setDisable(false);
+
+      if (holder.getJob().equalsIgnoreCase("admin")) {
+        accept.setDisable(true);
+        reject.setDisable(true);
+      } else {
+        accept.setDisable(false);
+        reject.setDisable(false);
+        reject.setVisible(true);
+      }
       accept.setVisible(true);
       clear.setDisable(true);
       clear.setVisible(false);
       submit.setDisable(true);
       submit.setVisible(false);
-      reject.setDisable(false);
-      reject.setVisible(true);
+    }
+  }
+
+  public static boolean isNumber(String str) {
+    try {
+      Double.parseDouble(str);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
     }
   }
 
@@ -126,36 +152,43 @@ public class AudioVisualController extends ServiceRequestController {
         submission.setAvdevice(category);
         submission.setNumdevices(Integer.parseInt(numDevices.getText()));
         submission.setAdditionalequipment(descBox.getText());
+        switchToConfirmationScene(event);
+        newEdit.setNeedEdits(false);
       } else {
-        EmployeeEntity person =
-            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
-        LocationNameEntity location =
-            FacadeRepository.getInstance().getLocation(locationBox.getText());
+        if (!isNumber(numDevices.getText())) {
+          numberOnlyReminder.setVisible(true);
+        } else {
+          EmployeeEntity person =
+              FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
+          LocationNameEntity location =
+              FacadeRepository.getInstance().getLocation(locationBox.getText());
 
-        urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
-        category = AVDevice.valueOf(devicesBox.getValue().toUpperCase());
-        subject = Subject.valueOf(subjectBox.getValue().toUpperCase());
+          urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
+          category = AVDevice.valueOf(devicesBox.getValue().toUpperCase());
+          subject = Subject.valueOf(subjectBox.getValue().toUpperCase());
 
-        AudioVisualRequestEntity submission =
-            new AudioVisualRequestEntity(
-                nameBox.getText(),
-                person,
-                location,
-                descBox.getText(),
-                urgent,
-                ServiceRequestEntity.RequestType.AV,
-                Status.NEW,
-                "Unassigned",
-                installation.isSelected(),
-                Integer.parseInt(numDevices.getText()),
-                category,
-                subject,
-                descBox.getText(),
-                returnDate.getValue());
-        FacadeRepository.getInstance().addAudioVisualRequest(submission);
+          AudioVisualRequestEntity submission =
+              new AudioVisualRequestEntity(
+                  nameBox.getText(),
+                  person,
+                  location,
+                  descBox.getText(),
+                  urgent,
+                  ServiceRequestEntity.RequestType.AV,
+                  Status.NEW,
+                  "Unassigned",
+                  installation.isSelected(),
+                  Integer.parseInt(numDevices.getText()),
+                  category,
+                  subject,
+                  descBox.getText(),
+                  returnDate.getValue());
+          FacadeRepository.getInstance().addAudioVisualRequest(submission);
+
+          switchToConfirmationScene(event);
+        }
+        newEdit.setNeedEdits(false);
       }
-      newEdit.setNeedEdits(false);
-      switchToConfirmationScene(event);
     }
   }
 

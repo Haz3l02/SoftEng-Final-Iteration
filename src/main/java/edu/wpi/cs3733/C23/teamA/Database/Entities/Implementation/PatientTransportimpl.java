@@ -66,7 +66,8 @@ public class PatientTransportimpl extends Observable
     filename += "/patienttransportrequest.csv";
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write("patientname, patientid, moveto, equipment\n");
+    fileWriter.write(
+        "patientname, patientid, moveto, equipment, gender, mode, mobility, isbaby, isimmunecomp\n");
     for (PatientTransportRequestEntity pat : patrequests) {
       fileWriter.write(
           pat.getPatientName()
@@ -76,6 +77,16 @@ public class PatientTransportimpl extends Observable
               + pat.getMoveTo()
               + ", "
               + pat.getEquipment()
+              + ", "
+              + pat.getGender()
+              + ", "
+              + pat.getMode()
+              + ", "
+              + pat.getMobility()
+              + ", "
+              + pat.isBaby()
+              + ", "
+              + pat.isImmuneComp()
               + "\n");
     }
     fileWriter.close();
@@ -126,6 +137,11 @@ public class PatientTransportimpl extends Observable
             obj.getPatientID(),
             obj.getMoveTo(),
             obj.getEquipment(),
+            obj.getGender(),
+            obj.getMode(),
+            obj.getMobility(),
+            obj.isBaby(),
+            obj.isImmuneComp(),
             obj.getDate());
     PatientTransportimpl patI = new PatientTransportimpl();
     patI.update(ID, pat);

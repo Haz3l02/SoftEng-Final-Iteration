@@ -155,7 +155,7 @@ public class ServiceRequestStatusController extends MenuController {
         serviceRequestData = FacadeRepository.getInstance().getAllServByEmployee(hospitalID);
       } else if (job.equalsIgnoreCase("Maintenance")) {
         serviceRequestData =
-            FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getName());
+            FacadeRepository.getInstance().getServiceRequestByAssigned(holder.getUsername());
       } else if (job.equalsIgnoreCase("Admin")) {
         serviceRequestData = FacadeRepository.getInstance().getServiceRequestByUnassigned();
       }
