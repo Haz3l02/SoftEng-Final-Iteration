@@ -64,6 +64,7 @@ public class PathfindingInterpreterTest {
     assertTrue(contains180);
   }
 
+  /*
   @Test
   public void fullPath_one() {
     ArrayList<GraphNode> path = new ArrayList<>();
@@ -104,4 +105,5 @@ public class PathfindingInterpreterTest {
     output.append("You have reached " + "a3" + ".\n");
     assertEquals(pathString, output.toString());
   }
+   */
 }

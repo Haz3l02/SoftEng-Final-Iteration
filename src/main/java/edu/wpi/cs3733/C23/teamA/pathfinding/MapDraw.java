@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
