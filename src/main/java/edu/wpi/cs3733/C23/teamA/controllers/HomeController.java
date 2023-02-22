@@ -35,6 +35,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 import org.hibernate.Session;
@@ -55,7 +56,8 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> nameCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
-  @FXML public ImageView mapImage;
+  @FXML public StackPane mapImage;
+  @FXML public Text findAPath;
   @FXML public ImageView about;
   @FXML public ImageView credits;
   @FXML public ImageView exit;
@@ -157,6 +159,14 @@ public class HomeController extends MenuController {
     mapImage.setOnMouseClicked(
         (MouseEvent e) -> {
           switchToPathfinding();
+        });
+    mapImage.setOnMouseEntered(
+        (MouseEvent e) -> {
+          findAPath.setVisible(true);
+        });
+    mapImage.setOnMouseExited(
+        (MouseEvent e) -> {
+          findAPath.setVisible(false);
         });
     about.setOnMouseClicked(
         (MouseEvent e) -> {

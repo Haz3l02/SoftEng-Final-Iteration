@@ -12,6 +12,7 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.MapDraw;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -99,10 +100,14 @@ public class PathfindingController extends MenuController {
   @FXML private StackPane mainStackPane;
 
   @FXML private GesturePane mainGesturePane;
+  @FXML MFXButton sendMessage;
+  @FXML MFXTextField adminMessage;
+  @FXML Text messageText;
 
   private AnchorPane[] aps = new AnchorPane[5];
   private Group[] groups = new Group[5];
   private int currentFloor = 0;
+  private IdNumberHolder holder = IdNumberHolder.getInstance();
 
   // Lists of Nodes and Node Data
   private List<String> startNodeIDs; // List of all Node IDs in specific order
@@ -123,8 +128,13 @@ public class PathfindingController extends MenuController {
   private final double SCALE_FACTOR = 0.135;
 
   @FXML
+  public void sendMessage(ActionEvent event) {
+    messageText.setText(adminMessage.getText());
+    adminMessage.clear();
+  }
+
+  @FXML
   public void switchToHomeScene() {
-    System.out.println("Hehehehehehehehehehehehehehehe");
     Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
 
@@ -136,6 +146,11 @@ public class PathfindingController extends MenuController {
    */
   public void initialize() throws SQLException {
     // prepare floor/algorithm dropdowns
+
+    if (!holder.getJob().equalsIgnoreCase("admin")) {
+      adminMessage.setDisable(true);
+      adminMessage.setPromptText("Only admins can submit messages");
+    }
 
     ObservableList<String> floors =
         FXCollections.observableArrayList(
