@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -196,12 +196,12 @@
                         <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="241.0">
                            <children>
                               <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="143.0">
-                                 <children>
-                                    <MFXCheckbox fx:id="babyCheckBox" prefHeight="20.0" prefWidth="23.0" />
-                                 </children>
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
+                                 <children>
+                                    <MFXToggleButton fx:id="babyCheckBox" />
+                                 </children>
                               </VBox>
                               <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="207.0">
                                  <children>
@@ -259,16 +259,12 @@
                         <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0">
                            <children>
                               <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="42.0">
-                                 <children>
-                                    <MFXCheckbox fx:id="immuneCheckBox" contentDisposition="CENTER" prefHeight="20.0" prefWidth="19.0">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </MFXCheckbox>
-                                 </children>
                                  <padding>
                                     <Insets right="5.0" />
                                  </padding>
+                                 <children>
+                                    <MFXToggleButton fx:id="immuneCheckBox" />
+                                 </children>
                               </VBox>
                               <VBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="229.0">
                                  <children>
