@@ -43,8 +43,6 @@ public class MenuController extends NavigationController {
   @FXML ComboBox<String> serviceRequest = new ComboBox<>();
   @FXML ComboBox<String> admin = new ComboBox<>();
   @FXML MFXButton myAssignments;
-  @FXML HBox menuBar;
-  // for the timer
   //  public volatile boolean stop = false;
 
   @FXML MFXButton backButton;

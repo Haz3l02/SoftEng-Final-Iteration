@@ -212,10 +212,11 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     session.close();
   }
 
-
-  public boolean usernameExists(String user){
-    for (EmployeeEntity e :employees){
-      if (e.getUsername().equals(user)) {return true;}
+  public boolean usernameExists(String user) {
+    for (EmployeeEntity e : employees) {
+      if (e.getUsername().equals(user)) {
+        return true;
+      }
     }
     return false;
   }

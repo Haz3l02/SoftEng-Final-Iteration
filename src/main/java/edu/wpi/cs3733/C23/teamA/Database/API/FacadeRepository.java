@@ -505,8 +505,7 @@ public class FacadeRepository {
     return serv.getOutstandingRequestsByID(user);
   }
 
-
-  public boolean employeeUsernameExists(String user){
+  public boolean employeeUsernameExists(String user) {
     return emp.usernameExists(user);
   }
 }

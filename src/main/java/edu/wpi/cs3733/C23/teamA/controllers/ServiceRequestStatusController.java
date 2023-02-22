@@ -309,9 +309,11 @@ public class ServiceRequestStatusController extends MenuController {
 
   public void outstanding() {
     dbTableRowsModel.clear();
-    if (assigned != null) {
+
+    if (FacadeRepository.getInstance().employeeUsernameExists(assigned.getValue())) {
       serviceRequestData =
           FacadeRepository.getInstance().getOutstandingRequestsByID(assigned.getValue());
+
     } else serviceRequestData = FacadeRepository.getInstance().getOutstandingServRequests();
     dbTableRowsModel.addAll(serviceRequestData);
   }

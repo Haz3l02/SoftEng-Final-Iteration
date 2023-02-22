@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6;" styleClass="table-view" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
+<BorderPane prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6; -fx-background-color: #bad1dea;" styleClass="table-view" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
    <bottom>
       <HBox alignment="CENTER_LEFT" prefWidth="611.0" BorderPane.alignment="CENTER">
          <children>
@@ -213,11 +213,11 @@
                   </VBox>
                   <TableView fx:id="serviceReqsTable" editable="true" onMouseClicked="#rowClicked" prefHeight="650.0" prefWidth="462.0" style="-fx-background-color: badidea;" stylesheets="@../assets/tableView.css">
                      <columns>
-                        <TableColumn fx:id="IDCol" minWidth="0.0" prefWidth="0.0" text="ID" />
-                        <TableColumn fx:id="formTypeCol" prefWidth="216.0" text="Form Type" />
-                        <TableColumn fx:id="dateCol" prefWidth="179.0" text="Date" />
-                        <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="208.0" text="Status" />
-                        <TableColumn fx:id="urgencyCol" minWidth="7.0" prefWidth="510.0" text="Urgency" />
+                        <TableColumn fx:id="IDCol" minWidth="0.0" prefWidth="0.0" resizable="false" text="ID" />
+                        <TableColumn fx:id="formTypeCol" prefWidth="216.0" resizable="false" text="Form Type" />
+                        <TableColumn fx:id="dateCol" prefWidth="179.0" resizable="false" text="Date" />
+                        <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="208.0" resizable="false" text="Status" />
+                        <TableColumn fx:id="urgencyCol" minWidth="7.0" prefWidth="510.0" resizable="false" text="Urgency" />
                         <TableColumn fx:id="employeeAssignedCol" minWidth="0.0" prefWidth="378.0" text="Employee Assigned" />
                      </columns>
                   </TableView>
