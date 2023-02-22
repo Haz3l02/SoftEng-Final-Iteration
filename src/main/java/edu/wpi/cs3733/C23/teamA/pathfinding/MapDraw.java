@@ -54,7 +54,7 @@ public class MapDraw {
     nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
-      int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
 
       if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
         Text locName = new Text();
@@ -69,21 +69,15 @@ public class MapDraw {
     }
   }
 
-  /**
-   * @param xCoord the x-coordinate to scale
-   * @param yCoord the y-coordinate to scale
-   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
-   * @return an int array with the pair of new coordinates
-   */
-  private static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
+  public static double[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = Math.floor(xCoord * scaleFactor);
-    yCoord = Math.floor(yCoord * scaleFactor);
+    xCoord = (xCoord) * scaleFactor;
+    yCoord = (yCoord) * scaleFactor;
 
     // put the values in an array to return
-    int[] scaledCoordinates = {(int) xCoord, (int) yCoord};
+    double[] scaledCoordinates = {xCoord, yCoord};
 
     // return the scaled coordinates
     return scaledCoordinates;
@@ -92,18 +86,19 @@ public class MapDraw {
   /**
    * @param xCoord the x-coordinate to scale
    * @param yCoord the y-coordinate to scale
-   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on.
+   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
    * @return an int array with the pair of new coordinates
    */
-  private static int[] scaleCoordinatesReversed(double xCoord, double yCoord, double scaleFactor) {
+  private static double[] scaleCoordinatesReversed(
+      double xCoord, double yCoord, double scaleFactor) {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = Math.floor(xCoord / scaleFactor);
-    yCoord = Math.floor(yCoord / scaleFactor);
+    xCoord = (xCoord / scaleFactor);
+    yCoord = (yCoord / scaleFactor);
 
     // put the values in an array to return
-    int[] scaledCoordinates = {(int) xCoord, (int) yCoord};
+    double[] scaledCoordinates = {xCoord, yCoord};
 
     // return the scaled coordinates
     return scaledCoordinates;
@@ -165,8 +160,8 @@ public class MapDraw {
       double scaleFactor) {
 
     // coordinates for the previous point in the path
-    int prevX = 0;
-    int prevY = 0;
+    double prevX = 0;
+    double prevY = 0;
     int prevFloor = 0;
 
     // set the prev values and draw the starting circle
@@ -174,7 +169,7 @@ public class MapDraw {
 
     // get start node
     if (size > 0) {
-      int[] updatedCoords =
+      double[] updatedCoords =
           scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), scaleFactor);
       prevX = updatedCoords[0];
       prevY = updatedCoords[1];
@@ -188,14 +183,14 @@ public class MapDraw {
     }
 
     // current holders for coordinates
-    int currentX;
-    int currentY;
+    double currentX;
+    double currentY;
     int currentFloor;
     int floorTracker = 0; // corresponds to an index in the floorPath()
 
     // get all node x and y coords to draw lines between them
     for (GraphNode g : path) {
-      int[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), scaleFactor);
       currentX = updatedCoords[0];
       currentY = updatedCoords[1];
       currentFloor = Floor.indexFromTableString(g.getFloor());
@@ -251,7 +246,7 @@ public class MapDraw {
                   .size()
               > 0
           && floor.equals(move.getNode().getFloor())) {
-        int[] updatedCoords =
+        double[] updatedCoords =
             scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
 
         System.out.println("Real values");
@@ -305,7 +300,7 @@ public class MapDraw {
                   anchorPane,
                   ((Rectangle) t.getSource()).getX(),
                   ((Rectangle) t.getSource()).getY(),
-                  "2",
+                  "L2",
                   scaleFactor);
             }
           }
@@ -332,7 +327,7 @@ public class MapDraw {
   public static void addSRPopup(
       AnchorPane anchorPane, double xcoord, double ycoord, String floor, double scaleFactor) {
 
-    int[] invertedCoords = scaleCoordinatesReversed(xcoord, ycoord, scaleFactor);
+    double[] invertedCoords = scaleCoordinatesReversed(xcoord, ycoord, scaleFactor);
 
     if (previousPopup != null) {
       previousPopup.hide();
@@ -356,14 +351,15 @@ public class MapDraw {
       System.out.println(xcoord);
       System.out.println(ycoord);
       System.out.println("Estimated hopefully");
-      System.out.println(invertedCoords[0]);
-      System.out.println(invertedCoords[1]);
+      System.out.println((int) Math.round(invertedCoords[0]));
+      System.out.println((int) Math.round(invertedCoords[1]));
       List<ServiceRequestEntity> requests =
           FacadeRepository.getInstance()
-              .getRequestAtCoordinate(invertedCoords[0], invertedCoords[1], floor);
+              .getRequestAtCoordinate(
+                  (int) Math.round(invertedCoords[0]), (int) Math.round(invertedCoords[1]), floor);
 
-      String[] texts = {};
-      for (int i = 0; i < requests.size(); i++) {
+      String[] texts = new String[4];
+      for (int i = 0; i < Math.min(requests.size(), 4); i++) {
         texts[i] = requests.get(i).getName();
       }
       System.out.println(texts);
