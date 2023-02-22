@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +12,7 @@ public class DisplayServiceRequestsPopupController {
   @FXML private Text req2;
   @FXML private Text req3;
   @FXML private Text req4;
-  @FXML private MFXButton closeButton;
+  @FXML private MFXButton requestsButton;
   private Text[] labels = new Text[4];
 
   @FXML
@@ -21,13 +23,15 @@ public class DisplayServiceRequestsPopupController {
     labels[3] = req4;
   }
 
-  @FXML
-  public void closePopup(ActionEvent event) {}
-
-  void closePopup(String[] serviceRequests) {
+  public void addText(String[] serviceRequests) {
     int size = serviceRequests.length;
     for (int i = 0; i < Math.min(size, 4); i++) {
       labels[i].setText(serviceRequests[i]);
     }
+  }
+
+  @FXML
+  public void viewRequests(ActionEvent event) {
+    Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
   }
 }

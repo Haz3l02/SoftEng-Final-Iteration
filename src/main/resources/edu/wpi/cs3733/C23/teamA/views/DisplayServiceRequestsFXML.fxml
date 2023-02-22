@@ -34,7 +34,7 @@
                   <Font name="Verdana Bold" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="req1" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 1" textAlignment="CENTER" wrappingWidth="250.0">
+            <Text fx:id="req1" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
                   <Font name="Verdana Italic" size="14.0" />
                </font>
@@ -42,22 +42,22 @@
                   <Insets />
                </VBox.margin>
             </Text>
-            <Text fx:id="req2" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 2" textAlignment="CENTER" wrappingWidth="250.0">
+            <Text fx:id="req2" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
                   <Font name="Verdana Italic" size="14.0" />
                </font>
             </Text>
-            <Text fx:id="req3" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 3" textAlignment="CENTER" wrappingWidth="250.0">
+            <Text fx:id="req3" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
                   <Font name="Verdana Italic" size="14.0" />
                </font>
             </Text>
-            <Text fx:id="req4" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Request 4" textAlignment="CENTER" wrappingWidth="250.0">
+            <Text fx:id="req4" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
                   <Font name="Verdana Italic" size="14.0" />
                </font>
             </Text>
-            <MFXButton fx:id="closeButton" onAction="#closePopup" prefHeight="30.0" prefWidth="75.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 5;" text="Close" textFill="#d3e9f6">
+            <MFXButton fx:id="requestsButton" onAction="#viewRequests" prefHeight="30.0" prefWidth="104.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 5;" text="View Requests" textFill="#d3e9f6">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>

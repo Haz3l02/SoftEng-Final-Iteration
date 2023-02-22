@@ -1,11 +1,11 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
-import edu.wpi.cs3733.C23.teamA.AApp;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
+import edu.wpi.cs3733.C23.teamA.controllers.DisplayServiceRequestsPopupController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import java.awt.*;
@@ -17,7 +17,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -314,7 +313,7 @@ public class MapDraw {
     // PopOver popover = new PopOver();
     Label label = new Label(text);
     label.setVisible(true);
-    label.setBackground(Background.fill(Color.web("0xffffff")));
+    // label.setBackground(Background.fill(Color.web("0xffffff")));
     label.setTranslateX(xcoord - 2);
     label.setTranslateY(ycoord + 10);
     previousLabel = label;
@@ -333,17 +332,22 @@ public class MapDraw {
           new FXMLLoader(Main.class.getResource("views/DisplayServiceRequestsFXML.fxml"));
       popover = new PopOver(loader.load());
       // popover.setContentNode(loader.load());
-      popover.setTitle("hello there popover");
-      popover.show((anchorPane.getScene().getWindow()));
+      popover.setTitle("Service Request Popover");
+      // popover.detach();
+      popover.setArrowSize(0);
+      // popover.show((anchorPane.getScene().getWindow()));
+      popover.setHeaderAlwaysVisible(true);
 
-      // final EdgeEditorPopupController ec = loader.getController();
+      final DisplayServiceRequestsPopupController controller = loader.getController();
+      String[] texts = {"Req 1", "Req2 :)"};
+      controller.addText(texts);
 
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
 
     final Point location = MouseInfo.getPointerInfo().getLocation();
-    popover.show(AApp.getPrimaryStage(), location.getX(), location.getY());
+    popover.show(anchorPane, location.getX(), location.getY());
     // AApp.getPrimaryStage();
   }
 }
