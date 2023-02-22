@@ -56,15 +56,25 @@ public class MapDraw {
     for (NodeEntity n : allNodes) {
       double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
 
-      if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
-        Text locName = new Text();
-        locName.setVisible(true);
-        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-        locName.setText(
-            FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
-        locName.setLayoutX(updatedCoords[0] - 2.5);
-        locName.setLayoutY(updatedCoords[1] - 2.5);
-        nodeAnchor.getChildren().add(locName);
+      // TODO: this doesn't use the latest locations as of the navigation date, but the most recent
+      // locations in general.
+      LocationNameEntity locNameEnt =
+          FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid());
+
+      // check if the location name entity is null
+      if (locNameEnt != null) {
+        // if it isn't null, make sure that it isn't a hallway
+        if (!locNameEnt.getLocationtype().equals("HALL")) {
+          Text locName = new Text();
+          locName.setVisible(true);
+          locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+          locName.setText(locNameEnt.getShortname());
+
+          // get the coordinates
+          locName.setLayoutX(updatedCoords[0] - 2.5);
+          locName.setLayoutY(updatedCoords[1] - 2.5);
+          nodeAnchor.getChildren().add(locName);
+        }
       }
     }
   }
@@ -104,55 +114,6 @@ public class MapDraw {
     return scaledCoordinates;
   }
 
-  //  public static void drawPathOld2(
-  //      GraphicsContext[] gcs, ArrayList<GraphNode> path, double scaleFactor) {
-  //
-  //    for (GraphicsContext gc : gcs) {
-  //      gc.setFill(Color.web("0x224870"));
-  //      gc.setStroke(Color.web("0x224870"));
-  //      gc.setLineWidth(2);
-  //    }
-  //
-  //    // coordinates for the previous point in the path
-  //    int prevX = 0;
-  //    int prevY = 0;
-  //    int prevFloor = 0;
-  //
-  //    // set the prev values and draw the starting circle
-  //    int size = path.size();
-  //    if (size > 0) {
-  //      int[] updatedCoords =
-  //          scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), scaleFactor);
-  //      prevX = updatedCoords[0];
-  //      prevY = updatedCoords[1];
-  //      String floor = path.get(0).getFloor();
-  //      prevFloor = Floor.indexFromTableString(floor);
-  //      gcs[prevFloor].fillOval(prevX - 5, prevY - 5, 10, 10); // starting circle
-  //    }
-  //
-  //    // current holders for coordinates
-  //    int currentX;
-  //    int currentY;
-  //    int currentFloor;
-  //
-  //    // get all node x and y coords to draw lines between them
-  //    for (GraphNode g : path) {
-  //      int[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), scaleFactor);
-  //      currentX = updatedCoords[0];
-  //      currentY = updatedCoords[1];
-  //      currentFloor = Floor.indexFromTableString(g.getFloor());
-  //
-  //      if (currentFloor == prevFloor) {
-  //        gcs[currentFloor].strokeLine(prevX, prevY, currentX, currentY);
-  //      }
-  //      prevX = currentX;
-  //      prevY = currentY;
-  //      prevFloor = currentFloor;
-  //    }
-  //
-  //    gcs[prevFloor].strokeOval(prevX - 5, prevY - 5, 10, 10); // ending open circle
-  //  }
-
   public static void drawPathClickable(
       AnchorPane[] aps,
       ArrayList<GraphNode> path,
@@ -176,20 +137,22 @@ public class MapDraw {
       String floor = path.get(0).getFloor();
       prevFloor = Floor.indexFromTableString(floor);
       Circle currentCircle =
-          new Circle(prevX, prevY, radius, Color.web("0x3DA867")); // starting circle
+          new Circle(prevX, prevY, radius, Color.web("0x279F89")); // starting circle
       List<ServiceRequestEntity> srs = FacadeRepository.getInstance().getAllServiceRequest();
 
       aps[prevFloor].getChildren().add(currentCircle);
     }
 
     // current holders for coordinates
-    double currentX;
-    double currentY;
-    int currentFloor;
+    double currentX = -1;
+    double currentY = -1;
+    int currentFloor = -1;
     int floorTracker = 0; // corresponds to an index in the floorPath()
 
     // get all node x and y coords to draw lines between them
-    for (GraphNode g : path) {
+    for (int i = 1; i < size; i++) {
+      GraphNode g = path.get(i);
+
       double[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), scaleFactor);
       currentX = updatedCoords[0];
       currentY = updatedCoords[1];
@@ -202,37 +165,27 @@ public class MapDraw {
         aps[currentFloor].getChildren().add(currentLine);
       }
 
-      // draw node
-      Circle currentCircle;
-      // janky but maybe ok?
-      if (floorTracker < floorPath.size() - 1) {
-        if (!floorPath.get(floorTracker + 1).equals(g.getFloor())) {
-          currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
+      if (i < (size - 1)) {
+        // draw node
+        GraphNode next = path.get(i + 1);
+        Circle currentCircle;
+
+        if (!g.getFloor().equals(next.getFloor())) {
+          currentCircle = new Circle(currentX, currentY, radius, Color.web("0xf6bd3a"));
         } else {
-          currentCircle = new Circle(currentX, currentY, radius, Color.web("0xFFD470"));
-          floorTracker++;
+          currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
         }
-      } else {
-        currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
+        aps[currentFloor].getChildren().add(currentCircle);
       }
-      // currentCircle = new Circle(currentX, currentY, radius, Color.web("0x224870"));
-      aps[currentFloor].getChildren().add(currentCircle);
-      //      if (FacadeRepository.getInstance().getRequestAtLocation(g.getLongName()).size() > 0) {
-      //        Rectangle rect = new Rectangle(currentX + 5, currentY - 5, radius + 1, radius + 1);
-      //        rect.setFill(Color.web("0x000000"));
-      //        groups[currentFloor].getChildren().add(rect);
-      //      }
+
       prevX = currentX;
       prevY = currentY;
       prevFloor = currentFloor;
     }
 
-    Circle currentCircle = new Circle(prevX, prevY, radius, Color.web("0xAD663D"));
+    // draw the ending node
+    Circle currentCircle = new Circle(prevX, prevY, radius, Color.web("0xf63c3c"));
     aps[prevFloor].getChildren().add(currentCircle); // ending open circle
-
-    //    for (int i = 0; i < 5; i++) {
-    //      aps[i].getChildren().add(groups[i]);
-    //    }
   }
 
   public static void drawServiceRequestIcons(
@@ -249,15 +202,8 @@ public class MapDraw {
         double[] updatedCoords =
             scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
 
-        System.out.println("Real values");
-        System.out.println(move.getNode().getXcoord());
-        System.out.println(move.getNode().getYcoord());
-        System.out.println("Updated");
-        System.out.println(updatedCoords[0]);
-        System.out.println(updatedCoords[1]);
-
         Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 5, width + 5);
-        rect.setFill(Color.web("0x000000"));
+        rect.setFill(Color.web("0x6143D7"));
 
         rect.setOnMouseClicked(squareChangeColor(anchorPane, scaleFactor, floor));
 
@@ -282,10 +228,10 @@ public class MapDraw {
             if (t.getSource() instanceof Rectangle) {
 
               if (previousRect != null) {
-                previousRect.setFill(Color.web("0x000000"));
+                previousRect.setFill(Color.web("0x6143D7"));
               }
               Rectangle rect = ((Rectangle) (t.getSource()));
-              rect.setFill(Color.web("0x00FF00"));
+              rect.setFill(Color.web("0xbc8fff"));
               previousRect = rect;
 
               addSRPopup(
@@ -298,22 +244,6 @@ public class MapDraw {
           }
         };
     return eventHandler;
-  }
-
-  public static void addSRLabel(AnchorPane anchorPane, double xcoord, double ycoord, String text) {
-    if (previousLabel != null) {
-      previousLabel.setVisible(false);
-    }
-
-    // PopOver popover = new PopOver();
-    Label label = new Label(text);
-    label.setVisible(true);
-    // label.setBackground(Background.fill(Color.web("0xffffff")));
-    label.setTranslateX(xcoord - 2);
-    label.setTranslateY(ycoord + 10);
-    previousLabel = label;
-    anchorPane.getChildren().add(label);
-    // AApp.getPrimaryStage();
   }
 
   public static void addSRPopup(
@@ -330,30 +260,33 @@ public class MapDraw {
       FXMLLoader loader =
           new FXMLLoader(Main.class.getResource("views/DisplayServiceRequestsFXML.fxml"));
       popover = new PopOver(loader.load());
-      // popover.setContentNode(loader.load());
-      popover.setTitle("Service Request Popover");
+      popover.setTitle("Service Requests");
       // popover.detach();
       popover.setArrowSize(0);
-      // popover.show((anchorPane.getScene().getWindow()));
       popover.setHeaderAlwaysVisible(true);
-
       final DisplayServiceRequestsPopupController controller = loader.getController();
 
-      System.out.println("Estimated hopefully");
-      System.out.println((int) Math.round(invertedCoords[0]));
-      System.out.println((int) Math.round(invertedCoords[1]));
+      // Set text boxes on popup --------
       List<ServiceRequestEntity> requests =
           FacadeRepository.getInstance()
               .getRequestAtCoordinate(
                   (int) Math.round(invertedCoords[0]), (int) Math.round(invertedCoords[1]), floor);
-
       String[] texts = new String[4];
       for (int i = 0; i < Math.min(requests.size(), 4); i++) {
         texts[i] =
             requests.get(i).getRequestType().toString() + " : " + requests.get(i).getDescription();
       }
-      System.out.println(texts);
       controller.addText(texts);
+
+      if (requests.size() > 0) {
+        String location = requests.get(0).getLocation().getShortname();
+        if (requests.get(0).getLocation() != null) {
+          controller.setMainText(location);
+        } else {
+          controller.setMainText("Service Requests");
+        }
+      }
+      // end set text boxes -------
 
     } catch (IOException e) {
       throw new RuntimeException(e);

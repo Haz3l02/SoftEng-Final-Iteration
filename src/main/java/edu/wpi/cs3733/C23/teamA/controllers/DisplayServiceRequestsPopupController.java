@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
 public class DisplayServiceRequestsPopupController {
+  @FXML private Text mainText;
   @FXML private Text req1;
   @FXML private Text req2;
   @FXML private Text req3;
@@ -28,6 +29,10 @@ public class DisplayServiceRequestsPopupController {
     for (int i = 0; i < Math.min(size, 4); i++) {
       labels[i].setText(serviceRequests[i]);
     }
+  }
+
+  public void setMainText(String text) {
+    mainText.setText(text);
   }
 
   @FXML

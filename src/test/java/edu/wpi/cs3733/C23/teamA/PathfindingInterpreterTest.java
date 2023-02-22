@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInterpreter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 

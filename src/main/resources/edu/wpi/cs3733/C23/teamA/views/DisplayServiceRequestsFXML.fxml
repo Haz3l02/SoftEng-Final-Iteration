@@ -26,12 +26,12 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Team A - Artificial Axolotls">
+            <Text fx:id="mainText" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <font>
-                  <Font name="Verdana Bold" size="18.0" />
+                  <Font name="Verdana Bold" size="16.0" />
                </font>
             </Text>
             <Text fx:id="req1" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="250.0">
