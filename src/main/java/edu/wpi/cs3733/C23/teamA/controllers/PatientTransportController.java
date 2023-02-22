@@ -76,13 +76,17 @@ public class PatientTransportController extends ServiceRequestController {
           FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
       nameBox.setText(editPatientRequest.getName());
       IDNum.setText(editPatientRequest.getEmployee().getHospitalid());
-      urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
+      urgencyBox.setText(editPatientRequest.getUrgency().getUrgency());
+      urgencyBox.setValue(editPatientRequest.getUrgency().getUrgency());
       descBox.setText(editPatientRequest.getDescription());
       pNameBox.setText(editPatientRequest.getPatientName());
       locationBox.setText(editPatientRequest.getLocation().getLongname());
+      locationBox.setValue(editPatientRequest.getLocation().getLongname());
+      moveToBox.setValue(editPatientRequest.getMoveTo().getLongname());
       moveToBox.setText(editPatientRequest.getMoveTo().getLongname());
       pIDBox.setText(editPatientRequest.getPatientID());
       equipmentBox.setText(editPatientRequest.getEquipment());
+      genderBox.setValue(editPatientRequest.getGender().getGender());
       genderBox.setText(editPatientRequest.getGender().getGender());
       modeBox.setText(editPatientRequest.getMode().getMode());
       mobilityBox.setText(editPatientRequest.getMobility().getMobility());
@@ -95,13 +99,17 @@ public class PatientTransportController extends ServiceRequestController {
       nameBox.setText(editPatientRequest.getName());
       IDNum.setText(editPatientRequest.getEmployee().getHospitalid());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
+      urgencyBox.setValue(editPatientRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editPatientRequest.getDescription());
       pNameBox.setText(editPatientRequest.getPatientName());
       locationBox.setText(editPatientRequest.getLocation().getLongname());
       moveToBox.setText(editPatientRequest.getMoveTo().getLongname());
+      locationBox.setValue(editPatientRequest.getLocation().getLongname());
+      moveToBox.setValue(editPatientRequest.getMoveTo().getLongname());
       pIDBox.setText(editPatientRequest.getPatientID());
       equipmentBox.setText(editPatientRequest.getEquipment());
       genderBox.setText(editPatientRequest.getGender().getGender());
+      genderBox.setValue(editPatientRequest.getGender().getGender());
       modeBox.setText(editPatientRequest.getMode().getMode());
       mobilityBox.setText(editPatientRequest.getMobility().getMobility());
       babyCheckBox.setText(String.valueOf(editPatientRequest.isBaby()));

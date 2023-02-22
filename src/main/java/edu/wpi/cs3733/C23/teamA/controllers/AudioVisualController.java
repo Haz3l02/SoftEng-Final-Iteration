@@ -60,10 +60,13 @@ public class AudioVisualController extends ServiceRequestController {
       IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
       devicesBox.setText(editRequest.getAvdevice().getDevice());
       locationBox.setText(editRequest.getLocation().getLongname());
+      locationBox.setValue(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getAdditionalequipment());
       returnDate.setValue(editRequest.getReturndate());
       subjectBox.setText(editRequest.getSubject().getSubject());
+      subjectBox.setValue(editRequest.getSubject().getSubject());
       numDevices.setText(String.valueOf(editRequest.getNumdevices()));
       installation.setSelected(editRequest.isInstallationrequired());
       // set buttons enabled/disabled and visible/invisible
@@ -83,10 +86,13 @@ public class AudioVisualController extends ServiceRequestController {
       IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
       devicesBox.setText(editRequest.getAvdevice().getDevice());
       locationBox.setText(editRequest.getLocation().getLongname());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getAdditionalequipment());
       returnDate.setValue(editRequest.getReturndate());
       subjectBox.setText(editRequest.getSubject().getSubject());
+      subjectBox.setValue(editRequest.getSubject().getSubject());
       numDevices.setText(String.valueOf(editRequest.getNumdevices()));
       installation.setSelected(editRequest.isInstallationrequired());
 
@@ -135,8 +141,7 @@ public class AudioVisualController extends ServiceRequestController {
         submission.setNumdevices(Integer.parseInt(numDevices.getText()));
         submission.setAdditionalequipment(descBox.getText());
       } else {
-        EmployeeEntity person =
-            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 

@@ -508,4 +508,8 @@ public class FacadeRepository {
   public boolean employeeUsernameExists(String user) {
     return emp.usernameExists(user);
   }
+
+  public List<ServiceRequestEntity> getRequestAtCoordinate(int x, int y, String floor) {
+    return serv.getRequestAtCoordinate(x, y, floor);
+  }
 }

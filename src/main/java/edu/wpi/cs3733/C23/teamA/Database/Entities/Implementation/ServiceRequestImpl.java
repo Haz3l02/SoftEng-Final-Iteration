@@ -4,8 +4,8 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.enums.UrgencyLevel;
@@ -81,8 +81,8 @@ public class ServiceRequestImpl extends Observable
               + ","
               + ser.getEmployee().getEmployeeid()
               + ","
-                  + ser.getEmployeeAssigned().getEmployeeid()
-                  + ","
+              + ser.getEmployeeAssigned().getEmployeeid()
+              + ","
               + ser.getLocation().getLongname()
               + "\n");
     }
@@ -198,7 +198,7 @@ public class ServiceRequestImpl extends Observable
   public ArrayList<ServiceRequestEntity> getAllByEmployee(Integer id) {
     ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
     for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployee().getEmployeeid() == (id)) {
+      if (ser.getEmployee() == null ? false : ser.getEmployee().getEmployeeid() == (id)) {
         fin.add(ser);
       }
     }
@@ -246,7 +246,7 @@ public class ServiceRequestImpl extends Observable
 
     ComputerRequestImpl.getInstance().updateStatus(ID, status);
     PatientTransportimpl.getInstance().updateStatus(ID, status);
-    SecurityRequestImpl.getInstance().updateStatus(ID, status);
+    SanitationRequestImpl.getInstance().updateStatus(ID, status);
     SecurityRequestImpl.getInstance().updateStatus(ID, status);
     AccessabilityImpl.getInstance().updateStatus(ID, status);
     AudioVisualImpl.getInstance().updateStatus(ID, status);
@@ -270,7 +270,7 @@ public class ServiceRequestImpl extends Observable
 
     ComputerRequestImpl.getInstance().updateEmployee(ID, employee);
     PatientTransportimpl.getInstance().updateEmployee(ID, employee);
-    SecurityRequestImpl.getInstance().updateEmployee(ID, employee);
+    SanitationRequestImpl.getInstance().updateEmployee(ID, employee);
     SecurityRequestImpl.getInstance().updateEmployee(ID, employee);
     AccessabilityImpl.getInstance().updateEmployee(ID, employee);
     AudioVisualImpl.getInstance().updateEmployee(ID, employee);
@@ -352,7 +352,7 @@ public class ServiceRequestImpl extends Observable
         } else if (holder.getJob().equalsIgnoreCase("admin")) {
           fin.add(ser);
         } else {
-          if (ser.getEmployee().getEmployeeid() == Integer.parseInt(holder.getId())) {
+          if (ser.getEmployee().getEmployeeid() == holder.getEmployeeID()) {
             fin.add(ser);
           }
         }

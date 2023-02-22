@@ -46,8 +46,8 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
       fileWriter.write(
           emp.getEmployeeid()
               + ","
-                  + emp.getHospitalid()
-                  + ","
+              + emp.getHospitalid()
+              + ","
               + emp.getJob()
               + ","
               + emp.getName()

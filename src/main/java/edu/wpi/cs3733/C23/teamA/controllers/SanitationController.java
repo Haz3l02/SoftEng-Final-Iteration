@@ -57,6 +57,9 @@ public class SanitationController extends ServiceRequestController {
       categoryBox.setText(editRequest.getCategory().getIssue());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      categoryBox.setValue(editRequest.getCategory().getIssue());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       accept.setDisable(true);
       accept.setVisible(false);
@@ -75,6 +78,9 @@ public class SanitationController extends ServiceRequestController {
       categoryBox.setText(editRequest.getCategory().getIssue());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      categoryBox.setValue(editRequest.getCategory().getIssue());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       // sanI.closeSession();
       if (holder.getJob().equalsIgnoreCase("admin")) {

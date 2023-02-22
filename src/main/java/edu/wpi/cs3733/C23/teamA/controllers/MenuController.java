@@ -130,13 +130,13 @@ public class MenuController extends NavigationController {
     serviceRequest
         .getItems()
         .addAll(
+            "View Submissions",
             "Sanitation Request",
             "Security Request",
             "Computer Request",
             "Patient Transportation",
             "Audio/Visual Request",
-            "Accessibility Request",
-            "View Submissions");
+            "Accessibility Request");
 
     serviceRequest
         .getSelectionModel()

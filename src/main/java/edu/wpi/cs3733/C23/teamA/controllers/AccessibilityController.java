@@ -59,6 +59,9 @@ public class AccessibilityController extends ServiceRequestController {
       subjectBox.setText(editRequest.getSubject().getSubject());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      subjectBox.setValue(editRequest.getSubject().getSubject());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       disabilityDescBox.setText(editRequest.getDisability());
       accommodationBox.setText(editRequest.getAccommodation());
@@ -82,6 +85,9 @@ public class AccessibilityController extends ServiceRequestController {
       subjectBox.setText(editRequest.getSubject().getSubject());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      subjectBox.setValue(editRequest.getSubject().getSubject());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       disabilityDescBox.setText(editRequest.getDisability());
       accommodationBox.setText(editRequest.getAccommodation());

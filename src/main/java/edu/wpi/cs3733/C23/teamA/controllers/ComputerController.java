@@ -53,8 +53,10 @@ public class ComputerController extends ServiceRequestController {
       IDNum.setText(editComputerRequest.getEmployee().getHospitalid());
       devicesBox.setText(editComputerRequest.getDevice().toString());
       deviceIDNum.setText(editComputerRequest.getDeviceid());
+      locationBox.setText(editComputerRequest.getLocation().getLongname());
+      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency());
       locationBox.setValue(editComputerRequest.getLocation().getLongname());
-      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency()); // Double check
+      urgencyBox.setValue(editComputerRequest.getUrgency().getUrgency());
       descBox.setText(editComputerRequest.getDescription());
       // compI.closeSession();
     } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Computer")) {
@@ -64,8 +66,10 @@ public class ComputerController extends ServiceRequestController {
       IDNum.setText(editRequest.getEmployee().getHospitalid());
       devicesBox.setText(editRequest.getDevice().toString());
       deviceIDNum.setText(editRequest.getDeviceid());
-      locationBox.setValue(editRequest.getLocation().getLongname());
+      locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       // sanI.closeSession();
       if (holder.getJob().equalsIgnoreCase("admin")) {

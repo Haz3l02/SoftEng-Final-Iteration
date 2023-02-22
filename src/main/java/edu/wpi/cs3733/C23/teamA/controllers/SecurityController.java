@@ -54,9 +54,12 @@ public class SecurityController extends ServiceRequestController {
           FacadeRepository.getInstance().getSecurityRequest(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getHospitalid());
-      requestsBox.setText(editRequest.getRequestType().requestType);
+      requestsBox.setText(editRequest.getAssistance().getRequest());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      requestsBox.setValue(editRequest.getAssistance().getRequest());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       phone.setText(editRequest.getSecphone());
       accept.setDisable(true);
@@ -72,9 +75,12 @@ public class SecurityController extends ServiceRequestController {
           FacadeRepository.getInstance().getSecurityRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
       IDNum.setText(editRequest.getEmployee().getHospitalid());
-      requestsBox.setText(editRequest.getRequestType().requestType);
+      requestsBox.setText(editRequest.getAssistance().getRequest());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      requestsBox.setValue(editRequest.getAssistance().getRequest());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       // sanI.closeSession();
       if (holder.getJob().equalsIgnoreCase("admin")) {
