@@ -283,21 +283,13 @@ public class ServiceRequestImpl extends Observable
     ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
 
     for (ServiceRequestEntity ser : services) {
-      if (Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
-                      - ser.getDate().toLocalDateTime().getDayOfYear()
-                  > 1
+      if (Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear() - ser.getDate().toLocalDateTime().getDayOfYear() > 1
               && ser.getUrgency() == UrgencyLevel.EXTREMELY
-          || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
-                      - ser.getDate().toLocalDateTime().getDayOfYear()
-                  > 3
+              || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear() - ser.getDate().toLocalDateTime().getDayOfYear() > 3
               && ser.getUrgency() == UrgencyLevel.HIGH
-          || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
-                      - ser.getDate().toLocalDateTime().getDayOfYear()
-                  > 5
+              || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear() - ser.getDate().toLocalDateTime().getDayOfYear() > 5
               && ser.getUrgency() == UrgencyLevel.MEDIUM
-          || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
-                      - ser.getDate().toLocalDateTime().getDayOfYear()
-                  > 8
+              || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear() - ser.getDate().toLocalDateTime().getDayOfYear() > 8
               && ser.getUrgency() == UrgencyLevel.LOW) {
         fin.add(ser);
       }
@@ -310,25 +302,17 @@ public class ServiceRequestImpl extends Observable
     System.out.println("Current date" + Timestamp.from(Instant.now()).getDay());
 
     for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployeeAssigned() != null) {
-        if (Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
-                        - ser.getDate().toLocalDateTime().getDayOfYear()
-                    > 1
+      if (ser.getEmployeeAssigned()!=null){
+        if (Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear() - ser.getDate().toLocalDateTime().getDayOfYear() > 1
                 && ser.getUrgency() == UrgencyLevel.EXTREMELY
                 && ser.getEmployeeAssigned().getUsername().equals(user)
-            || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
-                        - ser.getDate().toLocalDateTime().getDayOfYear()
-                    > 3
+                || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear() - ser.getDate().toLocalDateTime().getDayOfYear() > 3
                 && ser.getUrgency() == UrgencyLevel.HIGH
                 && ser.getEmployeeAssigned().getUsername().equals(user)
-            || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
-                        - ser.getDate().toLocalDateTime().getDayOfYear()
-                    > 5
+                || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear() - ser.getDate().toLocalDateTime().getDayOfYear() > 5
                 && ser.getUrgency() == UrgencyLevel.MEDIUM
                 && ser.getEmployeeAssigned().getUsername().equals(user)
-            || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
-                        - ser.getDate().toLocalDateTime().getDayOfYear()
-                    > 8
+                || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear() - ser.getDate().toLocalDateTime().getDayOfYear() > 8
                 && ser.getUrgency() == UrgencyLevel.LOW
                 && ser.getEmployeeAssigned().getUsername().equals(user)) {
           fin.add(ser);
