@@ -165,10 +165,13 @@ public class MenuController extends NavigationController {
   public void switchToHomeScene() {
     IdNumberHolder holder = IdNumberHolder.getInstance();
     if (holder.getJob().equalsIgnoreCase("Maintenance")) {
+      System.out.println("ahhhhhhhhhhhhhhhh");
       Navigation.navigateHome(Screen.HOME_ACTUAL);
     } else if (holder.getJob().equalsIgnoreCase("Admin")) {
+      System.out.println("fuck this shit");
       Navigation.navigateHome(Screen.HOME_ACTUAL);
     } else {
+      System.out.println("son of a b");
       Navigation.navigateHome(Screen.HOME_ACTUAL);
     }
   }

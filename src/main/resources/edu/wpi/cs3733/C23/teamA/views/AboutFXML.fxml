@@ -233,7 +233,7 @@
                   <Font name="Verdana" size="14.0" />
                </font>
             </Text>
-                <MFXButton fx:id="backButton" prefHeight="30.0" prefWidth="75.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 5;" text="Back" textFill="#d3e9f6">
+                <MFXButton fx:id="backButton" prefHeight="30.0" prefWidth="75.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 5;" text="Back" textFill="#d3e9f6" visible="false">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
