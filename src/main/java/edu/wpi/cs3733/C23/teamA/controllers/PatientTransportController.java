@@ -178,8 +178,7 @@ public class PatientTransportController extends ServiceRequestController {
         submission.setBaby(babyBool);
         submission.setImmuneComp(immuneBool);
       } else {
-        EmployeeEntity person =
-            FacadeRepository.getInstance().getEmployee(Integer.parseInt(employeeID);
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
 
         // enums
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());

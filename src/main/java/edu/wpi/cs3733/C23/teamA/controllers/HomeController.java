@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
-
 import edu.wpi.cs3733.C23.teamA.AApp;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
@@ -37,8 +35,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
 public class HomeController extends MenuController {
@@ -173,6 +171,14 @@ public class HomeController extends MenuController {
         (MouseEvent e) -> {
           switchToPathfinding();
         });
+    mapImage.setOnMouseEntered(
+        (MouseEvent e) -> {
+          findAPath.setVisible(true);
+        });
+    mapImage.setOnMouseExited(
+        (MouseEvent e) -> {
+          findAPath.setVisible(false);
+        });
     about.setOnMouseEntered(
         (MouseEvent e) -> {
           about.setImage(this.aboutYellow);
@@ -196,14 +202,6 @@ public class HomeController extends MenuController {
     exit.setOnMouseExited(
         (MouseEvent e) -> {
           exit.setImage(this.logoutWhite);
-        });
-    mapImage.setOnMouseEntered(
-        (MouseEvent e) -> {
-          findAPath.setVisible(true);
-        });
-    mapImage.setOnMouseExited(
-        (MouseEvent e) -> {
-          findAPath.setVisible(false);
         });
     about.setOnMouseClicked(
         (MouseEvent e) -> {

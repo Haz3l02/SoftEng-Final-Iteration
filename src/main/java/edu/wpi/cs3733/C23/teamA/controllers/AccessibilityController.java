@@ -130,8 +130,7 @@ public class AccessibilityController extends ServiceRequestController {
         submission.setUrgency(urgent);
         submission.setSubject(subject); // currently a string - enum instead?
       } else {
-        EmployeeEntity person =
-            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 
