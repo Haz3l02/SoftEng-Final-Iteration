@@ -61,7 +61,7 @@ public class ServiceRequestImpl extends Observable
     File csvFile = new File(file);
     FileWriter fileWriter = new FileWriter(csvFile);
     fileWriter.write(
-        "requestid,date,description,employeeassigned,name,requestype,status,urgency,employeeid,location\n");
+        "requestid,date,description,name,requestype,status,urgency,employeeid,employeeassignedid,location\n");
     for (ServiceRequestEntity ser : services) {
       fileWriter.write(
           ser.getRequestid()
@@ -69,8 +69,6 @@ public class ServiceRequestImpl extends Observable
               + ser.getDate()
               + ","
               + ser.getDescription()
-              + ","
-              + ser.getEmployeeAssigned()
               + ","
               + ser.getName()
               + ","
@@ -82,6 +80,8 @@ public class ServiceRequestImpl extends Observable
               + ","
               + ser.getEmployee().getEmployeeid()
               + ","
+                  + ser.getEmployeeAssigned().getEmployeeid()
+                  + ","
               + ser.getLocation().getLongname()
               + "\n");
     }
