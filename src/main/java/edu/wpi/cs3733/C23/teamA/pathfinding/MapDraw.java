@@ -254,6 +254,13 @@ public class MapDraw {
         int[] updatedCoords =
             scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
 
+        System.out.println("Real values");
+        System.out.println(move.getNode().getXcoord());
+        System.out.println(move.getNode().getYcoord());
+        System.out.println("Updated");
+        System.out.println(updatedCoords[0]);
+        System.out.println(updatedCoords[1]);
+
         Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 5, width + 5);
         rect.setFill(Color.web("0x000000"));
 
@@ -298,7 +305,8 @@ public class MapDraw {
                   anchorPane,
                   ((Rectangle) t.getSource()).getX(),
                   ((Rectangle) t.getSource()).getY(),
-                  text);
+                  "2",
+                  scaleFactor);
             }
           }
         };
@@ -321,7 +329,11 @@ public class MapDraw {
     // AApp.getPrimaryStage();
   }
 
-  public static void addSRPopup(AnchorPane anchorPane, double xcoord, double ycoord, String text) {
+  public static void addSRPopup(
+      AnchorPane anchorPane, double xcoord, double ycoord, String floor, double scaleFactor) {
+
+    int[] invertedCoords = scaleCoordinatesReversed(xcoord, ycoord, scaleFactor);
+
     if (previousPopup != null) {
       previousPopup.hide();
     }
@@ -339,7 +351,22 @@ public class MapDraw {
       popover.setHeaderAlwaysVisible(true);
 
       final DisplayServiceRequestsPopupController controller = loader.getController();
-      String[] texts = {"Req 1", "Req2 :)"};
+
+      System.out.println("Updated2");
+      System.out.println(xcoord);
+      System.out.println(ycoord);
+      System.out.println("Estimated hopefully");
+      System.out.println(invertedCoords[0]);
+      System.out.println(invertedCoords[1]);
+      List<ServiceRequestEntity> requests =
+          FacadeRepository.getInstance()
+              .getRequestAtCoordinate(invertedCoords[0], invertedCoords[1], floor);
+
+      String[] texts = {};
+      for (int i = 0; i < requests.size(); i++) {
+        texts[i] = requests.get(i).getName();
+      }
+      System.out.println(texts);
       controller.addText(texts);
 
     } catch (IOException e) {
