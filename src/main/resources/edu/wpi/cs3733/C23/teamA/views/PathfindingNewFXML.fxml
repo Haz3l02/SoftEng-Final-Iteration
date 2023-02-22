@@ -9,7 +9,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -25,6 +24,15 @@
     <bottom>
         <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="1342.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fx:id="srReminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Locations with Service Requests are displayed by a black square.">
+                     <font>
+                        <Font name="Verdana" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
                 <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Back" textFill="#d3e9f6">
                     <HBox.margin>
                         <Insets />
@@ -332,12 +340,12 @@
                                     <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="818.0">
                                        <children>
                                           <ImageView fx:id="mainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Canvas fx:id="mainCanvas" height="459.0" layoutX="675.0" layoutY="459.0" width="675.0" />
                                           <AnchorPane fx:id="anchorF3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                           <AnchorPane fx:id="anchorF2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                           <AnchorPane fx:id="anchorF1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                           <AnchorPane fx:id="anchorL2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                           <AnchorPane fx:id="anchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="textAnchorPane" prefHeight="200.0" prefWidth="200.0" />
                                           <AnchorPane fx:id="serviceRequestPane" prefHeight="200.0" prefWidth="200.0" />
                                        </children>
                                        <StackPane.margin>

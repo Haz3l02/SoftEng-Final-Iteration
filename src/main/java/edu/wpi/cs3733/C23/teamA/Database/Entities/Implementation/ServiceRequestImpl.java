@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
@@ -354,6 +355,20 @@ public class ServiceRequestImpl extends Observable
           if (ser.getEmployee().getEmployeeid() == Integer.parseInt(holder.getId())) {
             fin.add(ser);
           }
+        }
+      }
+    }
+    return fin;
+  }
+
+  public List<ServiceRequestEntity> getRequestAtCoordinate(int x, int y, String floor) {
+    List<LocationNameEntity> locs =
+        LocationNameImpl.getInstance().getLocationAtCoordinate(x, y, floor);
+    List<ServiceRequestEntity> fin = new ArrayList<ServiceRequestEntity>();
+    for (LocationNameEntity l : locs) {
+      for (ServiceRequestEntity s : services) {
+        if (l.getLongname().equals(s.getLocation().getLongname())) {
+          fin.add(s);
         }
       }
     }

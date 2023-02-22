@@ -95,7 +95,7 @@ public class SecurityController extends ServiceRequestController {
 
   @FXML
   public void switchToHomeScene(ActionEvent event) throws IOException {
-    Navigation.navigateHome(Screen.HOME_SERVICE_REQUEST);
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
 
   @FXML
