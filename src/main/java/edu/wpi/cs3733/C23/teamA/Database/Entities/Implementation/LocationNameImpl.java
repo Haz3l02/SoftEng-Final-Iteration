@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -178,5 +179,15 @@ public class LocationNameImpl extends Observable
 
   public static LocationNameImpl getInstance() {
     return instance;
+  }
+
+  public List<LocationNameEntity> getLocationAtCoordinate(int x, int y, String floor) {
+    List<LocationNameEntity> fin = new ArrayList<LocationNameEntity>();
+    for (NodeEntity n : NodeImpl.getInstance().getAll()) {
+      if (n.getXcoord() == x && n.getYcoord() == y && n.getFloor().equals(floor)) {
+        fin.add(MoveImpl.getInstance().mostRecentLoc(n.getNodeid()));
+      }
+    }
+    return fin;
   }
 }
