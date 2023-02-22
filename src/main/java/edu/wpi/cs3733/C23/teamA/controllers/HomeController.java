@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.AApp;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
@@ -32,6 +33,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -58,6 +60,18 @@ public class HomeController extends MenuController {
   @FXML public ImageView about;
   @FXML public ImageView credits;
   @FXML public ImageView exit;
+  private final Image creditsYellow =
+      new Image(AApp.class.getResourceAsStream("assets/icons/credits_yellow.png"));
+  private final Image creditsWhite =
+      new Image(AApp.class.getResourceAsStream("assets/icons/credits.png"));
+  private final Image aboutYellow =
+      new Image(AApp.class.getResourceAsStream("assets/icons/about_yellow.png"));
+  private final Image aboutWhite =
+      new Image(AApp.class.getResourceAsStream("assets/icons/about.png"));
+  private final Image logoutYellow =
+      new Image(AApp.class.getResourceAsStream("assets/icons/exit_yellow.png"));
+  private final Image logoutWhite =
+      new Image(AApp.class.getResourceAsStream("assets/icons/exit_darkBlue.png"));
 
   @FXML private Label date = new Label("hello");
   @FXML private Text findPath;
@@ -162,6 +176,30 @@ public class HomeController extends MenuController {
     mapImage.setOnMouseExited(
         (MouseEvent e) -> {
           findPath.setVisible(false);
+        });
+    about.setOnMouseEntered(
+        (MouseEvent e) -> {
+          about.setImage(this.aboutYellow);
+        });
+    about.setOnMouseExited(
+        (MouseEvent e) -> {
+          about.setImage(this.aboutWhite);
+        });
+    credits.setOnMouseEntered(
+        (MouseEvent e) -> {
+          credits.setImage(this.creditsYellow);
+        });
+    credits.setOnMouseExited(
+        (MouseEvent e) -> {
+          credits.setImage(this.creditsWhite);
+        });
+    exit.setOnMouseEntered(
+        (MouseEvent e) -> {
+          exit.setImage(this.logoutYellow);
+        });
+    exit.setOnMouseExited(
+        (MouseEvent e) -> {
+          exit.setImage(this.logoutWhite);
         });
     about.setOnMouseClicked(
         (MouseEvent e) -> {

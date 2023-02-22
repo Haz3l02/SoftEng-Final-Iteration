@@ -303,17 +303,17 @@ public class ServiceRequestImpl extends Observable
     System.out.println("Current date" + Timestamp.from(Instant.now()).getDay());
 
     for (ServiceRequestEntity ser : services) {
-      if (ser.getEmployeeAssigned()!=null){
+      if (ser.getEmployeeAssigned() != null) {
         if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
                 && ser.getUrgency() == UrgencyLevel.EXTREMELY
                 && ser.getEmployeeAssigned().getUsername().equals(user)
-                || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
+            || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
                 && ser.getUrgency() == UrgencyLevel.HIGH
                 && ser.getEmployeeAssigned().getUsername().equals(user)
-                || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
+            || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
                 && ser.getUrgency() == UrgencyLevel.MEDIUM
                 && ser.getEmployeeAssigned().getUsername().equals(user)
-                || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
+            || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
                 && ser.getUrgency() == UrgencyLevel.LOW
                 && ser.getEmployeeAssigned().getUsername().equals(user)) {
           fin.add(ser);
