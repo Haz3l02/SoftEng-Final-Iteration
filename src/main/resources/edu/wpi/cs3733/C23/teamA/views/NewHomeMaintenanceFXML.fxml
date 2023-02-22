@@ -21,7 +21,7 @@
       <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
          <children>
             <BorderPane prefHeight="400.0" prefWidth="604.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black; -fx-border-width: 1 1 1 1;">
-               <right>iterationone
+               <right>
                   <VBox alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="554.0" prefWidth="350.0" style="-fx-background-color: #BAD1EA;" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets />

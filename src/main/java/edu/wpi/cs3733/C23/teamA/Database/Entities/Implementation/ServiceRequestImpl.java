@@ -283,6 +283,7 @@ public class ServiceRequestImpl extends Observable
     ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
 
     for (ServiceRequestEntity ser : services) {
+
       if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
               && ser.getUrgency() == UrgencyLevel.EXTREMELY
           || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
@@ -321,10 +322,9 @@ public class ServiceRequestImpl extends Observable
               && ser.getEmployeeAssigned().getUsername().equals(user)
           || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
               && ser.getUrgency() == UrgencyLevel.LOW
-              && ser.getEmployeeAssigned().getUsername().equals(user))
-        fin.add(ser);
-      }
+              && ser.getEmployeeAssigned().getUsername().equals(user)) fin.add(ser);
     }
+
     return fin;
   }
 
