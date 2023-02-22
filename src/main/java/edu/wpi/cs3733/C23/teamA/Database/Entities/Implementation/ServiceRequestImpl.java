@@ -302,29 +302,24 @@ public class ServiceRequestImpl extends Observable
     System.out.println("Current date" + Timestamp.from(Instant.now()).getDay());
 
     for (ServiceRequestEntity ser : services) {
-      System.out.println(
-          "The string"
-              + ser.getUrgency()
-              + "Thename "
-              + ser.getEmployee().getUsername()
-              + " the date:"
-              + ser.getDate().getDay());
-
-      if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
-              && ser.getUrgency() == UrgencyLevel.EXTREMELY
-              && ser.getEmployeeAssigned().getUsername().equals(user)
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
-              && ser.getUrgency() == UrgencyLevel.HIGH
-              && ser.getEmployeeAssigned().getUsername().equals(user)
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
-              && ser.getUrgency() == UrgencyLevel.MEDIUM
-              && ser.getEmployeeAssigned().getUsername().equals(user)
-          || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
-              && ser.getUrgency() == UrgencyLevel.LOW
-              && ser.getEmployeeAssigned().getUsername().equals(user))
-        fin.add(ser);
+      if (ser.getEmployeeAssigned()!=null){
+        if (Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 1
+                && ser.getUrgency() == UrgencyLevel.EXTREMELY
+                && ser.getEmployeeAssigned().getUsername().equals(user)
+                || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 3
+                && ser.getUrgency() == UrgencyLevel.HIGH
+                && ser.getEmployeeAssigned().getUsername().equals(user)
+                || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 5
+                && ser.getUrgency() == UrgencyLevel.MEDIUM
+                && ser.getEmployeeAssigned().getUsername().equals(user)
+                || Timestamp.from(Instant.now()).getDay() - ser.getDate().getDay() < 8
+                && ser.getUrgency() == UrgencyLevel.LOW
+                && ser.getEmployeeAssigned().getUsername().equals(user)) {
+          fin.add(ser);
+        }
       }
     }
+
     return fin;
   }
 
