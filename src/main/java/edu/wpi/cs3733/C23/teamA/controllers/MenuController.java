@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.AApp;
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
@@ -9,15 +12,17 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
@@ -41,14 +46,25 @@ public class MenuController extends NavigationController {
   @FXML ComboBox<String> serviceRequest = new ComboBox<>();
   @FXML ComboBox<String> admin = new ComboBox<>();
   @FXML MFXButton myAssignments;
-  @FXML HBox menuBar;
-  // for the timer
   //  public volatile boolean stop = false;
 
   @FXML MFXButton backButton;
   @FXML MFXButton naviagation;
 
   private static PopOver popup;
+
+  private final Image homeYellow =
+      new Image(AApp.class.getResourceAsStream("assets/icons/home_yellow.png"));
+  private final Image homeWhite =
+      new Image(AApp.class.getResourceAsStream("assets/icons/home_blue.png"));
+  private final Image helpYellow =
+      new Image(AApp.class.getResourceAsStream("assets/icons/help_yellow.png"));
+  private final Image helpWhite =
+      new Image(AApp.class.getResourceAsStream("assets/icons/help_blue.png"));
+  private final Image logoutYellow =
+      new Image(AApp.class.getResourceAsStream("assets/icons/exit_yellow.png"));
+  private final Image logoutWhite =
+      new Image(AApp.class.getResourceAsStream("assets/icons/exit_blue.png"));
 
   @FXML
   public void initialize() throws SQLException, IOException, InterruptedException {
@@ -63,13 +79,49 @@ public class MenuController extends NavigationController {
     if (userInfo.getJob().equalsIgnoreCase("maintenance")) {
       serviceRequest.getItems().add("My Assignments");
       myAssignments.setVisible(true);
+      List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
+
+      requests =
+          FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getEmployeeID());
+      if (requests.size() == 0) {
+        myAssignments.setDisable(true);
+
+      } else {
+        myAssignments.setDisable(false);
+      }
     }
 
     home.setOnMouseClicked(
         (MouseEvent e) -> {
           switchToHomeScene();
         });
+    home.setOnMouseEntered(
+        event -> {
+          home.setImage(this.homeYellow);
+        });
 
+    home.setOnMouseExited(
+        event -> {
+          home.setImage(this.homeWhite);
+        });
+    help.setOnMouseEntered(
+        event -> {
+          help.setImage(this.helpYellow);
+        });
+
+    help.setOnMouseExited(
+        event -> {
+          help.setImage(this.helpWhite);
+        });
+    logout.setOnMouseEntered(
+        event -> {
+          logout.setImage(this.logoutYellow);
+        });
+
+    logout.setOnMouseExited(
+        event -> {
+          logout.setImage(this.logoutWhite);
+        });
     home2.setOnMouseClicked(
         (MouseEvent e) -> {
           switchToHomeScene();
@@ -92,13 +144,13 @@ public class MenuController extends NavigationController {
     serviceRequest
         .getItems()
         .addAll(
+            "View Submissions",
             "Sanitation Request",
             "Security Request",
             "Computer Request",
             "Patient Transportation",
             "Audio/Visual Request",
-            "Accessibility Request",
-            "View Submissions");
+            "Accessibility Request");
 
     serviceRequest
         .getSelectionModel()

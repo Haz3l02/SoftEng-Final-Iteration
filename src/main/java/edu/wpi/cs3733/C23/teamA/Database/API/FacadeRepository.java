@@ -460,12 +460,12 @@ public class FacadeRepository {
     return node.getAllIDs();
   }
 
-  public ArrayList<ServiceRequestEntity> getAllServByEmployee(String id) {
+  public ArrayList<ServiceRequestEntity> getAllServByEmployee(Integer id) {
     return serv.getAllByEmployee(id);
   }
 
-  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(String name) {
-    return serv.getServiceRequestByAssigned(name);
+  public ArrayList<ServiceRequestEntity> getServiceRequestByAssigned(int ID) {
+    return serv.getServiceRequestByAssigned(ID);
   }
 
   public ArrayList<ServiceRequestEntity> getServiceRequestByUnassigned() {
@@ -476,7 +476,7 @@ public class FacadeRepository {
     serv.updateStatus(status, ID);
   }
 
-  public void updateServEmployee(String employee, Integer ID) {
+  public void updateServEmployee(EmployeeEntity employee, Integer ID) {
     serv.updateEmployee(employee, ID);
   }
 
@@ -507,6 +507,10 @@ public class FacadeRepository {
 
   public ArrayList<ServiceRequestEntity> getOutstandingRequestsByID(String user) {
     return serv.getOutstandingRequestsByID(user);
+  }
+
+  public boolean employeeUsernameExists(String user) {
+    return emp.usernameExists(user);
   }
 
   public List<ServiceRequestEntity> getRequestAtCoordinate(int x, int y, String floor) {

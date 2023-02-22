@@ -72,14 +72,18 @@ public class PatientTransportController extends ServiceRequestController {
       PatientTransportRequestEntity editPatientRequest =
           FacadeRepository.getInstance().getPatientTransport(newEdit.getRequestID());
       nameBox.setText(editPatientRequest.getName());
-      IDNum.setText(String.valueOf(editPatientRequest.getEmployee().getEmployeeid()));
-      urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
+      IDNum.setText(editPatientRequest.getEmployee().getHospitalid());
+      urgencyBox.setText(editPatientRequest.getUrgency().getUrgency());
+      urgencyBox.setValue(editPatientRequest.getUrgency().getUrgency());
       descBox.setText(editPatientRequest.getDescription());
       pNameBox.setText(editPatientRequest.getPatientName());
       locationBox.setText(editPatientRequest.getLocation().getLongname());
+      locationBox.setValue(editPatientRequest.getLocation().getLongname());
+      moveToBox.setValue(editPatientRequest.getMoveTo().getLongname());
       moveToBox.setText(editPatientRequest.getMoveTo().getLongname());
       pIDBox.setText(editPatientRequest.getPatientID());
       equipmentBox.setText(editPatientRequest.getEquipment());
+      genderBox.setValue(editPatientRequest.getGender().getGender());
       genderBox.setText(editPatientRequest.getGender().getGender());
       modeBox.setText(editPatientRequest.getMode().getMode());
       mobilityBox.setText(editPatientRequest.getMobility().getMobility());
@@ -90,15 +94,19 @@ public class PatientTransportController extends ServiceRequestController {
       PatientTransportRequestEntity editPatientRequest =
           FacadeRepository.getInstance().getPatientTransport(acceptTheForm.getRequestID());
       nameBox.setText(editPatientRequest.getName());
-      IDNum.setText(String.valueOf(editPatientRequest.getEmployee().getEmployeeid()));
+      IDNum.setText(editPatientRequest.getEmployee().getHospitalid());
       urgencyBox.setText(editPatientRequest.getUrgency().getUrgency()); // Double check
+      urgencyBox.setValue(editPatientRequest.getUrgency().getUrgency()); // Double check
       descBox.setText(editPatientRequest.getDescription());
       pNameBox.setText(editPatientRequest.getPatientName());
       locationBox.setText(editPatientRequest.getLocation().getLongname());
       moveToBox.setText(editPatientRequest.getMoveTo().getLongname());
+      locationBox.setValue(editPatientRequest.getLocation().getLongname());
+      moveToBox.setValue(editPatientRequest.getMoveTo().getLongname());
       pIDBox.setText(editPatientRequest.getPatientID());
       equipmentBox.setText(editPatientRequest.getEquipment());
       genderBox.setText(editPatientRequest.getGender().getGender());
+      genderBox.setValue(editPatientRequest.getGender().getGender());
       modeBox.setText(editPatientRequest.getMode().getMode());
       mobilityBox.setText(editPatientRequest.getMobility().getMobility());
       babyCheckBox.setSelected(editPatientRequest.isBaby());
@@ -175,8 +183,7 @@ public class PatientTransportController extends ServiceRequestController {
         submission.setBaby(babyBool);
         submission.setImmuneComp(immuneBool);
       } else {
-        EmployeeEntity person =
-            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
 
         // enums
         urgent = UrgencyLevel.valueOf(urgencyBox.getValue().toUpperCase());
@@ -199,7 +206,7 @@ public class PatientTransportController extends ServiceRequestController {
                 urgent,
                 PatientTransportRequestEntity.RequestType.PATIENT_TRANSPORT,
                 Status.NEW,
-                "Unassigned",
+                null,
                 pNameBox.getText(),
                 pIDBox.getText(),
                 moveTo,

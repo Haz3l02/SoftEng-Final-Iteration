@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.SanitationRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
@@ -157,7 +158,7 @@ public class SanitationRequestImpl extends Observable
     }
   }
 
-  public void updateEmployee(Integer ID, String employee) {
+  public void updateEmployee(Integer ID, EmployeeEntity employee) {
     ListIterator<SanitationRequestEntity> li = sanrequests.listIterator();
     while (li.hasNext()) {
       SanitationRequestEntity sec = li.next();

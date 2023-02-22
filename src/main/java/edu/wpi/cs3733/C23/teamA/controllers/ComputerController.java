@@ -54,7 +54,9 @@ public class ComputerController extends ServiceRequestController {
       devicesBox.setText(editComputerRequest.getDevice().toString());
       deviceIDNum.setText(editComputerRequest.getDeviceid());
       locationBox.setText(editComputerRequest.getLocation().getLongname());
-      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency()); // Double check
+      urgencyBox.setText(editComputerRequest.getUrgency().getUrgency());
+      locationBox.setValue(editComputerRequest.getLocation().getLongname());
+      urgencyBox.setValue(editComputerRequest.getUrgency().getUrgency());
       descBox.setText(editComputerRequest.getDescription());
       // compI.closeSession();
     } else if (acceptTheForm.acceptance && acceptTheForm.getRequestType().equals("Computer")) {
@@ -66,6 +68,8 @@ public class ComputerController extends ServiceRequestController {
       deviceIDNum.setText(editRequest.getDeviceid());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       // sanI.closeSession();
       if (holder.getJob().equalsIgnoreCase("admin")) {
@@ -113,8 +117,9 @@ public class ComputerController extends ServiceRequestController {
         submission.setDevice(device);
         submission.setDeviceid(deviceIDNum.getText());
       } else {
-        EmployeeEntity person =
-            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
+        EmployeeEntity unassigned = FacadeRepository.getInstance().getEmployee(0);
+
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 
@@ -130,7 +135,7 @@ public class ComputerController extends ServiceRequestController {
                 urgent,
                 ServiceRequestEntity.RequestType.COMPUTER,
                 Status.NEW,
-                "Unassigned",
+                null,
                 deviceIDNum.getText(),
                 device);
         FacadeRepository.getInstance().addComputerRequest(submission);

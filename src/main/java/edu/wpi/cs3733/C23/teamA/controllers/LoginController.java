@@ -60,6 +60,8 @@ public class LoginController {
       holder.setPassword(passwordTextField.getText());
       holder.setJob(info.get(1));
       holder.setName(info.get(2));
+      holder.setEmployeeID(Integer.parseInt(info.get(3)));
+
       if (holder.getJob().equalsIgnoreCase("Maintenance")) {
         Navigation.navigateHome(Screen.HOME_ACTUAL);
       } else if (holder.getJob().equalsIgnoreCase("Admin")) {

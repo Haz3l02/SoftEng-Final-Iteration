@@ -188,7 +188,7 @@ public class AudioVisualImpl extends Observable
     }
   }
 
-  public void updateEmployee(Integer ID, String employee) {
+  public void updateEmployee(Integer ID, EmployeeEntity employee) {
     ListIterator<AudioVisualRequestEntity> li = audiovisualrequests.listIterator();
     while (li.hasNext()) {
       AudioVisualRequestEntity sec = li.next();

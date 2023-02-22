@@ -5,7 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSession
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.AccessibilityRequestEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.enums.Status;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -109,20 +109,20 @@ public class AccessabilityImpl extends Observable
     c.setUrgency(obj.getUrgency());
     c.setStatus(obj.getStatus());
 
-    ServiceRequestEntity ser =
-        new ServiceRequestEntity(
-            ID,
-            obj.getName(),
-            obj.getEmployee(),
-            obj.getLocation(),
-            obj.getDescription(),
-            obj.getUrgency(),
-            obj.getRequestType(),
-            obj.getStatus(),
-            obj.getEmployeeAssigned(),
-            obj.getDate());
+    //    ServiceRequestEntity ser =
+    //        new ServiceRequestEntity(
+    //            ID,
+    //            obj.getName(),
+    //            obj.getEmployee(),
+    //            obj.getLocation(),
+    //            obj.getDescription(),
+    //            obj.getUrgency(),
+    //            obj.getRequestType(),
+    //            obj.getStatus(),
+    //            obj.getEmployeeAssigned(),
+    //            obj.getDate());
 
-    ServiceRequestImpl.getInstance().update(ID, ser);
+    ServiceRequestImpl.getInstance().update(ID, c);
     accrequests.add(c);
 
     tx.commit();
@@ -141,7 +141,6 @@ public class AccessabilityImpl extends Observable
         li.remove();
       }
     }
-    removeFromList(c);
     ServiceRequestImpl.getInstance().removeFromList(c);
     tx.commit();
     session.close();
@@ -176,7 +175,7 @@ public class AccessabilityImpl extends Observable
     }
   }
 
-  public void updateEmployee(Integer ID, String employee) {
+  public void updateEmployee(Integer ID, EmployeeEntity employee) {
     ListIterator<AccessibilityRequestEntity> li = accrequests.listIterator();
     while (li.hasNext()) {
       AccessibilityRequestEntity sec = li.next();

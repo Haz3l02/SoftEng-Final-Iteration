@@ -41,10 +41,12 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write("employeeid,job,name,password,username\n");
+    fileWriter.write("employeeid,hospitalid,job,name,password,username\n");
     for (EmployeeEntity emp : employees) {
       fileWriter.write(
           emp.getEmployeeid()
+              + ","
+              + emp.getHospitalid()
               + ","
               + emp.getJob()
               + ","
@@ -70,24 +72,6 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
               employees.remove(employee);
             });
 
-    //    session
-    //        .createMutationQuery(
-    //            "UPDATE EmployeeEntity SET "
-    //                + "employeeid = '"
-    //                + obj.getEmployeeid()
-    //                + "', job = '"
-    //                + obj.getJob()
-    //                + "', name = '"
-    //                + obj.getName()
-    //                + "', password = '"
-    //                + obj.getPassword()
-    //                + "', username = '"
-    //                + obj.getUsername()
-    //                + "' WHERE employeeid = '"
-    //                + ID
-    //                + "'")
-    //        .executeUpdate();
-
     EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
 
     emp.setName(obj.getName());
@@ -96,16 +80,8 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     emp.setUsername(obj.getUsername());
     emp.setJob(obj.getJob());
 
-    if (ID == obj.getEmployeeid()) {
-      ComputerRequestImpl.getInstance().refresh();
-      PatientTransportimpl.getInstance().refresh();
-      SecurityRequestImpl.getInstance().refresh();
-      SanitationRequestImpl.getInstance().refresh();
-      ServiceRequestImpl.getInstance().refresh();
-    }
-
-    // employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
     tx.commit();
+    employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
     session.close();
     notifyAllObservers();
   }
@@ -117,6 +93,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
         info.add(emp.getHospitalid());
         info.add(emp.getJob());
         info.add(emp.getName());
+        info.add(Integer.toString(emp.getEmployeeid()));
         return info;
       }
     }
@@ -128,8 +105,8 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     session.persist(e);
-    employees.add(e);
     tx.commit();
+    EmployeeImpl.getInstance().refresh();
     session.close();
     notifyAllObservers();
   }
@@ -159,6 +136,18 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     q = session.createMutationQuery(hql);
     q.executeUpdate();
 
+    hql = "delete from AccessibilityRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from AudioVisualRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
+    hql = "delete from PatientTransportRequestEntity ";
+    q = session.createMutationQuery(hql);
+    q.executeUpdate();
+
     employees.forEach(
         employee -> session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid())));
     employees.clear();
@@ -171,7 +160,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
 
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");
-      session.persist(new EmployeeEntity(b[0], b[4], b[3], b[1], b[2]));
+      session.persist(new EmployeeEntity(Integer.parseInt(b[0]), b[1], b[4], b[3], b[1], b[2]));
       employees.add(session.get(EmployeeEntity.class, b[0]));
     }
     tx.commit();
@@ -217,10 +206,14 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
   }
 
   public EmployeeEntity get(Integer ID) {
-    return employees.stream()
-        .filter(employee -> employee.getEmployeeid() == (ID))
-        .findFirst()
-        .orElseThrow();
+    //    return employees.stream()
+    //        .filter(employee -> employee.getEmployeeid() == (ID))
+    //        .findFirst()
+    //        .orElseThrow();
+    Session session = getSessionFactory().openSession();
+    EmployeeEntity emp = session.get(EmployeeEntity.class, ID);
+    session.close();
+    return emp;
   }
 
   @Override
@@ -231,6 +224,15 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     criteria.from(EmployeeEntity.class);
     employees = session.createQuery(criteria).getResultList();
     session.close();
+  }
+
+  public boolean usernameExists(String user) {
+    for (EmployeeEntity e : employees) {
+      if (e.getUsername().equals(user)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static EmployeeImpl getInstance() {

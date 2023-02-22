@@ -53,10 +53,13 @@ public class SecurityController extends ServiceRequestController {
       SecurityRequestEntity editRequest =
           FacadeRepository.getInstance().getSecurityRequest(newEdit.getRequestID());
       nameBox.setText(editRequest.getName());
-      IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
-      requestsBox.setText(editRequest.getRequestType().requestType);
+      IDNum.setText(editRequest.getEmployee().getHospitalid());
+      requestsBox.setText(editRequest.getAssistance().getRequest());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      requestsBox.setValue(editRequest.getAssistance().getRequest());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       phone.setText(editRequest.getSecphone());
       accept.setDisable(true);
@@ -71,10 +74,13 @@ public class SecurityController extends ServiceRequestController {
       SecurityRequestEntity editRequest =
           FacadeRepository.getInstance().getSecurityRequest(acceptTheForm.getRequestID());
       nameBox.setText(editRequest.getName());
-      IDNum.setText(String.valueOf(editRequest.getEmployee().getEmployeeid()));
-      requestsBox.setText(editRequest.getRequestType().requestType);
+      IDNum.setText(editRequest.getEmployee().getHospitalid());
+      requestsBox.setText(editRequest.getAssistance().getRequest());
       locationBox.setText(editRequest.getLocation().getLongname());
       urgencyBox.setText(editRequest.getUrgency().getUrgency());
+      requestsBox.setValue(editRequest.getAssistance().getRequest());
+      locationBox.setValue(editRequest.getLocation().getLongname());
+      urgencyBox.setValue(editRequest.getUrgency().getUrgency());
       descBox.setText(editRequest.getDescription());
       // sanI.closeSession();
       if (holder.getJob().equalsIgnoreCase("admin")) {
@@ -117,6 +123,7 @@ public class SecurityController extends ServiceRequestController {
 
         SecurityRequestEntity submission =
             FacadeRepository.getInstance().getSecurityRequest(newEdit.getRequestID());
+
         submission.setName(nameBox.getText());
         LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
         submission.setLocation(loc);
@@ -128,8 +135,9 @@ public class SecurityController extends ServiceRequestController {
         FacadeRepository.getInstance().updateSecurityRequest(submission.getRequestid(), submission);
 
       } else {
-        EmployeeEntity person =
-            FacadeRepository.getInstance().getEmployee(Integer.parseInt(IDNum.getText()));
+        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
+        // EmployeeEntity unassigned = FacadeRepository.getInstance().getEmployee(0);
+
         LocationNameEntity location =
             FacadeRepository.getInstance().getLocation(locationBox.getText());
 
@@ -145,7 +153,7 @@ public class SecurityController extends ServiceRequestController {
                 urgent,
                 ServiceRequestEntity.RequestType.SECURITY,
                 Status.NEW,
-                "Unassigned",
+                null,
                 assistance,
                 phone.getText());
         FacadeRepository.getInstance().addSecurityRequest(submission);
