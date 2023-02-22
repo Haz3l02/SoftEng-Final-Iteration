@@ -28,6 +28,7 @@ public class NodeEditorPopupController extends NavigationController {
 
   public static double mouseX;
   public static double mouseY;
+  public static String floor;
 
   public void initialize() {
     populateStuff();

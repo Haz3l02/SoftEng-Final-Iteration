@@ -263,6 +263,10 @@ public class MapEditorController extends MenuController {
       edgeEditorPopup.hide();
     } else if (Objects.equals(type, "location")) {
       locationEditorPopup.hide();
+    } else if (Objects.equals(type, "node edit")) {
+      nodeEditorEditPopup.hide();
+    } else if (Objects.equals(type, "location edit")) {
+      locationEditorEditPopup.hide();
     }
 
     // draw node on map using database //
