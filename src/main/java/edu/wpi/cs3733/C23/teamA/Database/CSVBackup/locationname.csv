@@ -104,7 +104,7 @@ Exit 2 Floor 1,EXIT,Exit 2
 Fenwood Road Exit MapNode 1 Floor L1,EXIT,Fenwood Road EntranceExit L1
 Stairs Node 28 Floor 2,STAI,Floor 2 Stairs Lower
 Stairs Node 26 Floor 2,STAI,Floor 2 Stairs Upper
-Staircase Node 9 Floor 3,STAI,Floor 3 Stairs 
+Staircase Node 9 Floor 3,STAI,Floor 3 Stairs
 Francis Street Exit MapNode 1 Floor 1,EXIT,Francis Street Exit Floor 1
 Garden Cafe,RETL,Garden Cafe
 Gift Shop Tower Floor 2,RETL,Gift Shop
@@ -544,3 +544,27 @@ Watkins Clinic C Node 14 Floor 3,DEPT,Watkins Clinic C
 Wound and Ambulatory 1,DEPT,WCCAT 1
 Ambulatory X-Ray Floor 1,LABS,X-Ray 1
 Zinner Breakout Room MapNode 19 Floor 1,DEPT,Zinner Breakout Room
+Hall 1,HALL,Hall
+Hall 2,HALL,Hall
+Hall 3,HALL,Hall
+Hall 4,HALL,Hall
+Hall 5,HALL,Hall
+Hall 6,HALL,Hall
+Hall 7,HALL,Hall
+Hall 8,HALL,Hall
+Hall 9,HALL,Hall
+Hall 10,HALL,Hall
+Hall 11,HALL,Hall
+Hall 12,HALL,Hall
+Hall 13,HALL,Hall
+Hall 14,HALL,Hall
+Hall 15,HALL,Hall
+Hall 16,HALL,Hall
+Hall 17,HALL,Hall
+Hall 18,HALL,Hall
+Hall 19,HALL,Hall
+Hall 20,HALL,Hall
+Hall 21,HALL,Hall
+Hall 22,HALL,Hall
+Hall 23,HALL,Hall
+Hall 24,HALL,Hall
