@@ -138,9 +138,9 @@
                            <content>
                               <VBox fx:id="fieldBox11" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Longname">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name">
                                        <font>
-                                          <Font size="24.0" />
+                                          <Font name="Verdana" size="24.0" />
                                        </font>
                                     </Text>
                                     <MFXFilterComboBox fx:id="longNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="369.0" />
@@ -150,7 +150,7 @@
                                        </font>
                                     </Text>
                                     <MFXTextField fx:id="shortNameBox" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Short name">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Type">
                                        <font>
                                           <Font name="Verdana" size="24.0" />
                                        </font>
