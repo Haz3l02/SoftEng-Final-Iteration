@@ -114,7 +114,7 @@ public class GraphNode implements Comparable<GraphNode> {
 
     // set the penalty based on the nodeType
     // stairs aren't preferred in almost all cases, add a penalty to them
-    if (this.nodeType.equals("STAI")) {
+    if (this.nodeType == null ? false : this.nodeType.equals("STAI")) {
       penalty = 100;
     } else {
       penalty = 0;

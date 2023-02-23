@@ -7,6 +7,8 @@
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -34,7 +36,7 @@
                         <Insets bottom="10.0" left="10.0" top="10.0" />
                      </VBox.margin>
                      <children>
-                        <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#transitionToNewNodeBox" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="New Node" textFill="#d3e9f6">
+                        <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#popupNodeEditor" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="New Node" textFill="#d3e9f6">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -118,28 +120,13 @@
                                           <Font size="24.0" />
                                        </font>
                                     </Text>
-                                    <MFXTextField fx:id="node1" maxWidth="1.7976931348623157E308" />
+                                    <MFXTextField fx:id="node1Box" maxWidth="1.7976931348623157E308" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node 2">
                                        <font>
                                           <Font name="Verdana" size="24.0" />
                                        </font>
                                     </Text>
-                                    <MFXTextField fx:id="node2" maxWidth="1.7976931348623157E308" />
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#addEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Edge" textFill="#224870">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#editEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Location" textFill="#d3e9f6">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#deleteEdge" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Location" textFill="#bad1ea">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
+                                    <MFXTextField fx:id="node2Box" maxWidth="1.7976931348623157E308" />
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -151,33 +138,30 @@
                            <content>
                               <VBox fx:id="fieldBox11" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Longname">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name">
                                        <font>
-                                          <Font size="24.0" />
+                                          <Font name="Verdana" size="24.0" />
                                        </font>
                                     </Text>
-                                    <MFXFilterComboBox fx:id="longNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="372.0" />
+                                    <MFXFilterComboBox fx:id="longNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="369.0" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Short Name">
+                                       <font>
+                                          <Font name="Verdana" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <MFXTextField fx:id="shortNameBox" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Type">
+                                       <font>
+                                          <Font name="Verdana" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <MFXTextField fx:id="locTypeBox" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node ID">
                                        <font>
                                           <Font name="Verdana" size="24.0" />
                                        </font>
                                     </Text>
                                     <MFXTextField fx:id="locationIDBox" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
-                                    <MFXButton fx:id="createLocation" buttonType="RAISED" minHeight="51.0" onAction="#addLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Location" textFill="#224870">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#editLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Location" textFill="#d3e9f6">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
-                                    <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#delLocationName" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Location" textFill="#bad1ea">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </MFXButton>
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -194,41 +178,11 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER">
-                     <children>
-                        <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#createNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Node" textFill="#224870">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </MFXButton>
-                        <MFXButton fx:id="saveButton" buttonType="RAISED" cancelButton="true" onAction="#saveNodeEdit" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Save Node" textFill="#224870">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER">
-                     <children>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#editNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Node" textFill="#d3e9f6">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </MFXButton>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Node" textFill="#bad1ea">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -301,13 +255,24 @@
                   <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="900.0">
                      <children>
                         <ImageView fx:id="mainImageView" fitHeight="510.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true" />
-                        <AnchorPane fx:id="edgeAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                         <Canvas fx:id="mainCanvas" height="510.0" width="750.0" />
                         <AnchorPane fx:id="mainTextPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
+                        <AnchorPane fx:id="edgeAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                         <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                      </children>
                   </StackPane>
-                  <GesturePane fx:id="mainGesturePane" prefHeight="510.0" prefWidth="750.0" />
+                  <GesturePane fx:id="mainGesturePane" prefHeight="510.0" prefWidth="750.0">
+                     <contextMenu>
+                        <ContextMenu fx:id="contextMenu" opacity="0.77">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#popupNodeEditor" text="Add Node" />
+                              <MenuItem mnemonicParsing="false" onAction="#popupEdgeEditor" text="Add Edge" />
+                              <MenuItem mnemonicParsing="false" onAction="#popupLocationEditor" text="Add Location" />
+                              <MenuItem mnemonicParsing="false" onAction="#popupEditNode" text="Edit Node" />
+                              <MenuItem mnemonicParsing="false" onAction="#popupEditLoc" text="Edit Location" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu></GesturePane>
                </children>
             </StackPane>
             <VBox alignment="CENTER" prefHeight="45.0" prefWidth="958.0">

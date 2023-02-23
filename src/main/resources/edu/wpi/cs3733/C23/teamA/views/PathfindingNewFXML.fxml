@@ -26,7 +26,7 @@
             <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fx:id="srReminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Locations with Service Requests are displayed by a black square.">
+                  <Text fx:id="srReminder" strokeType="OUTSIDE" strokeWidth="0.0" text="Locations with Service Requests are displayed by a purple square.">
                      <font>
                         <Font name="Verdana" size="24.0" />
                      </font>
@@ -219,7 +219,7 @@
                                         <Insets />
                                     </VBox.margin>
                                 </VBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-border-radius: 15;" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-border-radius: 15;" VBox.vgrow="NEVER">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Message:" textAlignment="CENTER">
                                  <font>
@@ -236,6 +236,9 @@
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
                         </HBox>
                                 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="213.0" prefWidth="489.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;" VBox.vgrow="ALWAYS">
                                     <VBox.margin>
@@ -297,7 +300,7 @@
                                     </Text>
                                           </children>
                                       </HBox>
-                              <HBox alignment="CENTER" prefHeight="97.0" prefWidth="839.0">
+                              <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="22.0" prefWidth="839.0">
                                  <children>
                                     <Text fx:id="messageText" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Messages Appear Here">
                                        <font>
@@ -358,7 +361,7 @@
                                     <Insets left="30.0" right="30.0" />
                                  </VBox.margin>
                               </StackPane>
-                              <VBox alignment="CENTER_LEFT" prefHeight="107.0" prefWidth="839.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
+                              <VBox alignment="BOTTOM_LEFT" prefHeight="107.0" prefWidth="839.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>

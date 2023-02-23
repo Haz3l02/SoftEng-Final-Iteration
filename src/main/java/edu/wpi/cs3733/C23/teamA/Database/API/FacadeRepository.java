@@ -444,6 +444,10 @@ public class FacadeRepository {
     return move.mostRecentLoc(id);
   }
 
+  //  public void newLocationOnNode(String nodeid, LocationNameEntity l) {
+  //    loc.newLocationOnNode(nodeid, l);
+  //  }
+
   public List<NodeEntity> getNodesOnFloor(String floor) {
     return node.getNodeOnFloor(floor);
   }

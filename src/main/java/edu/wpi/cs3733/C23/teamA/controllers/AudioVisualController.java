@@ -161,9 +161,6 @@ public class AudioVisualController extends ServiceRequestController {
         switchToConfirmationScene(event);
         newEdit.setNeedEdits(false);
       } else {
-        EmployeeEntity person = FacadeRepository.getInstance().getEmployee(employeeID);
-        LocationNameEntity location =
-            FacadeRepository.getInstance().getLocation(locationBox.getText());
         if (!isNumber(numDevices.getText())) {
           numberOnlyReminder.setVisible(true);
         } else {
@@ -193,7 +190,6 @@ public class AudioVisualController extends ServiceRequestController {
                   descBox.getText(),
                   returnDate.getValue());
           FacadeRepository.getInstance().addAudioVisualRequest(submission);
-
         }
         newEdit.setNeedEdits(false);
         switchToConfirmationScene(event);

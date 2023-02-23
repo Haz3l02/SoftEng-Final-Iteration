@@ -171,8 +171,8 @@ public class EdgeImpl extends Observable implements IDatabaseAPI<EdgeEntity, Str
       for (EdgeEntity m : edges) { // e - > m
         newEdge = new EdgeEntity(n.getNode1(), m.getNode2());
         System.out.println(newEdge.getEdgeid());
-        add(newEdge);
         try {
+          add(newEdge);
           delete(m.getEdgeid());
         } catch (Exception exp) {
         }
