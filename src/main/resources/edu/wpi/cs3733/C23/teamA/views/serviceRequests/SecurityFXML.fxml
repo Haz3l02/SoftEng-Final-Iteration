@@ -17,7 +17,7 @@
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" styleClass="boarder-Pane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SecurityController">
    <stylesheets>
-      <URL value="@StyleSheet.css" />
+      <URL value="@../StyleSheet.css" />
    </stylesheets>
    <top>
       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">

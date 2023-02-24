@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
+<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="BackDropSRHStyle" stylesheets="@../../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <children>
       <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
          <children>
@@ -69,7 +69,7 @@
                               <Insets top="25.0" />
                            </VBox.margin>
                            <image>
-                              <Image url="@../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
+                              <Image url="@../../assets/unlabeledMaps/01_thefirstfloor_unlabeled.png" />
                            </image>
                         </ImageView>
                      </children>
