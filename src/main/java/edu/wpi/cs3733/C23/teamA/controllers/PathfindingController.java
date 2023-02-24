@@ -14,7 +14,6 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.*;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.*;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
@@ -49,11 +48,9 @@ public class PathfindingController extends MenuController {
   @FXML private MFXCheckbox avoidStairsCheckbox;
   @FXML private MFXToggleButton toggleLocationNames;
   @FXML private MFXToggleButton toggleServiceRequests;
-  @FXML private MFXToggleButton toggleUpcomingMoves;
-  @FXML MFXToggleButton toggleSwitch;
   @FXML Text srReminder;
 
-  // New FXML Data
+  // FXML Data for buttons and panes
   @FXML private Button l1Button;
   @FXML private Button l2Button;
   @FXML private Button f1Button;
@@ -61,7 +58,6 @@ public class PathfindingController extends MenuController {
   @FXML private Button f3Button;
 
   @FXML private ImageView mainImageView;
-
   @FXML private AnchorPane anchorF3;
   @FXML private AnchorPane anchorF2;
   @FXML private AnchorPane anchorF1;
@@ -69,17 +65,15 @@ public class PathfindingController extends MenuController {
   @FXML private AnchorPane anchorL1;
   @FXML private AnchorPane serviceRequestPane;
   @FXML private AnchorPane textAnchorPane;
-
-  @FXML private StackPane mainStackPane;
-
-  @FXML private GesturePane mainGesturePane;
-  @FXML MFXButton sendMessage;
+  @FXML private StackPane mainStackPane; // stack pane with all the anchor panes and image view
+  @FXML private GesturePane mainGesturePane; // gesture pane to sync with stack pane above
   @FXML MFXTextField adminMessage;
   @FXML Text messageText;
 
+  // local variables saved
   private AnchorPane[] aps = new AnchorPane[5];
   private int currentFloor = 0;
-  private IdNumberHolder holder = IdNumberHolder.getInstance();
+  private final IdNumberHolder holder = IdNumberHolder.getInstance();
 
   // Lists of Nodes and Node Data
   private List<String> startNodeIDs; // List of all Node IDs in specific order
@@ -92,10 +86,6 @@ public class PathfindingController extends MenuController {
   // the date of navigation
   private LocalDate navDate;
   private LocalDate weekLater;
-
-  // objects needed for the maps
-  private GraphicsContext[] gcs = new GraphicsContext[5];
-  private final double SCALE_FACTOR = 0.135;
 
   @FXML
   public void sendMessage(ActionEvent event) {
@@ -148,8 +138,9 @@ public class PathfindingController extends MenuController {
     aps[3] = anchorF2;
     aps[4] = anchorF3;
 
+    String initialTableString = "L2";
     // add the map images
-    addFloorMapImage("L1", mainImageView);
+    addFloorMapImage(initialTableString, mainImageView);
 
     // prepare the gesture pane to attach to the stack pane
     Node stackPane = mainStackPane;
@@ -168,9 +159,10 @@ public class PathfindingController extends MenuController {
     serviceRequestPane.setVisible(false);
     textAnchorPane.setVisible(false);
     // show service request icons and location name
-    List<NodeEntity> allNodesL1 = FacadeRepository.getInstance().getNodesOnFloor("L1");
-    MapDraw.drawServiceRequestIcons(serviceRequestPane, SCALE_FACTOR, "L1");
-    MapDraw.drawLocations(allNodesL1, SCALE_FACTOR, textAnchorPane);
+    List<NodeEntity> allNodesL2 =
+        FacadeRepository.getInstance().getNodesOnFloor(initialTableString);
+    MapDraw.drawServiceRequestIcons(serviceRequestPane, initialTableString);
+    MapDraw.drawLocations(allNodesL2, textAnchorPane);
 
     // Action Listener for toggle switch
     toggleServiceRequests
@@ -328,12 +320,8 @@ public class PathfindingController extends MenuController {
     endLocBox.clear();
   }
 
-  /**
-   * pain
-   *
-   * @throws SQLException
-   */
-  public void checkForMovesStart() throws SQLException, IOException {
+  /** pain */
+  public void checkForMovesStart() {
     int startIndex = startLocBox.getSelectedIndex();
     int algoIndex = algosBox.getSelectedIndex();
 
@@ -378,12 +366,8 @@ public class PathfindingController extends MenuController {
     }
   }
 
-  /**
-   * pain II, electric boogaloo
-   *
-   * @throws SQLException
-   */
-  public void checkForMovesEnd() throws SQLException {
+  /** pain II, electric boogaloo */
+  public void checkForMovesEnd() {
     int endIndex = endLocBox.getSelectedIndex();
     int algoIndex = algosBox.getSelectedIndex();
 
@@ -445,11 +429,11 @@ public class PathfindingController extends MenuController {
     aps[currentFloor].setVisible(true);
     aps[currentFloor].setDisable(false);
 
-    pathfindingSystem.drawPath(aps, path, floorPath, SCALE_FACTOR);
+    pathfindingSystem.drawPath(aps, path, floorPath);
   }
 
   @FXML
-  public void generatePath(ActionEvent event) throws SQLException, RuntimeException {
+  public void generatePath() throws SQLException, RuntimeException {
 
     int startIndex = startLocBox.getSelectedIndex();
     int endIndex = endLocBox.getSelectedIndex();
@@ -568,30 +552,30 @@ public class PathfindingController extends MenuController {
   @FXML
   public void generateFloor(ActionEvent event) {
     int previousFloor = currentFloor;
-    String floor = "L1";
+    String tableFloor = "L1";
     if (event.getSource().equals(l1Button)) {
-      floor = "L1";
+      tableFloor = "L1";
       currentFloor = 0;
     } else if (event.getSource().equals(l2Button)) {
-      floor = "L2";
+      tableFloor = "L2";
       currentFloor = 1;
     } else if (event.getSource().equals(f1Button)) {
-      floor = "1";
+      tableFloor = "1";
       currentFloor = 2;
     } else if (event.getSource().equals(f2Button)) {
-      floor = "2";
+      tableFloor = "2";
       currentFloor = 3;
     } else if (event.getSource().equals(f3Button)) {
-      floor = "3";
+      tableFloor = "3";
       currentFloor = 4;
     }
-    initializeFloorMap(floor, previousFloor);
+    initializeFloorMap(tableFloor, previousFloor);
   }
 
-  private void initializeFloorMap(String floor, int previousFloor) {
+  private void initializeFloorMap(String tableFloor, int previousFloor) {
 
     // show map image
-    addFloorMapImage(floor, mainImageView);
+    addFloorMapImage(tableFloor, mainImageView);
 
     // show nodes and edges for this floor
     aps[previousFloor].setVisible(false);
@@ -600,10 +584,10 @@ public class PathfindingController extends MenuController {
     aps[currentFloor].setDisable(false);
 
     // show service request icons
-    List<NodeEntity> allNodes = FacadeRepository.getInstance().getNodesOnFloor(floor);
-    MapDraw.drawServiceRequestIcons(serviceRequestPane, SCALE_FACTOR, floor);
+    List<NodeEntity> allNodes = FacadeRepository.getInstance().getNodesOnFloor(tableFloor);
+    MapDraw.drawServiceRequestIcons(serviceRequestPane, tableFloor);
 
     // show location names
-    MapDraw.drawLocations(allNodes, SCALE_FACTOR, textAnchorPane);
+    MapDraw.drawLocations(allNodes, textAnchorPane);
   }
 }

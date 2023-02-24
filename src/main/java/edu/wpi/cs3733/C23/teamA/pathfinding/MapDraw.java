@@ -41,6 +41,8 @@ public class MapDraw {
   private static final double radius = 3;
   private static final double width = 6;
 
+  private static final double SCALE_FACTOR = 0.135;
+
   private static Rectangle previousRect;
   private static Label previousLabel;
   private static PopOver previousPopup;
@@ -49,13 +51,12 @@ public class MapDraw {
   // hospital image scale factor to fit on screen (popover - 1250 x 850): 25% (0.25)
   // hospital image scale factor for our prototype (on-page - 250 x 170): 5% (0.05)
 
-  public static void drawLocations(
-      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
+  public static void drawLocations(List<NodeEntity> allNodes, AnchorPane nodeAnchor) {
 
     nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
-      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord());
 
       // TODO: this doesn't use the latest locations as of the navigation date, but the most recent
       // locations in general.
@@ -80,12 +81,12 @@ public class MapDraw {
     }
   }
 
-  public static double[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
+  public static double[] scaleCoordinates(double xCoord, double yCoord) {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord) * scaleFactor;
-    yCoord = (yCoord) * scaleFactor;
+    xCoord = (xCoord) * SCALE_FACTOR;
+    yCoord = (yCoord) * SCALE_FACTOR;
 
     // put the values in an array to return
     double[] scaledCoordinates = {xCoord, yCoord};
@@ -97,16 +98,14 @@ public class MapDraw {
   /**
    * @param xCoord the x-coordinate to scale
    * @param yCoord the y-coordinate to scale
-   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
    * @return an int array with the pair of new coordinates
    */
-  private static double[] scaleCoordinatesReversed(
-      double xCoord, double yCoord, double scaleFactor) {
+  private static double[] scaleCoordinatesReversed(double xCoord, double yCoord) {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord / scaleFactor);
-    yCoord = (yCoord / scaleFactor);
+    xCoord = (xCoord / SCALE_FACTOR);
+    yCoord = (yCoord / SCALE_FACTOR);
 
     // put the values in an array to return
     double[] scaledCoordinates = {xCoord, yCoord};
@@ -116,10 +115,7 @@ public class MapDraw {
   }
 
   public static void drawPathClickable(
-      AnchorPane[] aps,
-      ArrayList<GraphNode> path,
-      ArrayList<String> floorPath,
-      double scaleFactor) {
+      AnchorPane[] aps, ArrayList<GraphNode> path, ArrayList<String> floorPath) {
 
     // coordinates for the previous point in the path
     double prevX = 0;
@@ -131,8 +127,7 @@ public class MapDraw {
 
     // get start node
     if (size > 0) {
-      double[] updatedCoords =
-          scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord());
       prevX = updatedCoords[0];
       prevY = updatedCoords[1];
       String floor = path.get(0).getFloor();
@@ -154,7 +149,7 @@ public class MapDraw {
     for (int i = 1; i < size; i++) {
       GraphNode g = path.get(i);
 
-      double[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord());
       currentX = updatedCoords[0];
       currentY = updatedCoords[1];
       currentFloor = Floor.indexFromTableString(g.getFloor());
@@ -189,8 +184,7 @@ public class MapDraw {
     aps[prevFloor].getChildren().add(currentCircle); // ending open circle
   }
 
-  public static void drawServiceRequestIcons(
-      AnchorPane anchorPane, double scaleFactor, String floor) {
+  public static void drawServiceRequestIcons(AnchorPane anchorPane, String floor) {
     anchorPane.getChildren().clear();
     List<MoveEntity> moves = FacadeRepository.getInstance().getAllMove();
 
@@ -201,12 +195,12 @@ public class MapDraw {
               > 0
           && floor.equals(move.getNode().getFloor())) {
         double[] updatedCoords =
-            scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
+            scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord());
 
         Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 5, width + 5);
         rect.setFill(Color.web("0x6143D7"));
 
-        rect.setOnMouseClicked(squareChangeColor(anchorPane, scaleFactor, floor));
+        rect.setOnMouseClicked(squareChangeColor(anchorPane, floor));
 
         anchorPane.getChildren().add(rect);
       }
@@ -219,8 +213,7 @@ public class MapDraw {
    *
    * @return a mouse event handler that changes the color of a square on click
    */
-  private static EventHandler<MouseEvent> squareChangeColor(
-      AnchorPane anchorPane, double scaleFactor, String floor) {
+  private static EventHandler<MouseEvent> squareChangeColor(AnchorPane anchorPane, String floor) {
     EventHandler<MouseEvent> eventHandler =
         new EventHandler<MouseEvent>() {
           @Override
@@ -239,18 +232,16 @@ public class MapDraw {
                   anchorPane,
                   ((Rectangle) t.getSource()).getX(),
                   ((Rectangle) t.getSource()).getY(),
-                  floor,
-                  scaleFactor);
+                  floor);
             }
           }
         };
     return eventHandler;
   }
 
-  public static void addSRPopup(
-      AnchorPane anchorPane, double xcoord, double ycoord, String floor, double scaleFactor) {
+  public static void addSRPopup(AnchorPane anchorPane, double xcoord, double ycoord, String floor) {
 
-    double[] invertedCoords = scaleCoordinatesReversed(xcoord, ycoord, scaleFactor);
+    double[] invertedCoords = scaleCoordinatesReversed(xcoord, ycoord);
 
     if (previousPopup != null) {
       previousPopup.hide();

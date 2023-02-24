@@ -39,12 +39,8 @@ public class PathfindingSystem {
   }
 
   // MapDraw
-  public void drawPath(
-      AnchorPane[] aps,
-      ArrayList<GraphNode> path,
-      ArrayList<String> floorPath,
-      double scaleFactor) {
-    MapDraw.drawPathClickable(aps, path, floorPath, scaleFactor);
+  public void drawPath(AnchorPane[] aps, ArrayList<GraphNode> path, ArrayList<String> floorPath) {
+    MapDraw.drawPathClickable(aps, path, floorPath);
   }
 
   // Methods relating to Graph
