@@ -311,12 +311,12 @@
                               </HBox>
                               <HBox prefWidth="200.0">
                                  <children>
-                                    <MFXButton fx:id="l1Button" onAction="#generateFloor" text="Level 1">
+                                    <MFXButton fx:id="l2Button" onAction="#generateFloor" text="Lower Level 2">
                                        <HBox.margin>
                                           <Insets left="30.0" top="5.0" />
                                        </HBox.margin>
                                     </MFXButton>
-                                    <MFXButton fx:id="l2Button" onAction="#generateFloor" text="Level 2">
+                                    <MFXButton fx:id="l1Button" onAction="#generateFloor" text="Lower Level 1">
                                        <HBox.margin>
                                           <Insets top="5.0" />
                                        </HBox.margin>
