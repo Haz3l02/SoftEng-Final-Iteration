@@ -223,6 +223,15 @@ public class EdgeImpl extends Observable implements IDatabaseAPI<EdgeEntity, Str
         .toList();
   }
 
+  public List<EdgeEntity> nodeConnection(String id) {
+    return edges.stream()
+        .filter(
+            edgeEntity ->
+                edgeEntity.getNode1().getNodeid().equals(id)
+                    && edgeEntity.getNode2().getNodeid().equals(id))
+        .toList();
+  }
+
   public static EdgeImpl getInstance() {
     return instance;
   }

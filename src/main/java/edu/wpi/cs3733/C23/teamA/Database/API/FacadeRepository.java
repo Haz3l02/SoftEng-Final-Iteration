@@ -516,4 +516,8 @@ public class FacadeRepository {
   public List<ServiceRequestEntity> getRequestAtCoordinate(int x, int y, String floor) {
     return serv.getRequestAtCoordinate(x, y, floor);
   }
+
+  public List<EdgeEntity> nodeConnection(String id) {
+    return edge.nodeConnection(id);
+  }
 }
