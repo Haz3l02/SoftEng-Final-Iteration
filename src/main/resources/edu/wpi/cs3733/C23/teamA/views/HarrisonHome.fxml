@@ -195,7 +195,7 @@
                <children>
                   <ImageView fx:id="about" fitHeight="73.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/icons/about_yellow.png" />
+                        <Image url="@../assets/icons/about_blue.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -203,7 +203,7 @@
                   </ImageView>
                   <ImageView fx:id="credits" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/icons/credits.png" />
+                        <Image url="@../assets/icons/Copy%20of%20credits_blue.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="exit" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
