@@ -20,7 +20,7 @@ public enum Screen {
   MOVE("views/MoveFXML.fxml"),
   NODE("views/[OLD_FXMLS]/NodeFXML.fxml"), // present in ImportCSVController
   EDGE("views/[OLD_FXMLS]/EdgeFXML.fxml"),
-  PATHFINDING("views/PathfindingNewFXML.fxml"),
+  PATHFINDING("views/pathfinding/PathfindingNewFXML.fxml"),
   SERVICE_REQUEST_STATUS("views/ServiceRequestStatusSMALLFXML.fxml"),
   LOGIN("views/LoginFXML.fxml"),
   NODE_MAP("views/MapEditorFXML.fxml"),

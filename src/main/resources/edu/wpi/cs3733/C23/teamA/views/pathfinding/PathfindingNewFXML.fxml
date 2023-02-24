@@ -64,7 +64,7 @@
         </HBox>
     </bottom>
     <center>
-        <SplitPane dividerPositions="0.29797979797979796" prefHeight="588.0" prefWidth="1342.0" style="-fx-background-color: D3E9F6; -fx-border-color: d3e9f6;" stylesheets="@../assets/PathfindingStyle.css" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.29797979797979796" prefHeight="588.0" prefWidth="1342.0" style="-fx-background-color: D3E9F6; -fx-border-color: d3e9f6;" stylesheets="@../../assets/PathfindingStyle.css" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane prefHeight="717.0" prefWidth="441.0">
                     <children>
@@ -381,7 +381,7 @@
                                                 <Font name="Verdana" size="18.0" />
                                              </font>
                                           </Text>
-                                          <MFXToggleButton fx:id="toggleLocationNames" stylesheets="@../assets/toggleButton.css" />
+                                          <MFXToggleButton fx:id="toggleLocationNames" stylesheets="@../../assets/toggleButton.css" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Service Requests">
                                              <font>
                                                 <Font name="Verdana" size="18.0" />
@@ -390,7 +390,7 @@
                                                 <Insets left="20.0" />
                                              </HBox.margin>
                                           </Text>
-                                          <MFXToggleButton fx:id="toggleServiceRequests" stylesheets="@../assets/toggleButton.css" />
+                                          <MFXToggleButton fx:id="toggleServiceRequests" stylesheets="@../../assets/toggleButton.css" />
                                        </children>
                                        <VBox.margin>
                                           <Insets left="20.0" />
