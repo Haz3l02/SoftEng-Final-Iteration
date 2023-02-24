@@ -42,17 +42,38 @@ public class MoveEntity {
   @Setter
   private LocalDate movedate;
 
+  @Column(name = "message", nullable = false)
+  @Getter
+  @Setter
+  private String message;
+
   public MoveEntity() {}
 
   public MoveEntity(NodeEntity node, LocationNameEntity locationName, LocalDate movedate) {
     this.node = node;
     this.locationName = locationName;
     this.movedate = movedate;
+    this.message = "";
   }
 
   public MoveEntity(NodeEntity node, LocationNameEntity locationName) {
     this.node = node;
     this.locationName = locationName;
+    this.message = "";
+  }
+
+  public MoveEntity(NodeEntity node, LocationNameEntity locationName, String message) {
+    this.node = node;
+    this.locationName = locationName;
+    this.message = message;
+  }
+
+  public MoveEntity(
+      NodeEntity node, LocationNameEntity locationName, LocalDate movedate, String message) {
+    this.node = node;
+    this.locationName = locationName;
+    this.movedate = movedate;
+    this.message = message;
   }
 
   @Override
