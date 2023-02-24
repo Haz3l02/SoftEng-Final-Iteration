@@ -516,4 +516,7 @@ public class FacadeRepository {
   public List<ServiceRequestEntity> getRequestAtCoordinate(int x, int y, String floor) {
     return serv.getRequestAtCoordinate(x, y, floor);
   }
+  public int countServiceRequestsByType(ServiceRequestEntity s) {
+    return serv.countRequests(s);
+  }
 }
