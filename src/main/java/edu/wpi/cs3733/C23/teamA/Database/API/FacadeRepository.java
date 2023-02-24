@@ -519,6 +519,6 @@ public class FacadeRepository {
 
 
   public void exportAlignedToCSV(String filename, ArrayList<NodeEntity> n) throws IOException {
-    exportAlignedToCSV(filename,  n);
+    node.exportAlignedToCSV(filename,  n);
   }
 }
