@@ -27,7 +27,8 @@ public enum Screen {
   HOME_DATABASE("views/HomeDatabaseFXML.fxml"),
   PATIENT_TRANSPORT("views/serviceRequests/PatientTransportationFXML.fxml"),
   IMPORT_CSV("views/ImportEmployeeCSVFXML.fxml"),
-  EXPORT_CSV("views/ExportEmployeeCSVFXML.fxml");
+  EXPORT_CSV("views/ExportEmployeeCSVFXML.fxml"),
+  SRCHART("views/SRChartFXML.fxml");
 
   private final String filename;
 
