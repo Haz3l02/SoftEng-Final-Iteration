@@ -294,7 +294,6 @@ public class NodeDraw implements KeyListener {
                         selectedNodeEntity.getBuilding());
               }
             }
-            // TODO: make this more intuitive to use
             if (event.isAltDown()) {
               NodeEntity selectedNode = getSelected();
 
@@ -305,22 +304,12 @@ public class NodeDraw implements KeyListener {
                 }
               }
             }
-            if (event.isShortcutDown()) {
-              System.out.println("align the nodes");
-              int yAlign = firstNode.getYcoord();
-
-              for (NodeEntity node : selectedNodes) {
-                node.setYcoord(yAlign);
-                FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
-              }
-              System.out.println("nodes aligned");
-              nmc.initialize();
-            }
             if (!event.isShortcutDown() && !event.isAltDown()) {
               System.out.println("clear the nodes list");
               if (selectedNodes != null) {
                 selectedNodes.clear();
               }
+              firstNode = null;
             }
             // end of The Straightener tm
 
@@ -558,6 +547,36 @@ public class NodeDraw implements KeyListener {
     return event;
   }
   // end _________________________________________________________________
+
+  public static void straightenNodesHorizontal() {
+
+    int yAlign = firstNode.getYcoord();
+
+    for (NodeEntity node : selectedNodes) {
+
+      node.setYcoord(yAlign);
+      FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
+
+    }
+    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+
+  }
+
+  public static void straightenNodesVertical() {
+
+    int xAlign = firstNode.getXcoord();
+
+    for (NodeEntity node : selectedNodes) {
+
+      node.setXcoord(xAlign);
+
+      FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
+
+    }
+
+    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+
+  }
 
   public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, AnchorPane ap) {
     ap.getChildren().clear();
