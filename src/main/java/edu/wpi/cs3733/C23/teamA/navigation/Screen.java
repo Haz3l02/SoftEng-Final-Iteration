@@ -8,7 +8,6 @@ public enum Screen {
   HOME_ADMIN("views/HomeAdminFXML.fxml"),
   HOME_EMPLOYEE("views/HomeEmployeeFXML.fxml"),
   CONFIRMATION("views/serviceRequests/ConfirmationFXML.fxml"),
-  // PATIENT_CONFIRMATION("views/PatientTransportConformationFXML.fxml"),
   COMPUTER("views/serviceRequests/ComputerFXML.fxml"),
   SANITATION("views/serviceRequests/SanitationFXML.fxml"),
   SECURITY("views/serviceRequests/SecurityFXML.fxml"),
@@ -18,7 +17,7 @@ public enum Screen {
   HOME_SERVICE_REQUEST("views/HomeServiceRequestSMALLFXML.fxml"),
   SERVICE_REQUEST("views/ServiceRequest.fxml"),
   MOVE("views/MoveFXML.fxml"),
-  NODE("views/[OLD_FXMLS]/NodeFXML.fxml"), // present in ImportCSVController
+  NODE("views/NodeSMALLFXML.fxml"),
   EDGE("views/[OLD_FXMLS]/EdgeFXML.fxml"),
   PATHFINDING("views/pathfinding/PathfindingNewFXML.fxml"),
   SERVICE_REQUEST_STATUS("views/ServiceRequestStatusSMALLFXML.fxml"),
@@ -26,7 +25,6 @@ public enum Screen {
   NODE_MAP("views/MapEditorFXML.fxml"),
   EMPLOYEE("views/EmployeeFXML.fxml"),
   HOME_DATABASE("views/HomeDatabaseFXML.fxml"),
-  // MAP_DISPLAY("views/PathDisplayFXML.fxml"),
   PATIENT_TRANSPORT("views/serviceRequests/PatientTransportationFXML.fxml"),
   IMPORT_CSV("views/ImportEmployeeCSVFXML.fxml"),
   EXPORT_CSV("views/ExportEmployeeCSVFXML.fxml");

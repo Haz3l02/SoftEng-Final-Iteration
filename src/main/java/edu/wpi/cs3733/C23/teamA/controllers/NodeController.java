@@ -120,7 +120,7 @@ public class NodeController extends MenuController {
     buildingBox.clear();
   }
 
-  /** Clear and retrieve all table rows again With hibernate only use once at start */
+  /** Clear and retrieve all table rows again with hibernate only use once at start */
   public void reloadData() {
     clearEdits();
     selected = null;
