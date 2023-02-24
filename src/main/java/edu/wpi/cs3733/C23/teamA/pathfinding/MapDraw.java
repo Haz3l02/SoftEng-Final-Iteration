@@ -8,17 +8,14 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.controllers.DisplayServiceRequestsPopupController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -32,19 +29,12 @@ import org.controlsfx.control.PopOver;
 // Class for Controller to call to add the map
 public class MapDraw {
 
-  static Pane previousSR = null;
-  static Pane selectSRPane = null;
-  static NodeEntity selectNode = null;
-
-  private IdNumberHolder holder = IdNumberHolder.getInstance();
-
   private static final double radius = 3;
   private static final double width = 6;
 
   private static final double SCALE_FACTOR = 0.135;
 
   private static Rectangle previousRect;
-  private static Label previousLabel;
   private static PopOver previousPopup;
 
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
@@ -88,11 +78,8 @@ public class MapDraw {
     xCoord = (xCoord) * SCALE_FACTOR;
     yCoord = (yCoord) * SCALE_FACTOR;
 
-    // put the values in an array to return
-    double[] scaledCoordinates = {xCoord, yCoord};
-
     // return the scaled coordinates
-    return scaledCoordinates;
+    return new double[] {xCoord, yCoord};
   }
 
   /**
@@ -107,15 +94,11 @@ public class MapDraw {
     xCoord = (xCoord / SCALE_FACTOR);
     yCoord = (yCoord / SCALE_FACTOR);
 
-    // put the values in an array to return
-    double[] scaledCoordinates = {xCoord, yCoord};
-
     // return the scaled coordinates
-    return scaledCoordinates;
+    return new double[] {xCoord, yCoord};
   }
 
-  public static void drawPathClickable(
-      AnchorPane[] aps, ArrayList<GraphNode> path, ArrayList<String> floorPath) {
+  public static void drawPathClickable(AnchorPane[] aps, ArrayList<GraphNode> path) {
 
     // coordinates for the previous point in the path
     double prevX = 0;
@@ -134,16 +117,14 @@ public class MapDraw {
       prevFloor = Floor.indexFromTableString(floor);
       Circle currentCircle =
           new Circle(prevX, prevY, radius, Color.web("0x279F89")); // starting circle
-      List<ServiceRequestEntity> srs = FacadeRepository.getInstance().getAllServiceRequest();
 
       aps[prevFloor].getChildren().add(currentCircle);
     }
 
     // current holders for coordinates
-    double currentX = -1;
-    double currentY = -1;
-    int currentFloor = -1;
-    int floorTracker = 0; // corresponds to an index in the floorPath()
+    double currentX;
+    double currentY;
+    int currentFloor;
 
     // get all node x and y coords to draw lines between them
     for (int i = 1; i < size; i++) {
@@ -215,33 +196,29 @@ public class MapDraw {
    */
   private static EventHandler<MouseEvent> squareChangeColor(AnchorPane anchorPane, String floor) {
     EventHandler<MouseEvent> eventHandler =
-        new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent t) {
+        t -> {
+          if (t.getSource() instanceof Rectangle) {
 
-            if (t.getSource() instanceof Rectangle) {
-
-              if (previousRect != null) {
-                previousRect.setFill(Color.web("0x6143D7"));
-              }
-              Rectangle rect = ((Rectangle) (t.getSource()));
-              rect.setFill(Color.web("0xbc8fff"));
-              previousRect = rect;
-
-              addSRPopup(
-                  anchorPane,
-                  ((Rectangle) t.getSource()).getX(),
-                  ((Rectangle) t.getSource()).getY(),
-                  floor);
+            if (previousRect != null) {
+              previousRect.setFill(Color.web("0x6143D7"));
             }
+            Rectangle rect = ((Rectangle) (t.getSource()));
+            rect.setFill(Color.web("0xbc8fff"));
+            previousRect = rect;
+
+            addSRPopup(
+                anchorPane,
+                ((Rectangle) t.getSource()).getX(),
+                ((Rectangle) t.getSource()).getY(),
+                floor);
           }
         };
     return eventHandler;
   }
 
-  public static void addSRPopup(AnchorPane anchorPane, double xcoord, double ycoord, String floor) {
+  public static void addSRPopup(AnchorPane anchorPane, double xCoord, double yCoord, String floor) {
 
-    double[] invertedCoords = scaleCoordinatesReversed(xcoord, ycoord);
+    double[] invertedCoords = scaleCoordinatesReversed(xCoord, yCoord);
 
     if (previousPopup != null) {
       previousPopup.hide();
@@ -286,6 +263,7 @@ public class MapDraw {
 
     final Point location = MouseInfo.getPointerInfo().getLocation();
     popover.show(anchorPane, location.getX(), location.getY());
+    previousPopup = popover;
     // AApp.getPrimaryStage();
   }
 }
