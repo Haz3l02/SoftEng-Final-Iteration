@@ -6,6 +6,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.MenuItem?>
@@ -43,6 +44,9 @@
                            <HBox.margin>
                               <Insets bottom="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </MFXButton>
                      </children>
                   </HBox>
@@ -64,6 +68,9 @@
                                        <font>
                                           <Font size="18.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor>
                                     </MFXTextField>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y Coord">
                                        <font>
@@ -193,6 +200,9 @@
                            <font>
                               <Font size="24.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </MFXButton>
                      </children>
                   </HBox>
@@ -220,30 +230,45 @@
             </HBox>
             <HBox prefWidth="200.0">
                <children>
-                  <MFXButton fx:id="l1Button" onAction="#generateFloor" text="Level 1">
+                  <MFXButton fx:id="l2Button" onAction="#generateFloor" text="Lower Level 2">
                      <HBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </MFXButton>
-                  <MFXButton fx:id="l2Button" onAction="#generateFloor" text="Level 2">
+                  <MFXButton fx:id="l1Button" onAction="#generateFloor" text="Lower Level 1">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </MFXButton>
                   <MFXButton fx:id="f1Button" onAction="#generateFloor" text="Floor 1">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </MFXButton>
                   <MFXButton fx:id="f2Button" onAction="#generateFloor" text="Floor 2">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </MFXButton>
                   <MFXButton fx:id="f3Button" onAction="#generateFloor" text="Floor 3">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </MFXButton>
                </children>
             </HBox>
@@ -285,7 +310,10 @@
                         <Insets />
                      </VBox.margin>
                   </Text>
-                  <MFXToggleButton fx:id="toggleSwitch" />
+                  <MFXToggleButton fx:id="toggleSwitch">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></MFXToggleButton>
                   <Text fx:id="reminder" fill="#ff2121" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill out all fields in the form!" visible="false">
                      <font>
                         <Font size="18.0" />

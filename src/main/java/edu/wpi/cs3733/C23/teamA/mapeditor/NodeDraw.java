@@ -10,6 +10,7 @@ import edu.wpi.cs3733.C23.teamA.controllers.NodeEditorEditPopupController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -51,6 +52,9 @@ public class NodeDraw implements KeyListener {
   static LocationEditorEditPopupController locEditPopup = new LocationEditorEditPopupController();
 
   static int[] previousCoords = new int[2];
+
+  static ArrayList<NodeEntity> selectedNodes = new ArrayList<>();
+  static NodeEntity firstNode;
 
   public void setNewLocation() {}
 
@@ -290,6 +294,36 @@ public class NodeDraw implements KeyListener {
                         selectedNodeEntity.getBuilding());
               }
             }
+            // TODO: make this more intuitive to use
+            if (event.isAltDown()) {
+              NodeEntity selectedNode = getSelected();
+
+              if (selectedNode != null) {
+                selectedNodes.add(selectedNode);
+                if (firstNode == null) {
+                  firstNode = selectedNode;
+                }
+              }
+            }
+            if (event.isShortcutDown()) {
+              System.out.println("align the nodes");
+              int yAlign = firstNode.getYcoord();
+
+              for (NodeEntity node : selectedNodes) {
+                node.setYcoord(yAlign);
+                FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
+              }
+              System.out.println("nodes aligned");
+              nmc.initialize();
+            }
+            if (!event.isShortcutDown() && !event.isAltDown()) {
+              System.out.println("clear the nodes list");
+              if (selectedNodes != null) {
+                selectedNodes.clear();
+              }
+            }
+            // end of The Straightener tm
+
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
@@ -308,17 +342,14 @@ public class NodeDraw implements KeyListener {
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
 
       EventHandler<MouseEvent> eventHandler3 =
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              if ((!nodeGraphic.equals(selectNodePane))) {
-                nodeGraphic.setStyle(
-                    "-fx-background-color: '#224870'; "
-                        + "-fx-background-radius: 12.5; "
-                        + "-fx-border-color: '#224870'; "
-                        + "-fx-border-width: 1;"
-                        + "-fx-border-radius: 13.5");
-              }
+          event -> {
+            if ((!nodeGraphic.equals(selectNodePane))) {
+              nodeGraphic.setStyle(
+                  "-fx-background-color: '#224870'; "
+                      + "-fx-background-radius: 12.5; "
+                      + "-fx-border-color: '#224870'; "
+                      + "-fx-border-width: 1;"
+                      + "-fx-border-radius: 13.5");
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
@@ -330,41 +361,38 @@ public class NodeDraw implements KeyListener {
       nodeGraphic.setOnMouseDragged(dragEvent(nmc));
 
       nodeGraphic.setOnMouseReleased(
-          new EventHandler<MouseEvent>() {
+          event -> {
+            nmc.getMainGesturePane().setGestureEnabled(true);
+            if (!event.isStillSincePress()) {
+              System.out.println("node dropped");
 
-            @Override
-            public void handle(MouseEvent event) {
-              nmc.getMainGesturePane().setGestureEnabled(true);
-              if (!event.isStillSincePress()) {
-                System.out.println("node dropped");
+              System.out.println((int) selectNodePane.getLayoutX());
+              System.out.println((int) selectNodePane.getLayoutY());
+              Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+              alert.setTitle("Node Drag and Drop");
+              alert.setHeaderText("Would you like to make this change?");
 
-                System.out.println((int) selectNodePane.getLayoutX());
-                System.out.println((int) selectNodePane.getLayoutY());
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Node Drag and Drop");
-                alert.setHeaderText("Would you like to make this change?");
-
-                if (alert.showAndWait().get() == ButtonType.OK) {
-                  int[] revertedCoords =
-                      scaleCoordinatesReversed(
-                          selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
-                  selectedNodeEntity.setXcoord(revertedCoords[0]);
-                  selectedNodeEntity.setYcoord(revertedCoords[1]);
-                  FacadeRepository.getInstance()
-                      .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
-                }
-                nodeAnchor.getChildren().clear();
-                drawEdges(
-                    FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
-                    scaleFactor,
-                    nodeAnchor);
-                drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
+              if (alert.showAndWait().get() == ButtonType.OK) {
+                int[] revertedCoords =
+                    scaleCoordinatesReversed(
+                        selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
+                selectedNodeEntity.setXcoord(revertedCoords[0]);
+                selectedNodeEntity.setYcoord(revertedCoords[1]);
+                FacadeRepository.getInstance()
+                    .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
               }
+              nodeAnchor.getChildren().clear();
+              drawEdges(
+                  FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
+                  scaleFactor,
+                  nodeAnchor);
+              drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
             }
           });
-
+      /*
       nodeGraphic.setOnMouseClicked(
           event -> {
+
             if (event.getButton() == MouseButton.SECONDARY) {
               Alert a = new Alert(Alert.AlertType.CONFIRMATION);
               a.setTitle("Delete Node?");
@@ -399,6 +427,8 @@ public class NodeDraw implements KeyListener {
               }
             }
           });
+
+             */
       /*
       nodeGraphic.setOnContextMenuRequested(
           event -> {
@@ -415,7 +445,7 @@ public class NodeDraw implements KeyListener {
       nodeGraphic.setOnMouseClicked(
           event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
-              System.out.println("right clicked");
+
               NodeEditorEditPopupController.setNode(selectedNodeEntity);
               NodeEditorEditPopupController.setXCord(selectedNodeEntity.getXcoord());
               NodeEditorEditPopupController.setYCord(selectedNodeEntity.getYcoord());
