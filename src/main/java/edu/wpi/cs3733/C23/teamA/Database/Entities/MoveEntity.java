@@ -53,15 +53,14 @@ public class MoveEntity {
     this.node = node;
     this.locationName = locationName;
     this.movedate = movedate;
-    this.message="";
+    this.message = "";
   }
 
   public MoveEntity(NodeEntity node, LocationNameEntity locationName) {
     this.node = node;
     this.locationName = locationName;
-    this.message="";
+    this.message = "";
   }
-
 
   public MoveEntity(NodeEntity node, LocationNameEntity locationName, String message) {
     this.node = node;
@@ -69,7 +68,8 @@ public class MoveEntity {
     this.message = message;
   }
 
-  public MoveEntity(NodeEntity node, LocationNameEntity locationName, LocalDate movedate, String message) {
+  public MoveEntity(
+      NodeEntity node, LocationNameEntity locationName, LocalDate movedate, String message) {
     this.node = node;
     this.locationName = locationName;
     this.movedate = movedate;
