@@ -5,7 +5,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.Main;
-import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
+import edu.wpi.cs3733.C23.teamA.mapdrawing.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.*;
@@ -16,7 +16,6 @@ import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,7 +23,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -107,22 +105,27 @@ public class MapEditorController extends MenuController {
     // gc = mainCanvas.getGraphicsContext2D();
 
     mainGesturePane.setOnKeyPressed(
-        new EventHandler<KeyEvent>() {
-          @Override
-          public void handle(KeyEvent event) {
-            if (event.getCode().equals(KeyCode.BACK_SPACE)
-                || event.getCode().equals(KeyCode.DELETE)) {
+        event -> {
+          if (event.getCode().equals(KeyCode.BACK_SPACE)
+              || event.getCode().equals(KeyCode.DELETE)) {
 
-              if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
-                System.out.println("delete edge only");
-                NodeDraw.delEdge();
-              } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
-                System.out.println("delete node only");
-                NodeDraw.delNode();
-              } else {
-                System.out.println("idk");
-              }
+            if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
+              System.out.println("delete edge only");
+              NodeDraw.delEdge();
+            } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
+              System.out.println("delete node only");
+              NodeDraw.delNode();
+            } else {
+              System.out.println("idk");
             }
+          }
+          if (event.getCode().equals(KeyCode.X) && event.isControlDown()) {
+            System.out.println("straighten that fucker (horizontally)");
+            NodeDraw.straightenNodesHorizontal();
+          }
+          if (event.getCode().equals(KeyCode.Y) && event.isControlDown()) {
+            System.out.println("straighten that fucker (vertically)");
+            NodeDraw.straightenNodesVertical();
           }
         });
 

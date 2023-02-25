@@ -1,4 +1,7 @@
-package edu.wpi.cs3733.C23.teamA.mapeditor;
+package edu.wpi.cs3733.C23.teamA.mapdrawing;
+
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinates;
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
@@ -10,6 +13,7 @@ import edu.wpi.cs3733.C23.teamA.controllers.NodeEditorEditPopupController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -21,10 +25,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 public class NodeDraw implements KeyListener {
 
@@ -50,7 +50,10 @@ public class NodeDraw implements KeyListener {
   static NodeEditorEditPopupController nodeEditPopup = new NodeEditorEditPopupController();
   static LocationEditorEditPopupController locEditPopup = new LocationEditorEditPopupController();
 
-  static int[] previousCoords = new int[2];
+  static double[] previousCoords = new double[2];
+
+  static ArrayList<NodeEntity> selectedNodes = new ArrayList<>();
+  static NodeEntity firstNode;
 
   public void setNewLocation() {}
 
@@ -72,60 +75,10 @@ public class NodeDraw implements KeyListener {
     previousSelectedNode = p;
   }
 
-  public static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
-    // get the coordinates from the node
-
-    // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord) * scaleFactor;
-    yCoord = (yCoord) * scaleFactor;
-
-    // put the values in an array to return
-    int[] scaledCoordinates = {(int) Math.round(xCoord), (int) Math.round(yCoord)};
-
-    // return the scaled coordinates
-    return scaledCoordinates;
-  }
-
-  /**
-   * @param xCoord the x-coordinate to scale
-   * @param yCoord the y-coordinate to scale
-   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
-   * @return an int array with the pair of new coordinates
-   */
-  private static int[] scaleCoordinatesReversed(double xCoord, double yCoord, double scaleFactor) {
-    // get the coordinates from the node
-
-    // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord / scaleFactor);
-    yCoord = (yCoord / scaleFactor);
-
-    // put the values in an array to return
-    int[] scaledCoordinates = {(int) Math.round(xCoord), (int) Math.round(yCoord)};
-
-    // return the scaled coordinates
-    return scaledCoordinates;
-  }
-
   public static void drawLocations(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
 
-    nodeAnchor.getChildren().clear();
-
-    for (NodeEntity n : allNodes) {
-      int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
-
-      if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
-        Text locName = new Text();
-        locName.setVisible(true);
-        locName.rotateProperty().set(45);
-        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-        locName.setText(
-            FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
-        locName.setLayoutX(updatedCoords[0] - 2.5);
-        locName.setLayoutY(updatedCoords[1] - 2.5);
-        nodeAnchor.getChildren().add(locName);
-      }
-    }
+    LocationsDraw.drawLocations(allNodes, nodeAnchor, scaleFactor, true);
   }
 
   public static void drawNodes(
@@ -137,7 +90,7 @@ public class NodeDraw implements KeyListener {
 
     // draw circle for each node
     for (NodeEntity n : allNodes) {
-      int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
       Pane nodeGraphic = new Pane();
 
       currentPane = nodeGraphic;
@@ -290,6 +243,25 @@ public class NodeDraw implements KeyListener {
                         selectedNodeEntity.getBuilding());
               }
             }
+            if (event.isAltDown()) {
+              NodeEntity selectedNode = getSelected();
+
+              if (selectedNode != null) {
+                selectedNodes.add(selectedNode);
+                if (firstNode == null) {
+                  firstNode = selectedNode;
+                }
+              }
+            }
+            if (!event.isShortcutDown() && !event.isAltDown()) {
+              System.out.println("clear the nodes list");
+              if (selectedNodes != null) {
+                selectedNodes.clear();
+              }
+              firstNode = null;
+            }
+            // end of The Straightener tm
+
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
@@ -308,17 +280,14 @@ public class NodeDraw implements KeyListener {
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
 
       EventHandler<MouseEvent> eventHandler3 =
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              if ((!nodeGraphic.equals(selectNodePane))) {
-                nodeGraphic.setStyle(
-                    "-fx-background-color: '#224870'; "
-                        + "-fx-background-radius: 12.5; "
-                        + "-fx-border-color: '#224870'; "
-                        + "-fx-border-width: 1;"
-                        + "-fx-border-radius: 13.5");
-              }
+          event -> {
+            if ((!nodeGraphic.equals(selectNodePane))) {
+              nodeGraphic.setStyle(
+                  "-fx-background-color: '#224870'; "
+                      + "-fx-background-radius: 12.5; "
+                      + "-fx-border-color: '#224870'; "
+                      + "-fx-border-width: 1;"
+                      + "-fx-border-radius: 13.5");
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
@@ -330,41 +299,38 @@ public class NodeDraw implements KeyListener {
       nodeGraphic.setOnMouseDragged(dragEvent(nmc));
 
       nodeGraphic.setOnMouseReleased(
-          new EventHandler<MouseEvent>() {
+          event -> {
+            nmc.getMainGesturePane().setGestureEnabled(true);
+            if (!event.isStillSincePress()) {
+              System.out.println("node dropped");
 
-            @Override
-            public void handle(MouseEvent event) {
-              nmc.getMainGesturePane().setGestureEnabled(true);
-              if (!event.isStillSincePress()) {
-                System.out.println("node dropped");
+              System.out.println((int) selectNodePane.getLayoutX());
+              System.out.println((int) selectNodePane.getLayoutY());
+              Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+              alert.setTitle("Node Drag and Drop");
+              alert.setHeaderText("Would you like to make this change?");
 
-                System.out.println((int) selectNodePane.getLayoutX());
-                System.out.println((int) selectNodePane.getLayoutY());
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Node Drag and Drop");
-                alert.setHeaderText("Would you like to make this change?");
-
-                if (alert.showAndWait().get() == ButtonType.OK) {
-                  int[] revertedCoords =
-                      scaleCoordinatesReversed(
-                          selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
-                  selectedNodeEntity.setXcoord(revertedCoords[0]);
-                  selectedNodeEntity.setYcoord(revertedCoords[1]);
-                  FacadeRepository.getInstance()
-                      .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
-                }
-                nodeAnchor.getChildren().clear();
-                drawEdges(
-                    FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
-                    scaleFactor,
-                    nodeAnchor);
-                drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
+              if (alert.showAndWait().get() == ButtonType.OK) {
+                double[] revertedCoords =
+                    scaleCoordinatesReversed(
+                        selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
+                selectedNodeEntity.setXcoord((int) Math.round(revertedCoords[0]));
+                selectedNodeEntity.setYcoord((int) Math.round(revertedCoords[1]));
+                FacadeRepository.getInstance()
+                    .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
               }
+              nodeAnchor.getChildren().clear();
+              drawEdges(
+                  FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
+                  scaleFactor,
+                  nodeAnchor);
+              drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
             }
           });
-
+      /*
       nodeGraphic.setOnMouseClicked(
           event -> {
+
             if (event.getButton() == MouseButton.SECONDARY) {
               Alert a = new Alert(Alert.AlertType.CONFIRMATION);
               a.setTitle("Delete Node?");
@@ -399,6 +365,8 @@ public class NodeDraw implements KeyListener {
               }
             }
           });
+
+             */
       /*
       nodeGraphic.setOnContextMenuRequested(
           event -> {
@@ -415,7 +383,7 @@ public class NodeDraw implements KeyListener {
       nodeGraphic.setOnMouseClicked(
           event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
-              System.out.println("right clicked");
+
               NodeEditorEditPopupController.setNode(selectedNodeEntity);
               NodeEditorEditPopupController.setXCord(selectedNodeEntity.getXcoord());
               NodeEditorEditPopupController.setYCord(selectedNodeEntity.getYcoord());
@@ -529,13 +497,41 @@ public class NodeDraw implements KeyListener {
   }
   // end _________________________________________________________________
 
+  public static void straightenNodesHorizontal() {
+
+    int yAlign = firstNode.getYcoord();
+
+    for (NodeEntity node : selectedNodes) {
+
+      node.setYcoord(yAlign);
+      FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
+    }
+    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+
+  }
+
+  public static void straightenNodesVertical() {
+
+    int xAlign = firstNode.getXcoord();
+
+    for (NodeEntity node : selectedNodes) {
+
+      node.setXcoord(xAlign);
+
+      FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
+    }
+
+    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+
+  }
+
   public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, AnchorPane ap) {
     ap.getChildren().clear();
 
     for (EdgeEntity edge : allEdges) {
-      int[] updatedCoordsNode1 =
+      double[] updatedCoordsNode1 =
           scaleCoordinates(edge.getNode1().getXcoord(), edge.getNode1().getYcoord(), scaleFactor);
-      int[] updatedCoordsNode2 =
+      double[] updatedCoordsNode2 =
           scaleCoordinates(edge.getNode2().getXcoord(), edge.getNode2().getYcoord(), scaleFactor);
 
       // make line

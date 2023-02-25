@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import net.kurobako.gesturefx.GesturePane?>
+
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.KioskController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
+   <bottom>
+      <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="818.0">
+               <children>
+                  <StackPane prefHeight="50.0" prefWidth="115.0">
+                     <children>
+                        <MFXButton fx:id="back" onAction="#goBack" styleClass="reject" text="Back" textAlignment="CENTER" textFill="#d3e9f6" />
+                     </children>
+                  </StackPane>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1100.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <center>
+      <SplitPane dividerPositions="0.29336734693877553, 0.7897230320699709, 0.5" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <items>
+            <VBox alignment="CENTER" prefHeight="640.0" prefWidth="263.0" style="-fx-background-color: #D3E9F6;">
+               <children>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="368.0" fitWidth="274.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/icons/arrow_facingLeft_blue.png" />
+                           </image>
+                        </ImageView>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="269.0">
+                           <children>
+                              <Label fx:id="left" alignment="CENTER_RIGHT" prefHeight="82.0" prefWidth="203.0" text="Left">
+                                 <font>
+                                    <Font name="Verdana" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <StackPane.margin>
+                              <Insets right="10.0" />
+                           </StackPane.margin>
+                        </HBox>
+                     </children>
+                  </StackPane>
+               </children></VBox>
+            <VBox fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #D3E9F6;">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="94.0" prefWidth="717.0" spacing="10.0" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-background-radius: 15;">
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcement From Admin" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana Bold" size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Label fx:id="announcement" text="Label" wrapText="true">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="521.0" prefWidth="583.0" style="-fx-background-color: bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;">
+                     <children>
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="0.0" prefWidth="787.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map" wrappingWidth="126.94842529296875">
+                                 <font>
+                                    <Font name="Arial Black" size="36.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="515.0" prefWidth="583.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="330.0" prefWidth="109.0" style="-fx-background-color: #224870;">
+                                 <children>
+                                    <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="319.0" prefWidth="738.0">
+                                       <children>
+                                          <ImageView fx:id="mainImageView" fitHeight="319.0" fitWidth="514.0" pickOnBounds="true" preserveRatio="true" />
+                                          <AnchorPane fx:id="anchorF3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="anchorF2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="anchorF1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="anchorL2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="anchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                          <AnchorPane fx:id="textAnchorPane" prefHeight="200.0" prefWidth="200.0" />
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </StackPane>
+                                    <GesturePane fx:id="mainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="330.0" prefWidth="415.0" />
+                                    <AnchorPane fx:id="serviceRequestPane" prefHeight="319.0" prefWidth="493.0" />
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #D3E9F6;">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="96.0" prefWidth="279.0" spacing="10.0" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-background-radius: 15;">
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Move Details" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana Bold" size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Label text="Label" wrapText="true">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="338.0" prefWidth="279.0" spacing="10.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-background-radius: 15;">
+                     <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana Bold" size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Label text="Label" wrapText="true">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="168.0" prefWidth="299.0" spacing="10.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="168.0" prefWidth="156.0" spacing="10.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-border-radius: 15;">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="L Location">
+                                 <font>
+                                    <Font name="Verdana" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Label text="Label">
+                                 <font>
+                                    <Font name="Verdana" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="168.0" prefWidth="151.0" spacing="10.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-border-radius: 15;">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="R Location">
+                                 <font>
+                                    <Font name="Verdana" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Label text="Label">
+                                 <font>
+                                    <Font name="Verdana" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children></VBox>
+            <VBox alignment="CENTER" prefHeight="640.0" prefWidth="196.0" style="-fx-background-color: #D3E9F6;">
+               <children>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="368.0" fitWidth="274.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/icons/arrow_facingRight_blue.png" />
+                           </image>
+                        </ImageView>
+                        <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="264.0">
+                           <children>
+                              <Label fx:id="right" prefHeight="82.0" prefWidth="219.0" text="Right">
+                                 <font>
+                                    <Font name="Verdana" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <StackPane.margin>
+                              <Insets left="10.0" />
+                           </StackPane.margin>
+                        </HBox>
+                     </children>
+                  </StackPane>
+               </children></VBox>
+         </items>
+      </SplitPane>
+   </center>
+</BorderPane>
