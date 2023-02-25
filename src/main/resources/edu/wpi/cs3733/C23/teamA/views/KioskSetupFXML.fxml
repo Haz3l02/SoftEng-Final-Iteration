@@ -106,16 +106,16 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="606.0" spacing="10.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kiosk Location:">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
                               </Text>
-                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" onMouseExited="#setLefRight" prefHeight="0.0" prefWidth="318.0" promptText="Location...">
+                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" onMouseExited="#setLefRight" prefHeight="43.0" prefWidth="262.0" promptText="Location...">
                                  <font>
-                                    <Font name="Verdana" size="36.0" />
+                                    <Font name="Verdana" size="24.0" />
                                  </font>
                               </MFXFilterComboBox>
                            </children>
@@ -185,7 +185,7 @@
                         </TextArea>
                         <VBox alignment="CENTER" prefHeight="173.0" prefWidth="186.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Toggle Directions" textAlignment="CENTER" wrappingWidth="193.49853515625">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Show Directions" textAlignment="CENTER" wrappingWidth="193.49853515625">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>

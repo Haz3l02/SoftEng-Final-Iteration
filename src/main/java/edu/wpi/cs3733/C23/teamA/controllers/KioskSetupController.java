@@ -25,7 +25,7 @@ public class KioskSetupController {
   @FXML private MFXFilterComboBox<String> moveLocation;
   @FXML private MFXDatePicker moveDate;
   @FXML private TextArea moveDescription;
-  @FXML private Label left, right;
+  @FXML private Label left, right, leftD, rightD;
   @FXML private StackPane reminderPane;
   @FXML private Text reminder;
 
