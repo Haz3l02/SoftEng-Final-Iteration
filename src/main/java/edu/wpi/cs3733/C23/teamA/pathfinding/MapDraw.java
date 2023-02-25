@@ -62,12 +62,13 @@ public class MapDraw {
         if (!locNameEnt.getLocationtype().equals("HALL")) {
           Text locName = new Text();
           locName.setVisible(true);
-          locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+          locName.rotateProperty().set(45);
+          locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 3));
           locName.setText(locNameEnt.getShortname());
 
           // get the coordinates
-          locName.setLayoutX(updatedCoords[0] - 2.5);
-          locName.setLayoutY(updatedCoords[1] - 2.5);
+          locName.setLayoutX(updatedCoords[0] - 4.5);
+          locName.setLayoutY(updatedCoords[1] - 4.5);
           nodeAnchor.getChildren().add(locName);
         }
       }
