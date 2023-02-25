@@ -5,7 +5,7 @@ import static edu.wpi.cs3733.C23.teamA.controllers.MapEditorController.mapEditor
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
-import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
+import edu.wpi.cs3733.C23.teamA.mapdrawing.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.*;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;

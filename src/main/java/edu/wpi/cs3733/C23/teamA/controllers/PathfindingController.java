@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
+import edu.wpi.cs3733.C23.teamA.mapdrawing.PathfindingDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.*;
@@ -154,8 +155,8 @@ public class PathfindingController extends MenuController {
     // show service request icons and location name
     List<NodeEntity> allNodesL2 =
         FacadeRepository.getInstance().getNodesOnFloor(initialTableString);
-    MapDraw.drawServiceRequestIcons(serviceRequestPane, initialTableString);
-    MapDraw.drawLocations(allNodesL2, textAnchorPane);
+    PathfindingDraw.drawServiceRequestIcons(serviceRequestPane, initialTableString);
+    PathfindingDraw.drawLocations(allNodesL2, textAnchorPane);
 
     // Action Listener for toggle switch
     toggleServiceRequests
@@ -577,9 +578,9 @@ public class PathfindingController extends MenuController {
 
     // show service request icons
     List<NodeEntity> allNodes = FacadeRepository.getInstance().getNodesOnFloor(tableFloor);
-    MapDraw.drawServiceRequestIcons(serviceRequestPane, tableFloor);
+    PathfindingDraw.drawServiceRequestIcons(serviceRequestPane, tableFloor);
 
     // show location names
-    MapDraw.drawLocations(allNodes, textAnchorPane);
+    PathfindingDraw.drawLocations(allNodes, textAnchorPane);
   }
 }
