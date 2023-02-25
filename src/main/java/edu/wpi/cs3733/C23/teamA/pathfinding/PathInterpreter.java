@@ -165,20 +165,25 @@ public class PathInterpreter {
     double epsilon = 0.1;
 
     if (Math.PI - epsilon > changeInAngle && changeInAngle > epsilon) {
-      direction = "(\u2190) " + "Turn left ";
+      direction = "(\u2192) " + "Turn right ";
     } else if (-Math.PI - epsilon > changeInAngle) {
-      direction = "(\u2190) " + "Turn left ";
+      direction = "(\u2192) " + "Turn right ";
     } else if (changeInAngle >= -epsilon && changeInAngle <= epsilon) {
       direction = "Continue straight ";
     } else if (-Math.PI + epsilon < changeInAngle && changeInAngle < -epsilon) {
-      direction = "(\u2192) " + "Turn right ";
+      direction = "(\u2190) " + "Turn left ";
     } else if (Math.PI + epsilon < changeInAngle) {
-      direction = "(\u2192) " + "Turn right ";
+      direction = "(\u2190) " + "Turn left ";
     } else { // Dir = pi or -pi
       direction = "(\u21BA) " + "Make a U-Turn "; // changed to make it more concise
     }
     direction = direction + "and go to " + end.getLongName() + ".\n";
 
     return direction;
+
+    /* lines to copy
+     direction = "(\u2192) " + "Turn right ";
+     direction = "(\u2190) " + "Turn left ";
+    */
   }
 }
