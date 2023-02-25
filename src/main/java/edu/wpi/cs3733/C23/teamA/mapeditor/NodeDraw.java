@@ -556,9 +556,8 @@ public class NodeDraw implements KeyListener {
 
       node.setYcoord(yAlign);
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
-
     }
-    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
 
   }
 
@@ -571,10 +570,9 @@ public class NodeDraw implements KeyListener {
       node.setXcoord(xAlign);
 
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
-
     }
 
-    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
 
   }
 

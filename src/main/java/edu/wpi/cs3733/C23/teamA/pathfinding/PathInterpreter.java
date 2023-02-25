@@ -101,28 +101,43 @@ public class PathInterpreter {
     for (int i = 0; i < numFloors; i++) {
       sb.append(floorPath.get(i));
       if (i != numFloors - 1) {
-        sb.append(" --> ");
+        sb.append(" \u2192 ");
       } else if (i == numFloors - 1) {
         sb.append(")\n\n");
       }
     }
 
-    // loop through all of them to print the full path
-    for (int i = 0; i < numNodes; i++) {
-      String longName = path.get(i).getLongName();
+    // variables
+    String longName;
+    String prevFloor;
+    String currentFloor;
 
-      if (longName != null) {
-        if (i == 0) {
-          sb.append("Start at " + longName + ".\n");
-        } else if (i == 1) {
-          sb.append("Go toward " + longName + ".\n");
-        } else {
-          String direction = getDirection(path.get(i - 2), path.get(i - 1), path.get(i));
-          sb.append(direction);
-        }
+    // add the start to the sb
+    prevFloor = path.get(0).getFloor();
+    sb.append("(Floor " + prevFloor + ")\n");
+    sb.append("Start at " + path.get(0).getLongName() + ".\n");
+
+    // loop through all of them to print the full path
+    for (int i = 1; i < numNodes; i++) {
+      longName = path.get(i).getLongName();
+      currentFloor = path.get(i).getFloor();
+
+      if (!currentFloor.equals(prevFloor)) {
+        sb.append("\n(Floor " + currentFloor + ")\n");
+        prevFloor = currentFloor;
+      }
+
+      if (longName != null) {}
+      if (i == 1) {
+        sb.append("Go toward " + longName + ".\n");
+      } else {
+        String direction = getDirection(path.get(i - 2), path.get(i - 1), path.get(i));
+        sb.append(direction);
       }
     }
-    sb.append("You have reached " + endName + ".\n");
+
+    // add the end to sb
+    sb.append("(\u274C) " + "You have reached " + endName + ".\n");
 
     // return the built string
     return sb.toString();
@@ -138,8 +153,7 @@ public class PathInterpreter {
     int cx = end.getXCoord();
     int cy = end.getYCoord();
 
-    // todo: add some kind of check for the same coordinates; if any pair has the same ones? (ex:
-    // elevators)
+    // todo: add some kind of check for the same coordinates
 
     // distance between the first and second graphNodes
     int dist = (int) Math.sqrt(Math.pow(bx - ax, 2) + Math.pow(by - ay, 2)) / 3;
@@ -151,17 +165,17 @@ public class PathInterpreter {
     double epsilon = 0.1;
 
     if (Math.PI - epsilon > changeInAngle && changeInAngle > epsilon) {
-      direction = "Turn left ";
+      direction = "(\u2190) " + "Turn left ";
     } else if (-Math.PI - epsilon > changeInAngle) {
-      direction = "Turn left ";
+      direction = "(\u2190) " + "Turn left ";
     } else if (changeInAngle >= -epsilon && changeInAngle <= epsilon) {
       direction = "Continue straight ";
     } else if (-Math.PI + epsilon < changeInAngle && changeInAngle < -epsilon) {
-      direction = "Turn right ";
+      direction = "(\u2192) " + "Turn right ";
     } else if (Math.PI + epsilon < changeInAngle) {
-      direction = "Turn right ";
+      direction = "(\u2192) " + "Turn right ";
     } else { // Dir = pi or -pi
-      direction = "Turn all of the way around ";
+      direction = "(\u21BA) " + "Make a U-Turn "; // changed to make it more concise
     }
     direction = direction + "and go to " + end.getLongName() + ".\n";
 
