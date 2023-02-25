@@ -11,21 +11,40 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.IAlgorithmStrategy;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Algorithm;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javafx.scene.control.SplitPane;
 
 public class KioskController {
-  @FXML Label announcement, left, right;
+  @FXML private Label announcement, left, right, leftD, rightD;
+  @FXML public SplitPane mainSplitPane;
+  @FXML public Node leftPane;
+  @FXML public Node mapPane;
+  @FXML public Node directionsPane;
+  @FXML public Node rightPane;
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() {
+    leftPane = mainSplitPane.getItems().get(0);
+    mapPane = mainSplitPane.getItems().get(1);
+    directionsPane = mainSplitPane.getItems().get(2);
+    rightPane = mainSplitPane.getItems().get(3);
+
     announcement.setText(kiosk.getMessage());
     left.setText(kiosk.getLeft());
     right.setText(kiosk.getRight());
+
+    if (kiosk.isDirections()) {
+      mainSplitPane.getItems().remove(leftPane);
+      mainSplitPane.getItems().remove(rightPane);
+    } else {
+      mainSplitPane.getItems().remove(directionsPane);
+    }
 
     // TODO Setup the split pane thing and the map
     runPathfinding();
@@ -39,11 +58,9 @@ public class KioskController {
     GraphNode end = pathfindingSystem.getNode(kiosk.getEndLocation().getNodeid());
     ArrayList<GraphNode> path = pathfindingSystem.runPathfinding(start, end).getPath();
 
-
-
   }
 
-  @FXML
+    @FXML
   public void goBack() {
     Navigation.navigate(Screen.KIOSK_SETUP);
   }

@@ -27,9 +27,9 @@ public class KioskSetupController {
   @FXML private MFXFilterComboBox<String> moveLocation;
   @FXML private MFXDatePicker moveDate;
   @FXML private TextArea moveDescription;
-  @FXML private Label left, right;
+  @FXML private Label left, right, leftD, rightD;
   @FXML private StackPane reminderPane;
-  @FXML private Text reminder;
+  @FXML private Text reminder, moveReminder;
 
   static Kiosk kiosk = new Kiosk(null, null, "", "", false, "");
 
@@ -37,6 +37,7 @@ public class KioskSetupController {
   public void initialize() {
     reminder.setVisible(false);
     reminderPane.setVisible(false);
+    moveReminder.setVisible(false);
     List<LocationNameEntity> temp = FacadeRepository.getInstance().getAllLocation();
     ObservableList<String> locations = FXCollections.observableArrayList();
     for (LocationNameEntity move : temp) {
@@ -53,6 +54,12 @@ public class KioskSetupController {
         .addListener(
             Observable -> {
               switchLeftRight();
+            });
+    locationBox
+        .selectedItemProperty()
+        .addListener(
+            Observable -> {
+              setLeftRight();
             });
   }
 
@@ -71,9 +78,16 @@ public class KioskSetupController {
   @FXML
   public void setLeftRight() {
     // Code to get left and right nodes (adjacent nodes).
+    ArrayList<String> temp = new ArrayList<String>();
+    if (locationBox.getText() == null) {
+      temp.add("");
+      temp.add("");
+    } else {
+      temp = FacadeRepository.getInstance().getAdjacentLocations(locationBox.getText());
+    }
 
-    left.setText("");
-    right.setText("");
+    left.setText(temp.get(0));
+    right.setText(temp.get(temp.size() - 1));
   }
 
   @FXML
@@ -93,6 +107,7 @@ public class KioskSetupController {
     } else {
       Navigation.navigateHome(Screen.HOME_ACTUAL);
     }
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
 
   @FXML
@@ -105,6 +120,25 @@ public class KioskSetupController {
       reminderPane.setVisible(true);
     } else {
       // Code to check if the move entered is valid.
+      List<NodeEntity> nodes =
+          FacadeRepository.getInstance()
+              .newAndOldNode(moveLocation.getText(), moveDate.getCurrentDate());
+      if (!(nodes.size() == 1)) {
+        reminderPane.setVisible(false);
+        moveReminder.setVisible(false);
+        kiosk =
+            new Kiosk(
+                nodes.get(0),
+                nodes.get(1),
+                left.getText(),
+                right.getText(),
+                directionOnOff.isSelected(),
+                moveDescription.getText());
+        Navigation.navigateHome(Screen.KIOSK);
+      } else {
+        reminderPane.setVisible(true);
+        moveReminder.setVisible(true);
+      }
       ArrayList<NodeEntity> newAndOldNode =
           FacadeRepository.getInstance().newAndOldNode(locationBox.getText(), moveDate.getValue());
       if (newAndOldNode.size() == 2) {
