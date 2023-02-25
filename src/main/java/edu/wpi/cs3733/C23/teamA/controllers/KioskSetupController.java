@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -28,7 +29,7 @@ public class KioskSetupController {
   @FXML private TextArea moveDescription;
   @FXML private Label left, right, leftD, rightD;
   @FXML private StackPane reminderPane;
-  @FXML private Text reminder;
+  @FXML private Text reminder, moveReminder;
 
   public static Kiosk kiosk = new Kiosk(null, null, "", "", false, "");
 
@@ -37,6 +38,7 @@ public class KioskSetupController {
     System.out.println("Gets here");
     reminder.setVisible(false);
     reminderPane.setVisible(false);
+    moveReminder.setVisible(false);
     List<LocationNameEntity> temp = FacadeRepository.getInstance().getAllLocation();
     ObservableList<String> locations = FXCollections.observableArrayList();
     for (LocationNameEntity move : temp) {
@@ -119,15 +121,25 @@ public class KioskSetupController {
       reminderPane.setVisible(true);
     } else {
       // Code to check if the move entered is valid.
-      kiosk =
-          new Kiosk(
-              null,
-              null,
-              left.getText(),
-              right.getText(),
-              directionOnOff.isSelected(),
-              moveDescription.getText());
-      Navigation.navigateHome(Screen.KIOSK);
+      List<NodeEntity> nodes =
+          FacadeRepository.getInstance()
+              .newAndOldNode(moveLocation.getText(), moveDate.getCurrentDate());
+      if (!(nodes.size() == 1)) {
+        reminderPane.setVisible(false);
+        moveReminder.setVisible(false);
+        kiosk =
+            new Kiosk(
+                nodes.get(0),
+                nodes.get(1),
+                left.getText(),
+                right.getText(),
+                directionOnOff.isSelected(),
+                moveDescription.getText());
+        Navigation.navigateHome(Screen.KIOSK);
+      } else {
+        reminderPane.setVisible(true);
+        moveReminder.setVisible(true);
+      }
     }
   }
 }

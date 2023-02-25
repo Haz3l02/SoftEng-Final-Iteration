@@ -47,6 +47,11 @@
                               <Font name="Verdana" size="25.0" />
                            </font>
                         </Text>
+                        <Text fx:id="moveReminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Not a valid Move!" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
                      </children>
                      <HBox.margin>
                         <Insets right="30.0" />
