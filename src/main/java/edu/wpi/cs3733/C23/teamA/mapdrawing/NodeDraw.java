@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.mapdrawing;
 
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinates;
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
+
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
@@ -26,9 +29,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-
-import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinates;
-import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
 
 public class NodeDraw implements KeyListener {
 
@@ -525,9 +525,8 @@ public class NodeDraw implements KeyListener {
 
       node.setYcoord(yAlign);
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
-
     }
-    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
 
   }
 
@@ -540,10 +539,9 @@ public class NodeDraw implements KeyListener {
       node.setXcoord(xAlign);
 
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
-
     }
 
-    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
 
   }
 

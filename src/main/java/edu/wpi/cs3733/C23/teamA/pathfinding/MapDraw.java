@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinates;
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
+
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
@@ -25,9 +28,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
-
-import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinates;
-import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
 
 // Class for Controller to call to add the map
 public class MapDraw {
@@ -86,7 +86,8 @@ public class MapDraw {
 
     // get start node
     if (size > 0) {
-      double[] updatedCoords = scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), SCALE_FACTOR);
+      double[] updatedCoords =
+          scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), SCALE_FACTOR);
       prevX = updatedCoords[0];
       prevY = updatedCoords[1];
       String floor = path.get(0).getFloor();
