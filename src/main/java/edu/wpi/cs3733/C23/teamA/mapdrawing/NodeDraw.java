@@ -25,10 +25,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 public class NodeDraw implements KeyListener {
 
@@ -82,23 +78,7 @@ public class NodeDraw implements KeyListener {
   public static void drawLocations(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
 
-    nodeAnchor.getChildren().clear();
-
-    for (NodeEntity n : allNodes) {
-      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
-
-      if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
-        Text locName = new Text();
-        locName.setVisible(true);
-        locName.rotateProperty().set(45);
-        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 3));
-        locName.setText(
-            FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
-        locName.setLayoutX(updatedCoords[0] - 1.5);
-        locName.setLayoutY(updatedCoords[1] - 1.5);
-        nodeAnchor.getChildren().add(locName);
-      }
-    }
+    LocationsDraw.drawLocations(allNodes, nodeAnchor, scaleFactor, true);
   }
 
   public static void drawNodes(

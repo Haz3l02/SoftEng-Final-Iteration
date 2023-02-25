@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.mapdrawing;
 
-/** Class called by NodeDraw and MapDraw to scale coordinates for their maps */
+/** Class called by NodeDraw and PathfindingDraw to scale coordinates for their maps */
 public class CoordinateScalar {
 
   /**
