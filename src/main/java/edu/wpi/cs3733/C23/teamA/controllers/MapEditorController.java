@@ -97,6 +97,9 @@ public class MapEditorController extends MenuController {
 
   static MapEditorController mapEditor;
 
+  public static double mouseXCoord;
+  public static double mouseYCoord;
+
   /** Starting method called when screen is opened: Draws nodes and edges for floor L1 */
   public void initialize() {
 

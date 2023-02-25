@@ -327,46 +327,17 @@ public class NodeDraw implements KeyListener {
               drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
             }
           });
-      /*
+
       nodeGraphic.setOnMouseClicked(
           event -> {
 
             if (event.getButton() == MouseButton.SECONDARY) {
-              Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-              a.setTitle("Delete Node?");
-              a.setHeaderText("Are you sure you want to delete this node?");
-              a.setContentText(
-                  "Node to be deleted has ID "
-                      + selectedNodeEntity.getNodeid()
-                      + " and coordinates ("
-                      + selectedNodeEntity.getXcoord()
-                      + ", "
-                      + selectedNodeEntity.getYcoord()
-                      + ")");
-
-              if (a.showAndWait().get() == ButtonType.OK) {
-
-                // transports the node over to fucking narnia (gives the appearance of being updated
-                // immediately)
-                nodeGraphic.setMaxSize(0, 0);
-                nodeGraphic.setMinSize(0, 0);
-                nodeGraphic.setLayoutX(-100);
-                nodeGraphic.setLayoutY(-100);
-
-                Alert aa = new Alert(Alert.AlertType.CONFIRMATION);
-                aa.setTitle("Commence Edge Repair?");
-                aa.setHeaderText("Would you like to repair the edges of the deleted node?");
-                aa.setContentText("If not repaired, connected edges will be permanently deleted!!");
-                if (aa.showAndWait().get() == ButtonType.OK) { // && node has connected edges
-                  FacadeRepository.getInstance().collapseNode(selectedNodeEntity);
-                } else {
-                  FacadeRepository.getInstance().deleteNode(selectedNodeEntity.getNodeid());
-                }
-              }
+              MapEditorController.mouseXCoord = event.getSceneX();
+              MapEditorController.mouseYCoord = event.getSceneY();
             }
           });
 
-             */
+
       /*
       nodeGraphic.setOnContextMenuRequested(
           event -> {
