@@ -39,7 +39,7 @@
                                     <Font size="24.0" />
                                  </font>
                               </Text>
-                              <MFXTextField fx:id="XCord" floatMode="DISABLED" prefWidth="75.0">
+                              <MFXTextField fx:id="XCord" floatMode="DISABLED" prefHeight="40.0" prefWidth="250.0">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -49,7 +49,7 @@
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXTextField fx:id="YCord" floatMode="DISABLED" prefWidth="75.0">
+                              <MFXTextField fx:id="YCord" floatMode="DISABLED" prefHeight="40.0" prefWidth="250.0">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -59,7 +59,7 @@
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXComboBox fx:id="BuildingBox" floatMode="DISABLED" prefWidth="75.0">
+                              <MFXComboBox fx:id="BuildingBox" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="250.0">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -72,7 +72,7 @@
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXComboBox fx:id="FloorBox" floatMode="DISABLED" prefWidth="75.0">
+                              <MFXComboBox fx:id="FloorBox" floatMode="DISABLED" minHeight="-Infinity" prefHeight="40.0" prefWidth="250.0">
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
