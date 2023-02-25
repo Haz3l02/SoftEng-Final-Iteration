@@ -21,6 +21,6 @@ public class KioskController {
 
   @FXML
   public void goBack() {
-    Navigation.navigateHome(Screen.KIOSK_SETUP);
+    Navigation.navigate(Screen.KIOSK_SETUP);
   }
 }

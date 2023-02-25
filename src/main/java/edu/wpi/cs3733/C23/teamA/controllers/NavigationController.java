@@ -130,7 +130,7 @@ public abstract class NavigationController {
 
   public void switchToKioskSetupScene() {
     stop = true;
-    Navigation.navigateHome(Screen.KIOSK_SETUP);
+    Navigation.navigate(Screen.KIOSK_SETUP);
   }
 
   @FXML
