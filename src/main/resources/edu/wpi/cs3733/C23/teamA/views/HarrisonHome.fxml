@@ -151,7 +151,7 @@
             </VBox>
             <VBox layoutX="12.0" layoutY="140.0" prefHeight="37.0" prefWidth="297.0">
                <children>
-                  <Label fx:id="date" text="Date" textFill="WHITE">
+                  <Label fx:id="date" prefHeight="37.0" prefWidth="238.0" text="Date" textAlignment="RIGHT" textFill="WHITE">
                      <font>
                         <Font name="Arial Black" size="24.0" />
                      </font>
@@ -171,7 +171,7 @@
       </AnchorPane>
    </center>
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="796.0" prefWidth="266.0" style="-fx-background-color: #022D58;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="873.0" prefWidth="266.0" style="-fx-background-color: #022D58;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
@@ -184,12 +184,12 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Text>
-            <Label fx:id="welcome" alignment="TOP_CENTER" graphicTextGap="15.0" prefHeight="145.0" prefWidth="278.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+            <Label fx:id="welcome" alignment="TOP_CENTER" graphicTextGap="15.0" prefHeight="177.0" prefWidth="266.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Verdana" size="36.0" />
                </font>
             </Label>
-            <VBox alignment="TOP_CENTER" prefHeight="282.0" prefWidth="278.0" spacing="20.0" VBox.vgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="319.0" prefWidth="266.0" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Open Requests:">
                      <font>
@@ -202,9 +202,9 @@
                      </font>
                   </Text>
                </children></VBox>
-            <HBox alignment="BASELINE_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <ImageView fx:id="about" fitHeight="73.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="about" fitHeight="56.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/icons/about_blue.png" />
                      </image>
@@ -212,12 +212,12 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="credits" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="credits" fitHeight="73.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/icons/Copy%20of%20credits_blue.png" />
+                        <Image url="@../assets/icons/credits_blue.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="exit" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="exit" fitHeight="62.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/icons/exit_blue.png" />
                      </image>
