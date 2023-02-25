@@ -328,6 +328,17 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return ids.isEmpty() ? null : ids.get(0).getLocationName();
   }
 
+
+  public NodeEntity mostRecentNode(String longname) {
+    List<MoveEntity> ids =
+            new ArrayList<>(
+                    moves.stream()
+                            .filter(moveEntity -> moveEntity.getLocationName().getLongname().equals(longname))
+                            .toList());
+    ids.sort(Comparator.comparing(MoveEntity::getMovedate));
+    return ids.isEmpty() ? null : ids.get(0).getNode();
+  }
+
   public void update(List<String> ID, MoveEntity obj) {
     //    Session session = getSessionFactory().openSession();
     //    Transaction tx = session.beginTransaction();

@@ -444,6 +444,8 @@ public class FacadeRepository {
     return move.mostRecentLoc(id);
   }
 
+  public NodeEntity moveMostRecentNode(String longname) { return move.mostRecentNode(longname); }
+
   //  public void newLocationOnNode(String nodeid, LocationNameEntity l) {
   //    loc.newLocationOnNode(nodeid, l);
   //  }
@@ -515,5 +517,10 @@ public class FacadeRepository {
 
   public List<ServiceRequestEntity> getRequestAtCoordinate(int x, int y, String floor) {
     return serv.getRequestAtCoordinate(x, y, floor);
+  }
+
+
+  public ArrayList<String> getAdjacentLocations(String longName){
+    return loc.getAdjacentLocations(longName);
   }
 }
