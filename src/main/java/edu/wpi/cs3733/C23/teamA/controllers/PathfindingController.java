@@ -109,8 +109,8 @@ public class PathfindingController extends MenuController {
 
     ObservableList<String> floors =
         FXCollections.observableArrayList(
-            Floor.L1.getExtendedString(),
             Floor.L2.getExtendedString(),
+            Floor.L1.getExtendedString(),
             Floor.F1.getExtendedString(),
             Floor.F2.getExtendedString(),
             Floor.F3.getExtendedString());
