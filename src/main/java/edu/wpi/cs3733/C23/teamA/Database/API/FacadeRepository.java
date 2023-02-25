@@ -525,7 +525,7 @@ public class FacadeRepository {
   }
 
   public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date){
-    return newAndOldNode( longName, date);
+    return move.newAndOldNode( longName, date);
   }
 
 
