@@ -210,6 +210,10 @@ public class LocationNameImpl extends Observable
                 .getLongname());
       }
     }
+    if (fin.size() == 0) {
+      fin.add("");
+      fin.add("");
+    }
     return fin;
   }
 }
