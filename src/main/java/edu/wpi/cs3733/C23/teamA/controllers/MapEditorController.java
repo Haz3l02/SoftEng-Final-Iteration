@@ -75,10 +75,6 @@ public class MapEditorController extends MenuController {
 
   @FXML MFXTextField shortNameBox;
   @FXML MFXTextField locTypeBox;
-
-  @FXML
-  Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
-
   @Setter NodeEntity selectedNode = null;
 
   // Lists of Nodes and Node Data
@@ -103,24 +99,29 @@ public class MapEditorController extends MenuController {
     // gc = mainCanvas.getGraphicsContext2D();
 
     mainGesturePane.setOnKeyPressed(
-        new EventHandler<KeyEvent>() {
-          @Override
-          public void handle(KeyEvent event) {
-            if (event.getCode().equals(KeyCode.BACK_SPACE)
-                || event.getCode().equals(KeyCode.DELETE)) {
+            event -> {
+              if (event.getCode().equals(KeyCode.BACK_SPACE)
+                  || event.getCode().equals(KeyCode.DELETE)) {
 
-              if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
-                System.out.println("delete edge only");
-                NodeDraw.delEdge();
-              } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
-                System.out.println("delete node only");
-                NodeDraw.delNode();
-              } else {
-                System.out.println("idk");
+                if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
+                  System.out.println("delete edge only");
+                  NodeDraw.delEdge();
+                } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
+                  System.out.println("delete node only");
+                  NodeDraw.delNode();
+                } else {
+                  System.out.println("idk");
+                }
               }
-            }
-          }
-        });
+              if (event.getCode().equals(KeyCode.X) && event.isControlDown()) {
+                System.out.println("straighten that fucker (horizontally)");
+                NodeDraw.straightenNodesHorizontal();
+              }
+              if (event.getCode().equals(KeyCode.Y) && event.isControlDown()) {
+                System.out.println("straighten that fucker (vertically)");
+                NodeDraw.straightenNodesVertical();
+              }
+            });
 
     mainTextPane.setVisible(false);
     initializeFloorMap("L1");

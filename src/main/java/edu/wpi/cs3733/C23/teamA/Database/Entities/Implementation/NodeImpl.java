@@ -9,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -175,6 +176,30 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
       if (ser.getNodeid().equals(ID)) return ser;
     }
     return null;
+  }
+
+
+
+  public void exportAlignedToCSV(String filename, ArrayList<NodeEntity> n) throws IOException {
+    filename += "/alignednode.csv";
+
+    File csvFile = new File(filename);
+    FileWriter fileWriter = new FileWriter(csvFile);
+    fileWriter.write("node,xcoord,ycoord,building,floor\n");
+    for (NodeEntity nod : n) {
+      fileWriter.write(
+              nod.getNodeid()
+                      + ","
+                      + nod.getXcoord()
+                      + ","
+                      + nod.getYcoord()
+                      + ","
+                      + nod.getBuilding()
+                      + ","
+                      + nod.getFloor()
+                      + "\n");
+    }
+    fileWriter.close();
   }
 
   public static NodeImpl getInstance() {
