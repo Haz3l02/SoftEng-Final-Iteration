@@ -310,6 +310,26 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return mov;
   }
 
+
+  public MoveEntity nodeOnOrBeforeDate(String id, LocalDate date) {
+    MoveEntity mov = new MoveEntity();
+    List<MoveEntity> ids =
+            moves.stream()
+                    .filter(
+                            moveEntity ->
+                                    moveEntity.getLocationName().getLongname().equals(id)
+                                            && (date.compareTo(moveEntity.getMovedate()) >= 0))
+                    .toList();
+    LocalDate dt1 = LocalDate.parse("2023-01-01");
+    for (MoveEntity mo : ids) {
+      if (mo.getMovedate().compareTo(dt1) >= 0) {
+        mov = mo;
+        dt1 = mo.getMovedate();
+      }
+    }
+    return mov;
+  }
+
   /**
    * Find the last assigned location of this node by its id. This will get the move with the
    * furthest in the future date.
@@ -425,5 +445,22 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       mov.add(m.getMovedate().toString());
       MoveImpl.getInstance().delete(mov);
     }
+  }
+
+
+
+
+
+  public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date){
+    ArrayList<NodeEntity> fin = new ArrayList<>();
+    for (MoveEntity m : moves){
+      if(m.getLocationName().getLongname().equals(longName)&& m.getMovedate().equals(date)){
+        fin.add(m.getNode());
+      }
+    }
+
+    date.minusDays(1);
+    fin.add(nodeOnOrBeforeDate(longName, date).getNode());
+    return fin;
   }
 }

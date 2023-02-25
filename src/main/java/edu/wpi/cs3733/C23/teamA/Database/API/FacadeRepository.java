@@ -523,4 +523,8 @@ public class FacadeRepository {
   public ArrayList<String> getAdjacentLocations(String longName){
     return loc.getAdjacentLocations(longName);
   }
+
+  public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date){
+    return newAndOldNode( longName, date);
+  }
 }
