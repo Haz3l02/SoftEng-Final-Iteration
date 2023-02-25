@@ -340,8 +340,8 @@ public class NodeDraw {
                 double[] revertedCoords =
                     scaleCoordinatesReversed(
                         selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
-                selectedNodeEntity.setXcoord(revertedCoords[0]);
-                selectedNodeEntity.setYcoord(revertedCoords[1]);
+                selectedNodeEntity.setXcoord((int) revertedCoords[0]);
+                selectedNodeEntity.setYcoord((int) revertedCoords[1]);
                 FacadeRepository.getInstance()
                     .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
               }
