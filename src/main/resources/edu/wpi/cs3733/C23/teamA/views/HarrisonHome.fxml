@@ -191,16 +191,16 @@
             </Label>
             <VBox alignment="TOP_CENTER" prefHeight="319.0" prefWidth="266.0" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Open Requests:">
+                  <Label text="Label" textFill="WHITE">
                      <font>
-                        <Font name="Verdana" size="23.0" />
+                        <Font name="Verdana" size="24.0" />
                      </font>
-                  </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Outstanding Requests:">
+                  </Label>
+                  <Label text="Label" textFill="WHITE">
                      <font>
-                        <Font name="Verdana" size="23.0" />
+                        <Font name="Verdana" size="24.0" />
                      </font>
-                  </Text>
+                  </Label>
                </children></VBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
