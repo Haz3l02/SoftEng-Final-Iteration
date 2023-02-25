@@ -42,14 +42,21 @@ public class FacadeRepository {
     loc.attach(servObv);
     loc.attach(patObv);
     loc.attach(moveObv);
-    emp.attach(secObv);
+    loc.attach(sanObv);
+    loc.attach(secObv);
+    loc.attach(compObv);
+    loc.attach(accObv);
+    loc.attach(avObv);
     emp.attach(servObv);
     emp.attach(patObv);
+    emp.attach(moveObv);
+    emp.attach(sanObv);
+    emp.attach(secObv);
     emp.attach(compObv);
     emp.attach(accObv);
     emp.attach(avObv);
     node.attach(edgeObv);
-    //node.attach(moveObv);
+    // node.attach(moveObv);
   }
 
   public static FacadeRepository getInstance() {
