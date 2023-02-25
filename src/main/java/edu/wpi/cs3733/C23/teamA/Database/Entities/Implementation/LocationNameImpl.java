@@ -192,23 +192,24 @@ public class LocationNameImpl extends Observable
     return fin;
   }
 
-
-
-
-  public ArrayList<String> getAdjacentLocations(String longName){
+  public ArrayList<String> getAdjacentLocations(String longName) {
     NodeEntity node = FacadeRepository.getInstance().moveMostRecentNode(longName);
     List<EdgeEntity> edges = FacadeRepository.getInstance().getAllEdge();
     ArrayList<String> fin = new ArrayList<>();
 
-    for (EdgeEntity e : edges){
-      if (e.getNode1().equals(node)){
-        fin.add(FacadeRepository.getInstance().moveMostRecentLoc(e.getNode2().getNodeid()).getLongname());
-      }else if (e.getNode2().equals(node)){
-        fin.add(FacadeRepository.getInstance().moveMostRecentLoc(e.getNode1().getNodeid()).getLongname());
+    for (EdgeEntity e : edges) {
+      if (e.getNode1().equals(node)) {
+        fin.add(
+            FacadeRepository.getInstance()
+                .moveMostRecentLoc(e.getNode2().getNodeid())
+                .getLongname());
+      } else if (e.getNode2().equals(node)) {
+        fin.add(
+            FacadeRepository.getInstance()
+                .moveMostRecentLoc(e.getNode1().getNodeid())
+                .getLongname());
       }
     }
     return fin;
   }
-
-
 }
