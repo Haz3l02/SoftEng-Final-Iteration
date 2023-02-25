@@ -330,13 +330,11 @@ public class NodeDraw implements KeyListener {
 
       nodeGraphic.setOnMouseClicked(
           event -> {
-
             if (event.getButton() == MouseButton.SECONDARY) {
               MapEditorController.mouseXCoord = event.getSceneX();
               MapEditorController.mouseYCoord = event.getSceneY();
             }
           });
-
 
       /*
       nodeGraphic.setOnContextMenuRequested(
