@@ -29,6 +29,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
@@ -79,6 +81,8 @@ public class MapEditorController extends MenuController {
   @FXML
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
 
+  Rectangle selectionRectangle = new Rectangle();
+
   @Setter NodeEntity selectedNode = null;
 
   // Lists of Nodes and Node Data
@@ -119,6 +123,19 @@ public class MapEditorController extends MenuController {
                 System.out.println("idk");
               }
             }
+          }
+        });
+
+    mainGesturePane.setOnMouseDragged(
+        event -> {
+          if (event.isAltDown()) {
+            System.out.println("Control click is pressed");
+            mainGesturePane.setGestureEnabled(false);
+            selectionRectangle.setStroke(Color.BLACK);
+            selectionRectangle.setFill(Color.TRANSPARENT);
+            selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
+
+            mainAnchorPane.getChildren().add(selectionRectangle);
           }
         });
 
