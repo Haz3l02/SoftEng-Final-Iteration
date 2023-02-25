@@ -49,7 +49,7 @@ public class FacadeRepository {
     emp.attach(accObv);
     emp.attach(avObv);
     node.attach(edgeObv);
-    node.attach(moveObv);
+    //node.attach(moveObv);
   }
 
   public static FacadeRepository getInstance() {

@@ -151,7 +151,7 @@ public class NodeDraw implements KeyListener {
               + "-fx-background-radius: 12.5; "
               + "-fx-border-color: '#224870'; "
               + "-fx-border-width: 1;"
-              + "-fx-border-radius: 12.5");
+              + "-fx-border-radius: 13.5");
 
       // when mouse is clicked
       EventHandler<MouseEvent> eventHandler =
@@ -166,7 +166,7 @@ public class NodeDraw implements KeyListener {
                       + "-fx-background-radius: 12.5; "
                       + "-fx-border-color: '#224870'; "
                       + "-fx-border-width: 1;"
-                      + "-fx-border-radius: 13.5");
+                      + "-fx-border-radius: 12.5");
               previousSelectedNode.setPrefSize(5, 5);
               previousSelectedNode.setLayoutX(previousCoords[0] - 2.5);
               previousSelectedNode.setLayoutY(previousCoords[1] - 2.5);
@@ -307,6 +307,7 @@ public class NodeDraw implements KeyListener {
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
 
+      // for end hover over node
       EventHandler<MouseEvent> eventHandler3 =
           new EventHandler<MouseEvent>() {
             @Override
@@ -327,7 +328,29 @@ public class NodeDraw implements KeyListener {
       //      final int newY = (int) nodeGraphic.getLayoutY();
 
       // pass in a node entity and new ID
-      nodeGraphic.setOnMouseDragged(dragEvent(nmc));
+      nodeGraphic.setOnMouseDragged(
+          mouseEvent -> {
+            selectNodePane = nodeGraphic;
+            selectedNodeEntity = n;
+            if (selectNodePane != null && selectedNodeEntity != null) {
+              nmc.getMainGesturePane().setGestureEnabled(false);
+              // selectNodePane.setLayoutX(mouseEvent.getX());
+              // selectNodePane.setLayoutY(mouseEvent.getY());
+
+              System.out.println("get mouse location");
+              System.out.println(mouseEvent.getX());
+              System.out.println(mouseEvent.getY());
+              System.out.println("Get layout");
+              System.out.println(selectNodePane.getLayoutX());
+              System.out.println(selectNodePane.getLayoutY());
+
+              selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
+              selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
+
+              System.out.println((int) selectNodePane.getLayoutX());
+              System.out.println((int) selectNodePane.getLayoutX());
+            }
+          });
 
       nodeGraphic.setOnMouseReleased(
           new EventHandler<MouseEvent>() {
@@ -504,32 +527,6 @@ public class NodeDraw implements KeyListener {
       FacadeRepository.getInstance().deleteEdge(selectedEdge.getEdgeid());
       selectedEdge = null;
     }
-  }
-
-  private static EventHandler<? super MouseEvent> dragEvent(MapEditorController nmc) {
-    EventHandler<MouseEvent> event =
-        new EventHandler<>() {
-          @Override
-          public void handle(MouseEvent mouseEvent) {
-            if (selectNodePane != null && selectedNodeEntity != null) {
-              nmc.getMainGesturePane().setGestureEnabled(false);
-
-              System.out.println("get mouse location");
-              System.out.println(mouseEvent.getX());
-              System.out.println(mouseEvent.getY());
-              System.out.println("Get layout");
-              System.out.println(selectNodePane.getLayoutX());
-              System.out.println(selectNodePane.getLayoutY());
-
-              selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
-              selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
-
-              System.out.println((int) selectNodePane.getLayoutX());
-              System.out.println((int) selectNodePane.getLayoutX());
-            }
-          }
-        };
-    return event;
   }
   // end _________________________________________________________________
 
