@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.C23.teamA.mapeditor;
+package edu.wpi.cs3733.C23.teamA.mapdrawing;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
@@ -27,6 +27,9 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinates;
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
+
 public class NodeDraw implements KeyListener {
 
   static Pane previousSelectedNode = null;
@@ -51,7 +54,7 @@ public class NodeDraw implements KeyListener {
   static NodeEditorEditPopupController nodeEditPopup = new NodeEditorEditPopupController();
   static LocationEditorEditPopupController locEditPopup = new LocationEditorEditPopupController();
 
-  static int[] previousCoords = new int[2];
+  static double[] previousCoords = new double[2];
 
   static ArrayList<NodeEntity> selectedNodes = new ArrayList<>();
   static NodeEntity firstNode;
@@ -76,47 +79,13 @@ public class NodeDraw implements KeyListener {
     previousSelectedNode = p;
   }
 
-  public static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
-    // get the coordinates from the node
-
-    // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord) * scaleFactor;
-    yCoord = (yCoord) * scaleFactor;
-
-    // put the values in an array to return
-    int[] scaledCoordinates = {(int) Math.round(xCoord), (int) Math.round(yCoord)};
-
-    // return the scaled coordinates
-    return scaledCoordinates;
-  }
-
-  /**
-   * @param xCoord the x-coordinate to scale
-   * @param yCoord the y-coordinate to scale
-   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
-   * @return an int array with the pair of new coordinates
-   */
-  private static int[] scaleCoordinatesReversed(double xCoord, double yCoord, double scaleFactor) {
-    // get the coordinates from the node
-
-    // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord / scaleFactor);
-    yCoord = (yCoord / scaleFactor);
-
-    // put the values in an array to return
-    int[] scaledCoordinates = {(int) Math.round(xCoord), (int) Math.round(yCoord)};
-
-    // return the scaled coordinates
-    return scaledCoordinates;
-  }
-
   public static void drawLocations(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
 
     nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
-      int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
 
       if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
         Text locName = new Text();
@@ -141,7 +110,7 @@ public class NodeDraw implements KeyListener {
 
     // draw circle for each node
     for (NodeEntity n : allNodes) {
-      int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
       Pane nodeGraphic = new Pane();
 
       currentPane = nodeGraphic;
@@ -362,11 +331,11 @@ public class NodeDraw implements KeyListener {
               alert.setHeaderText("Would you like to make this change?");
 
               if (alert.showAndWait().get() == ButtonType.OK) {
-                int[] revertedCoords =
+                double[] revertedCoords =
                     scaleCoordinatesReversed(
                         selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
-                selectedNodeEntity.setXcoord(revertedCoords[0]);
-                selectedNodeEntity.setYcoord(revertedCoords[1]);
+                selectedNodeEntity.setXcoord((int) Math.round(revertedCoords[0]));
+                selectedNodeEntity.setYcoord((int) Math.round(revertedCoords[1]));
                 FacadeRepository.getInstance()
                     .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
               }
@@ -582,9 +551,9 @@ public class NodeDraw implements KeyListener {
     ap.getChildren().clear();
 
     for (EdgeEntity edge : allEdges) {
-      int[] updatedCoordsNode1 =
+      double[] updatedCoordsNode1 =
           scaleCoordinates(edge.getNode1().getXcoord(), edge.getNode1().getYcoord(), scaleFactor);
-      int[] updatedCoordsNode2 =
+      double[] updatedCoordsNode2 =
           scaleCoordinates(edge.getNode2().getXcoord(), edge.getNode2().getYcoord(), scaleFactor);
 
       // make line

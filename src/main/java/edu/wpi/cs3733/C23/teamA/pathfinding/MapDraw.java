@@ -26,6 +26,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinates;
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
+
 // Class for Controller to call to add the map
 public class MapDraw {
 
@@ -46,7 +49,7 @@ public class MapDraw {
     nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
-      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord());
+      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), SCALE_FACTOR);
 
       // TODO: this doesn't use the latest locations as of the navigation date, but the most recent
       // locations in general.
@@ -71,33 +74,6 @@ public class MapDraw {
     }
   }
 
-  public static double[] scaleCoordinates(double xCoord, double yCoord) {
-    // get the coordinates from the node
-
-    // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord) * SCALE_FACTOR;
-    yCoord = (yCoord) * SCALE_FACTOR;
-
-    // return the scaled coordinates
-    return new double[] {xCoord, yCoord};
-  }
-
-  /**
-   * @param xCoord the x-coordinate to scale
-   * @param yCoord the y-coordinate to scale
-   * @return an int array with the pair of new coordinates
-   */
-  private static double[] scaleCoordinatesReversed(double xCoord, double yCoord) {
-    // get the coordinates from the node
-
-    // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord / SCALE_FACTOR);
-    yCoord = (yCoord / SCALE_FACTOR);
-
-    // return the scaled coordinates
-    return new double[] {xCoord, yCoord};
-  }
-
   public static void drawPathClickable(AnchorPane[] aps, ArrayList<GraphNode> path) {
 
     // coordinates for the previous point in the path
@@ -110,7 +86,7 @@ public class MapDraw {
 
     // get start node
     if (size > 0) {
-      double[] updatedCoords = scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord());
+      double[] updatedCoords = scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), SCALE_FACTOR);
       prevX = updatedCoords[0];
       prevY = updatedCoords[1];
       String floor = path.get(0).getFloor();
@@ -130,7 +106,7 @@ public class MapDraw {
     for (int i = 1; i < size; i++) {
       GraphNode g = path.get(i);
 
-      double[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord());
+      double[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), SCALE_FACTOR);
       currentX = updatedCoords[0];
       currentY = updatedCoords[1];
       currentFloor = Floor.indexFromTableString(g.getFloor());
@@ -176,7 +152,7 @@ public class MapDraw {
               > 0
           && floor.equals(move.getNode().getFloor())) {
         double[] updatedCoords =
-            scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord());
+            scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), SCALE_FACTOR);
 
         Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 5, width + 5);
         rect.setFill(Color.web("0x6143D7"));
@@ -218,7 +194,7 @@ public class MapDraw {
 
   public static void addSRPopup(AnchorPane anchorPane, double xCoord, double yCoord, String floor) {
 
-    double[] invertedCoords = scaleCoordinatesReversed(xCoord, yCoord);
+    double[] invertedCoords = scaleCoordinatesReversed(xCoord, yCoord, SCALE_FACTOR);
 
     if (previousPopup != null) {
       previousPopup.hide();
