@@ -158,7 +158,15 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
 
     tx.commit();
     session.close();
-    notifyAllObservers();
+    // notifyAllObservers();
+
+    Thread t =
+        new Thread(
+            () -> {
+              MoveImpl.getInstance().refresh();
+              EdgeImpl.getInstance().refresh();
+            });
+    t.start();
   }
 
   public List<NodeEntity> getNodeOnFloor(String floor) {
