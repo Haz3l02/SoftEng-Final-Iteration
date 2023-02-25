@@ -310,16 +310,15 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return mov;
   }
 
-
   public MoveEntity nodeOnOrBeforeDate(String id, LocalDate date) {
     MoveEntity mov = new MoveEntity();
     List<MoveEntity> ids =
-            moves.stream()
-                    .filter(
-                            moveEntity ->
-                                    moveEntity.getLocationName().getLongname().equals(id)
-                                            && (date.compareTo(moveEntity.getMovedate()) >= 0))
-                    .toList();
+        moves.stream()
+            .filter(
+                moveEntity ->
+                    moveEntity.getLocationName().getLongname().equals(id)
+                        && (date.compareTo(moveEntity.getMovedate()) >= 0))
+            .toList();
     LocalDate dt1 = LocalDate.parse("2023-01-01");
     for (MoveEntity mo : ids) {
       if (mo.getMovedate().compareTo(dt1) >= 0) {
@@ -348,13 +347,12 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return ids.isEmpty() ? null : ids.get(0).getLocationName();
   }
 
-
   public NodeEntity mostRecentNode(String longname) {
     List<MoveEntity> ids =
-            new ArrayList<>(
-                    moves.stream()
-                            .filter(moveEntity -> moveEntity.getLocationName().getLongname().equals(longname))
-                            .toList());
+        new ArrayList<>(
+            moves.stream()
+                .filter(moveEntity -> moveEntity.getLocationName().getLongname().equals(longname))
+                .toList());
     ids.sort(Comparator.comparing(MoveEntity::getMovedate));
     return ids.isEmpty() ? null : ids.get(0).getNode();
   }
@@ -447,14 +445,10 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     }
   }
 
-
-
-
-
-  public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date){
+  public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date) {
     ArrayList<NodeEntity> fin = new ArrayList<>();
-    for (MoveEntity m : moves){
-      if(m.getLocationName().getLongname().equals(longName)&& m.getMovedate().equals(date)){
+    for (MoveEntity m : moves) {
+      if (m.getLocationName().getLongname().equals(longName) && m.getMovedate().equals(date)) {
         fin.add(m.getNode());
       }
     }

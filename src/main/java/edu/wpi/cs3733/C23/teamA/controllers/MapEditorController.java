@@ -41,6 +41,7 @@ public class MapEditorController extends MenuController {
   @FXML ImageView mainImageView = new ImageView();
   @FXML @Getter GesturePane mainGesturePane = new GesturePane();
   @FXML AnchorPane mainAnchorPane = new AnchorPane();
+  @FXML AnchorPane mainSelectPane = new AnchorPane();
   @FXML AnchorPane edgeAnchorPane = new AnchorPane();
   @FXML StackPane mainStackPane = new StackPane();
   @FXML AnchorPane mainTextPane = new AnchorPane();
@@ -97,12 +98,19 @@ public class MapEditorController extends MenuController {
 
   static MapEditorController mapEditor;
 
+  private double mouseDownX;
+  private double mouseDownY;
+
   /** Starting method called when screen is opened: Draws nodes and edges for floor L1 */
   public void initialize() {
 
     // createNodeButton.setVisible(false);
     // saveButton.setVisible(false);
     // gc = mainCanvas.getGraphicsContext2D();
+    mainSelectPane.getChildren().add(selectionRectangle);
+    selectionRectangle.setStroke(Color.BLACK);
+    selectionRectangle.setFill(Color.TRANSPARENT);
+    selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
 
     mainGesturePane.setOnKeyPressed(
         event -> {
@@ -126,19 +134,6 @@ public class MapEditorController extends MenuController {
           if (event.getCode().equals(KeyCode.Y) && event.isControlDown()) {
             System.out.println("straighten that fucker (vertically)");
             NodeDraw.straightenNodesVertical();
-          }
-        });
-
-    mainGesturePane.setOnMouseDragged(
-        event -> {
-          if (event.isAltDown()) {
-            System.out.println("Control click is pressed");
-            mainGesturePane.setGestureEnabled(false);
-            selectionRectangle.setStroke(Color.BLACK);
-            selectionRectangle.setFill(Color.TRANSPARENT);
-            selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
-
-            mainAnchorPane.getChildren().add(selectionRectangle);
           }
         });
 
@@ -166,6 +161,7 @@ public class MapEditorController extends MenuController {
     //              .getLongname());
     //    }
     mainAnchorPane.setPickOnBounds(false);
+    mainSelectPane.setPickOnBounds(false);
   }
 
   public void generateFloor(ActionEvent event) {
@@ -199,6 +195,54 @@ public class MapEditorController extends MenuController {
     NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
     NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);
+
+    mainGesturePane.setOnMousePressed(
+        e -> {
+          if (e.isAltDown()) {
+            System.out.println("init rect");
+            selectionRectangle.setVisible(true);
+            mainGesturePane.setGestureEnabled(false);
+            // double[] updatedXY = scaleCoordinatesReversed(e.getX(), e.getY(), SCALE_FACTOR);
+            mouseDownX = e.getX();
+            mouseDownY = e.getY();
+            System.out.println("X:" + mouseDownX + "  Y:" + mouseDownY);
+            selectionRectangle.setX(mouseDownX);
+            selectionRectangle.setY(mouseDownY);
+            selectionRectangle.setWidth(0);
+            selectionRectangle.setHeight(0);
+          }
+        });
+
+    mainGesturePane.setOnMouseDragged(
+        e -> {
+          if (e.isAltDown()) {
+
+            selectionRectangle.setX(Math.min(e.getX(), mouseDownX));
+            selectionRectangle.setWidth(Math.abs(e.getX() - mouseDownX));
+            selectionRectangle.setY(Math.min(e.getY(), mouseDownY));
+            selectionRectangle.setHeight(Math.abs(e.getY() - mouseDownY));
+            System.out.println(
+                "X:"
+                    + (Math.min(e.getX(), mouseDownX))
+                    + "  Y:"
+                    + (Math.min(e.getY(), mouseDownY)));
+          }
+        });
+    mainGesturePane.setOnMouseReleased(
+        e -> {
+          mainGesturePane.setGestureEnabled(true);
+          if (!e.isStillSincePress()) {
+            // selectNodes();
+            selectionRectangle.setVisible(false);
+          }
+        });
+  }
+
+  public void findNodesInBounds(List<NodeEntity> allNodes) {
+    List<NodeEntity> selectedList = new ArrayList<>();
+    for (NodeEntity n : allNodes) {
+      // if ()
+    }
   }
 
   //  public void addLocation(ActionEvent event) {
