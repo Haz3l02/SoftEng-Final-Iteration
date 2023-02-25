@@ -113,7 +113,7 @@
                                     <Font size="36.0" />
                                  </font>
                               </Text>
-                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" onMouseExited="#setLefRight" prefHeight="0.0" prefWidth="318.0" promptText="Location...">
+                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" onMouseExited="#setLeftRight" prefHeight="0.0" prefWidth="318.0" promptText="Location...">
                                  <font>
                                     <Font name="Verdana" size="36.0" />
                                  </font>
