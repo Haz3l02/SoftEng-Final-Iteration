@@ -100,7 +100,6 @@ public class PathfindingController extends MenuController {
    */
   public void initialize() throws SQLException {
     // prepare floor/algorithm dropdowns
-
     srReminder.setVisible(false);
     if (!holder.getJob().equalsIgnoreCase("admin")) {
       adminMessage.setDisable(true);

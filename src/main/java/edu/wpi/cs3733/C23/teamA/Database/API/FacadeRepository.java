@@ -517,8 +517,7 @@ public class FacadeRepository {
     return serv.getRequestAtCoordinate(x, y, floor);
   }
 
-
   public void exportAlignedToCSV(String filename, ArrayList<NodeEntity> n) throws IOException {
-    node.exportAlignedToCSV(filename,  n);
+    node.exportAlignedToCSV(filename, n);
   }
 }

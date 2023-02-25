@@ -122,11 +122,11 @@ public class NodeDraw implements KeyListener {
         Text locName = new Text();
         locName.setVisible(true);
         locName.rotateProperty().set(45);
-        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 3));
         locName.setText(
             FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
-        locName.setLayoutX(updatedCoords[0] - 2.5);
-        locName.setLayoutY(updatedCoords[1] - 2.5);
+        locName.setLayoutX(updatedCoords[0] - 1.5);
+        locName.setLayoutY(updatedCoords[1] - 1.5);
         nodeAnchor.getChildren().add(locName);
       }
     }
@@ -556,9 +556,8 @@ public class NodeDraw implements KeyListener {
 
       node.setYcoord(yAlign);
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
-
     }
-    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
 
   }
 
@@ -571,10 +570,9 @@ public class NodeDraw implements KeyListener {
       node.setXcoord(xAlign);
 
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
-
     }
 
-    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
 
   }
 
