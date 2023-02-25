@@ -163,6 +163,9 @@ public class HomeController extends MenuController {
                 case "Create Nodes":
                   switchToNodeScene();
                   break;
+                case "Kiosk Creator":
+                  switchToKioskSetupScene();
+                  break;
                 default:
                   break;
               }
@@ -298,7 +301,12 @@ public class HomeController extends MenuController {
       //      employeeTable.setItems(dbTableRowsModel2);
       admin
           .getItems()
-          .addAll("Map Editor", "Access Employee Records", "Department Moves", "Create Nodes");
+          .addAll(
+              "Map Editor",
+              "Access Employee Records",
+              "Department Moves",
+              "Create Nodes",
+              "Kiosk Creator");
 
     } else {
       adminTable.setVisible(false);

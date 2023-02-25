@@ -527,4 +527,9 @@ public class FacadeRepository {
   public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date){
     return newAndOldNode( longName, date);
   }
+
+
+  public void exportAlignedToCSV(String filename, ArrayList<NodeEntity> n) throws IOException {
+    node.exportAlignedToCSV(filename, n);
+  }
 }

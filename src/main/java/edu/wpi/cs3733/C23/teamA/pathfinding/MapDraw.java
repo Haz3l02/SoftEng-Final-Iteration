@@ -8,17 +8,14 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.controllers.DisplayServiceRequestsPopupController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -32,30 +29,24 @@ import org.controlsfx.control.PopOver;
 // Class for Controller to call to add the map
 public class MapDraw {
 
-  static Pane previousSR = null;
-  static Pane selectSRPane = null;
-  static NodeEntity selectNode = null;
-
-  private IdNumberHolder holder = IdNumberHolder.getInstance();
-
   private static final double radius = 3;
   private static final double width = 6;
 
+  private static final double SCALE_FACTOR = 0.135;
+
   private static Rectangle previousRect;
-  private static Label previousLabel;
   private static PopOver previousPopup;
 
   // hospital image aspect ratio: 25:17 (original size: 5000 x 3400)
   // hospital image scale factor to fit on screen (popover - 1250 x 850): 25% (0.25)
   // hospital image scale factor for our prototype (on-page - 250 x 170): 5% (0.05)
 
-  public static void drawLocations(
-      List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
+  public static void drawLocations(List<NodeEntity> allNodes, AnchorPane nodeAnchor) {
 
     nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
-      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord());
 
       // TODO: this doesn't use the latest locations as of the navigation date, but the most recent
       // locations in general.
@@ -68,58 +59,47 @@ public class MapDraw {
         if (!locNameEnt.getLocationtype().equals("HALL")) {
           Text locName = new Text();
           locName.setVisible(true);
-          locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+          locName.rotateProperty().set(45);
+          locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 3));
           locName.setText(locNameEnt.getShortname());
 
           // get the coordinates
-          locName.setLayoutX(updatedCoords[0] - 2.5);
-          locName.setLayoutY(updatedCoords[1] - 2.5);
+          locName.setLayoutX(updatedCoords[0] - 4.5);
+          locName.setLayoutY(updatedCoords[1] - 4.5);
           nodeAnchor.getChildren().add(locName);
         }
       }
     }
   }
 
-  public static double[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
+  public static double[] scaleCoordinates(double xCoord, double yCoord) {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord) * scaleFactor;
-    yCoord = (yCoord) * scaleFactor;
-
-    // put the values in an array to return
-    double[] scaledCoordinates = {xCoord, yCoord};
+    xCoord = (xCoord) * SCALE_FACTOR;
+    yCoord = (yCoord) * SCALE_FACTOR;
 
     // return the scaled coordinates
-    return scaledCoordinates;
+    return new double[] {xCoord, yCoord};
   }
 
   /**
    * @param xCoord the x-coordinate to scale
    * @param yCoord the y-coordinate to scale
-   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
    * @return an int array with the pair of new coordinates
    */
-  private static double[] scaleCoordinatesReversed(
-      double xCoord, double yCoord, double scaleFactor) {
+  private static double[] scaleCoordinatesReversed(double xCoord, double yCoord) {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord / scaleFactor);
-    yCoord = (yCoord / scaleFactor);
-
-    // put the values in an array to return
-    double[] scaledCoordinates = {xCoord, yCoord};
+    xCoord = (xCoord / SCALE_FACTOR);
+    yCoord = (yCoord / SCALE_FACTOR);
 
     // return the scaled coordinates
-    return scaledCoordinates;
+    return new double[] {xCoord, yCoord};
   }
 
-  public static void drawPathClickable(
-      AnchorPane[] aps,
-      ArrayList<GraphNode> path,
-      ArrayList<String> floorPath,
-      double scaleFactor) {
+  public static void drawPathClickable(AnchorPane[] aps, ArrayList<GraphNode> path) {
 
     // coordinates for the previous point in the path
     double prevX = 0;
@@ -131,30 +111,27 @@ public class MapDraw {
 
     // get start node
     if (size > 0) {
-      double[] updatedCoords =
-          scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord());
       prevX = updatedCoords[0];
       prevY = updatedCoords[1];
       String floor = path.get(0).getFloor();
       prevFloor = Floor.indexFromTableString(floor);
       Circle currentCircle =
           new Circle(prevX, prevY, radius, Color.web("0x279F89")); // starting circle
-      List<ServiceRequestEntity> srs = FacadeRepository.getInstance().getAllServiceRequest();
 
       aps[prevFloor].getChildren().add(currentCircle);
     }
 
     // current holders for coordinates
-    double currentX = -1;
-    double currentY = -1;
-    int currentFloor = -1;
-    int floorTracker = 0; // corresponds to an index in the floorPath()
+    double currentX;
+    double currentY;
+    int currentFloor;
 
     // get all node x and y coords to draw lines between them
     for (int i = 1; i < size; i++) {
       GraphNode g = path.get(i);
 
-      double[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord());
       currentX = updatedCoords[0];
       currentY = updatedCoords[1];
       currentFloor = Floor.indexFromTableString(g.getFloor());
@@ -189,8 +166,7 @@ public class MapDraw {
     aps[prevFloor].getChildren().add(currentCircle); // ending open circle
   }
 
-  public static void drawServiceRequestIcons(
-      AnchorPane anchorPane, double scaleFactor, String floor) {
+  public static void drawServiceRequestIcons(AnchorPane anchorPane, String floor) {
     anchorPane.getChildren().clear();
     List<MoveEntity> moves = FacadeRepository.getInstance().getAllMove();
 
@@ -201,12 +177,12 @@ public class MapDraw {
               > 0
           && floor.equals(move.getNode().getFloor())) {
         double[] updatedCoords =
-            scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord(), scaleFactor);
+            scaleCoordinates(move.getNode().getXcoord(), move.getNode().getYcoord());
 
         Rectangle rect = new Rectangle(updatedCoords[0], updatedCoords[1], width + 5, width + 5);
         rect.setFill(Color.web("0x6143D7"));
 
-        rect.setOnMouseClicked(squareChangeColor(anchorPane, scaleFactor, floor));
+        rect.setOnMouseClicked(squareChangeColor(anchorPane, floor));
 
         anchorPane.getChildren().add(rect);
       }
@@ -219,38 +195,31 @@ public class MapDraw {
    *
    * @return a mouse event handler that changes the color of a square on click
    */
-  private static EventHandler<MouseEvent> squareChangeColor(
-      AnchorPane anchorPane, double scaleFactor, String floor) {
+  private static EventHandler<MouseEvent> squareChangeColor(AnchorPane anchorPane, String floor) {
     EventHandler<MouseEvent> eventHandler =
-        new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent t) {
+        t -> {
+          if (t.getSource() instanceof Rectangle) {
 
-            if (t.getSource() instanceof Rectangle) {
-
-              if (previousRect != null) {
-                previousRect.setFill(Color.web("0x6143D7"));
-              }
-              Rectangle rect = ((Rectangle) (t.getSource()));
-              rect.setFill(Color.web("0xbc8fff"));
-              previousRect = rect;
-
-              addSRPopup(
-                  anchorPane,
-                  ((Rectangle) t.getSource()).getX(),
-                  ((Rectangle) t.getSource()).getY(),
-                  floor,
-                  scaleFactor);
+            if (previousRect != null) {
+              previousRect.setFill(Color.web("0x6143D7"));
             }
+            Rectangle rect = ((Rectangle) (t.getSource()));
+            rect.setFill(Color.web("0xbc8fff"));
+            previousRect = rect;
+
+            addSRPopup(
+                anchorPane,
+                ((Rectangle) t.getSource()).getX(),
+                ((Rectangle) t.getSource()).getY(),
+                floor);
           }
         };
     return eventHandler;
   }
 
-  public static void addSRPopup(
-      AnchorPane anchorPane, double xcoord, double ycoord, String floor, double scaleFactor) {
+  public static void addSRPopup(AnchorPane anchorPane, double xCoord, double yCoord, String floor) {
 
-    double[] invertedCoords = scaleCoordinatesReversed(xcoord, ycoord, scaleFactor);
+    double[] invertedCoords = scaleCoordinatesReversed(xCoord, yCoord);
 
     if (previousPopup != null) {
       previousPopup.hide();
@@ -295,6 +264,7 @@ public class MapDraw {
 
     final Point location = MouseInfo.getPointerInfo().getLocation();
     popover.show(anchorPane, location.getX(), location.getY());
+    previousPopup = popover;
     // AApp.getPrimaryStage();
   }
 }

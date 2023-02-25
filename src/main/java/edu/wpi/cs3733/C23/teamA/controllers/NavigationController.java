@@ -128,6 +128,11 @@ public abstract class NavigationController {
     Navigation.navigate(Screen.EMPLOYEE);
   }
 
+  public void switchToKioskSetupScene() {
+    stop = true;
+    Navigation.navigate(Screen.KIOSK_SETUP);
+  }
+
   @FXML
   public void switchToHomeScene(javafx.event.ActionEvent event) throws IOException {
     Navigation.navigateHome(Screen.HOME_ACTUAL);
