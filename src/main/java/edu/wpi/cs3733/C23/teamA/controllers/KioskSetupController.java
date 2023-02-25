@@ -9,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.serviceRequests.Kiosk;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -53,6 +54,12 @@ public class KioskSetupController {
             Observable -> {
               switchLeftRight();
             });
+    locationBox
+        .selectedItemProperty()
+        .addListener(
+            Observable -> {
+              setLeftRight();
+            });
   }
 
   @FXML
@@ -68,11 +75,18 @@ public class KioskSetupController {
   }
 
   @FXML
-  public void setLefRight() {
+  public void setLeftRight() {
     // Code to get left and right nodes (adjacent nodes).
+    ArrayList<String> temp = new ArrayList<String>();
+    if (locationBox.getText() == null) {
+      temp.add("");
+      temp.add("");
+    } else {
+      temp = FacadeRepository.getInstance().getAdjacentLocations(locationBox.getText());
+    }
 
-    left.setText("");
-    right.setText("");
+    left.setText(temp.get(0));
+    right.setText(temp.get(temp.size() - 1));
   }
 
   @FXML
@@ -92,6 +106,7 @@ public class KioskSetupController {
     } else {
       Navigation.navigateHome(Screen.HOME_ACTUAL);
     }
+    Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
 
   @FXML

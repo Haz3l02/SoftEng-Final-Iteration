@@ -53,9 +53,9 @@
       </HBox>
    </bottom>
    <center>
-      <SplitPane fx:id="mainSplitPane" dividerPositions="0.25, 1.0, 0.25" prefHeight="160.0" prefWidth="200.0" styleClass="split-pane-divider" stylesheets="@../assets/KioskStyle.css" BorderPane.alignment="CENTER">
+      <SplitPane fx:id="mainSplitPane" dividerPositions="0.3, 1.0, 0.3" prefHeight="160.0" prefWidth="200.0" stylesheets="@../assets/KioskStyle.css" BorderPane.alignment="CENTER">
          <items>
-            <VBox alignment="CENTER" prefHeight="640.0" prefWidth="263.0" style="-fx-background-color: #D3E9F6;">
+            <VBox fx:id="leftPane" alignment="CENTER" prefHeight="640.0" prefWidth="263.0" style="-fx-background-color: #D3E9F6;">
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
@@ -66,10 +66,13 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="269.0">
                            <children>
-                              <Label fx:id="left" alignment="CENTER_RIGHT" prefHeight="82.0" prefWidth="203.0" text="Left">
+                              <Label fx:id="left" alignment="CENTER_RIGHT" prefHeight="82.0" prefWidth="203.0" text="Left" wrapText="true">
                                  <font>
                                     <Font name="Verdana" size="18.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
                            <StackPane.margin>
@@ -79,9 +82,9 @@
                      </children>
                   </StackPane>
                </children></VBox>
-            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #D3E9F6;">
+            <VBox fx:id="mapPanhe" alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #D3E9F6;">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="94.0" prefWidth="717.0" spacing="10.0" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-background-radius: 15;">
+                  <VBox alignment="TOP_CENTER" prefHeight="94.0" prefWidth="717.0" spacing="10.0" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-background-radius: 15;" VBox.vgrow="ALWAYS">
                      <children>
                         <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcement From Admin" textAlignment="CENTER">
                            <font>
@@ -101,14 +104,14 @@
                         <Insets left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="528.0" prefWidth="590.0" style="-fx-background-color: bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;" VBox.vgrow="ALWAYS">
+                  <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="524.0" prefWidth="679.0" style="-fx-background-color: bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="51.0" prefWidth="730.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="0.0" prefWidth="787.0" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                            <children>
-                              <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map" textAlignment="CENTER" wrappingWidth="126.94842529296875">
+                              <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map" wrappingWidth="126.94842529296875">
                                  <font>
                                     <Font name="Arial Black" size="36.0" />
                                  </font>
@@ -118,11 +121,11 @@
                               </Text>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="470.0" prefWidth="528.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="515.0" prefWidth="583.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <StackPane prefHeight="438.0" prefWidth="514.0" style="-fx-background-color: #224870;" HBox.hgrow="ALWAYS">
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="451.0" prefWidth="557.0" style="-fx-background-color: #224870;" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <StackPane fx:id="mainStackPane" prefHeight="319.0" prefWidth="738.0">
+                                    <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="319.0" prefWidth="585.0">
                                        <children>
                                           <ImageView fx:id="mainImageView" fitHeight="319.0" fitWidth="514.0" pickOnBounds="true" preserveRatio="true" />
                                           <AnchorPane fx:id="anchorF3" prefHeight="459.0" prefWidth="675.0" />
@@ -136,23 +139,20 @@
                                           <Insets />
                                        </StackPane.margin>
                                     </StackPane>
-                                    <GesturePane fx:id="mainGesturePane" prefHeight="330.0" prefWidth="415.0" />
-                                    <AnchorPane fx:id="serviceRequestPane" prefHeight="466.0" prefWidth="514.0" />
+                                    <GesturePane fx:id="mainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="330.0" prefWidth="415.0" />
+                                    <AnchorPane fx:id="serviceRequestPane" prefHeight="330.0" prefWidth="711.0" />
                                  </children>
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" />
-                                 </HBox.margin>
                               </StackPane>
                            </children>
                         </HBox>
                      </children>
                      <VBox.margin>
-                        <Insets />
+                        <Insets left="10.0" right="10.0" />
                      </VBox.margin>
                   </VBox>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #D3E9F6;">
+            <VBox fx:id="directionsPane" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #D3E9F6;">
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="338.0" prefWidth="279.0" spacing="10.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-background-radius: 15;">
                      <children>
@@ -175,35 +175,32 @@
                      </VBox.margin>
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="168.0" prefWidth="299.0" spacing="10.0" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
                      <children>
-                        <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0">
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <ImageView fitHeight="295.0" fitWidth="411.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="339.0" fitWidth="254.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../assets/icons/arrow_facingLeft_blue.png" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="leftD" alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="138.0" text="Label">
-                                 <font>
-                                    <Font name="Verdana" size="18.0" />
-                                 </font>
+                              <Label fx:id="leftD" alignment="CENTER_RIGHT" prefHeight="83.0" prefWidth="162.0" stylesheets="@../assets/KioskStyle.css" text="Left" textAlignment="RIGHT" wrapText="true">
                                  <StackPane.margin>
                                     <Insets right="10.0" />
                                  </StackPane.margin>
+                                 <font>
+                                    <Font name="Verdana" size="18.0" />
+                                 </font>
                               </Label>
                            </children>
                         </StackPane>
-                        <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
+                        <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <ImageView fitHeight="282.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="274.0" fitWidth="257.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../assets/icons/arrow_facingRight_blue.png" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="rightD" prefHeight="76.0" prefWidth="186.0" text="Label">
+                              <Label fx:id="rightD" prefHeight="79.0" prefWidth="180.0" text="Right" wrapText="true">
                                  <font>
                                     <Font name="Verdana" size="18.0" />
                                  </font>
@@ -216,7 +213,7 @@
                      </children>
                   </HBox>
                </children></VBox>
-            <VBox alignment="CENTER" prefHeight="640.0" prefWidth="196.0" style="-fx-background-color: #D3E9F6;">
+            <VBox fx:id="rightPane" alignment="CENTER" prefHeight="640.0" prefWidth="196.0" style="-fx-background-color: #D3E9F6;">
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
@@ -227,10 +224,13 @@
                         </ImageView>
                         <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="264.0">
                            <children>
-                              <Label fx:id="right" prefHeight="82.0" prefWidth="219.0" text="Right">
+                              <Label fx:id="right" prefHeight="82.0" prefWidth="219.0" text="Right" wrapText="true">
                                  <font>
                                     <Font name="Verdana" size="18.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
                            <StackPane.margin>

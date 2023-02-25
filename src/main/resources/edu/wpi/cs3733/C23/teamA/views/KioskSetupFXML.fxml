@@ -113,7 +113,7 @@
                                     <Font size="36.0" />
                                  </font>
                               </Text>
-                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" onMouseExited="#setLefRight" prefHeight="43.0" prefWidth="262.0" promptText="Location...">
+                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" prefHeight="43.0" prefWidth="262.0" promptText="Location...">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
@@ -215,7 +215,7 @@
                   </ImageView>
                   <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="269.0">
                      <children>
-                        <Label fx:id="left" alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="200.0" text="Left" textAlignment="RIGHT">
+                        <Label fx:id="left" alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="200.0" text="Left" textAlignment="RIGHT" wrapText="true">
                            <font>
                               <Font name="Verdana" size="18.0" />
                            </font>
@@ -248,7 +248,7 @@
                   </ImageView>
                   <HBox alignment="CENTER_LEFT" prefHeight="274.0" prefWidth="242.0">
                      <children>
-                        <Label fx:id="right" prefHeight="79.0" prefWidth="196.0" text="Right">
+                        <Label fx:id="right" prefHeight="79.0" prefWidth="196.0" text="Right" wrapText="true">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
