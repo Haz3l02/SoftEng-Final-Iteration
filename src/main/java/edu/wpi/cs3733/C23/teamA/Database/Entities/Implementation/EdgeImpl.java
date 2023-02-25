@@ -194,13 +194,22 @@ public class EdgeImpl extends Observable implements IDatabaseAPI<EdgeEntity, Str
       }
     }
 
-    EdgeEntity edg = session.get(EdgeEntity.class, s);
-
-    edg.setEdgeid(obj.getEdgeid());
-    edg.setNode1(obj.getNode1());
-    edg.setNode2(obj.getNode2());
-
-    edges.add(edg);
+    session
+        .createMutationQuery(
+            "UPDATE EdgeEntity edge SET "
+                + "edge.node1= '"
+                + obj.getNode1()
+                + "', edge.node2 = '"
+                + obj.getNode2()
+                + "', edge.edgeID = '"
+                + obj.getNode1().getNodeid()
+                + "_"
+                + obj.getNode1().getNodeid()
+                + "' WHERE edge.edgeID = '"
+                + s
+                + "'")
+        .executeUpdate();
+    edges.add(session.get(EdgeEntity.class, s));
 
     tx.commit();
     session.close();

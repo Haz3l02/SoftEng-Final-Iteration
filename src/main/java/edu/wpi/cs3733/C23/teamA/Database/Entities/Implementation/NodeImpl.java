@@ -155,10 +155,10 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
                 + ID
                 + "'")
         .executeUpdate();
+    nodes.add(session.get(NodeEntity.class, ID));
 
     tx.commit();
     session.close();
-    notifyAllObservers();
   }
 
   public List<NodeEntity> getNodeOnFloor(String floor) {

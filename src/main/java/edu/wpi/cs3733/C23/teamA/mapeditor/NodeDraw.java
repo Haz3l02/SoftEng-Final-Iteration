@@ -347,7 +347,9 @@ public class NodeDraw implements KeyListener {
                 if (alert.showAndWait().get() == ButtonType.OK) {
                   int[] revertedCoords =
                       scaleCoordinatesReversed(
-                          selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
+                          selectNodePane.getLayoutX() + 2.5,
+                          selectNodePane.getLayoutY() + 2.5,
+                          scaleFactor);
                   selectedNodeEntity.setXcoord(revertedCoords[0]);
                   selectedNodeEntity.setYcoord(revertedCoords[1]);
                   FacadeRepository.getInstance()
@@ -472,6 +474,7 @@ public class NodeDraw implements KeyListener {
       } else {
         FacadeRepository.getInstance().deleteNode(selectedNodeEntity.getNodeid());
       }
+      selectedNodeEntity = null;
     }
   }
 
@@ -499,6 +502,7 @@ public class NodeDraw implements KeyListener {
       selectedLine.setEndX(-100);
       selectedLine.setEndY(-100);
       FacadeRepository.getInstance().deleteEdge(selectedEdge.getEdgeid());
+      selectedEdge = null;
     }
   }
 
@@ -507,7 +511,7 @@ public class NodeDraw implements KeyListener {
         new EventHandler<>() {
           @Override
           public void handle(MouseEvent mouseEvent) {
-            if (selectNodePane != null) {
+            if (selectNodePane != null && selectedNodeEntity != null) {
               nmc.getMainGesturePane().setGestureEnabled(false);
 
               System.out.println("get mouse location");
@@ -674,6 +678,7 @@ public class NodeDraw implements KeyListener {
       System.out.println("delete that fucker");
 
       FacadeRepository.getInstance().deleteEdge(getSelectedEdge().getEdgeid());
+      selectedEdge = null;
     }
   }
 
