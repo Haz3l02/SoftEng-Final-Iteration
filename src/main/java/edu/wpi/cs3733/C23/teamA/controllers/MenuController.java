@@ -140,7 +140,12 @@ public class MenuController extends NavigationController {
         });
     admin
         .getItems()
-        .addAll("Map Editor", "Access Employee Records", "Department Moves", "Create Nodes");
+        .addAll(
+            "Map Editor",
+            "Access Employee Records",
+            "Department Moves",
+            "Create Nodes",
+            "Kiosk Creator");
     serviceRequest
         .getItems()
         .addAll(
@@ -206,6 +211,9 @@ public class MenuController extends NavigationController {
                   break;
                 case "Create Nodes":
                   switchToNodeScene();
+                  break;
+                case "Kiosk Creator":
+                  switchToKioskSetupScene();
                   break;
                 default:
                   break;
