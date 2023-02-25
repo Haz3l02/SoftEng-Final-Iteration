@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.mapeditor;
 import javafx.scene.Node;
 import net.kurobako.gesturefx.GesturePane;
 
+@Deprecated
 public class MakeDraggable {
 
   private double mouseX;
