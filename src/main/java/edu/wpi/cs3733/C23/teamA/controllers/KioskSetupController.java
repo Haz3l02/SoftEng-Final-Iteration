@@ -120,28 +120,11 @@ public class KioskSetupController {
       reminderPane.setVisible(true);
     } else {
       // Code to check if the move entered is valid.
-      List<NodeEntity> nodes =
-          FacadeRepository.getInstance()
-              .newAndOldNode(moveLocation.getText(), moveDate.getCurrentDate());
-      if (!(nodes.size() == 1)) {
-        reminderPane.setVisible(false);
-        moveReminder.setVisible(false);
-        kiosk =
-            new Kiosk(
-                nodes.get(0),
-                nodes.get(1),
-                left.getText(),
-                right.getText(),
-                directionOnOff.isSelected(),
-                moveDescription.getText());
-        Navigation.navigateHome(Screen.KIOSK);
-      } else {
-        reminderPane.setVisible(true);
-        moveReminder.setVisible(true);
-      }
       ArrayList<NodeEntity> newAndOldNode =
           FacadeRepository.getInstance().newAndOldNode(locationBox.getText(), moveDate.getValue());
       if (newAndOldNode.size() == 2) {
+        reminderPane.setVisible(false);
+        moveReminder.setVisible(false);
         kiosk =
             new Kiosk(
                 newAndOldNode.get(1),
@@ -150,7 +133,10 @@ public class KioskSetupController {
                 right.getText(),
                 directionOnOff.isSelected(),
                 moveDescription.getText());
-        Navigation.navigateHome(Screen.KIOSK);
+        Navigation.navigateHome(Screen.KIOSK); // go to new screen
+      } else {
+        reminderPane.setVisible(true);
+        moveReminder.setVisible(true);
       }
     }
   }
