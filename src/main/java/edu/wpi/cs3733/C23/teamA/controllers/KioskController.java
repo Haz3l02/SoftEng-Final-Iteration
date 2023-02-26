@@ -85,8 +85,8 @@ public class KioskController {
     // prepare the gesture panes to attach to the stack panes
     this.gesture1.setContent(stack1);
     this.gesture2.setContent(stack2);
-    this.gesture1.setContent(stack3);
-    this.gesture2.setContent(stack4);
+    this.gesture3.setContent(stack3);
+    this.gesture4.setContent(stack4);
 
     // set first map
     //    String initialTableString = kiosk.getStartLocation().getFloor();
