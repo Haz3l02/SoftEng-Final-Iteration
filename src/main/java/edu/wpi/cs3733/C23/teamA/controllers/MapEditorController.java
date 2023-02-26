@@ -134,7 +134,7 @@ public class MapEditorController extends MenuController {
         .selectedProperty()
         .addListener(
             Observable -> {
-              changeLocations();
+              NodeDraw.toggleLocationDisplay(toggleSwitch.isSelected());
             });
     mapEditor = new MapEditorController();
 
@@ -176,9 +176,9 @@ public class MapEditorController extends MenuController {
     Image image = ImageLoader.getImage(floor);
 
     mainImageView.setImage(image);
-    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
+    // NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-    NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);
+    // NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);
   }
 
   //  public void addLocation(ActionEvent event) {
@@ -216,8 +216,8 @@ public class MapEditorController extends MenuController {
     currentNodePane.setVisible(false); // delete node from map view
     List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
     if (Floor.indexFromTableString(currentFloor) != -1) {
-      NodeDraw.drawEdges(
-          allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
+      // NodeDraw.drawEdges(
+      // allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
     }
   }
 
@@ -466,8 +466,8 @@ public class MapEditorController extends MenuController {
   // TODO
   public void delLocationName(ActionEvent event) {}
 
-  public void changeLocations() {
-    mainTextPane.setVisible(!mainTextPane.isVisible());
+  public void changeLocations(boolean flag) {
+    NodeDraw.toggleLocationDisplay(false);
   }
 
   @FXML

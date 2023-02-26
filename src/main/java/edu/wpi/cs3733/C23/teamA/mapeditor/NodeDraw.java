@@ -10,6 +10,8 @@ import edu.wpi.cs3733.C23.teamA.controllers.NodeEditorEditPopupController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -33,6 +35,8 @@ public class NodeDraw implements KeyListener {
   static NodeEntity selectedNodeEntity = null;
 
   static Pane currentPane = new Pane();
+  static List<Text> locations = new ArrayList<>();
+  static HashMap<String, List<Line>> incoming = new HashMap<>();
 
   static Line selectedLine = null;
   static Line previousLine = null;
@@ -106,6 +110,28 @@ public class NodeDraw implements KeyListener {
     return scaledCoordinates;
   }
 
+  public static void toggleLocationDisplay(boolean flag) {
+    locations.forEach(t -> t.setVisible(flag));
+  }
+
+  public static Text linkLocation(NodeEntity node, double scaleFactor, AnchorPane nodeAnchor) {
+    int[] updatedCoords = scaleCoordinates(node.getXcoord(), node.getYcoord(), scaleFactor);
+    LocationNameEntity loc = FacadeRepository.getInstance().moveMostRecentLoc(node.getNodeid());
+    if (loc != null) {
+      Text locName = new Text();
+      // locName.setVisible(false);
+      locName.rotateProperty().set(45);
+      locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
+      locName.setText(loc.getShortname());
+      locName.setLayoutX(updatedCoords[0] - 2.5);
+      locName.setLayoutY(updatedCoords[1] - 2.5);
+      nodeAnchor.getChildren().add(locName);
+      locations.add(locName);
+      return locName;
+    }
+    return null;
+  }
+
   public static void drawLocations(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
     nodeAnchor.getChildren().clear();
@@ -132,15 +158,24 @@ public class NodeDraw implements KeyListener {
       double scaleFactor,
       AnchorPane nodeAnchor,
       MapEditorController nmc) {
-    // nodeAnchor.getChildren().clear();
+    nodeAnchor.getChildren().clear();
 
-    // draw circle for each node
     for (NodeEntity n : allNodes) {
       int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
       Pane nodeGraphic = new Pane();
-      List<EdgeEntity> edges = FacadeRepository.getInstance().nodeConnection(n.getNodeid());
+      Text location = linkLocation(n, scaleFactor, nodeAnchor);
+      List<Line> outgoing = new ArrayList<>();
 
-      currentPane = nodeGraphic;
+      for (EdgeEntity e : FacadeRepository.getInstance().edgeFromStart(n.getNodeid())) {
+        Line sr = linkEdge(e, scaleFactor, nodeAnchor);
+        if (sr != null) {
+          outgoing.add(sr);
+          incoming.computeIfAbsent(e.getNode2().getNodeid(), k -> new ArrayList<>());
+          incoming.get(e.getNode2().getNodeid()).add(sr);
+        }
+      }
+
+      // currentPane = nodeGraphic;
 
       /* Set the style of the node */
       nodeGraphic.setPrefSize(5, 5);
@@ -337,18 +372,35 @@ public class NodeDraw implements KeyListener {
               // selectNodePane.setLayoutX(mouseEvent.getX());
               // selectNodePane.setLayoutY(mouseEvent.getY());
 
-              System.out.println("get mouse location");
-              System.out.println(mouseEvent.getX());
-              System.out.println(mouseEvent.getY());
-              System.out.println("Get layout");
-              System.out.println(selectNodePane.getLayoutX());
-              System.out.println(selectNodePane.getLayoutY());
+              //              System.out.println("get mouse location");
+              //              System.out.println(mouseEvent.getX());
+              //              System.out.println(mouseEvent.getY());
+              //              System.out.println("Get layout");
+              //              System.out.println(selectNodePane.getLayoutX());
+              //              System.out.println(selectNodePane.getLayoutY());
 
               selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
               selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
+              outgoing.forEach(
+                  o -> {
+                    o.setStartX(selectNodePane.getLayoutX() + mouseEvent.getX());
+                    o.setStartY(selectNodePane.getLayoutY() + mouseEvent.getY());
+                  });
+              incoming
+                  .get(n.getNodeid())
+                  .forEach(
+                      o -> {
+                        o.setEndX(selectNodePane.getLayoutX() + mouseEvent.getX());
+                        o.setEndY(selectNodePane.getLayoutY() + mouseEvent.getY());
+                      });
 
-              System.out.println((int) selectNodePane.getLayoutX());
-              System.out.println((int) selectNodePane.getLayoutX());
+              if (location != null) {
+                location.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
+                location.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
+              }
+
+              //              System.out.println((int) selectNodePane.getLayoutX());
+              //              System.out.println((int) selectNodePane.getLayoutX());
             }
           });
 
@@ -378,11 +430,11 @@ public class NodeDraw implements KeyListener {
                   FacadeRepository.getInstance()
                       .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
                 }
-                nodeAnchor.getChildren().clear();
-                drawEdges(
-                    FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
-                    scaleFactor,
-                    nodeAnchor);
+                //                nodeAnchor.getChildren().clear();
+                //                drawEdges(
+                //                    FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
+                //                    scaleFactor,
+                //                    nodeAnchor);
                 drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
               }
             }
@@ -529,6 +581,81 @@ public class NodeDraw implements KeyListener {
     }
   }
   // end _________________________________________________________________
+
+  public static Line linkEdge(EdgeEntity edge, double scaleFactor, Pane ap) {
+    if (edge.getNode1().getFloor().equals(edge.getNode2().getFloor())) {
+      int[] updatedCoordsNode1 =
+          scaleCoordinates(edge.getNode1().getXcoord(), edge.getNode1().getYcoord(), scaleFactor);
+      int[] updatedCoordsNode2 =
+          scaleCoordinates(edge.getNode2().getXcoord(), edge.getNode2().getYcoord(), scaleFactor);
+      Line currentLine =
+          new Line(
+              updatedCoordsNode1[0],
+              updatedCoordsNode1[1],
+              updatedCoordsNode2[0],
+              updatedCoordsNode2[1]);
+      currentLine.setStroke(Color.web("0x224870"));
+
+      // when mouse is clicked
+      EventHandler<MouseEvent> eventHandler =
+          event -> {
+            selectedLine = currentLine;
+            selectedNodeEntity = null;
+            if ((previousLine != null)) {
+              if (!previousLine.equals(currentLine)) {
+                previousLine.setStroke(Color.web("0x224870"));
+                previousLine.setStrokeWidth(1);
+                if (previousSelectedNode != null) {
+                  previousSelectedNode.setStyle(
+                      "-fx-background-color: '#224870'; "
+                          + "-fx-background-radius: 12.5; "
+                          + "-fx-border-color: '#224870'; "
+                          + "-fx-border-width: 1;"
+                          + "-fx-border-radius: 13.5");
+                  previousSelectedNode.setPrefSize(5, 5);
+                }
+              }
+            }
+
+            currentLine.setStroke(Color.web("yellow"));
+            currentLine.setStrokeWidth(2);
+
+            previousLine = currentLine;
+            selectedEdge = edge;
+          };
+      currentLine.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+
+      // for hover over node
+      EventHandler<MouseEvent> eventHandler2 =
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              if ((!currentLine.equals(selectedLine))) {
+                currentLine.setStroke(Color.web("green"));
+                currentLine.setStrokeWidth(2);
+                System.out.println("Hovering");
+              }
+            }
+          };
+      currentLine.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
+
+      EventHandler<MouseEvent> eventHandler3 =
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              if ((!currentLine.equals(selectedLine))) {
+                currentLine.setStroke(Color.web("0x224870"));
+                currentLine.setStrokeWidth(1);
+                System.out.println("exit");
+              }
+            }
+          };
+      currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
+      ap.getChildren().add(currentLine);
+      return currentLine;
+    }
+    return null;
+  }
 
   public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, Pane ap) {
     ap.getChildren().clear();
