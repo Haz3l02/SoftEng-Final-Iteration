@@ -27,8 +27,8 @@ public class NodeEditorPopupController extends NavigationController {
   private @FXML MFXComboBox<String> BuildingBox;
   @FXML MFXButton createNodeButton;
 
-  @Setter public static double mouseX;
-  @Setter public static double mouseY;
+  @Setter public static int mouseX;
+  @Setter public static int mouseY;
   @Setter public static String floor;
 
   public void initialize() {
@@ -55,11 +55,10 @@ public class NodeEditorPopupController extends NavigationController {
             Building.FR15.getTableString());
     BuildingBox.setItems(buildings);
 
-    mouseX = Math.round(mouseX);
-    mouseY = Math.round(mouseY);
     xCoord.setText(String.valueOf(mouseX));
     yCoord.setText(String.valueOf(mouseY));
-    FloorBox.setValue(floor);
+    FloorBox.selectItem(Floor.extendedStringFromTableString(floor));
+    FloorBox.setText(floor);
   }
 
   @FXML

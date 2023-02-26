@@ -8,10 +8,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
-import edu.wpi.cs3733.C23.teamA.controllers.LocationEditorEditPopupController;
-import edu.wpi.cs3733.C23.teamA.controllers.MapEditorController;
-import edu.wpi.cs3733.C23.teamA.controllers.MapEditorNodeInfoPopupController;
-import edu.wpi.cs3733.C23.teamA.controllers.NodeEditorEditPopupController;
+import edu.wpi.cs3733.C23.teamA.controllers.*;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +43,6 @@ public class NodeDraw {
   static int xCoordUpdate = 0;
   static int yCoordUpdate = 0;
    */
-
   static PopOver nodeInfoPopup;
 
   static double[] previousCoords = new double[2];
@@ -166,12 +162,13 @@ public class NodeDraw {
             nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
             // nmc.setFloorBox(n.getFloor());
             nmc.setBuildingBox(n.getBuilding());
-            nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
+            MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
 
             if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
               nmc.setLongNameBox(
                   FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
-              nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
+              nmc.setLocationIDBox(
+                  MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
               nmc.setShortNameBox(
                   FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
               nmc.setLocTypeBox(
@@ -181,7 +178,8 @@ public class NodeDraw {
               // nmc.setLocButtonVisibility(false);
             } else {
               nmc.setLongNameBox("NO LOCATION ASSIGNED");
-              nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
+              nmc.setLocationIDBox(
+                  MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
               // nmc.setLocButtonVisibility(true);
             }
             if (!shiftPressed
@@ -204,7 +202,6 @@ public class NodeDraw {
             }
 
             if (shiftPressed) {
-              System.out.println("shift pressed");
               if (node1 != null) {
                 // save 2nd node stuff and add edge
                 node2 =
@@ -220,22 +217,22 @@ public class NodeDraw {
                 alert.setHeaderText(
                     "Are you sure you want to create an edge between "
                         + FacadeRepository.getInstance()
-                            .getLocation(selectedNodeEntity.getNodeid()));
-                LocationNameEntity locNameEnt =
-                    FacadeRepository.getInstance().getLocation(selectedNodeEntity.getNodeid());
+                            .moveMostRecentLoc(node1.getNodeid())
+                            .getShortname()
+                        + " and "
+                        + FacadeRepository.getInstance()
+                            .moveMostRecentLoc(node2.getNodeid())
+                            .getShortname());
 
-                String startLoc;
-                String endLoc;
-
-                alert.setHeaderText(
+                alert.setContentText(
                     "Are you sure you want to create an edge between: ("
-                        + node1.getNodeid()
+                        + node1.getXcoord()
                         + ", "
-                        //                          + selectedEdge.getNode1().getYcoord()
-                        + " and ("
-                        + node2.getNodeid()
+                        + node1.getYcoord()
+                        + ") and ("
+                        + node2.getXcoord()
                         + ", "
-                        //                          + selectedEdge.getNode2().getYcoord()
+                        + node2.getYcoord()
                         + ") ?");
 
                 if (alert.showAndWait().get() == ButtonType.OK) {
@@ -248,15 +245,7 @@ public class NodeDraw {
 
                   l.setStrokeWidth(500);
                   l.setVisible(true);
-                  System.out.println(
-                      l.getStartX()
-                          + ", "
-                          + l.getStartY()
-                          + ") , ("
-                          + l.getEndX()
-                          + ", "
-                          + l.getEndY()
-                          + ")");
+
                   FacadeRepository.getInstance().addEdge(new EdgeEntity(node1, node2));
                   node1 = null;
                   node2 = null;
@@ -285,7 +274,6 @@ public class NodeDraw {
               }
             }
             if (!event.isShortcutDown() && !event.isAltDown()) {
-              System.out.println("clear the nodes list");
               if (selectedNodes != null) {
                 selectedNodes.clear();
               }
@@ -333,10 +321,7 @@ public class NodeDraw {
           event -> {
             nmc.getMainGesturePane().setGestureEnabled(true);
             if (!event.isStillSincePress()) {
-              System.out.println("node dropped");
 
-              System.out.println((int) selectNodePane.getLayoutX());
-              System.out.println((int) selectNodePane.getLayoutY());
               Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
               alert.setTitle("Node Drag and Drop");
               alert.setHeaderText("Would you like to make this change?");
@@ -369,9 +354,6 @@ public class NodeDraw {
               NodeEditorEditPopupController.setFloor(selectedNodeEntity.getFloor());
               NodeEditorEditPopupController.setBuilding(selectedNodeEntity.getBuilding());
 
-              System.out.println(
-                  selectedNodeEntity.getXcoord() + ", " + selectedNodeEntity.getYcoord());
-
               LocationNameEntity loc =
                   FacadeRepository.getInstance().moveMostRecentLoc(selectedNodeEntity.getNodeid());
               if (loc != null) {
@@ -382,6 +364,24 @@ public class NodeDraw {
               }
             }
           });
+
+      /*
+      nodeAnchor.setOnMouseClicked(
+          event -> {
+            if (event.getButton() == MouseButton.SECONDARY) {
+              coords =
+                  CoordinateScalar.scaleCoordinatesReversed(
+                      selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
+
+              System.out.println(Math.round(coords[0]) + ", " + Math.round(coords[1]));
+
+              NodeEditorPopupController.setFloor(selectedNodeEntity.getFloor());
+              NodeEditorPopupController.setMouseX((int) Math.round(coords[0]));
+              NodeEditorPopupController.setMouseY((int) Math.round(coords[1]));
+            }
+          });
+
+       */
 
       nodeAnchor.getChildren().add(nodeGraphic);
     }
@@ -450,29 +450,14 @@ public class NodeDraw {
   }
 
   private static EventHandler<? super MouseEvent> dragEvent(MapEditorController nmc) {
-    EventHandler<MouseEvent> event =
-        new EventHandler<>() {
-          @Override
-          public void handle(MouseEvent mouseEvent) {
-            if (selectNodePane != null) {
-              nmc.getMainGesturePane().setGestureEnabled(false);
+    return mouseEvent -> {
+      if (selectNodePane != null) {
+        nmc.getMainGesturePane().setGestureEnabled(false);
 
-              System.out.println("get mouse location");
-              System.out.println(mouseEvent.getX());
-              System.out.println(mouseEvent.getY());
-              System.out.println("Get layout");
-              System.out.println(selectNodePane.getLayoutX());
-              System.out.println(selectNodePane.getLayoutY());
-
-              selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
-              selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
-
-              System.out.println((int) selectNodePane.getLayoutX());
-              System.out.println((int) selectNodePane.getLayoutX());
-            }
-          }
-        };
-    return event;
+        selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
+        selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
+      }
+    };
   }
   // end _________________________________________________________________
 
@@ -552,7 +537,6 @@ public class NodeDraw {
             if ((!currentLine.equals(selectedLine))) {
               currentLine.setStroke(Color.web("green"));
               currentLine.setStrokeWidth(2);
-              System.out.println("Hovering");
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
@@ -562,7 +546,6 @@ public class NodeDraw {
             if ((!currentLine.equals(selectedLine))) {
               currentLine.setStroke(Color.web("0x224870"));
               currentLine.setStrokeWidth(1);
-              System.out.println("exit");
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
