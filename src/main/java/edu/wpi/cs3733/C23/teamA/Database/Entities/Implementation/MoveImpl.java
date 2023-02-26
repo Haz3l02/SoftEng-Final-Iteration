@@ -332,15 +332,15 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     //    Session session = getSessionFactory().openSession();
     //    Transaction tx = session.beginTransaction();
     //
-    ////    ListIterator<MoveEntity> li = moves.listIterator();
-    ////    while (li.hasNext()) {
-    ////      MoveEntity me = li.next();
-    ////      if (me.getNode().getNodeid().equals(ID.get(0))
-    ////          && me.getLocationName().getLongname().equals(ID.get(1))
-    ////          && me.getMovedate().toString().equals(ID.get(2))) {
-    ////        li.remove();
-    ////      }
-    ////    }
+    //    ListIterator<MoveEntity> li = moves.listIterator();
+    //    while (li.hasNext()) {
+    //      MoveEntity me = li.next();
+    //      if (me.getNode().getNodeid().equals(ID.get(0))
+    //          && me.getLocationName().getLongname().equals(ID.get(1))
+    //          && me.getMovedate().toString().equals(ID.get(2))) {
+    //        li.remove();
+    //      }
+    //    }
     //
     //
     //    session
