@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -14,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="776.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="776.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <center>
       <AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="CENTER">
          <children>
@@ -24,7 +26,25 @@
                      <center>
                         <VBox prefHeight="554.0" prefWidth="1025.0" spacing="20.0" BorderPane.alignment="CENTER">
                            <children>
-                              <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="69.0" prefWidth="1025.0" style="-fx-background-color: #024097;" VBox.vgrow="ALWAYS" />
+                              <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="69.0" prefWidth="1025.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <ComboBox fx:id="serviceRequest" prefHeight="71.0" prefWidth="354.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" />
+                                    <MFXButton fx:id="navigation" onAction="#switchToPathfinding" prefHeight="84.0" prefWidth="171.0" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textFill="#d3e9f6">
+                                       <font>
+                                          <Font size="27.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <StackPane>
+                                       <children>
+                                          <ComboBox fx:id="admin" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
+                                          <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
+                                             <font>
+                                                <Font size="27.0" />
+                                             </font>
+                                          </MFXButton>
+                                       </children>
+                                    </StackPane>
+                                 </children></HBox>
                               <HBox alignment="CENTER" prefHeight="464.0" prefWidth="1025.0" VBox.vgrow="ALWAYS">
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="427.0" prefWidth="1027.0" spacing="25.0" HBox.hgrow="ALWAYS">
@@ -88,7 +108,7 @@
                                              <children>
                                                 <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="234.0" style="-fx-background-color: #F1A94F; -fx-background-radius: 15; -fx-border-radius: 15;">
                                                    <children>
-                                                      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #FFD470;">
+                                                      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-border-radius: 15;">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
                                                                <font>
@@ -191,12 +211,17 @@
             </Label>
             <VBox alignment="TOP_CENTER" prefHeight="319.0" prefWidth="266.0" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Label" textFill="WHITE">
+                  <Label fx:id="label1" text="Label" textFill="WHITE">
                      <font>
                         <Font name="Verdana" size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Label" textFill="WHITE">
+                  <Label fx:id="label2" text="Label" textFill="WHITE">
+                     <font>
+                        <Font name="Verdana" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label3" text="Label" textFill="WHITE">
                      <font>
                         <Font name="Verdana" size="24.0" />
                      </font>

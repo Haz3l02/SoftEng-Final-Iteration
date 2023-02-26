@@ -4,6 +4,7 @@ import edu.wpi.cs3733.C23.teamA.AApp;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -60,6 +61,7 @@ public class HomeController extends MenuController {
   @FXML public ImageView about;
   @FXML public ImageView credits;
   @FXML public ImageView exit;
+  @FXML public Label label1, label2, label3;
   private final Image creditsYellow =
       new Image(AApp.class.getResourceAsStream("assets/icons/credits_yellow.png"));
   private final Image creditsWhite =
@@ -247,6 +249,26 @@ public class HomeController extends MenuController {
 
       requests =
           FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getEmployeeID());
+
+      int numDone = 0;
+      int numAssigned = 0;
+      int numAccepted = 0;
+
+      for(ServiceRequestEntity request : requests) {
+        if(request.getStatus().equals(Status.DONE)) {
+          numDone++;
+        } else if (request.getStatus().equals(Status.ASSIGNED)) {
+          numAssigned++;
+        } else if (request.getStatus().equals(Status.PROCESSING)) {
+          numAccepted++;
+        }
+
+      }
+      label1.setText("# of completed assignments: " + numDone);
+      label2.setText("# of assigned assignments: " + numAssigned);
+      label3.setText("# of accepted assignments: " + numAccepted);
+
+
       dbTableRowsModel.addAll(requests);
       maintenanceTable.setItems(dbTableRowsModel);
       System.out.println(requests.size());
@@ -274,6 +296,11 @@ public class HomeController extends MenuController {
 
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
+
+      label1.setText("# of unassigned requests: " + requests.size());
+      label2.setVisible(false);
+      label3.setVisible(false);
+
       dbTableRowsModel.addAll(requests);
       adminTable.setItems(dbTableRowsModel);
 
@@ -310,6 +337,9 @@ public class HomeController extends MenuController {
       adminAnnouncementField.setDisable(true);
       adminAnnouncementField.setVisible(false);
       adminAnnouncementButton.setVisible(false);
+
+
+
     }
   }
 
