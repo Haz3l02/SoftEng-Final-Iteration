@@ -10,13 +10,11 @@ import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.MaintenanceAssignedAccepted;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.security.Provider;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -67,15 +65,15 @@ public class HomeController extends MenuController {
   private final Image creditsYellow =
       new Image(AApp.class.getResourceAsStream("assets/icons/credits_yellow.png"));
   private final Image creditsWhite =
-      new Image(AApp.class.getResourceAsStream("assets/icons/credits.png"));
+      new Image(AApp.class.getResourceAsStream("assets/icons/credits_blue.png"));
   private final Image aboutYellow =
       new Image(AApp.class.getResourceAsStream("assets/icons/about_yellow.png"));
   private final Image aboutWhite =
-      new Image(AApp.class.getResourceAsStream("assets/icons/about.png"));
+      new Image(AApp.class.getResourceAsStream("assets/icons/about_blue.png"));
   private final Image logoutYellow =
       new Image(AApp.class.getResourceAsStream("assets/icons/exit_yellow.png"));
   private final Image logoutWhite =
-      new Image(AApp.class.getResourceAsStream("assets/icons/exit_darkBlue.png"));
+      new Image(AApp.class.getResourceAsStream("assets/icons/exit_blue.png"));
   @FXML public TextArea adminAnnouncementField;
   @FXML public MFXButton adminAnnouncementButton;
   @FXML public Label announcementText;
@@ -238,9 +236,6 @@ public class HomeController extends MenuController {
       employeeTable.setDisable(true);
       maintenanceTable.setVisible(true);
       maintenanceTable.setDisable(false);
-      adminAnnouncementField.setDisable(true);
-      adminAnnouncementField.setVisible(false);
-      adminAnnouncementButton.setVisible(false);
       myAssignments.setVisible(true);
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
@@ -256,14 +251,12 @@ public class HomeController extends MenuController {
           FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getEmployeeID());
 
       int numDone = 0;
-      int numAssigned = 0;
+      int numAssigned = requests.size();
       int numAccepted = 0;
 
       for (ServiceRequestEntity request : requests) {
         if (request.getStatus().equals(Status.DONE)) {
           numDone++;
-        } else if (request.getStatus().equals(Status.ASSIGNED)) {
-          numAssigned++;
         } else if (request.getStatus().equals(Status.PROCESSING)) {
           numAccepted++;
         }
@@ -289,6 +282,8 @@ public class HomeController extends MenuController {
       employeeTable.setDisable(true);
       maintenanceTable.setVisible(false);
       maintenanceTable.setDisable(true);
+      adminAnnouncementField.setVisible(true);
+      adminAnnouncementButton.setVisible(true);
 
       IDCol1.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol1.setCellValueFactory(
@@ -342,18 +337,15 @@ public class HomeController extends MenuController {
       employeeTable.setDisable(false);
       maintenanceTable.setVisible(false);
       maintenanceTable.setDisable(true);
-      adminAnnouncementField.setDisable(true);
-      adminAnnouncementField.setVisible(false);
-      adminAnnouncementButton.setVisible(false);
 
       List<ServiceRequestEntity> requests = FacadeRepository.getInstance().getAllServiceRequest();
       int totalRequests = 0;
       int completedRequests = 0;
       int openRequests = 0;
-      for(ServiceRequestEntity request: requests) {
-        if(request.getEmployee().getEmployeeid() == userInfo.getEmployeeID()) {
+      for (ServiceRequestEntity request : requests) {
+        if (request.getEmployee().getEmployeeid() == userInfo.getEmployeeID()) {
           totalRequests++;
-          if(request.getStatus().equals(Status.DONE)) {
+          if (request.getStatus().equals(Status.DONE)) {
             completedRequests++;
           } else {
             openRequests++;
@@ -364,7 +356,6 @@ public class HomeController extends MenuController {
       label1.setText("# of requests submitted: " + totalRequests);
       label2.setText("# of open requests: " + openRequests);
       label3.setText("# of completed requests: " + completedRequests);
-
     }
   }
 
