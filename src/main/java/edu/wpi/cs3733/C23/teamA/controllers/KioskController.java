@@ -3,12 +3,12 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.controllers.KioskSetupController.kiosk;
 
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
+import edu.wpi.cs3733.C23.teamA.mapdrawing.PathDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,16 +30,24 @@ public class KioskController {
   @FXML public Node directionsPane;
   @FXML public Node rightPane;
 
-  @FXML private AnchorPane anchorF3;
-  @FXML private AnchorPane anchorF2;
-  @FXML private AnchorPane anchorF1;
-  @FXML private AnchorPane anchorL1;
-  @FXML private AnchorPane anchorL2;
+  @FXML private AnchorPane anchor1;
+  @FXML private AnchorPane anchor2;
+  @FXML private AnchorPane anchor3;
+  @FXML private AnchorPane anchor4;
+  @FXML private ImageView image1;
+  @FXML private ImageView image2;
+  @FXML private ImageView image3;
+  @FXML private ImageView image4;
+  @FXML private GesturePane gesture1;
+  @FXML private GesturePane gesture2;
+  @FXML private GesturePane gesture3;
+  @FXML private GesturePane gesture4;
+  @FXML private StackPane stack1;
+  @FXML private StackPane stack2;
+  @FXML private StackPane stack3;
+  @FXML private StackPane stack4;
 
-  @FXML private ImageView mainImageView;
-  @FXML private GesturePane mainGesturePane;
-  @FXML private StackPane mainStackPane;
-
+  private Integer[] floors = new Integer[5]; // tells you which anchorPane it is at
   private AnchorPane[] aps = new AnchorPane[5];
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
   private int currentFloor;
@@ -65,22 +73,28 @@ public class KioskController {
     System.out.println(kiosk.getStartLocation().getFloor());
     System.out.println(kiosk.getEndLocation().getFloor());
 
-    aps[0] = anchorL1;
-    aps[1] = anchorL2;
-    aps[2] = anchorF1;
-    aps[3] = anchorF2;
-    aps[4] = anchorF3;
+    aps[0] = anchor1;
+    aps[1] = anchor2;
+    aps[2] = anchor3;
+    aps[3] = anchor4;
+    AnchorPane anchor5 = new AnchorPane();
+    aps[4] = anchor5;
 
     // TODO Setup the split pane thing and the map
 
-    // prepare the gesture pane to attach to the stack pane
-    Node stackPane = mainStackPane;
-    this.mainGesturePane.setContent(stackPane);
+    // prepare the gesture panes to attach to the stack panes
+    this.gesture1.setContent(stack1);
+    this.gesture2.setContent(stack2);
+    this.gesture1.setContent(stack3);
+    this.gesture2.setContent(stack4);
 
     // set first map
-    String initialTableString = kiosk.getStartLocation().getFloor();
-    currentFloor = Floor.indexFromTableString(initialTableString);
-    addFloorMapImage(initialTableString, mainImageView);
+    //    String initialTableString = kiosk.getStartLocation().getFloor();
+    //    currentFloor = Floor.indexFromTableString(initialTableString);
+    addFloorMapImage("L1", image1);
+    addFloorMapImage("L2", image2);
+    addFloorMapImage("1", image3);
+    addFloorMapImage("2", image4);
 
     runPathfinding();
   }
@@ -109,13 +123,13 @@ public class KioskController {
     // clear the anchorPanes w/ the drawn paths
     for (AnchorPane ap : aps) {
       ap.getChildren().clear();
-      ap.setVisible(false);
+      ap.setVisible(true);
     }
+    //
+    //    // Make this floor's pane viewable
+    //    aps[currentFloor].setVisible(true);
 
-    // Make this floor's pane viewable
-    aps[currentFloor].setVisible(true);
-
-    pathfindingSystem.drawPath(aps, path);
+    PathDraw.drawPath(aps, path, 5, 0.0675);
   }
 
   @FXML
