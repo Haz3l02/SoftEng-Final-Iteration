@@ -5,7 +5,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.Main;
-import edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar;
 import edu.wpi.cs3733.C23.teamA.mapdrawing.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
@@ -173,19 +172,20 @@ public class MapEditorController extends MenuController {
     mainGesturePane.setOnMouseClicked(
         event -> {
           if (event.getButton() == MouseButton.SECONDARY) {
-            double[] coords =
-                CoordinateScalar.scaleCoordinatesReversed(
-                    mainGesturePane.getCurrentScaleX(),
-                    mainGesturePane.getCurrentScaleY(),
-                    SCALE_FACTOR);
 
-            System.out.println(Math.round(coords[0]) + ", " + Math.round(coords[1]));
+            /*
+                        double[] coords =
+                            CoordinateScalar.scaleCoordinatesReversed(
+                                event.getSceneX(), event.getSceneY(), SCALE_FACTOR);
 
-            NodeEditorPopupController.setMouseX((int) Math.round(coords[0]));
-            NodeEditorPopupController.setMouseY((int) Math.round(coords[1]));
+                        // System.out.println(Math.round(coords[0]) + ", " + Math.round(coords[1]));
+
+                        // NodeEditorPopupController.setMouseX((int) Math.round(coords[0]));
+                        // NodeEditorPopupController.setMouseY((int) Math.round(coords[1]));
+            */
 
             mouseXCoord = event.getSceneX();
-            mouseYCoord = event.getSceneY();
+            mouseYCoord = event.getSceneY() - 16;
           }
         });
 
