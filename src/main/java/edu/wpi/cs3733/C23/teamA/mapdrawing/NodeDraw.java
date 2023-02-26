@@ -7,26 +7,28 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.controllers.LocationEditorEditPopupController;
 import edu.wpi.cs3733.C23.teamA.controllers.MapEditorController;
+import edu.wpi.cs3733.C23.teamA.controllers.MapEditorNodeInfoPopupController;
 import edu.wpi.cs3733.C23.teamA.controllers.NodeEditorEditPopupController;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import org.controlsfx.control.PopOver;
 
-public class NodeDraw implements KeyListener {
+public class NodeDraw {
 
   static Pane previousSelectedNode = null;
   static Pane selectNodePane = null;
@@ -40,24 +42,34 @@ public class NodeDraw implements KeyListener {
 
   static NodeEntity node1;
   static NodeEntity node2;
+  /*
   static int xCoordUpdate = 0;
   static int yCoordUpdate = 0;
+   */
 
-  static boolean setLocationVisibility;
-  static MenuItem locMenu = new MenuItem("edit location");
-  static MenuItem nodeMenu = new MenuItem("edit node");
-
-  static NodeEditorEditPopupController nodeEditPopup = new NodeEditorEditPopupController();
-  static LocationEditorEditPopupController locEditPopup = new LocationEditorEditPopupController();
+  static PopOver nodeInfoPopup;
 
   static double[] previousCoords = new double[2];
 
   static ArrayList<NodeEntity> selectedNodes = new ArrayList<>();
   static NodeEntity firstNode;
 
-  public void setNewLocation() {}
+  public static void closePopup() {
+    nodeInfoPopup.hide();
+  }
 
-  public static void setVisibility(boolean b) {}
+  public static void popupNodeInfo(Pane parent, double X, double Y) throws IOException {
+
+    FXMLLoader edgeLoader =
+        new FXMLLoader(Main.class.getResource("views/MapEditorNodeInfoPopupFXML.fxml"));
+
+    nodeInfoPopup = new PopOver(edgeLoader.load());
+    nodeInfoPopup.show((parent.getScene().getWindow()));
+
+    // sets the popup coords to the mouse/node
+    nodeInfoPopup.setAnchorX(X);
+    nodeInfoPopup.setAnchorY(Y - 16); // slight offset was needed
+  }
 
   public static NodeEntity getSelected() {
     return selectedNodeEntity;
@@ -172,6 +184,20 @@ public class NodeDraw implements KeyListener {
               nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
               // nmc.setLocButtonVisibility(true);
             }
+
+            // pass in node and location to popup controller
+            MapEditorNodeInfoPopupController.node = selectedNodeEntity;
+            MapEditorNodeInfoPopupController.location =
+                FacadeRepository.getInstance().moveMostRecentLoc(selectedNodeEntity.getNodeid());
+
+            // pop up node info popup
+            try {
+
+              popupNodeInfo(nodeGraphic, event.getSceneX(), event.getSceneY());
+            } catch (IOException e) {
+              throw new RuntimeException(e);
+            }
+
             if (shiftPressed) {
               System.out.println("shift pressed");
               if (node1 != null) {
@@ -331,27 +357,6 @@ public class NodeDraw implements KeyListener {
       nodeGraphic.setOnMouseClicked(
           event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
-              MapEditorController.mouseXCoord = event.getSceneX();
-              MapEditorController.mouseYCoord = event.getSceneY();
-            }
-          });
-
-      /*
-      nodeGraphic.setOnContextMenuRequested(
-          event -> {
-            nodeMenu.setOnAction(event1 -> {
-              System.out.println("aaaa");
-            });
-            ContextMenu nodeCM = new ContextMenu(nodeMenu, locMenu);
-
-            nodeCM.show(nodeAnchor, event.getScreenX(), event.getScreenY());
-          });
-
-       */
-
-      nodeGraphic.setOnMouseClicked(
-          event -> {
-            if (event.getButton() == MouseButton.SECONDARY) {
 
               NodeEditorEditPopupController.setNode(selectedNodeEntity);
               NodeEditorEditPopupController.setXCord(selectedNodeEntity.getXcoord());
@@ -475,8 +480,6 @@ public class NodeDraw implements KeyListener {
       node.setYcoord(yAlign);
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
     }
-    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
-
   }
 
   public static void straightenNodesVertical() {
@@ -489,9 +492,6 @@ public class NodeDraw implements KeyListener {
 
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
     }
-
-    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
-
   }
 
   public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, AnchorPane ap) {
@@ -538,112 +538,31 @@ public class NodeDraw implements KeyListener {
 
             previousLine = currentLine;
             selectedEdge = edge;
-
-            //                    nmc.setXCord(n.getXcoord().toString());
-            //                    nmc.setYCord(n.getYcoord().toString());
-            //
-            // nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
-            //                    // nmc.setFloorBox(n.getFloor());
-            //                    nmc.setBuildingBox(n.getBuilding());
-            //                    nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
-            //
-            //                    if
-            // (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
-            //                        nmc.setLongNameBox(
-            //
-            // FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
-            //                        nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(),
-            // n.getXcoord(), n.getYcoord()));
-            //                        nmc.setLocButtonVisibility(false);
-            //                    } else {
-            //                        nmc.setLongNameBox("NO LOCATION ASSIGNED");
-            //                        nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(),
-            // n.getXcoord(), n.getYcoord()));
-            //                        nmc.setLocButtonVisibility(true);
-            //                    }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
       // for hover over node
       EventHandler<MouseEvent> eventHandler2 =
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              if ((!currentLine.equals(selectedLine))) {
-                currentLine.setStroke(Color.web("green"));
-                currentLine.setStrokeWidth(2);
-                System.out.println("Hovering");
-              }
+          event -> {
+            if ((!currentLine.equals(selectedLine))) {
+              currentLine.setStroke(Color.web("green"));
+              currentLine.setStrokeWidth(2);
+              System.out.println("Hovering");
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
 
       EventHandler<MouseEvent> eventHandler3 =
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              if ((!currentLine.equals(selectedLine))) {
-                currentLine.setStroke(Color.web("0x224870"));
-                currentLine.setStrokeWidth(1);
-                System.out.println("exit");
-              }
+          event -> {
+            if ((!currentLine.equals(selectedLine))) {
+              currentLine.setStroke(Color.web("0x224870"));
+              currentLine.setStrokeWidth(1);
+              System.out.println("exit");
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
 
-      //      currentLine.setOnMouseClicked(
-      //          event -> {
-      //            if (event.getButton() == MouseButton.SECONDARY) {
-      //              Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-      //              a.setTitle("Delete Edge?");
-      //              a.setHeaderText("Are you sure you want to delete this edge?");
-      //              a.setContentText(
-      //                  "edge to be deleted has start coordinates: ("
-      //                      + selectedLine.getStartX()
-      //                      + ", "
-      //                      + selectedLine.getStartY()
-      //                      + ") and end coordinates: ("
-      //                      + selectedLine.getEndX()
-      //                      + ", "
-      //                      + selectedLine.getEndY()
-      //                      + ")");
-      //
-      //              if (a.showAndWait().get() == ButtonType.OK) {
-      //
-      //                // transports the edge over to fucking narnia (gives the appearance of being
-      // updated
-      //                // immediately)
-      //                selectedLine.setStartX(-100);
-      //                selectedLine.setStartY(-100);
-      //                selectedLine.setEndX(-100);
-      //                selectedLine.setEndY(-100);
-      //                FacadeRepository.getInstance().deleteEdge(selectedEdge.getEdgeid());
-      //              }
-      //            }
-      //          });
-
       ap.getChildren().add(currentLine);
     }
-  }
-
-  @Override
-  public void keyTyped(KeyEvent e) {
-    System.out.println("a");
-  }
-
-  @Override
-  public void keyPressed(java.awt.event.KeyEvent e) {
-    int key = e.getKeyCode();
-    System.out.println(key);
-    if (key == KeyEvent.VK_DELETE) {
-      System.out.println("delete that fucker");
-
-      FacadeRepository.getInstance().deleteEdge(getSelectedEdge().getEdgeid());
-    }
-  }
-
-  @Override
-  public void keyReleased(KeyEvent e) {
-    System.out.println("aaa");
   }
 }
