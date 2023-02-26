@@ -119,9 +119,13 @@ public class KioskSetupController {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
+
       // Code to check if the move entered is valid.
       ArrayList<NodeEntity> newAndOldNode =
-          FacadeRepository.getInstance().newAndOldNode(locationBox.getText(), moveDate.getValue());
+          FacadeRepository.getInstance().newAndOldNode(moveLocation.getText(), moveDate.getValue());
+//      System.out.println(newAndOldNode.get(0).getNodeid());
+//      System.out.println(newAndOldNode.get(1).getNodeid());
+
       if (newAndOldNode.size() == 2) {
         reminderPane.setVisible(false);
         moveReminder.setVisible(false);

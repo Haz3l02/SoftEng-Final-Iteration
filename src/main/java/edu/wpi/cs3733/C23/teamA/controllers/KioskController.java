@@ -2,11 +2,13 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.controllers.KioskSetupController.kiosk;
 
+import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class KioskController {
@@ -30,9 +34,11 @@ public class KioskController {
   @FXML private AnchorPane anchorL1;
   @FXML private AnchorPane anchorL2;
 
+  @FXML private ImageView mainImageView;
+
   private AnchorPane[] aps = new AnchorPane[5];
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
-  private int currentFloor = 1;
+  private int currentFloor;
 
   @FXML
   public void initialize() throws SQLException {
@@ -52,6 +58,9 @@ public class KioskController {
       mainSplitPane.getItems().remove(directionsPane);
     }
 
+    System.out.println(kiosk.getStartLocation().getFloor());
+    System.out.println(kiosk.getEndLocation().getFloor());
+
     aps[0] = anchorL1;
     aps[1] = anchorL2;
     aps[2] = anchorF1;
@@ -59,9 +68,20 @@ public class KioskController {
     aps[4] = anchorF3;
 
     // TODO Setup the split pane thing and the map
+
+    // set first map
+    String initialTableString = kiosk.getStartLocation().getFloor();
+    currentFloor = Floor.indexFromTableString(initialTableString);
+    addFloorMapImage(initialTableString, mainImageView);
+
     runPathfinding();
   }
 
+  /**
+   * Method that runs pathfinding on the two nodes given via kiosk
+   * ie startNode and endNode
+   * @throws SQLException
+   */
   private void runPathfinding() throws SQLException {
     pathfindingSystem.prepGraphDB(LocalDate.now());
     GraphNode start = pathfindingSystem.getNode(kiosk.getStartLocation().getNodeid());
@@ -93,5 +113,16 @@ public class KioskController {
   @FXML
   public void goBack() {
     Navigation.navigate(Screen.KIOSK_SETUP);
+  }
+
+  /**
+   * Updates the mapImage asset to contain an image (which is supposed to be a floor map)
+   *
+   * @param floor is the table name of the floor
+   * @param iv is the image view to be updated
+   */
+  private void addFloorMapImage(String floor, ImageView iv) {
+    Image image = ImageLoader.getImage(floor);
+    iv.setImage(image);
   }
 }
