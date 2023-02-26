@@ -29,16 +29,16 @@ dependencies {
 
     implementation(
             // Text-To-Speech Stuff
-            files("external_libraries/freetts/jsapi.jar"), // this *may* be the only one needed idk
-            files("external_libraries/freetts/cmu_time_awb.jar"),
-            files("external_libraries/freetts/cmu_us_kal.jar"),
-            files("external_libraries/freetts/cmudict04.jar"),
-            files("external_libraries/freetts/cmulex.jar"),
-            files("external_libraries/freetts/cmutimelex.jar"),
-            files("external_libraries/freetts/en_us.jar"),
-            files("external_libraries/freetts/freetts.jar"),
-            files("external_libraries/freetts/freetts-jsapi10.jar"),
-            files("external_libraries/freetts/mbrola.jar"),
+            files("src/main/resources/external_libraries/freetts/jsapi.jar"), // this *may* be the only one needed idk
+            files("src/main/resources/external_libraries/freetts/cmu_time_awb.jar"),
+            files("src/main/resources/external_libraries/freetts/cmu_us_kal.jar"),
+            files("src/main/resources/external_libraries/freetts/cmudict04.jar"),
+            files("src/main/resources/external_libraries/freetts/cmulex.jar"),
+            files("src/main/resources/external_libraries/freetts/cmutimelex.jar"),
+            files("src/main/resources/external_libraries/freetts/en_us.jar"),
+            files("src/main/resources/external_libraries/freetts/freetts.jar"),
+            files("src/main/resources/external_libraries/freetts/freetts-jsapi10.jar"),
+            files("src/main/resources/external_libraries/freetts/mbrola.jar"),
 
             // MaterialFX
             'io.github.palexdev:materialfx:11.13.8',
