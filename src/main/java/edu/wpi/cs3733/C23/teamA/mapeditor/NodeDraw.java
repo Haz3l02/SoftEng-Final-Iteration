@@ -108,7 +108,6 @@ public class NodeDraw implements KeyListener {
 
   public static void drawLocations(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
-
     nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
@@ -139,6 +138,7 @@ public class NodeDraw implements KeyListener {
     for (NodeEntity n : allNodes) {
       int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
       Pane nodeGraphic = new Pane();
+      List<EdgeEntity> edges = FacadeRepository.getInstance().nodeConnection(n.getNodeid());
 
       currentPane = nodeGraphic;
 
@@ -530,7 +530,7 @@ public class NodeDraw implements KeyListener {
   }
   // end _________________________________________________________________
 
-  public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, AnchorPane ap) {
+  public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, Pane ap) {
     ap.getChildren().clear();
 
     for (EdgeEntity edge : allEdges) {

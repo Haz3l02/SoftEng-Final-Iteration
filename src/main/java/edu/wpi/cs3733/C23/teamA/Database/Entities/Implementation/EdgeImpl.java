@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Stream;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
@@ -232,12 +233,37 @@ public class EdgeImpl extends Observable implements IDatabaseAPI<EdgeEntity, Str
         .toList();
   }
 
+  /**
+   * Find all edges that either start or end with this node
+   *
+   * @param id node id
+   * @return List of edges where node1 or node2 is equal to node of id
+   */
   public List<EdgeEntity> nodeConnection(String id) {
+    return Stream.concat(edgesFromStart(id).stream(), edgesFromEnd(id).stream()).toList();
+  }
+
+  /**
+   * Find all edges that start with this node
+   *
+   * @param startid node id
+   * @return List of edges where node1 is equal to node of startid
+   */
+  public List<EdgeEntity> edgesFromStart(String startid) {
     return edges.stream()
-        .filter(
-            edgeEntity ->
-                edgeEntity.getNode1().getNodeid().equals(id)
-                    || edgeEntity.getNode2().getNodeid().equals(id))
+        .filter(edgeEntity -> edgeEntity.getNode1().getNodeid().equals(startid))
+        .toList();
+  }
+
+  /**
+   * Find all edges that end with this node
+   *
+   * @param endid node id
+   * @return List of edges where node2 is equal to node of endid
+   */
+  public List<EdgeEntity> edgesFromEnd(String endid) {
+    return edges.stream()
+        .filter(edgeEntity -> edgeEntity.getNode2().getNodeid().equals(endid))
         .toList();
   }
 

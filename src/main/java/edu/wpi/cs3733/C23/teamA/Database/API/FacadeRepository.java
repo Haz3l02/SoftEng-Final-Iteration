@@ -523,4 +523,12 @@ public class FacadeRepository {
   public List<EdgeEntity> nodeConnection(String id) {
     return edge.nodeConnection(id);
   }
+
+  public List<EdgeEntity> edgeFromStart(String id) {
+    return edge.edgesFromStart(id);
+  }
+
+  public List<EdgeEntity> edgeFromEnd(String id) {
+    return edge.edgesFromEnd(id);
+  }
 }
