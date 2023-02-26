@@ -319,15 +319,14 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
                     moveEntity.getLocationName().getLongname().equals(id)
                         && (date.compareTo(moveEntity.getMovedate()) >= 0))
             .toList();
-//    LocalDate dt1 = LocalDate.parse("2023-01-01");
-//    for (MoveEntity mo : ids) {
-//      if (mo.getMovedate().compareTo(dt1) >= 0) {
-//        mov = mo;
-//        dt1 = mo.getMovedate();
-//      }
-//    }
-    ids.sort(Comparator.comparing(MoveEntity::getMovedate));
-    return ids.get(0);
+    LocalDate dt1 = LocalDate.parse("2023-01-01");
+    for (MoveEntity mo : ids) {
+      if (mo.getMovedate().compareTo(dt1) >= 0) {
+        mov = mo;
+        dt1 = mo.getMovedate();
+      }
+    }
+    return mov;
   }
 
   /**
@@ -454,7 +453,8 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       }
     }
 
-    date.minusDays(1);
+    date = date.minusDays(1);
+
     fin.add(nodeOnOrBeforeDate(longName, date).getNode());
     return fin;
   }
