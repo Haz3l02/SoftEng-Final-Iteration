@@ -63,6 +63,7 @@ public class PathfindingController extends MenuController {
   @FXML private AnchorPane textAnchorPane; // displays location names on currentFloor
   @FXML private StackPane mainStackPane; // stack pane with all the anchor panes and image view
   @FXML private GesturePane mainGesturePane; // gesture pane to sync with stack pane above
+
   @FXML MFXTextField adminMessage;
   @FXML Text messageText;
 

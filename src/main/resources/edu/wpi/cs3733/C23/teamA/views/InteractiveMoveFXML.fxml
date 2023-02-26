@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import net.kurobako.gesturefx.GesturePane?>
+
+<BorderPane prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MoveController">
+   <center>
+      <VBox prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Move Table">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </Text>
+            <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 15;">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Name">
+                     <font>
+                        <Font name="Verdana" size="20.0" />
+                     </font>
+                  </Text>
+                  <MFXFilterComboBox fx:id="locationBox" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Location" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXFilterComboBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node">
+                     <font>
+                        <Font name="Verdana" size="20.0" />
+                     </font>
+                  </Text>
+                  <MFXFilterComboBox fx:id="nodeBox" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Node ID" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXFilterComboBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move Date">
+                     <font>
+                        <Font name="Verdana" size="20.0" />
+                     </font>
+                  </Text>
+                  <MFXDatePicker fx:id="dateBox" prefHeight="50.0" prefWidth="250.0" promptText="Select Move Date" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXDatePicker>
+                  <MFXButton fx:id="createMove" buttonType="RAISED" defaultButton="true" onAction="#createMove" prefHeight="50.0" prefWidth="225.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Create Move" textFill="#224870">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </HBox>
+            <SplitPane dividerPositions="0.45" prefHeight="160.0" prefWidth="200.0" stylesheets="@../assets/PathfindingStyle.css" VBox.vgrow="ALWAYS">
+              <items>
+                  <TableView fx:id="dbTable" editable="true" onMouseClicked="#rowClicked" prefHeight="158.0" prefWidth="1301.0" style="-fx-background-color: d3e9f6; -fx-border-width: 2 2 2 2;" SplitPane.resizableWithParent="false">
+                     <columns>
+                        <TableColumn fx:id="moveCol" prefWidth="186.0" text="Move Location" />
+                        <TableColumn fx:id="nodeCol" prefWidth="213.0" text="Node" />
+                        <TableColumn fx:id="moveDateCol" editable="false" prefWidth="202.0" text="Move Date" />
+                     </columns>
+                  </TableView>
+                  <MFXScrollPane prefHeight="486.0" prefWidth="215.0" SplitPane.resizableWithParent="false">
+                     <content>
+                        <SplitPane dividerPositions="0.2, 0.6" orientation="VERTICAL" prefHeight="1028.0">
+                          <items>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Text fx:id="locationNotif" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving ">
+                                       <font>
+                                          <Font name="Verdana" size="20.0" />
+                                       </font>
+                                    </Text>
+                                    <TextArea fx:id="moveMessage" prefHeight="91.0" prefWidth="675.0" promptText="Enter a message to be displayed with move" wrapText="true">
+                                       <font>
+                                          <Font name="Verdana" size="20.0" />
+                                       </font>
+                                    </TextArea>
+                                 </children>
+                              </VBox>
+                              <VBox maxHeight="-Infinity" prefHeight="400.0">
+                                 <children>
+                                    <Text fx:id="currentNode" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Node For Location">
+                                       <font>
+                                          <Font name="Verdana" size="20.0" />
+                                       </font>
+                                    </Text>
+                                    <StackPane prefHeight="476.0" prefWidth="818.0" style="-fx-background-color: #224870;">
+                                       <children>
+                                          <StackPane fx:id="mainStackPane" prefHeight="476.0" prefWidth="818.0">
+                                             <children>
+                                                <ImageView fx:id="mainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
+                                                <AnchorPane fx:id="anchorF3" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorF2" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorF1" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorL2" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorL1" maxHeight="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="textAnchorPane" prefHeight="200.0" prefWidth="200.0" />
+                                             </children>
+                                             <StackPane.margin>
+                                                <Insets />
+                                             </StackPane.margin>
+                                          </StackPane>
+                                          <GesturePane fx:id="topMainGesturePane" prefHeight="354.0" prefWidth="563.0" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </VBox>
+                              <VBox maxHeight="-Infinity" prefHeight="400.0">
+                                 <children>
+                                    <Text fx:id="newNode" strokeType="OUTSIDE" strokeWidth="0.0" text="New Node For Location">
+                                       <font>
+                                          <Font name="Verdana" size="20.0" />
+                                       </font>
+                                    </Text>
+                                    <StackPane prefHeight="476.0" prefWidth="818.0" style="-fx-background-color: #224870;">
+                                       <children>
+                                          <StackPane fx:id="mainStackPane1" prefHeight="476.0" prefWidth="818.0">
+                                             <children>
+                                                <ImageView fx:id="topMainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
+                                                <AnchorPane fx:id="anchorF31" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorF21" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorF11" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorL21" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorL11" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="textAnchorPane1" prefHeight="200.0" prefWidth="200.0" />
+                                             </children>
+                                             <StackPane.margin>
+                                                <Insets />
+                                             </StackPane.margin>
+                                          </StackPane>
+                                          <GesturePane fx:id="middleGesturePane" prefHeight="459.0" prefWidth="675.0" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </VBox>
+                          </items>
+                        </SplitPane>
+                     </content>
+                  </MFXScrollPane>
+              </items>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </SplitPane>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_LEFT" prefWidth="611.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+               <children>
+                  <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#reloadData" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reset" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton id="helpButton" fx:id="clearButton1" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImport" prefHeight="55.0" prefWidth="168.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Import CSV" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton id="helpButton" fx:id="clearButton11" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExport" prefHeight="55.0" prefWidth="165.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Export CSV" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0" spacing="10.0">
+               <children>
+                  <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+                  <StackPane fx:id="reminderPaneMove" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: F6BD3A; -fx-border-width: 4 4 4 4;">
+                     <children>
+                        <Text fx:id="warning" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Unable to Create Move!" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </StackPane>
+                  <MFXButton id="cancelButton" fx:id="deleteButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#delete" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Delete" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Cancel" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton id="cancelButton" fx:id="editButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#submitEdit" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Update" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+</BorderPane>
