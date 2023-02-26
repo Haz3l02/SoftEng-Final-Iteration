@@ -32,6 +32,8 @@ public class NodeDraw implements KeyListener {
   static Pane selectNodePane = null;
   static NodeEntity selectedNodeEntity = null;
 
+  static List<Pane> listOfPanes;
+
   static Pane currentPane = new Pane();
 
   static Line selectedLine = null;
@@ -75,6 +77,8 @@ public class NodeDraw implements KeyListener {
     previousSelectedNode = p;
   }
 
+  public static List<Pane> getPaneList() {return listOfPanes;}
+
   public static void drawLocations(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
 
@@ -87,7 +91,7 @@ public class NodeDraw implements KeyListener {
       AnchorPane nodeAnchor,
       MapEditorController nmc) {
     // nodeAnchor.getChildren().clear();
-
+    listOfPanes = new ArrayList<>();
     // draw circle for each node
     for (NodeEntity n : allNodes) {
       double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
@@ -105,6 +109,8 @@ public class NodeDraw implements KeyListener {
               + "-fx-border-color: '#224870'; "
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
+
+      listOfPanes.add(nodeGraphic);
 
       // when mouse is clicked
       EventHandler<MouseEvent> eventHandler =

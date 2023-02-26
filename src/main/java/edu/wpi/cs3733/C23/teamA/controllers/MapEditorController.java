@@ -35,6 +35,8 @@ import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
 
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
+
 public class MapEditorController extends MenuController {
 
   // FXML Elements
@@ -202,7 +204,7 @@ public class MapEditorController extends MenuController {
             System.out.println("init rect");
             selectionRectangle.setVisible(true);
             mainGesturePane.setGestureEnabled(false);
-            // double[] updatedXY = scaleCoordinatesReversed(e.getX(), e.getY(), SCALE_FACTOR);
+
             mouseDownX = e.getX();
             mouseDownY = e.getY();
             System.out.println("X:" + mouseDownX + "  Y:" + mouseDownY);
@@ -232,17 +234,39 @@ public class MapEditorController extends MenuController {
         e -> {
           mainGesturePane.setGestureEnabled(true);
           if (!e.isStillSincePress()) {
-            // selectNodes();
+            findNodesInBounds(allNodes);
             selectionRectangle.setVisible(false);
           }
         });
   }
 
-  public void findNodesInBounds(List<NodeEntity> allNodes) {
+  public List<NodeEntity> findNodesInBounds(List<NodeEntity> allNodes) {
+    double boxUpperX = mouseDownX + selectionRectangle.getWidth();
+    double boxUpperY = mouseDownY + selectionRectangle.getHeight();
+    double[] updatedXY = scaleCoordinatesReversed(mouseDownX, mouseDownY, SCALE_FACTOR);
+    double[] updatedXYUpper = scaleCoordinatesReversed(boxUpperX, boxUpperY, SCALE_FACTOR);
+
     List<NodeEntity> selectedList = new ArrayList<>();
+    List<Pane> panesOnFloor = NodeDraw.getPaneList();
+
     for (NodeEntity n : allNodes) {
-      // if ()
+      if ((updatedXY[0] < n.getXcoord() && updatedXY[1]<n.getYcoord()) && (updatedXYUpper[0] > n.getXcoord() && updatedXYUpper[1] > n.getYcoord())) {
+        selectedList.add(n);
+      }
     }
+
+    for (Pane p : panesOnFloor) {
+      if ((updatedXY[0] < p.getLayoutX() && updatedXY[1]<p.getLayoutY()) && (updatedXYUpper[0] > p.getLayoutX() && updatedXYUpper[1] > p.getLayoutY())) {
+        p.setStyle(
+                "-fx-background-color: 'green'; "
+                        + "-fx-background-radius: 12.5; "
+                        + "-fx-border-color: '#224870'; "
+                        + "-fx-border-width: 1;"
+                        + "-fx-border-radius: 13.5");
+      }
+    }
+
+    return selectedList;
   }
 
   //  public void addLocation(ActionEvent event) {
