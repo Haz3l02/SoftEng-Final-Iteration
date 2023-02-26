@@ -379,8 +379,8 @@ public class NodeDraw implements KeyListener {
               //              System.out.println(selectNodePane.getLayoutX());
               //              System.out.println(selectNodePane.getLayoutY());
 
-              selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
-              selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
+              selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX() - 2.5);
+              selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY() - 2.5);
               outgoing.forEach(
                   o -> {
                     o.setStartX(selectNodePane.getLayoutX() + mouseEvent.getX());
@@ -395,8 +395,8 @@ public class NodeDraw implements KeyListener {
                       });
 
               if (location != null) {
-                location.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
-                location.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
+                location.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX() - 2.5);
+                location.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY() - 2.5);
               }
 
               //              System.out.println((int) selectNodePane.getLayoutX());
