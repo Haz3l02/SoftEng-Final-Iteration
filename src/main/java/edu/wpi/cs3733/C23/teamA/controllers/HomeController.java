@@ -16,6 +16,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.security.Provider;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -343,6 +344,26 @@ public class HomeController extends MenuController {
       adminAnnouncementField.setDisable(true);
       adminAnnouncementField.setVisible(false);
       adminAnnouncementButton.setVisible(false);
+
+      List<ServiceRequestEntity> requests = FacadeRepository.getInstance().getAllServiceRequest();
+      int totalRequests = 0;
+      int completedRequests = 0;
+      int openRequests = 0;
+      for(ServiceRequestEntity request: requests) {
+        if(request.getEmployee().getEmployeeid() == userInfo.getEmployeeID()) {
+          totalRequests++;
+          if(request.getStatus().equals(Status.DONE)) {
+            completedRequests++;
+          } else {
+            openRequests++;
+          }
+        }
+      }
+
+      label1.setText("# of requests submitted: " + totalRequests);
+      label2.setText("# of open requests: " + openRequests);
+      label3.setText("# of completed requests: " + completedRequests);
+
     }
   }
 
