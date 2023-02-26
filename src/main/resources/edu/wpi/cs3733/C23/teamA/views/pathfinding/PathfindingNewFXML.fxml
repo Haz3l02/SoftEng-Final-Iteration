@@ -230,9 +230,10 @@
                                         </Text>
                               <HBox alignment="BOTTOM_RIGHT" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <MFXButton fx:id="speakButton" alignment="CENTER" onAction="#directionsToSpeech" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Text-to-Speech" textFill="#d3e9f6">
+                                    <MFXButton fx:id="speakButton" alignment="CENTER" layoutX="161.0" layoutY="28.0" onAction="#directionsToSpeech" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Text-to-Speech" textFill="#d3e9f6" />
+                                    <MFXButton fx:id="stopSpeakingButton" alignment="CENTER" layoutX="161.0" layoutY="28.0" onAction="#directionsToSpeech" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Stop" textFill="#d3e9f6">
                                        <HBox.margin>
-                                          <Insets />
+                                          <Insets left="5.0" />
                                        </HBox.margin>
                                     </MFXButton>
                                  </children>

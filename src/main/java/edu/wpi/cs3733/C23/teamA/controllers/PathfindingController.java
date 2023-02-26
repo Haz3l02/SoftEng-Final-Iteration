@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
@@ -16,6 +14,7 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Algorithm;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import edu.wpi.cs3733.C23.teamA.tts.TextReader;
 import io.github.palexdev.materialfx.controls.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -72,6 +71,10 @@ public class PathfindingController extends MenuController {
   @FXML private GesturePane mainGesturePane; // gesture pane to sync with stack pane above
   @FXML MFXTextField adminMessage;
   @FXML Text messageText;
+
+  // TTS buttons
+  @FXML private MFXButton speakButton;
+  @FXML private MFXButton stopSpeakingButton;
 
   // local variables saved
   private AnchorPane[] aps = new AnchorPane[5];
@@ -593,31 +596,11 @@ public class PathfindingController extends MenuController {
   /** Takes the text in the pathfinding directions and speaks them out loud in english. */
   @FXML
   public void directionsToSpeech(ActionEvent event) {
-    // set system properties
-    System.setProperty(
-        "freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
-
-    // make a voice
-    Voice voice = VoiceManager.getInstance().getVoice("kevin16");
-
-    if (voice != null) {
-      // allocate the voice
-      voice.allocate();
-
-      // print out some info about it
-      // System.out.println("Voice Rate: " + voice.getRate());
-      // System.out.println("Voice Pitch: " + voice.getPitch());
-      // System.out.println("Voice Volume: " + voice.getVolume());
-
-      // String text = "Hello There! ...General Kenobi"; // for testing
-      String text = pathMapText.getText();
-      boolean status = voice.speak(text);
-      // System.out.println("Status: " + status);
-
-      // deallocate the voice
-      voice.deallocate();
-    } else {
-      System.out.println("ERROR: The voice specified could not be retrieved.");
+    TextReader tts = new TextReader(pathMapText.getText());
+    if (event.getSource().equals(speakButton)) {
+      tts.readText();
+    } else if (event.getSource().equals(stopSpeakingButton)) {
+      tts.forceStop();
     }
   }
 }
