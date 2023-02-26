@@ -184,18 +184,23 @@ public class NodeDraw {
               nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
               // nmc.setLocButtonVisibility(true);
             }
+            if (!shiftPressed
+                && !event.isShortcutDown()
+                && !event.isAltDown()
+                && !(event.getButton() == MouseButton.SECONDARY)) {
 
-            // pass in node and location to popup controller
-            MapEditorNodeInfoPopupController.node = selectedNodeEntity;
-            MapEditorNodeInfoPopupController.location =
-                FacadeRepository.getInstance().moveMostRecentLoc(selectedNodeEntity.getNodeid());
+              // pass in node and location to popup controller
+              MapEditorNodeInfoPopupController.node = selectedNodeEntity;
+              MapEditorNodeInfoPopupController.location =
+                  FacadeRepository.getInstance().moveMostRecentLoc(selectedNodeEntity.getNodeid());
 
-            // pop up node info popup
-            try {
+              // pop up node info popup
+              try {
 
-              popupNodeInfo(nodeGraphic, event.getSceneX(), event.getSceneY());
-            } catch (IOException e) {
-              throw new RuntimeException(e);
+                popupNodeInfo(nodeGraphic, event.getSceneX(), event.getSceneY());
+              } catch (IOException e) {
+                throw new RuntimeException(e);
+              }
             }
 
             if (shiftPressed) {
