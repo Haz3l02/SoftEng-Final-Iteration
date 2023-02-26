@@ -33,6 +33,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -75,9 +76,9 @@ public class HomeController extends MenuController {
       new Image(AApp.class.getResourceAsStream("assets/icons/exit_yellow.png"));
   private final Image logoutWhite =
       new Image(AApp.class.getResourceAsStream("assets/icons/exit_darkBlue.png"));
-  @FXML public MFXTextField adminAnnouncementField;
+  @FXML public TextArea adminAnnouncementField;
   @FXML public MFXButton adminAnnouncementButton;
-  @FXML public Text announcementText;
+  @FXML public Label announcementText;
 
   @FXML private Label date = new Label("hello");
   @FXML private Label time = new Label("hello");
