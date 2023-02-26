@@ -257,20 +257,18 @@ public class HomeController extends MenuController {
       int numAssigned = 0;
       int numAccepted = 0;
 
-      for(ServiceRequestEntity request : requests) {
-        if(request.getStatus().equals(Status.DONE)) {
+      for (ServiceRequestEntity request : requests) {
+        if (request.getStatus().equals(Status.DONE)) {
           numDone++;
         } else if (request.getStatus().equals(Status.ASSIGNED)) {
           numAssigned++;
         } else if (request.getStatus().equals(Status.PROCESSING)) {
           numAccepted++;
         }
-
       }
       label1.setText("# of completed assignments: " + numDone);
       label2.setText("# of assigned assignments: " + numAssigned);
       label3.setText("# of accepted assignments: " + numAccepted);
-
 
       dbTableRowsModel.addAll(requests);
       maintenanceTable.setItems(dbTableRowsModel);
@@ -345,9 +343,6 @@ public class HomeController extends MenuController {
       adminAnnouncementField.setDisable(true);
       adminAnnouncementField.setVisible(false);
       adminAnnouncementButton.setVisible(false);
-
-
-
     }
   }
 
