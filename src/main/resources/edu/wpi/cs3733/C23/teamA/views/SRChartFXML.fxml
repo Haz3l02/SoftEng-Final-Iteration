@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SRChartController">
+   <top>
+      <BarChart fx:id="srChart" prefHeight="646.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
+        <xAxis>
+          <CategoryAxis label="Service Requests" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="# of Rrequests" side="LEFT" upperBound="15.0" />
+        </yAxis>
+      </BarChart>
+   </top>
+   <bottom>
+      <VBox prefHeight="82.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="1376.0">
+               <children>
+                  <MFXButton id="cancelButton" fx:id="backButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="Back" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets right="15.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
