@@ -2,8 +2,9 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
-import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.enums.Job;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -18,8 +19,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -191,67 +190,10 @@ public class EmployeeController extends MenuController {
 
   @FXML
   public void switchToImport(ActionEvent event) throws IOException {
-    if (!event.getSource().equals(cancel)) {
-      FXMLLoader loader =
-          new FXMLLoader(Main.class.getResource("views/ImportEmployeeCSVFXML.fxml"));
-      popup = new PopOver(loader.load());
-      popup.show(((Node) event.getSource()).getScene().getWindow());
-    }
-
-    if (event.getSource().equals(cancel)) {
-      popup.hide();
-    }
-  }
-
-  @FXML
-  public void importEmployeeCSV(ActionEvent event) throws IOException {
-    if (fileNameField.getText().equals("")) {
-      reminder.setVisible(true);
-      reminderPane.setVisible(true);
-    } else {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-
-      System.out.println(fileNameField.getText());
-
-      FacadeRepository.getInstance().importEmployee(fileNameField.getText());
-
-      popup.hide();
-    }
-  }
-
-  @FXML
-  public void close(ActionEvent event) {
-    popup.hide();
+    Navigation.navigateHome(Screen.IMPORT_CSV);
   }
 
   public void switchToExport(ActionEvent event) throws IOException {
-    System.out.println("opens popup");
-    if (!event.getSource().equals(cancel)) {
-      FXMLLoader loader =
-          new FXMLLoader(Main.class.getResource("views/ExportEmployeeCSVFXML.fxml"));
-      popup = new PopOver(loader.load());
-      popup.show(((Node) event.getSource()).getScene().getWindow());
-    }
-
-    if (event.getSource().equals(cancel)) {
-      popup.hide();
-    }
-  }
-
-  @FXML
-  public void exportEmployeeCSV(ActionEvent event) throws IOException {
-
-    if (fileNameField.getText().equals("")) {
-      reminder.setVisible(true);
-      reminderPane.setVisible(true);
-    } else {
-      reminder.setVisible(false);
-      reminderPane.setVisible(false);
-
-      FacadeRepository.getInstance().exportEmployee(fileNameField.getText());
-
-      popup.hide();
-    }
+    Navigation.navigateHome(Screen.EXPORT_CSV);
   }
 }

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import edu.wpi.cs3733.C23.teamA.mapdrawing.PathfindingDraw;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.IAlgorithmStrategy;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -38,13 +39,9 @@ public class PathfindingSystem {
     return PathInterpreter.generatePathString(path, floorPath);
   }
 
-  // MapDraw
-  public void drawPath(
-      AnchorPane[] aps,
-      ArrayList<GraphNode> path,
-      ArrayList<String> floorPath,
-      double scaleFactor) {
-    MapDraw.drawPathClickable(aps, path, floorPath, scaleFactor);
+  // PathfindingDraw
+  public void drawPath(AnchorPane[] aps, ArrayList<GraphNode> path) {
+    PathfindingDraw.drawPath(aps, path);
   }
 
   // Methods relating to Graph
