@@ -5,7 +5,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.Main;
-import edu.wpi.cs3733.C23.teamA.mapeditor.NodeDraw;
+import edu.wpi.cs3733.C23.teamA.mapdrawing.NodeDraw;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Building;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.*;
@@ -16,7 +16,6 @@ import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,11 +23,12 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,7 +44,6 @@ public class MapEditorController extends MenuController {
   @FXML AnchorPane edgeAnchorPane = new AnchorPane();
   @FXML StackPane mainStackPane = new StackPane();
   @FXML AnchorPane mainTextPane = new AnchorPane();
-  // @FXML Canvas mainCanvas = new Canvas();
 
   @FXML ContextMenu contextMenu = new ContextMenu();
 
@@ -79,6 +78,8 @@ public class MapEditorController extends MenuController {
   @FXML
   Text reminder; // text field for a "remember to fill out all fields before submitting form" thingy
 
+  Rectangle selectionRectangle = new Rectangle();
+
   @Setter NodeEntity selectedNode = null;
 
   // Lists of Nodes and Node Data
@@ -103,27 +104,45 @@ public class MapEditorController extends MenuController {
     // gc = mainCanvas.getGraphicsContext2D();
 
     mainGesturePane.setOnKeyPressed(
-        new EventHandler<KeyEvent>() {
-          @Override
-          public void handle(KeyEvent event) {
-            if (event.getCode().equals(KeyCode.BACK_SPACE)
-                || event.getCode().equals(KeyCode.DELETE)) {
+        event -> {
+          if (event.getCode().equals(KeyCode.BACK_SPACE)
+              || event.getCode().equals(KeyCode.DELETE)) {
 
-              if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
-                System.out.println("delete edge only");
-                NodeDraw.delEdge();
-              } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
-                System.out.println("delete node only");
-                NodeDraw.delNode();
-              } else {
-                System.out.println("idk");
-              }
+            if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
+              System.out.println("delete edge only");
+              NodeDraw.delEdge();
+            } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
+              System.out.println("delete node only");
+              NodeDraw.delNode();
+            } else {
+              System.out.println("idk");
             }
+          }
+          if (event.getCode().equals(KeyCode.X) && event.isControlDown()) {
+            System.out.println("straighten that fucker (horizontally)");
+            NodeDraw.straightenNodesHorizontal();
+          }
+          if (event.getCode().equals(KeyCode.Y) && event.isControlDown()) {
+            System.out.println("straighten that fucker (vertically)");
+            NodeDraw.straightenNodesVertical();
+          }
+        });
+
+    mainGesturePane.setOnMouseDragged(
+        event -> {
+          if (event.isAltDown()) {
+            System.out.println("Control click is pressed");
+            mainGesturePane.setGestureEnabled(false);
+            selectionRectangle.setStroke(Color.BLACK);
+            selectionRectangle.setFill(Color.TRANSPARENT);
+            selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
+
+            mainAnchorPane.getChildren().add(selectionRectangle);
           }
         });
 
     mainTextPane.setVisible(false);
-    initializeFloorMap("L1");
+    initializeFloorMap("L2");
 
     // Makes gesture pane connect to correct parts
     this.mainGesturePane.setContent(mainStackPane);
@@ -149,7 +168,7 @@ public class MapEditorController extends MenuController {
   }
 
   public void generateFloor(ActionEvent event) {
-    String floor = "L1";
+    String floor = "L2";
     if (event.getSource().equals(l1Button)) {
       floor = "L1";
     } else if (event.getSource().equals(l2Button)) {
@@ -181,46 +200,6 @@ public class MapEditorController extends MenuController {
     NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);
   }
 
-  //  public void addLocation(ActionEvent event) {
-  //    //    this.locNameEntity.setLongname("Freddy Fazbears Pizzarea 2 ");
-  //    //    locNameEntity.setShortname("FNAF");
-  //    //    locNameEntity.setLocationtype("LABS");
-  //
-  //    NodeEntity selected = NodeDraw2.getSelected();
-  //    FacadeRepository.getInstance().newLocationOnNode(selected.getNodeid(), locNameEntity);
-  //    // longNameBox.setText();
-  //    System.out.println("done");
-  //    initialize();
-  //  }
-
-  /**
-   * Method to delete the node that is selected by the user Deletes from database and from the nodes
-   * on the map
-   *
-   * @param event
-   * @throws IOException
-   */
-  public void deleteSelectedNode(ActionEvent event) throws IOException {
-    NodeEntity currentNode = NodeDraw.getSelected();
-    Pane currentNodePane = NodeDraw.getSelectedPane();
-    String id = currentNode.getNodeid();
-    String currentFloor = currentNode.getFloor();
-    // Database //
-    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
-    // FacadeRepository.getInstance().deleteNode(id); // delete from database
-
-    // Redraw map using database //
-    // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
-
-    // Redraw Map not using database //
-    currentNodePane.setVisible(false); // delete node from map view
-    List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
-    if (Floor.indexFromTableString(currentFloor) != -1) {
-      NodeDraw.drawEdges(
-          allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
-    }
-  }
-
   public void goToNewNodeScene(ActionEvent event) {
     XCord.clear();
     YCord.clear();
@@ -248,8 +227,6 @@ public class MapEditorController extends MenuController {
     fieldBox.setStyle("-fx-background-color: '013A75'; ");
     createNodeButton.setVisible(true);
   }
-
-  public void addEdge(ActionEvent event) {}
 
   /**
    * Method that creates a new node on click "Create" with CreateNodeButton Adds into database and
@@ -340,72 +317,6 @@ public class MapEditorController extends MenuController {
     return (floor + "X" + xCoord + "Y" + yCoord);
   }
 
-  //  @FXML
-  //  public void addLocationName(ActionEvent event) {
-  //    NodeEntity currentNode = NodeDraw.getSelected();
-  //    MoveEntity newLocation =
-  //        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-  //    moveimpl.add(newLocation);
-  //    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-  //    locationIDBox.setText(currentNode.getNodeid());
-  //    createLocation.setVisible(false);
-  //
-  //    System.out.println("LongName");
-  //    System.out.println(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-  //    System.out.println();
-  //
-  //    // added to redraw
-  //    Pane currentNodePane = NodeDraw.getSelectedPane();
-  //    currentNodePane.setVisible(false);
-  //    List<NodeEntity> oneNode = new ArrayList<>();
-  //    oneNode.add(currentNode);
-  //    String tableString = currentNode.getFloor();
-  //    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
-  //
-  //    // initializeFloorMap("L1", stackL1, gestureL1);
-  //  }
-  //
-  //  @FXML
-  //  public void editLocationName(ActionEvent event) {
-  //    NodeEntity currentNode = NodeDraw.getSelected();
-  //    MoveEntity newLocation =
-  //        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-  //    List<String> data = new ArrayList<>();
-  //    data.add(currentNode.getNodeid());
-  //    data.add(longNameBox.getText());
-  //    data.add(LocalDate.now().toString());
-  //    moveimpl.update(data, newLocation);
-  //    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-  //    locationIDBox.setText(currentNode.getNodeid());
-  //  }
-  //
-  //  @FXML
-  //  public void delLocationName(ActionEvent event) {
-  //    NodeEntity currentNode = NodeDraw.getSelected();
-  //    MoveEntity newLocation =
-  //        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-  //    List<String> data = new ArrayList<>();
-  //    data.add(currentNode.getNodeid());
-  //    data.add(longNameBox.getText());
-  //    data.add(LocalDate.now().toString());
-  //    moveimpl.delete(data);
-  //    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-  //    locationIDBox.setText(currentNode.getNodeid());
-  //  }
-  //
-  //  @FXML
-  //  public void showLocations(ActionEvent event) {
-  //    // TODO
-  //    System.out.println("show locations");
-  //  }
-  //
-  //  @FXML
-  //  public void hideLocations(ActionEvent event) {
-  //
-  //    // TODO
-  //    System.out.println("show locations");
-  //  }
-  //
   public void setXCord(String xLoc) {
     this.XCord.setText(xLoc);
   }
@@ -421,13 +332,7 @@ public class MapEditorController extends MenuController {
   public void setBuildingBox(String building) {
     this.BuildingBox.setValue(building);
   }
-  //
-  //  @FXML
-  //  public void editEdge(ActionEvent event) {}
-  //
-  //  @FXML
-  //  public void deleteEdge(ActionEvent event) {}
-  //
+
   public void setLocationIDBox(String idString) {
     locationIDBox.setText(idString);
   }
@@ -443,28 +348,6 @@ public class MapEditorController extends MenuController {
   public void setLocTypeBox(String type) {
     locTypeBox.setText(type);
   }
-
-  //  public void setLocButtonVisibility(boolean eye) {
-  //    createLocation.setVisible(eye);
-  //  }
-
-  // TODO
-  public void transitionToNewNodeBox(ActionEvent event) {}
-
-  // TODO
-  public void editEdge(ActionEvent event) {}
-
-  // TODO
-  public void deleteEdge(ActionEvent event) {}
-
-  // TODO
-  public void addLocationName(ActionEvent event) {}
-
-  // TODO
-  public void editLocationName(ActionEvent event) {}
-
-  // TODO
-  public void delLocationName(ActionEvent event) {}
 
   public void changeLocations() {
     mainTextPane.setVisible(!mainTextPane.isVisible());

@@ -42,9 +42,10 @@ public class MoveEntity {
   @Setter
   private LocalDate movedate;
 
-  @Column(name = "message", nullable = false)
+  @Column(name = "message")
   @Getter
   @Setter
+  @Basic
   private String message;
 
   public MoveEntity() {}

@@ -177,6 +177,28 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
     return null;
   }
 
+  public void exportAlignedToCSV(String filename, ArrayList<NodeEntity> n) throws IOException {
+    filename += "/alignednode.csv";
+
+    File csvFile = new File(filename);
+    FileWriter fileWriter = new FileWriter(csvFile);
+    fileWriter.write("node,xcoord,ycoord,building,floor\n");
+    for (NodeEntity nod : n) {
+      fileWriter.write(
+          nod.getNodeid()
+              + ","
+              + nod.getXcoord()
+              + ","
+              + nod.getYcoord()
+              + ","
+              + nod.getBuilding()
+              + ","
+              + nod.getFloor()
+              + "\n");
+    }
+    fileWriter.close();
+  }
+
   public static NodeImpl getInstance() {
     return instance;
   }
