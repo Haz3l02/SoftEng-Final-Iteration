@@ -19,6 +19,8 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import net.kurobako.gesturefx.GesturePane;
 
 public class KioskController {
   @FXML private Label announcement, left, right, leftD, rightD;
@@ -35,6 +37,8 @@ public class KioskController {
   @FXML private AnchorPane anchorL2;
 
   @FXML private ImageView mainImageView;
+  @FXML private GesturePane mainGesturePane;
+  @FXML private StackPane mainStackPane;
 
   private AnchorPane[] aps = new AnchorPane[5];
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
@@ -69,6 +73,10 @@ public class KioskController {
 
     // TODO Setup the split pane thing and the map
 
+    // prepare the gesture pane to attach to the stack pane
+    Node stackPane = mainStackPane;
+    this.mainGesturePane.setContent(stackPane);
+
     // set first map
     String initialTableString = kiosk.getStartLocation().getFloor();
     currentFloor = Floor.indexFromTableString(initialTableString);
@@ -78,8 +86,8 @@ public class KioskController {
   }
 
   /**
-   * Method that runs pathfinding on the two nodes given via kiosk
-   * ie startNode and endNode
+   * Method that runs pathfinding on the two nodes given via kiosk ie startNode and endNode
+   *
    * @throws SQLException
    */
   private void runPathfinding() throws SQLException {

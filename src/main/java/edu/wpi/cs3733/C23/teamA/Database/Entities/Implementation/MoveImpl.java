@@ -453,7 +453,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       }
     }
 
-    date.minusDays(1);
+    date = date.minusDays(1);
     fin.add(nodeOnOrBeforeDate(longName, date).getNode());
     return fin;
   }

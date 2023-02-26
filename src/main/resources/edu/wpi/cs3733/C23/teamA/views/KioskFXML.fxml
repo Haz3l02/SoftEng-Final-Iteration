@@ -125,9 +125,9 @@
                            <children>
                               <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="451.0" prefWidth="585.0" style="-fx-background-color: #224870;" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="319.0" prefWidth="585.0">
+                                    <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0">
                                        <children>
-                                          <ImageView fx:id="mainImageView" fitHeight="319.0" fitWidth="514.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="mainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
                                           <AnchorPane fx:id="anchorF3" prefHeight="459.0" prefWidth="675.0" />
                                           <AnchorPane fx:id="anchorF2" prefHeight="459.0" prefWidth="675.0" />
                                           <AnchorPane fx:id="anchorF1" prefHeight="459.0" prefWidth="675.0" />
@@ -138,7 +138,7 @@
                                           <Insets />
                                        </StackPane.margin>
                                     </StackPane>
-                                    <GesturePane fx:id="mainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="319.0" prefWidth="585.0" />
+                                    <GesturePane fx:id="mainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                  </children>
                               </StackPane>
                            </children>

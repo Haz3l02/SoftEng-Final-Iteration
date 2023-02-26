@@ -9,6 +9,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.controllers.DisplayServiceRequestsPopupController;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import java.awt.*;
 import java.io.IOException;
@@ -132,8 +133,7 @@ public class PathfindingDraw {
     PopOver popover;
 
     try {
-      FXMLLoader loader =
-          new FXMLLoader(Main.class.getResource("views/DisplayServiceRequestsFXML.fxml"));
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource(Screen.SR_POPUP.getFilename()));
       popover = new PopOver(loader.load());
       popover.setTitle("Service Requests");
       // popover.detach();
@@ -147,6 +147,7 @@ public class PathfindingDraw {
               .getRequestAtCoordinate(
                   (int) Math.round(invertedCoords[0]), (int) Math.round(invertedCoords[1]), floor);
       String[] texts = new String[4];
+      // IdNumberHolder holder = IdNumberHolder.getInstance();
       for (int i = 0; i < Math.min(requests.size(), 4); i++) {
         texts[i] =
             requests.get(i).getRequestType().toString() + " : " + requests.get(i).getDescription();

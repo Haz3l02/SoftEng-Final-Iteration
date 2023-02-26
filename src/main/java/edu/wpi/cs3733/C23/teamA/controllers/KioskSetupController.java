@@ -123,8 +123,8 @@ public class KioskSetupController {
       // Code to check if the move entered is valid.
       ArrayList<NodeEntity> newAndOldNode =
           FacadeRepository.getInstance().newAndOldNode(moveLocation.getText(), moveDate.getValue());
-//      System.out.println(newAndOldNode.get(0).getNodeid());
-//      System.out.println(newAndOldNode.get(1).getNodeid());
+      //      System.out.println(newAndOldNode.get(0).getNodeid());
+      //      System.out.println(newAndOldNode.get(1).getNodeid());
 
       if (newAndOldNode.size() == 2) {
         reminderPane.setVisible(false);
