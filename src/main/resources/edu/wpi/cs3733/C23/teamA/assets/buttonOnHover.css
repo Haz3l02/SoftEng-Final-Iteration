@@ -1,6 +1,7 @@
 .button:hover{
     fx-text-fill: #F6BD3A;
     -fx-font-weight: bold;
+    -fx-font-family: Verdana;
 }
 
 .button {

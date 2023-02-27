@@ -1,14 +1,14 @@
 
 
 .combo-box {
-    -fx-background-color:  #224870;
+    -fx-background-color:  #022D58;
     -fx-background-radius: 15 ;
 }
 
 /*on list hover*/
 .combo-box .list-cell:hover {
     -fx-background-color: #F6BD3A ;
-    -fx-text-fill: #224870;
+    -fx-text-fill:  #022D58;
     -fx-font-weight: normal;
 }
 /*on button hover*/
@@ -22,7 +22,7 @@
 .combo-box .list-cell {
     -fx-font-size: 27;
     -fx-text-fill: #d3e9f6;
-    -fx-background-color:  #224870;
+    -fx-background-color:  #022D58;
     -fx-box-border:  transparent;
     -fx-border-color: transparent -fx-box-border  transparent;
     /*-fx-font-weight: normal;*/
