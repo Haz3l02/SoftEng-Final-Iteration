@@ -25,6 +25,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -47,7 +48,6 @@ public class MapEditorController extends MenuController {
   @FXML AnchorPane edgeAnchorPane = new AnchorPane();
   @FXML StackPane mainStackPane = new StackPane();
   @FXML AnchorPane mainTextPane = new AnchorPane();
-  // @FXML Canvas mainCanvas = new Canvas();
 
   @FXML ContextMenu contextMenu = new ContextMenu();
 
@@ -90,7 +90,7 @@ public class MapEditorController extends MenuController {
   private GraphicsContext gc;
 
   // scaling constant
-  private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulations
+  private final double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulations
 
   private static PopOver nodeEditorPopup;
   private static PopOver edgeEditorPopup;
@@ -147,7 +147,7 @@ public class MapEditorController extends MenuController {
         });
 
     mainTextPane.setVisible(false);
-    initializeFloorMap("L1");
+    initializeFloorMap("L2");
 
     // Makes gesture pane connect to correct parts
     this.mainGesturePane.setContent(mainStackPane);
@@ -169,12 +169,33 @@ public class MapEditorController extends MenuController {
     //              .moveMostRecentLoc(NodeDraw.getSelected().getNodeid())
     //              .getLongname());
     //    }
+
+    mainGesturePane.setOnMouseClicked(
+        event -> {
+          if (event.getButton() == MouseButton.SECONDARY) {
+
+            /*
+                        double[] coords =
+                            CoordinateScalar.scaleCoordinatesReversed(
+                                event.getSceneX(), event.getSceneY(), SCALE_FACTOR);
+
+                        // System.out.println(Math.round(coords[0]) + ", " + Math.round(coords[1]));
+
+                        // NodeEditorPopupController.setMouseX((int) Math.round(coords[0]));
+                        // NodeEditorPopupController.setMouseY((int) Math.round(coords[1]));
+            */
+
+            mouseXCoord = event.getSceneX();
+            mouseYCoord = event.getSceneY() - 16;
+          }
+        });
+
     mainAnchorPane.setPickOnBounds(false);
     mainSelectPane.setPickOnBounds(false);
   }
 
   public void generateFloor(ActionEvent event) {
-    String floor = "L1";
+    String floor = "L2";
     if (event.getSource().equals(l1Button)) {
       floor = "L1";
     } else if (event.getSource().equals(l2Button)) {
@@ -306,32 +327,7 @@ public class MapEditorController extends MenuController {
   //    initialize();
   //  }
 
-  /**
-   * Method to delete the node that is selected by the user Deletes from database and from the nodes
-   * on the map
-   *
-   * @param event
-   * @throws IOException
-   */
-  public void deleteSelectedNode(ActionEvent event) throws IOException {
-    NodeEntity currentNode = NodeDraw.getSelected();
-    Pane currentNodePane = NodeDraw.getSelectedPane();
-    String id = currentNode.getNodeid();
-    String currentFloor = currentNode.getFloor();
-    // Database //
-    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
-    // FacadeRepository.getInstance().deleteNode(id); // delete from database
-
-    // Redraw map using database //
-    // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
-
-    // Redraw Map not using database //
-    currentNodePane.setVisible(false); // delete node from map view
-    List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
-    if (Floor.indexFromTableString(currentFloor) != -1) {
-      NodeDraw.drawEdges(
-          allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
-    }
+    NodeEditorPopupController.setFloor(floor);
   }
 
   public void goToNewNodeScene(ActionEvent event) {
@@ -361,8 +357,6 @@ public class MapEditorController extends MenuController {
     fieldBox.setStyle("-fx-background-color: '013A75'; ");
     createNodeButton.setVisible(true);
   }
-
-  public void addEdge(ActionEvent event) {}
 
   /**
    * Method that creates a new node on click "Create" with CreateNodeButton Adds into database and
@@ -453,72 +447,6 @@ public class MapEditorController extends MenuController {
     return (floor + "X" + xCoord + "Y" + yCoord);
   }
 
-  //  @FXML
-  //  public void addLocationName(ActionEvent event) {
-  //    NodeEntity currentNode = NodeDraw.getSelected();
-  //    MoveEntity newLocation =
-  //        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-  //    moveimpl.add(newLocation);
-  //    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-  //    locationIDBox.setText(currentNode.getNodeid());
-  //    createLocation.setVisible(false);
-  //
-  //    System.out.println("LongName");
-  //    System.out.println(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-  //    System.out.println();
-  //
-  //    // added to redraw
-  //    Pane currentNodePane = NodeDraw.getSelectedPane();
-  //    currentNodePane.setVisible(false);
-  //    List<NodeEntity> oneNode = new ArrayList<>();
-  //    oneNode.add(currentNode);
-  //    String tableString = currentNode.getFloor();
-  //    NodeDraw2.drawNodes(oneNode, SCALE_FACTOR, mainAnchorPane, this);
-  //
-  //    // initializeFloorMap("L1", stackL1, gestureL1);
-  //  }
-  //
-  //  @FXML
-  //  public void editLocationName(ActionEvent event) {
-  //    NodeEntity currentNode = NodeDraw.getSelected();
-  //    MoveEntity newLocation =
-  //        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-  //    List<String> data = new ArrayList<>();
-  //    data.add(currentNode.getNodeid());
-  //    data.add(longNameBox.getText());
-  //    data.add(LocalDate.now().toString());
-  //    moveimpl.update(data, newLocation);
-  //    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-  //    locationIDBox.setText(currentNode.getNodeid());
-  //  }
-  //
-  //  @FXML
-  //  public void delLocationName(ActionEvent event) {
-  //    NodeEntity currentNode = NodeDraw.getSelected();
-  //    MoveEntity newLocation =
-  //        new MoveEntity(currentNode, locNameImp.get(longNameBox.getText()), LocalDate.now());
-  //    List<String> data = new ArrayList<>();
-  //    data.add(currentNode.getNodeid());
-  //    data.add(longNameBox.getText());
-  //    data.add(LocalDate.now().toString());
-  //    moveimpl.delete(data);
-  //    longNameBox.setText(moveimpl.mostRecentLoc(currentNode.getNodeid()).getLongname());
-  //    locationIDBox.setText(currentNode.getNodeid());
-  //  }
-  //
-  //  @FXML
-  //  public void showLocations(ActionEvent event) {
-  //    // TODO
-  //    System.out.println("show locations");
-  //  }
-  //
-  //  @FXML
-  //  public void hideLocations(ActionEvent event) {
-  //
-  //    // TODO
-  //    System.out.println("show locations");
-  //  }
-  //
   public void setXCord(String xLoc) {
     this.XCord.setText(xLoc);
   }
@@ -534,13 +462,7 @@ public class MapEditorController extends MenuController {
   public void setBuildingBox(String building) {
     this.BuildingBox.setValue(building);
   }
-  //
-  //  @FXML
-  //  public void editEdge(ActionEvent event) {}
-  //
-  //  @FXML
-  //  public void deleteEdge(ActionEvent event) {}
-  //
+
   public void setLocationIDBox(String idString) {
     locationIDBox.setText(idString);
   }
@@ -557,28 +479,6 @@ public class MapEditorController extends MenuController {
     locTypeBox.setText(type);
   }
 
-  //  public void setLocButtonVisibility(boolean eye) {
-  //    createLocation.setVisible(eye);
-  //  }
-
-  // TODO
-  public void transitionToNewNodeBox(ActionEvent event) {}
-
-  // TODO
-  public void editEdge(ActionEvent event) {}
-
-  // TODO
-  public void deleteEdge(ActionEvent event) {}
-
-  // TODO
-  public void addLocationName(ActionEvent event) {}
-
-  // TODO
-  public void editLocationName(ActionEvent event) {}
-
-  // TODO
-  public void delLocationName(ActionEvent event) {}
-
   public void changeLocations() {
     mainTextPane.setVisible(!mainTextPane.isVisible());
   }
@@ -594,9 +494,15 @@ public class MapEditorController extends MenuController {
 
     nodeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
 
+    nodeEditorPopup.setAnchorX(mouseXCoord);
+    nodeEditorPopup.setAnchorY(mouseYCoord);
+
+    /*
     NodeEditorPopupController.mouseX = NodeDraw.getSelected().getXcoord();
     NodeEditorPopupController.mouseY = NodeDraw.getSelected().getYcoord();
     NodeEditorPopupController.floor = NodeDraw.getSelected().getFloor();
+
+
 
     System.out.println(
         "updated coords to: ("
@@ -604,6 +510,8 @@ public class MapEditorController extends MenuController {
             + ", "
             + mainGesturePane.getCurrentY()
             + ")");
+            */
+
   }
 
   @FXML
@@ -616,6 +524,8 @@ public class MapEditorController extends MenuController {
 
     edgeEditorPopup = new PopOver(edgeLoader.load());
     edgeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+    edgeEditorPopup.setAnchorX(mouseXCoord);
+    edgeEditorPopup.setAnchorY(mouseYCoord);
   }
 
   @FXML
@@ -630,6 +540,9 @@ public class MapEditorController extends MenuController {
 
       locationEditorPopup = new PopOver(locationLoader.load());
       locationEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+
+      locationEditorPopup.setAnchorX(mouseXCoord);
+      locationEditorPopup.setAnchorY(mouseYCoord);
     }
   }
 
@@ -641,6 +554,9 @@ public class MapEditorController extends MenuController {
 
     nodeEditorEditPopup = new PopOver(locationLoader.load());
     nodeEditorEditPopup.show((mainAnchorPane.getScene().getWindow()));
+
+    nodeEditorEditPopup.setAnchorX(mouseXCoord);
+    nodeEditorEditPopup.setAnchorY(mouseYCoord);
   }
 
   @FXML
@@ -655,6 +571,9 @@ public class MapEditorController extends MenuController {
 
       locationEditorEditPopup = new PopOver(locationLoader.load());
       locationEditorEditPopup.show((mainAnchorPane.getScene().getWindow()));
+
+      locationEditorEditPopup.setAnchorX(mouseXCoord);
+      locationEditorEditPopup.setAnchorY(mouseYCoord);
     }
   }
 

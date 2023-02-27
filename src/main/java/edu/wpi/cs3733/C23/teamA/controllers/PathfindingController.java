@@ -64,7 +64,6 @@ public class PathfindingController extends MenuController {
   @FXML private AnchorPane textAnchorPane; // displays location names on currentFloor
   @FXML private StackPane mainStackPane; // stack pane with all the anchor panes and image view
   @FXML private GesturePane mainGesturePane; // gesture pane to sync with stack pane above
-  @FXML MFXTextField adminMessage;
   @FXML Text messageText;
 
   // local variables saved
@@ -85,12 +84,6 @@ public class PathfindingController extends MenuController {
   private LocalDate weekLater;
 
   @FXML
-  public void sendMessage() {
-    messageText.setText(adminMessage.getText());
-    adminMessage.clear();
-  }
-
-  @FXML
   public void switchToHomeScene() {
     Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
@@ -102,15 +95,11 @@ public class PathfindingController extends MenuController {
   public void initialize() throws SQLException {
     // prepare floor/algorithm dropdowns
     srReminder.setVisible(false);
-    if (!holder.getJob().equalsIgnoreCase("admin")) {
-      adminMessage.setDisable(true);
-      adminMessage.setPromptText("Only admins can submit messages");
-    }
 
     ObservableList<String> floors =
         FXCollections.observableArrayList(
-            Floor.L1.getExtendedString(),
             Floor.L2.getExtendedString(),
+            Floor.L1.getExtendedString(),
             Floor.F1.getExtendedString(),
             Floor.F2.getExtendedString(),
             Floor.F3.getExtendedString());
