@@ -30,6 +30,11 @@
                         <MFXButton fx:id="back" onAction="#goBack" styleClass="reject" text="Back" textAlignment="CENTER" textFill="#d3e9f6" />
                      </children>
                   </StackPane>
+                  <MFXButton fx:id="cycle" onAction="#cycleMaps" style="-fx-background-color: #ced7f3;" styleClass="reject" text="Cycle" textAlignment="CENTER" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </MFXButton>
                </children>
                <HBox.margin>
                   <Insets />
@@ -104,9 +109,9 @@
                         <Insets left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="524.0" prefWidth="679.0" style="-fx-background-color: bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;" VBox.vgrow="ALWAYS">
+                  <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="524.0" prefWidth="695.0" style="-fx-background-color: bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="0.0" prefWidth="787.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="40.0" prefWidth="695.0" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -121,9 +126,9 @@
                               </Text>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="515.0" prefWidth="583.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="459.0" prefWidth="695.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="451.0" prefWidth="585.0" style="-fx-background-color: #224870;" HBox.hgrow="ALWAYS">
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" style="-fx-background-color: #224870;" HBox.hgrow="ALWAYS">
                                  <children>
                                     <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0">
                                        <children>
@@ -142,6 +147,9 @@
                                  </children>
                               </StackPane>
                            </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" />
+                           </padding>
                         </HBox>
                      </children>
                      <VBox.margin>
@@ -150,7 +158,7 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox fx:id="directionsPane" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #D3E9F6;">
+            <VBox fx:id="directionsPane" prefHeight="200.0" prefWidth="488.0" spacing="10.0" style="-fx-background-color: #D3E9F6;">
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="338.0" prefWidth="279.0" spacing="10.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-background-radius: 15;">
                      <children>

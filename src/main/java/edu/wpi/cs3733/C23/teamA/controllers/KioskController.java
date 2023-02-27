@@ -6,6 +6,7 @@ import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
@@ -16,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -42,7 +42,8 @@ public class KioskController {
 
   private AnchorPane[] aps = new AnchorPane[5];
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
-  private int currentFloor;
+  private int currentFloorIndex = 0;
+  private ArrayList<String> floorPath = new ArrayList<>();
 
   @FXML
   public void initialize() throws SQLException {
@@ -62,25 +63,20 @@ public class KioskController {
       mainSplitPane.getItems().remove(directionsPane);
     }
 
-    System.out.println(kiosk.getStartLocation().getFloor());
-    System.out.println(kiosk.getEndLocation().getFloor());
-
+    // set anchorPanes into an array
     aps[0] = anchorL1;
     aps[1] = anchorL2;
     aps[2] = anchorF1;
     aps[3] = anchorF2;
     aps[4] = anchorF3;
 
-    // TODO Setup the split pane thing and the map
-
     // prepare the gesture pane to attach to the stack pane
-    Node stackPane = mainStackPane;
-    this.mainGesturePane.setContent(stackPane);
+    this.mainGesturePane.setContent(mainStackPane);
 
     // set first map
     String initialTableString = kiosk.getStartLocation().getFloor();
-    currentFloor = Floor.indexFromTableString(initialTableString);
-    addFloorMapImage(initialTableString, mainImageView);
+    // currentFloor = Floor.indexFromTableString(initialTableString);
+    // addFloorMapImage(initialTableString, mainImageView);
 
     runPathfinding();
   }
@@ -94,7 +90,9 @@ public class KioskController {
     pathfindingSystem.prepGraphDB(LocalDate.now());
     GraphNode start = pathfindingSystem.getNode(kiosk.getStartLocation().getNodeid());
     GraphNode end = pathfindingSystem.getNode(kiosk.getEndLocation().getNodeid());
-    ArrayList<GraphNode> path = pathfindingSystem.runPathfinding(start, end).getPath();
+    PathInfo info = pathfindingSystem.runPathfinding(start, end);
+    ArrayList<GraphNode> path = info.getPath();
+    floorPath = info.getFloorPath();
 
     callMapDraw(path);
   }
@@ -113,9 +111,29 @@ public class KioskController {
     }
 
     // Make this floor's pane viewable
-    aps[currentFloor].setVisible(true);
+    // aps[currentFloorIndex].setVisible(true);
 
     pathfindingSystem.drawPath(aps, path);
+  }
+
+  /** Method to cycle through all the maps for this move's path */
+  @FXML
+  public void cycleMaps() {
+
+    // clear the anchorPanes w/ the drawn paths
+    for (AnchorPane ap : aps) {
+      ap.getChildren().clear();
+      ap.setVisible(false);
+    }
+
+    // Make this floor viewable
+    String thisFloor = "L2";
+    int size = floorPath.size();
+    if (floorPath.size() > 0) {
+      thisFloor = floorPath.get(currentFloorIndex % size);
+    }
+    addFloorMapImage(thisFloor);
+    aps[Floor.indexFromTableString(thisFloor)].setVisible(true);
   }
 
   @FXML
@@ -127,10 +145,8 @@ public class KioskController {
    * Updates the mapImage asset to contain an image (which is supposed to be a floor map)
    *
    * @param floor is the table name of the floor
-   * @param iv is the image view to be updated
    */
-  private void addFloorMapImage(String floor, ImageView iv) {
-    Image image = ImageLoader.getImage(floor);
-    iv.setImage(image);
+  private void addFloorMapImage(String floor) {
+    mainImageView.setImage(ImageLoader.getImage(floor));
   }
 }
