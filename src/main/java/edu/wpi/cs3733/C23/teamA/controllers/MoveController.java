@@ -23,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -51,6 +52,7 @@ public class MoveController extends MenuController {
   @FXML private MFXButton editButton;
   @FXML private MFXButton deleteButton;
   @FXML private MFXButton createMove;
+
   @FXML protected Text warning;
   private static PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
   @FXML private Text locationNotif;
@@ -94,8 +96,20 @@ public class MoveController extends MenuController {
   private String clickedNode;
   private String clickedLocation;
   private LocalDate clickedDate;
+  @FXML public SplitPane imagePane;
+  @FXML public SplitPane mainPane;
+  @FXML public Node allImages;
+  @FXML public Node currentNodeImage;
+  @FXML public Node newNodeImage;
+
   /** runs on switching to this scene */
   public void initialize() {
+    // Removing the view of the maps
+    allImages = mainPane.getItems().get(1);
+    mainPane.getItems().remove(allImages);
+
+    currentNodeImage = imagePane.getItems().get(1); // 1st image
+    newNodeImage = imagePane.getItems().get(2); // 2nd Image
 
     moveData = FacadeRepository.getInstance().getAllMove();
 
@@ -148,7 +162,7 @@ public class MoveController extends MenuController {
 
     // Location and Node Observer
     locationBox
-        .textProperty()
+        .valueProperty()
         .addListener(
             observable -> {
               if (locationBox.getValue() != null) {
@@ -165,10 +179,17 @@ public class MoveController extends MenuController {
                 addFloorMapImage(initialTableString, mainImageView);
                 locationNotif.setText(
                     "You have selected " + locationBox.getValue().toString() + " to move nodes.");
+                createMove.setVisible(true);
+                editButton.setVisible(false);
+                createMove.setDisable(true);
+                nodeBox.setDisable(false);
+                if (mainPane.getItems().size() == 1)
+                  mainPane.getItems().add(1, allImages); // If there is nothing add it
+                imagePane.getItems().remove(newNodeImage);
               }
             });
     nodeBox
-        .textProperty()
+        .valueProperty()
         .addListener(
             observable -> {
               if (nodeBox.getValue() != null) {
@@ -183,6 +204,8 @@ public class MoveController extends MenuController {
                         + locationBox.getValue().toString()
                         + " to move to node "
                         + nodeBox.getValue().toString());
+                editButton.setDisable(false);
+                imagePane.getItems().add(2, newNodeImage);
               }
             });
   }
@@ -212,7 +235,7 @@ public class MoveController extends MenuController {
       String finalTableString = pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 1);
       newNode.setText("New Node Floor " + finalTableString);
       addFloorMapImage(finalTableString, topMainImageView);
-    }
+    } else imagePane.getItems().remove(newNodeImage); // No second image
 
     // else
 
@@ -335,6 +358,10 @@ public class MoveController extends MenuController {
 
   @FXML
   public void rowClicked(MouseEvent event) throws SQLException {
+    if (mainPane.getItems().size() == 1) {
+      mainPane.getItems().add(1, allImages);
+    }
+    editButton.setVisible(false);
 
     MoveEntity clickedMoveTableRow = dbTable.getSelectionModel().getSelectedItem();
 
