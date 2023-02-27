@@ -306,6 +306,25 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return mov;
   }
 
+  public MoveEntity nodeOnOrBeforeDate(String id, LocalDate date) {
+    MoveEntity mov = new MoveEntity();
+    List<MoveEntity> ids =
+        moves.stream()
+            .filter(
+                moveEntity ->
+                    moveEntity.getLocationName().getLongname().equals(id)
+                        && (date.compareTo(moveEntity.getMovedate()) >= 0))
+            .toList();
+    LocalDate dt1 = LocalDate.parse("2023-01-01");
+    for (MoveEntity mo : ids) {
+      if (mo.getMovedate().compareTo(dt1) >= 0) {
+        mov = mo;
+        dt1 = mo.getMovedate();
+      }
+    }
+    return mov;
+  }
+
   /**
    * Find the last assigned location of this node by its id. This will get the move with the
    * furthest in the future date.
@@ -324,19 +343,29 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return ids.isEmpty() ? null : ids.get(0).getLocationName();
   }
 
+  public NodeEntity mostRecentNode(String longname) {
+    List<MoveEntity> ids =
+        new ArrayList<>(
+            moves.stream()
+                .filter(moveEntity -> moveEntity.getLocationName().getLongname().equals(longname))
+                .toList());
+    ids.sort(Comparator.comparing(MoveEntity::getMovedate));
+    return ids.isEmpty() ? null : ids.get(0).getNode();
+  }
+
   public void update(List<String> ID, MoveEntity obj) {
     //    Session session = getSessionFactory().openSession();
     //    Transaction tx = session.beginTransaction();
     //
-    ////    ListIterator<MoveEntity> li = moves.listIterator();
-    ////    while (li.hasNext()) {
-    ////      MoveEntity me = li.next();
-    ////      if (me.getNode().getNodeid().equals(ID.get(0))
-    ////          && me.getLocationName().getLongname().equals(ID.get(1))
-    ////          && me.getMovedate().toString().equals(ID.get(2))) {
-    ////        li.remove();
-    ////      }
-    ////    }
+    //    ListIterator<MoveEntity> li = moves.listIterator();
+    //    while (li.hasNext()) {
+    //      MoveEntity me = li.next();
+    //      if (me.getNode().getNodeid().equals(ID.get(0))
+    //          && me.getLocationName().getLongname().equals(ID.get(1))
+    //          && me.getMovedate().toString().equals(ID.get(2))) {
+    //        li.remove();
+    //      }
+    //    }
     //
     //
     //    session
@@ -413,6 +442,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
   }
 
 
+
   public void updateMessage(String message, List<String> m){
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
@@ -433,5 +463,18 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
 
   }
 
+
+  public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date) {
+    ArrayList<NodeEntity> fin = new ArrayList<>();
+    for (MoveEntity m : moves) {
+      if (m.getLocationName().getLongname().equals(longName) && m.getMovedate().equals(date)) {
+        fin.add(m.getNode());
+      }
+    }
+
+    date.minusDays(1);
+    fin.add(nodeOnOrBeforeDate(longName, date).getNode());
+    return fin;
+  }
 
 }

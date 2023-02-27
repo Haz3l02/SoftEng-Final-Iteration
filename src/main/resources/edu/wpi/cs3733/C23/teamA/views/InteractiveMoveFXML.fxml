@@ -31,7 +31,7 @@
                   <Insets left="15.0" />
                </VBox.margin>
             </Text>
-            <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 15;">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1346.0" spacing="15.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 15;">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Name">
                      <font>
@@ -48,7 +48,7 @@
                         <Font name="Verdana" size="20.0" />
                      </font>
                   </Text>
-                  <MFXFilterComboBox fx:id="nodeBox" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Node ID" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
+                  <MFXFilterComboBox fx:id="nodeBox" disable="true" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Node ID" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -63,81 +63,98 @@
                         <Font size="20.0" />
                      </font>
                   </MFXDatePicker>
-                  <MFXButton fx:id="createMove" buttonType="RAISED" defaultButton="true" onAction="#createMove" prefHeight="50.0" prefWidth="225.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Create Move" textFill="#224870">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </MFXButton>
                </children>
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
             </HBox>
-            <SplitPane dividerPositions="0.45" prefHeight="160.0" prefWidth="200.0" stylesheets="@../assets/PathfindingStyle.css" VBox.vgrow="ALWAYS">
+            <SplitPane fx:id="mainPane" dividerPositions="0.4947916666666667" prefHeight="160.0" prefWidth="200.0" styleClass="split-pane-divider" stylesheets="@../assets/PathfindingStyle.css" VBox.vgrow="ALWAYS">
               <items>
-                  <TableView fx:id="dbTable" editable="true" onMouseClicked="#rowClicked" prefHeight="158.0" prefWidth="1301.0" style="-fx-background-color: d3e9f6; -fx-border-width: 2 2 2 2;" SplitPane.resizableWithParent="false">
+                  <TableView fx:id="dbTable" editable="true" onMouseClicked="#rowClicked" prefHeight="158.0" prefWidth="1301.0" style="-fx-background-color: d3e9f6;" SplitPane.resizableWithParent="false">
                      <columns>
                         <TableColumn fx:id="moveCol" prefWidth="186.0" text="Move Location" />
                         <TableColumn fx:id="nodeCol" prefWidth="213.0" text="Node" />
                         <TableColumn fx:id="moveDateCol" editable="false" prefWidth="202.0" text="Move Date" />
+                        <TableColumn fx:id="messageCol" editable="false" prefWidth="202.0" text="Message" />
                      </columns>
                   </TableView>
-                  <MFXScrollPane prefHeight="486.0" prefWidth="215.0" SplitPane.resizableWithParent="false">
+                  <MFXScrollPane fitToWidth="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="707.0" style="-fx-background-color: d3e9f6;">
                      <content>
-                        <SplitPane dividerPositions="0.2, 0.6" orientation="VERTICAL" prefHeight="1028.0">
+                        <SplitPane fx:id="imagePane" dividerPositions="0.05, 0.5" orientation="VERTICAL" prefHeight="1060.0" prefWidth="675.0" style="-fx-background-color: d3e9f6;">
                           <items>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox fx:id="messageVBox" fillWidth="false" prefHeight="69.0" prefWidth="675.0">
                                  <children>
-                                    <Text fx:id="locationNotif" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving ">
+                                    <Text fx:id="locationNotif" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving " VBox.vgrow="ALWAYS">
                                        <font>
                                           <Font name="Verdana" size="20.0" />
                                        </font>
                                     </Text>
-                                    <TextArea fx:id="moveMessage" prefHeight="91.0" prefWidth="675.0" promptText="Enter a message to be displayed with move" wrapText="true">
-                                       <font>
-                                          <Font name="Verdana" size="20.0" />
-                                       </font>
-                                    </TextArea>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="51.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <TextArea fx:id="moveMessage" maxHeight="-Infinity" prefHeight="50.0" prefWidth="511.0" promptText="Enter a message to be displayed with move" wrapText="true" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font name="Verdana" size="20.0" />
+                                             </font>
+                                          </TextArea>
+                                          <StackPane prefHeight="150.0" prefWidth="200.0">
+                                             <children>
+                                                <MFXButton fx:id="editButton" buttonType="RAISED" defaultButton="true" onAction="#submitEdit" prefHeight="50.0" prefWidth="225.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Update Move" textFill="#224870">
+                                                   <font>
+                                                      <Font name="Verdana" size="23.0" />
+                                                   </font>
+                                                </MFXButton>
+                                                <MFXButton fx:id="createMove" buttonType="RAISED" defaultButton="true" onAction="#createMove" prefHeight="50.0" prefWidth="225.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Create Move" textFill="#224870" visible="false">
+                                                   <font>
+                                                      <Font name="Verdana" size="23.0" />
+                                                   </font>
+                                                </MFXButton>
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
-                              <VBox maxHeight="-Infinity" prefHeight="400.0">
+                              <VBox fx:id="topVBox" prefHeight="400.0" prefWidth="675.0" SplitPane.resizableWithParent="false">
                                  <children>
                                     <Text fx:id="currentNode" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Node For Location">
                                        <font>
                                           <Font name="Verdana" size="20.0" />
                                        </font>
                                     </Text>
-                                    <StackPane prefHeight="476.0" prefWidth="818.0" style="-fx-background-color: #224870;">
+                                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <StackPane fx:id="mainStackPane" prefHeight="476.0" prefWidth="818.0">
+                                          <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="675.0">
                                              <children>
                                                 <ImageView fx:id="mainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
-                                                <AnchorPane fx:id="anchorF3" prefHeight="459.0" prefWidth="675.0" />
-                                                <AnchorPane fx:id="anchorF2" prefHeight="459.0" prefWidth="675.0" />
-                                                <AnchorPane fx:id="anchorF1" prefHeight="459.0" prefWidth="675.0" />
-                                                <AnchorPane fx:id="anchorL2" prefHeight="459.0" prefWidth="675.0" />
-                                                <AnchorPane fx:id="anchorL1" maxHeight="-Infinity" prefHeight="459.0" prefWidth="675.0" />
-                                                <AnchorPane fx:id="textAnchorPane" prefHeight="200.0" prefWidth="200.0" />
+                                                <AnchorPane fx:id="anchorF3" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorF2" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorF1" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorL2" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="anchorL1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                                <AnchorPane fx:id="textAnchorPane" maxWidth="-Infinity" prefHeight="200.0" prefWidth="675.0" />
                                              </children>
                                              <StackPane.margin>
                                                 <Insets />
                                              </StackPane.margin>
                                           </StackPane>
-                                          <GesturePane fx:id="topMainGesturePane" prefHeight="354.0" prefWidth="563.0" />
+                                          <GesturePane fx:id="topMainGesturePane" bindScale="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="692.0" />
                                        </children>
                                     </StackPane>
                                  </children>
                               </VBox>
-                              <VBox maxHeight="-Infinity" prefHeight="400.0">
+                              <VBox fx:id="secondVBox" maxHeight="-Infinity" prefHeight="400.0" SplitPane.resizableWithParent="false">
                                  <children>
                                     <Text fx:id="newNode" strokeType="OUTSIDE" strokeWidth="0.0" text="New Node For Location">
                                        <font>
                                           <Font name="Verdana" size="20.0" />
                                        </font>
                                     </Text>
-                                    <StackPane prefHeight="476.0" prefWidth="818.0" style="-fx-background-color: #224870;">
+                                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="818.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <StackPane fx:id="mainStackPane1" prefHeight="476.0" prefWidth="818.0">
+                                          <StackPane fx:id="mainStackPane1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="675.0">
                                              <children>
                                                 <ImageView fx:id="topMainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
                                                 <AnchorPane fx:id="anchorF31" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
@@ -151,12 +168,15 @@
                                                 <Insets />
                                              </StackPane.margin>
                                           </StackPane>
-                                          <GesturePane fx:id="middleGesturePane" prefHeight="459.0" prefWidth="675.0" />
+                                          <GesturePane fx:id="middleGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                        </children>
                                     </StackPane>
                                  </children>
                               </VBox>
                           </items>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
                         </SplitPane>
                      </content>
                   </MFXScrollPane>
@@ -199,7 +219,7 @@
             <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0" spacing="10.0">
                <children>
                   <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
-                  <StackPane fx:id="reminderPaneMove" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: F6BD3A; -fx-border-width: 4 4 4 4;">
+                  <StackPane fx:id="reminderPaneMove" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: F6BD3A; -fx-border-width: 4 4 4 4;" visible="false">
                      <children>
                         <Text fx:id="warning" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Unable to Create Move!" textAlignment="CENTER">
                            <font>

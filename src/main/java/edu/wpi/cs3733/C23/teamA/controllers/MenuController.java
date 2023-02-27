@@ -49,7 +49,7 @@ public class MenuController extends NavigationController {
   //  public volatile boolean stop = false;
 
   @FXML MFXButton backButton;
-  @FXML MFXButton naviagation;
+  @FXML MFXButton navigation;
 
   private static PopOver popup;
 
@@ -140,7 +140,12 @@ public class MenuController extends NavigationController {
         });
     admin
         .getItems()
-        .addAll("Map Editor", "Access Employee Records", "Department Moves", "Create Nodes");
+        .addAll(
+            "Map Editor",
+            "Access Employee Records",
+            "Department Moves",
+            "Create Nodes",
+            "Kiosk Creator");
     serviceRequest
         .getItems()
         .addAll(
@@ -207,6 +212,9 @@ public class MenuController extends NavigationController {
                 case "Create Nodes":
                   switchToNodeScene();
                   break;
+                case "Kiosk Creator":
+                  switchToKioskSetupScene();
+                  break;
                 default:
                   break;
               }
@@ -217,13 +225,10 @@ public class MenuController extends NavigationController {
   public void switchToHomeScene() {
     IdNumberHolder holder = IdNumberHolder.getInstance();
     if (holder.getJob().equalsIgnoreCase("Maintenance")) {
-      System.out.println("ahhhhhhhhhhhhhhhh");
       Navigation.navigateHome(Screen.HOME_ACTUAL);
     } else if (holder.getJob().equalsIgnoreCase("Admin")) {
-      System.out.println("fuck this shit");
       Navigation.navigateHome(Screen.HOME_ACTUAL);
     } else {
-      System.out.println("son of a b");
       Navigation.navigateHome(Screen.HOME_ACTUAL);
     }
   }

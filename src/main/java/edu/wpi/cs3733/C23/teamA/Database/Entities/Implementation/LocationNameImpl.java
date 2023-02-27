@@ -2,11 +2,10 @@ package edu.wpi.cs3733.C23.teamA.Database.Entities.Implementation;
 
 import static edu.wpi.cs3733.C23.teamA.Database.API.ADBSingletonClass.getSessionFactory;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.API.IDatabaseAPI;
 import edu.wpi.cs3733.C23.teamA.Database.API.Observable;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.io.File;
@@ -118,7 +117,20 @@ public class LocationNameImpl extends Observable
 
     tx.commit();
     session.close();
-    notifyAllObservers();
+    //    notifyAllObservers();
+    Thread t =
+        new Thread(
+            () -> {
+              MoveImpl.getInstance().refresh();
+              SecurityRequestImpl.getInstance().refresh();
+              ServiceRequestImpl.getInstance().refresh();
+              SanitationRequestImpl.getInstance().refresh();
+              PatientTransportimpl.getInstance().refresh();
+              AccessabilityImpl.getInstance().refresh();
+              AudioVisualImpl.getInstance().refresh();
+              ComputerRequestImpl.getInstance().refresh();
+            });
+    t.start();
   }
 
   public void update(String ID, LocationNameEntity location) {
@@ -149,6 +161,20 @@ public class LocationNameImpl extends Observable
     locations.add(session.get(LocationNameEntity.class, location.getLongname()));
     tx.commit();
     session.close();
+
+    Thread t =
+        new Thread(
+            () -> {
+              MoveImpl.getInstance().refresh();
+              SecurityRequestImpl.getInstance().refresh();
+              ServiceRequestImpl.getInstance().refresh();
+              SanitationRequestImpl.getInstance().refresh();
+              PatientTransportimpl.getInstance().refresh();
+              AccessabilityImpl.getInstance().refresh();
+              AudioVisualImpl.getInstance().refresh();
+              ComputerRequestImpl.getInstance().refresh();
+            });
+    t.start();
   }
 
   public String getType(String ID) {
@@ -186,6 +212,31 @@ public class LocationNameImpl extends Observable
       if (n.getXcoord() == x && n.getYcoord() == y && n.getFloor().equals(floor)) {
         fin.add(MoveImpl.getInstance().mostRecentLoc(n.getNodeid()));
       }
+    }
+    return fin;
+  }
+
+  public ArrayList<String> getAdjacentLocations(String longName) {
+    NodeEntity node = FacadeRepository.getInstance().moveMostRecentNode(longName);
+    List<EdgeEntity> edges = FacadeRepository.getInstance().getAllEdge();
+    ArrayList<String> fin = new ArrayList<>();
+
+    for (EdgeEntity e : edges) {
+      if (e.getNode1().equals(node)) {
+        fin.add(
+            FacadeRepository.getInstance()
+                .moveMostRecentLoc(e.getNode2().getNodeid())
+                .getLongname());
+      } else if (e.getNode2().equals(node)) {
+        fin.add(
+            FacadeRepository.getInstance()
+                .moveMostRecentLoc(e.getNode1().getNodeid())
+                .getLongname());
+      }
+    }
+    if (fin.size() == 0) {
+      fin.add("");
+      fin.add("");
     }
     return fin;
   }
