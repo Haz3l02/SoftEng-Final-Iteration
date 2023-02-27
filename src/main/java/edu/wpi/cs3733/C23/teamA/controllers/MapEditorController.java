@@ -105,6 +105,9 @@ public class MapEditorController extends MenuController {
   private double mouseDownX;
   private double mouseDownY;
 
+  double mouseXCoord;
+  double mouseYCoord;
+
   public static List<NodeEntity> getAllNodes() {
     return Nodes;
   }
@@ -327,8 +330,8 @@ public class MapEditorController extends MenuController {
   //    initialize();
   //  }
 
-    NodeEditorPopupController.setFloor(floor);
-  }
+  //    NodeEditorPopupController.setFloor(floor);
+  //  }
 
   public void goToNewNodeScene(ActionEvent event) {
     XCord.clear();
