@@ -117,23 +117,6 @@ public class NodeDraw {
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
 
     LocationsDraw.drawLocations(allNodes, nodeAnchor, scaleFactor, true);
-    nodeAnchor.getChildren().clear();
-
-    for (NodeEntity n : allNodes) {
-      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
-
-      if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
-        Text locName = new Text();
-        locName.setVisible(true);
-        locName.rotateProperty().set(45);
-        locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
-        locName.setText(
-            FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
-        locName.setLayoutX(updatedCoords[0] - 2.5);
-        locName.setLayoutY(updatedCoords[1] - 2.5);
-        nodeAnchor.getChildren().add(locName);
-      }
-    }
   }
 
   public static void drawNodes(
@@ -186,8 +169,10 @@ public class NodeDraw {
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 13.5");
               previousSelectedNode.setPrefSize(5, 5);
-              previousSelectedNode.setLayoutX(previousCoords[0] - 2.5);
-              previousSelectedNode.setLayoutY(previousCoords[1] - 2.5);
+              //              previousSelectedNode.setLayoutX(previousSelectedNode.getLayoutX() -
+              // 2.5);
+              //              previousSelectedNode.setLayoutY(previousSelectedNode.getLayoutY() -
+              // 2.5);
 
               if (previousLine != null) {
                 previousLine.setStroke(Color.web("0x224870"));
@@ -201,9 +186,9 @@ public class NodeDraw {
                     + "-fx-border-color: '#224870'; "
                     + "-fx-border-width: 1;"
                     + "-fx-border-radius: 13.5");
-            nodeGraphic.setPrefSize(7, 7);
-            nodeGraphic.setLayoutX(updatedCoords[0] - 3.5);
-            nodeGraphic.setLayoutY(updatedCoords[1] - 3.5);
+            // nodeGraphic.setPrefSize(7, 7);
+            //            nodeGraphic.setLayoutX(nodeGraphic.getLayoutX() - 3.5);
+            //            nodeGraphic.setLayoutY(nodeGraphic.getLayoutY() - 3.5);
 
             previousCoords = updatedCoords;
             previousSelectedNode = nodeGraphic;
@@ -223,7 +208,6 @@ public class NodeDraw {
             nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
 
             MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
-
 
             if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
               nmc.setLongNameBox(
@@ -304,11 +288,9 @@ public class NodeDraw {
                 alert.setHeaderText(
                     "Are you sure you want to create an edge between "
                         + FacadeRepository.getInstance()
-
                             .getLocation(selectedNodeEntity.getNodeid()));
                 LocationNameEntity locNameEnt =
                     FacadeRepository.getInstance().getLocation(selectedNodeEntity.getNodeid());
-
 
                 alert.setHeaderText(
                     "Are you sure you want to create an edge between: ("
@@ -319,7 +301,7 @@ public class NodeDraw {
                         + node2.getNodeid()
                         + ", "
                         //                          + selectedEdge.getNode2().getYcoord()
-                        +    FacadeRepository.getInstance()
+                        + FacadeRepository.getInstance()
                             .moveMostRecentLoc(node1.getNodeid())
                             .getShortname()
                         + " and "
@@ -487,12 +469,12 @@ public class NodeDraw {
                 FacadeRepository.getInstance()
                     .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
               }
-              nodeAnchor.getChildren().clear();
-              drawEdges(
-                  FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
-                  scaleFactor,
-                  nodeAnchor);
-              drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
+              // nodeAnchor.getChildren().clear();
+              /*drawEdges(
+              FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
+              scaleFactor,
+              nodeAnchor);*/
+              // drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
             }
           });
 
@@ -504,7 +486,6 @@ public class NodeDraw {
               NodeEditorEditPopupController.setYCord(selectedNodeEntity.getYcoord());
               NodeEditorEditPopupController.setFloor(selectedNodeEntity.getFloor());
               NodeEditorEditPopupController.setBuilding(selectedNodeEntity.getBuilding());
-
 
               LocationNameEntity loc =
                   FacadeRepository.getInstance().moveMostRecentLoc(selectedNodeEntity.getNodeid());
@@ -765,7 +746,6 @@ public class NodeDraw {
             if ((!currentLine.equals(selectedLine))) {
               currentLine.setStroke(Color.web("green"));
               currentLine.setStrokeWidth(2);
-
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
@@ -775,7 +755,6 @@ public class NodeDraw {
             if ((!currentLine.equals(selectedLine))) {
               currentLine.setStroke(Color.web("0x224870"));
               currentLine.setStrokeWidth(1);
-
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
