@@ -83,9 +83,9 @@
                   </TableView>
                   <MFXScrollPane fitToWidth="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="707.0" style="-fx-background-color: d3e9f6;">
                      <content>
-                        <SplitPane fx:id="imagePane" dividerPositions="0.04, 0.5" orientation="VERTICAL" prefHeight="1060.0" prefWidth="675.0" style="-fx-background-color: d3e9f6;">
+                        <SplitPane fx:id="imagePane" dividerPositions="0.02, 0.49" orientation="VERTICAL" prefHeight="1060.0" prefWidth="675.0" style="-fx-background-color: d3e9f6;">
                           <items>
-                              <VBox fx:id="messageVBox" fillWidth="false" prefHeight="69.0" prefWidth="675.0">
+                              <VBox fx:id="messageVBox" fillWidth="false" prefHeight="69.0" prefWidth="675.0" SplitPane.resizableWithParent="false">
                                  <children>
                                     <Text fx:id="locationNotif" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving " VBox.vgrow="ALWAYS">
                                        <font>
@@ -94,7 +94,7 @@
                                     </Text>
                                     <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="51.0" spacing="10.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <TextArea fx:id="moveMessage" maxHeight="-Infinity" prefHeight="50.0" prefWidth="511.0" promptText="Enter a message to be displayed with move" wrapText="true" HBox.hgrow="ALWAYS">
+                                          <TextArea fx:id="moveMessage" maxHeight="-Infinity" prefHeight="33.0" prefWidth="488.0" promptText="Enter a message to be displayed with move" wrapText="true" HBox.hgrow="ALWAYS">
                                              <font>
                                                 <Font name="Verdana" size="20.0" />
                                              </font>
@@ -117,7 +117,7 @@
                                     </HBox>
                                  </children>
                               </VBox>
-                              <VBox fx:id="topVBox" prefHeight="400.0" prefWidth="675.0" SplitPane.resizableWithParent="false">
+                              <VBox fx:id="topVBox" prefHeight="400.0" prefWidth="675.0">
                                  <children>
                                     <Text fx:id="currentNode" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Node For Location">
                                        <font>
@@ -145,16 +145,16 @@
                                     </StackPane>
                                  </children>
                               </VBox>
-                              <VBox fx:id="secondVBox" maxHeight="-Infinity" prefHeight="400.0" SplitPane.resizableWithParent="false">
+                              <VBox fx:id="secondVBox" maxHeight="-Infinity" prefHeight="400.0">
                                  <children>
                                     <Text fx:id="newNode" strokeType="OUTSIDE" strokeWidth="0.0" text="New Node For Location">
                                        <font>
                                           <Font name="Verdana" size="20.0" />
                                        </font>
                                     </Text>
-                                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="818.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
+                                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="818.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <StackPane fx:id="mainStackPane1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="675.0">
+                                          <StackPane fx:id="mainStackPane1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0">
                                              <children>
                                                 <ImageView fx:id="topMainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
                                                 <AnchorPane fx:id="anchorF31" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />

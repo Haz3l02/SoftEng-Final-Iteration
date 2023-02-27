@@ -169,6 +169,7 @@ public class MoveController extends MenuController {
         .addListener(
             observable -> {
               if (locationBox.getValue() != null) {
+                clearEdits();
                 GraphNode start =
                     pathfindingSystem.getNode(
                         FacadeRepository.getInstance()
@@ -233,8 +234,9 @@ public class MoveController extends MenuController {
     currentNode.setText("Current Node Floor " + initialTableString);
     addFloorMapImage(initialTableString, mainImageView);
     currentFloor = Floor.indexFromTableString(initialTableString);
-
+    System.out.println(pathInfo.getFloorPath().toString());
     if (pathInfo.getFloorPath().size() != 1) {
+      if (imagePane.getItems().size() == 2) imagePane.getItems().add(2, newNodeImage);
       String finalTableString = pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 1);
       newNode.setText("New Node Floor " + finalTableString);
       addFloorMapImage(finalTableString, topMainImageView);
@@ -245,7 +247,6 @@ public class MoveController extends MenuController {
     // if pathInfo isn't null, grab the path and draw it
     if (pathInfo != null) {
       // get the paths from pathInfo
-      System.out.println("pathNotNUL");
       ArrayList<GraphNode> path = pathInfo.getPath();
       ArrayList<String> floorPath = pathInfo.getFloorPath();
       callMapDraw(path, floorPath);
@@ -263,6 +264,15 @@ public class MoveController extends MenuController {
       ap.getChildren().clear();
       ap.setVisible(false);
     }
+    aps[currentFloor].setVisible(true);
+
+
+//      for (AnchorPane ap : aps1) {
+//        ap.getChildren().clear();
+//        ap.setVisible(false);
+//      }
+//      aps1[currentFloor].setVisible(true);
+
 
     // Make this floor's pane viewable
     aps[currentFloor].setVisible(true);
@@ -363,7 +373,10 @@ public class MoveController extends MenuController {
     locationBox.clear();
     dateBox.setValue(dateBox.getCurrentDate());
     moveMessage.clear();
-
+    for (AnchorPane ap : aps) {
+      ap.getChildren().clear();
+      ap.setVisible(false);
+    }
     //        createEmployee.setVisible(true);
     //        editButton.setDisable(true);
   }
@@ -381,6 +394,7 @@ public class MoveController extends MenuController {
       clickedNode = clickedMoveTableRow.getNode().getNodeid();
       clickedLocation = (clickedMoveTableRow.getLocationName().getLongname());
       clickedDate = clickedMoveTableRow.getMovedate();
+      moveMessage.setText(clickedMoveTableRow.getMessage());
 
       editButton.setDisable(false);
       deleteButton.setDisable(false);
@@ -398,9 +412,6 @@ public class MoveController extends MenuController {
 
           generatePathFromMovePopup(
               m.getNode().getNodeid(), clickedMoveTableRow.getNode().getNodeid());
-
-          System.out.println(m.getNode().getNodeid() + "fghjkl,");
-          System.out.println(clickedMoveTableRow.getNode().getNodeid() + "MovedNode,");
         }
       }
     }
