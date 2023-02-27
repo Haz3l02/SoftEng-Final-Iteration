@@ -29,7 +29,8 @@ public enum Screen {
   IMPORT_CSV("views/ImportCSVFXML.fxml"),
   EXPORT_CSV("views/ExportCSVFXML.fxml"),
   KIOSK_SETUP("views/KioskSetupFXML.fxml"),
-  KIOSK("views/KioskFXML.fxml");
+  KIOSK("views/KioskFXML.fxml"),
+  SRCHART("views/SRChartFXML.fxml");
 
   private final String filename;
 
