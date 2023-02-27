@@ -13,6 +13,9 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -97,23 +100,20 @@ public class KioskController {
     System.out.println(path.size());
     floorPath = info.getFloorPath();
 
-    callMapDraw(path);
-  }
-
-  /**
-   * Given a path, draw it on its anchorPane and hide the other anchorPanes
-   *
-   * @param path the path that you want to be drawn
-   */
-  private void callMapDraw(ArrayList<GraphNode> path) {
-
     pathfindingSystem.drawPath(aps, path);
     cycleMaps();
   }
 
-  /** Method to cycle through all the maps for this move's path */
-  @FXML
+  /** Runs a timer that cycles through the different floor maps related to this move */
   public void cycleMaps() {
+    Runnable runCycles = () -> oneCycle();
+
+    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+    executor.scheduleAtFixedRate(runCycles, 0, 5, TimeUnit.SECONDS);
+  }
+
+  /** Method to cycle through one of the maps for this move's path */
+  private void oneCycle() {
 
     // clear the anchorPanes w/ the drawn paths
     for (AnchorPane ap : aps) {
@@ -127,22 +127,12 @@ public class KioskController {
       thisFloor = floorPath.get(currentFloorIndex % size);
       currentFloorIndex++;
     }
-    System.out.println(thisFloor);
-    addFloorMapImage(thisFloor);
+    mainImageView.setImage(ImageLoader.getImage(thisFloor));
     aps[Floor.indexFromTableString(thisFloor)].setVisible(true);
   }
 
   @FXML
   public void goBack() {
     Navigation.navigate(Screen.KIOSK_SETUP);
-  }
-
-  /**
-   * Updates the mapImage asset to contain an image (which is supposed to be a floor map)
-   *
-   * @param floor is the table string of the floor
-   */
-  private void addFloorMapImage(String floor) {
-    mainImageView.setImage(ImageLoader.getImage(floor));
   }
 }

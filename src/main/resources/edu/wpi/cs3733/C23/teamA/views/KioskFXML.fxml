@@ -30,11 +30,6 @@
                         <MFXButton fx:id="back" onAction="#goBack" styleClass="reject" text="Back" textAlignment="CENTER" textFill="#d3e9f6" />
                      </children>
                   </StackPane>
-                  <MFXButton fx:id="cycle" onAction="#cycleMaps" style="-fx-background-color: #ced7f3;" styleClass="reject" text="Cycle" textAlignment="CENTER" textFill="#d3e9f6">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </MFXButton>
                </children>
                <HBox.margin>
                   <Insets />
