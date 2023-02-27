@@ -105,15 +105,6 @@ public class KioskController {
    */
   private void callMapDraw(ArrayList<GraphNode> path) {
 
-    // clear the anchorPanes w/ the drawn paths
-    for (AnchorPane ap : aps) {
-      ap.getChildren().clear();
-      ap.setVisible(false);
-    }
-
-    // Make this floor's pane viewable
-    // aps[currentFloorIndex].setVisible(true);
-
     pathfindingSystem.drawPath(aps, path);
     cycleMaps();
   }
@@ -124,7 +115,7 @@ public class KioskController {
 
     // clear the anchorPanes w/ the drawn paths
     for (AnchorPane ap : aps) {
-      ap.setVisible(true);
+      ap.setVisible(false);
     }
 
     // Make this floor viewable
@@ -132,6 +123,7 @@ public class KioskController {
     int size = floorPath.size();
     if (floorPath.size() > 0) {
       thisFloor = floorPath.get(currentFloorIndex % size);
+      currentFloorIndex++;
     }
     System.out.println(thisFloor);
     addFloorMapImage(thisFloor);
