@@ -90,41 +90,6 @@ public class NodeDraw {
     previousSelectedNode = p;
   }
 
-  public static double[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
-    // get the coordinates from the node
-
-    // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord) * scaleFactor;
-    yCoord = (yCoord) * scaleFactor;
-
-    // put the values in an array to return
-    double[] scaledCoordinates = {xCoord, yCoord};
-
-    // return the scaled coordinates
-    return scaledCoordinates;
-  }
-
-  /**
-   * @param xCoord the x-coordinate to scale
-   * @param yCoord the y-coordinate to scale
-   * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
-   * @return an int array with the pair of new coordinates
-   */
-  private static double[] scaleCoordinatesReversed(
-      double xCoord, double yCoord, double scaleFactor) {
-    // get the coordinates from the node
-
-    // apply the scale factor to the coordinates and floor them (so they remain a whole number)
-    xCoord = (xCoord / scaleFactor);
-    yCoord = (yCoord / scaleFactor);
-
-    // put the values in an array to return
-    double[] scaledCoordinates = {xCoord, yCoord};
-
-    // return the scaled coordinates
-    return scaledCoordinates;
-  }
-
   public static void toggleLocationDisplay(boolean flag) {
     locations.forEach(t -> t.setVisible(flag));
   }
@@ -147,6 +112,7 @@ public class NodeDraw {
     return null;
   }
 
+  @Deprecated
   public static void drawLocations(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
 
@@ -413,15 +379,8 @@ public class NodeDraw {
             selectedNodeEntity = n;
             if (selectNodePane != null && selectedNodeEntity != null) {
               nmc.getMainGesturePane().setGestureEnabled(false);
-              // selectNodePane.setLayoutX(mouseEvent.getX());
-              // selectNodePane.setLayoutY(mouseEvent.getY());
 
-              //              System.out.println("get mouse location");
-              //              System.out.println(mouseEvent.getX());
-              //              System.out.println(mouseEvent.getY());
-              //              System.out.println("Get layout");
-              //              System.out.println(selectNodePane.getLayoutX());
-              //              System.out.println(selectNodePane.getLayoutY());
+              // Keep node following mouse movement
               selectNodePane.setLayoutX(
                   selectNodePane.getLayoutX()
                       + mouseEvent.getX()
@@ -431,19 +390,23 @@ public class NodeDraw {
                       + mouseEvent.getY()
                       - selectNodePane.getPrefHeight() / 2.0);
 
+              // Outgoing edges adjust start points
               outgoing.forEach(
                   o -> {
                     o.setStartX(selectNodePane.getLayoutX() + mouseEvent.getX());
                     o.setStartY(selectNodePane.getLayoutY() + mouseEvent.getY());
                   });
 
-              incoming
-                  .get(n.getNodeid())
-                  .forEach(
-                      o -> {
-                        o.setEndX(selectNodePane.getLayoutX() + mouseEvent.getX());
-                        o.setEndY(selectNodePane.getLayoutY() + mouseEvent.getY());
-                      });
+              // Incoming edges adjust end points
+              if (incoming.get(n.getNodeid()) != null) {
+                incoming
+                    .get(n.getNodeid())
+                    .forEach(
+                        o -> {
+                          o.setEndX(selectNodePane.getLayoutX() + mouseEvent.getX());
+                          o.setEndY(selectNodePane.getLayoutY() + mouseEvent.getY());
+                        });
+              }
 
               if (location != null) {
                 location.setLayoutX(
@@ -455,9 +418,6 @@ public class NodeDraw {
                         + mouseEvent.getY()
                         - selectNodePane.getPrefHeight() / 2.0);
               }
-
-              //              System.out.println((int) selectNodePane.getLayoutX());
-              //              System.out.println((int) selectNodePane.getLayoutX());
             }
           });
 
