@@ -67,7 +67,7 @@
                     <children>
                         <HBox alignment="CENTER">
                             <children>
-                                <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#createNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Node" textFill="#224870">
+                                <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#sendMessage" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Node" textFill="#224870">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
