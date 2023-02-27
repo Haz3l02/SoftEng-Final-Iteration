@@ -532,4 +532,8 @@ public class FacadeRepository {
   public void exportAlignedToCSV(String filename, ArrayList<NodeEntity> n) throws IOException {
     node.exportAlignedToCSV(filename, n);
   }
+
+  public int countServiceRequestsByType(ServiceRequestEntity.RequestType s) {
+    return serv.countRequests(s);
+  }
 }

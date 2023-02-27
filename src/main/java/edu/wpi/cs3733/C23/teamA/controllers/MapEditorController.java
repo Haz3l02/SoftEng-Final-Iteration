@@ -23,6 +23,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -86,7 +87,7 @@ public class MapEditorController extends MenuController {
   private GraphicsContext gc;
 
   // scaling constant
-  private double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulations
+  private final double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulations
 
   private static PopOver nodeEditorPopup;
   private static PopOver edgeEditorPopup;
@@ -95,6 +96,9 @@ public class MapEditorController extends MenuController {
   private static PopOver locationEditorEditPopup;
 
   static MapEditorController mapEditor;
+
+  public static double mouseXCoord;
+  public static double mouseYCoord;
 
   /** Starting method called when screen is opened: Draws nodes and edges for floor L1 */
   public void initialize() {
@@ -164,6 +168,27 @@ public class MapEditorController extends MenuController {
     //              .moveMostRecentLoc(NodeDraw.getSelected().getNodeid())
     //              .getLongname());
     //    }
+
+    mainGesturePane.setOnMouseClicked(
+        event -> {
+          if (event.getButton() == MouseButton.SECONDARY) {
+
+            /*
+                        double[] coords =
+                            CoordinateScalar.scaleCoordinatesReversed(
+                                event.getSceneX(), event.getSceneY(), SCALE_FACTOR);
+
+                        // System.out.println(Math.round(coords[0]) + ", " + Math.round(coords[1]));
+
+                        // NodeEditorPopupController.setMouseX((int) Math.round(coords[0]));
+                        // NodeEditorPopupController.setMouseY((int) Math.round(coords[1]));
+            */
+
+            mouseXCoord = event.getSceneX();
+            mouseYCoord = event.getSceneY() - 16;
+          }
+        });
+
     mainAnchorPane.setPickOnBounds(false);
   }
 
@@ -198,6 +223,8 @@ public class MapEditorController extends MenuController {
     NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
     NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);
+
+    NodeEditorPopupController.setFloor(floor);
   }
 
   public void goToNewNodeScene(ActionEvent event) {
@@ -364,9 +391,15 @@ public class MapEditorController extends MenuController {
 
     nodeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
 
+    nodeEditorPopup.setAnchorX(mouseXCoord);
+    nodeEditorPopup.setAnchorY(mouseYCoord);
+
+    /*
     NodeEditorPopupController.mouseX = NodeDraw.getSelected().getXcoord();
     NodeEditorPopupController.mouseY = NodeDraw.getSelected().getYcoord();
     NodeEditorPopupController.floor = NodeDraw.getSelected().getFloor();
+
+
 
     System.out.println(
         "updated coords to: ("
@@ -374,6 +407,8 @@ public class MapEditorController extends MenuController {
             + ", "
             + mainGesturePane.getCurrentY()
             + ")");
+            */
+
   }
 
   @FXML
@@ -386,6 +421,8 @@ public class MapEditorController extends MenuController {
 
     edgeEditorPopup = new PopOver(edgeLoader.load());
     edgeEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+    edgeEditorPopup.setAnchorX(mouseXCoord);
+    edgeEditorPopup.setAnchorY(mouseYCoord);
   }
 
   @FXML
@@ -400,6 +437,9 @@ public class MapEditorController extends MenuController {
 
       locationEditorPopup = new PopOver(locationLoader.load());
       locationEditorPopup.show((mainAnchorPane.getScene().getWindow()));
+
+      locationEditorPopup.setAnchorX(mouseXCoord);
+      locationEditorPopup.setAnchorY(mouseYCoord);
     }
   }
 
@@ -411,6 +451,9 @@ public class MapEditorController extends MenuController {
 
     nodeEditorEditPopup = new PopOver(locationLoader.load());
     nodeEditorEditPopup.show((mainAnchorPane.getScene().getWindow()));
+
+    nodeEditorEditPopup.setAnchorX(mouseXCoord);
+    nodeEditorEditPopup.setAnchorY(mouseYCoord);
   }
 
   @FXML
@@ -425,6 +468,9 @@ public class MapEditorController extends MenuController {
 
       locationEditorEditPopup = new PopOver(locationLoader.load());
       locationEditorEditPopup.show((mainAnchorPane.getScene().getWindow()));
+
+      locationEditorEditPopup.setAnchorX(mouseXCoord);
+      locationEditorEditPopup.setAnchorY(mouseYCoord);
     }
   }
 

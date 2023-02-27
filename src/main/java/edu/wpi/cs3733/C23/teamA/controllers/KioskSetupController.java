@@ -21,13 +21,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-public class KioskSetupController {
+public class KioskSetupController extends MenuController {
   @FXML private MFXFilterComboBox<String> locationBox;
   @FXML private MFXToggleButton leftRightToggle, directionOnOff;
   @FXML private MFXFilterComboBox<String> moveLocation;
   @FXML private MFXDatePicker moveDate;
   @FXML private TextArea moveDescription;
-  @FXML private Label left, right, leftD, rightD;
+  @FXML private Label left, right;
   @FXML private StackPane reminderPane;
   @FXML private Text reminder, moveReminder;
 
@@ -109,6 +109,11 @@ public class KioskSetupController {
       Navigation.navigateHome(Screen.HOME_ACTUAL);
     }
     Navigation.navigateHome(Screen.HOME_ACTUAL);
+  }
+
+  @FXML
+  public void switchToNodeEditorScene() {
+    Navigation.navigate(Screen.MOVE);
   }
 
   @FXML

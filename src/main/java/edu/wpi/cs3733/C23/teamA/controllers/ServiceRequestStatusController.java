@@ -88,6 +88,11 @@ public class ServiceRequestStatusController extends MenuController {
   }
 
   @FXML
+  public void switchToSRChart(ActionEvent event) throws IOException {
+    Navigation.navigate(Screen.SRCHART);
+  }
+
+  @FXML
   public void initialize() throws SQLException, IOException {
     editingForm = mainSplitPane.getItems().get(0);
     outstandingForms = mainSplitPane.getItems().get(1);
