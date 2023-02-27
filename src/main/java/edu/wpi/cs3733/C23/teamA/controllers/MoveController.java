@@ -208,7 +208,7 @@ public class MoveController extends MenuController {
                         + " to move to node "
                         + nodeBox.getValue().toString());
                 editButton.setDisable(false);
-                imagePane.getItems().add(2, newNodeImage);
+                if (imagePane.getItems().size() == 2) imagePane.getItems().add(2, newNodeImage);
               }
             });
   }
