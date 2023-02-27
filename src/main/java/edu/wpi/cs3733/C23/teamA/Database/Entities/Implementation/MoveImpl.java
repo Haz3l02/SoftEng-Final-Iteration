@@ -449,7 +449,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
           && me.getLocationName().getLongname().equals(m.get(1))
           && me.getMovedate().toString().equals(m.get(2))) {
         me.setMessage(message);
-        session.persist(me);
+        session.merge(me);
         tx.commit();
         break;
       }
