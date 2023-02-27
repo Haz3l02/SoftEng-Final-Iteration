@@ -37,7 +37,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
 public class HomeController extends MenuController {
@@ -57,7 +56,7 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
   @FXML public StackPane mapImage;
-  @FXML public Text findAPath;
+  @FXML public ImageView findAPath;
   @FXML public ImageView about;
   @FXML public ImageView credits;
   @FXML public ImageView exit;
@@ -237,6 +236,8 @@ public class HomeController extends MenuController {
       maintenanceTable.setVisible(true);
       maintenanceTable.setDisable(false);
       myAssignments.setVisible(true);
+      adminAnnouncementButton.setVisible(false);
+      adminAnnouncementField.setVisible(false);
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
@@ -261,9 +262,9 @@ public class HomeController extends MenuController {
           numAccepted++;
         }
       }
-      label1.setText("# of completed assignments: " + numDone);
-      label2.setText("# of assigned assignments: " + numAssigned);
-      label3.setText("# of accepted assignments: " + numAccepted);
+      label3.setText("Completed requests: " + numDone);
+      label1.setText("Assigned requests: " + numAssigned);
+      label2.setText("Accepted requests: " + numAccepted);
 
       dbTableRowsModel.addAll(requests);
       maintenanceTable.setItems(dbTableRowsModel);
@@ -295,7 +296,7 @@ public class HomeController extends MenuController {
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
 
-      label1.setText("# of unassigned requests: " + requests.size());
+      label1.setText("Unassigned Requests: " + requests.size());
       label2.setVisible(false);
       label3.setVisible(false);
 
@@ -337,6 +338,8 @@ public class HomeController extends MenuController {
       employeeTable.setDisable(false);
       maintenanceTable.setVisible(false);
       maintenanceTable.setDisable(true);
+      adminAnnouncementButton.setVisible(false);
+      adminAnnouncementField.setVisible(false);
 
       List<ServiceRequestEntity> requests = FacadeRepository.getInstance().getAllServiceRequest();
       int totalRequests = 0;
@@ -353,9 +356,9 @@ public class HomeController extends MenuController {
         }
       }
 
-      label1.setText("# of requests submitted: " + totalRequests);
-      label2.setText("# of open requests: " + openRequests);
-      label3.setText("# of completed requests: " + completedRequests);
+      label1.setText("Submitted requests: " + totalRequests);
+      label2.setText("Open requests: " + openRequests);
+      label3.setText("Completed requests: " + completedRequests);
     }
   }
 

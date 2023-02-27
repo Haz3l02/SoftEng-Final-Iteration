@@ -27,23 +27,26 @@
                      <center>
                         <VBox prefHeight="554.0" prefWidth="1025.0" spacing="20.0" BorderPane.alignment="CENTER">
                            <children>
-                              <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="69.0" prefWidth="1025.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="69.0" prefWidth="1025.0" style="-fx-background-color: #022D58; -fx-border-color: #022D58; -fx-border-radius: 0 0 0 2;" VBox.vgrow="ALWAYS">
                                  <children>
                                     <ComboBox fx:id="serviceRequest" prefHeight="71.0" prefWidth="354.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" />
-                                    <MFXButton fx:id="navigation" onAction="#switchToPathfinding" prefHeight="84.0" prefWidth="171.0" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textFill="#d3e9f6">
+                                    <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" onAction="#switchToPathfinding" prefHeight="67.0" prefWidth="224.0" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textAlignment="CENTER" textFill="#d3e9f6">
                                        <font>
-                                          <Font size="27.0" />
+                                          <Font name="Verdana" size="27.0" />
                                        </font>
                                     </MFXButton>
                                     <StackPane>
                                        <children>
                                           <ComboBox fx:id="admin" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
-                                          <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
+                                          <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
                                              <font>
                                                 <Font size="27.0" />
                                              </font>
                                           </MFXButton>
                                        </children>
+                                       <HBox.margin>
+                                          <Insets left="30.0" />
+                                       </HBox.margin>
                                     </StackPane>
                                  </children></HBox>
                               <HBox alignment="CENTER" prefHeight="464.0" prefWidth="1025.0" VBox.vgrow="ALWAYS">
@@ -116,7 +119,7 @@
                                                                   <Font name="Verdana" size="36.0" />
                                                                </font>
                                                             </Text>
-                                                            <Label fx:id="announcementText" alignment="CENTER" text="Label" wrapText="true">
+                                                            <Label fx:id="announcementText" alignment="CENTER" text="No Announcements" wrapText="true">
                                                                <font>
                                                                   <Font name="Verdana" size="18.0" />
                                                                </font>
@@ -132,18 +135,11 @@
                                                             <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <HBox alignment="BOTTOM_RIGHT" StackPane.alignment="BOTTOM_RIGHT">
-                                                         <children>
-                                                            <Text fx:id="findAPath" strokeType="OUTSIDE" strokeWidth="0.0" text="Find a Path" textAlignment="CENTER" visible="false" wrappingWidth="203.009765625">
-                                                               <font>
-                                                                  <Font name="Verdana" size="36.0" />
-                                                               </font>
-                                                               <HBox.margin>
-                                                                  <Insets bottom="10.0" right="10.0" />
-                                                               </HBox.margin>
-                                                            </Text>
-                                                         </children>
-                                                      </HBox>
+                                                      <ImageView fx:id="findAPath" fitHeight="247.0" fitWidth="512.0" pickOnBounds="true" visible="false" StackPane.alignment="CENTER">
+                                                         <image>
+                                                            <Image url="@../assets/find_a_path.png" />
+                                                         </image>
+                                                      </ImageView>
                                                    </children>
                                                 </StackPane>
                                              </children>
@@ -199,13 +195,13 @@
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," VBox.vgrow="ALWAYS">
                <font>
-                  <Font name="Verdana" size="48.0" />
+                  <Font name="Verdana Bold" size="48.0" />
                </font>
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Text>
-            <Label fx:id="welcome" alignment="TOP_CENTER" graphicTextGap="15.0" prefHeight="133.0" prefWidth="266.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+            <Label fx:id="welcome" alignment="TOP_CENTER" graphicTextGap="15.0" prefHeight="155.0" prefWidth="266.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Verdana" size="36.0" />
                </font>
@@ -213,24 +209,35 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <VBox alignment="TOP_CENTER" prefHeight="319.0" prefWidth="266.0" spacing="20.0" VBox.vgrow="ALWAYS">
+            <VBox alignment="CENTER" prefHeight="135.0" prefWidth="296.0" spacing="20.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-background-radius: 15;" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="label1" alignment="CENTER" text="Label" textFill="WHITE" wrapText="true">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Stats">
+                     <font>
+                        <Font name="Verdana" size="36.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="label1" alignment="CENTER" text="Label" wrapText="true">
                      <font>
                         <Font name="Verdana" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="label2" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <Label fx:id="label2" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Verdana" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="label3" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <Label fx:id="label3" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Verdana" size="24.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="adminAnnouncementField" prefHeight="100.0" prefWidth="296.0" promptText="Enter Admin Message..." visible="false">
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin></VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+               <children>
+                  <TextArea fx:id="adminAnnouncementField" prefHeight="100.0" prefWidth="296.0" promptText="Enter Admin Message...">
                      <font>
                         <Font name="Verdana" size="18.0" />
                      </font>
@@ -238,12 +245,13 @@
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin>
                   </TextArea>
-                  <MFXButton buttonType="RAISED" onAction="#submitAnnouncement" prefHeight="51.0" prefWidth="119.0" rippleColor="#c0cced" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-border-radius: 15;" text="Submit" visible="false">
+                  <MFXButton fx:id="adminAnnouncementButton" buttonType="RAISED" onAction="#submitAnnouncement" prefHeight="51.0" prefWidth="119.0" rippleColor="#c0cced" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-border-radius: 15;" text="Submit">
                      <font>
                         <Font name="Verdana" size="24.0" />
                      </font>
                   </MFXButton>
-               </children></VBox>
+               </children>
+            </VBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <ImageView fx:id="about" fitHeight="56.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
