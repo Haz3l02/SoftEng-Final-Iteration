@@ -31,7 +31,7 @@
                   <Insets left="15.0" />
                </VBox.margin>
             </Text>
-            <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 15;">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1346.0" spacing="15.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 15;">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Name">
                      <font>
@@ -67,6 +67,9 @@
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
             </HBox>
             <SplitPane fx:id="mainPane" dividerPositions="0.4947916666666667" prefHeight="160.0" prefWidth="200.0" styleClass="split-pane-divider" stylesheets="@../assets/PathfindingStyle.css" VBox.vgrow="ALWAYS">
               <items>
@@ -80,9 +83,9 @@
                   </TableView>
                   <MFXScrollPane fitToWidth="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="707.0" style="-fx-background-color: d3e9f6;">
                      <content>
-                        <SplitPane fx:id="imagePane" dividerPositions="0.05, 0.5" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="1060.0" prefWidth="675.0" style="-fx-background-color: d3e9f6;">
+                        <SplitPane fx:id="imagePane" dividerPositions="0.05, 0.5" orientation="VERTICAL" prefHeight="1060.0" prefWidth="675.0" style="-fx-background-color: d3e9f6;">
                           <items>
-                              <VBox fx:id="messageVBox" fillWidth="false" prefHeight="79.0" prefWidth="726.0" SplitPane.resizableWithParent="false">
+                              <VBox fx:id="messageVBox" fillWidth="false" prefHeight="69.0" prefWidth="675.0">
                                  <children>
                                     <Text fx:id="locationNotif" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving " VBox.vgrow="ALWAYS">
                                        <font>

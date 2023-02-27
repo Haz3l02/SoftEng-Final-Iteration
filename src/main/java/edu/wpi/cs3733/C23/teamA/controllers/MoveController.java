@@ -4,19 +4,19 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
-import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
-import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import jakarta.persistence.PersistenceException;
-import java.sql.SQLException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -184,7 +184,7 @@ public class MoveController extends MenuController {
                     "You have selected " + locationBox.getValue().toString() + " to move nodes.");
                 createMove.setVisible(true);
                 editButton.setVisible(false);
-                createMove.setDisable(true);
+                // createMove.setDisable(true);
                 nodeBox.setDisable(false);
                 if (mainPane.getItems().size() == 1)
                   mainPane.getItems().add(1, allImages); // If there is nothing add it
