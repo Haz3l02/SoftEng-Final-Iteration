@@ -77,22 +77,17 @@ public class MoveController extends MenuController {
 
   @FXML private ImageView mainImageView; // imageview to be changed when each floor is selected
   @FXML private ImageView topMainImageView; // imageview to be changed when each floor is selected
-  @FXML private AnchorPane anchorF3;
-  @FXML private AnchorPane anchorF2;
-  @FXML private AnchorPane anchorF1;
-  @FXML private AnchorPane anchorL2;
-  @FXML private AnchorPane anchorL1;
-  @FXML private AnchorPane anchorF31;
-  @FXML private AnchorPane anchorF21;
-  @FXML private AnchorPane anchorF11;
-  @FXML private AnchorPane anchorL21;
-  @FXML private AnchorPane anchorL11;
+  @FXML private AnchorPane anchorF3 = new AnchorPane();
+  @FXML private AnchorPane anchorF2 = new AnchorPane();
+  @FXML private AnchorPane anchorF1 = new AnchorPane();
+  @FXML private AnchorPane anchorL2 = new AnchorPane();
+  @FXML private AnchorPane anchorL1 = new AnchorPane();
+
   @FXML private AnchorPane serviceRequestPane; // displays service requests on currentFloor
   @FXML private AnchorPane textAnchorPane; // displays location names on currentFloor
   @FXML private StackPane mainStackPane; // stack pane with all the anchor panes and image view
   @FXML private StackPane mainStackPane1; // stack pane with all the anchor panes and image view
   @FXML private GesturePane middleGesturePane; // gesture pane to sync with stack pane above
-
   @FXML private GesturePane topMainGesturePane; // gesture pane to sync with stack pane above
 
   // private PathfindingController controller = new PathfindingController();
@@ -126,17 +121,8 @@ public class MoveController extends MenuController {
     aps[3] = anchorF2;
     aps[4] = anchorF3;
 
-    aps1[0] = anchorL11;
-    aps1[1] = anchorL21;
-    aps1[2] = anchorF11;
-    aps1[3] = anchorF21;
-    aps1[4] = anchorF31;
-
-    Node stackPane = mainStackPane;
-    this.topMainGesturePane.setContent(stackPane);
-
-    Node stackPane2 = mainStackPane1;
-    this.middleGesturePane.setContent(stackPane2);
+    this.topMainGesturePane.setContent(mainStackPane);
+    this.middleGesturePane.setContent(mainStackPane1);
 
     allNodeID =
         FacadeRepository.getInstance().getAllMove().stream()
@@ -234,15 +220,16 @@ public class MoveController extends MenuController {
     currentNode.setText("Current Node Floor " + initialTableString);
     addFloorMapImage(initialTableString, mainImageView);
     currentFloor = Floor.indexFromTableString(initialTableString);
-    System.out.println(pathInfo.getFloorPath().toString());
+
+    String finalTableString = initialTableString;
+
     if (pathInfo.getFloorPath().size() != 1) {
+
       if (imagePane.getItems().size() == 2) imagePane.getItems().add(2, newNodeImage);
-      String finalTableString = pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 1);
+      finalTableString = pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 1);
       newNode.setText("New Node Floor " + finalTableString);
       addFloorMapImage(finalTableString, topMainImageView);
     } else imagePane.getItems().remove(newNodeImage); // No second image
-
-    // else
 
     // if pathInfo isn't null, grab the path and draw it
     if (pathInfo != null) {
@@ -250,6 +237,14 @@ public class MoveController extends MenuController {
       ArrayList<GraphNode> path = pathInfo.getPath();
       ArrayList<String> floorPath = pathInfo.getFloorPath();
       callMapDraw(path, floorPath);
+
+      mainStackPane.getChildren().clear();
+      mainStackPane1.getChildren().clear();
+      mainStackPane.getChildren().add(mainImageView);
+      mainStackPane1.getChildren().add(topMainImageView);
+      mainStackPane.getChildren().add(aps[Floor.indexFromTableString(initialTableString)]);
+      if (!initialTableString.equals(finalTableString))
+        mainStackPane1.getChildren().add(aps[Floor.indexFromTableString(finalTableString)]);
     }
   }
   /**
@@ -262,20 +257,18 @@ public class MoveController extends MenuController {
     // clear the anchorPanes w/ the drawn paths
     for (AnchorPane ap : aps) {
       ap.getChildren().clear();
-      ap.setVisible(false);
+      ap.setVisible(true);
     }
     aps[currentFloor].setVisible(true);
 
-
-//      for (AnchorPane ap : aps1) {
-//        ap.getChildren().clear();
-//        ap.setVisible(false);
-//      }
-//      aps1[currentFloor].setVisible(true);
-
+    //      for (AnchorPane ap : aps1) {
+    //        ap.getChildren().clear();
+    //        ap.setVisible(false);
+    //      }
+    //      aps1[currentFloor].setVisible(true);
 
     // Make this floor's pane viewable
-    aps[currentFloor].setVisible(true);
+    // aps[currentFloor].setVisible(true);
 
     pathfindingSystem.drawPath(aps, path);
   }
