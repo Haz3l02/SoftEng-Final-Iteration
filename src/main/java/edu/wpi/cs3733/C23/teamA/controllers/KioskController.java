@@ -92,6 +92,7 @@ public class KioskController {
     GraphNode end = pathfindingSystem.getNode(kiosk.getEndLocation().getNodeid());
     PathInfo info = pathfindingSystem.runPathfinding(start, end);
     ArrayList<GraphNode> path = info.getPath();
+    System.out.println(path.size());
     floorPath = info.getFloorPath();
 
     callMapDraw(path);
@@ -114,6 +115,7 @@ public class KioskController {
     // aps[currentFloorIndex].setVisible(true);
 
     pathfindingSystem.drawPath(aps, path);
+    cycleMaps();
   }
 
   /** Method to cycle through all the maps for this move's path */
@@ -122,8 +124,7 @@ public class KioskController {
 
     // clear the anchorPanes w/ the drawn paths
     for (AnchorPane ap : aps) {
-      ap.getChildren().clear();
-      ap.setVisible(false);
+      ap.setVisible(true);
     }
 
     // Make this floor viewable
@@ -132,6 +133,7 @@ public class KioskController {
     if (floorPath.size() > 0) {
       thisFloor = floorPath.get(currentFloorIndex % size);
     }
+    System.out.println(thisFloor);
     addFloorMapImage(thisFloor);
     aps[Floor.indexFromTableString(thisFloor)].setVisible(true);
   }
