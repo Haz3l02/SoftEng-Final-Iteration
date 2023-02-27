@@ -27,8 +27,8 @@ public class TextReader implements Runnable {
   }
 
   /**
-   * Reads the text that is currently set to the TextReader's text field.
-   * It does this inside of a thread so that other application functions are not stalled or interrupted.
+   * Reads the text that is currently set to the TextReader's text field. It does this inside of a
+   * thread so that other application functions are not stalled or interrupted.
    */
   public void readText() {
     ttsThread.start();

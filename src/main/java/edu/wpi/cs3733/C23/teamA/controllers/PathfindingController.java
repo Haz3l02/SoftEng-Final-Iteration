@@ -189,7 +189,13 @@ public class PathfindingController extends MenuController {
     startLocBox.setItems(empty);
     endLocBox.setItems(empty);
 
-    // text
+    // clear the anchorPanes w/ the drawn paths
+    for (AnchorPane ap : aps) {
+      ap.getChildren().clear();
+      ap.setVisible(false);
+    }
+
+    // clear the text
     pathMapText.setText("Directions on how to get to your destination go here...");
     errorMessage.setText("");
   }
