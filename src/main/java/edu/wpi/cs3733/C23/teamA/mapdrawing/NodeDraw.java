@@ -153,6 +153,7 @@ public class NodeDraw {
               + "-fx-border-color: '#224870'; "
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
+      nodeGraphic.toFront();
 
       // when mouse is clicked
       EventHandler<MouseEvent> eventHandler =
@@ -169,6 +170,7 @@ public class NodeDraw {
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 13.5");
               previousSelectedNode.setPrefSize(5, 5);
+              previousSelectedNode.toFront();
               //              previousSelectedNode.setLayoutX(previousSelectedNode.getLayoutX() -
               // 2.5);
               //              previousSelectedNode.setLayoutY(previousSelectedNode.getLayoutY() -
@@ -186,6 +188,7 @@ public class NodeDraw {
                     + "-fx-border-color: '#224870'; "
                     + "-fx-border-width: 1;"
                     + "-fx-border-radius: 13.5");
+            nodeGraphic.toFront();
             // nodeGraphic.setPrefSize(7, 7);
             //            nodeGraphic.setLayoutX(nodeGraphic.getLayoutX() - 3.5);
             //            nodeGraphic.setLayoutY(nodeGraphic.getLayoutY() - 3.5);
@@ -379,6 +382,7 @@ public class NodeDraw {
                       + "-fx-border-color: 'green'; "
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 13.5");
+              nodeGraphic.toFront();
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
@@ -393,6 +397,7 @@ public class NodeDraw {
                       + "-fx-border-color: '#224870'; "
                       + "-fx-border-width: 1;"
                       + "-fx-border-radius: 13.5");
+              nodeGraphic.toFront();
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
@@ -417,6 +422,7 @@ public class NodeDraw {
                   selectNodePane.getLayoutY()
                       + mouseEvent.getY()
                       - selectNodePane.getPrefHeight() / 2.0);
+              selectNodePane.toFront();
 
               // Outgoing edges adjust start points
               outgoing.forEach(
