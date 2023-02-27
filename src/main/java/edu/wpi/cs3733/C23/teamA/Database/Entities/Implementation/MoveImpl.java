@@ -47,6 +47,9 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     //              m.getMovedate().toString()));
     //    }
     session.close();
+    moves.sort(Comparator.comparing(MoveEntity::getMovedate));
+    Collections.sort(moves, Collections.reverseOrder());
+
   }
 
   public List<MoveEntity> getAll() {
@@ -61,6 +64,8 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     moves = records;
     session.close();
+    moves.sort(Comparator.comparing(MoveEntity::getMovedate));
+    Collections.sort(moves, Collections.reverseOrder());
   }
 
   public void exportToCSV(String filename) throws IOException {
@@ -71,12 +76,12 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     fileWriter.write("movedate,longname,nodeid\n");
     for (MoveEntity mov : moves) {
       fileWriter.write(
-          mov.getMovedate()
-              + ","
-              + mov.getLocationName().getLongname()
-              + ","
-              + mov.getNode().getNodeid()
-              + "\n");
+              mov.getMovedate()
+                      + ","
+                      + mov.getLocationName().getLongname()
+                      + ","
+                      + mov.getNode().getNodeid()
+                      + "\n");
     }
     fileWriter.close();
   }
@@ -107,10 +112,10 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");
       MoveEntity mov =
-          new MoveEntity(
-              session.get(NodeEntity.class, b[0]),
-              session.get(LocationNameEntity.class, b[1]),
-              LocalDate.parse(b[2]));
+              new MoveEntity(
+                      session.get(NodeEntity.class, b[0]),
+                      session.get(LocationNameEntity.class, b[1]),
+                      LocalDate.parse(b[2]));
       session.persist(mov);
 
       count++;
@@ -129,7 +134,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<LocalDate> tracking = new ArrayList<>();
 
     for (MoveEntity n :
-        moves.stream().filter(moveEntity -> moveEntity.getNode().equals(m.getNode())).toList()) {
+            moves.stream().filter(moveEntity -> moveEntity.getNode().equals(m.getNode())).toList()) {
       tracking.add(n.getMovedate());
     }
     System.out.println(tracking);
@@ -142,6 +147,8 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       throw new PersistenceException();
     }
     session.close();
+    moves.sort(Comparator.comparing(MoveEntity::getMovedate));
+    Collections.sort(moves, Collections.reverseOrder());
   }
 
   public void delete(List<String> m) {
@@ -153,8 +160,8 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     while (li.hasNext()) {
       me = li.next();
       if (me.getNode().getNodeid().equals(m.get(0))
-          && me.getLocationName().getLongname().equals(m.get(1))
-          && me.getMovedate().toString().equals(m.get(2))) {
+              && me.getLocationName().getLongname().equals(m.get(1))
+              && me.getMovedate().toString().equals(m.get(2))) {
         li.remove();
         if (session.find(MoveEntity.class, me) != null) {
           System.out.println("Exists");
@@ -192,7 +199,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
   }
 
   public HashMap<MoveEntity, MoveEntity> locationChangesFloor(
-      LocalDate minDate, LocalDate maxDate, String floor) {
+          LocalDate minDate, LocalDate maxDate, String floor) {
     HashMap<MoveEntity, MoveEntity> changes = new HashMap<>();
 
     Session session = getSessionFactory().openSession();
@@ -205,7 +212,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<MoveEntity> ids = session.createQuery(criteria).getResultList();
     for (MoveEntity id : ids) {
       List<MoveEntity> loc =
-          locationRecordFloor(id.getLocationName().getLongname(), id.getMovedate(), floor);
+              locationRecordFloor(id.getLocationName().getLongname(), id.getMovedate(), floor);
       changes.put(id, loc.stream().findFirst().orElse(id));
     }
     return changes;
@@ -223,13 +230,13 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
     Query q =
-        session.createQuery(
-            "from MoveEntity mov where mov.locationName.longname ='"
-                + longname
-                + "' and mov.movedate <= '"
-                + date
-                + "' order by mov.movedate desc",
-            MoveEntity.class);
+            session.createQuery(
+                    "from MoveEntity mov where mov.locationName.longname ='"
+                            + longname
+                            + "' and mov.movedate <= '"
+                            + date
+                            + "' order by mov.movedate desc",
+                    MoveEntity.class);
     List<MoveEntity> records = q.getResultList();
     session.close();
     return records;
@@ -240,19 +247,28 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
     Query q =
-        session.createQuery(
-            "select mov from MoveEntity mov where mov.locationName.longname ='"
-                + longname
-                + "' and mov.movedate <= '"
-                + date
-                + "' and mov.node.floor ='"
-                + floor
-                + "' order by mov.movedate desc",
-            MoveEntity.class);
+            session.createQuery(
+                    "select mov from MoveEntity mov where mov.locationName.longname ='"
+                            + longname
+                            + "' and mov.movedate <= '"
+                            + date
+                            + "' and mov.node.floor ='"
+                            + floor
+                            + "' order by mov.movedate desc",
+                    MoveEntity.class);
     List<MoveEntity> records = q.getResultList();
     session.close();
     return records;
   }
+
+  public MoveEntity recentLocationByFloor (String longname, LocalDate date, String floor) {
+    for (MoveEntity m : moves){
+      if (m.getNode().getFloor().equals(floor) && m.getLocationName().getLongname().equals(longname) && (m.getMovedate().isBefore(date)||m.getMovedate().equals(date)))
+        return m;
+    }
+    return null;
+  }
+
 
   /*
   // todo I want to use this but might not be able to
@@ -284,7 +300,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
     for (LocationNameEntity loc : locations) {
       try {
-        m.add(locationRecordFloor(loc.getLongname(), date, floor).get(0));
+        m.add(recentLocationByFloor(loc.getLongname(), date, floor));
       } catch (Exception e) {
       }
     }
@@ -294,12 +310,12 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
   public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
     MoveEntity mov = new MoveEntity();
     List<MoveEntity> ids =
-        moves.stream()
-            .filter(
-                moveEntity ->
-                    moveEntity.getNode().getNodeid().equals(id)
-                        && (date.compareTo(moveEntity.getMovedate()) >= 0))
-            .toList();
+            moves.stream()
+                    .filter(
+                            moveEntity ->
+                                    moveEntity.getNode().getNodeid().equals(id)
+                                            && (date.compareTo(moveEntity.getMovedate()) >= 0))
+                    .toList();
     LocalDate dt1 = LocalDate.parse("2023-01-01");
     for (MoveEntity mo : ids) {
       if (mo.getMovedate().compareTo(dt1) >= 0) {
@@ -313,12 +329,12 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
   public MoveEntity nodeOnOrBeforeDate(String id, LocalDate date) {
     MoveEntity mov = new MoveEntity();
     List<MoveEntity> ids =
-        moves.stream()
-            .filter(
-                moveEntity ->
-                    moveEntity.getLocationName().getLongname().equals(id)
-                        && (date.compareTo(moveEntity.getMovedate()) >= 0))
-            .toList();
+            moves.stream()
+                    .filter(
+                            moveEntity ->
+                                    moveEntity.getLocationName().getLongname().equals(id)
+                                            && (date.compareTo(moveEntity.getMovedate()) >= 0))
+                    .toList();
     LocalDate dt1 = LocalDate.parse("2023-01-01");
     for (MoveEntity mo : ids) {
       if (mo.getMovedate().compareTo(dt1) >= 0) {
@@ -339,20 +355,20 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
    */
   public LocationNameEntity mostRecentLoc(String id) {
     List<MoveEntity> ids =
-        new ArrayList<>(
-            moves.stream()
-                .filter(moveEntity -> moveEntity.getNode().getNodeid().equals(id))
-                .toList());
+            new ArrayList<>(
+                    moves.stream()
+                            .filter(moveEntity -> moveEntity.getNode().getNodeid().equals(id))
+                            .toList());
     ids.sort(Comparator.comparing(MoveEntity::getMovedate));
     return ids.isEmpty() ? null : ids.get(0).getLocationName();
   }
 
   public NodeEntity mostRecentNode(String longname) {
     List<MoveEntity> ids =
-        new ArrayList<>(
-            moves.stream()
-                .filter(moveEntity -> moveEntity.getLocationName().getLongname().equals(longname))
-                .toList());
+            new ArrayList<>(
+                    moves.stream()
+                            .filter(moveEntity -> moveEntity.getLocationName().getLongname().equals(longname))
+                            .toList());
     ids.sort(Comparator.comparing(MoveEntity::getMovedate));
     return ids.isEmpty() ? null : ids.get(0).getNode();
   }
@@ -403,8 +419,8 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
   public MoveEntity get(List<String> ID) {
     for (MoveEntity m : moves) {
       if (m.getNode().equals(ID.get(0))
-          && m.getLocationName().equals(ID.get(1))
-          && m.getMovedate().toString().equals(ID.get(2))) return m;
+              && m.getLocationName().equals(ID.get(1))
+              && m.getMovedate().toString().equals(ID.get(2))) return m;
     }
     return null;
   }
@@ -453,8 +469,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       }
     }
 
-    date = date.minusDays(1);
-
+    date.minusDays(1);
     fin.add(nodeOnOrBeforeDate(longName, date).getNode());
     return fin;
   }
