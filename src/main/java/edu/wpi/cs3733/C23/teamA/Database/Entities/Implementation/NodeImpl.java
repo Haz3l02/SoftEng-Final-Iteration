@@ -124,7 +124,15 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
     session.remove(session.get(NodeEntity.class, n));
     tx.commit();
     session.close();
-    notifyAllObservers();
+    //    notifyAllObservers();
+
+    Thread t =
+        new Thread(
+            () -> {
+              MoveImpl.getInstance().refresh();
+              EdgeImpl.getInstance().refresh();
+            });
+    t.start();
   }
 
   public void update(String ID, NodeEntity obj) {
@@ -158,7 +166,15 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
 
     tx.commit();
     session.close();
-    notifyAllObservers();
+    // notifyAllObservers();
+
+    Thread t =
+        new Thread(
+            () -> {
+              MoveImpl.getInstance().refresh();
+              EdgeImpl.getInstance().refresh();
+            });
+    t.start();
   }
 
   public List<NodeEntity> getNodeOnFloor(String floor) {
@@ -175,6 +191,28 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
       if (ser.getNodeid().equals(ID)) return ser;
     }
     return null;
+  }
+
+  public void exportAlignedToCSV(String filename, ArrayList<NodeEntity> n) throws IOException {
+    filename += "/alignednode.csv";
+
+    File csvFile = new File(filename);
+    FileWriter fileWriter = new FileWriter(csvFile);
+    fileWriter.write("node,xcoord,ycoord,building,floor\n");
+    for (NodeEntity nod : n) {
+      fileWriter.write(
+          nod.getNodeid()
+              + ","
+              + nod.getXcoord()
+              + ","
+              + nod.getYcoord()
+              + ","
+              + nod.getBuilding()
+              + ","
+              + nod.getFloor()
+              + "\n");
+    }
+    fileWriter.close();
   }
 
   public static NodeImpl getInstance() {

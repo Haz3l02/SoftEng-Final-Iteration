@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.KioskSetupController">
+   <bottom>
+      <HBox accessibleRole="TEXT_AREA" alignment="CENTER" prefHeight="88.0" prefWidth="1374.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="818.0">
+               <children>
+                  <MFXButton fx:id="reset" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clear" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeEditorScene" prefHeight="50.0" prefWidth="271.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Department Moves" textAlignment="CENTER" textFill="#d3e9f6">
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="1100.0">
+               <children>
+                  <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="312.0" style="-fx-border-color: #122c34; -fx-border-width: 2 2 2 2;">
+                     <children>
+                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="moveReminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Not a valid Move!" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </StackPane>
+                  <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#generateKiosk" prefHeight="50.0" prefWidth="159.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Generate" textFill="#224870">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets right="30.0" />
+               </padding>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="20.0" />
+         </padding>
+      </HBox>
+   </bottom>
+   <top>
+      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="102.0" prefWidth="1374.0" style="-fx-background-color: #f6bd3a; -fx-border-color: #122c34; -fx-border-width: 0 0 10 0;" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <children>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Kiosk Setup" textAlignment="CENTER">
+               <font>
+                  <Font name="Verdana" size="64.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="359.0" prefWidth="1374.0" spacing="25.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="1063.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #BAD1EA;">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="606.0" spacing="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kiosk Location:">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Text>
+                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" prefHeight="43.0" prefWidth="262.0" promptText="Location...">
+                                 <font>
+                                    <Font name="Verdana" size="24.0" />
+                                 </font>
+                              </MFXFilterComboBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="193.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Toggle Left/Right">
+                                 <font>
+                                    <Font name="Verdana" size="24.0" />
+                                 </font>
+                              </Text>
+                              <MFXToggleButton fx:id="leftRightToggle" contentDisposition="CENTER" prefHeight="50.0" prefWidth="71.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="25.0" right="25.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox prefHeight="234.0" prefWidth="1324.0" spacing="10.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-border-radius: 15;">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="518.0" spacing="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move Location:">
+                                 <font>
+                                    <Font name="Verdana" size="24.0" />
+                                 </font>
+                              </Text>
+                              <MFXFilterComboBox fx:id="moveLocation" floatMode="ABOVE" prefHeight="43.0" prefWidth="264.0" promptText="Move..." text="Move Location...">
+                                 <font>
+                                    <Font name="Verdana" size="24.0" />
+                                 </font>
+                              </MFXFilterComboBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="298.0" spacing="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                                 <font>
+                                    <Font name="Verdana" size="24.0" />
+                                 </font>
+                              </Text>
+                              <MFXDatePicker fx:id="moveDate" prefHeight="38.0" prefWidth="172.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="107.0" prefWidth="751.0" spacing="10.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move Description:">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="moveDescription" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="149.0" prefWidth="223.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" wrapText="true">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                        </TextArea>
+                        <VBox alignment="CENTER" prefHeight="173.0" prefWidth="186.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Show Directions" textAlignment="CENTER" wrappingWidth="193.49853515625">
+                                 <font>
+                                    <Font name="Verdana" size="24.0" />
+                                 </font>
+                              </Text>
+                              <MFXToggleButton fx:id="directionOnOff" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="25.0" right="25.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <VBox alignment="CENTER" prefHeight="0.0" prefWidth="279.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="368.0" fitWidth="274.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/icons/arrow_facingLeft_blue.png" />
+                     </image>
+                  </ImageView>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="269.0">
+                     <children>
+                        <Label fx:id="left" alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="200.0" text="Left" textAlignment="RIGHT" wrapText="true">
+                           <font>
+                              <Font name="Verdana" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <StackPane.margin>
+                        <Insets right="10.0" />
+                     </StackPane.margin>
+                  </HBox>
+               </children>
+            </StackPane>
+         </children>
+         <BorderPane.margin>
+            <Insets left="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <right>
+      <VBox alignment="CENTER" prefHeight="522.0" prefWidth="272.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="368.0" fitWidth="274.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/icons/arrow_facingRight_blue.png" />
+                     </image>
+                  </ImageView>
+                  <HBox alignment="CENTER_LEFT" prefHeight="274.0" prefWidth="242.0">
+                     <children>
+                        <Label fx:id="right" prefHeight="79.0" prefWidth="196.0" text="Right" wrapText="true">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Verdana" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin>
+                  </HBox>
+               </children>
+            </StackPane>
+         </children>
+         <BorderPane.margin>
+            <Insets right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </right>
+</BorderPane>

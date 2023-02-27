@@ -9,11 +9,14 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
+import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
+import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import jakarta.persistence.PersistenceException;
 import java.sql.SQLException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -344,6 +347,15 @@ public class MoveController extends MenuController {
       }
     }
     //    }
+  }
+
+  @FXML
+  public void switchToImport(ActionEvent event) throws IOException {
+    Navigation.navigateHome(Screen.IMPORT_CSV);
+  }
+
+  public void switchToExport(ActionEvent event) throws IOException {
+    Navigation.navigateHome(Screen.EXPORT_CSV);
   }
 
   public void clearEdits() {

@@ -49,6 +49,11 @@ public abstract class NavigationController {
   }
 
   @FXML
+  public void switchToSRChartScene() {
+    Navigation.navigate(Screen.SRCHART);
+  }
+
+  @FXML
   public void switchToHomeDatabaseScene(javafx.event.ActionEvent event) {
     Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
@@ -126,6 +131,11 @@ public abstract class NavigationController {
   public void switchToEmployeeScene() {
     iecsv = new ImportExportCSV("employee");
     Navigation.navigate(Screen.EMPLOYEE);
+  }
+
+  public void switchToKioskSetupScene() {
+    stop = true;
+    Navigation.navigate(Screen.KIOSK_SETUP);
   }
 
   @FXML

@@ -4,12 +4,12 @@ import edu.wpi.cs3733.C23.teamA.AApp;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.MaintenanceAssignedAccepted;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -31,12 +31,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
 public class HomeController extends MenuController {
@@ -56,25 +56,26 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
   @FXML public StackPane mapImage;
-  @FXML public Text findAPath;
+  @FXML public ImageView findAPath;
   @FXML public ImageView about;
   @FXML public ImageView credits;
   @FXML public ImageView exit;
+  @FXML public Label label1, label2, label3;
   private final Image creditsYellow =
       new Image(AApp.class.getResourceAsStream("assets/icons/credits_yellow.png"));
   private final Image creditsWhite =
-      new Image(AApp.class.getResourceAsStream("assets/icons/credits.png"));
+      new Image(AApp.class.getResourceAsStream("assets/icons/credits_blue.png"));
   private final Image aboutYellow =
       new Image(AApp.class.getResourceAsStream("assets/icons/about_yellow.png"));
   private final Image aboutWhite =
-      new Image(AApp.class.getResourceAsStream("assets/icons/about.png"));
+      new Image(AApp.class.getResourceAsStream("assets/icons/about_blue.png"));
   private final Image logoutYellow =
       new Image(AApp.class.getResourceAsStream("assets/icons/exit_yellow.png"));
   private final Image logoutWhite =
-      new Image(AApp.class.getResourceAsStream("assets/icons/exit_darkBlue.png"));
-  @FXML public MFXTextField adminAnnouncementField;
+      new Image(AApp.class.getResourceAsStream("assets/icons/exit_blue.png"));
+  @FXML public TextArea adminAnnouncementField;
   @FXML public MFXButton adminAnnouncementButton;
-  @FXML public Text announcementText;
+  @FXML public Label announcementText;
 
   @FXML private Label date = new Label("hello");
   @FXML private Label time = new Label("hello");
@@ -163,6 +164,9 @@ public class HomeController extends MenuController {
                 case "Create Nodes":
                   switchToNodeScene();
                   break;
+                case "Kiosk Creator":
+                  switchToKioskSetupScene();
+                  break;
                 default:
                   break;
               }
@@ -231,10 +235,9 @@ public class HomeController extends MenuController {
       employeeTable.setDisable(true);
       maintenanceTable.setVisible(true);
       maintenanceTable.setDisable(false);
-      adminAnnouncementField.setDisable(true);
-      adminAnnouncementField.setVisible(false);
-      adminAnnouncementButton.setVisible(false);
       myAssignments.setVisible(true);
+      adminAnnouncementButton.setVisible(false);
+      adminAnnouncementField.setVisible(false);
 
       IDCol.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol.setCellValueFactory(
@@ -247,6 +250,22 @@ public class HomeController extends MenuController {
 
       requests =
           FacadeRepository.getInstance().getServiceRequestByAssigned(userInfo.getEmployeeID());
+
+      int numDone = 0;
+      int numAssigned = requests.size();
+      int numAccepted = 0;
+
+      for (ServiceRequestEntity request : requests) {
+        if (request.getStatus().equals(Status.DONE)) {
+          numDone++;
+        } else if (request.getStatus().equals(Status.PROCESSING)) {
+          numAccepted++;
+        }
+      }
+      label3.setText("Completed requests: " + numDone);
+      label1.setText("Assigned requests: " + numAssigned);
+      label2.setText("Accepted requests: " + numAccepted);
+
       dbTableRowsModel.addAll(requests);
       maintenanceTable.setItems(dbTableRowsModel);
       System.out.println(requests.size());
@@ -264,6 +283,8 @@ public class HomeController extends MenuController {
       employeeTable.setDisable(true);
       maintenanceTable.setVisible(false);
       maintenanceTable.setDisable(true);
+      adminAnnouncementField.setVisible(true);
+      adminAnnouncementButton.setVisible(true);
 
       IDCol1.setCellValueFactory(new PropertyValueFactory<>("requestid"));
       requestTypeCol1.setCellValueFactory(
@@ -274,6 +295,11 @@ public class HomeController extends MenuController {
 
       List<ServiceRequestEntity> requests = new ArrayList<ServiceRequestEntity>();
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
+
+      label1.setText("Unassigned Requests: " + requests.size());
+      label2.setVisible(false);
+      label3.setVisible(false);
+
       dbTableRowsModel.addAll(requests);
       adminTable.setItems(dbTableRowsModel);
 
@@ -298,7 +324,12 @@ public class HomeController extends MenuController {
       //      employeeTable.setItems(dbTableRowsModel2);
       admin
           .getItems()
-          .addAll("Map Editor", "Access Employee Records", "Department Moves", "Create Nodes");
+          .addAll(
+              "Map Editor",
+              "Access Employee Records",
+              "Department Moves",
+              "Create Nodes",
+              "Kiosk Creator");
 
     } else {
       adminTable.setVisible(false);
@@ -307,9 +338,27 @@ public class HomeController extends MenuController {
       employeeTable.setDisable(false);
       maintenanceTable.setVisible(false);
       maintenanceTable.setDisable(true);
-      adminAnnouncementField.setDisable(true);
-      adminAnnouncementField.setVisible(false);
       adminAnnouncementButton.setVisible(false);
+      adminAnnouncementField.setVisible(false);
+
+      List<ServiceRequestEntity> requests = FacadeRepository.getInstance().getAllServiceRequest();
+      int totalRequests = 0;
+      int completedRequests = 0;
+      int openRequests = 0;
+      for (ServiceRequestEntity request : requests) {
+        if (request.getEmployee().getEmployeeid() == userInfo.getEmployeeID()) {
+          totalRequests++;
+          if (request.getStatus().equals(Status.DONE)) {
+            completedRequests++;
+          } else {
+            openRequests++;
+          }
+        }
+      }
+
+      label1.setText("Submitted requests: " + totalRequests);
+      label2.setText("Open requests: " + openRequests);
+      label3.setText("Completed requests: " + completedRequests);
     }
   }
 

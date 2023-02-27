@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6; -fx-background-color: #bad1dea;" styleClass="table-view" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
+<BorderPane prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6;" styleClass="table-view" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ServiceRequestStatusController">
    <bottom>
       <HBox alignment="CENTER_LEFT" prefWidth="611.0" BorderPane.alignment="CENTER">
          <children>
@@ -41,6 +41,11 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0" spacing="10.0">
                <children>
+                  <MFXButton id="cancelButton" fx:id="seeChartButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToSRChartScene" prefHeight="55.0" prefWidth="151.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="See Chart" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </MFXButton>
                   <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
                   <MFXButton id="cancelButton" fx:id="deleteButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#delete" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Delete" textFill="#d3e9f6">
                      <font>

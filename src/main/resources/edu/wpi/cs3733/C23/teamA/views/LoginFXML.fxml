@@ -44,7 +44,7 @@
    <right>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <right>
-            <VBox alignment="CENTER" prefHeight="451.0" prefWidth="362.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="451.0" prefWidth="362.0" style="-fx-background-color: #022D58;" BorderPane.alignment="CENTER">
                <children>
                   <StackPane prefHeight="286.0" prefWidth="355.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15;">
                      <children>
@@ -107,7 +107,7 @@
             </VBox>
          </right>
          <top>
-            <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="431.0" style="-fx-background-color: #224870;" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="431.0" style="-fx-background-color: #022D58;" BorderPane.alignment="CENTER">
                <children>
                   <MFXButton cancelButton="true" onAction="#logout" prefHeight="27.0" prefWidth="56.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-border-radius: 15;" text="Exit">
                      <HBox.margin>
