@@ -24,6 +24,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
 public class NodeDraw {
@@ -86,7 +90,7 @@ public class NodeDraw {
     previousSelectedNode = p;
   }
 
-  public static int[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
+  public static double[] scaleCoordinates(double xCoord, double yCoord, double scaleFactor) {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
@@ -94,7 +98,7 @@ public class NodeDraw {
     yCoord = (yCoord) * scaleFactor;
 
     // put the values in an array to return
-    int[] scaledCoordinates = {(int) Math.round(xCoord), (int) Math.round(yCoord)};
+    double[] scaledCoordinates = {xCoord, yCoord};
 
     // return the scaled coordinates
     return scaledCoordinates;
@@ -106,7 +110,8 @@ public class NodeDraw {
    * @param scaleFactor the scale factor for the coordinates and the image they are being placed on
    * @return an int array with the pair of new coordinates
    */
-  private static int[] scaleCoordinatesReversed(double xCoord, double yCoord, double scaleFactor) {
+  private static double[] scaleCoordinatesReversed(
+      double xCoord, double yCoord, double scaleFactor) {
     // get the coordinates from the node
 
     // apply the scale factor to the coordinates and floor them (so they remain a whole number)
@@ -114,7 +119,7 @@ public class NodeDraw {
     yCoord = (yCoord / scaleFactor);
 
     // put the values in an array to return
-    int[] scaledCoordinates = {(int) Math.round(xCoord), (int) Math.round(yCoord)};
+    double[] scaledCoordinates = {xCoord, yCoord};
 
     // return the scaled coordinates
     return scaledCoordinates;
@@ -125,7 +130,7 @@ public class NodeDraw {
   }
 
   public static Text linkLocation(NodeEntity node, double scaleFactor, AnchorPane nodeAnchor) {
-    int[] updatedCoords = scaleCoordinates(node.getXcoord(), node.getYcoord(), scaleFactor);
+    double[] updatedCoords = scaleCoordinates(node.getXcoord(), node.getYcoord(), scaleFactor);
     LocationNameEntity loc = FacadeRepository.getInstance().moveMostRecentLoc(node.getNodeid());
     if (loc != null && !loc.getLocationtype().equals("HALL")) {
       Text locName = new Text();
@@ -149,7 +154,7 @@ public class NodeDraw {
     nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
-      int[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
+      double[] updatedCoords = scaleCoordinates(n.getXcoord(), n.getYcoord(), scaleFactor);
 
       if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
         Text locName = new Text();
@@ -468,7 +473,9 @@ public class NodeDraw {
               if (alert.showAndWait().get() == ButtonType.OK) {
                 double[] revertedCoords =
                     scaleCoordinatesReversed(
-                        selectNodePane.getLayoutX()+ selectNodePane.getPrefWidth() / 2.0, selectNodePane.getLayoutY() + selectNodePane.getPrefHeight() / 2.0, scaleFactor);
+                        selectNodePane.getLayoutX() + selectNodePane.getPrefWidth() / 2.0,
+                        selectNodePane.getLayoutY() + selectNodePane.getPrefHeight() / 2.0,
+                        scaleFactor);
                 selectedNodeEntity.setXcoord((int) Math.round(revertedCoords[0]));
                 selectedNodeEntity.setYcoord((int) Math.round(revertedCoords[1]));
                 FacadeRepository.getInstance()
@@ -592,9 +599,9 @@ public class NodeDraw {
 
   public static Line linkEdge(EdgeEntity edge, double scaleFactor, Pane ap) {
     if (edge.getNode1().getFloor().equals(edge.getNode2().getFloor())) {
-      int[] updatedCoordsNode1 =
+      double[] updatedCoordsNode1 =
           scaleCoordinates(edge.getNode1().getXcoord(), edge.getNode1().getYcoord(), scaleFactor);
-      int[] updatedCoordsNode2 =
+      double[] updatedCoordsNode2 =
           scaleCoordinates(edge.getNode2().getXcoord(), edge.getNode2().getYcoord(), scaleFactor);
       Line currentLine =
           new Line(
@@ -663,6 +670,8 @@ public class NodeDraw {
       return currentLine;
     }
     return null;
+  }
+
   private static EventHandler<? super MouseEvent> dragEvent(MapEditorController nmc) {
     return mouseEvent -> {
       if (selectNodePane != null) {
@@ -766,27 +775,5 @@ public class NodeDraw {
 
       ap.getChildren().add(currentLine);
     }
-  }
-
-  @Override
-  public void keyTyped(KeyEvent e) {
-    System.out.println("a");
-  }
-
-  @Override
-  public void keyPressed(java.awt.event.KeyEvent e) {
-    int key = e.getKeyCode();
-    System.out.println(key);
-    if (key == KeyEvent.VK_DELETE) {
-      System.out.println("delete that fucker");
-
-      FacadeRepository.getInstance().deleteEdge(getSelectedEdge().getEdgeid());
-      selectedEdge = null;
-    }
-  }
-
-  @Override
-  public void keyReleased(KeyEvent e) {
-    System.out.println("aaa");
   }
 }

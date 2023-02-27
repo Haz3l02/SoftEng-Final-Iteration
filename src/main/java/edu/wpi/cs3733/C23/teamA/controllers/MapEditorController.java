@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.controllers.NodeEditorPopupController.floor;
+
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
@@ -418,10 +420,10 @@ public class MapEditorController extends MenuController {
 
   public void changeLocations() {
     mainTextPane.setVisible(!mainTextPane.isVisible());
-  //  public void setLocButtonVisibility(boolean eye) {
-  //    createLocation.setVisible(eye);
-  //  }
-
+    //  public void setLocButtonVisibility(boolean eye) {
+    //    createLocation.setVisible(eye);
+    //  }
+  }
   // TODO
   public void transitionToNewNodeBox(ActionEvent event) {}
 
