@@ -30,13 +30,8 @@ public class TextReader implements Runnable {
     ttsThread.start();
   }
 
-  public void stopText(){
+  public void stopText() {
     ttsThread.interrupt();
-  }
-
-  public void forceStop() {
-    // TODO: I want this to stop the .speak() call inside of the thread. the call below *should* do that, but doesn't
-    voice.getAudioPlayer().cancel();
   }
 
   @Override

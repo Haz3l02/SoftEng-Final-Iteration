@@ -600,7 +600,7 @@ public class PathfindingController extends MenuController {
     if (event.getSource().equals(speakButton)) {
       tts.readText();
     } else if (event.getSource().equals(stopSpeakingButton)) {
-      tts.forceStop();
+      tts.stopText();
     }
   }
 }
