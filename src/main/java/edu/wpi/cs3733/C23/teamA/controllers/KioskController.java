@@ -23,6 +23,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
 
 public class KioskController {
@@ -32,6 +33,7 @@ public class KioskController {
   @FXML public Node mapPane;
   @FXML public Node directionsPane;
   @FXML public Node rightPane;
+  @FXML private Text directionsText;
 
   @FXML private AnchorPane anchorF3;
   @FXML private AnchorPane anchorF2;
@@ -47,6 +49,7 @@ public class KioskController {
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
   private int currentFloorIndex = 0;
   private ArrayList<String> floorPath = new ArrayList<>();
+  private String directions;
 
   @FXML
   public void initialize() throws SQLException {
@@ -79,7 +82,7 @@ public class KioskController {
     this.mainGesturePane.setContent(mainStackPane);
 
     // set first map
-    String initialTableString = kiosk.getStartLocation().getFloor();
+    // String initialTableString = kiosk.getStartLocation().getFloor();
     // currentFloor = Floor.indexFromTableString(initialTableString);
     // addFloorMapImage(initialTableString, mainImageView);
 
@@ -99,6 +102,8 @@ public class KioskController {
     ArrayList<GraphNode> path = info.getPath();
     System.out.println(path.size());
     floorPath = info.getFloorPath();
+    directions = pathfindingSystem.generatePathString(path, floorPath);
+    directionsText.setText(directions);
 
     pathfindingSystem.drawPath(aps, path);
     cycleMaps();
