@@ -56,6 +56,9 @@ public class NodeDraw implements KeyListener {
 
   static int[] previousCoords = new int[2];
 
+  static ArrayList<NodeEntity> selectedNodes = new ArrayList<>();
+  static NodeEntity firstNode;
+
   public void setNewLocation() {}
 
   public static void setVisibility(boolean b) {}
@@ -186,7 +189,7 @@ public class NodeDraw implements KeyListener {
               + "-fx-background-radius: 12.5; "
               + "-fx-border-color: '#224870'; "
               + "-fx-border-width: 1;"
-              + "-fx-border-radius: 13.5");
+              + "-fx-border-radius: 12.5");
 
       // when mouse is clicked
       EventHandler<MouseEvent> eventHandler =
@@ -201,7 +204,7 @@ public class NodeDraw implements KeyListener {
                       + "-fx-background-radius: 12.5; "
                       + "-fx-border-color: '#224870'; "
                       + "-fx-border-width: 1;"
-                      + "-fx-border-radius: 12.5");
+                      + "-fx-border-radius: 13.5");
               previousSelectedNode.setPrefSize(5, 5);
               previousSelectedNode.setLayoutX(previousCoords[0] - 2.5);
               previousSelectedNode.setLayoutY(previousCoords[1] - 2.5);
@@ -325,6 +328,25 @@ public class NodeDraw implements KeyListener {
                         selectedNodeEntity.getBuilding());
               }
             }
+            if (event.isAltDown()) {
+              NodeEntity selectedNode = getSelected();
+
+              if (selectedNode != null) {
+                selectedNodes.add(selectedNode);
+                if (firstNode == null) {
+                  firstNode = selectedNode;
+                }
+              }
+            }
+            if (!event.isShortcutDown() && !event.isAltDown()) {
+              System.out.println("clear the nodes list");
+              if (selectedNodes != null) {
+                selectedNodes.clear();
+              }
+              firstNode = null;
+            }
+            // end of The Straightener tm
+
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
@@ -344,17 +366,14 @@ public class NodeDraw implements KeyListener {
 
       // for end hover over node
       EventHandler<MouseEvent> eventHandler3 =
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              if ((!nodeGraphic.equals(selectNodePane))) {
-                nodeGraphic.setStyle(
-                    "-fx-background-color: '#224870'; "
-                        + "-fx-background-radius: 12.5; "
-                        + "-fx-border-color: '#224870'; "
-                        + "-fx-border-width: 1;"
-                        + "-fx-border-radius: 13.5");
-              }
+          event -> {
+            if ((!nodeGraphic.equals(selectNodePane))) {
+              nodeGraphic.setStyle(
+                  "-fx-background-color: '#224870'; "
+                      + "-fx-background-radius: 12.5; "
+                      + "-fx-border-color: '#224870'; "
+                      + "-fx-border-width: 1;"
+                      + "-fx-border-radius: 13.5");
             }
           };
       nodeGraphic.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
@@ -405,38 +424,32 @@ public class NodeDraw implements KeyListener {
           });
 
       nodeGraphic.setOnMouseReleased(
-          new EventHandler<MouseEvent>() {
+          event -> {
+            nmc.getMainGesturePane().setGestureEnabled(true);
+            if (!event.isStillSincePress()) {
+              System.out.println("node dropped");
 
-            @Override
-            public void handle(MouseEvent event) {
-              nmc.getMainGesturePane().setGestureEnabled(true);
-              if (!event.isStillSincePress()) {
-                System.out.println("node dropped");
+              System.out.println((int) selectNodePane.getLayoutX());
+              System.out.println((int) selectNodePane.getLayoutY());
+              Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+              alert.setTitle("Node Drag and Drop");
+              alert.setHeaderText("Would you like to make this change?");
 
-                System.out.println((int) selectNodePane.getLayoutX());
-                System.out.println((int) selectNodePane.getLayoutY());
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Node Drag and Drop");
-                alert.setHeaderText("Would you like to make this change?");
-
-                if (alert.showAndWait().get() == ButtonType.OK) {
-                  int[] revertedCoords =
-                      scaleCoordinatesReversed(
-                          selectNodePane.getLayoutX() + 2.5,
-                          selectNodePane.getLayoutY() + 2.5,
-                          scaleFactor);
-                  selectedNodeEntity.setXcoord(revertedCoords[0]);
-                  selectedNodeEntity.setYcoord(revertedCoords[1]);
-                  FacadeRepository.getInstance()
-                      .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
-                }
-                //                nodeAnchor.getChildren().clear();
-                //                drawEdges(
-                //                    FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
-                //                    scaleFactor,
-                //                    nodeAnchor);
-                drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
+              if (alert.showAndWait().get() == ButtonType.OK) {
+                int[] revertedCoords =
+                    scaleCoordinatesReversed(
+                        selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
+                selectedNodeEntity.setXcoord(revertedCoords[0]);
+                selectedNodeEntity.setYcoord(revertedCoords[1]);
+                FacadeRepository.getInstance()
+                    .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
               }
+              nodeAnchor.getChildren().clear();
+              drawEdges(
+                  FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
+                  scaleFactor,
+                  nodeAnchor);
+              drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
             }
           });
 
@@ -492,7 +505,6 @@ public class NodeDraw implements KeyListener {
       nodeGraphic.setOnMouseClicked(
           event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
-              System.out.println("right clicked");
               NodeEditorEditPopupController.setNode(selectedNodeEntity);
               NodeEditorEditPopupController.setXCord(selectedNodeEntity.getXcoord());
               NodeEditorEditPopupController.setYCord(selectedNodeEntity.getYcoord());
@@ -657,7 +669,38 @@ public class NodeDraw implements KeyListener {
     return null;
   }
 
-  public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, Pane ap) {
+  //public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, Pane ap) {
+  public static void straightenNodesHorizontal() {
+
+    int yAlign = firstNode.getYcoord();
+
+    for (NodeEntity node : selectedNodes) {
+
+      node.setYcoord(yAlign);
+      FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
+
+    }
+    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+
+  }
+
+  public static void straightenNodesVertical() {
+
+    int xAlign = firstNode.getXcoord();
+
+    for (NodeEntity node : selectedNodes) {
+
+      node.setXcoord(xAlign);
+
+      FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
+
+    }
+
+    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+
+  }
+
+  public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, AnchorPane ap) {
     ap.getChildren().clear();
 
     for (EdgeEntity edge : allEdges) {
