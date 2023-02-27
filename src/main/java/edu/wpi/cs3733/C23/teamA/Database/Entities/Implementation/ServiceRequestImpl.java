@@ -377,6 +377,16 @@ public class ServiceRequestImpl extends Observable
     return fin;
   }
 
+  public int countRequests(ServiceRequestEntity.RequestType requestType) {
+    int count = 0;
+    for (ServiceRequestEntity s : services) {
+      if (s.getRequestType().equals(requestType)) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   public static ServiceRequestImpl getInstance() {
     return instance;
   }

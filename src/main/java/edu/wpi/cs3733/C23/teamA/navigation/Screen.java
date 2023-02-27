@@ -3,7 +3,7 @@ package edu.wpi.cs3733.C23.teamA.navigation;
 public enum Screen {
   ROOT("views/Root.fxml"),
   HOME("views/HomeFXML.fxml"),
-  HOME_ACTUAL("views/NewHomeMaintenanceFXML.fxml"),
+  HOME_ACTUAL("views/FinalHomeFXML.fxml"),
   HOME_MAINTENANCE("views/NewHomeMaintenanceFXML.fxml"),
   HOME_ADMIN("views/HomeAdminFXML.fxml"),
   HOME_EMPLOYEE("views/HomeEmployeeFXML.fxml"),
@@ -29,7 +29,8 @@ public enum Screen {
   IMPORT_CSV("views/ImportCSVFXML.fxml"),
   EXPORT_CSV("views/ExportCSVFXML.fxml"),
   KIOSK_SETUP("views/KioskSetupFXML.fxml"),
-  KIOSK("views/KioskFXML.fxml");
+  KIOSK("views/KioskFXML.fxml"),
+  SRCHART("views/SRChartFXML.fxml");
 
   private final String filename;
 

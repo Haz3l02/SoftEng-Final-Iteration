@@ -30,6 +30,14 @@
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
                   </MFXButton>
+                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeEditorScene" prefHeight="50.0" prefWidth="271.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Department Moves" textAlignment="CENTER" textFill="#d3e9f6">
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
                </children>
                <HBox.margin>
                   <Insets />
