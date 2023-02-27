@@ -536,4 +536,8 @@ public class FacadeRepository {
   public int countServiceRequestsByType(ServiceRequestEntity.RequestType s) {
     return serv.countRequests(s);
   }
+
+  public int countServiceRequestsByStatus(Status s) {
+    return serv.countRequestsByStatus(s);
+  }
 }

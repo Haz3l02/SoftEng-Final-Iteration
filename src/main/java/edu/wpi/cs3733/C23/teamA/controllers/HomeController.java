@@ -297,8 +297,11 @@ public class HomeController extends MenuController {
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
 
       label1.setText("Unassigned Requests: " + requests.size());
-      label2.setVisible(false);
-      label3.setVisible(false);
+      label3.setText(
+          "Total Requests: " + FacadeRepository.getInstance().getAllServiceRequest().size());
+      label2.setText(
+          "Assigned Requests: "
+              + (FacadeRepository.getInstance().getAllServiceRequest().size() - requests.size()));
 
       dbTableRowsModel.addAll(requests);
       adminTable.setItems(dbTableRowsModel);
