@@ -156,10 +156,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
           && me.getLocationName().getLongname().equals(m.get(1))
           && me.getMovedate().toString().equals(m.get(2))) {
         li.remove();
-        if (session.find(MoveEntity.class, me) != null) {
-          System.out.println("Exists");
-        }
-        System.out.println("hi");
         session.remove(me);
       }
     }
@@ -415,4 +411,27 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       MoveImpl.getInstance().delete(mov);
     }
   }
+
+
+  public void updateMessage(String message, List<String> m){
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+    for (MoveEntity me : moves){
+      if (me.getNode().getNodeid().equals(m.get(0))
+              && me.getLocationName().getLongname().equals(m.get(1))
+              && me.getMovedate().toString().equals(m.get(2))) {
+        me.setMessage(message);
+        session.persist(me);
+        tx.commit();
+        break;
+      }
+    }
+
+
+    session.close();
+
+
+  }
+
+
 }
