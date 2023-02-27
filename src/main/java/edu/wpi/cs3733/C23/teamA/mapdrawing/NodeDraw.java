@@ -219,13 +219,21 @@ public class NodeDraw {
             nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
             // nmc.setFloorBox(n.getFloor());
             nmc.setBuildingBox(n.getBuilding());
+
+            nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
+
             MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
+
 
             if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
               nmc.setLongNameBox(
                   FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
+
+              nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
+
               nmc.setLocationIDBox(
                   MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
+
               nmc.setShortNameBox(
                   FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
               nmc.setLocTypeBox(
@@ -235,6 +243,27 @@ public class NodeDraw {
               // nmc.setLocButtonVisibility(false);
             } else {
               nmc.setLongNameBox("NO LOCATION ASSIGNED");
+
+              nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
+              // nmc.setLocButtonVisibility(true);
+            }
+
+            // pass in node and location to popup controller
+            MapEditorNodeInfoPopupController.node = selectedNodeEntity;
+            MapEditorNodeInfoPopupController.location =
+                FacadeRepository.getInstance().moveMostRecentLoc(selectedNodeEntity.getNodeid());
+
+            // pop up node info popup
+            try {
+
+              popupNodeInfo(nodeGraphic, event.getSceneX(), event.getSceneY());
+            } catch (IOException e) {
+              throw new RuntimeException(e);
+            }
+
+            if (shiftPressed) {
+              System.out.println("shift pressed");
+
               nmc.setLocationIDBox(
                   MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
               // nmc.setLocButtonVisibility(true);
@@ -259,6 +288,7 @@ public class NodeDraw {
             }
 
             if (shiftPressed) {
+
               if (node1 != null) {
                 // save 2nd node stuff and add edge
                 node2 =
@@ -274,6 +304,22 @@ public class NodeDraw {
                 alert.setHeaderText(
                     "Are you sure you want to create an edge between "
                         + FacadeRepository.getInstance()
+
+                            .getLocation(selectedNodeEntity.getNodeid()));
+                LocationNameEntity locNameEnt =
+                    FacadeRepository.getInstance().getLocation(selectedNodeEntity.getNodeid());
+
+
+                alert.setHeaderText(
+                    "Are you sure you want to create an edge between: ("
+                        + node1.getNodeid()
+                        + ", "
+                        //                          + selectedEdge.getNode1().getYcoord()
+                        + " and ("
+                        + node2.getNodeid()
+                        + ", "
+                        //                          + selectedEdge.getNode2().getYcoord()
+                        +    FacadeRepository.getInstance()
                             .moveMostRecentLoc(node1.getNodeid())
                             .getShortname()
                         + " and "
@@ -441,11 +487,11 @@ public class NodeDraw {
                 FacadeRepository.getInstance()
                     .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
               }
-              //              nodeAnchor.getChildren().clear();
-              //              drawEdges(
-              //                  FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
-              //                  scaleFactor,
-              //                  nodeAnchor);
+              nodeAnchor.getChildren().clear();
+              drawEdges(
+                  FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
+                  scaleFactor,
+                  nodeAnchor);
               drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
             }
           });
@@ -458,6 +504,7 @@ public class NodeDraw {
               NodeEditorEditPopupController.setYCord(selectedNodeEntity.getYcoord());
               NodeEditorEditPopupController.setFloor(selectedNodeEntity.getFloor());
               NodeEditorEditPopupController.setBuilding(selectedNodeEntity.getBuilding());
+
 
               LocationNameEntity loc =
                   FacadeRepository.getInstance().moveMostRecentLoc(selectedNodeEntity.getNodeid());
@@ -524,7 +571,6 @@ public class NodeDraw {
       } else {
         FacadeRepository.getInstance().deleteNode(selectedNodeEntity.getNodeid());
       }
-      selectedNodeEntity = null;
     }
   }
 
@@ -552,7 +598,6 @@ public class NodeDraw {
       selectedLine.setEndX(-100);
       selectedLine.setEndY(-100);
       FacadeRepository.getInstance().deleteEdge(selectedEdge.getEdgeid());
-      selectedEdge = null;
     }
   }
   // end _________________________________________________________________
@@ -642,8 +687,8 @@ public class NodeDraw {
       }
     };
   }
+  // end _________________________________________________________________
 
-  // public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, Pane ap) {
   public static void straightenNodesHorizontal() {
 
     int yAlign = firstNode.getYcoord();
@@ -720,6 +765,7 @@ public class NodeDraw {
             if ((!currentLine.equals(selectedLine))) {
               currentLine.setStroke(Color.web("green"));
               currentLine.setStrokeWidth(2);
+
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
@@ -729,6 +775,7 @@ public class NodeDraw {
             if ((!currentLine.equals(selectedLine))) {
               currentLine.setStroke(Color.web("0x224870"));
               currentLine.setStrokeWidth(1);
+
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);

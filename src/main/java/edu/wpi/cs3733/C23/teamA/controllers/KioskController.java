@@ -25,14 +25,16 @@ public class KioskController {
     rightPane = mainSplitPane.getItems().get(3);
 
     announcement.setText(kiosk.getMessage());
-    left.setText(kiosk.getLeft());
-    right.setText(kiosk.getRight());
 
     if (kiosk.isDirections()) {
       mainSplitPane.getItems().remove(leftPane);
       mainSplitPane.getItems().remove(rightPane);
+      leftD.setText(kiosk.getLeft());
+      rightD.setText(kiosk.getRight());
     } else {
       mainSplitPane.getItems().remove(directionsPane);
+      left.setText(kiosk.getLeft());
+      right.setText(kiosk.getRight());
     }
 
     // TODO Setup the split pane thing and the map

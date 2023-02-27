@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="60.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MenuController">
    <children>
-      <BorderPane prefHeight="60.0" prefWidth="1376.0" style="-fx-background-color: #224870;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="60.0" prefWidth="1376.0" style="-fx-background-color: #022D58;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
             <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="58.0" spacing="30.0" BorderPane.alignment="CENTER">
                <children>
@@ -50,9 +50,9 @@
                      </image>
                   </ImageView>
                   <ComboBox fx:id="serviceRequest" prefHeight="71.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS" />
-                  <MFXButton fx:id="navigation" onAction="#switchToPathfinding" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textFill="#d3e9f6">
+                  <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" onAction="#switchToPathfinding" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textFill="#d3e9f6">
                      <font>
-                        <Font size="27.0" />
+                        <Font name="Verdana" size="27.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="25.0" />
@@ -61,7 +61,7 @@
                   <StackPane>
                      <children>
                         <ComboBox fx:id="admin" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
-                        <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
+                        <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
                            <font>
                               <Font size="27.0" />
                            </font>
