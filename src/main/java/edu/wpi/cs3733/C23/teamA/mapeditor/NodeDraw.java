@@ -120,9 +120,9 @@ public class NodeDraw implements KeyListener {
   public static Text linkLocation(NodeEntity node, double scaleFactor, AnchorPane nodeAnchor) {
     int[] updatedCoords = scaleCoordinates(node.getXcoord(), node.getYcoord(), scaleFactor);
     LocationNameEntity loc = FacadeRepository.getInstance().moveMostRecentLoc(node.getNodeid());
-    if (loc != null) {
+    if (loc != null && !loc.getLocationtype().equals("HALL")) {
       Text locName = new Text();
-      // locName.setVisible(false);
+      locName.setVisible(false);
       locName.rotateProperty().set(45);
       locName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 5));
       locName.setText(loc.getShortname());
@@ -397,14 +397,21 @@ public class NodeDraw implements KeyListener {
               //              System.out.println("Get layout");
               //              System.out.println(selectNodePane.getLayoutX());
               //              System.out.println(selectNodePane.getLayoutY());
+              selectNodePane.setLayoutX(
+                  selectNodePane.getLayoutX()
+                      + mouseEvent.getX()
+                      - selectNodePane.getPrefWidth() / 2.0);
+              selectNodePane.setLayoutY(
+                  selectNodePane.getLayoutY()
+                      + mouseEvent.getY()
+                      - selectNodePane.getPrefHeight() / 2.0);
 
-              selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX() - 2.5);
-              selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY() - 2.5);
               outgoing.forEach(
                   o -> {
                     o.setStartX(selectNodePane.getLayoutX() + mouseEvent.getX());
                     o.setStartY(selectNodePane.getLayoutY() + mouseEvent.getY());
                   });
+
               incoming
                   .get(n.getNodeid())
                   .forEach(
@@ -414,8 +421,14 @@ public class NodeDraw implements KeyListener {
                       });
 
               if (location != null) {
-                location.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX() - 2.5);
-                location.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY() - 2.5);
+                location.setLayoutX(
+                    selectNodePane.getLayoutX()
+                        + mouseEvent.getX()
+                        - selectNodePane.getPrefWidth() / 2.0);
+                location.setLayoutY(
+                    selectNodePane.getLayoutY()
+                        + mouseEvent.getY()
+                        - selectNodePane.getPrefHeight() / 2.0);
               }
 
               //              System.out.println((int) selectNodePane.getLayoutX());
@@ -438,17 +451,19 @@ public class NodeDraw implements KeyListener {
               if (alert.showAndWait().get() == ButtonType.OK) {
                 int[] revertedCoords =
                     scaleCoordinatesReversed(
-                        selectNodePane.getLayoutX(), selectNodePane.getLayoutY(), scaleFactor);
+                        selectNodePane.getLayoutX() + selectNodePane.getPrefWidth() / 2.0,
+                        selectNodePane.getLayoutY() + selectNodePane.getPrefHeight() / 2.0,
+                        scaleFactor);
                 selectedNodeEntity.setXcoord(revertedCoords[0]);
                 selectedNodeEntity.setYcoord(revertedCoords[1]);
                 FacadeRepository.getInstance()
                     .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
               }
-              nodeAnchor.getChildren().clear();
-              drawEdges(
-                  FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
-                  scaleFactor,
-                  nodeAnchor);
+              //              nodeAnchor.getChildren().clear();
+              //              drawEdges(
+              //                  FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
+              //                  scaleFactor,
+              //                  nodeAnchor);
               drawNodes(allNodes, scaleFactor, nodeAnchor, nmc);
             }
           });
@@ -669,7 +684,7 @@ public class NodeDraw implements KeyListener {
     return null;
   }
 
-  //public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, Pane ap) {
+  // public static void drawEdges(List<EdgeEntity> allEdges, double scaleFactor, Pane ap) {
   public static void straightenNodesHorizontal() {
 
     int yAlign = firstNode.getYcoord();
@@ -678,9 +693,8 @@ public class NodeDraw implements KeyListener {
 
       node.setYcoord(yAlign);
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
-
     }
-    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
 
   }
 
@@ -693,10 +707,9 @@ public class NodeDraw implements KeyListener {
       node.setXcoord(xAlign);
 
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
-
     }
 
-    //FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
+    // FacadeRepository.getInstance().exportAlignedToCSV(selectedNodes);
 
   }
 

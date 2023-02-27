@@ -16,7 +16,6 @@ import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,12 +23,10 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
@@ -99,29 +96,29 @@ public class MapEditorController extends MenuController {
     // gc = mainCanvas.getGraphicsContext2D();
 
     mainGesturePane.setOnKeyPressed(
-            event -> {
-              if (event.getCode().equals(KeyCode.BACK_SPACE)
-                  || event.getCode().equals(KeyCode.DELETE)) {
+        event -> {
+          if (event.getCode().equals(KeyCode.BACK_SPACE)
+              || event.getCode().equals(KeyCode.DELETE)) {
 
-                if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
-                  System.out.println("delete edge only");
-                  NodeDraw.delEdge();
-                } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
-                  System.out.println("delete node only");
-                  NodeDraw.delNode();
-                } else {
-                  System.out.println("idk");
-                }
-              }
-              if (event.getCode().equals(KeyCode.X) && event.isControlDown()) {
-                System.out.println("straighten that fucker (horizontally)");
-                NodeDraw.straightenNodesHorizontal();
-              }
-              if (event.getCode().equals(KeyCode.Y) && event.isControlDown()) {
-                System.out.println("straighten that fucker (vertically)");
-                NodeDraw.straightenNodesVertical();
-              }
-            });
+            if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
+              System.out.println("delete edge only");
+              NodeDraw.delEdge();
+            } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
+              System.out.println("delete node only");
+              NodeDraw.delNode();
+            } else {
+              System.out.println("idk");
+            }
+          }
+          if (event.getCode().equals(KeyCode.X) && event.isControlDown()) {
+            System.out.println("straighten that fucker (horizontally)");
+            NodeDraw.straightenNodesHorizontal();
+          }
+          if (event.getCode().equals(KeyCode.Y) && event.isControlDown()) {
+            System.out.println("straighten that fucker (vertically)");
+            NodeDraw.straightenNodesVertical();
+          }
+        });
 
     mainTextPane.setVisible(false);
     initializeFloorMap("L1");
@@ -150,6 +147,7 @@ public class MapEditorController extends MenuController {
   }
 
   public void generateFloor(ActionEvent event) {
+    toggleSwitch.setSelected(false);
     String floor = "L1";
     if (event.getSource().equals(l1Button)) {
       floor = "L1";
