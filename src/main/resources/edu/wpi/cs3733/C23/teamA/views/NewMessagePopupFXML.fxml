@@ -2,72 +2,35 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="475.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NewMessageController">
+<AnchorPane prefHeight="439.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NewMessageController">
     <children>
         <VBox fx:id="fieldBox" prefHeight="567.0" prefWidth="241.0" spacing="10.0" style="-fx-background-color: #bad1ea;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X Coord">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Text>
-                <MFXTextField floatMode="DISABLED" maxWidth="1.7976931348623157E308" fx:id="xCoord">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </MFXTextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y Coord">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient">
                     <font>
                         <Font name="Verdana" size="24.0" />
                     </font>
                 </Text>
-                <MFXTextField fx:id="yCoord" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </MFXTextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building">
+            <MFXComboBox fx:id="recipientBox" prefHeight="42.0" prefWidth="392.0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Message">
                     <font>
                         <Font name="Verdana" size="24.0" />
                     </font>
                 </Text>
-                <MFXComboBox fx:id="BuildingBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </MFXComboBox>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floor">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Text>
-                <MFXComboBox fx:id="FloorBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
-                    <VBox.margin>
-                        <Insets bottom="10.0" />
-                    </VBox.margin>
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </MFXComboBox>
+            <TextArea fx:id="messageBox" prefHeight="356.0" prefWidth="385.0" />
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                     <children>
                         <HBox alignment="CENTER">
                             <children>
-                                <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#sendMessage" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Node" textFill="#224870">
+                                <MFXButton fx:id="sendMessage" buttonType="RAISED" cancelButton="true" onAction="#sendMessage" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Send" textFill="#224870">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
@@ -75,24 +38,15 @@
                                         <Insets right="10.0" />
                                     </HBox.margin>
                                 </MFXButton>
-                            </children>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER">
-                            <children>
                                 <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hidePopup" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
                                 </MFXButton>
                             </children>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
                         </HBox>
                     </children>
                 </VBox>
