@@ -521,7 +521,6 @@ public class FacadeRepository {
     return serv.getRequestAtCoordinate(x, y, floor);
   }
 
-
   public void moveUpdateMessage(String message, List<String> ID) {
     move.updateMessage(message, ID);
   }

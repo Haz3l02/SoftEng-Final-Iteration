@@ -339,8 +339,8 @@ public class MoveController extends MenuController {
         move.setMovedate(clickedDate);
         move.setMessage(moveMessage.getText());
         System.out.println(moveMessage.getText());
-
-        FacadeRepository.getInstance().updateMove(moveID, move);
+        FacadeRepository.getInstance().moveUpdateMessage(moveMessage.getText(), moveID);
+        // FacadeRepository.getInstance().updateMove(moveID, move);
         dbTable.setItems(currentTableData);
         reloadData();
         break;
@@ -373,7 +373,7 @@ public class MoveController extends MenuController {
     if (mainPane.getItems().size() == 1) {
       mainPane.getItems().add(1, allImages);
     }
-    editButton.setVisible(false);
+    editButton.setVisible(true);
 
     MoveEntity clickedMoveTableRow = dbTable.getSelectionModel().getSelectedItem();
 

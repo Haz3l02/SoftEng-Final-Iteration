@@ -441,15 +441,13 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     }
   }
 
-
-
-  public void updateMessage(String message, List<String> m){
+  public void updateMessage(String message, List<String> m) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
-    for (MoveEntity me : moves){
+    for (MoveEntity me : moves) {
       if (me.getNode().getNodeid().equals(m.get(0))
-              && me.getLocationName().getLongname().equals(m.get(1))
-              && me.getMovedate().toString().equals(m.get(2))) {
+          && me.getLocationName().getLongname().equals(m.get(1))
+          && me.getMovedate().toString().equals(m.get(2))) {
         me.setMessage(message);
         session.persist(me);
         tx.commit();
@@ -457,12 +455,8 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       }
     }
 
-
     session.close();
-
-
   }
-
 
   public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date) {
     ArrayList<NodeEntity> fin = new ArrayList<>();
@@ -476,5 +470,4 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     fin.add(nodeOnOrBeforeDate(longName, date).getNode());
     return fin;
   }
-
 }
