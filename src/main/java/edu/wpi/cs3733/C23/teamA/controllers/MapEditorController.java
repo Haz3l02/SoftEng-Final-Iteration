@@ -105,6 +105,9 @@ public class MapEditorController extends MenuController {
   private double mouseDownX;
   private double mouseDownY;
 
+  private double mouseDownReleasedX;
+  private double mouseDownReleasedY;
+
   double mouseXCoord;
   double mouseYCoord;
 
@@ -120,8 +123,8 @@ public class MapEditorController extends MenuController {
     // gc = mainCanvas.getGraphicsContext2D();
     mainSelectPane.getChildren().add(selectionRectangle);
     selectionRectangle.setStroke(Color.BLACK);
-    selectionRectangle.setFill(Color.SEAGREEN);
-    selectionRectangle.setOpacity(0.2);
+    selectionRectangle.setFill(Color.LIGHTBLUE);
+    selectionRectangle.setOpacity(0.35);
     selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
 
     mainGesturePane.setOnKeyPressed(
@@ -255,16 +258,13 @@ public class MapEditorController extends MenuController {
             selectionRectangle.setWidth(Math.abs(e.getX() - mouseDownX));
             selectionRectangle.setY(Math.min(e.getY(), mouseDownY));
             selectionRectangle.setHeight(Math.abs(e.getY() - mouseDownY));
-            System.out.println(
-                "X:"
-                    + (Math.min(e.getX(), mouseDownX))
-                    + "  Y:"
-                    + (Math.min(e.getY(), mouseDownY)));
           }
         });
     mainStackPane.setOnMouseReleased(
         e -> {
           mainGesturePane.setGestureEnabled(true);
+          mouseDownReleasedX = e.getX();
+          mouseDownReleasedY = e.getY();
           if (!e.isStillSincePress()) {
             findNodesInBounds(allNodes);
             selectionRectangle.setVisible(false);
@@ -276,15 +276,24 @@ public class MapEditorController extends MenuController {
     double boxUpperX = mouseDownX + selectionRectangle.getWidth();
     double boxUpperY = mouseDownY + selectionRectangle.getHeight();
     double[] updatedXY = scaleCoordinatesReversed(mouseDownX, mouseDownY, SCALE_FACTOR);
-    double[] updatedXYUpper = scaleCoordinatesReversed(boxUpperX, boxUpperY, SCALE_FACTOR);
+    double[] updatedXYUpper =
+        scaleCoordinatesReversed(mouseDownReleasedX, mouseDownReleasedY, SCALE_FACTOR);
+
+    double maxX = Math.max(updatedXY[0], updatedXYUpper[0]);
+    double minX = Math.min(updatedXY[0], updatedXYUpper[0]);
+
+    double maxY = Math.max(updatedXY[1], updatedXYUpper[1]);
+    double minY = Math.min(updatedXY[1], updatedXYUpper[1]);
+
+    System.out.println("max:" + (maxX) + "  min:" + (minX));
 
     List<NodeEntity> selectedList = new ArrayList<>();
 
     List<Pane> panesOnFloor = NodeDraw.getPaneList();
 
     for (NodeEntity n : allNodes) {
-      if ((updatedXY[0] < n.getXcoord() && updatedXY[1] < n.getYcoord())
-          && (updatedXYUpper[0] > n.getXcoord() && updatedXYUpper[1] > n.getYcoord())) {
+      if ((minX < n.getXcoord() && minY < n.getYcoord())
+          && (maxX > n.getXcoord() && maxY > n.getYcoord())) {
         System.out.println("Added a node");
         selectedList.add(n);
       }
@@ -294,14 +303,9 @@ public class MapEditorController extends MenuController {
 
       double updatedPaneXY[] =
           scaleCoordinatesReversed(p.getLayoutX(), p.getLayoutY(), SCALE_FACTOR);
-      System.out.println("X: " + updatedPaneXY[0] + "Y:" + updatedPaneXY[1]);
-      System.out.println("X: " + p.getLayoutX() + "Y:" + p.getLayoutY());
-      System.out.println("X: " + updatedXY[0] + "Y:" + updatedXY[1]);
+      if ((minX < updatedPaneXY[0] && minY < updatedPaneXY[1])
+          && (maxX > updatedPaneXY[0] && maxY > updatedPaneXY[1])) {
 
-      if ((updatedXY[0] < updatedPaneXY[0] && updatedXY[1] < updatedPaneXY[1])
-          && (updatedXYUpper[0] > updatedPaneXY[0] && updatedXYUpper[1] > updatedPaneXY[1])) {
-
-        System.out.println("change color");
         p.setStyle(
             "-fx-background-color: 'yellow'; "
                 + "-fx-background-radius: 12.5; "
@@ -310,6 +314,36 @@ public class MapEditorController extends MenuController {
                 + "-fx-border-radius: 13.5");
       }
     }
+
+    // if (updatedXY[0] < updatedXYUpper[0]) {
+    //    for (NodeEntity n : allNodes) {
+    //      if ((updatedXY[0] < n.getXcoord() && updatedXY[1] < n.getYcoord())
+    //          && (updatedXYUpper[0] > n.getXcoord() && updatedXYUpper[1] > n.getYcoord())) {
+    //        System.out.println("Added a node");
+    //        selectedList.add(n);
+    //      }
+    //    }
+    //
+    //    for (Pane p : panesOnFloor) {
+    //
+    //      double updatedPaneXY[] =
+    //          scaleCoordinatesReversed(p.getLayoutX(), p.getLayoutY(), SCALE_FACTOR);
+    //      System.out.println("X: " + updatedPaneXY[0] + "Y:" + updatedPaneXY[1]);
+    //      System.out.println("X: " + p.getLayoutX() + "Y:" + p.getLayoutY());
+    //      System.out.println("X: " + updatedXY[0] + "Y:" + updatedXY[1]);
+    //
+    //      if ((updatedXY[0] < updatedPaneXY[0] && updatedXY[1] < updatedPaneXY[1])
+    //          && (updatedXYUpper[0] > updatedPaneXY[0] && updatedXYUpper[1] > updatedPaneXY[1])) {
+    //
+    //        System.out.println("change color");
+    //        p.setStyle(
+    //            "-fx-background-color: 'yellow'; "
+    //                + "-fx-background-radius: 12.5; "
+    //                + "-fx-border-color: '#224870'; "
+    //                + "-fx-border-width: 1;"
+    //                + "-fx-border-radius: 13.5");
+    //      }
+    //    }
 
     for (int i = 0; i < selectedList.size(); i++) {
       System.out.println(selectedList.get(i).getNodeid());
