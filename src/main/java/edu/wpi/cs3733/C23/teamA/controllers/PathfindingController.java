@@ -597,10 +597,6 @@ public class PathfindingController extends MenuController {
   @FXML
   public void directionsToSpeech(ActionEvent event) {
     TextReader tts = new TextReader(pathMapText.getText());
-    if (event.getSource().equals(speakButton)) {
-      tts.readText();
-    } else if (event.getSource().equals(stopSpeakingButton)) {
-      tts.stopText();
-    }
+    tts.readText();
   }
 }
