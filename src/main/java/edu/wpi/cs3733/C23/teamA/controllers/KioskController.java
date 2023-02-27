@@ -48,7 +48,7 @@ public class KioskController {
   @FXML private StackPane stack4;
 
   private Integer[] floors = new Integer[5]; // tells you which anchorPane it is at
-  private AnchorPane[] aps = new AnchorPane[5];
+  private AnchorPane[] aps = new AnchorPane[5]; // diff anchorpanes
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
   private int currentFloor;
 
