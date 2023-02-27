@@ -77,7 +77,9 @@ public class NodeDraw implements KeyListener {
     previousSelectedNode = p;
   }
 
-  public static List<Pane> getPaneList() {return listOfPanes;}
+  public static List<Pane> getPaneList() {
+    return listOfPanes;
+  }
 
   public static void drawLocations(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {

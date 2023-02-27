@@ -12,6 +12,7 @@ import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,7 +80,18 @@ public class NodeEditorPopupController extends NavigationController {
     newNode.setBuilding(BuildingBox.getText());
     newNode.setNodeid(makeNewNodeID(newNode.getFloor(), newNode.getXcoord(), newNode.getYcoord()));
     // Add new Node to database //
-    FacadeRepository.getInstance().addNode(newNode);
+    List<NodeEntity> check = MapEditorController.getAllNodes();
+    boolean noDuplicates = true;
+    for (int i = 0; i < check.size(); i++) {
+      if (newNode.getNodeid().equals(check.get(i).getNodeid())) {
+        noDuplicates = false;
+      }
+    }
+    if (noDuplicates == true) {
+      FacadeRepository.getInstance().addNode(newNode);
+    } else {
+      System.out.println("there is a duplicate");
+    }
 
     // switch box screen
     // createNodeButton.setVisible(false);

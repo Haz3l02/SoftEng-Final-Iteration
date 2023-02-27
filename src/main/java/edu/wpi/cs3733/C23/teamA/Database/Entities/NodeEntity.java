@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.Database.Entities;
 
 import jakarta.persistence.*;
-import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,8 +37,6 @@ public class NodeEntity {
   @Setter
   private String building;
 
-
-
   @Override
   public boolean equals(Object obj) {
     if (obj == null) return false;
@@ -57,8 +54,5 @@ public class NodeEntity {
     this.ycoord = ycoord;
     this.floor = floor;
     this.building = building;
-
   }
-
-
 }
