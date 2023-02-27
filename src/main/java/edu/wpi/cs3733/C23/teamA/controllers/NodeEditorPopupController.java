@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import lombok.Setter;
 
 public class NodeEditorPopupController extends NavigationController {
 
@@ -26,9 +27,9 @@ public class NodeEditorPopupController extends NavigationController {
   private @FXML MFXComboBox<String> BuildingBox;
   @FXML MFXButton createNodeButton;
 
-  public static double mouseX;
-  public static double mouseY;
-  public static String floor;
+  @Setter public static int mouseX;
+  @Setter public static int mouseY;
+  @Setter public static String floor;
 
   public void initialize() {
     populateStuff();
@@ -54,11 +55,10 @@ public class NodeEditorPopupController extends NavigationController {
             Building.FR15.getTableString());
     BuildingBox.setItems(buildings);
 
-    mouseX = Math.round(mouseX);
-    mouseY = Math.round(mouseY);
-    xCoord.setText(String.valueOf(mouseX));
-    yCoord.setText(String.valueOf(mouseY));
-    FloorBox.setValue(floor);
+    // xCoord.setText(String.valueOf(mouseX));
+    // yCoord.setText(String.valueOf(mouseY));
+    FloorBox.selectItem(Floor.extendedStringFromTableString(floor));
+    FloorBox.setText(floor);
   }
 
   @FXML
@@ -104,13 +104,4 @@ public class NodeEditorPopupController extends NavigationController {
 
     Navigation.navigate(Screen.NODE_MAP);
   }
-
-  @FXML
-  public void saveNodeEdit(ActionEvent actionEvent) {}
-
-  @FXML
-  public void editNode(ActionEvent actionEvent) {}
-
-  @FXML
-  public void deleteSelectedNode(ActionEvent actionEvent) {}
 }
