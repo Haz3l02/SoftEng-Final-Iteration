@@ -140,7 +140,7 @@ public class KioskController {
   /**
    * Updates the mapImage asset to contain an image (which is supposed to be a floor map)
    *
-   * @param floor is the table name of the floor
+   * @param floor is the table string of the floor
    */
   private void addFloorMapImage(String floor) {
     mainImageView.setImage(ImageLoader.getImage(floor));
