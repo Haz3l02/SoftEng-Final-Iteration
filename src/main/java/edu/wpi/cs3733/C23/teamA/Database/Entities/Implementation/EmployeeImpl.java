@@ -83,7 +83,19 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     tx.commit();
     employees.add(session.get(EmployeeEntity.class, obj.getEmployeeid()));
     session.close();
-    notifyAllObservers();
+    //    notifyAllObservers();
+    Thread t =
+        new Thread(
+            () -> {
+              SecurityRequestImpl.getInstance().refresh();
+              ServiceRequestImpl.getInstance().refresh();
+              SanitationRequestImpl.getInstance().refresh();
+              PatientTransportimpl.getInstance().refresh();
+              AccessabilityImpl.getInstance().refresh();
+              AudioVisualImpl.getInstance().refresh();
+              ComputerRequestImpl.getInstance().refresh();
+            });
+    t.start();
   }
 
   public ArrayList<String> checkPass(String user, String pass) {

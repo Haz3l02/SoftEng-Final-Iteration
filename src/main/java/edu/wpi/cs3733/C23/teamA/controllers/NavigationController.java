@@ -49,6 +49,11 @@ public abstract class NavigationController {
   }
 
   @FXML
+  public void switchToSRChartScene() {
+    Navigation.navigate(Screen.SRCHART);
+  }
+
+  @FXML
   public void switchToHomeDatabaseScene(javafx.event.ActionEvent event) {
     Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
