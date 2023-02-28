@@ -547,6 +547,10 @@ public class FacadeRepository {
     return serv.getRequestAtCoordinate(x, y, floor);
   }
 
+  public void moveUpdateMessage(String message, List<String> ID) {
+    move.updateMessage(message, ID);
+  }
+
   public ArrayList<String> getAdjacentLocations(String longName) {
     return loc.getAdjacentLocations(longName);
   }

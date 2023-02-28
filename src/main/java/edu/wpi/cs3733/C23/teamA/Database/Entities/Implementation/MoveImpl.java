@@ -156,10 +156,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
           && me.getLocationName().getLongname().equals(m.get(1))
           && me.getMovedate().toString().equals(m.get(2))) {
         li.remove();
-        if (session.find(MoveEntity.class, me) != null) {
-          System.out.println("Exists");
-        }
-        System.out.println("hi");
         session.remove(me);
       }
     }
@@ -384,15 +380,15 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     //    Session session = getSessionFactory().openSession();
     //    Transaction tx = session.beginTransaction();
     //
-    ////    ListIterator<MoveEntity> li = moves.listIterator();
-    ////    while (li.hasNext()) {
-    ////      MoveEntity me = li.next();
-    ////      if (me.getNode().getNodeid().equals(ID.get(0))
-    ////          && me.getLocationName().getLongname().equals(ID.get(1))
-    ////          && me.getMovedate().toString().equals(ID.get(2))) {
-    ////        li.remove();
-    ////      }
-    ////    }
+    //    ListIterator<MoveEntity> li = moves.listIterator();
+    //    while (li.hasNext()) {
+    //      MoveEntity me = li.next();
+    //      if (me.getNode().getNodeid().equals(ID.get(0))
+    //          && me.getLocationName().getLongname().equals(ID.get(1))
+    //          && me.getMovedate().toString().equals(ID.get(2))) {
+    //        li.remove();
+    //      }
+    //    }
     //
     //
     //    session
@@ -466,6 +462,23 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       mov.add(m.getMovedate().toString());
       MoveImpl.getInstance().delete(mov);
     }
+  }
+
+  public void updateMessage(String message, List<String> m) {
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+    for (MoveEntity me : moves) {
+      if (me.getNode().getNodeid().equals(m.get(0))
+          && me.getLocationName().getLongname().equals(m.get(1))
+          && me.getMovedate().toString().equals(m.get(2))) {
+        me.setMessage(message);
+        session.merge(me);
+        tx.commit();
+        break;
+      }
+    }
+
+    session.close();
   }
 
   public ArrayList<MoveEntity> newAndOldMove(String longName, LocalDate date) {
