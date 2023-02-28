@@ -7,7 +7,6 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
-import edu.wpi.cs3733.C23.teamA.pathfinding.PathInterpreter;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
@@ -111,7 +110,12 @@ public class KioskController {
       moveDetails.setText(kiosk.getMoveName() + " is moving on " + end.getFloor() + ".");
     } else {
       moveDetails.setText(
-          kiosk.getMoveName() + " is moving from " + start.getFloor() + " to " + end.getFloor() + ".");
+          kiosk.getMoveName()
+              + " is moving from "
+              + Floor.extendedStringFromTableString(start.getFloor())
+              + " to "
+              + Floor.extendedStringFromTableString(end.getFloor())
+              + ".");
     }
     directions = pathfindingSystem.generatePathString(path, floorPath);
     directionsText.setText(directions);
