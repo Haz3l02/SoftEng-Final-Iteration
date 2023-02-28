@@ -132,8 +132,8 @@ public class KioskSetupController extends MenuController {
         moveReminder.setVisible(false);
         kiosk =
             new Kiosk(
-                moves.get(0).getNode(),
                 moves.get(1).getNode(),
+                moves.get(0).getNode(),
                 left.getText(),
                 right.getText(),
                 directionOnOff.isSelected(),
