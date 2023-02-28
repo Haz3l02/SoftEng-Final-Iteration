@@ -24,6 +24,7 @@ public class FacadeRepository {
   private final ServiceRequestImpl serv = ServiceRequestImpl.getInstance();
   private final AccessabilityImpl acc = AccessabilityImpl.getInstance();
   private final AudioVisualImpl av = AudioVisualImpl.getInstance();
+  private final MessageBoardImpl mess = MessageBoardImpl.getInstance();
 
   // private final Observer nodeObv = new EntityObserver(node); // Notify for edge, move
   private final Observer edgeObv = new EntityObserver(edge);
@@ -37,6 +38,7 @@ public class FacadeRepository {
   private final Observer compObv = new EntityObserver(serv);
   private final Observer accObv = new EntityObserver(acc);
   private final Observer avObv = new EntityObserver(av);
+  private final Observer messObv = new EntityObserver((mess));
 
   private FacadeRepository() {
     loc.attach(servObv);
@@ -57,6 +59,7 @@ public class FacadeRepository {
     emp.attach(avObv);
     node.attach(edgeObv);
     // node.attach(moveObv);
+    mess.attach(messObv);
   }
 
   public static FacadeRepository getInstance() {
@@ -123,6 +126,10 @@ public class FacadeRepository {
     return av.getAll();
   }
 
+  public List<MessageBoardEntity> getAllMessages() {
+    return mess.getAll();
+  }
+
   // ADD METHODS
 
   public void addComputerRequest(ComputerRequestEntity c) {
@@ -173,6 +180,10 @@ public class FacadeRepository {
     acc.add(c);
   }
 
+  public void addMessage(MessageBoardEntity c) {
+    mess.add(c);
+  }
+
   // DELETE METHODS
 
   public void deleteComputerRequest(Integer id) {
@@ -221,6 +232,10 @@ public class FacadeRepository {
 
   public void deleteAudioVisualRequest(Integer id) {
     av.delete(id);
+  }
+
+  public void deleteMessage(List<String> m) {
+    mess.delete(m);
   }
 
   // EXPORT METHODS
@@ -329,6 +344,10 @@ public class FacadeRepository {
     return acc.get(id);
   }
 
+  public MessageBoardEntity getMessage(Integer id) {
+    return mess.get(id);
+  }
+
   // UPDATE METHODS
 
   public void updateComputerRequest(Integer id, ComputerRequestEntity c) {
@@ -377,6 +396,10 @@ public class FacadeRepository {
 
   public void updateAudioVisualRequest(Integer id, AudioVisualRequestEntity c) {
     av.update(id, c);
+  }
+
+  public void updateMessage(MessageBoardEntity obj) {
+    mess.update(obj);
   }
 
   // miscellaneous
@@ -550,5 +573,14 @@ public class FacadeRepository {
 
   public List<EdgeEntity> edgeFromEnd(String id) {
     return edge.edgesFromEnd(id);
+  }
+
+  public ArrayList<MessageBoardEntity> getConversation(
+      EmployeeEntity sender, EmployeeEntity receiver) {
+    return mess.getconversion(sender, receiver);
+  }
+
+  public ArrayList<MessageBoardEntity> getMessageByUser(EmployeeEntity user) {
+    return mess.getMessageByUser(user);
   }
 }

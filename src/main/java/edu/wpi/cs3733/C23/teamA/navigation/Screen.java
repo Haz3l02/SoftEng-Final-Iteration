@@ -30,6 +30,7 @@ public enum Screen {
   EXPORT_CSV("views/ExportCSVFXML.fxml"),
   KIOSK_SETUP("views/KioskSetupFXML.fxml"),
   KIOSK("views/KioskFXML.fxml"),
+  MESSAGE_INBOX("views/MessagesInboxFXML.fxml"),
   SRCHART("views/SRChartFXML.fxml");
 
   private final String filename;

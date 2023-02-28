@@ -445,8 +445,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     }
   }
 
-
-
   public ArrayList<MoveEntity> newAndOldMove(String longName, LocalDate date) {
     ArrayList<MoveEntity> fin = new ArrayList<>();
     fin.add(moveOnOrBeforeDate(longName, date));
