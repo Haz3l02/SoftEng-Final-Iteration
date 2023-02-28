@@ -106,10 +106,10 @@ public class KioskController {
     System.out.println(path.size());
     floorPath = info.getFloorPath();
     if (start.getFloor().equals(end.getFloor())) {
-      moveDetails.setText(kiosk.getMoveName() + " is moving on " + end.getFloor());
+      moveDetails.setText(kiosk.getMoveName() + " is moving on " + end.getFloor() + ".");
     } else {
       moveDetails.setText(
-          kiosk.getMoveName() + " is moving from " + start.getFloor() + " to " + end.getFloor());
+          kiosk.getMoveName() + " is moving from " + start.getFloor() + " to " + end.getFloor() + ".");
     }
     directions = pathfindingSystem.generatePathString(path, floorPath);
     directionsText.setText(directions);
