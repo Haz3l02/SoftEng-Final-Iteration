@@ -98,6 +98,7 @@ public class MapEditorController extends MenuController {
   private static PopOver locationEditorPopup;
   private static PopOver nodeEditorEditPopup;
   private static PopOver locationEditorEditPopup;
+  private static PopOver straightSelectionPopup;
 
   static MapEditorController mapEditor;
 
@@ -144,12 +145,12 @@ public class MapEditorController extends MenuController {
             }
           }
           if (event.getCode().equals(KeyCode.X) && event.isControlDown()) {
-            System.out.println("straighten that fucker (horizontally)");
-            NodeDraw.straightenNodesHorizontal();
+            System.out.println("straighten that  (horizontally)");
+            // NodeDraw.straightenNodesHorizontal();
           }
           if (event.getCode().equals(KeyCode.Y) && event.isControlDown()) {
-            System.out.println("straighten that fucker (vertically)");
-            NodeDraw.straightenNodesVertical();
+            System.out.println("straighten that  (vertically)");
+            // NodeDraw.straightenNodesVertical();
           }
         });
 
@@ -276,12 +277,33 @@ public class MapEditorController extends MenuController {
         });
     mainStackPane.setOnMouseReleased(
         e -> {
-          mainGesturePane.setGestureEnabled(true);
-          mouseDownReleasedX = e.getX();
-          mouseDownReleasedY = e.getY();
-          if (!e.isStillSincePress()) {
-            findNodesInBounds(allNodes);
-            selectionRectangle.setVisible(false);
+          if (e.isAltDown()) {
+            mainGesturePane.setGestureEnabled(true);
+            mouseDownReleasedX = e.getX();
+            mouseDownReleasedY = e.getY();
+            if (NodeDraw.getSelected() != null) {
+              NodeEntity referenceNode = NodeDraw.getSelected();
+              List<NodeEntity> selectedNodeList = findNodesInBounds(allNodes);
+              StraightConfirmPopupController.setReferenceNode(referenceNode);
+              StraightConfirmPopupController.setNodeList(selectedNodeList);
+              StraightConfirmPopupController.setAllNodes(allNodes);
+              StraightConfirmPopupController.setSCALE_FACTOR(SCALE_FACTOR);
+              StraightConfirmPopupController.setMainAnchorPane(mainAnchorPane);
+              StraightConfirmPopupController.setMEC(this);
+              StraightConfirmPopupController.setAllEdges(allEdges);
+              try {
+                popUpStraight();
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
+            } else {
+              System.out.println("Node not selected!!");
+            }
+
+            if (!e.isStillSincePress()) {
+
+              selectionRectangle.setVisible(false);
+            }
           }
         });
 
@@ -328,6 +350,11 @@ public class MapEditorController extends MenuController {
 
     double maxY = Math.max(updatedXY[1], updatedXYUpper[1]);
     double minY = Math.min(updatedXY[1], updatedXYUpper[1]);
+
+    mouseDownX = 0;
+    mouseDownY = 0;
+    mouseDownReleasedY = 0;
+    mouseDownReleasedX = 0;
 
     System.out.println("max:" + (maxX) + "  min:" + (minX));
 
@@ -455,6 +482,8 @@ public class MapEditorController extends MenuController {
       nodeEditorEditPopup.hide();
     } else if (Objects.equals(type, "location edit")) {
       locationEditorEditPopup.hide();
+    } else if (Objects.equals(type, "straightening")) {
+      straightSelectionPopup.hide();
     }
 
     // draw node on map using database //
@@ -680,6 +709,14 @@ public class MapEditorController extends MenuController {
       locationEditorEditPopup.setAnchorX(mouseXCoord);
       locationEditorEditPopup.setAnchorY(mouseYCoord);
     }
+  }
+
+  public void popUpStraight() throws IOException {
+    FXMLLoader locationLoader =
+        new FXMLLoader(Main.class.getResource("views/StraightConfirmFXML.fxml"));
+
+    straightSelectionPopup = new PopOver(locationLoader.load());
+    straightSelectionPopup.show((mainAnchorPane.getScene().getWindow()));
   }
 
   public static void hideLastNode(NodeEntity newNode) {

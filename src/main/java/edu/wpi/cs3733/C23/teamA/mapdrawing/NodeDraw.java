@@ -434,7 +434,6 @@ public class NodeDraw {
                   selectNodePane.getLayoutY()
                       + mouseEvent.getY()
                       - selectNodePane.getPrefHeight() / 2.0);
-              selectNodePane.toFront();
 
               // Outgoing edges adjust start points
               outgoing.forEach(
@@ -453,6 +452,7 @@ public class NodeDraw {
                           o.setEndY(selectNodePane.getLayoutY() + mouseEvent.getY());
                         });
               }
+              selectNodePane.toFront();
 
               if (location != null) {
                 location.setLayoutX(
@@ -486,6 +486,29 @@ public class NodeDraw {
                 selectedNodeEntity.setYcoord((int) Math.round(revertedCoords[1]));
                 FacadeRepository.getInstance()
                     .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
+              } else {
+                // Keep node following mouse movement
+                selectNodePane.setLayoutX(updatedCoords[0] - selectNodePane.getPrefWidth() / 2.0);
+                selectNodePane.setLayoutY(updatedCoords[1] - selectNodePane.getPrefHeight() / 2.0);
+                selectNodePane.toFront();
+
+                // Outgoing edges adjust start points
+                outgoing.forEach(
+                    o -> {
+                      o.setStartX(updatedCoords[0]);
+                      o.setStartY(updatedCoords[1]);
+                    });
+
+                // Incoming edges adjust end points
+                if (incoming.get(n.getNodeid()) != null) {
+                  incoming
+                      .get(n.getNodeid())
+                      .forEach(
+                          o -> {
+                            o.setEndX(updatedCoords[0]);
+                            o.setEndY(updatedCoords[1]);
+                          });
+                }
               }
               // nodeAnchor.getChildren().clear();
               /*drawEdges(
@@ -535,6 +558,7 @@ public class NodeDraw {
        */
 
       nodeAnchor.getChildren().add(nodeGraphic);
+      nodeGraphic.toFront();
     }
   }
 
@@ -652,6 +676,7 @@ public class NodeDraw {
               if ((!currentLine.equals(selectedLine))) {
                 currentLine.setStroke(Color.web("green"));
                 currentLine.setStrokeWidth(2);
+
                 System.out.println("Hovering");
               }
             }
@@ -691,22 +716,22 @@ public class NodeDraw {
 
   // end _________________________________________________________________
 
-  public static void straightenNodesHorizontal() {
+  public static void straightenNodesHorizontal(NodeEntity n, List<NodeEntity> l) {
 
-    int yAlign = firstNode.getYcoord();
+    int yAlign = n.getYcoord();
 
-    for (NodeEntity node : selectedNodes) {
+    for (NodeEntity node : l) {
 
       node.setYcoord(yAlign);
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
     }
   }
 
-  public static void straightenNodesVertical() {
+  public static void straightenNodesVertical(NodeEntity n, List<NodeEntity> l) {
 
-    int xAlign = firstNode.getXcoord();
+    int xAlign = n.getXcoord();
 
-    for (NodeEntity node : selectedNodes) {
+    for (NodeEntity node : l) {
 
       node.setXcoord(xAlign);
 
