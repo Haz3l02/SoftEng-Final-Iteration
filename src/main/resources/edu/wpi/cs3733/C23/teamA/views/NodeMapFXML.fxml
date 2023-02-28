@@ -4,6 +4,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.SplitPane?>
@@ -20,6 +21,9 @@
 <?import net.kurobako.gesturefx.GesturePane?>
 
 <SplitPane dividerPositions="0.3" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NodeMapController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <items>
       <BorderPane prefHeight="200.0" prefWidth="99.0" style="-fx-background-color: #d3e9f6;">
          <top>
@@ -33,7 +37,7 @@
                         <Insets bottom="10.0" left="10.0" top="10.0" />
                      </VBox.margin>
                      <children>
-                        <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#transitionToNewNodeBox" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="New Node" textFill="#d3e9f6">
+                        <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#transitionToNewNodeBox" prefHeight="51.0" prefWidth="157.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="blue" text="New Node" textFill="#d3e9f6">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -48,36 +52,36 @@
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin>
                      <tabs>
-                        <Tab fx:id="nodeEditorTab" closable="false" text="Node Editor">
+                        <Tab fx:id="nodeEditorTab" closable="false" styleClass="tableText" text="Node Editor">
                            <content>
                               <VBox fx:id="fieldBox" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X Coord">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="X Coord">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
                                     </Text>
-                                    <MFXTextField fx:id="XCord" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                    <MFXTextField fx:id="XCord" floatMode="DISABLED" maxWidth="1.7976931348623157E308" styleClass="textBox">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </MFXTextField>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y Coord">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Y Coord">
                                        <font>
                                           <Font name="Verdana" size="24.0" />
                                        </font>
                                     </Text>
-                                    <MFXTextField fx:id="YCord" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                    <MFXTextField fx:id="YCord" floatMode="DISABLED" maxWidth="1.7976931348623157E308" styleClass="textBox">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </MFXTextField>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Building">
                                        <font>
                                           <Font name="Verdana" size="24.0" />
                                        </font>
                                     </Text>
-                                    <MFXComboBox fx:id="BuildingBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                    <MFXComboBox fx:id="BuildingBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" styleClass="dropDowns">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -85,12 +89,12 @@
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                        </padding>
                                     </MFXComboBox>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floor">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Floor">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
                                     </Text>
-                                    <MFXComboBox fx:id="FloorBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308">
+                                    <MFXComboBox fx:id="FloorBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" styleClass="dropDowns">
                                        <VBox.margin>
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
@@ -108,7 +112,7 @@
                               </VBox>
                            </content>
                         </Tab>
-                        <Tab fx:id="addEdgeTab" closable="false" text="Add Edge">
+                        <Tab fx:id="addEdgeTab" closable="false" styleClass="tableText" text="Add Edge">
                            <content>
                               <VBox fx:id="fieldBox1" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
                                  <children>
@@ -146,7 +150,7 @@
                               </VBox>
                            </content>
                         </Tab>
-                        <Tab fx:id="addLocationTab" closable="false" text="Add Location">
+                        <Tab fx:id="addLocationTab" closable="false" styleClass="tableText" text="Add Location">
                            <content>
                               <VBox fx:id="fieldBox11" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
                                  <children>
@@ -194,7 +198,7 @@
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#createNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Node" textFill="#224870">
+                        <MFXButton fx:id="createNodeButton" buttonType="RAISED" cancelButton="true" onAction="#createNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="yellow" text="Create Node" textFill="#224870">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -202,7 +206,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </MFXButton>
-                        <MFXButton fx:id="saveButton" buttonType="RAISED" cancelButton="true" onAction="#saveNodeEdit" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Save Node" textFill="#224870">
+                        <MFXButton fx:id="saveButton" buttonType="RAISED" cancelButton="true" onAction="#saveNodeEdit" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="yellow" text="Save Node" textFill="#224870">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -214,7 +218,7 @@
                   </HBox>
                   <HBox alignment="CENTER">
                      <children>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#editNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Edit Node" textFill="#d3e9f6">
+                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#editNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="blue" text="Edit Node" textFill="#d3e9f6">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -222,7 +226,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </MFXButton>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: #cf2121;" text="Delete Node" textFill="#bad1ea">
+                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#deleteSelectedNode" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="red" text="Delete Node" textFill="#bad1ea">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -234,7 +238,7 @@
                   </HBox>
                   <HBox alignment="CENTER">
                      <children>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#switchToNodeScene" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6">
+                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#switchToNodeScene" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" styleClass="blue-Button" text="Back" textFill="#d3e9f6">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -255,7 +259,7 @@
                   <Insets left="20.0" />
                </VBox.margin>
                <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map Editor" wrappingWidth="278.1484375">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="SR-Heading" text="Map Editor" wrappingWidth="278.1484375">
                      <font>
                         <Font name="Verdana" size="36.0" />
                      </font>
@@ -265,27 +269,27 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MFXButton fx:id="l1Button" onAction="#generateFloor" text="Level 1">
+                  <MFXButton fx:id="l1Button" onAction="#generateFloor" styleClass="tableText" text="Level 1">
                      <HBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton fx:id="l2Button" onAction="#generateFloor" text="Level 2">
+                  <MFXButton fx:id="l2Button" onAction="#generateFloor" styleClass="tableText" text="Level 2">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton fx:id="f1Button" onAction="#generateFloor" text="Floor 1">
+                  <MFXButton fx:id="f1Button" onAction="#generateFloor" styleClass="tableText" text="Floor 1">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton fx:id="f2Button" onAction="#generateFloor" text="Floor 2">
+                  <MFXButton fx:id="f2Button" onAction="#generateFloor" styleClass="tableText" text="Floor 2">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton fx:id="f3Button" onAction="#generateFloor" text="Floor 3">
+                  <MFXButton fx:id="f3Button" onAction="#generateFloor" styleClass="tableText" text="Floor 3">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
@@ -325,7 +329,7 @@
                   </Text>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#showLocations" prefHeight="51.0" prefWidth="224.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Show Locations" textFill="#d3e9f6">
+                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#showLocations" prefHeight="51.0" prefWidth="224.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="blue" text="Show Locations" textFill="#d3e9f6">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -333,7 +337,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </MFXButton>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hideLocations" prefHeight="51.0" prefWidth="224.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Hide Locations" textFill="#d3e9f6">
+                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hideLocations" prefHeight="51.0" prefWidth="224.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="blue" text="Hide Locations" textFill="#d3e9f6">
                            <font>
                               <Font size="24.0" />
                            </font>

@@ -24,6 +24,18 @@
     -fx-button-type: RAISED;
 }
 
+.blue{
+    -fx-background-color: #224870;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
+    -fx-text-fill: #d3e9f6;
+    -fx-font-family: Verdana;
+    -fx-rippler-fill: #c0cced;
+    -fx-text-alignment: CENTER;
+    -fx-button-type: RAISED;
+}
+
 /* Submit button */
 .yellow-Button{
     -fx-background-color: #f1a94f;
@@ -35,6 +47,17 @@
     -fx-font-family: Verdana;
     -fx-pref-height: 50;
     -fx-pref-width: 130;
+    -fx-rippler-fill: #c0cced;
+    -fx-text-alignment: CENTER;
+    -fx-button-type: RAISED;
+}
+.yellow{
+    -fx-background-color: #f1a94f;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
+    -fx-text-fill: #122C34;
+    -fx-font-family: Verdana;
     -fx-rippler-fill: #c0cced;
     -fx-text-alignment: CENTER;
     -fx-button-type: RAISED;
@@ -56,6 +79,18 @@
     -fx-button-type: RAISED;
 }
 
+.red{
+    -fx-background-color: #f63c3c;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
+    -fx-text-fill: #122C34;
+    -fx-font-family: Verdana;
+    -fx-rippler-fill: #c0cced;
+    -fx-text-alignment: CENTER;
+    -fx-button-type: RAISED;
+}
+
 /* MFXFilterComboBox */
 .dropDowns{
     -fx-border-width: 1 1 1 1;
@@ -64,6 +99,21 @@
     -fx-font-family: Verdana;
     -fx-pref-width: 300;
     -fx-pref-height: 40;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
+}
+
+.dropDowns2{
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #122c34;
+    -fx-font-size: 14px;
+    -fx-font-family: Verdana;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
 }
 
 /* MFXTextField */
@@ -74,6 +124,21 @@
     -fx-font-family: Verdana;
     -fx-pref-width: 300;
     -fx-pref-height: 40;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
+}
+
+.textBox2{
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #122c34;
+    -fx-font-size: 14px;
+    -fx-font-family: Verdana;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
 }
 
 /* Labels or Text */
@@ -93,6 +158,21 @@
     -fx-font-family: Verdana;
     -fx-pref-width: 300;
     -fx-pref-height: 150;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
+}
+
+.decBox2{
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #122c34;
+    -fx-font-size: 14px;
+    -fx-font-family: Verdana;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 15;
+    -fx-border-color: #122c34;
+    -fx-border-radius: 15;
 }
 
 /* Reminder text */
@@ -130,4 +210,9 @@
     -fx-scale-x: 1.2;
 }
 
+.tableText{
+    -fx-font-size: 16px;
+    -fx-font-family: Verdana;
+    -fx-text-fill: #122c34;
+}
 

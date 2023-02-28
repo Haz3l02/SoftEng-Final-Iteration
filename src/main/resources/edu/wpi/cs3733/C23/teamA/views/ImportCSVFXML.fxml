@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -11,12 +12,15 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.ImportCSVController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <bottom>
       <HBox alignment="CENTER" prefHeight="88.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="818.0">
                <children>
-                  <MFXButton fx:id="reset" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                  <MFXButton fx:id="reset" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -36,7 +40,7 @@
                <children>
                   <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #122c34; -fx-border-width: 2 2 2 2;">
                      <children>
-                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a file!" textAlignment="CENTER">
+                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Please select a file!" textAlignment="CENTER">
                            <font>
                               <Font name="Verdana" size="25.0" />
                            </font>
@@ -46,7 +50,7 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </StackPane>
-                  <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancel" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                  <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancel" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="30.0" />
                      </HBox.margin>
@@ -54,7 +58,7 @@
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#importCSV" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Import" textFill="#224870">
+                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#importCSV" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="yellow-Button" text="Import" textFill="#224870">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -80,7 +84,7 @@
       </HBox>
    </bottom>
    <top>
-      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="600.0" style="-fx-background-color: #f6bd3a; -fx-border-color: #122c34; -fx-border-width: 0 0 10 0;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="600.0" style="-fx-background-color: #f1a94f; -fx-border-color: #122c34; -fx-border-width: 0 0 10 0;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
@@ -107,7 +111,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="159.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Select File" textAlignment="CENTER" textFill="#224870">
+                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="166.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select File" textAlignment="CENTER" textFill="#224870">
                      <font>
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>

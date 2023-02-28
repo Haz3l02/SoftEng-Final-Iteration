@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -19,6 +20,9 @@
 <?import net.kurobako.gesturefx.GesturePane?>
 
 <BorderPane prefHeight="776.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <center>
       <AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="CENTER">
          <children>
@@ -30,13 +34,13 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="69.0" prefWidth="1025.0" style="-fx-background-color: #022D58; -fx-border-color: #022D58; -fx-border-radius: 0 0 0 2;" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <ComboBox fx:id="serviceRequest" prefHeight="71.0" prefWidth="354.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS" />
-                                    <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" onAction="#switchToPathfinding" prefHeight="67.0" prefWidth="201.0" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textAlignment="CENTER" textFill="#d3e9f6" HBox.hgrow="ALWAYS">
+                                    <ComboBox fx:id="serviceRequest" prefHeight="71.0" prefWidth="354.0" promptText="Service Request Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS" />
+                                    <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" onAction="#switchToPathfinding" prefHeight="67.0" prefWidth="201.0" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textAlignment="CENTER" textFill="#d3e9f6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Verdana" size="27.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#switchToMessages" prefHeight="67.0" prefWidth="203.0" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="Messages" textAlignment="CENTER" textFill="#d3e9f6" wrapText="true">
+                                    <MFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#switchToMessages" prefHeight="67.0" prefWidth="203.0" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="Messages" textAlignment="CENTER" textFill="#d3e9f6" wrapText="true">
                                        <font>
                                           <Font name="Verdana" size="27.0" />
                                        </font>
@@ -93,9 +97,9 @@
                                                       </TableView>
                                                       <TableView fx:id="employeeTable" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="182.0" prefWidth="499.0">
                                                          <columns>
-                                                            <TableColumn fx:id="locationCol2" prefWidth="455.0" text="Department" />
-                                                            <TableColumn fx:id="node1Col" prefWidth="199.0" text="Location 1" />
-                                                            <TableColumn fx:id="node2Col" prefWidth="199.0" text="Location  2" />
+                                                            <TableColumn fx:id="locationCol2" prefWidth="455.0" styleClass="tableText" text="Department" />
+                                                            <TableColumn fx:id="node1Col" prefWidth="199.0" styleClass="tableText" text="Location 1" />
+                                                            <TableColumn fx:id="node2Col" prefWidth="199.0" styleClass="tableText" text="Location  2" />
                                                          </columns>
                                                          <columnResizePolicy>
                                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -118,7 +122,7 @@
                                              <children>
                                                 <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="234.0" style="-fx-background-color: #F1A94F; -fx-background-radius: 15; -fx-border-radius: 15;">
                                                    <children>
-                                                      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-border-radius: 15;">
+                                                      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="yellow">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
                                                                <font>
@@ -254,7 +258,7 @@
                         <Insets left="25.0" right="25.0" />
                      </VBox.margin>
                   </TextArea>
-                  <MFXButton fx:id="adminAnnouncementButton" buttonType="RAISED" onAction="#submitAnnouncement" prefHeight="51.0" prefWidth="119.0" rippleColor="#c0cced" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-border-radius: 15;" text="Submit">
+                  <MFXButton fx:id="adminAnnouncementButton" buttonType="RAISED" onAction="#submitAnnouncement" prefHeight="51.0" prefWidth="119.0" rippleColor="#c0cced" styleClass="yellow-Button" text="Submit">
                      <font>
                         <Font name="Verdana" size="24.0" />
                      </font>
@@ -265,7 +269,7 @@
                <children>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="46.0" prefWidth="316.0" spacing="20.0">
                      <children>
-                        <ImageView fx:id="about" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="about" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="Hover">
                            <image>
                               <Image url="@../assets/icons/about_blue.png" />
                            </image>
@@ -273,12 +277,12 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <ImageView fx:id="credits" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="credits" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="Hover">
                            <image>
                               <Image url="@../assets/icons/credits_blue.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="exit" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="exit" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="Hover">
                            <image>
                               <Image url="@../assets/icons/exit_blue.png" />
                            </image>

@@ -5,6 +5,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.ContextMenu?>
@@ -22,6 +23,9 @@
 <?import net.kurobako.gesturefx.GesturePane?>
 
 <SplitPane dividerPositions="0.2" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MapEditorController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <items>
       <VBox style="-fx-background-color: #d3e9f6;" SplitPane.resizableWithParent="false">
          <children>
@@ -39,7 +43,7 @@
                                     <Font size="24.0" />
                                  </font>
                               </Text>
-                              <MFXTextField fx:id="XCord" floatMode="DISABLED" prefHeight="40.0" prefWidth="250.0">
+                              <MFXTextField fx:id="XCord" floatMode="DISABLED" minHeight="-Infinity" prefHeight="40.0" prefWidth="250.0" styleClass="textBox">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -49,7 +53,7 @@
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXTextField fx:id="YCord" floatMode="DISABLED" prefHeight="40.0" prefWidth="250.0">
+                              <MFXTextField fx:id="YCord" floatMode="DISABLED" minHeight="-Infinity" prefHeight="40.0" prefWidth="231.0" styleClass="textBox">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -59,7 +63,7 @@
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXComboBox fx:id="BuildingBox" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="250.0">
+                              <MFXComboBox fx:id="BuildingBox" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="250.0" styleClass="dropDowns">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -72,7 +76,7 @@
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXComboBox fx:id="FloorBox" floatMode="DISABLED" minHeight="-Infinity" prefHeight="40.0" prefWidth="250.0">
+                              <MFXComboBox fx:id="FloorBox" floatMode="DISABLED" minHeight="-Infinity" prefHeight="40.0" prefWidth="250.0" styleClass="dropDowns">
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
@@ -94,18 +98,18 @@
                      <content>
                         <VBox fx:id="fieldBox1" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node 1">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Node 1">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Text>
-                              <MFXTextField fx:id="node1Box" maxWidth="1.7976931348623157E308" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node 2">
+                              <MFXTextField fx:id="node1Box" minHeight="-Infinity" prefHeight="40.0" styleClass="textBox" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Node 2">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXTextField fx:id="node2Box" maxWidth="1.7976931348623157E308" />
+                              <MFXTextField fx:id="node2Box" minHeight="-Infinity" prefHeight="40.0" styleClass="textBox" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -117,30 +121,30 @@
                      <content>
                         <VBox fx:id="fieldBox11" prefHeight="200.0" prefWidth="177.0" spacing="10.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 20;">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Long Name">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXFilterComboBox fx:id="longNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="369.0" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Short Name">
+                              <MFXFilterComboBox fx:id="longNameBox" floatMode="DISABLED" minHeight="-Infinity" prefHeight="40.0" prefWidth="369.0" styleClass="dropDowns" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Short Name">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXTextField fx:id="shortNameBox" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Type">
+                              <MFXTextField fx:id="shortNameBox" floatMode="ABOVE" minHeight="-Infinity" prefHeight="40.0" prefWidth="369.0" styleClass="textBox" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Location Type">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXTextField fx:id="locTypeBox" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node ID">
+                              <MFXTextField fx:id="locTypeBox" disable="true" floatMode="ABOVE" minHeight="-Infinity" prefHeight="40.0" prefWidth="369.0" styleClass="textBox" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Node ID">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXTextField fx:id="locationIDBox" disable="true" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
+                              <MFXTextField fx:id="locationIDBox" disable="true" floatMode="ABOVE" minHeight="-Infinity" prefHeight="40.0" prefWidth="369.0" styleClass="textBox" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -162,7 +166,7 @@
                   <Insets left="20.0" />
                </VBox.margin>
                <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map Editor" wrappingWidth="278.1484375">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="SR-Heading" text="Map Editor" wrappingWidth="278.1484375">
                      <font>
                         <Font name="Verdana" size="36.0" />
                      </font>
@@ -172,27 +176,27 @@
             </HBox>
             <HBox prefWidth="200.0">
                <children>
-                  <MFXButton fx:id="l2Button" onAction="#generateFloor" text="Lower Level 2">
+                  <MFXButton fx:id="l2Button" onAction="#generateFloor" styleClass="tableText" text="Lower Level 2">
                      <HBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton fx:id="l1Button" onAction="#generateFloor" text="Lower Level 1">
+                  <MFXButton fx:id="l1Button" onAction="#generateFloor" styleClass="tableText" text="Lower Level 1">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton fx:id="f1Button" onAction="#generateFloor" text="Floor 1">
+                  <MFXButton fx:id="f1Button" onAction="#generateFloor" styleClass="tableText" text="Floor 1">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton fx:id="f2Button" onAction="#generateFloor" text="Floor 2">
+                  <MFXButton fx:id="f2Button" onAction="#generateFloor" styleClass="tableText" text="Floor 2">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton fx:id="f3Button" onAction="#generateFloor" text="Floor 3">
+                  <MFXButton fx:id="f3Button" onAction="#generateFloor" styleClass="tableText" text="Floor 3">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
@@ -226,7 +230,7 @@
                         <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                      </children>
                   </StackPane>
-                  <GesturePane fx:id="mainGesturePane" prefHeight="510.0" prefWidth="750.0">
+                  <GesturePane fx:id="mainGesturePane" prefHeight="510.0" prefWidth="750.0" style="-fx-background-radius: 15;">
                      <contextMenu>
                         <ContextMenu fx:id="contextMenu" opacity="0.77">
                           <items>
