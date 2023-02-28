@@ -153,4 +153,9 @@ public abstract class NavigationController {
     stop = true;
     Navigation.navigate(Screen.PATHFINDING);
   }
+
+  @FXML
+  public void switchToMessages() {
+    Navigation.navigate(Screen.MESSAGE_INBOX);
+  }
 }

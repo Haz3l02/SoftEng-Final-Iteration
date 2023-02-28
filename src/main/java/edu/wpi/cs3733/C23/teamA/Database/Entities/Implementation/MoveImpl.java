@@ -156,10 +156,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
           && me.getLocationName().getLongname().equals(m.get(1))
           && me.getMovedate().toString().equals(m.get(2))) {
         li.remove();
-        if (session.find(MoveEntity.class, me) != null) {
-          System.out.println("Exists");
-        }
-        System.out.println("hi");
         session.remove(me);
       }
     }
@@ -268,27 +264,50 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
    */
 
   public List<MoveEntity> allMostRecent(LocalDate date) {
-    List<MoveEntity> m = new ArrayList<>();
-    List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
-    for (LocationNameEntity loc : locations) {
-      try {
-        m.add(locationRecord(loc.getLongname(), date).get(0));
-      } catch (Exception e) {
-      }
-    }
-    return m;
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    Query q =
+        session.createQuery(
+            "select mov from MoveEntity mov where mov.movedate <= '"
+                + date
+                + "' group by mov.locationName, mov.node, mov.movedate order by mov.node.nodeid, mov.movedate desc",
+            MoveEntity.class);
+    List<MoveEntity> records = q.getResultList();
+    System.out.println(records.size());
+    session.close();
+    return uniqueNode(records);
   }
 
   public List<MoveEntity> allMostRecentFloor(LocalDate date, String floor) {
-    List<MoveEntity> m = new ArrayList<>();
-    List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
-    for (LocationNameEntity loc : locations) {
-      try {
-        m.add(locationRecordFloor(loc.getLongname(), date, floor).get(0));
-      } catch (Exception e) {
-      }
-    }
-    return m;
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    Query q =
+        session.createQuery(
+            "select mov from MoveEntity mov where mov.node.floor = '"
+                + floor
+                + "' and mov.movedate <= '"
+                + date
+                + "' group by mov.locationName, mov.node, mov.movedate order by mov.node.nodeid, mov.movedate desc",
+            MoveEntity.class);
+    List<MoveEntity> records = q.getResultList().stream().toList();
+    System.out.println(records.size());
+    return uniqueNode(records);
+  }
+
+  private List<MoveEntity> uniqueNode(List<MoveEntity> m) {
+    List<String> match =
+        m.stream().map(moveEntity -> moveEntity.getNode().getNodeid()).distinct().toList();
+    List<MoveEntity> uniqueByNode = new ArrayList<>();
+    match.forEach(
+        matching ->
+            uniqueByNode.add(
+                m.stream()
+                    .filter(record -> record.getNode().getNodeid() == matching)
+                    .findFirst()
+                    .orElseThrow()));
+    return uniqueByNode;
   }
 
   public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
@@ -310,7 +329,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return mov;
   }
 
-  public MoveEntity nodeOnOrBeforeDate(String id, LocalDate date) {
+  public MoveEntity moveOnOrBeforeDate(String id, LocalDate date) {
     MoveEntity mov = new MoveEntity();
     List<MoveEntity> ids =
         moves.stream()
@@ -361,15 +380,15 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     //    Session session = getSessionFactory().openSession();
     //    Transaction tx = session.beginTransaction();
     //
-    ////    ListIterator<MoveEntity> li = moves.listIterator();
-    ////    while (li.hasNext()) {
-    ////      MoveEntity me = li.next();
-    ////      if (me.getNode().getNodeid().equals(ID.get(0))
-    ////          && me.getLocationName().getLongname().equals(ID.get(1))
-    ////          && me.getMovedate().toString().equals(ID.get(2))) {
-    ////        li.remove();
-    ////      }
-    ////    }
+    //    ListIterator<MoveEntity> li = moves.listIterator();
+    //    while (li.hasNext()) {
+    //      MoveEntity me = li.next();
+    //      if (me.getNode().getNodeid().equals(ID.get(0))
+    //          && me.getLocationName().getLongname().equals(ID.get(1))
+    //          && me.getMovedate().toString().equals(ID.get(2))) {
+    //        li.remove();
+    //      }
+    //    }
     //
     //
     //    session
@@ -445,16 +464,35 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     }
   }
 
-  public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date) {
-    ArrayList<NodeEntity> fin = new ArrayList<>();
-    for (MoveEntity m : moves) {
-      if (m.getLocationName().getLongname().equals(longName) && m.getMovedate().equals(date)) {
-        fin.add(m.getNode());
+  public void updateMessage(String message, List<String> m) {
+    Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
+    for (MoveEntity me : moves) {
+      if (me.getNode().getNodeid().equals(m.get(0))
+          && me.getLocationName().getLongname().equals(m.get(1))
+          && me.getMovedate().toString().equals(m.get(2))) {
+        me.setMessage(message);
+        session.merge(me);
+        tx.commit();
+        break;
       }
     }
 
-    date.minusDays(1);
-    fin.add(nodeOnOrBeforeDate(longName, date).getNode());
+    session.close();
+  }
+
+  public ArrayList<MoveEntity> newAndOldMove(String longName, LocalDate date) {
+    ArrayList<MoveEntity> fin = new ArrayList<>();
+    fin.add(moveOnOrBeforeDate(longName, date));
+
+    if (fin.get(0).getMovedate() == null) {
+      return fin;
+    } else {
+      date = fin.get(0).getMovedate().minusDays(1);
+
+      fin.add(moveOnOrBeforeDate(longName, date));
+    }
+
     return fin;
   }
 }

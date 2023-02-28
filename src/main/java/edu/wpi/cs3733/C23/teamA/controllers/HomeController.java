@@ -37,6 +37,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
 
 public class HomeController extends MenuController {
@@ -55,11 +56,12 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> nameCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
-  @FXML public StackPane mapImage;
-  @FXML public ImageView findAPath;
+  public ImageView findAPath = new ImageView("edu/wpi/cs3733/C23/teamA/assets/find_a_path.png");
+  public ImageView mapImage = new ImageView("edu/wpi/cs3733/C23/teamA/assets/another_map.png");
   @FXML public ImageView about;
   @FXML public ImageView credits;
   @FXML public ImageView exit;
+  public StackPane stackPane = new StackPane();
   @FXML public Label label1, label2, label3;
   private final Image creditsYellow =
       new Image(AApp.class.getResourceAsStream("assets/icons/credits_yellow.png"));
@@ -82,6 +84,7 @@ public class HomeController extends MenuController {
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
   @FXML private MFXButton myAssignments;
+  @FXML private GesturePane mapPane;
   private static PopOver popup;
 
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
@@ -171,15 +174,24 @@ public class HomeController extends MenuController {
                   break;
               }
             });
-    mapImage.setOnMouseClicked(
+    stackPane.getChildren().add(mapImage);
+    stackPane.getChildren().add(findAPath);
+    findAPath.setVisible(false);
+    mapPane.setContent(stackPane);
+    mapImage.fitHeightProperty().bind(mapPane.heightProperty());
+    mapImage.setPreserveRatio(true);
+    findAPath.fitHeightProperty().bind(mapPane.heightProperty());
+    findAPath.setPreserveRatio(true);
+
+    stackPane.setOnMouseClicked(
         (MouseEvent e) -> {
           switchToPathfinding();
         });
-    mapImage.setOnMouseEntered(
+    stackPane.setOnMouseEntered(
         (MouseEvent e) -> {
           findAPath.setVisible(true);
         });
-    mapImage.setOnMouseExited(
+    stackPane.setOnMouseExited(
         (MouseEvent e) -> {
           findAPath.setVisible(false);
         });
@@ -297,8 +309,11 @@ public class HomeController extends MenuController {
       requests = FacadeRepository.getInstance().getServiceRequestByUnassigned();
 
       label1.setText("Unassigned Requests: " + requests.size());
-      label2.setVisible(false);
-      label3.setVisible(false);
+      label3.setText(
+          "Total Requests: " + FacadeRepository.getInstance().getAllServiceRequest().size());
+      label2.setText(
+          "Assigned Requests: "
+              + (FacadeRepository.getInstance().getAllServiceRequest().size() - requests.size()));
 
       dbTableRowsModel.addAll(requests);
       adminTable.setItems(dbTableRowsModel);
@@ -307,21 +322,7 @@ public class HomeController extends MenuController {
       myAssignments.setVisible(false); // It is automatically not visible redundent
       admin.setDisable(false); // Redundent its never going to be disabled
       admin.setVisible(true);
-      // NOT IN MAIN FOR SOME REASON NOT SURE IF WE WANT TO KEEP
-      //      List<EmployeeEntity> maintenanceEmployees =
-      //          FacadeRepository.getInstance().getEmployeeByJob("maintenance");
-      //      List<MaintenanceAssignedAccepted> maa = new ArrayList<MaintenanceAssignedAccepted>();
-      //      for (EmployeeEntity employee : maintenanceEmployees) {
-      //        maa.add(new MaintenanceAssignedAccepted(employee.getName(),
-      // employee.getEmployeeid()));
-      //      }
-      //      System.out.println(maa.size());
-      //      dbTableRowsModel2.addAll(maa);
-      //      for (int i = 0; i < maa.size(); i++) {
-      //        System.out.println(maa.get(i).getName());
-      //      }
-      //      System.out.println(dbTableRowsModel2.size());
-      //      employeeTable.setItems(dbTableRowsModel2);
+
       admin
           .getItems()
           .addAll(

@@ -15,33 +15,6 @@
 
 <BorderPane styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.LoginController">
    <left>
-      <VBox prefHeight="500.0" prefWidth="360.0" BorderPane.alignment="CENTER">
-         <children>
-            <StackPane opacity="0.85" prefHeight="97.0" prefWidth="389.0" style="-fx-background-color: #f6bd3a; -fx-background-radius: 15;">
-               <children>
-                  <ImageView fitHeight="72.0" fitWidth="387.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/LogoCropped.png" />
-                     </image>
-                     <StackPane.margin>
-                        <Insets left="5.0" right="10.0" />
-                     </StackPane.margin>
-                  </ImageView>
-               </children>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets left="20.0" right="10.0" top="20.0" />
-               </VBox.margin>
-            </StackPane>
-         </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <right>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <right>
             <VBox alignment="CENTER" prefHeight="451.0" prefWidth="362.0" style="-fx-background-color: #022D58;" BorderPane.alignment="CENTER">
@@ -50,9 +23,9 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="314.0" prefWidth="364.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello!">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
                                  <font>
-                                    <Font name="Verdana" size="48.0" />
+                                    <Font name="Verdana" size="40.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets bottom="15.0" />
@@ -107,11 +80,11 @@
             </VBox>
          </right>
          <top>
-            <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="431.0" style="-fx-background-color: #022D58;" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="431.0" style="-fx-background-color: #022D58;" BorderPane.alignment="CENTER">
                <children>
                   <MFXButton cancelButton="true" onAction="#logout" prefHeight="27.0" prefWidth="56.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-border-radius: 15;" text="Exit">
                      <HBox.margin>
-                        <Insets right="10.0" />
+                        <Insets left="10.0" />
                      </HBox.margin>
                      <font>
                         <Font name="Verdana" size="13.0" />
@@ -121,5 +94,32 @@
             </HBox>
          </top>
       </BorderPane>
+   </left>
+   <right>
+      <VBox prefHeight="500.0" prefWidth="360.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane opacity="0.85" prefHeight="97.0" prefWidth="389.0" style="-fx-background-color: #f6bd3a; -fx-background-radius: 15;">
+               <children>
+                  <ImageView fitHeight="72.0" fitWidth="387.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/LogoCropped.png" />
+                     </image>
+                     <StackPane.margin>
+                        <Insets left="5.0" right="10.0" />
+                     </StackPane.margin>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets left="20.0" right="10.0" top="20.0" />
+               </VBox.margin>
+            </StackPane>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
    </right>
 </BorderPane>

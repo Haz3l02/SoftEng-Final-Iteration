@@ -285,19 +285,27 @@ public class ServiceRequestImpl extends Observable
 
     for (ServiceRequestEntity ser : services) {
       if (Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
+                      + Timestamp.from(Instant.now()).toLocalDateTime().getYear() * 365
                       - ser.getDate().toLocalDateTime().getDayOfYear()
+                      + ser.getDate().toLocalDateTime().getYear() * 365
                   > 1
               && ser.getUrgency() == UrgencyLevel.EXTREMELY
           || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
+                      + Timestamp.from(Instant.now()).toLocalDateTime().getYear() * 365
                       - ser.getDate().toLocalDateTime().getDayOfYear()
+                      + ser.getDate().toLocalDateTime().getYear() * 365
                   > 3
               && ser.getUrgency() == UrgencyLevel.HIGH
           || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
+                      + Timestamp.from(Instant.now()).toLocalDateTime().getYear() * 365
                       - ser.getDate().toLocalDateTime().getDayOfYear()
+                      + ser.getDate().toLocalDateTime().getYear() * 365
                   > 5
               && ser.getUrgency() == UrgencyLevel.MEDIUM
           || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
+                      + Timestamp.from(Instant.now()).toLocalDateTime().getYear() * 365
                       - ser.getDate().toLocalDateTime().getDayOfYear()
+                      + ser.getDate().toLocalDateTime().getYear() * 365
                   > 8
               && ser.getUrgency() == UrgencyLevel.LOW) {
         fin.add(ser);
@@ -312,23 +320,31 @@ public class ServiceRequestImpl extends Observable
 
     for (ServiceRequestEntity ser : services) {
       if (ser.getEmployeeAssigned() != null) {
-        if (Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
+        if ((Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
+                        + Timestamp.from(Instant.now()).toLocalDateTime().getYear() * 365
                         - ser.getDate().toLocalDateTime().getDayOfYear()
-                    > 1
+                        + ser.getDate().toLocalDateTime().getYear() * 365
+                    > 1)
                 && ser.getUrgency() == UrgencyLevel.EXTREMELY
                 && ser.getEmployeeAssigned().getUsername().equals(user)
             || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
+                        + Timestamp.from(Instant.now()).toLocalDateTime().getYear() * 365
                         - ser.getDate().toLocalDateTime().getDayOfYear()
+                        + ser.getDate().toLocalDateTime().getYear() * 365
                     > 3
                 && ser.getUrgency() == UrgencyLevel.HIGH
                 && ser.getEmployeeAssigned().getUsername().equals(user)
             || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
+                        + Timestamp.from(Instant.now()).toLocalDateTime().getYear() * 365
                         - ser.getDate().toLocalDateTime().getDayOfYear()
+                        + ser.getDate().toLocalDateTime().getYear() * 365
                     > 5
                 && ser.getUrgency() == UrgencyLevel.MEDIUM
                 && ser.getEmployeeAssigned().getUsername().equals(user)
             || Timestamp.from(Instant.now()).toLocalDateTime().getDayOfYear()
+                        + Timestamp.from(Instant.now()).toLocalDateTime().getYear() * 365
                         - ser.getDate().toLocalDateTime().getDayOfYear()
+                        + ser.getDate().toLocalDateTime().getYear() * 365
                     > 8
                 && ser.getUrgency() == UrgencyLevel.LOW
                 && ser.getEmployeeAssigned().getUsername().equals(user)) {
@@ -381,6 +397,16 @@ public class ServiceRequestImpl extends Observable
     int count = 0;
     for (ServiceRequestEntity s : services) {
       if (s.getRequestType().equals(requestType)) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  public int countRequestsByStatus(Status status) {
+    int count = 0;
+    for (ServiceRequestEntity s : services) {
+      if (s.getStatus().equals(status)) {
         count++;
       }
     }
