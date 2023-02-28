@@ -806,6 +806,7 @@ public class NodeDraw {
       currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
 
       ap.getChildren().add(currentLine);
+      currentLine.toBack();
     }
   }
 }
