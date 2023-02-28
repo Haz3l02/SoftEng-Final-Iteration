@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import static edu.wpi.cs3733.C23.teamA.controllers.NodeEditorPopupController.floor;
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
@@ -44,6 +45,7 @@ public class MapEditorController extends MenuController {
   @FXML ImageView mainImageView = new ImageView();
   @FXML @Getter GesturePane mainGesturePane = new GesturePane();
   @FXML AnchorPane mainAnchorPane = new AnchorPane();
+  @FXML AnchorPane mainSelectPane = new AnchorPane();
   @FXML AnchorPane edgeAnchorPane = new AnchorPane();
   @FXML StackPane mainStackPane = new StackPane();
   @FXML AnchorPane mainTextPane = new AnchorPane();
@@ -96,11 +98,24 @@ public class MapEditorController extends MenuController {
   private static PopOver locationEditorPopup;
   private static PopOver nodeEditorEditPopup;
   private static PopOver locationEditorEditPopup;
+  private static PopOver straightSelectionPopup;
 
   static MapEditorController mapEditor;
 
-  public static double mouseXCoord;
-  public static double mouseYCoord;
+  static List<NodeEntity> Nodes = new ArrayList<>();
+
+  private double mouseDownX;
+  private double mouseDownY;
+
+  private double mouseDownReleasedX;
+  private double mouseDownReleasedY;
+
+  double mouseXCoord;
+  double mouseYCoord;
+
+  public static List<NodeEntity> getAllNodes() {
+    return Nodes;
+  }
 
   /** Starting method called when screen is opened: Draws nodes and edges for floor L1 */
   public void initialize() {
@@ -108,6 +123,11 @@ public class MapEditorController extends MenuController {
     // createNodeButton.setVisible(false);
     // saveButton.setVisible(false);
     // gc = mainCanvas.getGraphicsContext2D();
+    mainSelectPane.getChildren().add(selectionRectangle);
+    selectionRectangle.setStroke(Color.BLACK);
+    selectionRectangle.setFill(Color.LIGHTBLUE);
+    selectionRectangle.setOpacity(0.35);
+    selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
 
     mainGesturePane.setOnKeyPressed(
         event -> {
@@ -125,25 +145,12 @@ public class MapEditorController extends MenuController {
             }
           }
           if (event.getCode().equals(KeyCode.X) && event.isControlDown()) {
-            System.out.println("straighten that fucker (horizontally)");
-            NodeDraw.straightenNodesHorizontal();
+            System.out.println("straighten that  (horizontally)");
+            // NodeDraw.straightenNodesHorizontal();
           }
           if (event.getCode().equals(KeyCode.Y) && event.isControlDown()) {
-            System.out.println("straighten that fucker (vertically)");
-            NodeDraw.straightenNodesVertical();
-          }
-        });
-
-    mainGesturePane.setOnMouseDragged(
-        event -> {
-          if (event.isAltDown()) {
-            System.out.println("Control click is pressed");
-            mainGesturePane.setGestureEnabled(false);
-            selectionRectangle.setStroke(Color.BLACK);
-            selectionRectangle.setFill(Color.TRANSPARENT);
-            selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
-
-            mainAnchorPane.getChildren().add(selectionRectangle);
+            System.out.println("straighten that  (vertically)");
+            // NodeDraw.straightenNodesVertical();
           }
         });
 
@@ -192,6 +199,7 @@ public class MapEditorController extends MenuController {
         });
 
     mainAnchorPane.setPickOnBounds(false);
+    mainSelectPane.setPickOnBounds(false);
   }
 
   public void generateFloor(ActionEvent event) {
@@ -220,12 +228,199 @@ public class MapEditorController extends MenuController {
     NodeDraw.setSelectedPane(null);
     List<NodeEntity> allNodes = FacadeRepository.getInstance().getNodesOnFloor(floor);
     List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(floor);
+    Nodes = allNodes;
     Image image = ImageLoader.getImage(floor);
 
     mainImageView.setImage(image);
     // NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
     // NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);
+
+    //  public void addLocation(ActionEvent event) {
+    //    //    this.locNameEntity.setLongname("Freddy Fazbears Pizzarea 2 ");
+    //    //    locNameEntity.setShortname("FNAF");
+    //    //    locNameEntity.setLocationtype("LABS");
+    //
+    //    NodeEntity selected = NodeDraw2.getSelected();
+    //    FacadeRepository.getInstance().newLocationOnNode(selected.getNodeid(), locNameEntity);
+    //    // longNameBox.setText();
+    //    System.out.println("done");
+    //    initialize();
+    //  }
+
+    mainStackPane.setOnMousePressed(
+        e -> {
+          if (e.isAltDown()) {
+            System.out.println("init rect");
+            selectionRectangle.setVisible(true);
+            mainGesturePane.setGestureEnabled(false);
+
+            mouseDownX = e.getX();
+            mouseDownY = e.getY();
+            System.out.println("X:" + mouseDownX + "  Y:" + mouseDownY);
+            selectionRectangle.setX(mouseDownX);
+            selectionRectangle.setY(mouseDownY);
+            selectionRectangle.setWidth(0);
+            selectionRectangle.setHeight(0);
+          }
+        });
+
+    mainStackPane.setOnMouseDragged(
+        e -> {
+          if (e.isAltDown()) {
+
+            selectionRectangle.setX(Math.min(e.getX(), mouseDownX));
+            selectionRectangle.setWidth(Math.abs(e.getX() - mouseDownX));
+            selectionRectangle.setY(Math.min(e.getY(), mouseDownY));
+            selectionRectangle.setHeight(Math.abs(e.getY() - mouseDownY));
+          }
+        });
+    mainStackPane.setOnMouseReleased(
+        e -> {
+          if (e.isAltDown()) {
+            mainGesturePane.setGestureEnabled(true);
+            mouseDownReleasedX = e.getX();
+            mouseDownReleasedY = e.getY();
+            if (NodeDraw.getSelected() != null) {
+              NodeEntity referenceNode = NodeDraw.getSelected();
+              List<NodeEntity> selectedNodeList = findNodesInBounds(allNodes);
+              StraightConfirmPopupController.setReferenceNode(referenceNode);
+              StraightConfirmPopupController.setNodeList(selectedNodeList);
+              StraightConfirmPopupController.setAllNodes(allNodes);
+              StraightConfirmPopupController.setSCALE_FACTOR(SCALE_FACTOR);
+              StraightConfirmPopupController.setMainAnchorPane(mainAnchorPane);
+              StraightConfirmPopupController.setMEC(this);
+              StraightConfirmPopupController.setAllEdges(allEdges);
+              try {
+                popUpStraight();
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
+            } else {
+              System.out.println("Node not selected!!");
+            }
+
+            if (!e.isStillSincePress()) {
+
+              selectionRectangle.setVisible(false);
+            }
+          }
+        });
+
+    //  /**
+    //   * Method to delete the node that is selected by the user Deletes from database and from the
+    // nodes
+    //   * on the map
+    //   *
+    //   * @param event
+    //   * @throws IOException
+    //   */
+    //  public void deleteSelectedNode(ActionEvent event) throws IOException {
+    //    NodeEntity currentNode = NodeDraw.getSelected();
+    //    Pane currentNodePane = NodeDraw.getSelectedPane();
+    //    String id = currentNode.getNodeid();
+    //    String currentFloor = currentNode.getFloor();
+    //    // Database //
+    //    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
+    //    // FacadeRepository.getInstance().deleteNode(id); // delete from database
+    //
+    //    // Redraw map using database //
+    //    // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
+    //
+    //    // Redraw Map not using database //
+    //    currentNodePane.setVisible(false); // delete node from map view
+    //    List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
+    //    if (Floor.indexFromTableString(currentFloor) != -1) {
+    //      // NodeDraw.drawEdges(
+    //      // allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
+    //    }
+    //    NodeEditorPopupController.setFloor(floor);
+    //  }
+  }
+
+  public List<NodeEntity> findNodesInBounds(List<NodeEntity> allNodes) {
+    double boxUpperX = mouseDownX + selectionRectangle.getWidth();
+    double boxUpperY = mouseDownY + selectionRectangle.getHeight();
+    double[] updatedXY = scaleCoordinatesReversed(mouseDownX, mouseDownY, SCALE_FACTOR);
+    double[] updatedXYUpper =
+        scaleCoordinatesReversed(mouseDownReleasedX, mouseDownReleasedY, SCALE_FACTOR);
+
+    double maxX = Math.max(updatedXY[0], updatedXYUpper[0]);
+    double minX = Math.min(updatedXY[0], updatedXYUpper[0]);
+
+    double maxY = Math.max(updatedXY[1], updatedXYUpper[1]);
+    double minY = Math.min(updatedXY[1], updatedXYUpper[1]);
+
+    mouseDownX = 0;
+    mouseDownY = 0;
+    mouseDownReleasedY = 0;
+    mouseDownReleasedX = 0;
+
+    System.out.println("max:" + (maxX) + "  min:" + (minX));
+
+    List<NodeEntity> selectedList = new ArrayList<>();
+
+    List<Pane> panesOnFloor = NodeDraw.getPaneList();
+
+    for (NodeEntity n : allNodes) {
+      if ((minX < n.getXcoord() && minY < n.getYcoord())
+          && (maxX > n.getXcoord() && maxY > n.getYcoord())) {
+        System.out.println("Added a node");
+        selectedList.add(n);
+      }
+    }
+
+    for (Pane p : panesOnFloor) {
+
+      double updatedPaneXY[] =
+          scaleCoordinatesReversed(p.getLayoutX(), p.getLayoutY(), SCALE_FACTOR);
+      if ((minX < updatedPaneXY[0] && minY < updatedPaneXY[1])
+          && (maxX > updatedPaneXY[0] && maxY > updatedPaneXY[1])) {
+
+        p.setStyle(
+            "-fx-background-color: 'yellow'; "
+                + "-fx-background-radius: 12.5; "
+                + "-fx-border-color: '#224870'; "
+                + "-fx-border-width: 1;"
+                + "-fx-border-radius: 13.5");
+      }
+    }
+
+    // if (updatedXY[0] < updatedXYUpper[0]) {
+    //    for (NodeEntity n : allNodes) {
+    //      if ((updatedXY[0] < n.getXcoord() && updatedXY[1] < n.getYcoord())
+    //          && (updatedXYUpper[0] > n.getXcoord() && updatedXYUpper[1] > n.getYcoord())) {
+    //        System.out.println("Added a node");
+    //        selectedList.add(n);
+    //      }
+    //    }
+    //
+    //    for (Pane p : panesOnFloor) {
+    //
+    //      double updatedPaneXY[] =
+    //          scaleCoordinatesReversed(p.getLayoutX(), p.getLayoutY(), SCALE_FACTOR);
+    //      System.out.println("X: " + updatedPaneXY[0] + "Y:" + updatedPaneXY[1]);
+    //      System.out.println("X: " + p.getLayoutX() + "Y:" + p.getLayoutY());
+    //      System.out.println("X: " + updatedXY[0] + "Y:" + updatedXY[1]);
+    //
+    //      if ((updatedXY[0] < updatedPaneXY[0] && updatedXY[1] < updatedPaneXY[1])
+    //          && (updatedXYUpper[0] > updatedPaneXY[0] && updatedXYUpper[1] > updatedPaneXY[1])) {
+    //
+    //        System.out.println("change color");
+    //        p.setStyle(
+    //            "-fx-background-color: 'yellow'; "
+    //                + "-fx-background-radius: 12.5; "
+    //                + "-fx-border-color: '#224870'; "
+    //                + "-fx-border-width: 1;"
+    //                + "-fx-border-radius: 13.5");
+    //      }
+    //    }
+
+    for (int i = 0; i < selectedList.size(); i++) {
+      System.out.println(selectedList.get(i).getNodeid());
+    }
+
+    return selectedList;
   }
 
   //  public void addLocation(ActionEvent event) {
@@ -240,34 +435,8 @@ public class MapEditorController extends MenuController {
   //    initialize();
   //  }
 
-  /**
-   * Method to delete the node that is selected by the user Deletes from database and from the nodes
-   * on the map
-   *
-   * @param event
-   * @throws IOException
-   */
-  public void deleteSelectedNode(ActionEvent event) throws IOException {
-    NodeEntity currentNode = NodeDraw.getSelected();
-    Pane currentNodePane = NodeDraw.getSelectedPane();
-    String id = currentNode.getNodeid();
-    String currentFloor = currentNode.getFloor();
-    // Database //
-    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
-    // FacadeRepository.getInstance().deleteNode(id); // delete from database
-
-    // Redraw map using database //
-    // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
-
-    // Redraw Map not using database //
-    currentNodePane.setVisible(false); // delete node from map view
-    List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
-    if (Floor.indexFromTableString(currentFloor) != -1) {
-      // NodeDraw.drawEdges(
-      // allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
-    }
-    NodeEditorPopupController.setFloor(floor);
-  }
+  //    NodeEditorPopupController.setFloor(floor);
+  //  }
 
   public void goToNewNodeScene(ActionEvent event) {
     XCord.clear();
@@ -313,6 +482,8 @@ public class MapEditorController extends MenuController {
       nodeEditorEditPopup.hide();
     } else if (Objects.equals(type, "location edit")) {
       locationEditorEditPopup.hide();
+    } else if (Objects.equals(type, "straightening")) {
+      straightSelectionPopup.hide();
     }
 
     // draw node on map using database //
@@ -538,6 +709,14 @@ public class MapEditorController extends MenuController {
       locationEditorEditPopup.setAnchorX(mouseXCoord);
       locationEditorEditPopup.setAnchorY(mouseYCoord);
     }
+  }
+
+  public void popUpStraight() throws IOException {
+    FXMLLoader locationLoader =
+        new FXMLLoader(Main.class.getResource("views/StraightConfirmFXML.fxml"));
+
+    straightSelectionPopup = new PopOver(locationLoader.load());
+    straightSelectionPopup.show((mainAnchorPane.getScene().getWindow()));
   }
 
   public static void hideLastNode(NodeEntity newNode) {
