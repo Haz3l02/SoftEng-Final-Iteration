@@ -186,4 +186,89 @@ public class PathInterpreter {
      direction = "(\u2190) " + "Turn left ";
     */
   }
+
+  /**
+   * Creates a string representation of the path specified by the parameter path. Shows each node
+   * with their ID and long name. Implies that the path being given is not null or empty.
+   *
+   * @param path An ArrayList which represents a path from the node in index zero to the node in the
+   *     last index
+   */
+  public static String generatePathStringShort(
+      ArrayList<GraphNode> path, ArrayList<String> floorPath) {
+    // get the first and last node names to print
+    String startName = path.get(0).getLongName();
+    String endName = path.get(path.size() - 1).getLongName();
+
+    // make a stringBuilder object to get a giant string
+    StringBuilder sb = new StringBuilder();
+
+    // sb.append("Path from " + startName + " to " + endName + ":\n\n");
+    int numNodes = path.size();
+    int numFloors = floorPath.size();
+
+    // floor order
+    //    StringBuilder[] directions = new StringBuilder[floorPath.size()];
+
+    sb.append("(Floor Order: ");
+    for (int i = 0; i < numFloors; i++) {
+      sb.append(floorPath.get(i));
+      if (i != numFloors - 1) {
+        sb.append(" \u2192 ");
+      } else if (i == numFloors - 1) {
+        sb.append(")\n\n");
+      }
+    }
+
+    // variables
+    String longName;
+    String prevFloor;
+    String currentFloor;
+
+    // add the start to the sb
+    prevFloor = path.get(0).getFloor();
+    sb.append("(Floor " + prevFloor + ")\n");
+    sb.append("Start at " + path.get(0).getLongName() + ".\n");
+
+    // loop through all of them to print the full path
+    boolean lastWasStraight = false;
+    String lastDirectionStraight = "";
+
+    for (int i = 1; i < numNodes; i++) {
+      longName = path.get(i).getLongName();
+      currentFloor = path.get(i).getFloor();
+
+      if (!currentFloor.equals(prevFloor)) {
+        sb.append("\n(Floor " + currentFloor + ")\n");
+        prevFloor = currentFloor;
+        lastWasStraight = false;
+        lastDirectionStraight = "";
+      }
+
+      if (longName != null) {}
+
+      if (i == 1) {
+        sb.append("Go toward " + longName + ".\n");
+      } else {
+        String direction = getDirection(path.get(i - 2), path.get(i - 1), path.get(i));
+        if (direction.contains("Continue straight")) {
+          lastWasStraight = true;
+          lastDirectionStraight = direction;
+        } else {
+          if (lastWasStraight) {
+            sb.append(lastDirectionStraight);
+            lastDirectionStraight = "";
+            lastWasStraight = false;
+          }
+          sb.append(direction); // append if not straight ahead
+        }
+      }
+    }
+
+    // add the end to sb
+    sb.append("(\u274C) " + "You have reached " + endName + ".\n");
+
+    // return the built string
+    return sb.toString();
+  }
 }
