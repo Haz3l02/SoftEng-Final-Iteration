@@ -5,6 +5,7 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.MessageBoardEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -28,6 +29,8 @@ public class MessagingController extends NavigationController {
   @FXML TableColumn<MessageBoardEntity, String> titleCol;
 
   @FXML MFXButton newMessageButton;
+  @FXML MFXButton editMessageButton;
+  @FXML MFXButton deleteMessageButton;
   @FXML AnchorPane anchorPane;
 
   static PopOver newMessagePopup;
@@ -57,6 +60,7 @@ public class MessagingController extends NavigationController {
     titleCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
      */
+    // ObservableList<MessageBoardEntity> allMsgsToYou = FXCollections.observableArrayList();
 
     messageCol.setCellValueFactory(
         param -> new SimpleStringProperty(param.getValue().getMessage()));
@@ -66,6 +70,8 @@ public class MessagingController extends NavigationController {
     timeSentCol.setCellValueFactory(
         param -> new SimpleStringProperty(param.getValue().getTimeSent().toString()));
 
+    //
+    // messageBoardModel.setAll(FacadeRepository.getInstance().getMessageByUser(FacadeRepository.getInstance().getEmployee(IdNumberHolder.getInstance().getEmployeeID())));
     messageBoardModel.setAll(FacadeRepository.getInstance().getAllMessages());
     messagesTable.setItems(messageBoardModel);
   }
@@ -78,7 +84,9 @@ public class MessagingController extends NavigationController {
   }
 
   @FXML
-  public void refreshTable(ActionEvent event) {}
+  public void refreshTable(ActionEvent event) {
+    initialize();
+  }
 
   @FXML
   public void popupNewMessage(ActionEvent event) throws IOException {
@@ -91,15 +99,15 @@ public class MessagingController extends NavigationController {
 
     newMessagePopup.setAnchorX(mouseX);
     newMessagePopup.setAnchorY(mouseY);
-
-    // NewMessageController.employee =  // get employee from somewhere
-
   }
 
   @FXML
   public void rowClicked(MouseEvent mouseEvent) {
 
     selectedMessage = messagesTable.getSelectionModel().getSelectedItem();
+
+    deleteMessageButton.setDisable(false);
+    editMessageButton.setDisable(false);
   }
 
   public static void hidePopup() {
@@ -109,12 +117,23 @@ public class MessagingController extends NavigationController {
 
   @FXML
   public void deleteMessage(ActionEvent event) {
+    // sender, receiver, time sent
+    List<String> msg = new ArrayList<>();
+    msg.add(selectedMessage.getSender().getUsername());
+    msg.add(selectedMessage.getReceiver().getUsername());
+    msg.add(selectedMessage.getTimeSent().toString());
 
     if (selectedMessage != null) {
-      FacadeRepository.getInstance().deleteMessage((List<String>) selectedMessage);
+      FacadeRepository.getInstance().deleteMessage(msg);
     }
+
+    deleteMessageButton.setDisable(true);
+    initialize();
   }
 
   @FXML
-  public void editMessage(ActionEvent even) {}
+  public void editMessage(ActionEvent event) {
+
+    FacadeRepository.getInstance().updateMessage(selectedMessage);
+  }
 }

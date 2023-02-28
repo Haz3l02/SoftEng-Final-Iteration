@@ -25,15 +25,8 @@ public class NewMessageController {
   public void initialize() {
     employee =
         FacadeRepository.getInstance().getEmployee(IdNumberHolder.getInstance().getEmployeeID());
-    // employee = FacadeRepository.getInstance().getEmployeeByUser("admin");
-    /*
-    FacadeRepository.getInstance()
-        .addMessage(
-            new MessageBoardEntity(
-                employee, employee, "AAA", "aaa", new Timestamp(System.currentTimeMillis())));
 
-     */
-
+    // populating dropdown
     ObservableList<String> employees = FXCollections.observableArrayList();
 
     for (EmployeeEntity ee :
@@ -66,6 +59,10 @@ public class NewMessageController {
             + ", "
             + new Timestamp(System.currentTimeMillis()));
 
+    System.out.println(employee == null);
+    System.out.println(
+        FacadeRepository.getInstance().getEmployeeByUser(recipientBox.getSelectedItem()) == null);
+
     FacadeRepository.getInstance()
         .addMessage(
             new MessageBoardEntity(
@@ -75,5 +72,7 @@ public class NewMessageController {
                 titleBox.getText(),
                 messageBox.getText(),
                 new Timestamp(System.currentTimeMillis())));
+
+    MessagingController.hidePopup();
   }
 }

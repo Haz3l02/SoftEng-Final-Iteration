@@ -53,8 +53,18 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0" spacing="10.0">
                             <children>
+                        <MFXButton id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="55.0" prefWidth="207.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Back to Home" textFill="#d3e9f6">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton id="cancelButton" fx:id="deleteMessageButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#deleteMessage" prefHeight="55.0" prefWidth="226.0" rippleColor="#c0cced" style="-fx-background-color: #f63c3c; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Delete Message" textFill="#d3e9f6">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
                                 <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
-                                <MFXButton id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="55.0" prefWidth="207.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Back to Home" textFill="#d3e9f6">
+                                <MFXButton id="cancelButton" fx:id="editMessageButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#editMessage" prefHeight="55.0" prefWidth="207.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Edit Message" textFill="#d3e9f6">
                                     <HBox.margin>
                                         <Insets />
                                     </HBox.margin>
