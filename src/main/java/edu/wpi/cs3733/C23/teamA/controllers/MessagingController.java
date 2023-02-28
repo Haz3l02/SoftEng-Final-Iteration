@@ -1,54 +1,119 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.MessageBoardEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
+import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.PopOver;
 
-import java.io.IOException;
+public class MessagingController extends NavigationController {
 
-public class MessagingController extends NavigationController{
+  @FXML TableView<MessageBoardEntity> messagesTable;
 
-    @FXML TableView messagesTable;
+  @FXML TableColumn<MessageBoardEntity, String> senderCol;
+  @FXML TableColumn<MessageBoardEntity, String> timeSentCol;
+  @FXML TableColumn<MessageBoardEntity, String> messageCol;
+  @FXML TableColumn<MessageBoardEntity, String> titleCol;
 
-    @FXML TableColumn senderCol;
-    @FXML TableColumn timeSentCol;
-    @FXML TableColumn messageCol;
-    @FXML MFXButton newMessageButton;
+  @FXML MFXButton newMessageButton;
+  @FXML AnchorPane anchorPane;
 
-    PopOver newMessagePopup;
+  static PopOver newMessagePopup;
+  static double mouseX;
+  static double mouseY;
 
-    @FXML
-    public void initialize(){
+  static MessageBoardEntity selectedMessage;
 
-        // initialize the tables
+  private ObservableList<MessageBoardEntity> messageBoardModel =
+      FXCollections.observableArrayList();
 
+  @FXML
+  public void initialize() {
 
+    // initialize the tables
+
+    /*
+    senderCol.setCellValueFactory(new PropertyValueFactory<>("sender"));
+    timeSentCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
+    messageCol.setCellValueFactory(new PropertyValueFactory<>("message"));
+    titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+
+    messagesTable.setItems(messageBoardModel);
+
+    // timeSentCol.setCellValueFactory(TextFieldTableCell.forTableColumn(Time));
+    messageCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    titleCol.setCellFactory(TextFieldTableCell.forTableColumn());
+
+     */
+
+    messageCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getMessage()));
+    titleCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
+    senderCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getSender().getUsername()));
+    timeSentCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getTimeSent().toString()));
+
+    messageBoardModel.setAll(FacadeRepository.getInstance().getAllMessages());
+    messagesTable.setItems(messageBoardModel);
+  }
+
+  @FXML
+  public void updateMouseCoords(MouseEvent event) {
+
+    mouseX = event.getSceneX();
+    mouseY = event.getSceneY();
+  }
+
+  @FXML
+  public void refreshTable(ActionEvent event) {}
+
+  @FXML
+  public void popupNewMessage(ActionEvent event) throws IOException {
+
+    FXMLLoader locationLoader =
+        new FXMLLoader(Main.class.getResource("views/NewMessagePopupFXML.fxml"));
+
+    newMessagePopup = new PopOver(locationLoader.load());
+    newMessagePopup.show(newMessageButton.getScene().getWindow());
+
+    newMessagePopup.setAnchorX(mouseX);
+    newMessagePopup.setAnchorY(mouseY);
+
+    // NewMessageController.employee =  // get employee from somewhere
+  }
+
+  @FXML
+  public void rowClicked(MouseEvent mouseEvent) {
+
+    selectedMessage = messagesTable.getSelectionModel().getSelectedItem();
+  }
+
+  public static void hidePopup() {
+
+    newMessagePopup.hide();
+  }
+
+  @FXML
+  public void deleteMessage(ActionEvent event) {
+
+    if (selectedMessage != null) {
+      FacadeRepository.getInstance().deleteMessage((List<String>) selectedMessage);
     }
-    @FXML
-    public void refreshTable(ActionEvent event) {
-    }
+  }
 
-    @FXML
-    public void popupNewMessage(ActionEvent event) throws IOException {
-
-        FXMLLoader locationLoader =
-                new FXMLLoader(Main.class.getResource("views/LocationEditorPopupFXML.fxml"));
-
-        newMessagePopup = new PopOver(locationLoader.load());
-        newMessagePopup.show(newMessageButton.getScene().getWindow());
-
-        //newMessagePopup.setAnchorX();
-        //newMessagePopup.setAnchorY();
-
-    }
-
-    @FXML
-    public void rowClicked(MouseEvent mouseEvent) {
-    }
+  @FXML
+  public void editMessage(ActionEvent even) {}
 }
