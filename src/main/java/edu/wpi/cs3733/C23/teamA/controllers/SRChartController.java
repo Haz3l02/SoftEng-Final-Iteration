@@ -2,6 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.ServiceRequestEntity;
+import edu.wpi.cs3733.C23.teamA.enums.Status;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javax.swing.*;
 public class SRChartController extends MenuController {
 
   @FXML private BarChart srChart;
+  @FXML private BarChart srStatusChart;
 
   @FXML
   public void initialize() throws SQLException, IOException {
@@ -35,6 +37,13 @@ public class SRChartController extends MenuController {
         FacadeRepository.getInstance()
             .countServiceRequestsByType(ServiceRequestEntity.RequestType.SECURITY);
 
+    int newCount = FacadeRepository.getInstance().countServiceRequestsByStatus(Status.NEW);
+    int assignedCount =
+        FacadeRepository.getInstance().countServiceRequestsByStatus(Status.ASSIGNED);
+    int processingCount =
+        FacadeRepository.getInstance().countServiceRequestsByStatus(Status.PROCESSING);
+    int doneCount = FacadeRepository.getInstance().countServiceRequestsByStatus(Status.DONE);
+
     XYChart.Series count = new XYChart.Series<>();
 
     count.setName("# of Requests");
@@ -45,8 +54,17 @@ public class SRChartController extends MenuController {
     count.getData().add(new XYChart.Data("Sanitation", sanCount));
     count.getData().add(new XYChart.Data("Security", secCount));
 
+    XYChart.Series count2 = new XYChart.Series();
+
+    count2.setName("# of Requests");
+    count2.getData().add(new XYChart.Data("New", newCount));
+    count2.getData().add(new XYChart.Data("Assigned", assignedCount));
+    count2.getData().add(new XYChart.Data("Processing", processingCount));
+    count2.getData().add(new XYChart.Data("Done", doneCount));
+
     // adding all
     srChart.getData().addAll(count);
+    srStatusChart.getData().addAll(count2);
   }
 
   @FXML

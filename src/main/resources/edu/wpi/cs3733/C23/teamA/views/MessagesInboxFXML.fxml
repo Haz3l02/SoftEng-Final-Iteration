@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: red;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MessagingController">
+    <children>
+        <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+            <center>
+                <VBox prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Messages">
+                            <font>
+                                <Font size="36.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="15.0" />
+                            </VBox.margin>
+                        </Text>
+                          <TableView fx:id="messagesTable" editable="true" onMouseClicked="#rowClicked" prefHeight="632.0" prefWidth="1376.0" style="-fx-background-color: d3e9f6;">
+                              <columns>
+                                  <TableColumn fx:id="senderCol" editable="false" prefWidth="142.0" text="Sender" />
+                        <TableColumn fx:id="recipientCol" prefWidth="142.0" text="Recipient" />
+                                  <TableColumn fx:id="timeSentCol" editable="false" prefWidth="146.39999389648438" text="Time Sent" />
+                        <TableColumn fx:id="titleCol" editable="false" prefWidth="203.20001220703125" text="Title" />
+                                  <TableColumn fx:id="messageCol" prefWidth="806.0" text="Message" />
+                              </columns>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </padding>
+                          </TableView>
+                    </children>
+                </VBox>
+            </center>
+            <bottom>
+                <HBox alignment="CENTER_LEFT" prefWidth="611.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+                            <children>
+                                <MFXButton id="helpButton" fx:id="newMessageButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#popupNewMessage" onMouseEntered="#updateMouseCoords" prefHeight="55.0" prefWidth="208.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="New Message" textFill="#d3e9f6">
+                                    <font>
+                                        <Font size="25.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </MFXButton>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0" spacing="10.0">
+                            <children>
+                        <MFXButton id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="55.0" prefWidth="207.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Back to Home" textFill="#d3e9f6">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton id="cancelButton" fx:id="deleteMessageButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#deleteMessage" prefHeight="55.0" prefWidth="226.0" rippleColor="#c0cced" style="-fx-background-color: #f63c3c; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Delete Message" textFill="#d3e9f6">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </MFXButton>
+                                <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+                                <MFXButton id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#refreshTable" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Refresh" textFill="#d3e9f6">
+                                    <font>
+                                        <Font size="25.0" />
+                                    </font>
+                                </MFXButton>
+                            </children>
+                            <HBox.margin>
+                                <Insets top="5.0" />
+                            </HBox.margin>
+                        </HBox>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="5.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </children>
+</AnchorPane>

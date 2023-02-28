@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import net.kurobako.gesturefx.GesturePane?>
 
 <BorderPane prefHeight="776.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <center>
@@ -29,8 +30,13 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="69.0" prefWidth="1025.0" style="-fx-background-color: #022D58; -fx-border-color: #022D58; -fx-border-radius: 0 0 0 2;" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <ComboBox fx:id="serviceRequest" prefHeight="71.0" prefWidth="354.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" />
-                                    <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" onAction="#switchToPathfinding" prefHeight="67.0" prefWidth="224.0" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textAlignment="CENTER" textFill="#d3e9f6">
+                                    <ComboBox fx:id="serviceRequest" prefHeight="71.0" prefWidth="354.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS" />
+                                    <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" onAction="#switchToPathfinding" prefHeight="67.0" prefWidth="201.0" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textAlignment="CENTER" textFill="#d3e9f6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Verdana" size="27.0" />
+                                       </font>
+                                    </MFXButton>
+                                    <MFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#switchToMessages" prefHeight="67.0" prefWidth="203.0" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="Messages" textAlignment="CENTER" textFill="#d3e9f6" wrapText="true">
                                        <font>
                                           <Font name="Verdana" size="27.0" />
                                        </font>
@@ -128,20 +134,7 @@
                                                       </VBox>
                                                    </children>
                                                 </StackPane>
-                                                <StackPane fx:id="mapImage" prefHeight="150.0" prefWidth="200.0">
-                                                   <children>
-                                                      <ImageView fitHeight="247.0" fitWidth="512.0" pickOnBounds="true" StackPane.alignment="CENTER">
-                                                         <image>
-                                                            <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                      <ImageView fx:id="findAPath" fitHeight="247.0" fitWidth="512.0" pickOnBounds="true" visible="false" StackPane.alignment="CENTER">
-                                                         <image>
-                                                            <Image url="@../assets/find_a_path.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                   </children>
-                                                </StackPane>
+                                                <GesturePane fx:id="mapPane" fitMode="CENTER" fitWidth="false" gestureEnabled="false" hbarPolicy="NEVER" minScale="1.0" prefHeight="232.0" prefWidth="473.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS" />
                                              </children>
                                           </VBox>
                                        </children>
@@ -168,7 +161,7 @@
             </VBox>
             <VBox layoutX="12.0" layoutY="140.0" prefHeight="37.0" prefWidth="297.0">
                <children>
-                  <Label fx:id="date" prefHeight="37.0" prefWidth="238.0" text="Date" textAlignment="RIGHT" textFill="WHITE">
+                  <Label fx:id="date" prefHeight="37.0" prefWidth="303.0" text="Date" textAlignment="RIGHT" textFill="WHITE" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="Arial Black" size="24.0" />
                      </font>
@@ -188,61 +181,77 @@
       </AnchorPane>
    </center>
    <left>
-      <VBox alignment="CENTER" prefHeight="776.0" prefWidth="316.0" style="-fx-background-color: #022D58;" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="776.0" prefWidth="316.0" style="-fx-background-color: #022D58;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," VBox.vgrow="ALWAYS">
-               <font>
-                  <Font name="Verdana Bold" size="48.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Text>
-            <Label fx:id="welcome" alignment="TOP_CENTER" graphicTextGap="15.0" prefHeight="155.0" prefWidth="266.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font name="Verdana" size="36.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <VBox alignment="CENTER" prefHeight="135.0" prefWidth="296.0" spacing="20.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-background-radius: 15;" VBox.vgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="231.0" prefWidth="316.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Stats">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="Verdana Bold" size="48.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Label fx:id="welcome" alignment="TOP_CENTER" graphicTextGap="15.0" prefHeight="100.0" prefWidth="266.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="Verdana" size="36.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="185.0" prefWidth="296.0" spacing="10.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-background-radius: 15;" VBox.vgrow="NEVER">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Stats:">
+                     <font>
+                        <Font name="Verdana" size="36.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                   </Text>
                   <Label fx:id="label1" alignment="CENTER" text="Label" wrapText="true">
                      <font>
-                        <Font name="Verdana" size="24.0" />
+                        <Font name="Verdana" size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                   </Label>
                   <Label fx:id="label2" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
-                        <Font name="Verdana" size="24.0" />
+                        <Font name="Verdana" size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                   </Label>
                   <Label fx:id="label3" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
-                        <Font name="Verdana" size="24.0" />
+                        <Font name="Verdana" size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets left="25.0" right="25.0" />
                </VBox.margin></VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="244.0" prefWidth="316.0" spacing="10.0">
                <children>
                   <TextArea fx:id="adminAnnouncementField" prefHeight="100.0" prefWidth="296.0" promptText="Enter Admin Message...">
                      <font>
                         <Font name="Verdana" size="18.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets left="25.0" right="25.0" />
                      </VBox.margin>
                   </TextArea>
                   <MFXButton fx:id="adminAnnouncementButton" buttonType="RAISED" onAction="#submitAnnouncement" prefHeight="51.0" prefWidth="119.0" rippleColor="#c0cced" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-border-radius: 15;" text="Submit">
@@ -252,34 +261,38 @@
                   </MFXButton>
                </children>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="221.0" prefWidth="316.0">
                <children>
-                  <ImageView fx:id="about" fitHeight="56.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/about_blue.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="credits" fitHeight="73.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/credits_blue.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="exit" fitHeight="62.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/exit_blue.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </ImageView>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="46.0" prefWidth="316.0" spacing="20.0">
+                     <children>
+                        <ImageView fx:id="about" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/icons/about_blue.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="credits" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/icons/credits_blue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="exit" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/icons/exit_blue.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </HBox>
+            </VBox>
          </children>
       </VBox>
    </left>
