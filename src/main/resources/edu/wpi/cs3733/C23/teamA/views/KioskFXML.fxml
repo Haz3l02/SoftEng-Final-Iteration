@@ -107,19 +107,24 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="524.0" prefWidth="695.0" style="-fx-background-color: bad1ea; -fx-background-radius: 20; -fx-border-radius: 20;" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="40.0" prefWidth="695.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="40.0" prefWidth="695.0" spacing="10.0" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                            <children>
-                              <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map" wrappingWidth="126.94842529296875">
+                              <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map" wrappingWidth="87.23968505859375">
                                  <font>
                                     <Font name="Arial Black" size="36.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets />
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </Text>
+                              <Label fx:id="moveDetails" text="Label">
+                                 <font>
+                                    <Font name="Verdana" size="24.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" fillHeight="false" prefHeight="459.0" prefWidth="695.0" VBox.vgrow="ALWAYS">
@@ -140,6 +145,11 @@
                                        </StackPane.margin>
                                     </StackPane>
                                     <GesturePane fx:id="mainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                    <Label fx:id="floorNumber" alignment="BOTTOM_RIGHT" prefHeight="459.0" prefWidth="636.0" text="Label">
+                                       <font>
+                                          <Font name="Verdana" size="64.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </StackPane>
                            </children>

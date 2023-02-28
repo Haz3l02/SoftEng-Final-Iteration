@@ -45,6 +45,8 @@ public class KioskController {
   @FXML private ImageView mainImageView;
   @FXML private GesturePane mainGesturePane;
   @FXML private StackPane mainStackPane;
+  @FXML private Label moveDetails;
+  @FXML private Label floorNumber;
 
   private AnchorPane[] aps = new AnchorPane[5];
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
@@ -54,6 +56,7 @@ public class KioskController {
 
   @FXML
   public void initialize() throws SQLException {
+    System.out.println(kiosk.getRight());
     leftPane = mainSplitPane.getItems().get(0);
     mapPane = mainSplitPane.getItems().get(1);
     directionsPane = mainSplitPane.getItems().get(2);
@@ -104,7 +107,13 @@ public class KioskController {
     ArrayList<GraphNode> path = info.getPath();
     System.out.println(path.size());
     floorPath = info.getFloorPath();
-    directions = PathInterpreter.generatePathStringShort(path, floorPath);
+    if (start.getFloor().equals(end.getFloor())) {
+      moveDetails.setText(kiosk.getMoveName() + " is moving on " + end.getFloor() + ".");
+    } else {
+      moveDetails.setText(
+          kiosk.getMoveName() + " is moving from " + start.getFloor() + " to " + end.getFloor() + ".");
+    }
+    directions = pathfindingSystem.generatePathString(path, floorPath);
     directionsText.setText(directions);
 
     pathfindingSystem.drawPath(aps, path);

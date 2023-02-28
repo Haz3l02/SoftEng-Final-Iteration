@@ -31,7 +31,7 @@ public class KioskSetupController extends MenuController {
   @FXML private StackPane reminderPane;
   @FXML private Text reminder, moveReminder;
 
-  static Kiosk kiosk = new Kiosk(null, null, "", "", false, "");
+  public static Kiosk kiosk;
 
   @FXML
   public void initialize() {
@@ -126,9 +126,8 @@ public class KioskSetupController extends MenuController {
     } else {
       // Code to check if the move entered is valid.
       List<MoveEntity> moves =
-          FacadeRepository.getInstance()
-              .newAndOldMove(moveLocation.getText(), moveDate.getCurrentDate());
-      if (!(moves.size() == 1)) {
+          FacadeRepository.getInstance().newAndOldMove(moveLocation.getText(), moveDate.getValue());
+      if (moves.size() != 1 && moves.get(0).getNode() != null && moves.get(1).getNode() != null) {
         reminderPane.setVisible(false);
         moveReminder.setVisible(false);
         kiosk =
@@ -138,7 +137,8 @@ public class KioskSetupController extends MenuController {
                 left.getText(),
                 right.getText(),
                 directionOnOff.isSelected(),
-                moveDescription.getText());
+                moveDescription.getText(),
+                moveLocation.getText());
         Navigation.navigateHome(Screen.KIOSK); // go to new screen
       } else {
         reminderPane.setVisible(true);
