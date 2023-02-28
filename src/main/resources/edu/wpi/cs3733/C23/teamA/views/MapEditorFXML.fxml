@@ -224,9 +224,9 @@
                         <AnchorPane fx:id="mainTextPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                         <AnchorPane fx:id="edgeAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
                         <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
-                     </children>
-                  </StackPane>
-                  <GesturePane fx:id="mainGesturePane" prefHeight="510.0" prefWidth="750.0">
+                        <AnchorPane fx:id="mainSelectPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0" />
+                     </children></StackPane>
+                  <GesturePane fx:id="mainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="510.0" prefWidth="750.0">
                      <contextMenu>
                         <ContextMenu fx:id="contextMenu" opacity="0.77">
                           <items>
