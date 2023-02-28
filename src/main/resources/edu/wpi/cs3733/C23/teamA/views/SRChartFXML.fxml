@@ -6,20 +6,11 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SRChartController">
-   <top>
-      <BarChart fx:id="srChart" prefHeight="646.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
-        <xAxis>
-          <CategoryAxis label="Service Requests" side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis label="# of Rrequests" side="LEFT" upperBound="15.0" />
-        </yAxis>
-      </BarChart>
-   </top>
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SRChartController">
    <bottom>
       <VBox prefHeight="82.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
          <children>
@@ -38,4 +29,26 @@
          </children>
       </VBox>
    </bottom>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <BarChart fx:id="srChart" prefHeight="481.0" prefWidth="1203.0" style="-fx-alternative-column-fill-visible: #122C34;" styleClass="default-color0" stylesheets="@../assets/ChartStyle.css" title="Service Requests By Type">
+              <xAxis>
+                <CategoryAxis label="Service Request Type" side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis label="# of Rrequests" side="LEFT" upperBound="15.0" />
+              </yAxis>
+            </BarChart>
+            <BarChart fx:id="srStatusChart" prefHeight="481.0" prefWidth="1203.0" style="-fx-alternative-column-fill-visible: #122C34;" styleClass="default-color0" stylesheets="@../assets/ChartStyle.css" title="Service Requests  By Statuses">
+               <xAxis>
+                  <CategoryAxis label="Service Requests Status" side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis label="# of Rrequests" side="LEFT" upperBound="15.0" />
+               </yAxis>
+            </BarChart>
+         </children>
+      </HBox>
+   </center>
 </BorderPane>

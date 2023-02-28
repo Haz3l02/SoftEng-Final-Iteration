@@ -31,11 +31,10 @@ public class KioskSetupController extends MenuController {
   @FXML private StackPane reminderPane;
   @FXML private Text reminder, moveReminder;
 
-  public static Kiosk kiosk = new Kiosk(null, null, "", "", false, "");
+  public static Kiosk kiosk;
 
   @FXML
   public void initialize() {
-    System.out.println("Gets here");
     reminder.setVisible(false);
     reminderPane.setVisible(false);
     moveReminder.setVisible(false);
@@ -120,16 +119,15 @@ public class KioskSetupController extends MenuController {
   public void generateKiosk() {
     if (locationBox.getText() == null
         || moveLocation.getText() == null
-        || moveDate.getValue() == null
-        || moveDescription.getText() == null) {
+        || moveDate.getValue() == null) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
+
       // Code to check if the move entered is valid.
       List<MoveEntity> moves =
-          FacadeRepository.getInstance()
-              .newAndOldMove(moveLocation.getText(), moveDate.getCurrentDate());
-      if (!(moves.size() == 1)) {
+          FacadeRepository.getInstance().newAndOldMove(moveLocation.getText(), moveDate.getValue());
+      if (moves.size() != 1 && moves.get(0).getNode() != null && moves.get(1).getNode() != null) {
         reminderPane.setVisible(false);
         moveReminder.setVisible(false);
         kiosk =
@@ -139,8 +137,9 @@ public class KioskSetupController extends MenuController {
                 left.getText(),
                 right.getText(),
                 directionOnOff.isSelected(),
-                moveDescription.getText());
-        Navigation.navigateHome(Screen.KIOSK);
+                moveDescription.getText(),
+                moveLocation.getText());
+        Navigation.navigateHome(Screen.KIOSK); // go to new screen
       } else {
         reminderPane.setVisible(true);
         moveReminder.setVisible(true);
