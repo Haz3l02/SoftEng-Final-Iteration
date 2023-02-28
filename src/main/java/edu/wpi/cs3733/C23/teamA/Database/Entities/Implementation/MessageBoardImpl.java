@@ -86,7 +86,7 @@ public class MessageBoardImpl extends Observable
 
   public void delete(Integer obj) {}
 
-  public void update(List<String> obj) {
+  public void update(MessageBoardEntity obj) {
 //    Session session = getSessionFactory().openSession();
 //    Transaction tx = session.beginTransaction();
 //    MessageBoardEntity me;
