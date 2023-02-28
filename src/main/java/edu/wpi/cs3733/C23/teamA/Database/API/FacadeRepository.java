@@ -525,8 +525,8 @@ public class FacadeRepository {
     return loc.getAdjacentLocations(longName);
   }
 
-  public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date) {
-    return move.newAndOldNode(longName, date);
+  public ArrayList<MoveEntity> newAndOldMove(String longName, LocalDate date) {
+    return move.newAndOldMove(longName, date);
   }
 
   public void exportAlignedToCSV(String filename, ArrayList<NodeEntity> n) throws IOException {

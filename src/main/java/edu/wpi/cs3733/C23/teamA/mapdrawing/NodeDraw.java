@@ -167,7 +167,6 @@ public class NodeDraw {
 
             MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
 
-
             if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
               nmc.setLongNameBox(
                   FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());

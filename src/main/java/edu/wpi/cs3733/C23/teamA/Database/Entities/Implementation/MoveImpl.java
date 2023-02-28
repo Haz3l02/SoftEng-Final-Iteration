@@ -49,7 +49,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     session.close();
     moves.sort(Comparator.comparing(MoveEntity::getMovedate));
     Collections.sort(moves, Collections.reverseOrder());
-
   }
 
   public List<MoveEntity> getAll() {
@@ -261,14 +260,22 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return records;
   }
 
-  public MoveEntity recentLocationByFloor (String longname, LocalDate date, String floor) {
-    for (MoveEntity m : moves){
-      if (m.getNode().getFloor().equals(floor) && m.getLocationName().getLongname().equals(longname) && (m.getMovedate().isBefore(date)||m.getMovedate().equals(date)))
-        return m;
+  public MoveEntity recentLocationByFloor(String longname, LocalDate date, String floor) {
+    for (MoveEntity m : moves) {
+      if (m.getNode().getFloor().equals(floor)
+          && m.getLocationName().getLongname().equals(longname)
+          && (m.getMovedate().isBefore(date) || m.getMovedate().equals(date))) return m;
     }
     return null;
   }
 
+  public MoveEntity recentLocation(String longname, LocalDate date) {
+    for (MoveEntity m : moves) {
+      if (m.getLocationName().getLongname().equals(longname)
+          && (m.getMovedate().isBefore(date) || m.getMovedate().equals(date))) return m;
+    }
+    return null;
+  }
 
   /*
   // todo I want to use this but might not be able to
@@ -288,7 +295,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
     for (LocationNameEntity loc : locations) {
       try {
-        m.add(locationRecord(loc.getLongname(), date).get(0));
+        m.add(recentLocation(loc.getLongname(), date));
       } catch (Exception e) {
       }
     }
@@ -300,7 +307,9 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
     for (LocationNameEntity loc : locations) {
       try {
-        m.add(recentLocationByFloor(loc.getLongname(), date, floor));
+        if (m != null) {
+          m.add(recentLocationByFloor(loc.getLongname(), date, floor));
+        }
       } catch (Exception e) {
       }
     }
@@ -326,7 +335,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return mov;
   }
 
-  public MoveEntity nodeOnOrBeforeDate(String id, LocalDate date) {
+  public MoveEntity moveOnOrBeforeDate(String id, LocalDate date) {
     MoveEntity mov = new MoveEntity();
     List<MoveEntity> ids =
         moves.stream()
@@ -461,16 +470,12 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     }
   }
 
-  public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date) {
-    ArrayList<NodeEntity> fin = new ArrayList<>();
-    for (MoveEntity m : moves) {
-      if (m.getLocationName().getLongname().equals(longName) && m.getMovedate().equals(date)) {
-        fin.add(m.getNode());
-      }
-    }
+  public ArrayList<MoveEntity> newAndOldMove(String longName, LocalDate date) {
+    ArrayList<MoveEntity> fin = new ArrayList<>();
+    fin.add(moveOnOrBeforeDate(longName, date));
 
-    date.minusDays(1);
-    fin.add(nodeOnOrBeforeDate(longName, date).getNode());
+    date = fin.get(0).getMovedate().minusDays(1);
+    fin.add(moveOnOrBeforeDate(longName, date));
     return fin;
   }
 }

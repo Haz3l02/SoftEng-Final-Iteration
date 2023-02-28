@@ -228,9 +228,10 @@
                                                 <Font name="Arial Black" size="36.0" />
                                             </font>
                                         </Text>
-                              <HBox alignment="BOTTOM_RIGHT" HBox.hgrow="ALWAYS">
+                              <HBox alignment="BOTTOM_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <MFXButton fx:id="speakButton" alignment="CENTER" layoutX="161.0" layoutY="28.0" onAction="#directionsToSpeech" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Text-to-Speech" textFill="#d3e9f6" />
+                                    <MFXButton fx:id="stopSpeakingButton" alignment="CENTER" layoutX="161.0" layoutY="28.0" onAction="#directionsToSpeech" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Stop" textFill="#d3e9f6" />
                                  </children>
                                  <HBox.margin>
                                     <Insets bottom="8.0" right="15.0" />

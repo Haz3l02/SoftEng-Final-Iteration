@@ -591,7 +591,18 @@ public class PathfindingController extends MenuController {
   /** Takes the text in the pathfinding directions and speaks them out loud in english. */
   @FXML
   public void directionsToSpeech(ActionEvent event) {
-    TextReader tts = new TextReader(pathMapText.getText());
-    tts.readText();
+    String[] directions = pathMapText.getText().split("\n");
+    int count = 0;
+    TextReader tts = new TextReader("");
+
+    // loop through the list of directions, by new line, so it can be stopped at the end of any line
+    while (!event.getSource().equals(stopSpeakingButton) && count < directions.length) {
+      // setText() so we don't need to create a new object every time
+      tts.setText(directions[count]);
+      if (event.getSource().equals(speakButton)) {
+        tts.readText();
+      }
+      count++;
+    }
   }
 }
