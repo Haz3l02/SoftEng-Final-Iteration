@@ -440,13 +440,14 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       MoveImpl.getInstance().delete(mov);
     }
   }
+
   public void updateMessage(String message, List<String> m) {
     Session session = getSessionFactory().openSession();
     Transaction tx = session.beginTransaction();
     for (MoveEntity me : moves) {
       if (me.getNode().getNodeid().equals(m.get(0))
-              && me.getLocationName().getLongname().equals(m.get(1))
-              && me.getMovedate().toString().equals(m.get(2))) {
+          && me.getLocationName().getLongname().equals(m.get(1))
+          && me.getMovedate().toString().equals(m.get(2))) {
         me.setMessage(message);
         session.merge(me);
         tx.commit();
@@ -456,6 +457,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
 
     session.close();
   }
+
   public ArrayList<MoveEntity> newAndOldMove(String longName, LocalDate date) {
     ArrayList<MoveEntity> fin = new ArrayList<>();
     fin.add(moveOnOrBeforeDate(longName, date));
