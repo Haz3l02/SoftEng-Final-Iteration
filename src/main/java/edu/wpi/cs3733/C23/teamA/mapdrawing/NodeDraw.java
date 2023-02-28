@@ -474,7 +474,28 @@ public class NodeDraw {
                 selectedNodeEntity.setYcoord((int) Math.round(revertedCoords[1]));
                 FacadeRepository.getInstance()
                     .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
+              } else {
+                selectNodePane.setLayoutX(updatedCoords[0] - 2.5);
+                selectNodePane.setLayoutY(updatedCoords[1] - 2.5);
+                // Outgoing edges adjust start points
+                outgoing.forEach(
+                    o -> {
+                      o.setStartX(updatedCoords[0]);
+                      o.setStartY(updatedCoords[1]);
+                    });
+
+                // Incoming edges adjust end points
+                if (incoming.get(n.getNodeid()) != null) {
+                  incoming
+                      .get(n.getNodeid())
+                      .forEach(
+                          o -> {
+                            o.setEndX(updatedCoords[0]);
+                            o.setEndY(updatedCoords[1]);
+                          });
+                }
               }
+
               // nodeAnchor.getChildren().clear();
               /*drawEdges(
               FacadeRepository.getInstance().getEdgesOnFloor(n.getFloor()),
