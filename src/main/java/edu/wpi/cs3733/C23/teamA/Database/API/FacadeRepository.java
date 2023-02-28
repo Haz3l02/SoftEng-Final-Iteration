@@ -547,6 +547,10 @@ public class FacadeRepository {
     return serv.getRequestAtCoordinate(x, y, floor);
   }
 
+  public void moveUpdateMessage(String message, List<String> ID) {
+    move.updateMessage(message, ID);
+  }
+
   public ArrayList<String> getAdjacentLocations(String longName) {
     return loc.getAdjacentLocations(longName);
   }
@@ -561,6 +565,10 @@ public class FacadeRepository {
 
   public int countServiceRequestsByType(ServiceRequestEntity.RequestType s) {
     return serv.countRequests(s);
+  }
+
+  public int countServiceRequestsByStatus(Status s) {
+    return serv.countRequestsByStatus(s);
   }
 
   public List<EdgeEntity> nodeConnection(String id) {

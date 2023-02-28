@@ -19,11 +19,11 @@
    <bottom>
       <HBox alignment="CENTER_LEFT" prefWidth="611.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
                <children>
                   <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#reloadData" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reset" textFill="#d3e9f6">
                      <HBox.margin>
-                        <Insets right="10.0" />
+                        <Insets />
                      </HBox.margin>
                      <font>
                         <Font size="25.0" />
@@ -34,18 +34,21 @@
                         <Font size="25.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton id="cancelButton" fx:id="seeChartButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToSRChartScene" prefHeight="55.0" prefWidth="151.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="See Chart" textFill="#d3e9f6">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
                      </HBox.margin>
                   </MFXButton>
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1720.0" spacing="10.0">
                <children>
-                  <MFXButton id="cancelButton" fx:id="seeChartButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToSRChartScene" prefHeight="55.0" prefWidth="151.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="See Chart" textFill="#d3e9f6">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </MFXButton>
                   <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
                   <MFXButton id="cancelButton" fx:id="deleteButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#delete" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Delete" textFill="#d3e9f6">
                      <font>

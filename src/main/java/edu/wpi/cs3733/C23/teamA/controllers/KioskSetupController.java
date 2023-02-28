@@ -119,8 +119,7 @@ public class KioskSetupController extends MenuController {
   public void generateKiosk() {
     if (locationBox.getText() == null
         || moveLocation.getText() == null
-        || moveDate.getValue() == null
-        || moveDescription.getText() == null) {
+        || moveDate.getValue() == null) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {

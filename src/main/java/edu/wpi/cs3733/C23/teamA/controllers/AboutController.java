@@ -83,7 +83,7 @@ public class AboutController {
         (MouseEvent e) -> {
           ImageOne.setImage(ImageD);
           name.setText(memberD.getText());
-          FunFact.setText("Fun Fact: I’m traveling to Armenia this spring.");
+          FunFact.setText("Fun Fact: I am traveling to Armenia this spring.");
           Role.setText("Role: Database Engineer (Back-End)");
           major.setText("Major: Computer Science");
         });

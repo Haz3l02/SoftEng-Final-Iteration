@@ -107,7 +107,19 @@ public class NodeController extends MenuController {
                 Integer.parseInt(y),
                 floor,
                 building);
-        FacadeRepository.getInstance().addNode(newNode);
+
+        List<NodeEntity> check = MapEditorController.getAllNodes();
+        boolean noDuplicates = true;
+        for (int i = 0; i < check.size(); i++) {
+          if (newNode.getNodeid().equals(check.get(i).getNodeid())) {
+            noDuplicates = false;
+          }
+        }
+        if (noDuplicates == true) {
+          FacadeRepository.getInstance().addNode(newNode);
+        } else {
+          System.out.println("there is a duplicate");
+        }
       }
     }
     reloadData();

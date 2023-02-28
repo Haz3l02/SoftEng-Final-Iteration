@@ -36,7 +36,10 @@ public class NodeDraw {
   static Pane selectNodePane = null;
   static NodeEntity selectedNodeEntity = null;
 
+  static List<Pane> listOfPanes;
+
   static Pane currentPane = new Pane();
+
   static List<Text> locations = new ArrayList<>();
   static HashMap<String, List<Line>> incoming = new HashMap<>();
 
@@ -113,6 +116,10 @@ public class NodeDraw {
   }
 
   @Deprecated
+  public static List<Pane> getPaneList() {
+    return listOfPanes;
+  }
+
   public static void drawLocations(
       List<NodeEntity> allNodes, double scaleFactor, AnchorPane nodeAnchor) {
 
@@ -124,6 +131,9 @@ public class NodeDraw {
       double scaleFactor,
       AnchorPane nodeAnchor,
       MapEditorController nmc) {
+    // nodeAnchor.getChildren().clear();
+    listOfPanes = new ArrayList<>();
+    // draw circle for each node
     nodeAnchor.getChildren().clear();
 
     for (NodeEntity n : allNodes) {
@@ -154,6 +164,8 @@ public class NodeDraw {
               + "-fx-border-width: 1;"
               + "-fx-border-radius: 12.5");
       nodeGraphic.toFront();
+
+      listOfPanes.add(nodeGraphic);
 
       // when mouse is clicked
       EventHandler<MouseEvent> eventHandler =
@@ -422,7 +434,6 @@ public class NodeDraw {
                   selectNodePane.getLayoutY()
                       + mouseEvent.getY()
                       - selectNodePane.getPrefHeight() / 2.0);
-              selectNodePane.toFront();
 
               // Outgoing edges adjust start points
               outgoing.forEach(
@@ -441,6 +452,7 @@ public class NodeDraw {
                           o.setEndY(selectNodePane.getLayoutY() + mouseEvent.getY());
                         });
               }
+              selectNodePane.toFront();
 
               if (location != null) {
                 location.setLayoutX(
@@ -474,6 +486,29 @@ public class NodeDraw {
                 selectedNodeEntity.setYcoord((int) Math.round(revertedCoords[1]));
                 FacadeRepository.getInstance()
                     .updateNode(selectedNodeEntity.getNodeid(), selectedNodeEntity);
+              } else {
+                // Keep node following mouse movement
+                selectNodePane.setLayoutX(updatedCoords[0] - selectNodePane.getPrefWidth() / 2.0);
+                selectNodePane.setLayoutY(updatedCoords[1] - selectNodePane.getPrefHeight() / 2.0);
+                selectNodePane.toFront();
+
+                // Outgoing edges adjust start points
+                outgoing.forEach(
+                    o -> {
+                      o.setStartX(updatedCoords[0]);
+                      o.setStartY(updatedCoords[1]);
+                    });
+
+                // Incoming edges adjust end points
+                if (incoming.get(n.getNodeid()) != null) {
+                  incoming
+                      .get(n.getNodeid())
+                      .forEach(
+                          o -> {
+                            o.setEndX(updatedCoords[0]);
+                            o.setEndY(updatedCoords[1]);
+                          });
+                }
               }
               // nodeAnchor.getChildren().clear();
               /*drawEdges(
@@ -523,6 +558,7 @@ public class NodeDraw {
        */
 
       nodeAnchor.getChildren().add(nodeGraphic);
+      nodeGraphic.toFront();
     }
   }
 
@@ -640,6 +676,7 @@ public class NodeDraw {
               if ((!currentLine.equals(selectedLine))) {
                 currentLine.setStroke(Color.web("green"));
                 currentLine.setStrokeWidth(2);
+
                 System.out.println("Hovering");
               }
             }
@@ -665,33 +702,36 @@ public class NodeDraw {
   }
 
   private static EventHandler<? super MouseEvent> dragEvent(MapEditorController nmc) {
-    return mouseEvent -> {
-      if (selectNodePane != null) {
-        nmc.getMainGesturePane().setGestureEnabled(false);
 
-        selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
-        selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
-      }
-    };
-  }
+    return (EventHandler<MouseEvent>)
+        mouseEvent1 -> {
+          if (selectNodePane != null) {
+            nmc.getMainGesturePane().setGestureEnabled(false);
+
+            selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent1.getX());
+            selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent1.getY());
+          }
+        };
+  };
+
   // end _________________________________________________________________
 
-  public static void straightenNodesHorizontal() {
+  public static void straightenNodesHorizontal(NodeEntity n, List<NodeEntity> l) {
 
-    int yAlign = firstNode.getYcoord();
+    int yAlign = n.getYcoord();
 
-    for (NodeEntity node : selectedNodes) {
+    for (NodeEntity node : l) {
 
       node.setYcoord(yAlign);
       FacadeRepository.getInstance().updateNode(node.getNodeid(), node);
     }
   }
 
-  public static void straightenNodesVertical() {
+  public static void straightenNodesVertical(NodeEntity n, List<NodeEntity> l) {
 
-    int xAlign = firstNode.getXcoord();
+    int xAlign = n.getXcoord();
 
-    for (NodeEntity node : selectedNodes) {
+    for (NodeEntity node : l) {
 
       node.setXcoord(xAlign);
 
@@ -766,6 +806,7 @@ public class NodeDraw {
       currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);
 
       ap.getChildren().add(currentLine);
+      currentLine.toBack();
     }
   }
 }
