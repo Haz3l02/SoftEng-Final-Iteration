@@ -47,6 +47,7 @@ public class NodeDraw {
   static NodeEntity node1;
   static NodeEntity node2;
   /*
+
   static int xCoordUpdate = 0;
   static int yCoordUpdate = 0;
    */

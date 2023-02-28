@@ -31,7 +31,8 @@ public enum Screen {
   KIOSK_SETUP("views/KioskSetupFXML.fxml"),
   KIOSK("views/KioskFXML.fxml"),
   MESSAGE_INBOX("views/MessagesInboxFXML.fxml"),
-  SRCHART("views/SRChartFXML.fxml");
+  SRCHART("views/SRChartFXML.fxml"),
+  SR_POPUP("views/DisplayServiceRequestsFXML.fxml");
 
   private final String filename;
 
