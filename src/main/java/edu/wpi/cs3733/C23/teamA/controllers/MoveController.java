@@ -155,7 +155,10 @@ public class MoveController extends MenuController {
         .addListener(
             observable -> {
               if (locationBox.getValue() != null) {
+
                 clearEdits();
+                if (mainPane.getItems().size() == 1)
+                  mainPane.getItems().add(1, allImages); // If there is nothing add it
                 GraphNode start =
                     pathfindingSystem.getNode(
                         FacadeRepository.getInstance()
@@ -165,7 +168,7 @@ public class MoveController extends MenuController {
                             .getNodeid()); //
                 PathInfo pathInfo = pathfindingSystem.runPathfinding(start, start);
                 String initialTableString = pathInfo.getFloorPath().get(0);
-                currentNode.setText("Current Node Floor " + initialTableString);
+                currentNode.setText("Current Node: Located on Floor " + initialTableString);
                 addFloorMapImage(initialTableString, mainImageView);
                 locationNotif.setText(
                     "You have selected " + locationBox.getValue().toString() + " to move nodes.");
@@ -196,13 +199,14 @@ public class MoveController extends MenuController {
                 GraphNode start = pathfindingSystem.getNode(nodeBox.getValue().toString());
                 PathInfo pathInfo = pathfindingSystem.runPathfinding(start, start);
                 String finalTableString = pathInfo.getFloorPath().get(0);
-                newNode.setText("New Node Floor " + finalTableString);
+                newNode.setText("New Node: Located on Floor " + finalTableString);
                 addFloorMapImage(finalTableString, topMainImageView);
                 locationNotif.setText(
                     "You have selected "
                         + locationBox.getValue().toString()
                         + " to move to node "
-                        + nodeBox.getValue().toString());
+                        + nodeBox.getValue().toString()
+                        + ".");
                 editButton.setDisable(false);
                 if (imagePane.getItems().size() == 2) imagePane.getItems().add(2, newNodeImage);
                 ArrayList<GraphNode> path = pathInfo.getPath();
@@ -221,7 +225,7 @@ public class MoveController extends MenuController {
     iv.setImage(image);
   }
 
-  public void generatePathFromMovePopup(String startID, String endID)
+  public void generatePathFromMovePopup(String startID, String endID, LocalDate date)
       throws SQLException, RuntimeException {
     // create the graph hashMap where String is nodeId and GraphNode is the node
     pathfindingSystem.prepGraphDB(LocalDate.now()); // don't know if this will work tbh
@@ -233,7 +237,7 @@ public class MoveController extends MenuController {
     // runs pathfinding
     PathInfo pathInfo = pathfindingSystem.runPathfinding(start, end);
     String initialTableString = pathInfo.getFloorPath().get(0);
-    currentNode.setText("Current Node Floor " + initialTableString);
+    currentNode.setText("Current Node: Located on Floor " + initialTableString);
     addFloorMapImage(initialTableString, mainImageView);
     currentFloor = Floor.indexFromTableString(initialTableString);
 
@@ -242,9 +246,29 @@ public class MoveController extends MenuController {
     if (pathInfo.getFloorPath().size() != 1) {
 
       if (imagePane.getItems().size() == 2) imagePane.getItems().add(2, newNodeImage);
-      finalTableString = pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 1);
-      newNode.setText("New Node Floor " + finalTableString);
-      addFloorMapImage(finalTableString, topMainImageView);
+      if (pathInfo
+          .getFloorPath()
+          .get(pathInfo.getFloorPath().size() - 1)
+          .equals(pathInfo.getFloorPath().get(0))) {
+        finalTableString = pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 2);
+        addFloorMapImage(
+            pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 2), topMainImageView);
+        newNode.setText(
+            "New Node: Still located on Floor "
+                + pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 1)
+                + ", moving on "
+                + date
+                + ".\nShown below is Floor "
+                + pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 2)
+                + " which is needed to get to the new node.");
+      } else {
+        addFloorMapImage(
+            pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 1), topMainImageView);
+        finalTableString = pathInfo.getFloorPath().get(pathInfo.getFloorPath().size() - 1);
+        newNode.setText(
+            "New Node: Located on Floor " + finalTableString + ", moving on " + date + ".");
+      }
+
     } else imagePane.getItems().remove(newNodeImage); // No second image
 
     // if pathInfo isn't null, grab the path and draw it
@@ -412,15 +436,18 @@ public class MoveController extends MenuController {
       locationNotif.setText(
           "The location "
               + clickedMoveTableRow.getLocationName().getLongname()
-              + " is moving on "
-              + clickedMoveTableRow.getMovedate());
+              + ", is moving on "
+              + clickedMoveTableRow.getMovedate()
+              + ".");
       for (MoveEntity m : currentMoves) {
         if (m.getLocationName()
             .getLongname()
             .equalsIgnoreCase(clickedMoveTableRow.getLocationName().getLongname())) {
 
           generatePathFromMovePopup(
-              m.getNode().getNodeid(), clickedMoveTableRow.getNode().getNodeid());
+              m.getNode().getNodeid(),
+              clickedMoveTableRow.getNode().getNodeid(),
+              clickedMoveTableRow.getMovedate());
         }
       }
     }

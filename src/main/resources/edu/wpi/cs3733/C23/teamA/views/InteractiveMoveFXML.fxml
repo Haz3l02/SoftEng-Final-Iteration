@@ -70,9 +70,9 @@
                   <Insets left="10.0" />
                </padding>
             </HBox>
-            <SplitPane fx:id="mainPane" dividerPositions="0.4947916666666667" prefHeight="160.0" prefWidth="200.0" styleClass="split-pane-divider" stylesheets="@../assets/PathfindingStyle.css" VBox.vgrow="ALWAYS">
+            <SplitPane fx:id="mainPane" dividerPositions="0.75" prefHeight="160.0" prefWidth="200.0" styleClass="split-pane-divider" stylesheets="@../assets/PathfindingStyle.css" VBox.vgrow="ALWAYS">
               <items>
-                  <TableView fx:id="dbTable" editable="true" onMouseClicked="#rowClicked" prefHeight="158.0" prefWidth="1301.0" style="-fx-background-color: d3e9f6;" SplitPane.resizableWithParent="false">
+                  <TableView fx:id="dbTable" editable="true" onMouseClicked="#rowClicked" prefHeight="158.0" prefWidth="1301.0" style="-fx-background-color: d3e9f6;">
                      <columns>
                         <TableColumn fx:id="moveCol" prefWidth="186.0" text="Move Location" />
                         <TableColumn fx:id="nodeCol" prefWidth="213.0" text="Node" />
@@ -80,7 +80,7 @@
                         <TableColumn fx:id="messageCol" editable="false" prefWidth="202.0" text="Message" />
                      </columns>
                   </TableView>
-                  <MFXScrollPane fitToHeight="true" fitToWidth="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="707.0" style="-fx-background-color: d3e9f6;">
+                  <MFXScrollPane fitToHeight="true" fitToWidth="true" minWidth="-Infinity" prefHeight="486.0" prefWidth="707.0" style="-fx-background-color: d3e9f6;">
                      <content>
                         <SplitPane fx:id="imagePane" dividerPositions="0.01, 0.47" orientation="VERTICAL" prefWidth="695.0" style="-fx-background-color: d3e9f6;">
                           <items>
