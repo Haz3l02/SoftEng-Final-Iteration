@@ -123,7 +123,9 @@ public class FacadeRepository {
     return av.getAll();
   }
 
-  public List<MessageBoardEntity> getAllMessages() { return mess.getAll(); }
+  public List<MessageBoardEntity> getAllMessages() {
+    return mess.getAll();
+  }
 
   // ADD METHODS
 
@@ -175,7 +177,9 @@ public class FacadeRepository {
     acc.add(c);
   }
 
-  public void addMessage(MessageBoardEntity c) { mess.add(c);}
+  public void addMessage(MessageBoardEntity c) {
+    mess.add(c);
+  }
 
   // DELETE METHODS
 
@@ -227,7 +231,9 @@ public class FacadeRepository {
     av.delete(id);
   }
 
-  public void deleteMessage(List<String> m) { mess.delete(m);}
+  public void deleteMessage(List<String> m) {
+    mess.delete(m);
+  }
 
   // EXPORT METHODS
 
@@ -335,7 +341,9 @@ public class FacadeRepository {
     return acc.get(id);
   }
 
-  public MessageBoardEntity getMessage(Integer id) { return mess.get(id); }
+  public MessageBoardEntity getMessage(Integer id) {
+    return mess.get(id);
+  }
 
   // UPDATE METHODS
 
@@ -387,7 +395,9 @@ public class FacadeRepository {
     av.update(id, c);
   }
 
-  public void updateMessage(MessageBoardEntity obj) { mess.update(obj);}
+  public void updateMessage(MessageBoardEntity obj) {
+    mess.update(obj);
+  }
 
   // miscellaneous
 
@@ -550,9 +560,12 @@ public class FacadeRepository {
     return serv.countRequests(s);
   }
 
-  public ArrayList<MessageBoardEntity> getConversation(EmployeeEntity sender, EmployeeEntity receiver){
+  public ArrayList<MessageBoardEntity> getConversation(
+      EmployeeEntity sender, EmployeeEntity receiver) {
     return mess.getconversion(sender, receiver);
   }
 
-  public ArrayList<String> getMessageByUser(EmployeeEntity user) { return mess.getMessageByUser(user); }
+  public ArrayList<MessageBoardEntity> getMessageByUser(EmployeeEntity user) {
+    return mess.getMessageByUser(user);
+  }
 }

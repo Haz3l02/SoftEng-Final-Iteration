@@ -14,12 +14,12 @@ public class MessageBoardEntity {
   @Setter
   @ManyToOne
   @JoinColumn(
-          name = "senderid",
-          foreignKey =
+      name = "senderid",
+      foreignKey =
           @ForeignKey(
-                  name = "senderid_fk",
-                  foreignKeyDefinition =
-                          "FOREIGN KEY (senderid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
+              name = "senderid_fk",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (senderid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
   private EmployeeEntity sender;
 
   @Id
@@ -27,12 +27,12 @@ public class MessageBoardEntity {
   @Setter
   @ManyToOne
   @JoinColumn(
-          name = "receiverid",
-          foreignKey =
+      name = "receiverid",
+      foreignKey =
           @ForeignKey(
-                  name = "receiverid_fk",
-                  foreignKeyDefinition =
-                          "FOREIGN KEY (receiverid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
+              name = "receiverid_fk",
+              foreignKeyDefinition =
+                  "FOREIGN KEY (receiverid) REFERENCES employee(employeeid) ON UPDATE CASCADE ON DELETE CASCADE"))
   private EmployeeEntity receiver;
 
   @Column(name = "title", nullable = false)
