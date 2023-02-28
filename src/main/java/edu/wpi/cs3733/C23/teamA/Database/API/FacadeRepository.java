@@ -553,4 +553,6 @@ public class FacadeRepository {
   public ArrayList<MessageBoardEntity> getConversation(EmployeeEntity sender, EmployeeEntity receiver){
     return mess.getconversion(sender, receiver);
   }
+
+  public ArrayList<String> getMessageByUser(EmployeeEntity user) { return mess.getMessageByUser(user); }
 }

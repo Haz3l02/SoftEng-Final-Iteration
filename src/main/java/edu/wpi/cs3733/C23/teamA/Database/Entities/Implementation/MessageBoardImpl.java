@@ -166,6 +166,17 @@ public class MessageBoardImpl extends Observable
         return conversation;
     }
 
+    public ArrayList<String> getMessageByUser(EmployeeEntity user) {
+        ArrayList<String> userMessages = new ArrayList<>();
+        for (MessageBoardEntity mes: messages) {
+            if(user.getUsername().equals(mes.getSender().getUsername())
+            || user.getUsername().equals(mes.getReceiver().getUsername())) {
+                userMessages.add(mes.getMessage());
+            }
+        }
+        return userMessages;
+    }
+
     public static MessageBoardImpl getInstance() {
         return instance;
     }
