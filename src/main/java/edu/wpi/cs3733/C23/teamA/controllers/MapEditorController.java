@@ -1,8 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
-import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
-
 import static edu.wpi.cs3733.C23.teamA.controllers.NodeEditorPopupController.floor;
+import static edu.wpi.cs3733.C23.teamA.mapdrawing.CoordinateScalar.scaleCoordinatesReversed;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
@@ -235,19 +234,18 @@ public class MapEditorController extends MenuController {
     // NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
     // NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);
-  }
 
-  //  public void addLocation(ActionEvent event) {
-  //    //    this.locNameEntity.setLongname("Freddy Fazbears Pizzarea 2 ");
-  //    //    locNameEntity.setShortname("FNAF");
-  //    //    locNameEntity.setLocationtype("LABS");
-  //
-  //    NodeEntity selected = NodeDraw2.getSelected();
-  //    FacadeRepository.getInstance().newLocationOnNode(selected.getNodeid(), locNameEntity);
-  //    // longNameBox.setText();
-  //    System.out.println("done");
-  //    initialize();
-  //  }
+    //  public void addLocation(ActionEvent event) {
+    //    //    this.locNameEntity.setLongname("Freddy Fazbears Pizzarea 2 ");
+    //    //    locNameEntity.setShortname("FNAF");
+    //    //    locNameEntity.setLocationtype("LABS");
+    //
+    //    NodeEntity selected = NodeDraw2.getSelected();
+    //    FacadeRepository.getInstance().newLocationOnNode(selected.getNodeid(), locNameEntity);
+    //    // longNameBox.setText();
+    //    System.out.println("done");
+    //    initialize();
+    //  }
 
     mainStackPane.setOnMousePressed(
         e -> {
@@ -286,33 +284,36 @@ public class MapEditorController extends MenuController {
             selectionRectangle.setVisible(false);
           }
         });
-  /**
-   * Method to delete the node that is selected by the user Deletes from database and from the nodes
-   * on the map
-   *
-   * @param event
-   * @throws IOException
-   */
-  public void deleteSelectedNode(ActionEvent event) throws IOException {
-    NodeEntity currentNode = NodeDraw.getSelected();
-    Pane currentNodePane = NodeDraw.getSelectedPane();
-    String id = currentNode.getNodeid();
-    String currentFloor = currentNode.getFloor();
-    // Database //
-    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
-    // FacadeRepository.getInstance().deleteNode(id); // delete from database
 
-    // Redraw map using database //
-    // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
-
-    // Redraw Map not using database //
-    currentNodePane.setVisible(false); // delete node from map view
-    List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
-    if (Floor.indexFromTableString(currentFloor) != -1) {
-      // NodeDraw.drawEdges(
-      // allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
-    }
-    NodeEditorPopupController.setFloor(floor);
+    //  /**
+    //   * Method to delete the node that is selected by the user Deletes from database and from the
+    // nodes
+    //   * on the map
+    //   *
+    //   * @param event
+    //   * @throws IOException
+    //   */
+    //  public void deleteSelectedNode(ActionEvent event) throws IOException {
+    //    NodeEntity currentNode = NodeDraw.getSelected();
+    //    Pane currentNodePane = NodeDraw.getSelectedPane();
+    //    String id = currentNode.getNodeid();
+    //    String currentFloor = currentNode.getFloor();
+    //    // Database //
+    //    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
+    //    // FacadeRepository.getInstance().deleteNode(id); // delete from database
+    //
+    //    // Redraw map using database //
+    //    // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
+    //
+    //    // Redraw Map not using database //
+    //    currentNodePane.setVisible(false); // delete node from map view
+    //    List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
+    //    if (Floor.indexFromTableString(currentFloor) != -1) {
+    //      // NodeDraw.drawEdges(
+    //      // allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
+    //    }
+    //    NodeEditorPopupController.setFloor(floor);
+    //  }
   }
 
   public List<NodeEntity> findNodesInBounds(List<NodeEntity> allNodes) {

@@ -40,6 +40,9 @@ public class NodeDraw {
 
   static Pane currentPane = new Pane();
 
+  static List<Text> locations = new ArrayList<>();
+  static HashMap<String, List<Line>> incoming = new HashMap<>();
+
   static Line selectedLine = null;
   static Line previousLine = null;
   static EdgeEntity selectedEdge = null;
