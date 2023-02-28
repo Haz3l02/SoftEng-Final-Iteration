@@ -25,12 +25,12 @@ public class FacadeRepository {
   private final AccessabilityImpl acc = AccessabilityImpl.getInstance();
   private final AudioVisualImpl av = AudioVisualImpl.getInstance();
 
-  private final Observer nodeObv = new EntityObserver(node); // Notify for edge, move
+  // private final Observer nodeObv = new EntityObserver(node); // Notify for edge, move
   private final Observer edgeObv = new EntityObserver(edge);
   private final Observer moveObv = new EntityObserver(move);
-  private final Observer locObv = new EntityObserver(loc); // Notify all requests, move
+  // private final Observer locObv = new EntityObserver(loc); // Notify all requests, move
   private final Observer sanObv = new EntityObserver(san);
-  private final Observer empObv = new EntityObserver(emp); // Notify all requests
+  // private final Observer empObv = new EntityObserver(emp); // Notify all requests
   private final Observer secObv = new EntityObserver(sec);
   private final Observer servObv = new EntityObserver(serv);
   private final Observer patObv = new EntityObserver(pat);
@@ -39,21 +39,24 @@ public class FacadeRepository {
   private final Observer avObv = new EntityObserver(av);
 
   private FacadeRepository() {
-    loc.attach(sanObv);
-    loc.attach(secObv);
     loc.attach(servObv);
     loc.attach(patObv);
+    loc.attach(moveObv);
+    loc.attach(sanObv);
+    loc.attach(secObv);
     loc.attach(compObv);
     loc.attach(accObv);
-    loc.attach(accObv);
-    loc.attach(moveObv);
-    emp.attach(secObv);
+    loc.attach(avObv);
     emp.attach(servObv);
     emp.attach(patObv);
+    emp.attach(moveObv);
+    emp.attach(sanObv);
+    emp.attach(secObv);
     emp.attach(compObv);
     emp.attach(accObv);
+    emp.attach(avObv);
     node.attach(edgeObv);
-    node.attach(moveObv);
+    // node.attach(moveObv);
   }
 
   public static FacadeRepository getInstance() {
@@ -535,5 +538,17 @@ public class FacadeRepository {
 
   public int countServiceRequestsByType(ServiceRequestEntity.RequestType s) {
     return serv.countRequests(s);
+  }
+
+  public List<EdgeEntity> nodeConnection(String id) {
+    return edge.nodeConnection(id);
+  }
+
+  public List<EdgeEntity> edgeFromStart(String id) {
+    return edge.edgesFromStart(id);
+  }
+
+  public List<EdgeEntity> edgeFromEnd(String id) {
+    return edge.edgesFromEnd(id);
   }
 }

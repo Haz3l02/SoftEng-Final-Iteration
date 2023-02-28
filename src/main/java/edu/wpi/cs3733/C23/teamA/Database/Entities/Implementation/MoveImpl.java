@@ -47,8 +47,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     //              m.getMovedate().toString()));
     //    }
     session.close();
-    moves.sort(Comparator.comparing(MoveEntity::getMovedate));
-    Collections.sort(moves, Collections.reverseOrder());
   }
 
   public List<MoveEntity> getAll() {
@@ -63,8 +61,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<MoveEntity> records = session.createQuery(criteria).getResultList();
     moves = records;
     session.close();
-    moves.sort(Comparator.comparing(MoveEntity::getMovedate));
-    Collections.sort(moves, Collections.reverseOrder());
   }
 
   public void exportToCSV(String filename) throws IOException {
@@ -146,8 +142,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
       throw new PersistenceException();
     }
     session.close();
-    moves.sort(Comparator.comparing(MoveEntity::getMovedate));
-    Collections.sort(moves, Collections.reverseOrder());
   }
 
   public void delete(List<String> m) {
@@ -260,23 +254,6 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return records;
   }
 
-  public MoveEntity recentLocationByFloor(String longname, LocalDate date, String floor) {
-    for (MoveEntity m : moves) {
-      if (m.getNode().getFloor().equals(floor)
-          && m.getLocationName().getLongname().equals(longname)
-          && (m.getMovedate().isBefore(date) || m.getMovedate().equals(date))) return m;
-    }
-    return null;
-  }
-
-  public MoveEntity recentLocation(String longname, LocalDate date) {
-    for (MoveEntity m : moves) {
-      if (m.getLocationName().getLongname().equals(longname)
-          && (m.getMovedate().isBefore(date) || m.getMovedate().equals(date))) return m;
-    }
-    return null;
-  }
-
   /*
   // todo I want to use this but might not be able to
   public List<MoveEntity> locationRecordPathfinding(String longname, LocalDate date) {
@@ -295,7 +272,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
     for (LocationNameEntity loc : locations) {
       try {
-        m.add(recentLocation(loc.getLongname(), date));
+        m.add(locationRecord(loc.getLongname(), date).get(0));
       } catch (Exception e) {
       }
     }
@@ -307,9 +284,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
     for (LocationNameEntity loc : locations) {
       try {
-        if (m != null) {
-          m.add(recentLocationByFloor(loc.getLongname(), date, floor));
-        }
+        m.add(locationRecordFloor(loc.getLongname(), date, floor).get(0));
       } catch (Exception e) {
       }
     }
