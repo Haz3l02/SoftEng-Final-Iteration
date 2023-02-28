@@ -86,42 +86,38 @@ public class MessageBoardImpl extends Observable
 
   public void delete(Integer obj) {}
 
-  public void update(MessageBoardEntity obj) {
-    Session session = getSessionFactory().openSession();
-    Transaction tx = session.beginTransaction();
-    MessageBoardEntity me;
-
-    ListIterator<MessageBoardEntity> li = messages.listIterator();
-    while (li.hasNext()) {
-      me = li.next();
-      if (me.getSender().getUsername().equals(obj.getSender().getUsername())
-          && me.getReceiver().getUsername().equals(obj.getReceiver().getUsername())
-          && me.getTimeSent().toString().equals(obj.getTimeSent().toString())) {
-        li.remove();
-      }
-
-      session
-          .createMutationQuery(
-              "UPDATE MessageBoardEntity mes SET "
-                  + "mes.sender = '"
-                  + obj.getSender()
-                  + "', mes.receiver = '"
-                  + obj.getReceiver()
-                  + "', mes.title = "
-                  + obj.getTitle()
-                  + ", mes.message = "
-                  + obj.getMessage()
-                  + ", mes.timeSent = '"
-                  + obj.getTimeSent()
-                  + "' WHERE mes.sender = '"
-                  + obj.getSender()
-                  + "' and mes.receiver = '"
-                  + obj.getReceiver()
-                  + "' and mes.timeSent = '"
-                  + obj.getMessage()
-                  + "'")
-          .executeUpdate();
-    }
+  public void update(List<String> obj) {
+//    Session session = getSessionFactory().openSession();
+//    Transaction tx = session.beginTransaction();
+//    MessageBoardEntity me;
+//
+//    ListIterator<MessageBoardEntity> li = messages.listIterator();
+//    while (li.hasNext()) {
+//      me = li.next();
+//      if (me.getSender().getUsername().equals(obj.)
+//          && me.getReceiver().getUsername().equals(obj.getReceiver().getUsername())
+//          && me.getTimeSent().toString().equals(obj.getTimeSent().toString())) {
+//        li.remove();
+//      }
+//
+//      session
+//          .createMutationQuery(
+//              "UPDATE MessageBoardEntity mes SET "
+//                  + " mes.title = '"
+//                      + obj.get(2)
+//                  + "', mes.message = '"
+//                      + obj.get(3)
+//                  + "' WHERE mes.sender = '"
+//                      + obj.get(0)
+//                  + "' and mes.receiver = '"
+//                      + obj.get(1)
+//                  + "' and mes.timeSent = '"
+//                      + obj.get(4)
+//                  + "'")
+//          .executeUpdate();
+//    }
+//    tx.commit();
+//    session.close();
   }
 
   public void delete(List<String> m) {
