@@ -247,13 +247,9 @@ public class NodeDraw {
                 alert.setHeaderText(
                     "Are you sure you want to create an edge between "
                         + FacadeRepository.getInstance()
-
                             .getLocation(selectedNodeEntity.getNodeid()));
                 LocationNameEntity locNameEnt =
                     FacadeRepository.getInstance().getLocation(selectedNodeEntity.getNodeid());
-
-                String startLoc;
-                String endLoc;
 
                 alert.setHeaderText(
                     "Are you sure you want to create an edge between: ("
@@ -264,7 +260,7 @@ public class NodeDraw {
                         + node2.getNodeid()
                         + ", "
                         //                          + selectedEdge.getNode2().getYcoord()
-
+                        + FacadeRepository.getInstance()
                             .moveMostRecentLoc(node1.getNodeid())
                             .getShortname()
                         + " and "
@@ -403,7 +399,6 @@ public class NodeDraw {
               NodeEditorEditPopupController.setFloor(selectedNodeEntity.getFloor());
               NodeEditorEditPopupController.setBuilding(selectedNodeEntity.getBuilding());
 
-
               LocationNameEntity loc =
                   FacadeRepository.getInstance().moveMostRecentLoc(selectedNodeEntity.getNodeid());
               if (loc != null) {
@@ -414,8 +409,6 @@ public class NodeDraw {
               }
             }
           });
-
-
 
       /*
       nodeAnchor.setOnMouseClicked(
@@ -434,7 +427,6 @@ public class NodeDraw {
           });
 
        */
-
 
       nodeAnchor.getChildren().add(nodeGraphic);
     }
@@ -504,39 +496,17 @@ public class NodeDraw {
 
   private static EventHandler<? super MouseEvent> dragEvent(MapEditorController nmc) {
 
-    EventHandler<MouseEvent> event =
-        new EventHandler<>() {
-          @Override
-          public void handle(MouseEvent mouseEvent) {
-            if (selectNodePane != null) {
-              nmc.getMainGesturePane().setGestureEnabled(false);
+    return (EventHandler<MouseEvent>)
+        mouseEvent1 -> {
+          if (selectNodePane != null) {
+            nmc.getMainGesturePane().setGestureEnabled(false);
 
-              System.out.println("get mouse location");
-              System.out.println(mouseEvent.getX());
-              System.out.println(mouseEvent.getY());
-              System.out.println("Get layout");
-              System.out.println(selectNodePane.getLayoutX());
-              System.out.println(selectNodePane.getLayoutY());
-
-              selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
-              selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
-
-              System.out.println((int) selectNodePane.getLayoutX());
-              System.out.println((int) selectNodePane.getLayoutX());
-            }
+            selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent1.getX());
+            selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent1.getY());
           }
         };
-    return event;
+  };
 
-    return mouseEvent -> {
-      if (selectNodePane != null) {
-        nmc.getMainGesturePane().setGestureEnabled(false);
-
-        selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
-        selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
-      }
-    };
-  }
   // end _________________________________________________________________
 
   public static void straightenNodesHorizontal() {
@@ -615,7 +585,6 @@ public class NodeDraw {
             if ((!currentLine.equals(selectedLine))) {
               currentLine.setStroke(Color.web("green"));
               currentLine.setStrokeWidth(2);
-
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler2);
@@ -625,7 +594,6 @@ public class NodeDraw {
             if ((!currentLine.equals(selectedLine))) {
               currentLine.setStroke(Color.web("0x224870"));
               currentLine.setStrokeWidth(1);
-
             }
           };
       currentLine.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler3);

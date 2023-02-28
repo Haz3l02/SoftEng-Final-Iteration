@@ -26,15 +26,17 @@ public class TextReader implements Runnable {
     ttsThread = new Thread(this);
   }
 
+  /**
+   * Reads the text that is currently set to the TextReader's text field. It does this inside of a
+   * thread so that other application functions are not stalled or interrupted.
+   */
   public void readText() {
     ttsThread.start();
   }
 
-
-
-  public void forceStop() {
-    // TODO: I want this to stop the .speak() call inside of the thread. the call below *should* do that, but doesn't
-    voice.getAudioPlayer().cancel();
+  // this would stop the voice object from speaking, if it worked (but it doesn't)
+  public void stopText() {
+    ttsThread.interrupt();
   }
 
   @Override

@@ -189,7 +189,13 @@ public class PathfindingController extends MenuController {
     startLocBox.setItems(empty);
     endLocBox.setItems(empty);
 
-    // text
+    // clear the anchorPanes w/ the drawn paths
+    for (AnchorPane ap : aps) {
+      ap.getChildren().clear();
+      ap.setVisible(false);
+    }
+
+    // clear the text
     pathMapText.setText("Directions on how to get to your destination go here...");
     errorMessage.setText("");
   }
@@ -586,10 +592,6 @@ public class PathfindingController extends MenuController {
   @FXML
   public void directionsToSpeech(ActionEvent event) {
     TextReader tts = new TextReader(pathMapText.getText());
-    if (event.getSource().equals(speakButton)) {
-      tts.readText();
-    } else if (event.getSource().equals(stopSpeakingButton)) {
-      tts.forceStop();
-    }
+    tts.readText();
   }
 }
