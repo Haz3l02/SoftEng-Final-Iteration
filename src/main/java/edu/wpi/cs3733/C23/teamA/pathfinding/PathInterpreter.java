@@ -97,13 +97,13 @@ public class PathInterpreter {
     int numFloors = floorPath.size();
 
     // floor order
-    sb.append("(Floor Order: ");
+    sb.append("Floor Order: ");
     for (int i = 0; i < numFloors; i++) {
       sb.append(floorPath.get(i));
       if (i != numFloors - 1) {
         sb.append(" \u2192 ");
       } else if (i == numFloors - 1) {
-        sb.append(")\n\n");
+        sb.append("\n\n");
       }
     }
 
@@ -114,8 +114,8 @@ public class PathInterpreter {
 
     // add the start to the sb
     prevFloor = path.get(0).getFloor();
-    sb.append("(Floor " + prevFloor + ")\n");
-    sb.append("Start at " + path.get(0).getLongName() + ".\n");
+    sb.append("Floor " + prevFloor + ":\n");
+    sb.append("\tStart at " + path.get(0).getLongName() + ".\n");
 
     // loop through all of them to print the full path
     for (int i = 1; i < numNodes; i++) {
@@ -123,21 +123,21 @@ public class PathInterpreter {
       currentFloor = path.get(i).getFloor();
 
       if (!currentFloor.equals(prevFloor)) {
-        sb.append("\n(Floor " + currentFloor + ")\n");
+        sb.append("\nFloor " + currentFloor + ":\n");
         prevFloor = currentFloor;
       }
 
       if (longName != null) {}
       if (i == 1) {
-        sb.append("Go toward " + longName + ".\n");
+        sb.append("\tGo toward " + longName + ".\n");
       } else {
         String direction = getDirection(path.get(i - 2), path.get(i - 1), path.get(i));
-        sb.append(direction);
+        sb.append("\t" + direction);
       }
     }
 
     // add the end to sb
-    sb.append("(\u274C) " + "You have reached " + endName + ".\n");
+    sb.append("\t(\u274C) " + "You have reached " + endName + ".\n");
 
     // return the built string
     return sb.toString();
@@ -210,13 +210,13 @@ public class PathInterpreter {
     // floor order
     //    StringBuilder[] directions = new StringBuilder[floorPath.size()];
 
-    sb.append("(Floor Order: ");
+    sb.append("Floor Order: ");
     for (int i = 0; i < numFloors; i++) {
       sb.append(floorPath.get(i));
       if (i != numFloors - 1) {
         sb.append(" \u2192 ");
       } else if (i == numFloors - 1) {
-        sb.append(")\n\n");
+        sb.append("\n\n");
       }
     }
 
@@ -227,8 +227,8 @@ public class PathInterpreter {
 
     // add the start to the sb
     prevFloor = path.get(0).getFloor();
-    sb.append("(Floor " + prevFloor + ")\n");
-    sb.append("Start at " + path.get(0).getLongName() + ".\n");
+    sb.append("Floor " + prevFloor + ":\n");
+    sb.append("\tStart at " + path.get(0).getLongName() + ".\n");
 
     // loop through all of them to print the full path
     boolean lastWasStraight = false;
@@ -239,7 +239,7 @@ public class PathInterpreter {
       currentFloor = path.get(i).getFloor();
 
       if (!currentFloor.equals(prevFloor)) {
-        sb.append("\n(Floor " + currentFloor + ")\n");
+        sb.append("\nFloor " + currentFloor + ":\n");
         prevFloor = currentFloor;
         lastWasStraight = false;
         lastDirectionStraight = "";
@@ -248,7 +248,7 @@ public class PathInterpreter {
       if (longName != null) {}
 
       if (i == 1) {
-        sb.append("Go toward " + longName + ".\n");
+        sb.append("\tGo toward " + longName + ".\n");
       } else {
         String direction = getDirection(path.get(i - 2), path.get(i - 1), path.get(i));
         if (direction.contains("Continue straight")) {
@@ -256,17 +256,17 @@ public class PathInterpreter {
           lastDirectionStraight = direction;
         } else {
           if (lastWasStraight) {
-            sb.append(lastDirectionStraight);
+            sb.append("\t" + lastDirectionStraight);
             lastDirectionStraight = "";
             lastWasStraight = false;
           }
-          sb.append(direction); // append if not straight ahead
+          sb.append("\t" + direction); // append if not straight ahead
         }
       }
     }
 
     // add the end to sb
-    sb.append("(\u274C) " + "You have reached " + endName + ".\n");
+    sb.append("\t(\u274C) " + "You have reached " + endName + ".\n");
 
     // return the built string
     return sb.toString();
