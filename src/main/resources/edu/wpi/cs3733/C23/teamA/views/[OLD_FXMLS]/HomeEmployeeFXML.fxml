@@ -156,7 +156,7 @@
                      <items>
                         <BorderPane prefHeight="0.0" prefWidth="1372.0" style="-fx-background-color: #224870;">
                            <right>
-                              <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../assets/BackDropSRHStyle.css" BorderPane.alignment="CENTER">
+                              <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: #2A4494;" stylesheets="@../../assets/BackDropSRHStyle.css" BorderPane.alignment="CENTER">
                                  <children>
                                     <MFXButton minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="64.0" prefWidth="110.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Home" textFill="#d3e9f6" underline="true">
                                        <font>
@@ -231,7 +231,7 @@
       </VBox>
    </children>
    <stylesheets>
-      <URL value="@../assets/HomePageStyle.css" />
-      <URL value="@../assets/BackDropSRHStyle.css" />
+      <URL value="@../../assets/HomePageStyle.css" />
+      <URL value="@../../assets/BackDropSRHStyle.css" />
    </stylesheets>
 </AnchorPane>

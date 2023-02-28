@@ -23,9 +23,9 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="314.0" prefWidth="364.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello!">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
                                  <font>
-                                    <Font name="Verdana" size="48.0" />
+                                    <Font name="Verdana" size="40.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets bottom="15.0" />
