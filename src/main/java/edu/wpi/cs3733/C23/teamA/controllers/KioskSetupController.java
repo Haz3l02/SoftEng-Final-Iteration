@@ -128,10 +128,7 @@ public class KioskSetupController extends MenuController {
       // Code to check if the move entered is valid.
       List<MoveEntity> moves =
           FacadeRepository.getInstance().newAndOldMove(moveLocation.getText(), moveDate.getValue());
-      System.out.println(moves.get(0).getNode().getNodeid());
-      System.out.println(moves.get(1).getNode().getNodeid());
-      System.out.println(moves.size());
-      if (!(moves.size() == 1)) {
+      if (moves.size() != 1 && moves.get(0).getNode() != null && moves.get(1).getNode() != null) {
         reminderPane.setVisible(false);
         moveReminder.setVisible(false);
         kiosk =
@@ -141,7 +138,8 @@ public class KioskSetupController extends MenuController {
                 left.getText(),
                 right.getText(),
                 directionOnOff.isSelected(),
-                moveDescription.getText());
+                moveDescription.getText(),
+                moveLocation.getText());
         System.out.println("HEHEHEHEHEHE");
         Navigation.navigateHome(Screen.KIOSK); // go to new screen
       } else {

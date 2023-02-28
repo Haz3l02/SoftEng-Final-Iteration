@@ -44,6 +44,9 @@ public class KioskController {
   @FXML private ImageView mainImageView;
   @FXML private GesturePane mainGesturePane;
   @FXML private StackPane mainStackPane;
+  @FXML private Label moveDetails;
+  @FXML private Label floorNumber;
+  @FXML private Label bruh;
 
   private AnchorPane[] aps = new AnchorPane[5];
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
@@ -103,6 +106,12 @@ public class KioskController {
     ArrayList<GraphNode> path = info.getPath();
     System.out.println(path.size());
     floorPath = info.getFloorPath();
+    if (start.getFloor().equals(end.getFloor())) {
+      moveDetails.setText(kiosk.getMoveName() + " is moving on " + end.getFloor());
+    } else {
+      moveDetails.setText(
+          kiosk.getMoveName() + " is moving from " + start.getFloor() + " to " + end.getFloor());
+    }
     directions = pathfindingSystem.generatePathString(path, floorPath);
     directionsText.setText(directions);
 
@@ -131,6 +140,7 @@ public class KioskController {
     int size = floorPath.size();
     if (floorPath.size() > 0) {
       thisFloor = floorPath.get(currentFloorIndex % size);
+
       currentFloorIndex++;
     }
     mainImageView.setImage(ImageLoader.getImage(thisFloor));
