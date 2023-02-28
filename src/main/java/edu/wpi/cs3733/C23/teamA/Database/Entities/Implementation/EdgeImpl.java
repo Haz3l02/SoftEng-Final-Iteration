@@ -202,11 +202,11 @@ public class EdgeImpl extends Observable implements IDatabaseAPI<EdgeEntity, Str
                 + obj.getNode1()
                 + "', edge.node2 = '"
                 + obj.getNode2()
-                + "', edge.edgeID = '"
+                + "', edge.edgeid = '"
                 + obj.getNode1().getNodeid()
                 + "_"
                 + obj.getNode1().getNodeid()
-                + "' WHERE edge.edgeID = '"
+                + "' WHERE edge.edgeid = '"
                 + s
                 + "'")
         .executeUpdate();

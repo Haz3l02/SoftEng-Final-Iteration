@@ -36,6 +36,11 @@
                                           <Font name="Verdana" size="27.0" />
                                        </font>
                                     </MFXButton>
+                                    <MFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#switchToMessages" prefHeight="67.0" prefWidth="203.0" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="Messages" textAlignment="CENTER" textFill="#d3e9f6" wrapText="true">
+                                       <font>
+                                          <Font name="Verdana" size="27.0" />
+                                       </font>
+                                    </MFXButton>
                                     <StackPane>
                                        <children>
                                           <ComboBox fx:id="admin" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />

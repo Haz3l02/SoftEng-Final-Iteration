@@ -31,11 +31,10 @@ public class KioskSetupController extends MenuController {
   @FXML private StackPane reminderPane;
   @FXML private Text reminder, moveReminder;
 
-  public static Kiosk kiosk = new Kiosk(null, null, "", "", false, "");
+  public static Kiosk kiosk;
 
   @FXML
   public void initialize() {
-    System.out.println("Gets here");
     reminder.setVisible(false);
     reminderPane.setVisible(false);
     moveReminder.setVisible(false);
@@ -124,31 +123,24 @@ public class KioskSetupController extends MenuController {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
+
       // Code to check if the move entered is valid.
       List<MoveEntity> moves =
           FacadeRepository.getInstance().newAndOldMove(moveLocation.getText(), moveDate.getValue());
-      System.out.println(moves.size());
-      System.out.println(moves);
-      System.out.println(moves.get(0).getNode().getNodeid());
-      System.out.println(moves.get(1).getNode().getNodeid());
-      if (!(moves.size() == 1)) {
+      if (moves.size() != 1 && moves.get(0).getNode() != null && moves.get(1).getNode() != null) {
         reminderPane.setVisible(false);
         moveReminder.setVisible(false);
-        String desc = "";
-        if (moveDescription.getText() == null && moves.get(0).getMessage() == null) {
-          reminderPane.setVisible(true);
-          moveReminder.setVisible(true);
-        } else {
-          kiosk =
-              new Kiosk(
-                  moves.get(1).getNode(),
-                  moves.get(0).getNode(),
-                  left.getText(),
-                  right.getText(),
-                  directionOnOff.isSelected(),
-                  moveDescription.getText());
-          Navigation.navigateHome(Screen.KIOSK);
-        }
+        kiosk =
+            new Kiosk(
+                moves.get(0).getNode(),
+                moves.get(1).getNode(),
+                left.getText(),
+                right.getText(),
+                directionOnOff.isSelected(),
+                moveDescription.getText(),
+                moveLocation.getText());
+        System.out.println("HEHEHEHEHEHE");
+        Navigation.navigateHome(Screen.KIOSK); // go to new screen
       } else {
         reminderPane.setVisible(true);
         moveReminder.setVisible(true);

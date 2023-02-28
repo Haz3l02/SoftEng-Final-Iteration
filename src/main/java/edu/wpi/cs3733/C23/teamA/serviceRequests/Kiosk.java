@@ -11,6 +11,7 @@ public class Kiosk {
   @Getter @Setter private String right;
   @Getter @Setter private boolean directions;
   @Getter @Setter private String message;
+  @Getter @Setter private String moveName;
 
   public Kiosk(
       NodeEntity startLocation,
@@ -18,12 +19,14 @@ public class Kiosk {
       String left,
       String right,
       boolean directions,
-      String message) {
+      String message,
+      String moveName) {
     this.startLocation = startLocation;
     this.endLocation = endLocation;
     this.left = left;
     this.right = right;
     this.directions = directions;
     this.message = message;
+    this.moveName = moveName;
   }
 }
