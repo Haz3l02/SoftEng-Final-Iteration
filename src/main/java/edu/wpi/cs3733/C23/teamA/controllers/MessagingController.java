@@ -28,6 +28,7 @@ public class MessagingController extends NavigationController {
   @FXML TableColumn<MessageBoardEntity, String> timeSentCol;
   @FXML TableColumn<MessageBoardEntity, String> messageCol;
   @FXML TableColumn<MessageBoardEntity, String> titleCol;
+  @FXML TableColumn<MessageBoardEntity, String> recipientCol;
 
   @FXML MFXButton newMessageButton;
   @FXML MFXButton deleteMessageButton;
@@ -67,6 +68,8 @@ public class MessagingController extends NavigationController {
     titleCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
     senderCol.setCellValueFactory(
         param -> new SimpleStringProperty(param.getValue().getSender().getUsername()));
+    recipientCol.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getReceiver().getUsername()));
     timeSentCol.setCellValueFactory(
         param -> new SimpleStringProperty(param.getValue().getTimeSent().toString()));
 
