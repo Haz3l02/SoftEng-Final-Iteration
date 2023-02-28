@@ -472,8 +472,14 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     ArrayList<MoveEntity> fin = new ArrayList<>();
     fin.add(moveOnOrBeforeDate(longName, date));
 
-    date = fin.get(0).getMovedate().minusDays(1);
-    fin.add(moveOnOrBeforeDate(longName, date));
+    if (fin.get(0).getMovedate() == null) {
+      return fin;
+    } else {
+      date = fin.get(0).getMovedate().minusDays(1);
+
+      fin.add(moveOnOrBeforeDate(longName, date));
+    }
+
     return fin;
   }
 }
