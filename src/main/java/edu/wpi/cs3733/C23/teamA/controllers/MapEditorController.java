@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
+import static edu.wpi.cs3733.C23.teamA.controllers.NodeEditorPopupController.floor;
+
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EdgeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
@@ -157,7 +159,7 @@ public class MapEditorController extends MenuController {
         .selectedProperty()
         .addListener(
             Observable -> {
-              changeLocations();
+              NodeDraw.toggleLocationDisplay(toggleSwitch.isSelected());
             });
     mapEditor = new MapEditorController();
 
@@ -193,7 +195,8 @@ public class MapEditorController extends MenuController {
   }
 
   public void generateFloor(ActionEvent event) {
-    String floor = "L2";
+    toggleSwitch.setSelected(false);
+    String floor = "L1";
     if (event.getSource().equals(l1Button)) {
       floor = "L1";
     } else if (event.getSource().equals(l2Button)) {
@@ -220,10 +223,49 @@ public class MapEditorController extends MenuController {
     Image image = ImageLoader.getImage(floor);
 
     mainImageView.setImage(image);
-    NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
+    // NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
-    NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);
+    // NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);
+  }
 
+  //  public void addLocation(ActionEvent event) {
+  //    //    this.locNameEntity.setLongname("Freddy Fazbears Pizzarea 2 ");
+  //    //    locNameEntity.setShortname("FNAF");
+  //    //    locNameEntity.setLocationtype("LABS");
+  //
+  //    NodeEntity selected = NodeDraw2.getSelected();
+  //    FacadeRepository.getInstance().newLocationOnNode(selected.getNodeid(), locNameEntity);
+  //    // longNameBox.setText();
+  //    System.out.println("done");
+  //    initialize();
+  //  }
+
+  /**
+   * Method to delete the node that is selected by the user Deletes from database and from the nodes
+   * on the map
+   *
+   * @param event
+   * @throws IOException
+   */
+  public void deleteSelectedNode(ActionEvent event) throws IOException {
+    NodeEntity currentNode = NodeDraw.getSelected();
+    Pane currentNodePane = NodeDraw.getSelectedPane();
+    String id = currentNode.getNodeid();
+    String currentFloor = currentNode.getFloor();
+    // Database //
+    FacadeRepository.getInstance().collapseNode(currentNode); // edge repair and deletes node
+    // FacadeRepository.getInstance().deleteNode(id); // delete from database
+
+    // Redraw map using database //
+    // initializeFloorMap(currentFloor); // may need to use Floor.something to get tableview
+
+    // Redraw Map not using database //
+    currentNodePane.setVisible(false); // delete node from map view
+    List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(currentFloor);
+    if (Floor.indexFromTableString(currentFloor) != -1) {
+      // NodeDraw.drawEdges(
+      // allEdges, SCALE_FACTOR, edgeAnchorPane); // delete then redraw edges for this floor
+    }
     NodeEditorPopupController.setFloor(floor);
   }
 
@@ -378,6 +420,30 @@ public class MapEditorController extends MenuController {
 
   public void changeLocations() {
     mainTextPane.setVisible(!mainTextPane.isVisible());
+    //  public void setLocButtonVisibility(boolean eye) {
+    //    createLocation.setVisible(eye);
+    //  }
+  }
+  // TODO
+  public void transitionToNewNodeBox(ActionEvent event) {}
+
+  // TODO
+  public void editEdge(ActionEvent event) {}
+
+  // TODO
+  public void deleteEdge(ActionEvent event) {}
+
+  // TODO
+  public void addLocationName(ActionEvent event) {}
+
+  // TODO
+  public void editLocationName(ActionEvent event) {}
+
+  // TODO
+  public void delLocationName(ActionEvent event) {}
+
+  public void changeLocations(boolean flag) {
+    NodeDraw.toggleLocationDisplay(false);
   }
 
   @FXML
