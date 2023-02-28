@@ -76,13 +76,16 @@
             </HBox>
             <SplitPane fx:id="mainPane" dividerPositions="0.4656203288490284" prefHeight="160.0" prefWidth="200.0" styleClass="split-pane-divider" stylesheets="@../assets/PathfindingStyle.css" VBox.vgrow="ALWAYS">
               <items>
-                  <TableView fx:id="dbTable" editable="true" onMouseClicked="#rowClicked" prefHeight="158.0" prefWidth="1301.0" style="-fx-background-color: d3e9f6;" SplitPane.resizableWithParent="false">
+                  <TableView fx:id="dbTable" editable="true" onMouseClicked="#rowClicked" prefHeight="158.0" prefWidth="1301.0" style="-fx-background-color: d3e9f6;" stylesheets="@../assets/tableView.css" SplitPane.resizableWithParent="false">
                      <columns>
                         <TableColumn fx:id="moveCol" prefWidth="186.0" styleClass="tableText" text="Move Location" />
                         <TableColumn fx:id="nodeCol" prefWidth="213.0" styleClass="tableText" text="Node" />
                         <TableColumn fx:id="moveDateCol" editable="false" prefWidth="202.0" styleClass="tableText" text="Move Date" />
-                        <TableColumn fx:id="messageCol" editable="false" prefWidth="202.0" text="Message" />
+                        <TableColumn fx:id="messageCol" editable="false" prefWidth="202.0" styleClass="tableText" text="Message" />
                      </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                   <MFXScrollPane fitToHeight="true" fitToWidth="true" maxWidth="-Infinity" prefHeight="486.0" prefWidth="740.0" style="-fx-background-color: d3e9f6;" SplitPane.resizableWithParent="false">
                      <content>

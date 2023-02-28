@@ -25,7 +25,9 @@
     -fx-background-color:  #022D58;
     -fx-box-border:  transparent;
     -fx-border-color: transparent -fx-box-border  transparent;
-    /*-fx-font-weight: normal;*/
+    -fx-font-family: Verdana;
+    -fx-font-weight: normal;
+
 }
 .combo-box .arrow, .combo-box .arrow-button{
     -fx-background-color: transparent;

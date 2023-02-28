@@ -53,7 +53,11 @@
                         <Image url="@../assets/Brigham_and_Womens_Hospital_logo_whiteBorder_tiny.png" />
                      </image>
                   </ImageView>
-                  <ComboBox fx:id="serviceRequest" promptText="Service Request Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="serviceRequest" promptText="Service Request Systems" styleClass="Hover" HBox.hgrow="ALWAYS">
+                     <stylesheets>
+                        <URL value="@../assets/dropDown.css" />
+                        <URL value="@StyleSheet.css" />
+                     </stylesheets></ComboBox>
                   <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" onAction="#switchToPathfinding" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textAlignment="CENTER" textFill="#d3e9f6">
                      <font>
                         <Font name="Verdana" size="25.0" />
