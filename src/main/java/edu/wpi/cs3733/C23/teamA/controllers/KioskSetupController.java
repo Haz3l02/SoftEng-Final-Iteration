@@ -3,7 +3,6 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -133,16 +132,21 @@ public class KioskSetupController extends MenuController {
         reminderPane.setVisible(false);
         moveReminder.setVisible(false);
         String desc = "";
-        if(moveDescription.getText() == null && (moves.get(0).getMessage() == null)
-        kiosk =
-            new Kiosk(
-                moves.get(1).getNode(),
-                moves.get(0).getNode(),
-                left.getText(),
-                right.getText(),
-                directionOnOff.isSelected(),
-                moveDescription.getText());
-        Navigation.navigateHome(Screen.KIOSK);
+        if (moveDescription.getText() == null && moves.get(0).getMessage() == null) {
+          reminderPane.setVisible(true);
+          moveReminder.setVisible(true);
+        } else {
+          kiosk =
+              new Kiosk(
+                  moves.get(1).getNode(),
+                  moves.get(0).getNode(),
+                  left.getText(),
+                  right.getText(),
+                  directionOnOff.isSelected(),
+                  moveDescription.getText());
+          Navigation.navigateHome(Screen.KIOSK);
+        }
+
       } else {
         reminderPane.setVisible(true);
         moveReminder.setVisible(true);

@@ -213,31 +213,43 @@
                   </Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="185.0" prefWidth="296.0" spacing="10.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-background-radius: 15;" VBox.vgrow="NEVER">
+            <VBox alignment="CENTER_LEFT" prefHeight="185.0" prefWidth="296.0" spacing="10.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-background-radius: 15;" VBox.vgrow="NEVER">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Stats:">
                      <font>
                         <Font name="Verdana" size="36.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                   </Text>
                   <Label fx:id="label1" alignment="CENTER" text="Label" wrapText="true">
                      <font>
                         <Font name="Verdana" size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                   </Label>
                   <Label fx:id="label2" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Verdana" size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                   </Label>
                   <Label fx:id="label3" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Verdana" size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets left="25.0" right="25.0" />
                </VBox.margin></VBox>
             <VBox alignment="CENTER" prefHeight="244.0" prefWidth="316.0" spacing="10.0">
                <children>
@@ -246,7 +258,7 @@
                         <Font name="Verdana" size="18.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets left="25.0" right="25.0" />
                      </VBox.margin>
                   </TextArea>
                   <MFXButton fx:id="adminAnnouncementButton" buttonType="RAISED" onAction="#submitAnnouncement" prefHeight="51.0" prefWidth="119.0" rippleColor="#c0cced" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-border-radius: 15;" text="Submit">
