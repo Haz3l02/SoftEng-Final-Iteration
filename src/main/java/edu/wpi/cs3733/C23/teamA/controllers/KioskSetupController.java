@@ -119,8 +119,7 @@ public class KioskSetupController extends MenuController {
   public void generateKiosk() {
     if (locationBox.getText() == null
         || moveLocation.getText() == null
-        || moveDate.getValue() == null
-        || moveDescription.getText() == null) {
+        || moveDate.getValue() == null) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
@@ -140,7 +139,6 @@ public class KioskSetupController extends MenuController {
                 directionOnOff.isSelected(),
                 moveDescription.getText(),
                 moveLocation.getText());
-        System.out.println("HEHEHEHEHEHE");
         Navigation.navigateHome(Screen.KIOSK); // go to new screen
       } else {
         reminderPane.setVisible(true);
