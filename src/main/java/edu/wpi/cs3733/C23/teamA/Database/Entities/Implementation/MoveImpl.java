@@ -310,7 +310,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     return mov;
   }
 
-  public MoveEntity nodeOnOrBeforeDate(String id, LocalDate date) {
+  public MoveEntity moveOnOrBeforeDate(String id, LocalDate date) {
     MoveEntity mov = new MoveEntity();
     List<MoveEntity> ids =
         moves.stream()
@@ -445,16 +445,12 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     }
   }
 
-  public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date) {
-    ArrayList<NodeEntity> fin = new ArrayList<>();
-    for (MoveEntity m : moves) {
-      if (m.getLocationName().getLongname().equals(longName) && m.getMovedate().equals(date)) {
-        fin.add(m.getNode());
-      }
-    }
+  public ArrayList<MoveEntity> newAndOldMove(String longName, LocalDate date) {
+    ArrayList<MoveEntity> fin = new ArrayList<>();
+    fin.add(moveOnOrBeforeDate(longName, date));
 
-    date = date.minusDays(1);
-    fin.add(nodeOnOrBeforeDate(longName, date).getNode());
+    date = fin.get(0).getMovedate().minusDays(1);
+    fin.add(moveOnOrBeforeDate(longName, date));
     return fin;
   }
 }

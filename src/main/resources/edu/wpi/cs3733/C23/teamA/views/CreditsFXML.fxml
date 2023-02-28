@@ -35,7 +35,17 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Login Image &amp; Homepage Image(s), Map Images, Application Logo: Brigham &amp; Women's Hospital" wrappingWidth="500.0">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Map Images: Brigham &amp; Women's Hospital" wrappingWidth="500.0">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Text>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Login &amp; Homepage Images: Brigham &amp; Women's Hospital" wrappingWidth="500.0">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Text>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Application Logo: Brigham &amp; Women's Hospital" wrappingWidth="500.0">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>
@@ -48,12 +58,22 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="APIs:">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="External Software Libraries:">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
             </Text>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="(none)" textAlignment="CENTER" wrappingWidth="500.0">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Enhanced GUI Components: MaterialFX" wrappingWidth="500.0">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Text>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Gesture Panes: GestureFX" wrappingWidth="500.0">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Text>
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Text-to-Speech Functionality: FreeTTS" wrappingWidth="500.0">
                <font>
                   <Font name="Verdana" size="14.0" />
                </font>

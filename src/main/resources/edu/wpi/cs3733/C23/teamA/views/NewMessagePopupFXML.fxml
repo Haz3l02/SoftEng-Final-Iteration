@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="439.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.NewMessageController">
+    <children>
+        <VBox fx:id="fieldBox" prefHeight="567.0" prefWidth="241.0" spacing="10.0" style="-fx-background-color: #bad1ea;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
+               <font>
+                  <Font name="Verdana" size="24.0" />
+               </font>
+            </Text>
+            <MFXTextField fx:id="titleBox" floatMode="DISABLED" minHeight="-Infinity" prefHeight="42.0" prefWidth="385.0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient">
+                    <font>
+                        <Font name="Verdana" size="24.0" />
+                    </font>
+                </Text>
+            <MFXFilterComboBox fx:id="recipientBox" floatMode="DISABLED" minHeight="-Infinity" prefHeight="42.0" prefWidth="417.0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Message">
+                    <font>
+                        <Font name="Verdana" size="24.0" />
+                    </font>
+                </Text>
+            <TextArea fx:id="messageBox" prefHeight="356.0" prefWidth="385.0" />
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                    <children>
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <children>
+                                <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hidePopup" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                </MFXButton>
+                                <MFXButton fx:id="sendMessage" buttonType="RAISED" cancelButton="true" onAction="#sendMessage" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Send" textFill="#224870">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </MFXButton>
+                            </children>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>
