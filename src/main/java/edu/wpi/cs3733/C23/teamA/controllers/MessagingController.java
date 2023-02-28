@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MessageBoardEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,8 +72,11 @@ public class MessagingController extends NavigationController {
         param -> new SimpleStringProperty(param.getValue().getTimeSent().toString()));
 
     //
-    // messageBoardModel.setAll(FacadeRepository.getInstance().getMessageByUser(FacadeRepository.getInstance().getEmployee(IdNumberHolder.getInstance().getEmployeeID())));
-    messageBoardModel.setAll(FacadeRepository.getInstance().getAllMessages());
+    messageBoardModel.setAll(
+        FacadeRepository.getInstance()
+            .getMessageByUser(
+                FacadeRepository.getInstance()
+                    .getEmployee(IdNumberHolder.getInstance().getEmployeeID())));
     messagesTable.setItems(messageBoardModel);
   }
 
@@ -128,12 +132,6 @@ public class MessagingController extends NavigationController {
     }
 
     deleteMessageButton.setDisable(true);
-    initialize();
-  }
-
-  @FXML
-  public void editMessage(ActionEvent event) {
-
-    FacadeRepository.getInstance().updateMessage(selectedMessage);
+    refreshTable(event);
   }
 }
