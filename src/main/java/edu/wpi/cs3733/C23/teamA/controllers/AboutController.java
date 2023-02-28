@@ -131,8 +131,7 @@ public class AboutController {
         (MouseEvent e) -> {
           ImageOne.setImage(ImageJ);
           name.setText(memberJ.getText());
-          FunFact.setText(
-              "Fun Fact: I was voted “most likely to publish a game” at my high school.");
+          FunFact.setText("Fun Fact: I was voted most likely to publish a game at my high school.");
           Role.setText("Role: Documentation Analyst, Part-Time Developer (Back-End)");
           major.setText("Major: IMGD-BS and Computer Science");
         });

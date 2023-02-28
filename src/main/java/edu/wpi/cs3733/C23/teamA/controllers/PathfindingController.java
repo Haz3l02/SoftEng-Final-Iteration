@@ -241,7 +241,8 @@ public class PathfindingController extends MenuController {
     // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still
     // works though,
     // and isn't that much slower.
-    List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
+    List<MoveEntity> moveEntities =
+        FacadeRepository.getInstance().moveAllMostRecentFloor(navDate, floor.getTableString());
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
 
@@ -277,7 +278,8 @@ public class PathfindingController extends MenuController {
     // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still
     // works though,
     // and isn't that much slower.
-    List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
+    List<MoveEntity> moveEntities =
+        FacadeRepository.getInstance().moveAllMostRecentFloor(navDate, floor.getTableString());
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
 
