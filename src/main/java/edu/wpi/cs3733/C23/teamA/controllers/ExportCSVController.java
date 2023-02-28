@@ -83,7 +83,7 @@ public class ExportCSVController {
           FacadeRepository.getInstance().exportMove(fileNameField.getText());
           Navigation.navigate(Screen.MOVE);
         } else {
-          FacadeRepository.getInstance().exportEmployee(fileNameField.getText());
+          FacadeRepository.getInstance().exportService(fileNameField.getText());
           Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
         }
       }
