@@ -139,7 +139,6 @@ public class KioskSetupController extends MenuController {
                 directionOnOff.isSelected(),
                 moveDescription.getText(),
                 moveLocation.getText());
-        System.out.println("HEHEHEHEHEHE");
         Navigation.navigateHome(Screen.KIOSK); // go to new screen
       } else {
         reminderPane.setVisible(true);
