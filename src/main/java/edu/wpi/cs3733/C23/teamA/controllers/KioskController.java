@@ -148,7 +148,7 @@ public class KioskController {
   /** Method to cycle through one of the maps for this move's path */
   private void oneCycle() {
 
-    // clear the anchorPanes w/ the drawn paths
+    // hide the anchorPanes w/ the drawn paths
     for (AnchorPane ap : aps) {
       ap.setVisible(false);
     }
