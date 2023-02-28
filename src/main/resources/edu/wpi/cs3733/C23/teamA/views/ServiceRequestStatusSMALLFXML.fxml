@@ -228,6 +228,9 @@
                         <TableColumn fx:id="urgencyCol" minWidth="7.0" prefWidth="510.0" resizable="false" text="Urgency" />
                         <TableColumn fx:id="employeeAssignedCol" minWidth="0.0" prefWidth="378.0" text="Employee Assigned" />
                      </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                </items>
                <VBox.margin>
