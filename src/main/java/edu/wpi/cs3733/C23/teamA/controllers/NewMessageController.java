@@ -4,7 +4,7 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MessageBoardEntity;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Timestamp;
 import javafx.collections.FXCollections;
@@ -15,7 +15,7 @@ import javafx.scene.control.TextArea;
 
 public class NewMessageController {
 
-  @FXML MFXComboBox<String> recipientBox;
+  @FXML MFXFilterComboBox<String> recipientBox;
   @FXML MFXTextField titleBox;
   @FXML TextArea messageBox;
 

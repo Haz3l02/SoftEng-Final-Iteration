@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TextArea?>
@@ -20,13 +20,13 @@
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="titleBox" floatMode="DISABLED" prefHeight="55.0" prefWidth="385.0" />
+            <MFXTextField fx:id="titleBox" floatMode="DISABLED" minHeight="-Infinity" prefHeight="42.0" prefWidth="385.0" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient">
                     <font>
                         <Font name="Verdana" size="24.0" />
                     </font>
                 </Text>
-            <MFXComboBox fx:id="recipientBox" floatMode="DISABLED" prefHeight="42.0" prefWidth="392.0" />
+            <MFXFilterComboBox fx:id="recipientBox" floatMode="DISABLED" minHeight="-Infinity" prefHeight="42.0" prefWidth="417.0" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Message">
                     <font>
                         <Font name="Verdana" size="24.0" />
