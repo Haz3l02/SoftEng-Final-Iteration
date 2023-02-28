@@ -117,5 +117,17 @@
     -fx-text-fill: #122c34;
 }
 
+.aboutText{
+    -fx-font-size: 14px;
+    -fx-font-family: Verdana;
+    -fx-text-fill: #122c34;
+    -fx-text-alignment: LEFT;
+}
+
+.Hover:hover{
+    -fx-text-fill: #f1a94f;
+    -fx-scale-y: 1.2;
+    -fx-scale-x: 1.2;
+}
 
 
