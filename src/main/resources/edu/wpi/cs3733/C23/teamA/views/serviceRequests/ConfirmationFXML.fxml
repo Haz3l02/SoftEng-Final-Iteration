@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
@@ -9,6 +10,9 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="714.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SecurityController">
+   <stylesheets>
+      <URL value="@../StyleSheet.css" />
+   </stylesheets>
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="594.0" style="-fx-background-color: D3E9F6;" BorderPane.alignment="CENTER">
          <children>
@@ -24,12 +28,12 @@
             </Text>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                <children>
-                  <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToHomeServiceRequestScene" prefHeight="28.0" prefWidth="450.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Service Request Systems" textFill="#122c34">
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#switchToHomeServiceRequestScene" prefHeight="69.0" prefWidth="497.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="yellow" text="Service Request Systems" textFill="#122c34">
                      <font>
                         <Font size="35.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#switchToServiceRequestStatus" prefHeight="28.0" prefWidth="450.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Past Submissions" textFill="#122c34" wrapText="true">
+                  <Button mnemonicParsing="false" onAction="#switchToServiceRequestStatus" prefHeight="69.0" prefWidth="497.0" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="yellow" text="Past Submissions" textFill="#122c34" wrapText="true">
                      <font>
                         <Font size="35.0" />
                      </font>
