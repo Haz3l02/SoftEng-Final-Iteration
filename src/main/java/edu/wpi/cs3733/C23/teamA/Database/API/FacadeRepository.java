@@ -24,39 +24,39 @@ public class FacadeRepository {
   private final ServiceRequestImpl serv = ServiceRequestImpl.getInstance();
   private final AccessabilityImpl acc = AccessabilityImpl.getInstance();
   private final AudioVisualImpl av = AudioVisualImpl.getInstance();
-  private final MessageBoardImpl mess = MessageBoardImpl.getInstance();
 
-  private final Observer nodeObv = new EntityObserver(node); // Notify for edge, move
+  // private final Observer nodeObv = new EntityObserver(node); // Notify for edge, move
   private final Observer edgeObv = new EntityObserver(edge);
   private final Observer moveObv = new EntityObserver(move);
-  private final Observer locObv = new EntityObserver(loc); // Notify all requests, move
+  // private final Observer locObv = new EntityObserver(loc); // Notify all requests, move
   private final Observer sanObv = new EntityObserver(san);
-  private final Observer empObv = new EntityObserver(emp); // Notify all requests
+  // private final Observer empObv = new EntityObserver(emp); // Notify all requests
   private final Observer secObv = new EntityObserver(sec);
   private final Observer servObv = new EntityObserver(serv);
   private final Observer patObv = new EntityObserver(pat);
   private final Observer compObv = new EntityObserver(serv);
   private final Observer accObv = new EntityObserver(acc);
   private final Observer avObv = new EntityObserver(av);
-  private final Observer messObv = new EntityObserver((mess));
 
   private FacadeRepository() {
-    loc.attach(sanObv);
-    loc.attach(secObv);
     loc.attach(servObv);
     loc.attach(patObv);
+    loc.attach(moveObv);
+    loc.attach(sanObv);
+    loc.attach(secObv);
     loc.attach(compObv);
     loc.attach(accObv);
-    loc.attach(accObv);
-    loc.attach(moveObv);
-    emp.attach(secObv);
+    loc.attach(avObv);
     emp.attach(servObv);
     emp.attach(patObv);
+    emp.attach(moveObv);
+    emp.attach(sanObv);
+    emp.attach(secObv);
     emp.attach(compObv);
     emp.attach(accObv);
+    emp.attach(avObv);
     node.attach(edgeObv);
-    node.attach(moveObv);
-    mess.attach(messObv);
+    // node.attach(moveObv);
   }
 
   public static FacadeRepository getInstance() {
@@ -123,10 +123,6 @@ public class FacadeRepository {
     return av.getAll();
   }
 
-  public List<MessageBoardEntity> getAllMessages() {
-    return mess.getAll();
-  }
-
   // ADD METHODS
 
   public void addComputerRequest(ComputerRequestEntity c) {
@@ -177,10 +173,6 @@ public class FacadeRepository {
     acc.add(c);
   }
 
-  public void addMessage(MessageBoardEntity c) {
-    mess.add(c);
-  }
-
   // DELETE METHODS
 
   public void deleteComputerRequest(Integer id) {
@@ -229,10 +221,6 @@ public class FacadeRepository {
 
   public void deleteAudioVisualRequest(Integer id) {
     av.delete(id);
-  }
-
-  public void deleteMessage(List<String> m) {
-    mess.delete(m);
   }
 
   // EXPORT METHODS
@@ -341,10 +329,6 @@ public class FacadeRepository {
     return acc.get(id);
   }
 
-  public MessageBoardEntity getMessage(Integer id) {
-    return mess.get(id);
-  }
-
   // UPDATE METHODS
 
   public void updateComputerRequest(Integer id, ComputerRequestEntity c) {
@@ -393,10 +377,6 @@ public class FacadeRepository {
 
   public void updateAudioVisualRequest(Integer id, AudioVisualRequestEntity c) {
     av.update(id, c);
-  }
-
-  public void updateMessage(MessageBoardEntity obj) {
-    mess.update(obj);
   }
 
   // miscellaneous
@@ -548,8 +528,8 @@ public class FacadeRepository {
     return loc.getAdjacentLocations(longName);
   }
 
-  public ArrayList<NodeEntity> newAndOldNode(String longName, LocalDate date) {
-    return move.newAndOldNode(longName, date);
+  public ArrayList<MoveEntity> newAndOldMove(String longName, LocalDate date) {
+    return move.newAndOldMove(longName, date);
   }
 
   public void exportAlignedToCSV(String filename, ArrayList<NodeEntity> n) throws IOException {
@@ -560,12 +540,15 @@ public class FacadeRepository {
     return serv.countRequests(s);
   }
 
-  public ArrayList<MessageBoardEntity> getConversation(
-      EmployeeEntity sender, EmployeeEntity receiver) {
-    return mess.getconversion(sender, receiver);
+  public List<EdgeEntity> nodeConnection(String id) {
+    return edge.nodeConnection(id);
   }
 
-  public ArrayList<MessageBoardEntity> getMessageByUser(EmployeeEntity user) {
-    return mess.getMessageByUser(user);
+  public List<EdgeEntity> edgeFromStart(String id) {
+    return edge.edgesFromStart(id);
+  }
+
+  public List<EdgeEntity> edgeFromEnd(String id) {
+    return edge.edgesFromEnd(id);
   }
 }
