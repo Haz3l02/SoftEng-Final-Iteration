@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
+<AnchorPane prefHeight="774.0" prefWidth="1376.0" styleClass="BackDropSRHStyle" stylesheets="@../../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <children>
       <StackPane layoutY="114.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
          <children>
@@ -65,7 +65,7 @@
                            <children>
                               <ImageView fx:id="about" fitHeight="73.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../assets/icons/about.png" />
+                                    <Image url="@../../assets/icons/about.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets left="10.0" />
@@ -73,12 +73,12 @@
                               </ImageView>
                               <ImageView fx:id="credits" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../assets/icons/credits.png" />
+                                    <Image url="@../../assets/icons/credits.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="exit" fitHeight="70.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../assets/icons/exit_darkBlue.png" />
+                                    <Image url="@../../assets/icons/exit_darkBlue.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets right="10.0" />
@@ -97,16 +97,16 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="69.0" prefWidth="1025.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
                            <children>
-                              <ComboBox fx:id="serviceRequest" prefHeight="71.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" />
-                              <MFXButton fx:id="navigation" onAction="#switchToPathfinding" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textFill="#d3e9f6">
+                              <ComboBox fx:id="serviceRequest" prefHeight="71.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../../assets/dropDown.css" />
+                              <MFXButton fx:id="navigation" onAction="#switchToPathfinding" style="-fx-background-color: #224870;" stylesheets="@../../assets/buttonOnHover.css" text="Navigation" textFill="#d3e9f6">
                                  <font>
                                     <Font size="27.0" />
                                  </font>
                               </MFXButton>
                               <StackPane>
                                  <children>
-                                    <ComboBox fx:id="admin" prefHeight="93.0" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
-                                    <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #224870;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
+                                    <ComboBox fx:id="admin" prefHeight="93.0" promptText="Admin Systems" stylesheets="@../../assets/dropDown.css" visible="false" />
+                                    <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #224870;" stylesheets="@../../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
                                        <font>
                                           <Font size="27.0" />
                                        </font>
@@ -200,7 +200,7 @@
                                              <children>
                                                 <ImageView fitHeight="247.0" fitWidth="512.0" pickOnBounds="true" StackPane.alignment="CENTER">
                                                    <image>
-                                                      <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
+                                                      <Image url="@../../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
                                                    </image>
                                                 </ImageView>
                                                 <HBox alignment="BOTTOM_RIGHT" StackPane.alignment="BOTTOM_RIGHT">

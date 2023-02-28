@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -9,6 +10,9 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="300.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.DisplayServiceRequestsPopupController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <top>
       <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="24.0" prefWidth="400.0" style="-fx-background-color: #224870; -fx-border-color: BLACK; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER_LEFT">
          <children>
@@ -57,7 +61,7 @@
                   <Font name="Verdana Italic" size="14.0" />
                </font>
             </Text>
-            <MFXButton fx:id="requestsButton" onAction="#viewRequests" prefHeight="30.0" prefWidth="104.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 5;" text="View Requests" textFill="#d3e9f6">
+            <MFXButton fx:id="requestsButton" onAction="#viewRequests" prefHeight="35.0" prefWidth="135.0" rippleColor="#c0cced" style="-fx-font-size: 15;" styleClass="blue" text="View Requests" textFill="#d3e9f6">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
