@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javafx.fxml.FXML;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -66,6 +67,11 @@ public class KioskController {
       mainSplitPane.getItems().remove(rightPane);
       leftD.setText(kiosk.getLeft());
       rightD.setText(kiosk.getRight());
+
+      // added
+      //      left.setText(kiosk.getLeft());
+      //      right.setText(kiosk.getRight());
+      // end of added
     } else {
       mainSplitPane.getItems().remove(directionsPane);
       left.setText(kiosk.getLeft());
@@ -81,11 +87,7 @@ public class KioskController {
 
     // prepare the gesture pane to attach to the stack pane
     this.mainGesturePane.setContent(mainStackPane);
-
-    // set first map
-    // String initialTableString = kiosk.getStartLocation().getFloor();
-    // currentFloor = Floor.indexFromTableString(initialTableString);
-    // addFloorMapImage(initialTableString, mainImageView);
+    mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
 
     runPathfinding();
   }
