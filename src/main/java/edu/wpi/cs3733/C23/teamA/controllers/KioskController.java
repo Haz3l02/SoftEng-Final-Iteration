@@ -46,7 +46,6 @@ public class KioskController {
   @FXML private StackPane mainStackPane;
   @FXML private Label moveDetails;
   @FXML private Label floorNumber;
-  @FXML private Label bruh;
 
   private AnchorPane[] aps = new AnchorPane[5];
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
