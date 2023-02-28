@@ -2,7 +2,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
@@ -126,16 +126,16 @@ public class KioskSetupController extends MenuController {
       reminderPane.setVisible(true);
     } else {
       // Code to check if the move entered is valid.
-      List<NodeEntity> nodes =
+      List<MoveEntity> moves =
           FacadeRepository.getInstance()
-              .newAndOldNode(moveLocation.getText(), moveDate.getCurrentDate());
-      if (!(nodes.size() == 1)) {
+              .newAndOldMove(moveLocation.getText(), moveDate.getCurrentDate());
+      if (!(moves.size() == 1)) {
         reminderPane.setVisible(false);
         moveReminder.setVisible(false);
         kiosk =
             new Kiosk(
-                nodes.get(0),
-                nodes.get(1),
+                moves.get(0).getNode(),
+                moves.get(1).getNode(),
                 left.getText(),
                 right.getText(),
                 directionOnOff.isSelected(),
