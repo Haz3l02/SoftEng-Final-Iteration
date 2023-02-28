@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.EmployeeEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MessageBoardEntity;
+import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Timestamp;
@@ -22,9 +23,9 @@ public class NewMessageController {
 
   @FXML
   public void initialize() {
-
-    // TODO: HARDCODED IN, REMOVE LATER
-    employee = FacadeRepository.getInstance().getEmployeeByUser("admin");
+    employee =
+        FacadeRepository.getInstance().getEmployee(IdNumberHolder.getInstance().getEmployeeID());
+    // employee = FacadeRepository.getInstance().getEmployeeByUser("admin");
     /*
     FacadeRepository.getInstance()
         .addMessage(
@@ -69,8 +70,8 @@ public class NewMessageController {
         .addMessage(
             new MessageBoardEntity(
                 employee,
-                // FacadeRepository.getInstance().getEmployeeByUser(recipientBox.getSelectedItem()),
-                employee, // hardcoded, remove later
+                FacadeRepository.getInstance().getEmployeeByUser(recipientBox.getSelectedItem()),
+                // employee, // hardcoded, remove later
                 titleBox.getText(),
                 messageBox.getText(),
                 new Timestamp(System.currentTimeMillis())));

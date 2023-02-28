@@ -93,6 +93,7 @@ public class MessagingController extends NavigationController {
     newMessagePopup.setAnchorY(mouseY);
 
     // NewMessageController.employee =  // get employee from somewhere
+
   }
 
   @FXML
