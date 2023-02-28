@@ -127,7 +127,8 @@ public class KioskSetupController extends MenuController {
     } else {
       // Code to check if the move entered is valid.
       List<MoveEntity> moves =
-          FacadeRepository.getInstance().newAndOldMove(moveLocation.getText(), moveDate.getCurrentDate());
+          FacadeRepository.getInstance()
+              .newAndOldMove(moveLocation.getText(), moveDate.getCurrentDate());
       if (!(moves.size() == 1)) {
         reminderPane.setVisible(false);
         moveReminder.setVisible(false);
