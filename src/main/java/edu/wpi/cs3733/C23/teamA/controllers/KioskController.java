@@ -7,6 +7,7 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
+import edu.wpi.cs3733.C23.teamA.pathfinding.PathInterpreter;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
@@ -102,7 +103,7 @@ public class KioskController {
     ArrayList<GraphNode> path = info.getPath();
     System.out.println(path.size());
     floorPath = info.getFloorPath();
-    directions = pathfindingSystem.generatePathString(path, floorPath);
+    directions = PathInterpreter.generatePathStringShort(path, floorPath);
     directionsText.setText(directions);
 
     pathfindingSystem.drawPath(aps, path);
