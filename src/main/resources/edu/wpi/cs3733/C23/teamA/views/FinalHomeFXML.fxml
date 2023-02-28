@@ -260,7 +260,7 @@
                <children>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="46.0" prefWidth="316.0" spacing="20.0">
                      <children>
-                        <ImageView fx:id="about" fitHeight="65.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="about" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/icons/about_blue.png" />
                            </image>
@@ -268,12 +268,12 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <ImageView fx:id="credits" fitHeight="73.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="credits" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/icons/credits_blue.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="exit" fitHeight="62.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="exit" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/icons/exit_blue.png" />
                            </image>

@@ -322,21 +322,7 @@ public class HomeController extends MenuController {
       myAssignments.setVisible(false); // It is automatically not visible redundent
       admin.setDisable(false); // Redundent its never going to be disabled
       admin.setVisible(true);
-      // NOT IN MAIN FOR SOME REASON NOT SURE IF WE WANT TO KEEP
-      //      List<EmployeeEntity> maintenanceEmployees =
-      //          FacadeRepository.getInstance().getEmployeeByJob("maintenance");
-      //      List<MaintenanceAssignedAccepted> maa = new ArrayList<MaintenanceAssignedAccepted>();
-      //      for (EmployeeEntity employee : maintenanceEmployees) {
-      //        maa.add(new MaintenanceAssignedAccepted(employee.getName(),
-      // employee.getEmployeeid()));
-      //      }
-      //      System.out.println(maa.size());
-      //      dbTableRowsModel2.addAll(maa);
-      //      for (int i = 0; i < maa.size(); i++) {
-      //        System.out.println(maa.get(i).getName());
-      //      }
-      //      System.out.println(dbTableRowsModel2.size());
-      //      employeeTable.setItems(dbTableRowsModel2);
+
       admin
           .getItems()
           .addAll(
