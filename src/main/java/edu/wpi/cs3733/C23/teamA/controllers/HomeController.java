@@ -37,6 +37,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
 
 public class HomeController extends MenuController {
@@ -55,11 +56,12 @@ public class HomeController extends MenuController {
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> nameCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> assignedCol;
   @FXML public TableColumn<MaintenanceAssignedAccepted, String> acceptedCol;
-  @FXML public StackPane mapImage;
-  @FXML public ImageView findAPath;
+  public ImageView findAPath = new ImageView("edu/wpi/cs3733/C23/teamA/assets/find_a_path.png");
+  public ImageView mapImage = new ImageView("edu/wpi/cs3733/C23/teamA/assets/another_map.png");
   @FXML public ImageView about;
   @FXML public ImageView credits;
   @FXML public ImageView exit;
+  public StackPane stackPane = new StackPane();
   @FXML public Label label1, label2, label3;
   private final Image creditsYellow =
       new Image(AApp.class.getResourceAsStream("assets/icons/credits_yellow.png"));
@@ -82,6 +84,7 @@ public class HomeController extends MenuController {
   @FXML private Label message = new Label("hello");
   @FXML private Label welcome = new Label("hello");
   @FXML private MFXButton myAssignments;
+  @FXML private GesturePane mapPane;
   private static PopOver popup;
 
   private ObservableList<ServiceRequestEntity> dbTableRowsModel =
@@ -171,15 +174,24 @@ public class HomeController extends MenuController {
                   break;
               }
             });
-    mapImage.setOnMouseClicked(
+    stackPane.getChildren().add(mapImage);
+    stackPane.getChildren().add(findAPath);
+    findAPath.setVisible(false);
+    mapPane.setContent(stackPane);
+    mapImage.fitHeightProperty().bind(mapPane.heightProperty());
+    mapImage.setPreserveRatio(true);
+    findAPath.fitHeightProperty().bind(mapPane.heightProperty());
+    findAPath.setPreserveRatio(true);
+
+    stackPane.setOnMouseClicked(
         (MouseEvent e) -> {
           switchToPathfinding();
         });
-    mapImage.setOnMouseEntered(
+    stackPane.setOnMouseEntered(
         (MouseEvent e) -> {
           findAPath.setVisible(true);
         });
-    mapImage.setOnMouseExited(
+    stackPane.setOnMouseExited(
         (MouseEvent e) -> {
           findAPath.setVisible(false);
         });

@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import net.kurobako.gesturefx.GesturePane?>
 
 <BorderPane prefHeight="776.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.HomeController">
    <center>
@@ -128,20 +129,7 @@
                                                       </VBox>
                                                    </children>
                                                 </StackPane>
-                                                <StackPane fx:id="mapImage" prefHeight="150.0" prefWidth="200.0">
-                                                   <children>
-                                                      <ImageView fitHeight="247.0" fitWidth="512.0" pickOnBounds="true" StackPane.alignment="CENTER">
-                                                         <image>
-                                                            <Image url="@../assets/unlabeledMaps/00_thelowerlevel1_unlabeled.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                      <ImageView fx:id="findAPath" fitHeight="247.0" fitWidth="512.0" pickOnBounds="true" visible="false" StackPane.alignment="CENTER">
-                                                         <image>
-                                                            <Image url="@../assets/find_a_path.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                   </children>
-                                                </StackPane>
+                                                <GesturePane fx:id="mapPane" fitMode="CENTER" fitWidth="false" gestureEnabled="false" hbarPolicy="NEVER" minScale="1.0" prefHeight="232.0" prefWidth="473.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS" />
                                              </children>
                                           </VBox>
                                        </children>
