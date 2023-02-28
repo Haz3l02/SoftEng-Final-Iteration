@@ -53,6 +53,7 @@ public class KioskController {
 
   @FXML
   public void initialize() throws SQLException {
+    System.out.println(kiosk.getRight());
     leftPane = mainSplitPane.getItems().get(0);
     mapPane = mainSplitPane.getItems().get(1);
     directionsPane = mainSplitPane.getItems().get(2);
