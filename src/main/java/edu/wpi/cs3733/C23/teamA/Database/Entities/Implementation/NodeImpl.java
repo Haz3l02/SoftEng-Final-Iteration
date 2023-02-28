@@ -124,7 +124,15 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
     session.remove(session.get(NodeEntity.class, n));
     tx.commit();
     session.close();
-    notifyAllObservers();
+    //    notifyAllObservers();
+
+    Thread t =
+        new Thread(
+            () -> {
+              MoveImpl.getInstance().refresh();
+              EdgeImpl.getInstance().refresh();
+            });
+    t.start();
   }
 
   public void update(String ID, NodeEntity obj) {
@@ -155,10 +163,19 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
                 + ID
                 + "'")
         .executeUpdate();
+    nodes.add(session.get(NodeEntity.class, ID));
 
     tx.commit();
     session.close();
-    notifyAllObservers();
+    // notifyAllObservers();
+
+    Thread t =
+        new Thread(
+            () -> {
+              MoveImpl.getInstance().refresh();
+              EdgeImpl.getInstance().refresh();
+            });
+    t.start();
   }
 
   public List<NodeEntity> getNodeOnFloor(String floor) {

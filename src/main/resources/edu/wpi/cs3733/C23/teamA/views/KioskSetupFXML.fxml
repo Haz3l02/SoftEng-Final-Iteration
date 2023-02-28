@@ -30,6 +30,14 @@
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
                   </MFXButton>
+                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeEditorScene" prefHeight="50.0" prefWidth="271.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Department Moves" textAlignment="CENTER" textFill="#d3e9f6">
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
                </children>
                <HBox.margin>
                   <Insets />
@@ -43,6 +51,11 @@
                   <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="312.0" style="-fx-border-color: #122c34; -fx-border-width: 2 2 2 2;">
                      <children>
                         <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="moveReminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Not a valid Move!" textAlignment="CENTER">
                            <font>
                               <Font name="Verdana" size="25.0" />
                            </font>
@@ -106,16 +119,16 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="606.0" spacing="10.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kiosk Location:">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
                               </Text>
-                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" onMouseExited="#setLefRight" prefHeight="0.0" prefWidth="318.0" promptText="Location...">
+                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" prefHeight="43.0" prefWidth="262.0" promptText="Location...">
                                  <font>
-                                    <Font name="Verdana" size="36.0" />
+                                    <Font name="Verdana" size="24.0" />
                                  </font>
                               </MFXFilterComboBox>
                            </children>
@@ -185,7 +198,7 @@
                         </TextArea>
                         <VBox alignment="CENTER" prefHeight="173.0" prefWidth="186.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Toggle Directions" textAlignment="CENTER" wrappingWidth="193.49853515625">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Show Directions" textAlignment="CENTER" wrappingWidth="193.49853515625">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
@@ -215,7 +228,7 @@
                   </ImageView>
                   <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="269.0">
                      <children>
-                        <Label fx:id="left" alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="200.0" text="Left" textAlignment="RIGHT">
+                        <Label fx:id="left" alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="200.0" text="Left" textAlignment="RIGHT" wrapText="true">
                            <font>
                               <Font name="Verdana" size="18.0" />
                            </font>
@@ -248,7 +261,7 @@
                   </ImageView>
                   <HBox alignment="CENTER_LEFT" prefHeight="274.0" prefWidth="242.0">
                      <children>
-                        <Label fx:id="right" prefHeight="79.0" prefWidth="196.0" text="Right">
+                        <Label fx:id="right" prefHeight="79.0" prefWidth="196.0" text="Right" wrapText="true">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
