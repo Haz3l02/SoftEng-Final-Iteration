@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.controllers.KioskSetupController.kiosk;
 
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
+import edu.wpi.cs3733.C23.teamA.mapdrawing.PathDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
@@ -107,7 +108,11 @@ public class KioskController {
     System.out.println(path.size());
     floorPath = info.getFloorPath();
     if (start.getFloor().equals(end.getFloor())) {
-      moveDetails.setText(kiosk.getMoveName() + " is moving on " + end.getFloor() + ".");
+      moveDetails.setText(
+          kiosk.getMoveName()
+              + " is moving on "
+              + Floor.extendedStringFromTableString(end.getFloor())
+              + ".");
     } else {
       moveDetails.setText(
           kiosk.getMoveName()
@@ -120,7 +125,7 @@ public class KioskController {
     directions = pathfindingSystem.generatePathString(path, floorPath);
     directionsText.setText(directions);
 
-    pathfindingSystem.drawPath(aps, path);
+    PathDraw.drawPathLines(aps, path, 5, 0.135);
     cycleMaps();
   }
 
