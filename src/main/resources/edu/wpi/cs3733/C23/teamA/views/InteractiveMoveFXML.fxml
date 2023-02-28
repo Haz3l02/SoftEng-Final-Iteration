@@ -80,11 +80,11 @@
                         <TableColumn fx:id="messageCol" editable="false" prefWidth="202.0" text="Message" />
                      </columns>
                   </TableView>
-                  <MFXScrollPane fitToWidth="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="707.0" style="-fx-background-color: d3e9f6;">
+                  <MFXScrollPane fitToHeight="true" fitToWidth="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="707.0" style="-fx-background-color: d3e9f6;">
                      <content>
-                        <SplitPane fx:id="imagePane" dividerPositions="0.02, 0.49" orientation="VERTICAL" prefHeight="1060.0" prefWidth="675.0" style="-fx-background-color: d3e9f6;">
+                        <SplitPane fx:id="imagePane" dividerPositions="0.01, 0.47" orientation="VERTICAL" prefWidth="695.0" style="-fx-background-color: d3e9f6;">
                           <items>
-                              <VBox fx:id="messageVBox" fillWidth="false" prefHeight="69.0" prefWidth="675.0" SplitPane.resizableWithParent="false">
+                              <VBox fx:id="messageVBox" fillWidth="false" prefHeight="69.0" prefWidth="680.0" SplitPane.resizableWithParent="false">
                                  <children>
                                     <Text fx:id="locationNotif" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving " VBox.vgrow="ALWAYS">
                                        <font>
@@ -145,9 +145,9 @@
                                           <Font name="Verdana" size="20.0" />
                                        </font>
                                     </Text>
-                                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="818.0" style="-fx-background-color: #224870;" VBox.vgrow="ALWAYS">
+                                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" style="-fx-background-color: #224870;">
                                        <children>
-                                          <StackPane fx:id="mainStackPane1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0">
+                                          <StackPane fx:id="mainStackPane1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="675.0">
                                              <children>
                                                 <ImageView fx:id="topMainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
                                              </children>

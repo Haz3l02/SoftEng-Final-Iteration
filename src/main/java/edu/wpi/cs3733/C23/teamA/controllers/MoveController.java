@@ -176,6 +176,15 @@ public class MoveController extends MenuController {
                 if (mainPane.getItems().size() == 1)
                   mainPane.getItems().add(1, allImages); // If there is nothing add it
                 imagePane.getItems().remove(newNodeImage);
+                ArrayList<GraphNode> path = pathInfo.getPath();
+                ArrayList<String> floorPath = pathInfo.getFloorPath();
+                callMapDraw(path, floorPath);
+
+                mainStackPane.getChildren().clear();
+                mainStackPane.getChildren().add(mainImageView);
+                mainStackPane
+                    .getChildren()
+                    .add(aps[Floor.indexFromTableString(initialTableString)]);
               }
             });
     nodeBox
@@ -196,6 +205,13 @@ public class MoveController extends MenuController {
                         + nodeBox.getValue().toString());
                 editButton.setDisable(false);
                 if (imagePane.getItems().size() == 2) imagePane.getItems().add(2, newNodeImage);
+                ArrayList<GraphNode> path = pathInfo.getPath();
+                ArrayList<String> floorPath = pathInfo.getFloorPath();
+                callMapDraw(path, floorPath);
+
+                mainStackPane1.getChildren().clear();
+                mainStackPane1.getChildren().add(topMainImageView);
+                mainStackPane1.getChildren().add(aps[Floor.indexFromTableString(finalTableString)]);
               }
             });
   }
