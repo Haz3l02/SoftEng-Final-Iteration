@@ -147,7 +147,7 @@
                                     <GesturePane fx:id="mainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                     <Label fx:id="floorNumber" alignment="BOTTOM_RIGHT" prefHeight="459.0" prefWidth="636.0" text="Label">
                                        <font>
-                                          <Font name="Verdana" size="64.0" />
+                                          <Font name="Verdana" size="36.0" />
                                        </font>
                                     </Label>
                                  </children>
