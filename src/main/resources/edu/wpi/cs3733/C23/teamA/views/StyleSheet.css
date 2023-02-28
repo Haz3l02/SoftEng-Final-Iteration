@@ -205,6 +205,11 @@
 }
 
 .Hover:hover{
+    -fx-scale-y: 1.2;
+    -fx-scale-x: 1.2;
+}
+
+.HoverYellow:hover{
     -fx-text-fill: #f1a94f;
     -fx-scale-y: 1.2;
     -fx-scale-x: 1.2;

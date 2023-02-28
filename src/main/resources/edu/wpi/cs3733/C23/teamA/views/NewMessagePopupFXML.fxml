@@ -5,7 +5,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -36,17 +35,17 @@
                         <Font name="Verdana" size="24.0" />
                     </font>
                 </Text>
-            <TextArea fx:id="messageBox" prefHeight="255.0" prefWidth="385.0" promptText="Type message " styleClass="decBox2" wrapText="true" />
+            <MFXTextField fx:id="messageBox" alignment="TOP_LEFT" prefHeight="204.0" prefWidth="385.0" promptText="Type message" styleClass="decBox2" />
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                     <children>
                         <HBox alignment="CENTER" spacing="10.0">
                             <children>
-                                <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hidePopup" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" styleClass="blue-Button" text="Back" textFill="#d3e9f6">
+                                <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hidePopup" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" styleClass="blue-Button" text="Back" textFill="#d3e9f6">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
                                 </MFXButton>
-                                <MFXButton fx:id="sendMessage" buttonType="RAISED" cancelButton="true" onAction="#sendMessage" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" styleClass="yellow-Button" text="Send" textFill="#224870">
+                                <MFXButton fx:id="sendMessage" buttonType="RAISED" cancelButton="true" onAction="#sendMessage" prefHeight="51.0" prefWidth="185.0" rippleColor="#c0cced" styleClass="yellow-Button" text="Send" textFill="#224870">
                                     <font>
                                         <Font size="24.0" />
                                     </font>

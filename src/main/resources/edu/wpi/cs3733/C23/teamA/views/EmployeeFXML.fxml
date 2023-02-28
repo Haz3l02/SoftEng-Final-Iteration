@@ -114,11 +114,11 @@
                         <TableView fx:id="employeeTable" editable="true" onMouseClicked="#rowClicked" prefHeight="253.0" prefWidth="527.0" style="-fx-background-color: d3e9f6;">
                            <columns>
                               <TableColumn fx:id="IDCol" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" text="ID" />
-                              <TableColumn fx:id="nameCol" prefWidth="348.0211181640625" styleClass="tableText" text="Name" />
-                              <TableColumn fx:id="employeeCol" prefWidth="217.7281494140625" styleClass="tableText" text="Employee ID" />
-                              <TableColumn fx:id="usernameCol" prefWidth="227.8863525390625" styleClass="tableText" text="Username" />
-                              <TableColumn fx:id="passwordCol" prefWidth="239.2318115234375" styleClass="tableText" text="Password" />
-                              <TableColumn fx:id="jobCol" prefWidth="323.26806640625" text="Job Type" />
+                              <TableColumn fx:id="nameCol" prefWidth="190.65090942382812" styleClass="tableText" text="Name" />
+                              <TableColumn fx:id="employeeCol" prefWidth="256.4857177734375" styleClass="tableText" text="Employee ID" />
+                              <TableColumn fx:id="usernameCol" prefWidth="205.935791015625" styleClass="tableText" text="Username" />
+                              <TableColumn fx:id="passwordCol" prefWidth="215.131103515625" styleClass="tableText" text="Password" />
+                              <TableColumn fx:id="jobCol" prefWidth="115.9998779296875" styleClass="tableText" text="Job Type" />
                            </columns>
                         </TableView>
                      </items>
