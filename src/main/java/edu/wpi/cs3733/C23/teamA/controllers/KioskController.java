@@ -109,7 +109,12 @@ public class KioskController {
       moveDetails.setText(kiosk.getMoveName() + " is moving on " + end.getFloor() + ".");
     } else {
       moveDetails.setText(
-          kiosk.getMoveName() + " is moving from " + start.getFloor() + " to " + end.getFloor() + ".");
+          kiosk.getMoveName()
+              + " is moving from "
+              + start.getFloor()
+              + " to "
+              + end.getFloor()
+              + ".");
     }
     directions = pathfindingSystem.generatePathString(path, floorPath);
     directionsText.setText(directions);

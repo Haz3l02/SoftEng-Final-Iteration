@@ -563,6 +563,10 @@ public class FacadeRepository {
     return serv.countRequests(s);
   }
 
+  public int countServiceRequestsByStatus(Status s) {
+    return serv.countRequestsByStatus(s);
+  }
+
   public List<EdgeEntity> nodeConnection(String id) {
     return edge.nodeConnection(id);
   }

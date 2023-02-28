@@ -666,15 +666,18 @@ public class NodeDraw {
   }
 
   private static EventHandler<? super MouseEvent> dragEvent(MapEditorController nmc) {
-    return mouseEvent -> {
-      if (selectNodePane != null) {
-        nmc.getMainGesturePane().setGestureEnabled(false);
 
-        selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent.getX());
-        selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent.getY());
-      }
-    };
-  }
+    return (EventHandler<MouseEvent>)
+        mouseEvent1 -> {
+          if (selectNodePane != null) {
+            nmc.getMainGesturePane().setGestureEnabled(false);
+
+            selectNodePane.setLayoutX(selectNodePane.getLayoutX() + mouseEvent1.getX());
+            selectNodePane.setLayoutY(selectNodePane.getLayoutY() + mouseEvent1.getY());
+          }
+        };
+  };
+
   // end _________________________________________________________________
 
   public static void straightenNodesHorizontal() {

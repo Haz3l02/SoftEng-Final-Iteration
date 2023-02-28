@@ -387,6 +387,16 @@ public class ServiceRequestImpl extends Observable
     return count;
   }
 
+  public int countRequestsByStatus(Status status) {
+    int count = 0;
+    for (ServiceRequestEntity s : services) {
+      if (s.getStatus().equals(status)) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   public static ServiceRequestImpl getInstance() {
     return instance;
   }
