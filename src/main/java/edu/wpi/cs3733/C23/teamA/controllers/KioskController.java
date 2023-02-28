@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -92,6 +94,12 @@ public class KioskController {
     mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
 
     runPathfinding();
+
+    // added scaling to auto-zoom
+    Platform.runLater(
+        () -> {
+          mainGesturePane.zoomTo(1.15, new Point2D(650, 230));
+        });
   }
 
   /**
