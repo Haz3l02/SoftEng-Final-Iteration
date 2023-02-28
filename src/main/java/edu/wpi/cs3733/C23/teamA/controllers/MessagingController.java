@@ -30,7 +30,6 @@ public class MessagingController extends NavigationController {
   @FXML TableColumn<MessageBoardEntity, String> titleCol;
 
   @FXML MFXButton newMessageButton;
-  @FXML MFXButton editMessageButton;
   @FXML MFXButton deleteMessageButton;
   @FXML AnchorPane anchorPane;
 
@@ -111,7 +110,6 @@ public class MessagingController extends NavigationController {
     selectedMessage = messagesTable.getSelectionModel().getSelectedItem();
 
     deleteMessageButton.setDisable(false);
-    editMessageButton.setDisable(false);
   }
 
   public static void hidePopup() {
