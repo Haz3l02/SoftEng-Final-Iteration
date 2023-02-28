@@ -268,27 +268,50 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
    */
 
   public List<MoveEntity> allMostRecent(LocalDate date) {
-    List<MoveEntity> m = new ArrayList<>();
-    List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
-    for (LocationNameEntity loc : locations) {
-      try {
-        m.add(locationRecord(loc.getLongname(), date).get(0));
-      } catch (Exception e) {
-      }
-    }
-    return m;
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    Query q =
+        session.createQuery(
+            "select mov from MoveEntity mov where mov.movedate <= '"
+                + date
+                + "' group by mov.locationName, mov.node, mov.movedate order by mov.node.nodeid, mov.movedate desc",
+            MoveEntity.class);
+    List<MoveEntity> records = q.getResultList();
+    System.out.println(records.size());
+    session.close();
+    return uniqueNode(records);
   }
 
   public List<MoveEntity> allMostRecentFloor(LocalDate date, String floor) {
-    List<MoveEntity> m = new ArrayList<>();
-    List<LocationNameEntity> locations = FacadeRepository.getInstance().getAllLocation();
-    for (LocationNameEntity loc : locations) {
-      try {
-        m.add(locationRecordFloor(loc.getLongname(), date, floor).get(0));
-      } catch (Exception e) {
-      }
-    }
-    return m;
+    Session session = getSessionFactory().openSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<MoveEntity> criteria = builder.createQuery(MoveEntity.class);
+    Query q =
+        session.createQuery(
+            "select mov from MoveEntity mov where mov.node.floor = '"
+                + floor
+                + "' and mov.movedate <= '"
+                + date
+                + "' group by mov.locationName, mov.node, mov.movedate order by mov.node.nodeid, mov.movedate desc",
+            MoveEntity.class);
+    List<MoveEntity> records = q.getResultList().stream().toList();
+    System.out.println(records.size());
+    return uniqueNode(records);
+  }
+
+  private List<MoveEntity> uniqueNode(List<MoveEntity> m) {
+    List<String> match =
+        m.stream().map(moveEntity -> moveEntity.getNode().getNodeid()).distinct().toList();
+    List<MoveEntity> uniqueByNode = new ArrayList<>();
+    match.forEach(
+        matching ->
+            uniqueByNode.add(
+                m.stream()
+                    .filter(record -> record.getNode().getNodeid() == matching)
+                    .findFirst()
+                    .orElseThrow()));
+    return uniqueByNode;
   }
 
   public MoveEntity locationOnOrBeforeDate(String id, LocalDate date) {
