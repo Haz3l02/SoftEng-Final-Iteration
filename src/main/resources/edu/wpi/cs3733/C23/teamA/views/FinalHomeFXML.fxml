@@ -50,8 +50,8 @@
                                     </MFXButton>
                                     <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="276.0">
                                        <children>
-                                          <ComboBox fx:id="admin" promptText="Admin Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" visible="false" />
-                                          <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
+                                          <ComboBox fx:id="admin" prefHeight="44.0" prefWidth="258.0" promptText="Admin Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" visible="false" />
+                                          <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" prefHeight="46.0" prefWidth="246.0" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
                                              <font>
                                                 <Font size="27.0" />
                                              </font>
