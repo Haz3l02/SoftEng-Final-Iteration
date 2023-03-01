@@ -71,10 +71,12 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
 
   public void importFromCSV(String filename) throws FileNotFoundException {
     Session session = getSessionFactory().openSession();
+    Transaction tx = session.beginTransaction();
     String hql = "delete from NodeEntity ";
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     nodes.clear();
+    tx.commit();
 
     if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
@@ -84,7 +86,7 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
 
     File node = new File(filename);
 
-    Transaction tx = session.beginTransaction();
+    tx = session.beginTransaction();
     Scanner read = new Scanner(node);
     int count = 0;
     read.nextLine();
