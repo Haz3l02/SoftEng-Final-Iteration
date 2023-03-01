@@ -91,7 +91,7 @@ public class MapEditorController extends MenuController {
   private GraphicsContext gc;
 
   // scaling constant
-  private final double SCALE_FACTOR = 0.255; // constant for map size/coordinate manipulations
+  private final double SCALE_FACTOR = 0.24; // constant for map size/coordinate manipulations
 
   private static PopOver nodeEditorPopup;
   private static PopOver edgeEditorPopup;
