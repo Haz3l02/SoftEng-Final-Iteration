@@ -270,8 +270,9 @@ public class NodeDraw {
             if (shiftPressed) {
               System.out.println("shift pressed");
 
-              nmc.setLocationIDBox(
-                  MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
+              //              nmc.setLocationIDBox(
+              //                  MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(),
+              // n.getYcoord()));
               // nmc.setLocButtonVisibility(true);
             }
             if (!shiftPressed
