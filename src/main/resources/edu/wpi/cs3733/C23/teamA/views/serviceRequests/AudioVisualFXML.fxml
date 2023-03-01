@@ -144,7 +144,7 @@
                         <Insets left="15.0" />
                      </opaqueInsets>
                      <children>
-                        <MFXFilterComboBox fx:id="locationBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select location" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" styleClass="dropDowns" text="Select Location">
+                        <MFXFilterComboBox fx:id="locationBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select location" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" styleClass="dropDowns">
                            <VBox.margin>
                               <Insets left="20.0" top="25.0" />
                            </VBox.margin>
@@ -155,7 +155,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </MFXFilterComboBox>
-                        <MFXFilterComboBox fx:id="urgencyBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select location" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" styleClass="dropDowns" text="Select Urgency">
+                        <MFXFilterComboBox fx:id="urgencyBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select urgency" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" styleClass="dropDowns">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
@@ -166,7 +166,7 @@
                               <Insets left="20.0" top="30.0" />
                            </VBox.margin>
                         </MFXFilterComboBox>
-                        <MFXFilterComboBox fx:id="devicesBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select location" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" styleClass="dropDowns" text="Select Device">
+                        <MFXFilterComboBox fx:id="devicesBox" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Select device" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1;" styleClass="dropDowns">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
@@ -251,7 +251,7 @@
                               <Insets top="30.0" />
                            </VBox.margin>
                         </MFXToggleButton>
-                        <MFXDatePicker fx:id="returnDate" prefHeight="38.0" prefWidth="299.0" styleClass="dropDowns" text="Return Date">
+                        <MFXDatePicker fx:id="returnDate" prefHeight="38.0" prefWidth="299.0" styleClass="dropDowns">
                            <VBox.margin>
                               <Insets top="30.0" />
                            </VBox.margin>
