@@ -363,7 +363,7 @@ public class HomeController extends MenuController {
       label3.setText("Completed requests: " + completedRequests);
     }
 
-    // added scaling to auto-zoom
+    // added scaling to auto-zoom the map
     Platform.runLater(
         () -> {
           mapPane.zoomTo(1.1, new Point2D(2000, 100));
