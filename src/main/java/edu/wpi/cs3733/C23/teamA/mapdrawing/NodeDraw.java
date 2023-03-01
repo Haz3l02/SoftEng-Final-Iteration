@@ -9,7 +9,6 @@ import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.Main;
 import edu.wpi.cs3733.C23.teamA.controllers.*;
-import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -215,38 +214,45 @@ public class NodeDraw {
               selectedLine.setStrokeWidth(1);
             }
 
-            nmc.setXCord(n.getXcoord().toString());
-            nmc.setYCord(n.getYcoord().toString());
-            nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
-            // nmc.setFloorBox(n.getFloor());
-            nmc.setBuildingBox(n.getBuilding());
-
-            nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
-
-            MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
-
-            if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) == null)) {
-              nmc.setLongNameBox(
-                  FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
-
-              nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-
-              nmc.setLocationIDBox(
-                  MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-
-              nmc.setShortNameBox(
-                  FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
-              nmc.setLocTypeBox(
-                  FacadeRepository.getInstance()
-                      .moveMostRecentLoc(n.getNodeid())
-                      .getLocationtype());
-              // nmc.setLocButtonVisibility(false);
-            } else {
-              nmc.setLongNameBox("NO LOCATION ASSIGNED");
-
-              nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord()));
-              // nmc.setLocButtonVisibility(true);
-            }
+            //            nmc.setXCord(n.getXcoord().toString());
+            //            nmc.setYCord(n.getYcoord().toString());
+            //            nmc.setFloorBox(Floor.extendedStringFromTableString(n.getFloor()));
+            //            // nmc.setFloorBox(n.getFloor());
+            //            nmc.setBuildingBox(n.getBuilding());
+            //
+            //            nmc.makeNewNodeID(n.getFloor(), n.getXcoord(), n.getYcoord());
+            //
+            //            MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(),
+            // n.getYcoord());
+            //
+            //            if (!(FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()) ==
+            // null)) {
+            //              nmc.setLongNameBox(
+            //
+            // FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getLongname());
+            //
+            //              nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(),
+            // n.getYcoord()));
+            //
+            //              nmc.setLocationIDBox(
+            //                  MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(),
+            // n.getYcoord()));
+            //
+            //              nmc.setShortNameBox(
+            //
+            // FacadeRepository.getInstance().moveMostRecentLoc(n.getNodeid()).getShortname());
+            //              nmc.setLocTypeBox(
+            //                  FacadeRepository.getInstance()
+            //                      .moveMostRecentLoc(n.getNodeid())
+            //                      .getLocationtype());
+            //              // nmc.setLocButtonVisibility(false);
+            //            } else {
+            //              nmc.setLongNameBox("NO LOCATION ASSIGNED");
+            //
+            //              nmc.setLocationIDBox(nmc.makeNewNodeID(n.getFloor(), n.getXcoord(),
+            // n.getYcoord()));
+            //              // nmc.setLocButtonVisibility(true);
+            //            }
 
             // pass in node and location to popup controller
             MapEditorNodeInfoPopupController.node = selectedNodeEntity;

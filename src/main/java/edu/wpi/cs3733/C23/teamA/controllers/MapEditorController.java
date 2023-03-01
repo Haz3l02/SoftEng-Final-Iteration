@@ -91,7 +91,7 @@ public class MapEditorController extends MenuController {
   private GraphicsContext gc;
 
   // scaling constant
-  private final double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulations
+  private final double SCALE_FACTOR = 0.255; // constant for map size/coordinate manipulations
 
   private static PopOver nodeEditorPopup;
   private static PopOver edgeEditorPopup;
@@ -370,21 +370,21 @@ public class MapEditorController extends MenuController {
       }
     }
 
-    for (Pane p : panesOnFloor) {
-
-      double updatedPaneXY[] =
-          scaleCoordinatesReversed(p.getLayoutX(), p.getLayoutY(), SCALE_FACTOR);
-      if ((minX < updatedPaneXY[0] && minY < updatedPaneXY[1])
-          && (maxX > updatedPaneXY[0] && maxY > updatedPaneXY[1])) {
-
-        p.setStyle(
-            "-fx-background-color: 'yellow'; "
-                + "-fx-background-radius: 12.5; "
-                + "-fx-border-color: '#224870'; "
-                + "-fx-border-width: 1;"
-                + "-fx-border-radius: 13.5");
-      }
-    }
+    //    for (Pane p : panesOnFloor) {
+    //
+    //      double updatedPaneXY[] =
+    //          scaleCoordinatesReversed(p.getLayoutX(), p.getLayoutY(), SCALE_FACTOR);
+    //      if ((minX < updatedPaneXY[0] && minY < updatedPaneXY[1])
+    //          && (maxX > updatedPaneXY[0] && maxY > updatedPaneXY[1])) {
+    //
+    //        p.setStyle(
+    //            "-fx-background-color: 'yellow'; "
+    //                + "-fx-background-radius: 12.5; "
+    //                + "-fx-border-color: '#224870'; "
+    //                + "-fx-border-width: 1;"
+    //                + "-fx-border-radius: 13.5");
+    //      }
+    //    }
 
     // if (updatedXY[0] < updatedXYUpper[0]) {
     //    for (NodeEntity n : allNodes) {
