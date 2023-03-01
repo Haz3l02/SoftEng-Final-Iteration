@@ -20,7 +20,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -126,8 +125,8 @@ public class PathfindingController extends MenuController {
     addFloorMapImage(initialTableString, mainImageView);
 
     // prepare the gesture pane to attach to the stack pane
-    Node stackPane = mainStackPane;
-    this.mainGesturePane.setContent(stackPane);
+    this.mainGesturePane.setContent(mainStackPane);
+    mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
 
     // autofill the date picker to the current date
     // navDatePicker.setValue(LocalDate.of(2023, 1, 1));
