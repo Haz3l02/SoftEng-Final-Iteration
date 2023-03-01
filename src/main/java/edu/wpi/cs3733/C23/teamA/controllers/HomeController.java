@@ -352,12 +352,14 @@ public class HomeController extends MenuController {
       int completedRequests = 0;
       int openRequests = 0;
       for (ServiceRequestEntity request : requests) {
-        if (request.getEmployee().getEmployeeid() == userInfo.getEmployeeID()) {
-          totalRequests++;
-          if (request.getStatus().equals(Status.DONE)) {
-            completedRequests++;
-          } else {
-            openRequests++;
+        if (request.getEmployee() != null) {
+          if (request.getEmployee().getEmployeeid() == userInfo.getEmployeeID()) {
+            totalRequests++;
+            if (request.getStatus().equals(Status.DONE)) {
+              completedRequests++;
+            } else {
+              openRequests++;
+            }
           }
         }
       }
