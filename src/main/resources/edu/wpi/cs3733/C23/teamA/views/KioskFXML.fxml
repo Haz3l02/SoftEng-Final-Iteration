@@ -175,7 +175,7 @@
                   </StackPane>
                </children>
             </HBox>
-            <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" prefHeight="122.0" prefWidth="1123.0" spacing="10.0" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-background-radius: 15;">
+            <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" prefHeight="122.0" prefWidth="1123.0" spacing="10.0" style="-fx-background-color: #F9A94F; -fx-background-radius: 15; -fx-background-radius: 15;">
                <children>
                   <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcement From Admin" textAlignment="CENTER">
                      <font>
