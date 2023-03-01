@@ -88,6 +88,7 @@ public class PathDraw {
   public static void drawPathLines(
       AnchorPane[] aps, ArrayList<GraphNode> path, double radius, double SCALE_FACTOR) {
 
+
     // coordinates for the previous point in the path
     double prevX = 0;
     double prevY = 0;
@@ -96,6 +97,18 @@ public class PathDraw {
     // set the prev values and draw the starting circle
     int size = path.size();
 
+    if (size > 0) {
+      double[] updatedCoords =
+              scaleCoordinates(path.get(0).getXCoord(), path.get(0).getYCoord(), SCALE_FACTOR);
+      prevX = updatedCoords[0];
+      prevY = updatedCoords[1];
+      String floor = path.get(0).getFloor();
+      prevFloor = Floor.indexFromTableString(floor);
+      Circle currentCircle =
+              new Circle(prevX, prevY, radius, Color.web("0x279F89")); // starting circle
+
+      aps[prevFloor].getChildren().add(currentCircle);
+    }
     // current holders for coordinates
     double currentX;
     double currentY;
