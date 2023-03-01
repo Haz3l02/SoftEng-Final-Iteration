@@ -91,6 +91,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     moves.clear();
+    tx.commit();
 
     if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
@@ -100,12 +101,16 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
 
     File loc = new File(filename);
 
+    tx = session.beginTransaction();
     Scanner read = new Scanner(loc);
     int count = 0;
     read.nextLine();
 
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");
+      if (b[0] == null) {
+        System.out.println("problem index: " + count);
+      }
       MoveEntity mov =
           new MoveEntity(
               session.get(NodeEntity.class, b[0]),
