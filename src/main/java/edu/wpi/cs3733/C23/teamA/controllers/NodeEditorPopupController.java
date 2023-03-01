@@ -58,6 +58,9 @@ public class NodeEditorPopupController extends NavigationController {
 
     // xCoord.setText(String.valueOf(mouseX));
     // yCoord.setText(String.valueOf(mouseY));
+    System.out.println(floor);
+    System.out.println(Floor.extendedStringFromTableString(floor));
+
     FloorBox.selectItem(Floor.extendedStringFromTableString(floor));
     FloorBox.setText(floor);
   }

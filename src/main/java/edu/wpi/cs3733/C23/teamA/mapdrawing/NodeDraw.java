@@ -254,19 +254,6 @@ public class NodeDraw {
             //              // nmc.setLocButtonVisibility(true);
             //            }
 
-            // pass in node and location to popup controller
-            MapEditorNodeInfoPopupController.node = selectedNodeEntity;
-            MapEditorNodeInfoPopupController.location =
-                FacadeRepository.getInstance().moveMostRecentLoc(selectedNodeEntity.getNodeid());
-
-            // pop up node info popup
-            try {
-
-              popupNodeInfo(nodeGraphic, event.getSceneX(), event.getSceneY());
-            } catch (IOException e) {
-              throw new RuntimeException(e);
-            }
-
             if (shiftPressed) {
               System.out.println("shift pressed");
 
@@ -316,21 +303,15 @@ public class NodeDraw {
                     FacadeRepository.getInstance().getLocation(selectedNodeEntity.getNodeid());
 
                 alert.setHeaderText(
-                    "Are you sure you want to create an edge between: ("
-                        + node1.getNodeid()
-                        + ", "
-                        //                          + selectedEdge.getNode1().getYcoord()
-                        + " and ("
-                        + node2.getNodeid()
-                        + ", "
-                        //                          + selectedEdge.getNode2().getYcoord()
+                    "Are you sure you want to create an edge between: "
                         + FacadeRepository.getInstance()
                             .moveMostRecentLoc(node1.getNodeid())
                             .getShortname()
                         + " and "
                         + FacadeRepository.getInstance()
                             .moveMostRecentLoc(node2.getNodeid())
-                            .getShortname());
+                            .getShortname()
+                        + "?");
 
                 alert.setContentText(
                     "Are you sure you want to create an edge between: ("
@@ -544,6 +525,8 @@ public class NodeDraw {
                 LocationEditorEditPopupController.setShortname(loc.getShortname());
                 LocationEditorEditPopupController.setLocType(loc.getLocationtype());
               }
+
+              NodeEditorPopupController.setFloor(selectedNodeEntity.getFloor());
             }
           });
 
@@ -557,7 +540,6 @@ public class NodeDraw {
 
               System.out.println(Math.round(coords[0]) + ", " + Math.round(coords[1]));
 
-              NodeEditorPopupController.setFloor(selectedNodeEntity.getFloor());
               NodeEditorPopupController.setMouseX((int) Math.round(coords[0]));
               NodeEditorPopupController.setMouseY((int) Math.round(coords[1]));
             }
