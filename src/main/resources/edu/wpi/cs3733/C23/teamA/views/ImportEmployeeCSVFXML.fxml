@@ -102,9 +102,9 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="81.0" prefWidth="1312.0" promptText="File Name" style="-fx-background-radius: 15; -fx-border-radius: 15;">
+                  <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="65.0" prefWidth="1250.0" promptText="File Name" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                      <font>
-                        <Font name="Verdana" size="48.0" />
+                        <Font name="Verdana" size="30.0" />
                      </font>
                   </MFXTextField>
                </children>

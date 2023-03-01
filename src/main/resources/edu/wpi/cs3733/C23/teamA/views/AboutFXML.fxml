@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
@@ -90,14 +89,10 @@
                      <children>
                          <HBox>
                              <children>
-                                 <Text fx:id="memberA" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Sarah LaRusso:" wrappingWidth="120.0">
+                                 <Text fx:id="memberA" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="HoverYellow" text="Sarah LaRusso:" wrappingWidth="120.0">
                                      <font>
                                          <Font name="Verdana" size="14.0" />
                                      </font>
-                                 <styleClass>
-                                    <String fx:value="aboutText" />
-                                    <String fx:value="Hover" />
-                                 </styleClass>
                                  </Text>
                                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="aboutText" text="Lead Software Developer" wrappingWidth="200.0">
                                      <font>
@@ -108,14 +103,10 @@
                          </HBox>
                          <HBox>
                              <children>
-                                 <Text fx:id="memberB" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Andrei Bornstein:" wrappingWidth="135.0">
+                                 <Text fx:id="memberB" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Hover" text="Andrei Bornstein:" wrappingWidth="135.0">
                                      <font>
                                          <Font name="Verdana" size="14.0" />
                                      </font>
-                                 <styleClass>
-                                    <String fx:value="aboutText" />
-                                    <String fx:value="Hover" />
-                                 </styleClass>
                                  </Text>
                                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="aboutText" text="Assistant Lead Software Developer (Back-End)" wrappingWidth="347.84783935546875">
                                      <font>
@@ -126,14 +117,10 @@
                          </HBox>
                          <HBox>
                              <children>
-                                 <Text fx:id="memberC" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Chris Walczak:" wrappingWidth="115.0">
+                                 <Text fx:id="memberC" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="HoverYellow" text="Chris Walczak:" wrappingWidth="115.0">
                                      <font>
                                          <Font name="Verdana" size="14.0" />
                                      </font>
-                                 <styleClass>
-                                    <String fx:value="aboutText" />
-                                    <String fx:value="Hover" />
-                                 </styleClass>
                                  </Text>
                                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="aboutText" text="Assistant Lead Software Developer (Front-End)" wrappingWidth="372.4495849609375">
                                      <font>
@@ -144,14 +131,10 @@
                          </HBox>
                          <HBox>
                              <children>
-                                 <Text fx:id="memberD" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="John Mezzo:" wrappingWidth="100.0">
+                                 <Text fx:id="memberD" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="HoverYellow" text="John Mezzo:" wrappingWidth="100.0">
                                      <font>
                                          <Font name="Verdana" size="14.0" />
                                      </font>
-                                 <styleClass>
-                                    <String fx:value="aboutText" />
-                                    <String fx:value="Hover" />
-                                 </styleClass>
                                  </Text>
                                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="aboutText" text="Database Engineer (Back-End)" wrappingWidth="300.1147766113281">
                                      <font>
@@ -162,14 +145,10 @@
                          </HBox>
                          <HBox>
                              <children>
-                                 <Text fx:id="memberE" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Harrison Taylor:" wrappingWidth="125.0">
+                                 <Text fx:id="memberE" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="HoverYellow" text="Harrison Taylor:" wrappingWidth="125.0">
                                      <font>
                                          <Font name="Verdana" size="14.0" />
                                      </font>
-                                 <styleClass>
-                                    <String fx:value="aboutText" />
-                                    <String fx:value="Hover" />
-                                 </styleClass>
                                  </Text>
                                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="aboutText" text="Database Engineer (Back-End)" wrappingWidth="274.6477966308594">
                                      <font>
@@ -180,14 +159,10 @@
                          </HBox>
                          <HBox>
                              <children>
-                                 <Text fx:id="memberF" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Hazel Green:" wrappingWidth="100.0">
+                                 <Text fx:id="memberF" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="HoverYellow" text="Hazel Green:" wrappingWidth="100.0">
                                      <font>
                                          <Font name="Verdana" size="14.0" />
                                      </font>
-                                 <styleClass>
-                                    <String fx:value="aboutText" />
-                                    <String fx:value="Hover" />
-                                 </styleClass>
                                  </Text>
                                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="aboutText" text="Full-Time Developer (Front-End)" wrappingWidth="300.1147766113281">
                                      <font>
@@ -198,14 +173,10 @@
                          </HBox>
                          <HBox>
                              <children>
-                                 <Text fx:id="memberG" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Isabella Lucas:" wrappingWidth="115.0">
+                                 <Text fx:id="memberG" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="HoverYellow" text="Isabella Lucas:" wrappingWidth="115.0">
                                      <font>
                                          <Font name="Verdana" size="14.0" />
                                      </font>
-                                 <styleClass>
-                                    <String fx:value="aboutText" />
-                                    <String fx:value="Hover" />
-                                 </styleClass>
                                  </Text>
                                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="aboutText" text="Project Manager, Part-Time Developer (Front-End)" wrappingWidth="374.0973815917969">
                                      <font>
@@ -216,14 +187,10 @@
                          </HBox>
                          <HBox>
                              <children>
-                                 <Text fx:id="memberH" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Isabelle Lachaux:" wrappingWidth="135.0">
+                                 <Text fx:id="memberH" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="HoverYellow" text="Isabelle Lachaux:" wrappingWidth="135.0">
                                      <font>
                                          <Font name="Verdana" size="14.0" />
                                      </font>
-                                 <styleClass>
-                                    <String fx:value="aboutText" />
-                                    <String fx:value="Hover" />
-                                 </styleClass>
                                  </Text>
                                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="aboutText" text="Scrum Master, Part-Time Developer (Front-End)" wrappingWidth="347.7297058105469">
                                      <font>
@@ -234,14 +201,10 @@
                          </HBox>
                          <HBox>
                              <children>
-                                 <Text fx:id="memberI" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Steve Rosario:" wrappingWidth="115.0">
+                                 <Text fx:id="memberI" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="HoverYellow" text="Steve Rosario:" wrappingWidth="115.0">
                                      <font>
                                          <Font name="Verdana" size="14.0" />
                                      </font>
-                                 <styleClass>
-                                    <String fx:value="aboutText" />
-                                    <String fx:value="Hover" />
-                                 </styleClass>
                                  </Text>
                                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="aboutText" text="Product Owner, Part-Time Developer (Front-End)" wrappingWidth="367.8910217285156">
                                      <font>
@@ -252,14 +215,10 @@
                          </HBox>
                          <HBox>
                              <children>
-                                 <Text fx:id="memberJ" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Audrey Gross:" wrappingWidth="110.0">
+                                 <Text fx:id="memberJ" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="HoverYellow" text="Audrey Gross:" wrappingWidth="110.0">
                                      <font>
                                          <Font name="Verdana" size="14.0" />
                                      </font>
-                                 <styleClass>
-                                    <String fx:value="aboutText" />
-                                    <String fx:value="Hover" />
-                                 </styleClass>
                                  </Text>
                                  <Text fill="#224870" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="aboutText" text="Documentation Analyst, Part-Time Developer (Back-End)" wrappingWidth="379.5975341796875">
                                      <font>

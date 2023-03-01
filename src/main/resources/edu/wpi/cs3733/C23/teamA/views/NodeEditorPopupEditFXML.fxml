@@ -91,7 +91,7 @@
                   </HBox>
                   <HBox alignment="CENTER">
                      <children>
-                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hidePopup" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" styleClass="blue-Button" text="Back" textFill="#d3e9f6">
+                        <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hidePopup" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" styleClass="blue-Button" text="Back" textFill="#d3e9f6">
                            <font>
                               <Font size="24.0" />
                            </font>

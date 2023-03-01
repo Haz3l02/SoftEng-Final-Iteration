@@ -34,34 +34,34 @@
                   <Insets left="15.0" />
                </VBox.margin>
             </Text>
-            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1346.0" spacing="15.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 15;">
+            <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1346.0" spacing="15.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 15;">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Name">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Location Name">
                      <font>
                         <Font name="Verdana" size="20.0" />
                      </font>
                   </Text>
-                  <MFXFilterComboBox fx:id="locationBox" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Location" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="dropDowns">
+                  <MFXFilterComboBox fx:id="locationBox" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Location" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </MFXFilterComboBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Node">
                      <font>
                         <Font name="Verdana" size="20.0" />
                      </font>
                   </Text>
-                  <MFXFilterComboBox fx:id="nodeBox" disable="true" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Node ID" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="dropDowns">
+                  <MFXFilterComboBox fx:id="nodeBox" disable="true" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Node ID" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </MFXFilterComboBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move Date">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Move Date">
                      <font>
                         <Font name="Verdana" size="20.0" />
                      </font>
                   </Text>
-                  <MFXDatePicker fx:id="dateBox" prefHeight="50.0" prefWidth="250.0" promptText="Select Move Date" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="dropDowns">
+                  <MFXDatePicker fx:id="dateBox" prefHeight="50.0" prefWidth="250.0" promptText="Select Move Date" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -90,7 +90,7 @@
                           <items>
                               <VBox fx:id="messageVBox" fillWidth="false" prefHeight="69.0" prefWidth="680.0">
                                  <children>
-                                    <Text fx:id="locationNotif" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving " VBox.vgrow="ALWAYS">
+                                    <Text fx:id="locationNotif" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving " VBox.vgrow="ALWAYS">
                                        <font>
                                           <Font name="Verdana" size="20.0" />
                                        </font>
@@ -122,7 +122,7 @@
                               </VBox>
                               <VBox fx:id="topVBox" prefHeight="400.0" prefWidth="675.0">
                                  <children>
-                                    <Text fx:id="currentNode" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Node For Location">
+                                    <Text fx:id="currentNode" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Node For Location">
                                        <font>
                                           <Font name="Verdana" size="20.0" />
                                        </font>

@@ -15,7 +15,7 @@
     -fx-border-color: #122c34;
     -fx-border-radius: 15;
     -fx-text-fill: #d3e9f6;
-    -fx-font-size: 25px;
+    -fx-font-size: 24px;
     -fx-font-family: Verdana;
     -fx-pref-height: 50;
     -fx-pref-width: 130;
@@ -43,7 +43,7 @@
     -fx-border-color: #122c34;
     -fx-border-radius: 15;
     -fx-text-fill: #122C34;
-    -fx-font-size: 25px;
+    -fx-font-size: 24px;
     -fx-font-family: Verdana;
     -fx-pref-height: 50;
     -fx-pref-width: 130;
@@ -70,7 +70,7 @@
     -fx-border-color: #122c34;
     -fx-border-radius: 15;
     -fx-text-fill: #122C34;
-    -fx-font-size: 25px;
+    -fx-font-size: 24px;
     -fx-font-family: Verdana;
     -fx-pref-height: 50;
     -fx-pref-width: 130;
@@ -100,9 +100,7 @@
     -fx-pref-width: 300;
     -fx-pref-height: 40;
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 15;
     -fx-border-color: #122c34;
-    -fx-border-radius: 15;
 }
 
 .dropDowns2{
@@ -111,9 +109,7 @@
     -fx-font-size: 14px;
     -fx-font-family: Verdana;
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 15;
     -fx-border-color: #122c34;
-    -fx-border-radius: 15;
 }
 
 /* MFXTextField */
@@ -125,9 +121,7 @@
     -fx-pref-width: 300;
     -fx-pref-height: 40;
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 15;
     -fx-border-color: #122c34;
-    -fx-border-radius: 15;
 }
 
 .textBox2{
@@ -136,9 +130,7 @@
     -fx-font-size: 14px;
     -fx-font-family: Verdana;
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 15;
     -fx-border-color: #122c34;
-    -fx-border-radius: 15;
 }
 
 /* Labels or Text */
@@ -159,9 +151,7 @@
     -fx-pref-width: 300;
     -fx-pref-height: 150;
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 15;
     -fx-border-color: #122c34;
-    -fx-border-radius: 15;
 }
 
 .decBox2{
@@ -170,9 +160,7 @@
     -fx-font-size: 14px;
     -fx-font-family: Verdana;
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 15;
     -fx-border-color: #122c34;
-    -fx-border-radius: 15;
 }
 
 /* Reminder text */
