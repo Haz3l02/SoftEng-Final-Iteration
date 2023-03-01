@@ -31,9 +31,8 @@ import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
 
 public class KioskController {
-  @FXML private Label announcement, left, right, leftD, rightD;
+  @FXML private Label announcement, leftD, rightD;
   @FXML public SplitPane mainSplitPane;
-  @FXML public Node mapPane;
   @FXML public Node directionsPane;
   @FXML private Text directionsText;
 
@@ -50,10 +49,9 @@ public class KioskController {
   @FXML private Text floorNumber;
 
   private AnchorPane[] aps = new AnchorPane[5];
-  private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
+  private final PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
   private int currentFloorIndex = 0;
   private ArrayList<String> floorPath = new ArrayList<>();
-  private String directions;
   private ArrayList<String> directionsArray;
 
   @FXML

@@ -155,8 +155,6 @@ public class PathInterpreter {
 
     // todo: add some kind of check for the same coordinates
 
-    // distance between the first and second graphNodes
-    int dist = (int) Math.sqrt(Math.pow(bx - ax, 2) + Math.pow(by - ay, 2)) / 3;
     // angle of direction between the first and second graphNodes
     double angle1 = Math.atan2((by - ay), (bx - ax));
     // angle of direction between the first and third graphNodes
@@ -290,7 +288,6 @@ public class PathInterpreter {
 
     sb.append("Beginning of path for " + startName + "\'s move:\n\n");
     int numNodes = path.size();
-    int numFloors = floorPath.size();
 
     // variables
     String longName;
