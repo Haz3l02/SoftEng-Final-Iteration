@@ -4,6 +4,7 @@ import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
 import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
+import edu.wpi.cs3733.C23.teamA.mapdrawing.PathDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
@@ -106,8 +107,8 @@ public class MoveController extends MenuController {
     allImages = mainPane.getItems().get(1);
     mainPane.getItems().remove(allImages);
 
-    currentNodeImage = imagePane.getItems().get(1); // 1st image
-    newNodeImage = imagePane.getItems().get(2); // 2nd Image
+    currentNodeImage = imagePane.getItems().get(0); // 1st image
+    newNodeImage = imagePane.getItems().get(1); // 2nd Image
 
     moveData = FacadeRepository.getInstance().getAllMove();
 
@@ -123,6 +124,8 @@ public class MoveController extends MenuController {
 
     this.topMainGesturePane.setContent(mainStackPane);
     this.middleGesturePane.setContent(mainStackPane1);
+    topMainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+    middleGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
 
     allNodeID =
         FacadeRepository.getInstance().getAllMove().stream()
@@ -166,22 +169,19 @@ public class MoveController extends MenuController {
                             .get(0)
                             .getNode()
                             .getNodeid()); //
-                PathInfo pathInfo = pathfindingSystem.runPathfinding(start, start);
-                String initialTableString = pathInfo.getFloorPath().get(0);
+                String initialTableString = start.getFloor();
                 currentNode.setText("Current Node: Located on Floor " + initialTableString);
                 addFloorMapImage(initialTableString, mainImageView);
                 locationNotif.setText(
                     "You have selected " + locationBox.getValue().toString() + " to move nodes.");
                 createMove.setVisible(true);
                 editButton.setVisible(false);
-                // createMove.setDisable(true);
                 nodeBox.setDisable(false);
                 if (mainPane.getItems().size() == 1)
                   mainPane.getItems().add(1, allImages); // If there is nothing add it
                 imagePane.getItems().remove(newNodeImage);
-                ArrayList<GraphNode> path = pathInfo.getPath();
-                ArrayList<String> floorPath = pathInfo.getFloorPath();
-                callMapDraw(path, floorPath);
+                clearMaps();
+                callNodeDraw(start, true);
 
                 mainStackPane.getChildren().clear();
                 mainStackPane.getChildren().add(mainImageView);
@@ -195,10 +195,8 @@ public class MoveController extends MenuController {
         .addListener(
             observable -> {
               if (nodeBox.getValue() != null) {
-                System.out.println(nodeBox.getValue());
-                GraphNode start = pathfindingSystem.getNode(nodeBox.getValue().toString());
-                PathInfo pathInfo = pathfindingSystem.runPathfinding(start, start);
-                String finalTableString = pathInfo.getFloorPath().get(0);
+                GraphNode end = pathfindingSystem.getNode(nodeBox.getValue().toString());
+                String finalTableString = end.getFloor();
                 newNode.setText("New Node: Located on Floor " + finalTableString);
                 addFloorMapImage(finalTableString, topMainImageView);
                 locationNotif.setText(
@@ -208,10 +206,8 @@ public class MoveController extends MenuController {
                         + nodeBox.getValue().toString()
                         + ".");
                 editButton.setDisable(false);
-                if (imagePane.getItems().size() == 2) imagePane.getItems().add(2, newNodeImage);
-                ArrayList<GraphNode> path = pathInfo.getPath();
-                ArrayList<String> floorPath = pathInfo.getFloorPath();
-                callMapDraw(path, floorPath);
+                if (imagePane.getItems().size() == 1) imagePane.getItems().add(1, newNodeImage);
+                callNodeDraw(end, false);
 
                 mainStackPane1.getChildren().clear();
                 mainStackPane1.getChildren().add(topMainImageView);
@@ -245,7 +241,7 @@ public class MoveController extends MenuController {
 
     if (pathInfo.getFloorPath().size() != 1) {
 
-      if (imagePane.getItems().size() == 2) imagePane.getItems().add(2, newNodeImage);
+      if (imagePane.getItems().size() == 1) imagePane.getItems().add(1, newNodeImage);
       if (pathInfo
           .getFloorPath()
           .get(pathInfo.getFloorPath().size() - 1)
@@ -300,18 +296,24 @@ public class MoveController extends MenuController {
       ap.setVisible(true);
     }
     aps[currentFloor].setVisible(true);
-
-    //      for (AnchorPane ap : aps1) {
-    //        ap.getChildren().clear();
-    //        ap.setVisible(false);
-    //      }
-    //      aps1[currentFloor].setVisible(true);
-
-    // Make this floor's pane viewable
-    // aps[currentFloor].setVisible(true);
-
     pathfindingSystem.drawPath(aps, path);
   }
+
+  /**
+   * Calls the drawSingleNode method from PathDraw.java
+   *
+   * @param graphNode to be drawn on its anchorPane
+   */
+  private void callNodeDraw(GraphNode graphNode, boolean first) {
+    String message = "Future Node";
+    if (first) {
+      message = "Current Node";
+    }
+    PathDraw.drawSingleNode(aps, graphNode, message);
+    currentFloor = Floor.indexFromTableString(graphNode.getFloor());
+    aps[currentFloor].setVisible(true);
+  }
+
   /** Clear and retrieve all table rows again With hibernate only use once at start */
   public void reloadData() {
     dbTableRowsModel.clear();
@@ -337,35 +339,32 @@ public class MoveController extends MenuController {
 
   @FXML
   public void createMove(ActionEvent event) {
-    LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
-    MoveEntity theMove =
-        new MoveEntity(
-            FacadeRepository.getInstance().getNode(nodeBox.getValue()),
-            loc,
-            dateBox.getValue(),
-            moveMessage.getText());
-    try {
-      warning.setVisible(false);
-      FacadeRepository.getInstance().addMove(theMove);
-    } catch (PersistenceException p) {
-      warning.setVisible(true);
+    if ((locationBox.getValue() == null || nodeBox.getValue() == null || dateBox.getValue() == null)
+        && mainPane.getItems().size() == 1) {
+      mainPane.getItems().add(1, allImages);
+      mainPane.setDividerPositions(0.2);
+    } else {
+
+      LocationNameEntity loc = FacadeRepository.getInstance().getLocation(locationBox.getValue());
+      MoveEntity theMove =
+          new MoveEntity(
+              FacadeRepository.getInstance().getNode(nodeBox.getValue()),
+              loc,
+              dateBox.getValue(),
+              moveMessage.getText());
+      try {
+        warning.setVisible(false);
+        FacadeRepository.getInstance().addMove(theMove);
+      } catch (PersistenceException p) {
+        warning.setVisible(true);
+      }
+      reloadData();
     }
-    // moveImpl.add(theMove);
-    reloadData();
   }
 
   public void submitEdit(ActionEvent event) {
-    //    if (!nodeBox.getText().trim().isBlank()
-    //        || !locationBox.getText().trim().isBlank()
-    //        || !dateBox.getValue().toString().isEmpty()) {
 
     ObservableList<MoveEntity> currentTableData = dbTable.getItems();
-
-    //      LocalDate moveDate = dateBox.getValue();
-    //      String nodeID = nodeBox.getValue();
-    //      String theLocation = locationBox.getValue();
-    //      String submitDate = dateBox.getText().toString();
-
     for (MoveEntity move : currentTableData) {
       if (move.getMovedate().equals(clickedDate)
           && move.getLocationName().getLongname().equals(clickedLocation)
@@ -376,14 +375,12 @@ public class MoveController extends MenuController {
         moveID.add(clickedDate.toString());
 
         LocationNameEntity loc = FacadeRepository.getInstance().getLocation(clickedLocation);
-
         move.setNode(FacadeRepository.getInstance().getNode(clickedNode));
         move.setLocationName(loc);
         move.setMovedate(clickedDate);
         move.setMessage(moveMessage.getText());
         System.out.println(moveMessage.getText());
         FacadeRepository.getInstance().moveUpdateMessage(moveMessage.getText(), moveID);
-        // FacadeRepository.getInstance().updateMove(moveID, move);
         dbTable.setItems(currentTableData);
         reloadData();
         break;
@@ -405,19 +402,25 @@ public class MoveController extends MenuController {
     nodeBox.clear();
     locationBox.clear();
     dateBox.setValue(dateBox.getCurrentDate());
+    dateBox.clear();
     moveMessage.clear();
+    clearMaps();
+    mainPane.getItems().remove(allImages);
+  }
+
+  public void clearMaps() {
     for (AnchorPane ap : aps) {
       ap.getChildren().clear();
       ap.setVisible(false);
     }
-    //        createEmployee.setVisible(true);
-    //        editButton.setDisable(true);
   }
 
   @FXML
   public void rowClicked(MouseEvent event) throws SQLException {
+    // clearMaps();
     if (mainPane.getItems().size() == 1) {
       mainPane.getItems().add(1, allImages);
+      mainPane.setDividerPositions(0.2);
     }
     editButton.setVisible(true);
 
