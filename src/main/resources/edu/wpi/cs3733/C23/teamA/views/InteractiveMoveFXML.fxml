@@ -34,141 +34,131 @@
                   <Insets left="15.0" />
                </VBox.margin>
             </Text>
-            <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1346.0" spacing="15.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 15;">
-               <children>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Location Name">
-                     <font>
-                        <Font name="Verdana" size="20.0" />
-                     </font>
-                  </Text>
-                  <MFXFilterComboBox fx:id="locationBox" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Location" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </MFXFilterComboBox>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Node">
-                     <font>
-                        <Font name="Verdana" size="20.0" />
-                     </font>
-                  </Text>
-                  <MFXFilterComboBox fx:id="nodeBox" disable="true" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Node ID" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </MFXFilterComboBox>
-                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Move Date">
-                     <font>
-                        <Font name="Verdana" size="20.0" />
-                     </font>
-                  </Text>
-                  <MFXDatePicker fx:id="dateBox" prefHeight="50.0" prefWidth="250.0" promptText="Select Move Date" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </MFXDatePicker>
-               </children>
-               <VBox.margin>
-                  <Insets left="15.0" right="15.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </HBox>
-            <SplitPane fx:id="mainPane" dividerPositions="0.4656203288490284" prefHeight="160.0" prefWidth="200.0" styleClass="split-pane-divider" stylesheets="@../assets/PathfindingStyle.css" VBox.vgrow="ALWAYS">
+            <SplitPane fx:id="mainPane" dividerPositions="0.1" orientation="VERTICAL" prefHeight="160.0" prefWidth="200.0" styleClass="split-pane-divider" stylesheets="@../assets/PathfindingStyle.css" VBox.vgrow="ALWAYS">
               <items>
-                  <TableView fx:id="dbTable" editable="true" onMouseClicked="#rowClicked" prefHeight="158.0" prefWidth="1301.0" style="-fx-background-color: d3e9f6;" SplitPane.resizableWithParent="false">
+                  <TableView fx:id="dbTable" editable="true" minHeight="-Infinity" onMouseClicked="#rowClicked" prefHeight="70.0" prefWidth="1338.0" style="-fx-background-color: d3e9f6;" stylesheets="@../assets/tableView.css" SplitPane.resizableWithParent="false">
                      <columns>
-                        <TableColumn fx:id="moveCol" prefWidth="186.0" styleClass="tableText" text="Move Location" />
-                        <TableColumn fx:id="nodeCol" prefWidth="213.0" styleClass="tableText" text="Node" />
-                        <TableColumn fx:id="moveDateCol" editable="false" prefWidth="202.0" styleClass="tableText" text="Move Date" />
-                        <TableColumn fx:id="messageCol" editable="false" prefWidth="202.0" text="Message" />
+                        <TableColumn fx:id="moveCol" prefWidth="203.6666717529297" styleClass="tableText" text="Move Location" />
+                        <TableColumn fx:id="nodeCol" prefWidth="462.3333282470703" styleClass="tableText" text="Node" />
+                        <TableColumn fx:id="moveDateCol" editable="false" prefWidth="202.0" sortType="DESCENDING" styleClass="tableText" text="Move Date" />
+                        <TableColumn fx:id="messageCol" editable="false" prefWidth="202.0" styleClass="tableText" text="Message" />
                      </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
-                  <MFXScrollPane fitToHeight="true" fitToWidth="true" maxWidth="-Infinity" prefHeight="486.0" prefWidth="740.0" style="-fx-background-color: d3e9f6;" SplitPane.resizableWithParent="false">
+                  <MFXScrollPane fitToHeight="true" fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="740.0" style="-fx-background-color: d3e9f6;" SplitPane.resizableWithParent="false">
                      <content>
-                        <SplitPane fx:id="imagePane" dividerPositions="0.01, 0.47" orientation="VERTICAL" prefWidth="695.0" style="-fx-background-color: #D3E9F6;">
-                          <items>
-                              <VBox fx:id="messageVBox" fillWidth="false" prefHeight="69.0" prefWidth="680.0">
+                        <VBox spacing="10.0">
+                           <children>
+                              <VBox fx:id="messageVBox" prefHeight="136.0" prefWidth="1327.0" spacing="10.0">
                                  <children>
-                                    <Text fx:id="locationNotif" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving " VBox.vgrow="ALWAYS">
+                                    <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="40.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Name">
+                                             <font>
+                                                <Font name="Verdana" size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXFilterComboBox fx:id="locationBox" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Location" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="dropDowns">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </MFXFilterComboBox>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node">
+                                             <font>
+                                                <Font name="Verdana" size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXFilterComboBox fx:id="nodeBox" disable="true" floatMode="DISABLED" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="250.0" promptText="Select Node ID" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="dropDowns">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </MFXFilterComboBox>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move Date">
+                                             <font>
+                                                <Font name="Verdana" size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <MFXDatePicker fx:id="dateBox" prefHeight="50.0" prefWidth="250.0" promptText="Select Move Date" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="dropDowns">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </MFXDatePicker>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <Text fx:id="locationNotif" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving ">
                                        <font>
-                                          <Font name="Verdana" size="20.0" />
+                                          <Font name="Verdana Bold" size="20.0" />
                                        </font>
                                     </Text>
-                                    <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="51.0" prefWidth="698.0" spacing="10.0">
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="51.0" prefWidth="1326.0" spacing="10.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <TextArea fx:id="moveMessage" maxHeight="-Infinity" prefHeight="33.0" prefWidth="488.0" promptText="Enter a message to be displayed with move" wrapText="true" HBox.hgrow="ALWAYS">
+                                          <TextArea fx:id="moveMessage" maxHeight="-Infinity" prefHeight="49.0" prefWidth="370.0" promptText="Enter a message to be displayed with move" wrapText="true" HBox.hgrow="ALWAYS">
                                              <font>
                                                 <Font name="Verdana" size="20.0" />
                                              </font>
                                           </TextArea>
-                                          <StackPane prefHeight="150.0" prefWidth="200.0">
-                                             <children>
-                                                <MFXButton fx:id="Button" buttonType="RAISED" defaultButton="true" onAction="#submitEdit" prefHeight="50.0" prefWidth="225.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Update Move" textFill="#224870" visible="false">
-                                                   <font>
-                                                      <Font name="Verdana" size="23.0" />
-                                                   </font>
-                                                </MFXButton>
-                                                <MFXButton fx:id="createMove" buttonType="RAISED" defaultButton="true" onAction="#createMove" prefHeight="50.0" prefWidth="225.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="yellow" text="Create Move" textFill="#224870">
-                                                   <font>
-                                                      <Font name="Verdana" size="23.0" />
-                                                   </font>
-                                                </MFXButton>
-                                             </children>
-                                          </StackPane>
                                        </children>
                                     </HBox>
                                  </children>
                               </VBox>
-                              <VBox fx:id="topVBox" prefHeight="400.0" prefWidth="675.0">
-                                 <children>
-                                    <Text fx:id="currentNode" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Node For Location">
-                                       <font>
-                                          <Font name="Verdana" size="20.0" />
-                                       </font>
-                                    </Text>
-                                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" style="-fx-background-color: #224870;">
+                              <SplitPane fx:id="imagePane" dividerPositions="0.5" prefWidth="695.0" style="-fx-background-color: #D3E9F6;" VBox.vgrow="ALWAYS">
+                                <items>
+                                    <VBox fx:id="topVBox" alignment="CENTER" prefHeight="400.0" prefWidth="675.0" SplitPane.resizableWithParent="false">
                                        <children>
-                                          <StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="675.0">
+                                          <Text fx:id="currentNode" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Node For Location">
+                                             <font>
+                                                <Font name="Verdana Bold" size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <ImageView fx:id="mainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
+                                                <StackPane fx:id="mainStackPane" prefHeight="476.0" prefWidth="675.0">
+                                                   <children>
+                                                      <ImageView fx:id="mainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
+                                                   </children>
+                                                   <StackPane.margin>
+                                                      <Insets />
+                                                   </StackPane.margin>
+                                                </StackPane>
+                                                <GesturePane fx:id="topMainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="692.0" />
                                              </children>
-                                             <StackPane.margin>
-                                                <Insets />
-                                             </StackPane.margin>
                                           </StackPane>
-                                          <GesturePane fx:id="topMainGesturePane" bindScale="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="692.0" />
                                        </children>
-                                    </StackPane>
-                                 </children>
-                              </VBox>
-                              <VBox fx:id="secondVBox" maxHeight="-Infinity" prefHeight="400.0" SplitPane.resizableWithParent="false">
-                                 <children>
-                                    <Text fx:id="newNode" strokeType="OUTSIDE" strokeWidth="0.0" text="New Node For Location">
-                                       <font>
-                                          <Font name="Verdana" size="20.0" />
-                                       </font>
-                                    </Text>
-                                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" style="-fx-background-color: #224870;">
+                                    </VBox>
+                                    <VBox fx:id="secondVBox" alignment="CENTER" prefHeight="400.0" SplitPane.resizableWithParent="false">
                                        <children>
-                                          <StackPane fx:id="mainStackPane1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="675.0">
+                                          <Text fx:id="newNode" strokeType="OUTSIDE" strokeWidth="0.0" text="New Node For Location">
+                                             <font>
+                                                <Font name="Verdana Bold" size="20.0" />
+                                             </font>
+                                          </Text>
+                                          <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <ImageView fx:id="topMainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
+                                                <StackPane fx:id="mainStackPane1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0">
+                                                   <children>
+                                                      <ImageView fx:id="topMainImageView" fitHeight="459.0" fitWidth="675.0" pickOnBounds="true" preserveRatio="true" />
+                                                   </children>
+                                                   <StackPane.margin>
+                                                      <Insets />
+                                                   </StackPane.margin>
+                                                </StackPane>
+                                                <GesturePane fx:id="middleGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                              </children>
-                                             <StackPane.margin>
-                                                <Insets />
-                                             </StackPane.margin>
                                           </StackPane>
-                                          <GesturePane fx:id="middleGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
                                        </children>
-                                    </StackPane>
-                                 </children>
-                              </VBox>
-                          </items>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                        </SplitPane>
+                                    </VBox>
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </VBox>
                      </content>
                   </MFXScrollPane>
               </items>
@@ -232,11 +222,20 @@
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="cancelButton" fx:id="editButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#submitEdit" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="yellow-Button" text="Update" textFill="#d3e9f6">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </MFXButton>
+                  <StackPane>
+                     <children>
+                        <MFXButton id="cancelButton" fx:id="editButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#submitEdit" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="yellow-Button" text="Update" textFill="#224870">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="createMove" buttonType="RAISED" defaultButton="true" onAction="#createMove" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="yellow" text="Create" textFill="#224870">
+                           <font>
+                              <Font name="Verdana" size="23.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </StackPane>
                </children>
                <HBox.margin>
                   <Insets top="5.0" />
@@ -244,7 +243,7 @@
             </HBox>
          </children>
          <BorderPane.margin>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="5.0" />
+            <Insets bottom="20.0" left="30.0" right="30.0" />
          </BorderPane.margin>
       </HBox>
    </bottom>
