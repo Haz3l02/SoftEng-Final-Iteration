@@ -134,21 +134,17 @@ public class MapEditorController extends MenuController {
               || event.getCode().equals(KeyCode.DELETE)) {
 
             if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
-              System.out.println("delete edge only");
               NodeDraw.delEdge();
             } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
-              System.out.println("delete node only");
               NodeDraw.delNode();
             } else {
               System.out.println("idk");
             }
           }
           if (event.getCode().equals(KeyCode.X) && event.isControlDown()) {
-            System.out.println("straighten that  (horizontally)");
             // NodeDraw.straightenNodesHorizontal();
           }
           if (event.getCode().equals(KeyCode.Y) && event.isControlDown()) {
-            System.out.println("straighten that  (vertically)");
             // NodeDraw.straightenNodesVertical();
           }
         });
@@ -267,7 +263,6 @@ public class MapEditorController extends MenuController {
 
             mouseDownX = e.getX();
             mouseDownY = e.getY();
-            System.out.println("X:" + mouseDownX + "  Y:" + mouseDownY);
             selectionRectangle.setX(mouseDownX);
             selectionRectangle.setY(mouseDownY);
             selectionRectangle.setWidth(0);
@@ -375,7 +370,6 @@ public class MapEditorController extends MenuController {
     for (NodeEntity n : allNodes) {
       if ((minX < n.getXcoord() && minY < n.getYcoord())
           && (maxX > n.getXcoord() && maxY > n.getYcoord())) {
-        System.out.println("Added a node");
         selectedList.add(n);
       }
     }

@@ -254,7 +254,6 @@ public class NodeDraw {
             //            }
 
             if (shiftPressed) {
-              System.out.println("shift pressed");
 
               //              nmc.setLocationIDBox(
               //                  MapEditorController.makeNewNodeID(n.getFloor(), n.getXcoord(),
