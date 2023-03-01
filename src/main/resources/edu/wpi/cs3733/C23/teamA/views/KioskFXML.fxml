@@ -151,11 +151,11 @@
    <top>
       <HBox alignment="CENTER" prefHeight="112.0" prefWidth="1374.0" spacing="10.0" style="-fx-background-radius: 2; -fx-border-color: #D3E9F6;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="196.0" prefWidth="444.0">
+            <HBox prefHeight="196.0" prefWidth="478.0">
                <children>
                   <StackPane alignment="CENTER_RIGHT" prefHeight="233.0" prefWidth="154.0">
                      <children>
-                        <ImageView fitHeight="186.0" fitWidth="379.0" pickOnBounds="true">
+                        <ImageView fitHeight="186.0" fitWidth="325.0" pickOnBounds="true">
                            <image>
                               <Image url="@../assets/icons/arrow_facingLeft_blue.png" />
                            </image>
@@ -175,7 +175,7 @@
                   </StackPane>
                </children>
             </HBox>
-            <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" prefHeight="122.0" prefWidth="705.0" spacing="10.0" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-background-radius: 15;">
+            <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" prefHeight="122.0" prefWidth="1123.0" spacing="10.0" style="-fx-background-color: #FFD470; -fx-background-radius: 15; -fx-background-radius: 15;">
                <children>
                   <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcement From Admin" textAlignment="CENTER">
                      <font>
@@ -199,7 +199,7 @@
                <children>
                   <StackPane alignment="CENTER_LEFT" prefHeight="196.0" prefWidth="444.0">
                      <children>
-                        <ImageView fitHeight="186.0" fitWidth="379.0" pickOnBounds="true">
+                        <ImageView fitHeight="186.0" fitWidth="325.0" pickOnBounds="true">
                            <image>
                               <Image url="@../assets/icons/arrow_facingRight_blue.png" />
                            </image>
