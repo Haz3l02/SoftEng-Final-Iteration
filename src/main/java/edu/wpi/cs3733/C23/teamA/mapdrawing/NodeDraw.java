@@ -295,24 +295,26 @@ public class NodeDraw {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Edge Creation");
-                alert.setHeaderText(
-                    "Are you sure you want to create an edge between "
-                        + FacadeRepository.getInstance()
-                            .getLocation(selectedNodeEntity.getNodeid()));
-                LocationNameEntity locNameEnt =
-                    FacadeRepository.getInstance().getLocation(selectedNodeEntity.getNodeid());
 
-                alert.setHeaderText(
-                    "Are you sure you want to create an edge between: "
-                        + FacadeRepository.getInstance()
-                            .moveMostRecentLoc(node1.getNodeid())
-                            .getShortname()
-                        + " and "
-                        + FacadeRepository.getInstance()
-                            .moveMostRecentLoc(node2.getNodeid())
-                            .getShortname()
-                        + "?");
-
+                try {
+                  alert.setHeaderText(
+                      "Are you sure you want to create an edge between: "
+                          + FacadeRepository.getInstance()
+                              .moveMostRecentLoc(node1.getNodeid())
+                              .getShortname()
+                          + " and "
+                          + FacadeRepository.getInstance()
+                              .moveMostRecentLoc(node2.getNodeid())
+                              .getShortname()
+                          + "?");
+                } catch (Exception e) {
+                  alert.setHeaderText(
+                      "Are you sure you want to create an edge between nodes: "
+                          + node1.getNodeid()
+                          + " and "
+                          + node2.getNodeid()
+                          + "?");
+                }
                 alert.setContentText(
                     "Are you sure you want to create an edge between: ("
                         + node1.getXcoord()
