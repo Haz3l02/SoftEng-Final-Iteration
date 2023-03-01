@@ -53,12 +53,8 @@
                         <Image url="@../assets/Brigham_and_Womens_Hospital_logo_whiteBorder_tiny.png" />
                      </image>
                   </ImageView>
-                  <ComboBox fx:id="serviceRequest" promptText="Service Request Systems" styleClass="Hover" HBox.hgrow="ALWAYS">
-                     <stylesheets>
-                        <URL value="@../assets/dropDown.css" />
-                        <URL value="@StyleSheet.css" />
-                     </stylesheets></ComboBox>
-                  <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" onAction="#switchToPathfinding" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textAlignment="CENTER" textFill="#d3e9f6">
+                  <ComboBox fx:id="serviceRequest" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="294.0" promptText="Service Request Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS" />
+                  <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToPathfinding" prefHeight="45.0" prefWidth="151.0" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textAlignment="CENTER" textFill="#d3e9f6">
                      <font>
                         <Font name="Verdana" size="25.0" />
                      </font>
@@ -66,12 +62,12 @@
                         <Insets right="25.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#switchToMessages" prefHeight="60.0" prefWidth="190.0" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="Messages" textAlignment="CENTER" textFill="#d3e9f6" wrapText="true">
+                  <MFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToMessages" prefHeight="45.0" prefWidth="190.0" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="Messages" textAlignment="CENTER" textFill="#d3e9f6" wrapText="true">
                      <font>
                         <Font name="Verdana" size="25.0" />
                      </font>
                   </MFXButton>
-                  <StackPane>
+                  <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="204.0">
                      <children>
                         <ComboBox fx:id="admin" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
                         <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">

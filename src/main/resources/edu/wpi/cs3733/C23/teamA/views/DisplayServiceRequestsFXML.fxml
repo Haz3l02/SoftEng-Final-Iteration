@@ -61,7 +61,7 @@
                   <Font name="Verdana Italic" size="14.0" />
                </font>
             </Text>
-            <MFXButton fx:id="requestsButton" onAction="#viewRequests" prefHeight="35.0" prefWidth="135.0" rippleColor="#c0cced" style="-fx-font-size: 15;" styleClass="blue" text="View Requests" textFill="#d3e9f6">
+            <MFXButton fx:id="requestsButton" onAction="#viewRequests" prefHeight="40.0" prefWidth="105.0" rippleColor="#c0cced" style="-fx-font-size: 14;" styleClass="blue-Button" text="View Requests" textFill="#d3e9f6">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>

@@ -103,16 +103,16 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="81.0" prefWidth="1248.0" promptText="Folder Path..." style="-fx-background-radius: 15; -fx-border-radius: 15;">
+                  <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="65.0" prefWidth="1250.0" promptText="Folder Path..." style="-fx-background-radius: 15; -fx-border-radius: 15;">
                      <font>
-                        <Font name="Verdana" size="48.0" />
+                        <Font name="Verdana" size="30.0" />
                      </font>
                   </MFXTextField>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MFXButton fx:id="reset1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="200.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Folder" textAlignment="CENTER" textFill="#224870">
+                  <MFXButton fx:id="reset1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="194.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="yellow" text="Select Folder" textAlignment="CENTER" textFill="#224870">
                      <font>
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
@@ -131,7 +131,7 @@
                         <Font name="Verdana" size="40.0" />
                      </font>
                   </Text>
-                  <MFXCheckbox fx:id="checkBox" alignment="CENTER">
+                  <MFXCheckbox fx:id="checkBox" alignment="CENTER" prefHeight="20.0" prefWidth="0.0">
                      <HBox.margin>
                         <Insets left="20.0" top="10.0" />
                      </HBox.margin>

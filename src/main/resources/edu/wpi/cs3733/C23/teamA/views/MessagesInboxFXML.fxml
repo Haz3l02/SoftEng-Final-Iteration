@@ -26,7 +26,7 @@
                                 <Font size="36.0" />
                             </font>
                             <VBox.margin>
-                                <Insets left="15.0" />
+                                <Insets bottom="10.0" left="15.0" top="5.0" />
                             </VBox.margin>
                         </Text>
                           <TableView fx:id="messagesTable" editable="true" onMouseClicked="#rowClicked" prefHeight="632.0" prefWidth="1376.0" style="-fx-background-color: d3e9f6;" stylesheets="@../assets/tableView.css" VBox.vgrow="ALWAYS">
@@ -48,7 +48,7 @@
                 </VBox>
             </center>
             <bottom>
-                <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+                <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="1378.0" BorderPane.alignment="CENTER">
                     <children>
                           <MFXButton id="helpButton" fx:id="newMessageButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#popupNewMessage" onMouseEntered="#updateMouseCoords" prefHeight="55.0" prefWidth="208.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="blue" text="New Message" textFill="#d3e9f6">
                               <font>
@@ -60,18 +60,18 @@
                           </MFXButton>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1118.0" spacing="10.0" HBox.hgrow="ALWAYS">
                             <children>
-                        <MFXButton id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="55.0" prefWidth="216.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="blue" text="Back to Home" textFill="#d3e9f6">
+                        <MFXButton id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="55.0" prefWidth="216.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="blue" text="Back to Home" textFill="#d3e9f6">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton id="cancelButton" fx:id="deleteMessageButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#deleteMessage" prefHeight="52.0" prefWidth="235.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="red" text="Delete Message" textFill="#d3e9f6">
+                        <MFXButton id="cancelButton" fx:id="deleteMessageButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#deleteMessage" prefHeight="52.0" prefWidth="235.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="red" text="Delete Message" textFill="#d3e9f6">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </MFXButton>
                                 <Text fx:id="IDBoxSaver" disable="true" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
-                                <MFXButton id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#refreshTable" prefHeight="51.0" prefWidth="133.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Refresh" textFill="#d3e9f6">
+                                <MFXButton id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#refreshTable" prefHeight="51.0" prefWidth="133.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="yellow" text="Refresh" textFill="#d3e9f6">
                                     <font>
                                         <Font size="25.0" />
                                     </font>

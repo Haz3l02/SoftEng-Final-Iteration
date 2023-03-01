@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -97,13 +98,13 @@ public class PathInterpreter {
     int numFloors = floorPath.size();
 
     // floor order
-    sb.append("(Floor Order: ");
+    sb.append("Floor Order: ");
     for (int i = 0; i < numFloors; i++) {
       sb.append(floorPath.get(i));
       if (i != numFloors - 1) {
         sb.append(" \u2192 ");
       } else if (i == numFloors - 1) {
-        sb.append(")\n\n");
+        sb.append("\n\n");
       }
     }
 
@@ -114,8 +115,8 @@ public class PathInterpreter {
 
     // add the start to the sb
     prevFloor = path.get(0).getFloor();
-    sb.append("(Floor " + prevFloor + ")\n");
-    sb.append("Start at " + path.get(0).getLongName() + ".\n");
+    sb.append("Floor " + prevFloor + ":\n");
+    sb.append("\tStart at " + path.get(0).getLongName() + ".\n");
 
     // loop through all of them to print the full path
     for (int i = 1; i < numNodes; i++) {
@@ -123,21 +124,20 @@ public class PathInterpreter {
       currentFloor = path.get(i).getFloor();
 
       if (!currentFloor.equals(prevFloor)) {
-        sb.append("\n(Floor " + currentFloor + ")\n");
+        sb.append("\nFloor " + currentFloor + ":\n");
         prevFloor = currentFloor;
       }
 
-      if (longName != null) {}
       if (i == 1) {
-        sb.append("Go toward " + longName + ".\n");
+        sb.append("\tGo toward " + longName + ".\n");
       } else {
         String direction = getDirection(path.get(i - 2), path.get(i - 1), path.get(i));
-        sb.append(direction);
+        sb.append("\t" + direction);
       }
     }
 
     // add the end to sb
-    sb.append("(\u274C) " + "You have reached " + endName + ".\n");
+    sb.append("\t(\u274C) " + "You have reached " + endName + ".\n");
 
     // return the built string
     return sb.toString();
@@ -185,5 +185,163 @@ public class PathInterpreter {
      direction = "(\u2192) " + "Turn right ";
      direction = "(\u2190) " + "Turn left ";
     */
+  }
+
+  /**
+   * Creates a string representation of the path specified by the parameter path. Shows each node
+   * with their ID and long name. Implies that the path being given is not null or empty.
+   *
+   * @param path An ArrayList which represents a path from the node in index zero to the node in the
+   *     last index
+   */
+  public static String generatePathStringShort(
+      ArrayList<GraphNode> path, ArrayList<String> floorPath) {
+    // get the first and last node names to print
+    String startName = path.get(0).getLongName();
+    String endName = path.get(path.size() - 1).getLongName();
+
+    // make a stringBuilder object to get a giant string
+    StringBuilder sb = new StringBuilder();
+
+    // sb.append("Path from " + startName + " to " + endName + ":\n\n");
+    int numNodes = path.size();
+    int numFloors = floorPath.size();
+
+    // floor order
+    //    StringBuilder[] directions = new StringBuilder[floorPath.size()];
+
+    sb.append("Floor Order: ");
+    for (int i = 0; i < numFloors; i++) {
+      sb.append(floorPath.get(i));
+      if (i != numFloors - 1) {
+        sb.append(" \u2192 ");
+      } else if (i == numFloors - 1) {
+        sb.append("\n\n");
+      }
+    }
+
+    // variables
+    String longName;
+    String prevFloor;
+    String currentFloor;
+
+    // add the start to the sb
+    prevFloor = path.get(0).getFloor();
+    sb.append("Floor " + prevFloor + ":\n");
+    sb.append("\tStart at " + path.get(0).getLongName() + ".\n");
+
+    // loop through all of them to print the full path
+    boolean lastWasStraight = false;
+    String lastDirectionStraight = "";
+
+    for (int i = 1; i < numNodes; i++) {
+      longName = path.get(i).getLongName();
+      currentFloor = path.get(i).getFloor();
+
+      if (!currentFloor.equals(prevFloor)) {
+        sb.append("\nFloor " + currentFloor + ":\n");
+        prevFloor = currentFloor;
+        lastWasStraight = false;
+        lastDirectionStraight = "";
+      }
+
+      if (i == 1) {
+        sb.append("\tGo toward " + longName + ".\n");
+      } else {
+        String direction = getDirection(path.get(i - 2), path.get(i - 1), path.get(i));
+        if (direction.contains("Continue straight")) {
+          lastWasStraight = true;
+          lastDirectionStraight = direction;
+        } else {
+          if (lastWasStraight) {
+            sb.append("\t" + lastDirectionStraight);
+            lastDirectionStraight = "";
+            lastWasStraight = false;
+          }
+          sb.append("\t" + direction); // append if not straight ahead
+        }
+      }
+    }
+
+    // add the end to sb
+    sb.append("\t(\u274C) " + "You have reached " + endName + ".\n");
+
+    // return the built string
+    return sb.toString();
+  }
+
+  /**
+   * Creates a string representation of the path specified by the parameter path. Shows each node
+   * with their ID and long name. Implies that the path being given is not null or empty.
+   *
+   * @param path An ArrayList which represents a path from the node in index zero to the node in the
+   *     last index
+   */
+  public static ArrayList<String> generatePathStringShortArray(
+      ArrayList<GraphNode> path, ArrayList<String> floorPath) {
+
+    ArrayList<String> output = new ArrayList<>();
+
+    // get the first and last node names to print
+    String startName = path.get(0).getLongName();
+
+    // make a stringBuilder object to get a giant string
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("Beginning of path for " + startName + "\'s move:\n\n");
+    int numNodes = path.size();
+    int numFloors = floorPath.size();
+
+    // variables
+    String longName;
+    String prevFloor;
+    String currentFloor;
+
+    // add the start to the sb
+    prevFloor = path.get(0).getFloor();
+    sb.append("\tStart at " + path.get(0).getLongName() + ".\n");
+
+    // loop through all of them to print the full path
+    boolean lastWasStraight = false;
+    String lastDirectionStraight = "";
+
+    for (int i = 1; i < numNodes; i++) {
+      longName = path.get(i).getLongName();
+      currentFloor = path.get(i).getFloor();
+
+      if (!currentFloor.equals(prevFloor)) {
+        output.add(sb.toString());
+        sb = new StringBuilder();
+        sb.append(
+            "\nPath continued on " + Floor.extendedStringFromTableString(currentFloor) + ":\n");
+        prevFloor = currentFloor;
+        lastWasStraight = false;
+        lastDirectionStraight = "";
+      }
+
+      if (i == 1) {
+        sb.append("\tGo toward " + longName + ".\n");
+      } else {
+        String direction = getDirection(path.get(i - 2), path.get(i - 1), path.get(i));
+        if (direction.contains("Continue straight")) {
+          lastWasStraight = true;
+          lastDirectionStraight = direction;
+        } else {
+          if (lastWasStraight) {
+            sb.append("\t" + lastDirectionStraight);
+            lastDirectionStraight = "";
+            lastWasStraight = false;
+          }
+          sb.append("\t" + direction); // append if not straight ahead
+        }
+      }
+    }
+
+    // add the end to sb
+    sb.append("\t(\u274C) " + "You have reached " + startName + "\'s future location.\n");
+    output.add(sb.toString());
+
+    // return the built string
+    return output;
   }
 }

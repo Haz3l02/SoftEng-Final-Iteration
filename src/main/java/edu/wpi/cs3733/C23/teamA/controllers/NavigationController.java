@@ -40,6 +40,7 @@ public abstract class NavigationController {
 
   @FXML
   public void switchToServiceRequestStatus() {
+    iecsv = new ImportExportCSV("status");
     Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
   }
 
