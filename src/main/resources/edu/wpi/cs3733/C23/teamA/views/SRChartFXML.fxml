@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -11,42 +13,49 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.SRChartController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <bottom>
-      <VBox prefHeight="82.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER_RIGHT" prefHeight="82.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="1376.0">
-               <children>
-                  <MFXButton id="cancelButton" fx:id="backButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="Back" textFill="#d3e9f6">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets right="15.0" />
-                     </VBox.margin>
-                  </MFXButton>
-               </children>
-            </VBox>
+            <MFXButton id="cancelButton" fx:id="backButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#back" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" styleClass="blue-Button" text="Back" textFill="#d3e9f6">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <VBox.margin>
+                  <Insets right="15.0" />
+               </VBox.margin>
+            </MFXButton>
          </children>
       </VBox>
    </bottom>
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <BarChart fx:id="srChart" prefHeight="481.0" prefWidth="1203.0" style="-fx-alternative-column-fill-visible: #122C34;" styleClass="default-color0" stylesheets="@../assets/ChartStyle.css" title="Service Requests By Type">
+            <BarChart fx:id="srChart" prefHeight="481.0" prefWidth="1203.0" style="-fx-alternative-column-fill-visible: #122C34;" stylesheets="@../assets/ChartStyle.css" title="Service Requests By Type">
               <xAxis>
-                <CategoryAxis label="Service Request Type" side="BOTTOM" />
+                <CategoryAxis label="Service Request Type" side="BOTTOM" styleClass="tableText" />
               </xAxis>
               <yAxis>
-                <NumberAxis label="# of Rrequests" side="LEFT" upperBound="15.0" />
+                <NumberAxis label="# of Rrequests" side="LEFT" styleClass="tableText" upperBound="15.0" />
               </yAxis>
+               <styleClass>
+                  <String fx:value="default-color0" />
+                  <String fx:value="tableText" />
+               </styleClass>
             </BarChart>
-            <BarChart fx:id="srStatusChart" prefHeight="481.0" prefWidth="1203.0" style="-fx-alternative-column-fill-visible: #122C34;" styleClass="default-color0" stylesheets="@../assets/ChartStyle.css" title="Service Requests  By Statuses">
+            <BarChart fx:id="srStatusChart" prefHeight="481.0" prefWidth="1203.0" style="-fx-alternative-column-fill-visible: #122C34;" stylesheets="@../assets/ChartStyle.css" title="Service Requests  By Statuses">
                <xAxis>
-                  <CategoryAxis label="Service Requests Status" side="BOTTOM" />
+                  <CategoryAxis label="Service Requests Status" side="BOTTOM" styleClass="tableText" />
                </xAxis>
                <yAxis>
-                  <NumberAxis label="# of Rrequests" side="LEFT" upperBound="15.0" />
+                  <NumberAxis label="# of Rrequests" side="LEFT" styleClass="tableText" upperBound="15.0" />
                </yAxis>
+               <styleClass>
+                  <String fx:value="default-color0" />
+                  <String fx:value="tableText" />
+               </styleClass>
             </BarChart>
          </children>
       </HBox>

@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,6 +15,9 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane styleClass="BackDropSRHStyle" stylesheets="@../assets/BackDropSRHStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.LoginController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <left>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <right>
@@ -23,9 +27,9 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="314.0" prefWidth="364.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello!">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
                                  <font>
-                                    <Font name="Verdana" size="48.0" />
+                                    <Font name="Verdana" size="40.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets bottom="15.0" />
@@ -47,7 +51,7 @@
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </MFXPasswordField>
-                              <MFXButton fx:id="loginButton" buttonType="RAISED" defaultButton="true" onAction="#login" prefHeight="27.0" prefWidth="206.0" style="-fx-background-radius: 15; -fx-background-color: F6BD3A;" text="Login" textFill="#224870">
+                              <MFXButton fx:id="loginButton" buttonType="RAISED" defaultButton="true" onAction="#login" prefHeight="27.0" prefWidth="206.0" style="-fx-background-radius: 15; -fx-font-size: 24;" styleClass="yellow" text="Login" textFill="#224870">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

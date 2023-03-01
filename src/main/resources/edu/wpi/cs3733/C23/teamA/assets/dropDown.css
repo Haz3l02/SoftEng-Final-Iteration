@@ -17,10 +17,11 @@
     /*-fx-border-color: #F6BD3A ;*/
     /*-fx-border-width: 3 3 3 3;*/
     -fx-text-fill: #F6BD3A;
-    -fx-font-weight: bold;
+    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.1;
 }
 .combo-box .list-cell {
-    -fx-font-size: 27;
+    -fx-font-size: 22;
     -fx-text-fill: #d3e9f6;
     -fx-background-color:  #022D58;
     -fx-box-border:  transparent;

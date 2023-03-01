@@ -49,7 +49,6 @@ public class NodeDraw {
   static NodeEntity node1;
   static NodeEntity node2;
   /*
-
   static int xCoordUpdate = 0;
   static int yCoordUpdate = 0;
    */
@@ -413,47 +412,56 @@ public class NodeDraw {
           mouseEvent -> {
             selectNodePane = nodeGraphic;
             selectedNodeEntity = n;
-            if (selectNodePane != null && selectedNodeEntity != null) {
-              nmc.getMainGesturePane().setGestureEnabled(false);
 
-              // Keep node following mouse movement
-              selectNodePane.setLayoutX(
-                  selectNodePane.getLayoutX()
-                      + mouseEvent.getX()
-                      - selectNodePane.getPrefWidth() / 2.0);
-              selectNodePane.setLayoutY(
-                  selectNodePane.getLayoutY()
-                      + mouseEvent.getY()
-                      - selectNodePane.getPrefHeight() / 2.0);
+            if (!(selectNodePane.getLayoutX() + selectNodePane.getPrefWidth() + mouseEvent.getX()
+                    <= nodeAnchor.getWidth()
+                && selectNodePane.getLayoutY() + selectNodePane.getPrefHeight() + mouseEvent.getY()
+                    <= nodeAnchor.getHeight()
+                && selectNodePane.getLayoutX() + mouseEvent.getY() > 0
+                && selectNodePane.getLayoutY() + mouseEvent.getY() > 0)) {
+            } else {
+              if (selectNodePane != null && selectedNodeEntity != null) {
+                nmc.getMainGesturePane().setGestureEnabled(false);
 
-              // Outgoing edges adjust start points
-              outgoing.forEach(
-                  o -> {
-                    o.setStartX(selectNodePane.getLayoutX() + mouseEvent.getX());
-                    o.setStartY(selectNodePane.getLayoutY() + mouseEvent.getY());
-                  });
-
-              // Incoming edges adjust end points
-              if (incoming.get(n.getNodeid()) != null) {
-                incoming
-                    .get(n.getNodeid())
-                    .forEach(
-                        o -> {
-                          o.setEndX(selectNodePane.getLayoutX() + mouseEvent.getX());
-                          o.setEndY(selectNodePane.getLayoutY() + mouseEvent.getY());
-                        });
-              }
-              selectNodePane.toFront();
-
-              if (location != null) {
-                location.setLayoutX(
+                // Keep node following mouse movement
+                selectNodePane.setLayoutX(
                     selectNodePane.getLayoutX()
                         + mouseEvent.getX()
                         - selectNodePane.getPrefWidth() / 2.0);
-                location.setLayoutY(
+                selectNodePane.setLayoutY(
                     selectNodePane.getLayoutY()
                         + mouseEvent.getY()
                         - selectNodePane.getPrefHeight() / 2.0);
+
+                // Outgoing edges adjust start points
+                outgoing.forEach(
+                    o -> {
+                      o.setStartX(selectNodePane.getLayoutX() + mouseEvent.getX());
+                      o.setStartY(selectNodePane.getLayoutY() + mouseEvent.getY());
+                    });
+
+                // Incoming edges adjust end points
+                if (incoming.get(n.getNodeid()) != null) {
+                  incoming
+                      .get(n.getNodeid())
+                      .forEach(
+                          o -> {
+                            o.setEndX(selectNodePane.getLayoutX() + mouseEvent.getX());
+                            o.setEndY(selectNodePane.getLayoutY() + mouseEvent.getY());
+                          });
+                }
+                selectNodePane.toFront();
+
+                if (location != null) {
+                  location.setLayoutX(
+                      selectNodePane.getLayoutX()
+                          + mouseEvent.getX()
+                          - selectNodePane.getPrefWidth() / 2.0);
+                  location.setLayoutY(
+                      selectNodePane.getLayoutY()
+                          + mouseEvent.getY()
+                          - selectNodePane.getPrefHeight() / 2.0);
+                }
               }
             }
           });

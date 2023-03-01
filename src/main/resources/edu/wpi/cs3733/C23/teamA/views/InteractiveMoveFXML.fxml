@@ -4,6 +4,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -19,10 +20,13 @@
 <?import net.kurobako.gesturefx.GesturePane?>
 
 <BorderPane prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MoveController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <center>
       <VBox prefHeight="714.0" prefWidth="1376.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Move Table">
+            <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="SR-Heading" text="Move Table">
                <font>
                   <Font size="36.0" />
                </font>
@@ -30,9 +34,9 @@
                   <Insets left="15.0" />
                </VBox.margin>
             </Text>
-            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1346.0" spacing="15.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 15;">
+            <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1346.0" spacing="15.0" style="-fx-background-color: #bad1ea; -fx-background-radius: 15;">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Name">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Location Name">
                      <font>
                         <Font name="Verdana" size="20.0" />
                      </font>
@@ -42,7 +46,7 @@
                         <Font size="20.0" />
                      </font>
                   </MFXFilterComboBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Node">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Node">
                      <font>
                         <Font name="Verdana" size="20.0" />
                      </font>
@@ -52,7 +56,7 @@
                         <Font size="20.0" />
                      </font>
                   </MFXFilterComboBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move Date">
+                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Move Date">
                      <font>
                         <Font name="Verdana" size="20.0" />
                      </font>
@@ -74,9 +78,9 @@
               <items>
                   <TableView fx:id="dbTable" editable="true" onMouseClicked="#rowClicked" prefHeight="158.0" prefWidth="1301.0" style="-fx-background-color: d3e9f6;" SplitPane.resizableWithParent="false">
                      <columns>
-                        <TableColumn fx:id="moveCol" prefWidth="186.0" text="Move Location" />
-                        <TableColumn fx:id="nodeCol" prefWidth="213.0" text="Node" />
-                        <TableColumn fx:id="moveDateCol" editable="false" prefWidth="202.0" text="Move Date" />
+                        <TableColumn fx:id="moveCol" prefWidth="186.0" styleClass="tableText" text="Move Location" />
+                        <TableColumn fx:id="nodeCol" prefWidth="213.0" styleClass="tableText" text="Node" />
+                        <TableColumn fx:id="moveDateCol" editable="false" prefWidth="202.0" styleClass="tableText" text="Move Date" />
                         <TableColumn fx:id="messageCol" editable="false" prefWidth="202.0" text="Message" />
                      </columns>
                   </TableView>
@@ -86,7 +90,7 @@
                           <items>
                               <VBox fx:id="messageVBox" fillWidth="false" prefHeight="69.0" prefWidth="680.0">
                                  <children>
-                                    <Text fx:id="locationNotif" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving " VBox.vgrow="ALWAYS">
+                                    <Text fx:id="locationNotif" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="This location is moving " VBox.vgrow="ALWAYS">
                                        <font>
                                           <Font name="Verdana" size="20.0" />
                                        </font>
@@ -105,7 +109,7 @@
                                                       <Font name="Verdana" size="23.0" />
                                                    </font>
                                                 </MFXButton>
-                                                <MFXButton fx:id="createMove" buttonType="RAISED" defaultButton="true" onAction="#createMove" prefHeight="50.0" prefWidth="225.0" rippleColor="#c0cced" style="-fx-background-color: F6bd3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Create Move" textFill="#224870">
+                                                <MFXButton fx:id="createMove" buttonType="RAISED" defaultButton="true" onAction="#createMove" prefHeight="50.0" prefWidth="225.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="yellow" text="Create Move" textFill="#224870">
                                                    <font>
                                                       <Font name="Verdana" size="23.0" />
                                                    </font>
@@ -118,7 +122,7 @@
                               </VBox>
                               <VBox fx:id="topVBox" prefHeight="400.0" prefWidth="675.0">
                                  <children>
-                                    <Text fx:id="currentNode" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Node For Location">
+                                    <Text fx:id="currentNode" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Node For Location">
                                        <font>
                                           <Font name="Verdana" size="20.0" />
                                        </font>
@@ -180,7 +184,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                <children>
-                  <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#reloadData" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reset" textFill="#d3e9f6">
+                  <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#reloadData" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Reset" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -188,12 +192,12 @@
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="helpButton" fx:id="clearButton1" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImport" prefHeight="55.0" prefWidth="168.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Import CSV" textFill="#d3e9f6">
+                  <MFXButton id="helpButton" fx:id="clearButton1" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImport" prefHeight="0.0" prefWidth="184.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="blue" text="Import CSV" textFill="#d3e9f6">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="helpButton" fx:id="clearButton11" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExport" prefHeight="55.0" prefWidth="165.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Export CSV" textFill="#d3e9f6">
+                  <MFXButton id="helpButton" fx:id="clearButton11" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExport" prefHeight="20.0" prefWidth="179.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="blue" text="Export CSV" textFill="#d3e9f6">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -215,12 +219,12 @@
                         </Text>
                      </children>
                   </StackPane>
-                  <MFXButton id="cancelButton" fx:id="deleteButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#delete" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Delete" textFill="#d3e9f6">
+                  <MFXButton id="cancelButton" fx:id="deleteButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#delete" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="red" text="Delete" textFill="#d3e9f6">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Cancel" textFill="#d3e9f6">
+                  <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -228,7 +232,7 @@
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="cancelButton" fx:id="editButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#submitEdit" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: f6bd3a; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Update" textFill="#d3e9f6">
+                  <MFXButton id="cancelButton" fx:id="editButton" buttonType="RAISED" cancelButton="true" disable="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#submitEdit" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="yellow-Button" text="Update" textFill="#d3e9f6">
                      <font>
                         <Font size="25.0" />
                      </font>

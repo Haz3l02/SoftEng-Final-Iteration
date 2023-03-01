@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.image.Image?>
@@ -11,23 +12,26 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="60.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MenuController">
+<AnchorPane prefHeight="13.0" prefWidth="1376.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.MenuController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <children>
       <BorderPane prefHeight="60.0" prefWidth="1376.0" style="-fx-background-color: #022D58;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
             <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="58.0" spacing="30.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="home" fitHeight="50.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="home" fitHeight="50.0" pickOnBounds="true" preserveRatio="true" styleClass="Hover">
                      <image>
                         <Image url="@../assets/icons/home_blue.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="help" fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="help" fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="Hover">
                      <image>
                         <Image url="@../assets/icons/help_blue.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="logout" fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="logout" fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="Hover">
                      <image>
                         <Image url="@../assets/icons/exit_blue.png" />
                      </image>
@@ -49,21 +53,21 @@
                         <Image url="@../assets/Brigham_and_Womens_Hospital_logo_whiteBorder_tiny.png" />
                      </image>
                   </ImageView>
-                  <ComboBox fx:id="serviceRequest" prefHeight="71.0" promptText="Service Request Systems" styleClass="combo-box" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS" />
-                  <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" onAction="#switchToPathfinding" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textFill="#d3e9f6">
+                  <ComboBox fx:id="serviceRequest" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="294.0" promptText="Service Request Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS" />
+                  <MFXButton fx:id="navigation" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToPathfinding" prefHeight="45.0" prefWidth="151.0" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="Navigation" textAlignment="CENTER" textFill="#d3e9f6">
                      <font>
-                        <Font name="Verdana" size="27.0" />
+                        <Font name="Verdana" size="25.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="25.0" />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton alignment="CENTER" contentDisplay="CENTER" onAction="#switchToMessages" prefHeight="60.0" prefWidth="190.0" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="Messages" textAlignment="CENTER" textFill="#d3e9f6" wrapText="true">
+                  <MFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" minHeight="-Infinity" onAction="#switchToMessages" prefHeight="45.0" prefWidth="190.0" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="Messages" textAlignment="CENTER" textFill="#d3e9f6" wrapText="true">
                      <font>
-                        <Font name="Verdana" size="27.0" />
+                        <Font name="Verdana" size="25.0" />
                      </font>
                   </MFXButton>
-                  <StackPane>
+                  <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="204.0">
                      <children>
                         <ComboBox fx:id="admin" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
                         <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">

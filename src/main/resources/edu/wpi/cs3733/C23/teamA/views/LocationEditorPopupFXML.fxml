@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -11,46 +12,55 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="429.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.LocationEditorPopupController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <children>
       <VBox fx:id="fieldBox11" prefHeight="200.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #bad1ea;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Longname">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Longname">
                <font>
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="longNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Shortname">
+            <MFXTextField fx:id="longNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" styleClass="textBox" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Shortname">
                <font>
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="shortNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location Type">
+            <MFXTextField fx:id="shortNameBox" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="369.0" styleClass="textBox" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Location Type">
                <font>
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <MFXComboBox fx:id="locTypeBox" floatMode="DISABLED" prefHeight="32.0" prefWidth="237.0" />
-            <MFXButton fx:id="createLocation" buttonType="RAISED" minHeight="51.0" onAction="#addLocation" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Create Location" textFill="#224870">
+            <MFXComboBox fx:id="locTypeBox" floatMode="DISABLED" prefHeight="32.0" prefWidth="237.0" styleClass="dropDowns" />
+            <MFXButton fx:id="createLocation" buttonType="RAISED" minHeight="51.0" onAction="#addLocation" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="yellow" text="Create Location" textFill="#224870">
                <font>
                   <Font size="24.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </MFXButton>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="51.0" prefWidth="206.0" spacing="10.0">
                <children>
-                  <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hidePopup" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Back" textFill="#d3e9f6">
+                  <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hidePopup" prefHeight="37.0" prefWidth="100.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" styleClass="blue-Button" text="Back" textFill="#d3e9f6">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#deleteLocation" prefHeight="51.0" prefWidth="143.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="red" text="Delete" textFill="#224870">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </MFXButton>
                </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </HBox>
-            <MFXButton buttonType="RAISED" minHeight="51.0" onAction="#deleteLocation" prefHeight="51.0" prefWidth="232.0" rippleColor="#c0cced" style="-fx-background-color: F6BD3A;" text="Delete" textFill="#224870">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </MFXButton>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

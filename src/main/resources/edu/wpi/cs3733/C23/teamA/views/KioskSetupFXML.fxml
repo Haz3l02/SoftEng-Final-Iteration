@@ -4,6 +4,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -17,12 +18,15 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.KioskSetupController">
+   <stylesheets>
+      <URL value="@StyleSheet.css" />
+   </stylesheets>
    <bottom>
       <HBox accessibleRole="TEXT_AREA" alignment="CENTER" prefHeight="88.0" prefWidth="1374.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="818.0">
                <children>
-                  <MFXButton fx:id="reset" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clear" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                  <MFXButton fx:id="reset" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clear" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -30,7 +34,7 @@
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeEditorScene" prefHeight="50.0" prefWidth="271.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Department Moves" textAlignment="CENTER" textFill="#d3e9f6">
+                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToNodeEditorScene" prefHeight="50.0" prefWidth="273.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="blue" text="Department Moves" textAlignment="CENTER" textFill="#d3e9f6">
                      <font>
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
@@ -50,12 +54,12 @@
                <children>
                   <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="312.0" style="-fx-border-color: #122c34; -fx-border-width: 2 2 2 2;">
                      <children>
-                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
+                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Please Fill In All Fields!" textAlignment="CENTER">
                            <font>
                               <Font name="Verdana" size="25.0" />
                            </font>
                         </Text>
-                        <Text fx:id="moveReminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Not a valid Move!" textAlignment="CENTER">
+                        <Text fx:id="moveReminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="This is not a move!" textAlignment="CENTER">
                            <font>
                               <Font name="Verdana" size="25.0" />
                            </font>
@@ -65,7 +69,7 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </StackPane>
-                  <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                  <MFXButton fx:id="cancel" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="30.0" />
                      </HBox.margin>
@@ -73,7 +77,7 @@
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#generateKiosk" prefHeight="50.0" prefWidth="159.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Generate" textFill="#224870">
+                  <MFXButton fx:id="generateButton" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#generateKiosk" prefHeight="50.0" prefWidth="159.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Generate" textFill="#224870">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -99,7 +103,7 @@
       </HBox>
    </bottom>
    <top>
-      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="102.0" prefWidth="1374.0" style="-fx-background-color: #f6bd3a; -fx-border-color: #122c34; -fx-border-width: 0 0 10 0;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="102.0" prefWidth="1374.0" style="-fx-background-color: #f1a94f; -fx-border-color: #122c34; -fx-border-width: 0 0 10 0;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
@@ -126,7 +130,7 @@
                                     <Font size="36.0" />
                                  </font>
                               </Text>
-                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" prefHeight="43.0" prefWidth="262.0" promptText="Location...">
+                              <MFXFilterComboBox fx:id="locationBox" floatMode="ABOVE" prefHeight="43.0" prefWidth="262.0" promptText="Location..." styleClass="dropDowns2">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
@@ -156,16 +160,16 @@
             </VBox>
             <VBox prefHeight="234.0" prefWidth="1324.0" spacing="10.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-border-radius: 15;">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="518.0" spacing="10.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="518.0" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move Location:">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Move Location:">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXFilterComboBox fx:id="moveLocation" floatMode="ABOVE" prefHeight="43.0" prefWidth="264.0" promptText="Move..." text="Move Location...">
+                              <MFXFilterComboBox fx:id="moveLocation" floatMode="ABOVE" prefHeight="43.0" prefWidth="268.0" promptText="Move..." styleClass="dropDowns2" text="Move Location...">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
@@ -174,31 +178,44 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="298.0" spacing="10.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Date:">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXDatePicker fx:id="moveDate" prefHeight="38.0" prefWidth="172.0" />
+                              <MFXDatePicker fx:id="moveDate" prefHeight="38.0" prefWidth="172.0" styleClass="dropDowns2" />
                            </children>
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="107.0" prefWidth="751.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="107.0" prefWidth="751.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Move Description:">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                        <TextArea fx:id="moveDescription" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="149.0" prefWidth="223.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" wrapText="true">
-                           <font>
-                              <Font name="Verdana" size="24.0" />
-                           </font>
-                        </TextArea>
-                        <VBox alignment="CENTER" prefHeight="173.0" prefWidth="186.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="107.0" prefWidth="549.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Show Directions" textAlignment="CENTER" wrappingWidth="193.49853515625">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Move Description:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="25.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <TextArea fx:id="moveDescription" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="62.0" prefWidth="246.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" styleClass="decBox2" wrapText="true">
+                                 <font>
+                                    <Font name="Verdana" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </HBox.margin>
+                              </TextArea>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER" prefHeight="107.0" prefWidth="346.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Show Directions" textAlignment="CENTER" wrappingWidth="193.49853515625">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
@@ -207,6 +224,9 @@
                            </children>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
                </children>
                <VBox.margin>

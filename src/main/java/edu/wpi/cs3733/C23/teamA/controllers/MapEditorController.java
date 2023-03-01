@@ -21,7 +21,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -87,9 +86,6 @@ public class MapEditorController extends MenuController {
 
   @Setter NodeEntity selectedNode = null;
 
-  // Lists of Nodes and Node Data
-  private GraphicsContext gc;
-
   // scaling constant
   private final double SCALE_FACTOR = 0.24; // constant for map size/coordinate manipulations
 
@@ -103,6 +99,9 @@ public class MapEditorController extends MenuController {
   static MapEditorController mapEditor;
 
   static List<NodeEntity> Nodes = new ArrayList<>();
+  private MFXButton[] buttons = new MFXButton[5];
+
+  private int previousFloor = 1;
 
   private double mouseDownX;
   private double mouseDownY;
@@ -154,9 +153,6 @@ public class MapEditorController extends MenuController {
           }
         });
 
-    mainTextPane.setVisible(false);
-    initializeFloorMap("L2");
-
     // Makes gesture pane connect to correct parts
     this.mainGesturePane.setContent(mainStackPane);
     mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
@@ -200,6 +196,16 @@ public class MapEditorController extends MenuController {
 
     mainAnchorPane.setPickOnBounds(false);
     mainSelectPane.setPickOnBounds(false);
+
+    // buttons
+    buttons[0] = l1Button;
+    buttons[1] = l2Button;
+    buttons[2] = f1Button;
+    buttons[3] = f2Button;
+    buttons[4] = f3Button;
+    mainTextPane.setVisible(false);
+    initializeFloorMap("L2");
+    buttons[previousFloor].setStyle("-fx-background-color: #D0D2D7");
   }
 
   public void generateFloor(ActionEvent event) {
@@ -230,8 +236,12 @@ public class MapEditorController extends MenuController {
     List<EdgeEntity> allEdges = FacadeRepository.getInstance().getEdgesOnFloor(floor);
     Nodes = allNodes;
     Image image = ImageLoader.getImage(floor);
-
     mainImageView.setImage(image);
+
+    buttons[previousFloor].setStyle("-fx-background-color: #ffffff");
+    previousFloor =
+        Floor.indexFromTableString(floor); // initialize previous to be the current floor
+    buttons[previousFloor].setStyle("-fx-background-color: #D0D2D7");
     // NodeDraw.drawEdges(allEdges, SCALE_FACTOR, mainAnchorPane);
     NodeDraw.drawNodes(allNodes, SCALE_FACTOR, mainAnchorPane, this);
     // NodeDraw.drawLocations(allNodes, SCALE_FACTOR, mainTextPane);

@@ -3,10 +3,12 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.controllers.KioskSetupController.kiosk;
 
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
+import edu.wpi.cs3733.C23.teamA.mapdrawing.PathDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
+import edu.wpi.cs3733.C23.teamA.pathfinding.PathInterpreter;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
@@ -16,7 +18,9 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -29,10 +33,8 @@ import net.kurobako.gesturefx.GesturePane;
 public class KioskController {
   @FXML private Label announcement, left, right, leftD, rightD;
   @FXML public SplitPane mainSplitPane;
-  @FXML public Node leftPane;
   @FXML public Node mapPane;
   @FXML public Node directionsPane;
-  @FXML public Node rightPane;
   @FXML private Text directionsText;
 
   @FXML private AnchorPane anchorF3;
@@ -45,33 +47,27 @@ public class KioskController {
   @FXML private GesturePane mainGesturePane;
   @FXML private StackPane mainStackPane;
   @FXML private Label moveDetails;
-  @FXML private Label floorNumber;
+  @FXML private Text floorNumber;
 
   private AnchorPane[] aps = new AnchorPane[5];
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
   private int currentFloorIndex = 0;
   private ArrayList<String> floorPath = new ArrayList<>();
   private String directions;
+  private ArrayList<String> directionsArray;
 
   @FXML
   public void initialize() throws SQLException {
     System.out.println(kiosk.getRight());
-    leftPane = mainSplitPane.getItems().get(0);
-    mapPane = mainSplitPane.getItems().get(1);
-    directionsPane = mainSplitPane.getItems().get(2);
-    rightPane = mainSplitPane.getItems().get(3);
+    mapPane = mainSplitPane.getItems().get(0);
+    directionsPane = mainSplitPane.getItems().get(1);
 
     announcement.setText(kiosk.getMessage());
+    leftD.setText(kiosk.getLeft());
+    rightD.setText(kiosk.getRight());
 
-    if (kiosk.isDirections()) {
-      mainSplitPane.getItems().remove(leftPane);
-      mainSplitPane.getItems().remove(rightPane);
-      leftD.setText(kiosk.getLeft());
-      rightD.setText(kiosk.getRight());
-    } else {
+    if (!kiosk.isDirections()) {
       mainSplitPane.getItems().remove(directionsPane);
-      left.setText(kiosk.getLeft());
-      right.setText(kiosk.getRight());
     }
 
     // set anchorPanes into an array
@@ -83,13 +79,15 @@ public class KioskController {
 
     // prepare the gesture pane to attach to the stack pane
     this.mainGesturePane.setContent(mainStackPane);
-
-    // set first map
-    // String initialTableString = kiosk.getStartLocation().getFloor();
-    // currentFloor = Floor.indexFromTableString(initialTableString);
-    // addFloorMapImage(initialTableString, mainImageView);
+    mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
 
     runPathfinding();
+
+    // added scaling to auto-zoom
+    Platform.runLater(
+        () -> {
+          mainGesturePane.zoomTo(1.15, new Point2D(650, 230));
+        });
   }
 
   /**
@@ -103,23 +101,28 @@ public class KioskController {
     GraphNode end = pathfindingSystem.getNode(kiosk.getEndLocation().getNodeid());
     PathInfo info = pathfindingSystem.runPathfinding(start, end);
     ArrayList<GraphNode> path = info.getPath();
-    System.out.println(path.size());
+
     floorPath = info.getFloorPath();
     if (start.getFloor().equals(end.getFloor())) {
-      moveDetails.setText(kiosk.getMoveName() + " is moving on " + end.getFloor() + ".");
+      moveDetails.setText(
+          kiosk.getMoveName()
+              + " is moving on "
+              + Floor.extendedStringFromTableString(end.getFloor())
+              + ".");
     } else {
       moveDetails.setText(
           kiosk.getMoveName()
               + " is moving from "
-              + start.getFloor()
+              + Floor.extendedStringFromTableString(start.getFloor())
               + " to "
-              + end.getFloor()
+              + Floor.extendedStringFromTableString(end.getFloor())
               + ".");
     }
-    directions = pathfindingSystem.generatePathString(path, floorPath);
-    directionsText.setText(directions);
+    // directions = PathInterpreter.generatePathStringShort(path, floorPath);
+    // directionsText.setText(directions);
+    directionsArray = PathInterpreter.generatePathStringShortArray(path, floorPath);
 
-    pathfindingSystem.drawPath(aps, path);
+    PathDraw.drawPathLines(aps, path, 5, 0.135);
     cycleMaps();
   }
 
@@ -134,7 +137,7 @@ public class KioskController {
   /** Method to cycle through one of the maps for this move's path */
   private void oneCycle() {
 
-    // clear the anchorPanes w/ the drawn paths
+    // hide the anchorPanes with the drawn paths
     for (AnchorPane ap : aps) {
       ap.setVisible(false);
     }
@@ -144,11 +147,12 @@ public class KioskController {
     int size = floorPath.size();
     if (floorPath.size() > 0) {
       thisFloor = floorPath.get(currentFloorIndex % size);
-
+      directionsText.setText(directionsArray.get(currentFloorIndex % size));
       currentFloorIndex++;
     }
     mainImageView.setImage(ImageLoader.getImage(thisFloor));
     aps[Floor.indexFromTableString(thisFloor)].setVisible(true);
+    floorNumber.setText(Floor.extendedStringFromTableString(thisFloor));
   }
 
   @FXML
