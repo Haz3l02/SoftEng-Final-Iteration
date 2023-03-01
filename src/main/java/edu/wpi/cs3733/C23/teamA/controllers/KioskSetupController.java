@@ -166,7 +166,8 @@ public class KioskSetupController extends MenuController {
               right.getText(),
               directionOnOff.isSelected(),
               moveDescription.getText(),
-              moveLocation.getText());
+              moveLocation.getText(),
+              moves.get(0).getMovedate());
       Navigation.navigateHome(Screen.KIOSK);
       // Code to check if the move entered is valid.
 
