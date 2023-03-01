@@ -9,6 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class PathDraw {
 
@@ -149,5 +153,34 @@ public class PathDraw {
 
       aps[prevFloor].getChildren().add(currentCircle);
     }
+  }
+
+  /**
+   * Method used by MoveController to draw a single node Note: This method does not alter the show
+   * or hide any of the anchor panes
+   *
+   * @param aps an array of anchor panes of size five with different floors
+   * @param g a graph node to be drawn
+   * @param message puts a text above the node with the given message
+   */
+  public static void drawSingleNode(AnchorPane[] aps, GraphNode g, String message) {
+    // draw the node
+    double[] updatedCoords = scaleCoordinates(g.getXCoord(), g.getYCoord(), 0.135);
+    Circle currentCircle = new Circle(updatedCoords[0], updatedCoords[1], 6, Color.web("0xf63c3c"));
+    aps[Floor.indexFromTableString(g.getFloor())]
+        .getChildren()
+        .add(currentCircle); // ending open circle
+
+    // Add text
+    Text text = new Text();
+    text.setVisible(true);
+    // locName.rotateProperty().set(45);
+    text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 8));
+    text.setText(message);
+
+    // get the coordinates
+    text.setLayoutX(updatedCoords[0] - 20);
+    text.setLayoutY(updatedCoords[1] - 6);
+    aps[Floor.indexFromTableString(g.getFloor())].getChildren().add(text);
   }
 }
