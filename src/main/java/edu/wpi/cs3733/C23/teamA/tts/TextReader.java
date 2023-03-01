@@ -34,10 +34,12 @@ public class TextReader implements Runnable {
     ttsThread.start();
   }
 
+  /*
   // this would stop the voice object from speaking, if it worked (but it doesn't)
   public void stopText() {
     ttsThread.interrupt();
   }
+   */
 
   @Override
   // Reads the string in the text field of the current TextReader object.
