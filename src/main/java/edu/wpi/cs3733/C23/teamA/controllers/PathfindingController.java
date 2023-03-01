@@ -70,9 +70,8 @@ public class PathfindingController extends MenuController {
   @FXML private GesturePane mainGesturePane; // gesture pane to sync with stack pane above
   @FXML Text messageText;
 
-  // TTS buttons
+  // TTS button
   @FXML private MFXButton speakButton;
-  @FXML private MFXButton stopSpeakingButton;
 
   // local variables saved
   private AnchorPane[] aps = new AnchorPane[5];

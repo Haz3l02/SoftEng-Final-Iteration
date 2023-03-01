@@ -225,14 +225,30 @@
                                   <Insets top="10.0" />
                               </VBox.margin>
                               <children>
-                                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions" wrappingWidth="212.8151092529297">
-                                      <font>
-                                          <Font name="Arial Black" size="36.0" />
-                                      </font>
-                                      <VBox.margin>
-                                          <Insets left="15.0" />
-                                      </VBox.margin>
-                                  </Text>
+                        <HBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="458.0">
+                           <VBox.margin>
+                              <Insets left="15.0" />
+                           </VBox.margin>
+                           <children>
+                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions" wrappingWidth="212.8151092529297">
+                                            <font>
+                                                <Font name="Arial Black" size="36.0" />
+                                            </font>
+                                        </Text>
+                              <HBox alignment="BOTTOM_RIGHT" prefHeight="51.0" prefWidth="187.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <MFXButton fx:id="speakButton" onAction="#directionsToSpeech" rippleColor="#c0cced" style="-fx-background-color: #20456b;" text="Speak Directions" textFill="#d3e9f6">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </HBox.margin>
+                                    </MFXButton>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
                                   <MFXScrollPane prefHeight="198.0" prefWidth="500.0" style="-fx-background-color: #bad1ea; -fx-border-color: black;" VBox.vgrow="ALWAYS">
                                       <content>
                                           <Text fx:id="pathMapText" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions on how to get to your destination go here... ">
