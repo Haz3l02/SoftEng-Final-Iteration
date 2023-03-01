@@ -87,7 +87,7 @@ public class MapEditorController extends MenuController {
   @Setter NodeEntity selectedNode = null;
 
   // scaling constant
-  private final double SCALE_FACTOR = 0.15; // constant for map size/coordinate manipulations
+  private final double SCALE_FACTOR = 0.24; // constant for map size/coordinate manipulations
 
   private static PopOver nodeEditorPopup;
   private static PopOver edgeEditorPopup;
@@ -134,21 +134,17 @@ public class MapEditorController extends MenuController {
               || event.getCode().equals(KeyCode.DELETE)) {
 
             if (NodeDraw.getSelectedEdge() != null && NodeDraw.getSelected() == null) {
-              System.out.println("delete edge only");
               NodeDraw.delEdge();
             } else if (NodeDraw.getSelected() != null && NodeDraw.getSelectedEdge() == null) {
-              System.out.println("delete node only");
               NodeDraw.delNode();
             } else {
               System.out.println("idk");
             }
           }
           if (event.getCode().equals(KeyCode.X) && event.isControlDown()) {
-            System.out.println("straighten that  (horizontally)");
             // NodeDraw.straightenNodesHorizontal();
           }
           if (event.getCode().equals(KeyCode.Y) && event.isControlDown()) {
-            System.out.println("straighten that  (vertically)");
             // NodeDraw.straightenNodesVertical();
           }
         });
@@ -267,7 +263,6 @@ public class MapEditorController extends MenuController {
 
             mouseDownX = e.getX();
             mouseDownY = e.getY();
-            System.out.println("X:" + mouseDownX + "  Y:" + mouseDownY);
             selectionRectangle.setX(mouseDownX);
             selectionRectangle.setY(mouseDownY);
             selectionRectangle.setWidth(0);
@@ -375,26 +370,25 @@ public class MapEditorController extends MenuController {
     for (NodeEntity n : allNodes) {
       if ((minX < n.getXcoord() && minY < n.getYcoord())
           && (maxX > n.getXcoord() && maxY > n.getYcoord())) {
-        System.out.println("Added a node");
         selectedList.add(n);
       }
     }
 
-    for (Pane p : panesOnFloor) {
-
-      double updatedPaneXY[] =
-          scaleCoordinatesReversed(p.getLayoutX(), p.getLayoutY(), SCALE_FACTOR);
-      if ((minX < updatedPaneXY[0] && minY < updatedPaneXY[1])
-          && (maxX > updatedPaneXY[0] && maxY > updatedPaneXY[1])) {
-
-        p.setStyle(
-            "-fx-background-color: 'yellow'; "
-                + "-fx-background-radius: 12.5; "
-                + "-fx-border-color: '#224870'; "
-                + "-fx-border-width: 1;"
-                + "-fx-border-radius: 13.5");
-      }
-    }
+    //    for (Pane p : panesOnFloor) {
+    //
+    //      double updatedPaneXY[] =
+    //          scaleCoordinatesReversed(p.getLayoutX(), p.getLayoutY(), SCALE_FACTOR);
+    //      if ((minX < updatedPaneXY[0] && minY < updatedPaneXY[1])
+    //          && (maxX > updatedPaneXY[0] && maxY > updatedPaneXY[1])) {
+    //
+    //        p.setStyle(
+    //            "-fx-background-color: 'yellow'; "
+    //                + "-fx-background-radius: 12.5; "
+    //                + "-fx-border-color: '#224870'; "
+    //                + "-fx-border-width: 1;"
+    //                + "-fx-border-radius: 13.5");
+    //      }
+    //    }
 
     // if (updatedXY[0] < updatedXYUpper[0]) {
     //    for (NodeEntity n : allNodes) {

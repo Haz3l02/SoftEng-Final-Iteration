@@ -56,10 +56,12 @@ public class NodeEditorPopupController extends NavigationController {
             Building.FR15.getTableString());
     BuildingBox.setItems(buildings);
 
-    // xCoord.setText(String.valueOf(mouseX));
-    // yCoord.setText(String.valueOf(mouseY));
-    FloorBox.selectItem(Floor.extendedStringFromTableString(floor));
-    FloorBox.setText(floor);
+    try {
+      FloorBox.selectItem(Floor.extendedStringFromTableString(floor));
+      FloorBox.setText(floor);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML
