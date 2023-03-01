@@ -1,10 +1,11 @@
 .button:hover{
     fx-text-fill: #F6BD3A;
-    -fx-font-weight: bold;
     -fx-font-family: Verdana;
+    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.1;
 }
 
 .button {
-    -fx-font-size: 27;
+    -fx-font-size: 22;
     -fx-text-fill: #d3e9f6;
 }

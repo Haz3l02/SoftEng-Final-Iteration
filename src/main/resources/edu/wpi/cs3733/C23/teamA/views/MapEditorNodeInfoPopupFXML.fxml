@@ -22,32 +22,32 @@
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="nodeCoordsBox" allowEdit="false" editable="false" floatMode="DISABLED" focusTraversable="false" maxWidth="1.7976931348623157E308" pickOnBounds="false" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox2" />
+            <MFXTextField fx:id="nodeCoordsBox" allowEdit="false" editable="false" floatMode="DISABLED" focusTraversable="false" maxWidth="1.7976931348623157E308" pickOnBounds="false" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Node Floor">
                <font>
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="nodeFloorBox" allowEdit="false" editable="false" floatMode="DISABLED" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox2" />
+            <MFXTextField fx:id="nodeFloorBox" allowEdit="false" editable="false" floatMode="DISABLED" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Node Building">
                <font>
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="nodeBuildingBox" allowEdit="false" editable="false" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox2" />
+            <MFXTextField fx:id="nodeBuildingBox" allowEdit="false" editable="false" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Node ID">
                <font>
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="nodeIDBox" allowEdit="false" editable="false" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox2" />
+            <MFXTextField fx:id="nodeIDBox" allowEdit="false" editable="false" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Associated Location" wrappingWidth="238.328125">
                <font>
                   <Font name="Verdana" size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="nodeLocBox" allowEdit="false" editable="false" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox2" />
-            <MFXTextField fx:id="nodeLongnameBox" allowEdit="false" editable="false" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox2" />
+            <MFXTextField fx:id="nodeLocBox" allowEdit="false" editable="false" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox" />
+            <MFXTextField fx:id="nodeLongnameBox" allowEdit="false" editable="false" floatMode="DISABLED" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="182.0" selectable="false" styleClass="textBox" />
             <HBox alignment="CENTER">
                <children>
                   <MFXButton buttonType="RAISED" cancelButton="true" onAction="#hidePopup" prefHeight="37.0" prefWidth="115.0" rippleColor="#c0cced" style="-fx-background-color: #224870;" styleClass="blue-Button" text="Back" textFill="#d3e9f6">

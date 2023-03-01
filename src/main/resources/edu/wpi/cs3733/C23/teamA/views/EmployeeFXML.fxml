@@ -41,7 +41,7 @@
                                     <Font name="Verdana" size="20.0" />
                                  </font>
                               </Text>
-                              <MFXTextField fx:id="nameBox" floatMode="ABOVE" prefHeight="30.0" prefWidth="250.0" styleClass="textBox">
+                              <MFXTextField fx:id="nameBox" floatMode="ABOVE" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="250.0" styleClass="textBox">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
@@ -98,14 +98,18 @@
                                     <Font size="25.0" />
                                  </font>
                               </MFXComboBox>
-                              <MFXButton fx:id="createEmployee" buttonType="RAISED" defaultButton="true" onAction="#createEmployee" prefHeight="50.0" prefWidth="250.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Create Employee" textFill="#224870">
+                              <HBox alignment="CENTER">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </MFXButton>
+                                 <children>
+                                    <MFXButton fx:id="createEmployee" buttonType="RAISED" defaultButton="true" onAction="#createEmployee" prefHeight="50.0" prefWidth="250.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Create Employee" textFill="#224870">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </MFXButton>
+                                 </children>
+                              </HBox>
                            </children>
                            <padding>
                               <Insets right="15.0" />
