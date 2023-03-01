@@ -67,9 +67,9 @@
                         <Font name="Verdana" size="25.0" />
                      </font>
                   </MFXButton>
-                  <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="224.0">
+                  <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="262.0">
                      <children>
-                        <ComboBox fx:id="admin" prefHeight="44.0" prefWidth="214.0" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
+                        <ComboBox fx:id="admin" prefHeight="44.0" prefWidth="266.0" promptText="Admin Systems" stylesheets="@../assets/dropDown.css" visible="false" />
                         <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #022D58;" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
                            <font>
                               <Font size="27.0" />
