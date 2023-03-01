@@ -25,7 +25,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -77,7 +76,9 @@ public class PathfindingController extends MenuController {
 
   // local variables saved
   private AnchorPane[] aps = new AnchorPane[5];
+  private Button[] buttons = new Button[5];
   private int currentFloor = 1;
+  private int prevFloor = 1;
   private final IdNumberHolder holder = IdNumberHolder.getInstance();
 
   // Lists of Nodes and Node Data
@@ -129,14 +130,21 @@ public class PathfindingController extends MenuController {
     aps[2] = anchorF1;
     aps[3] = anchorF2;
     aps[4] = anchorF3;
+    // buttons
+    buttons[0] = l1Button;
+    buttons[1] = l2Button;
+    buttons[2] = f1Button;
+    buttons[3] = f2Button;
+    buttons[4] = f3Button;
 
     String initialTableString = "L2";
     // add the map images
     addFloorMapImage(initialTableString, mainImageView);
+    buttons[currentFloor].setStyle("-fx-background-color: #D0D2D7");
 
     // prepare the gesture pane to attach to the stack pane
-    Node stackPane = mainStackPane;
-    this.mainGesturePane.setContent(stackPane);
+    this.mainGesturePane.setContent(mainStackPane);
+    mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
 
     // autofill the date picker to the current date
     // navDatePicker.setValue(LocalDate.of(2023, 1, 1));
@@ -256,7 +264,8 @@ public class PathfindingController extends MenuController {
     // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still
     // works though,
     // and isn't that much slower.
-    List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
+    List<MoveEntity> moveEntities =
+        FacadeRepository.getInstance().moveAllMostRecentFloor(navDate, floor.getTableString());
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
 
@@ -292,7 +301,8 @@ public class PathfindingController extends MenuController {
     // NOTE: moveAllMostRecentFloor may have been overwritten, as it stopped working. This still
     // works though,
     // and isn't that much slower.
-    List<MoveEntity> moveEntities = FacadeRepository.getInstance().moveAllMostRecent(navDate);
+    List<MoveEntity> moveEntities =
+        FacadeRepository.getInstance().moveAllMostRecentFloor(navDate, floor.getTableString());
     ArrayList<String> idsFloor = new ArrayList<>();
     ArrayList<String> namesFloor = new ArrayList<>();
 
@@ -425,10 +435,15 @@ public class PathfindingController extends MenuController {
       ap.setVisible(false);
     }
 
-    // Make this floor's pane viewable
-    aps[currentFloor].setVisible(true);
-
     pathfindingSystem.drawPath(aps, path);
+
+    prevFloor = currentFloor;
+    currentFloor = Floor.indexFromTableString(path.get(0).getFloor());
+    // Make this floor's pane and map viewable
+    addFloorMapImage(path.get(0).getFloor(), mainImageView);
+    aps[currentFloor].setVisible(true);
+    buttons[prevFloor].setStyle("-fx-background-color: #ffffff");
+    buttons[currentFloor].setStyle("-fx-background-color: #D0D2D7");
   }
 
   @FXML
@@ -550,7 +565,7 @@ public class PathfindingController extends MenuController {
 
   @FXML
   public void generateFloor(ActionEvent event) {
-    int previousFloor = currentFloor;
+    prevFloor = currentFloor;
     String tableFloor = "L1";
     if (event.getSource().equals(l1Button)) {
       tableFloor = "L1";
@@ -568,17 +583,21 @@ public class PathfindingController extends MenuController {
       tableFloor = "3";
       currentFloor = 4;
     }
-    initializeFloorMap(tableFloor, previousFloor);
+    initializeFloorMap(tableFloor);
   }
 
-  private void initializeFloorMap(String tableFloor, int previousFloor) {
+  private void initializeFloorMap(String tableFloor) {
 
     // show map image
     addFloorMapImage(tableFloor, mainImageView);
 
     // show nodes and edges for this floor
-    aps[previousFloor].setVisible(false);
+    aps[prevFloor].setVisible(false);
     aps[currentFloor].setVisible(true);
+
+    // set buttons
+    buttons[prevFloor].setStyle("-fx-background-color: #ffffff");
+    buttons[currentFloor].setStyle("-fx-background-color: #D0D2D7");
 
     // show service request icons
     List<NodeEntity> allNodes = FacadeRepository.getInstance().getNodesOnFloor(tableFloor);

@@ -40,6 +40,7 @@ public abstract class NavigationController {
 
   @FXML
   public void switchToServiceRequestStatus() {
+    iecsv = new ImportExportCSV("status");
     Navigation.navigate(Screen.SERVICE_REQUEST_STATUS);
   }
 
@@ -152,5 +153,10 @@ public abstract class NavigationController {
   public void switchToPathfinding() {
     stop = true;
     Navigation.navigate(Screen.PATHFINDING);
+  }
+
+  @FXML
+  public void switchToMessages() {
+    Navigation.navigate(Screen.MESSAGE_INBOX);
   }
 }

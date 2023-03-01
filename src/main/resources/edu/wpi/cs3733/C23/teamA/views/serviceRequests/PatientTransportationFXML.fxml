@@ -4,6 +4,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,6 +14,9 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PatientTransportController">
+   <stylesheets>
+      <URL value="@../StyleSheet.css" />
+   </stylesheets>
    <top>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
@@ -40,7 +44,7 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="318.0">
                      <children>
-                        <MFXTextField fx:id="nameBox" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXTextField fx:id="nameBox" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="textBox">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -58,7 +62,7 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="243.0">
                      <children>
-                        <MFXTextField fx:id="IDNum" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" />
+                        <MFXTextField fx:id="IDNum" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="textBox" />
                      </children>
                   </VBox>
                </children>
@@ -127,7 +131,7 @@
                   </VBox>
                   <VBox prefHeight="430.0" prefWidth="394.0" spacing="5.0">
                      <children>
-                        <MFXTextField fx:id="pNameBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter name" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXTextField fx:id="pNameBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter name" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="textBox">
                            <VBox.margin>
                               <Insets left="2.0" top="17.0" />
                            </VBox.margin>
@@ -135,7 +139,7 @@
                               <Font size="14.0" />
                            </font>
                         </MFXTextField>
-                        <MFXFilterComboBox fx:id="genderBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Female, male, other" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXFilterComboBox fx:id="genderBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Female, male, other" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="dropDowns">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -143,7 +147,7 @@
                               <Insets left="2.0" top="11.0" />
                            </VBox.margin>
                         </MFXFilterComboBox>
-                        <MFXFilterComboBox fx:id="modeBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose Mode Of Transportation" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXFilterComboBox fx:id="modeBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose Mode Of Transportation" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="dropDowns">
                            <VBox.margin>
                               <Insets left="2.0" top="10.0" />
                            </VBox.margin>
@@ -151,7 +155,7 @@
                               <Font size="14.0" />
                            </font>
                         </MFXFilterComboBox>
-                        <MFXFilterComboBox fx:id="locationBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXFilterComboBox fx:id="locationBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="dropDowns">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -162,7 +166,7 @@
                               <Insets left="2.0" top="8.0" />
                            </VBox.margin>
                         </MFXFilterComboBox>
-                        <MFXFilterComboBox fx:id="urgencyBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXFilterComboBox fx:id="urgencyBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Low, Medium, High" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="dropDowns">
                            <VBox.margin>
                               <Insets left="2.0" top="10.0" />
                            </VBox.margin>
@@ -170,7 +174,7 @@
                               <Font size="14.0" />
                            </font>
                         </MFXFilterComboBox>
-                        <MFXTextField fx:id="descBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="390.0" promptText="Reason for Transportation" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXTextField fx:id="descBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="390.0" promptText="Reason for Transportation" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="decBox">
                            <VBox.margin>
                               <Insets left="2.0" top="10.0" />
                            </VBox.margin>
@@ -248,7 +252,7 @@
                   </VBox>
                   <VBox prefHeight="430.0" prefWidth="310.0" spacing="5.0">
                      <children>
-                        <MFXTextField fx:id="pIDBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter patient ID" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXTextField fx:id="pIDBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter patient ID" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="textBox">
                            <VBox.margin>
                               <Insets top="17.0" />
                            </VBox.margin>
@@ -280,7 +284,7 @@
                               <Insets top="9.0" />
                            </VBox.margin>
                         </HBox>
-                        <MFXFilterComboBox fx:id="mobilityBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose level of Mobility" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXFilterComboBox fx:id="mobilityBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose level of Mobility" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="dropDowns">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -291,7 +295,7 @@
                               <Insets top="15.0" />
                            </VBox.margin>
                         </MFXFilterComboBox>
-                        <MFXFilterComboBox fx:id="moveToBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXFilterComboBox fx:id="moveToBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Choose location" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="dropDowns">
                            <VBox.margin>
                               <Insets top="11.0" />
                            </VBox.margin>
@@ -302,7 +306,7 @@
                               <Font size="14.0" />
                            </font>
                         </MFXFilterComboBox>
-                        <MFXTextField fx:id="equipmentBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter equipment needed" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;">
+                        <MFXTextField fx:id="equipmentBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Enter equipment needed" style="-fx-border-width: 1 1 1 1; -fx-border-color: #122c34;" styleClass="textBox">
                            <VBox.margin>
                               <Insets top="9.0" />
                            </VBox.margin>
@@ -327,12 +331,12 @@
                <children>
                   <StackPane prefHeight="50.0" prefWidth="115.0">
                      <children>
-                        <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                        <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
                            <font>
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="reject" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#rejectRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Reject" textAlignment="CENTER" textFill="#d3e9f6">
+                        <MFXButton fx:id="reject" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#rejectRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="reject" text="Reject" textAlignment="CENTER" textFill="#d3e9f6">
                            <font>
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
@@ -348,7 +352,7 @@
                <children>
                   <StackPane fx:id="reminderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="312.0" style="-fx-border-color: #F6BD3A; -fx-border-width: 5;">
                      <children>
-                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Fill In All Fields!" textAlignment="CENTER">
+                        <Text fx:id="reminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Please Fill In All Fields!" textAlignment="CENTER">
                            <font>
                               <Font name="Verdana" size="25.0" />
                            </font>
@@ -358,7 +362,7 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </StackPane>
-                  <MFXButton fx:id="cancel" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" text="Cancel" textFill="#d3e9f6">
+                  <MFXButton fx:id="cancel" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
@@ -368,12 +372,12 @@
                   </MFXButton>
                   <StackPane prefHeight="50.0" prefWidth="134.0">
                      <children>
-                        <MFXButton fx:id="accept" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#acceptRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15;" text="Accept" textAlignment="CENTER" textFill="#224870">
+                        <MFXButton fx:id="accept" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#acceptRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="yellow-Button" text="Accept" textAlignment="CENTER" textFill="#224870">
                            <font>
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" text="Submit" textFill="#224870">
+                        <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="yellow-Button" text="Submit" textFill="#224870">
                            <font>
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>

@@ -7,6 +7,7 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.Kiosk;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
@@ -30,12 +31,14 @@ public class KioskSetupController extends MenuController {
   @FXML private Label left, right;
   @FXML private StackPane reminderPane;
   @FXML private Text reminder, moveReminder;
+  @FXML private MFXButton generateButton;
 
-  public static Kiosk kiosk = new Kiosk(null, null, "", "", false, "");
+  public static Kiosk kiosk;
 
   @FXML
   public void initialize() {
-    System.out.println("Gets here");
+    generateButton.setDisable(true);
+    moveDate.setDisable(true);
     reminder.setVisible(false);
     reminderPane.setVisible(false);
     moveReminder.setVisible(false);
@@ -61,6 +64,35 @@ public class KioskSetupController extends MenuController {
         .addListener(
             Observable -> {
               setLeftRight();
+            });
+    moveLocation
+        .selectedItemProperty()
+        .addListener(
+            (Observable -> {
+              moveDate.setDisable(false);
+            }));
+    moveDate
+        .valueProperty()
+        .addListener(
+            Observable -> {
+              List<MoveEntity> moves =
+                  FacadeRepository.getInstance()
+                      .newAndOldMove(moveLocation.getText(), moveDate.getValue());
+              if (moves.size() == 1
+                  || moves.get(0).getNode() == null
+                  || moves.get(1).getNode() == null) {
+                reminderPane.setVisible(true);
+                moveReminder.setVisible(true);
+              } else {
+                reminderPane.setVisible(false);
+                moveReminder.setVisible(false);
+                if (moves.get(0).getMessage() == null) {
+                  moveDescription.setText("No message");
+                } else {
+                  moveDescription.setText(moves.get(0).getMessage());
+                }
+                generateButton.setDisable(false);
+              }
             });
   }
 
@@ -120,31 +152,24 @@ public class KioskSetupController extends MenuController {
   public void generateKiosk() {
     if (locationBox.getText() == null
         || moveLocation.getText() == null
-        || moveDate.getValue() == null
-        || moveDescription.getText() == null) {
+        || moveDate.getValue() == null) {
       reminder.setVisible(true);
       reminderPane.setVisible(true);
     } else {
-      // Code to check if the move entered is valid.
       List<MoveEntity> moves =
-          FacadeRepository.getInstance()
-              .newAndOldMove(moveLocation.getText(), moveDate.getCurrentDate());
-      if (!(moves.size() == 1)) {
-        reminderPane.setVisible(false);
-        moveReminder.setVisible(false);
-        kiosk =
-            new Kiosk(
-                moves.get(0).getNode(),
-                moves.get(1).getNode(),
-                left.getText(),
-                right.getText(),
-                directionOnOff.isSelected(),
-                moveDescription.getText());
-        Navigation.navigateHome(Screen.KIOSK);
-      } else {
-        reminderPane.setVisible(true);
-        moveReminder.setVisible(true);
-      }
+          FacadeRepository.getInstance().newAndOldMove(moveLocation.getText(), moveDate.getValue());
+      kiosk =
+          new Kiosk(
+              moves.get(1).getNode(),
+              moves.get(0).getNode(),
+              left.getText(),
+              right.getText(),
+              directionOnOff.isSelected(),
+              moveDescription.getText(),
+              moveLocation.getText());
+      Navigation.navigateHome(Screen.KIOSK);
+      // Code to check if the move entered is valid.
+
     }
   }
 }

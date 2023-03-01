@@ -7,6 +7,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.ImageView?>
@@ -20,6 +21,9 @@
 <?import net.kurobako.gesturefx.GesturePane?>
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
+    <stylesheets>
+        <URL value="@../StyleSheet.css" />
+    </stylesheets>
     <bottom>
         <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="1342.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
@@ -32,7 +36,7 @@
                   </Text>
                </children>
             </HBox>
-                <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Back" textFill="#d3e9f6">
+                <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Back" textFill="#d3e9f6">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -40,7 +44,7 @@
                         <Font size="25.0" />
                     </font>
                 </MFXButton>
-                <MFXButton id="cancelButton" fx:id="clearButton" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Clear" textFill="#d3e9f6">
+                <MFXButton id="cancelButton" fx:id="clearButton" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Clear" textFill="#d3e9f6">
                     <font>
                         <Font size="25.0" />
                     </font>
@@ -48,7 +52,7 @@
                         <Insets />
                     </HBox.margin>
                 </MFXButton>
-                <MFXButton id="findPathButton" buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" onAction="#generatePath" prefHeight="50.0" prefWidth="160.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-color: black; -fx-border-radius: 15;" text="Find Path" textFill="#224870">
+                <MFXButton id="findPathButton" buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" onAction="#generatePath" prefHeight="50.0" prefWidth="160.0" rippleAnimateShadow="true" rippleColor="#c0cced" styleClass="yellow" text="Find Path" textFill="#224870">
                     <font>
                         <Font size="25.0" />
                     </font>
@@ -221,31 +225,19 @@
                                   <Insets top="10.0" />
                               </VBox.margin>
                               <children>
-                        <HBox>
-                           <children>
-                                        <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions" wrappingWidth="212.8151092529297">
-                                            <font>
-                                                <Font name="Arial Black" size="36.0" />
-                                            </font>
-                                        </Text>
-                              <HBox alignment="BOTTOM_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <MFXButton fx:id="speakButton" alignment="CENTER" layoutX="161.0" layoutY="28.0" onAction="#directionsToSpeech" rippleColor="#c0cced" style="-fx-background-color: #224870;" text="Speak Directions" textFill="#d3e9f6" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets bottom="8.0" right="15.0" />
-                                 </HBox.margin>
-                              </HBox>
-                           </children>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                                  <MFXScrollPane prefHeight="198.0" prefWidth="309.0" style="-fx-background-color: #bad1ea; -fx-border-color: black;" VBox.vgrow="ALWAYS">
+                                  <Text fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions" wrappingWidth="212.8151092529297">
+                                      <font>
+                                          <Font name="Arial Black" size="36.0" />
+                                      </font>
+                                      <VBox.margin>
+                                          <Insets left="15.0" />
+                                      </VBox.margin>
+                                  </Text>
+                                  <MFXScrollPane prefHeight="198.0" prefWidth="500.0" style="-fx-background-color: #bad1ea; -fx-border-color: black;" VBox.vgrow="ALWAYS">
                                       <content>
-                                          <Text fx:id="pathMapText" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions on how to get to your destination go here... " wrappingWidth="450.0">
+                                          <Text fx:id="pathMapText" strokeType="OUTSIDE" strokeWidth="0.0" text="Directions on how to get to your destination go here... ">
                                               <font>
-                                                  <Font name="Verdana" size="14.0" />
+                                                  <Font name="Verdana" size="12.5" />
                                               </font>
                                           </Text>
                                       </content>
@@ -279,15 +271,6 @@
                         </Text>
                               </children>
                           </HBox>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="22.0" prefWidth="839.0">
-                     <children>
-                        <Text fx:id="messageText" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Messages Appear Here">
-                           <font>
-                              <Font name="Verdana" size="18.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </HBox>
                   <HBox prefWidth="200.0">
                      <children>
                         <MFXButton fx:id="l2Button" onAction="#generateFloor" text="Lower Level 2">
