@@ -100,65 +100,62 @@
    <center>
       <VBox alignment="CENTER" prefHeight="453.0" prefWidth="1374.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <MFXTextField fx:id="employeeField" floatMode="ABOVE" prefHeight="65.0" prefWidth="1250.0" promptText="File Path" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Employees...">
+                  <MFXButton fx:id="empployeeFileExplorer" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorerEmployee" prefHeight="50.0" prefWidth="306.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Employee File" textAlignment="CENTER" textFill="#224870">
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXTextField fx:id="employeeField" floatMode="ABOVE" prefHeight="61.0" prefWidth="845.0" promptText="File Path" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Employees...">
                      <font>
                         <Font name="Verdana" size="30.0" />
                      </font>
                   </MFXTextField>
                </children>
             </HBox>
-            <MFXButton fx:id="empployeeFileExplorer" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorerEmployee" prefHeight="50.0" prefWidth="306.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Employee File" textAlignment="CENTER" textFill="#224870">
-               <font>
-                  <Font name="Kohinoor Bangla" size="25.0" />
-               </font>
-            </MFXButton>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <MFXTextField fx:id="nodeField" floatMode="ABOVE" prefHeight="65.0" prefWidth="1250.0" promptText="File Path" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Nodes...">
-                     <font>
-                        <Font name="Verdana" size="30.0" />
-                     </font>
-                  </MFXTextField>
                   <MFXButton fx:id="nodeFileExplorer" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorerNode" prefHeight="50.0" prefWidth="255.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Node File" textAlignment="CENTER" textFill="#224870">
                      <font>
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
                   </MFXButton>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <MFXTextField fx:id="moveField" floatMode="ABOVE" prefHeight="65.0" prefWidth="1250.0" promptText="File Path" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Moves...">
+                  <MFXTextField fx:id="nodeField" floatMode="ABOVE" prefHeight="54.0" prefWidth="873.0" promptText="File Path" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Nodes...">
                      <font>
                         <Font name="Verdana" size="30.0" />
                      </font>
                   </MFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
                   <MFXButton fx:id="moveFileExplorer" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorerMove" prefHeight="50.0" prefWidth="244.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Move File" textAlignment="CENTER" textFill="#224870">
                      <font>
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
                   </MFXButton>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <MFXTextField fx:id="edgeField" floatMode="ABOVE" prefHeight="65.0" prefWidth="1250.0" promptText="File Path" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Edges...">
+                  <MFXTextField fx:id="moveField" floatMode="ABOVE" prefHeight="54.0" prefWidth="870.0" promptText="File Path" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Moves...">
                      <font>
                         <Font name="Verdana" size="30.0" />
                      </font>
                   </MFXTextField>
                </children>
             </HBox>
-            <MFXButton fx:id="edgeFileExplorer" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorerEdge" prefHeight="50.0" prefWidth="244.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Move File" textAlignment="CENTER" textFill="#224870">
-               <font>
-                  <Font name="Kohinoor Bangla" size="25.0" />
-               </font>
-            </MFXButton>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <MFXButton fx:id="edgeFileExplorer" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorerEdge" prefHeight="50.0" prefWidth="244.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Move File" textAlignment="CENTER" textFill="#224870">
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXTextField fx:id="edgeField" floatMode="ABOVE" prefHeight="54.0" prefWidth="861.0" promptText="File Path" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Edges...">
+                     <font>
+                        <Font name="Verdana" size="24.0" />
+                     </font>
+                  </MFXTextField>
+               </children>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
          </children>
       </VBox>
