@@ -237,7 +237,7 @@
                                         </Text>
                               <HBox alignment="BOTTOM_RIGHT" prefHeight="51.0" prefWidth="187.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <MFXButton fx:id="speakButton" onAction="#directionsToSpeech" rippleColor="#c0cced" style="-fx-background-color: #20456b;" text="Speak Directions" textFill="#d3e9f6">
+                                    <MFXButton fx:id="speakButton" onAction="#directionsToSpeech" rippleColor="#c0cced" style="-fx-background-color: #20456b;" styleClass="blue" text="Speak Directions" textFill="#d3e9f6">
                                        <HBox.margin>
                                           <Insets bottom="5.0" />
                                        </HBox.margin>
