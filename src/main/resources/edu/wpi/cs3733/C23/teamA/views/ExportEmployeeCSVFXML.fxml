@@ -103,16 +103,16 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="100.0" prefWidth="1349.0" promptText="Folder Name" style="-fx-background-radius: 15; -fx-border-radius: 15;">
+                  <MFXTextField fx:id="fileNameField" floatMode="ABOVE" prefHeight="60.0" prefWidth="1250.0" promptText="Folder Name" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                      <font>
-                        <Font name="Verdana" size="40.0" />
+                        <Font name="Verdana" size="30.0" />
                      </font>
                   </MFXTextField>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MFXButton fx:id="reset1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="200.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Folder" textAlignment="CENTER" textFill="#225870">
+                  <MFXButton fx:id="reset1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorer" prefHeight="50.0" prefWidth="191.0" rippleColor="#c0cced" style="-fx-font-size: 24;" styleClass="yellow" text="Select Folder" textAlignment="CENTER" textFill="#225870">
                      <font>
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>

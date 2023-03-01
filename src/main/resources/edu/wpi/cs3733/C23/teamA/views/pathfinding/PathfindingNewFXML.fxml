@@ -7,6 +7,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.ImageView?>
@@ -20,6 +21,9 @@
 <?import net.kurobako.gesturefx.GesturePane?>
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1376.0" style="-fx-background-color: D3E9F6; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.PathfindingController">
+    <stylesheets>
+        <URL value="@../StyleSheet.css" />
+    </stylesheets>
     <bottom>
         <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="1342.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
@@ -32,7 +36,7 @@
                   </Text>
                </children>
             </HBox>
-                <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Back" textFill="#d3e9f6">
+                <MFXButton id="cancelButton" fx:id="cancelButton" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" onAction="#switchToHomeScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Back" textFill="#d3e9f6">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -40,7 +44,7 @@
                         <Font size="25.0" />
                     </font>
                 </MFXButton>
-                <MFXButton id="cancelButton" fx:id="clearButton" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15;" text="Clear" textFill="#d3e9f6">
+                <MFXButton id="cancelButton" fx:id="clearButton" buttonType="RAISED" cancelButton="true" maxHeight="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Clear" textFill="#d3e9f6">
                     <font>
                         <Font size="25.0" />
                     </font>
@@ -48,7 +52,7 @@
                         <Insets />
                     </HBox.margin>
                 </MFXButton>
-                <MFXButton id="findPathButton" buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" onAction="#generatePath" prefHeight="50.0" prefWidth="160.0" rippleAnimateShadow="true" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-color: black; -fx-border-radius: 15;" text="Find Path" textFill="#224870">
+                <MFXButton id="findPathButton" buttonType="RAISED" defaultButton="true" maxHeight="-Infinity" onAction="#generatePath" prefHeight="50.0" prefWidth="160.0" rippleAnimateShadow="true" rippleColor="#c0cced" styleClass="yellow" text="Find Path" textFill="#224870">
                     <font>
                         <Font size="25.0" />
                     </font>

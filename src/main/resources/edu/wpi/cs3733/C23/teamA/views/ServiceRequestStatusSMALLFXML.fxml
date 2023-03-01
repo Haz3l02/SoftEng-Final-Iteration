@@ -225,11 +225,11 @@
                   <TableView fx:id="serviceReqsTable" editable="true" onMouseClicked="#rowClicked" prefHeight="650.0" prefWidth="462.0" style="-fx-background-color: badidea;" stylesheets="@../assets/tableView.css">
                      <columns>
                         <TableColumn fx:id="IDCol" minWidth="0.0" prefWidth="0.0" resizable="false" text="ID" />
-                        <TableColumn fx:id="formTypeCol" prefWidth="216.0" resizable="false" styleClass="tableText" text="Form Type" />
-                        <TableColumn fx:id="dateCol" prefWidth="179.0" resizable="false" styleClass="tableText" text="Date" />
-                        <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="208.0" resizable="false" styleClass="tableText" text="Status" />
-                        <TableColumn fx:id="urgencyCol" minWidth="7.0" prefWidth="510.0" resizable="false" styleClass="tableText" text="Urgency" />
-                        <TableColumn fx:id="employeeAssignedCol" minWidth="0.0" prefWidth="378.0" text="Employee Assigned" />
+                        <TableColumn fx:id="formTypeCol" prefWidth="191.38934326171875" resizable="false" styleClass="tableText" text="Form Type" />
+                        <TableColumn fx:id="dateCol" prefWidth="204.11065673828125" resizable="false" styleClass="tableText" text="Date" />
+                        <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="103.6070556640625" resizable="false" styleClass="tableText" text="Status" />
+                        <TableColumn fx:id="urgencyCol" minWidth="7.0" prefWidth="106.3929443359375" resizable="false" styleClass="tableText" text="Urgency" />
+                        <TableColumn fx:id="employeeAssignedCol" minWidth="0.0" prefWidth="111.0" styleClass="tableText" text="Employee Assigned" />
                      </columns>
                   </TableView>
                </items>

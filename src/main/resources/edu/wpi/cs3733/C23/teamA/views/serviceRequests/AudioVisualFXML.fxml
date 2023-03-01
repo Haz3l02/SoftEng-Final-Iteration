@@ -177,7 +177,7 @@
                               <Insets left="20.0" top="30.0" />
                            </VBox.margin>
                         </MFXFilterComboBox>
-                        <MFXTextField fx:id="descBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="405.0" promptText="Enter additional details of the issue" style="-fx-border-color: #122c34; -fx-border-width: 1 1 1 1; -fx-max-width: 450;" styleClass="decBox">
+                        <MFXTextField fx:id="descBox" alignment="TOP_LEFT" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="405.0" promptText="Enter additional details of the issue" styleClass="decBox">
                            <font>
                               <Font name="Kohinoor Bangla" size="14.0" />
                            </font>
@@ -211,6 +211,14 @@
                            </font>
                            <VBox.margin>
                               <Insets top="40.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="Subject111" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labels" text="Return Date:">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="60.0" />
                            </VBox.margin>
                         </Text>
                      </children>
@@ -271,12 +279,12 @@
                <children>
                   <StackPane prefHeight="50.0" prefWidth="115.0">
                      <children>
-                        <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="blue-Button" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
+                        <MFXButton fx:id="clear" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#clearForm" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Reset" textAlignment="CENTER" textFill="#d3e9f6">
                            <font>
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="reject" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#rejectRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="reject" text="Reject" textAlignment="CENTER" textFill="#d3e9f6">
+                        <MFXButton fx:id="reject" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#rejectRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="reject" text="Reject" textAlignment="CENTER" textFill="#d3e9f6">
                            <font>
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
@@ -305,7 +313,7 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </StackPane>
-                  <MFXButton fx:id="cancel" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #224870; -fx-background-radius: 15; -fx-border-color: #122c34; -fx-border-radius: 15;" styleClass="blue-Button" text="Cancel" textFill="#d3e9f6">
+                  <MFXButton fx:id="cancel" buttonType="RAISED" cancelButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#switchToHomeServiceRequestScene" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Cancel" textFill="#d3e9f6">
                      <HBox.margin>
                         <Insets right="30.0" />
                      </HBox.margin>
@@ -320,7 +328,7 @@
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" style="-fx-background-color: #F6BD3A; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #122c34;" styleClass="yellow-Button" text="Submit" textFill="#224870">
+                        <MFXButton fx:id="submit" buttonType="RAISED" defaultButton="true" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitRequest" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="yellow-Button" text="Submit" textFill="#224870">
                            <font>
                               <Font name="Kohinoor Bangla" size="25.0" />
                            </font>
