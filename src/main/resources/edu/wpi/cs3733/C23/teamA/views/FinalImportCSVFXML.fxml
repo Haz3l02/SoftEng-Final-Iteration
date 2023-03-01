@@ -165,7 +165,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MFXButton fx:id="moveFileExplorer1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorerEdge" prefHeight="50.0" prefWidth="244.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Move File" textAlignment="CENTER" textFill="#224870">
+                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorerEdge" prefHeight="50.0" prefWidth="244.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Move File" textAlignment="CENTER" textFill="#224870">
                      <font>
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>

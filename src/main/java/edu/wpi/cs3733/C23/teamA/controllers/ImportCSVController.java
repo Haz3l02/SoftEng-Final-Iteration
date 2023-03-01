@@ -26,6 +26,7 @@ public class ImportCSVController {
     employeeField.setDisable(true);
     nodeField.setDisable(true);
     moveField.setDisable(true);
+    edgeField.setDisable(true);
   }
 
   @FXML
