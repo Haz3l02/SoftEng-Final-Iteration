@@ -103,7 +103,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                                  <children>
-                                    <MFXButton fx:id="createEmployee" buttonType="RAISED" defaultButton="true" onAction="#createEmployee" prefHeight="50.0" prefWidth="250.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Create Employee" textFill="#224870">
+                                    <MFXButton fx:id="createEmployee" buttonType="RAISED" defaultButton="true" onAction="#createEmployee" prefHeight="50.0" prefWidth="250.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Create Employee" textFill="#224870" >
                                        <font>
                                           <Font size="25.0" />
                                        </font>
