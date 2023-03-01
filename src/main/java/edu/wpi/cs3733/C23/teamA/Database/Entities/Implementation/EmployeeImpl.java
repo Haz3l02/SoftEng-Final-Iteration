@@ -163,13 +163,15 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     employees.forEach(
         employee -> session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid())));
     employees.clear();
+    tx.commit();
+
+    tx = session.beginTransaction();
 
     File emps = new File(filename);
 
     Scanner read = new Scanner(emps);
     int count = 1;
     read.nextLine();
-
 
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");

@@ -138,7 +138,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                      <children>
-                        <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#clearEdits" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Reset" textFill="#d3e9f6">
+                        <MFXButton id="helpButton" fx:id="clearButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#reloadData" prefHeight="50.0" prefWidth="130.0" rippleColor="#c0cced" styleClass="blue-Button" text="Reset" textFill="#d3e9f6">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>

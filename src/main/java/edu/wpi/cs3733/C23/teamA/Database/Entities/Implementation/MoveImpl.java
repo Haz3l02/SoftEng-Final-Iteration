@@ -110,7 +110,8 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
           new MoveEntity(
               session.get(NodeEntity.class, b[0]),
               session.get(LocationNameEntity.class, b[1]),
-              LocalDate.parse(b[2]));
+              LocalDate.parse(b[2]),
+              null);
       session.persist(mov);
 
       count++;
