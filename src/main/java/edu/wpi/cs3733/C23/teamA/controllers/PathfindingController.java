@@ -412,10 +412,12 @@ public class PathfindingController extends MenuController {
       ap.setVisible(false);
     }
 
-    // Make this floor's pane viewable
-    aps[currentFloor].setVisible(true);
-
     pathfindingSystem.drawPath(aps, path);
+
+    currentFloor = Floor.indexFromTableString(path.get(0).getFloor());
+    // Make this floor's pane and map viewable
+    addFloorMapImage(path.get(0).getFloor(), mainImageView);
+    aps[currentFloor].setVisible(true);
   }
 
   @FXML
