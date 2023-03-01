@@ -334,7 +334,8 @@ public class HomeController extends MenuController {
               "Access Employee Records",
               "Department Moves",
               "Create Nodes",
-              "Kiosk Creator", "Import Tables");
+              "Kiosk Creator",
+              "Import Tables");
 
     } else {
       adminTable.setVisible(false);
