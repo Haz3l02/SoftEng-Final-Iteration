@@ -49,7 +49,7 @@ public class KioskController {
   @FXML private GesturePane mainGesturePane;
   @FXML private StackPane mainStackPane;
   @FXML private Label moveDetails;
-  @FXML private Label floorNumber;
+  @FXML private Text floorNumber;
 
   private AnchorPane[] aps = new AnchorPane[5];
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
@@ -163,6 +163,7 @@ public class KioskController {
     }
     mainImageView.setImage(ImageLoader.getImage(thisFloor));
     aps[Floor.indexFromTableString(thisFloor)].setVisible(true);
+    floorNumber.setText(Floor.extendedStringFromTableString(thisFloor));
   }
 
   @FXML
