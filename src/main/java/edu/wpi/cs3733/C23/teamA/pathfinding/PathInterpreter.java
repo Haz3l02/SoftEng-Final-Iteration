@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.C23.teamA.pathfinding;
 
+import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -127,7 +128,6 @@ public class PathInterpreter {
         prevFloor = currentFloor;
       }
 
-      if (longName != null) {}
       if (i == 1) {
         sb.append("\tGo toward " + longName + ".\n");
       } else {
@@ -245,8 +245,6 @@ public class PathInterpreter {
         lastDirectionStraight = "";
       }
 
-      if (longName != null) {}
-
       if (i == 1) {
         sb.append("\tGo toward " + longName + ".\n");
       } else {
@@ -270,5 +268,80 @@ public class PathInterpreter {
 
     // return the built string
     return sb.toString();
+  }
+
+  /**
+   * Creates a string representation of the path specified by the parameter path. Shows each node
+   * with their ID and long name. Implies that the path being given is not null or empty.
+   *
+   * @param path An ArrayList which represents a path from the node in index zero to the node in the
+   *     last index
+   */
+  public static ArrayList<String> generatePathStringShortArray(
+      ArrayList<GraphNode> path, ArrayList<String> floorPath) {
+
+    ArrayList<String> output = new ArrayList<>();
+
+    // get the first and last node names to print
+    String startName = path.get(0).getLongName();
+
+    // make a stringBuilder object to get a giant string
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("Beginning of path for " + startName + "\'s move:\n\n");
+    int numNodes = path.size();
+    int numFloors = floorPath.size();
+
+    // variables
+    String longName;
+    String prevFloor;
+    String currentFloor;
+
+    // add the start to the sb
+    prevFloor = path.get(0).getFloor();
+    sb.append("\tStart at " + path.get(0).getLongName() + ".\n");
+
+    // loop through all of them to print the full path
+    boolean lastWasStraight = false;
+    String lastDirectionStraight = "";
+
+    for (int i = 1; i < numNodes; i++) {
+      longName = path.get(i).getLongName();
+      currentFloor = path.get(i).getFloor();
+
+      if (!currentFloor.equals(prevFloor)) {
+        output.add(sb.toString());
+        sb = new StringBuilder();
+        sb.append(
+            "\nPath continued on " + Floor.extendedStringFromTableString(currentFloor) + ":\n");
+        prevFloor = currentFloor;
+        lastWasStraight = false;
+        lastDirectionStraight = "";
+      }
+
+      if (i == 1) {
+        sb.append("\tGo toward " + longName + ".\n");
+      } else {
+        String direction = getDirection(path.get(i - 2), path.get(i - 1), path.get(i));
+        if (direction.contains("Continue straight")) {
+          lastWasStraight = true;
+          lastDirectionStraight = direction;
+        } else {
+          if (lastWasStraight) {
+            sb.append("\t" + lastDirectionStraight);
+            lastDirectionStraight = "";
+            lastWasStraight = false;
+          }
+          sb.append("\t" + direction); // append if not straight ahead
+        }
+      }
+    }
+
+    // add the end to sb
+    sb.append("\t(\u274C) " + "You have reached " + startName + "\'s future location.\n");
+    output.add(sb.toString());
+
+    // return the built string
+    return output;
   }
 }

@@ -56,6 +56,7 @@ public class KioskController {
   private int currentFloorIndex = 0;
   private ArrayList<String> floorPath = new ArrayList<>();
   private String directions;
+  private ArrayList<String> directionsArray;
 
   @FXML
   public void initialize() throws SQLException {
@@ -131,8 +132,9 @@ public class KioskController {
               + Floor.extendedStringFromTableString(end.getFloor())
               + ".");
     }
-    directions = PathInterpreter.generatePathStringShort(path, floorPath);
-    directionsText.setText(directions);
+    // directions = PathInterpreter.generatePathStringShort(path, floorPath);
+    // directionsText.setText(directions);
+    directionsArray = PathInterpreter.generatePathStringShortArray(path, floorPath);
 
     PathDraw.drawPathLines(aps, path, 5, 0.135);
     cycleMaps();
@@ -159,6 +161,7 @@ public class KioskController {
     int size = floorPath.size();
     if (floorPath.size() > 0) {
       thisFloor = floorPath.get(currentFloorIndex % size);
+      directionsText.setText(directionsArray.get(currentFloorIndex % size));
       currentFloorIndex++;
     }
     mainImageView.setImage(ImageLoader.getImage(thisFloor));
