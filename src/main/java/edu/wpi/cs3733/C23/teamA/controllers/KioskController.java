@@ -3,6 +3,7 @@ package edu.wpi.cs3733.C23.teamA.controllers;
 import static edu.wpi.cs3733.C23.teamA.controllers.KioskSetupController.kiosk;
 
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
+import edu.wpi.cs3733.C23.teamA.mapdrawing.PathDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
@@ -16,7 +17,9 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -68,6 +71,11 @@ public class KioskController {
       mainSplitPane.getItems().remove(rightPane);
       leftD.setText(kiosk.getLeft());
       rightD.setText(kiosk.getRight());
+
+      // added
+      //      left.setText(kiosk.getLeft());
+      //      right.setText(kiosk.getRight());
+      // end of added
     } else {
       mainSplitPane.getItems().remove(directionsPane);
       left.setText(kiosk.getLeft());
@@ -83,13 +91,15 @@ public class KioskController {
 
     // prepare the gesture pane to attach to the stack pane
     this.mainGesturePane.setContent(mainStackPane);
-
-    // set first map
-    // String initialTableString = kiosk.getStartLocation().getFloor();
-    // currentFloor = Floor.indexFromTableString(initialTableString);
-    // addFloorMapImage(initialTableString, mainImageView);
+    mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
 
     runPathfinding();
+
+    // added scaling to auto-zoom
+    Platform.runLater(
+        () -> {
+          mainGesturePane.zoomTo(1.15, new Point2D(650, 230));
+        });
   }
 
   /**
@@ -106,20 +116,24 @@ public class KioskController {
     System.out.println(path.size());
     floorPath = info.getFloorPath();
     if (start.getFloor().equals(end.getFloor())) {
-      moveDetails.setText(kiosk.getMoveName() + " is moving on " + end.getFloor() + ".");
+      moveDetails.setText(
+          kiosk.getMoveName()
+              + " is moving on "
+              + Floor.extendedStringFromTableString(end.getFloor())
+              + ".");
     } else {
       moveDetails.setText(
           kiosk.getMoveName()
               + " is moving from "
-              + start.getFloor()
+              + Floor.extendedStringFromTableString(start.getFloor())
               + " to "
-              + end.getFloor()
+              + Floor.extendedStringFromTableString(end.getFloor())
               + ".");
     }
     directions = pathfindingSystem.generatePathString(path, floorPath);
     directionsText.setText(directions);
 
-    pathfindingSystem.drawPath(aps, path);
+    PathDraw.drawPathLines(aps, path, 5, 0.135);
     cycleMaps();
   }
 
@@ -134,7 +148,7 @@ public class KioskController {
   /** Method to cycle through one of the maps for this move's path */
   private void oneCycle() {
 
-    // clear the anchorPanes w/ the drawn paths
+    // hide the anchorPanes with the drawn paths
     for (AnchorPane ap : aps) {
       ap.setVisible(false);
     }
@@ -144,7 +158,6 @@ public class KioskController {
     int size = floorPath.size();
     if (floorPath.size() > 0) {
       thisFloor = floorPath.get(currentFloorIndex % size);
-
       currentFloorIndex++;
     }
     mainImageView.setImage(ImageLoader.getImage(thisFloor));

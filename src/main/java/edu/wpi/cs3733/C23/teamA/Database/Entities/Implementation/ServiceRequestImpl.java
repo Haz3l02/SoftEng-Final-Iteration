@@ -64,27 +64,51 @@ public class ServiceRequestImpl extends Observable
     fileWriter.write(
         "requestid,date,description,name,requestype,status,urgency,employeeid,employeeassignedid,location\n");
     for (ServiceRequestEntity ser : services) {
-      fileWriter.write(
-          ser.getRequestid()
-              + ","
-              + ser.getDate()
-              + ","
-              + ser.getDescription()
-              + ","
-              + ser.getName()
-              + ","
-              + ser.getRequestType()
-              + ","
-              + ser.getStatus()
-              + ","
-              + ser.getUrgency()
-              + ","
-              + ser.getEmployee().getEmployeeid()
-              + ","
-              + ser.getEmployeeAssigned().getEmployeeid()
-              + ","
-              + ser.getLocation().getLongname()
-              + "\n");
+      if (ser.getEmployeeAssigned() == null) {
+        fileWriter.write(
+            ser.getRequestid()
+                + ","
+                + ser.getDate()
+                + ","
+                + ser.getDescription()
+                + ","
+                + ser.getName()
+                + ","
+                + ser.getRequestType()
+                + ","
+                + ser.getStatus()
+                + ","
+                + ser.getUrgency()
+                + ","
+                + ser.getEmployee().getEmployeeid()
+                + ","
+                + "No Employee Assigned"
+                + ","
+                + ser.getLocation().getLongname()
+                + "\n");
+      } else {
+        fileWriter.write(
+            ser.getRequestid()
+                + ","
+                + ser.getDate()
+                + ","
+                + ser.getDescription()
+                + ","
+                + ser.getName()
+                + ","
+                + ser.getRequestType()
+                + ","
+                + ser.getStatus()
+                + ","
+                + ser.getUrgency()
+                + ","
+                + ser.getEmployee().getEmployeeid()
+                + ","
+                + ser.getEmployeeAssigned().getEmployeeid()
+                + ","
+                + ser.getLocation().getLongname()
+                + "\n");
+      }
     }
     fileWriter.close();
     ComputerRequestImpl.getInstance().exportToCSV(filename);

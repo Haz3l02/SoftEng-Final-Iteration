@@ -64,7 +64,6 @@ public class ServiceRequestStatusController extends MenuController {
 
   public static EditTheForm newEdit = new EditTheForm(0, "", false);
   public static AcceptTheForm acceptTheForm = new AcceptTheForm(0, "", false);
-  public static ImportExportCSV iecsv = new ImportExportCSV("");
 
   private String hospitalID;
   private int employeeID;

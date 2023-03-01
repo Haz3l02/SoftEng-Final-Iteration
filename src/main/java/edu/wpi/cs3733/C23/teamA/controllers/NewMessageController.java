@@ -17,7 +17,7 @@ public class NewMessageController {
 
   @FXML MFXFilterComboBox<String> recipientBox;
   @FXML MFXTextField titleBox;
-  @FXML TextArea messageBox;
+  @FXML MFXTextField messageBox;
 
   static EmployeeEntity employee;
 
