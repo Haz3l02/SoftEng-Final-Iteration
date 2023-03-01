@@ -271,15 +271,6 @@
                         </Text>
                               </children>
                           </HBox>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="22.0" prefWidth="839.0">
-                     <children>
-                        <Text fx:id="messageText" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Messages Appear Here">
-                           <font>
-                              <Font name="Verdana" size="18.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </HBox>
                   <HBox prefWidth="200.0">
                      <children>
                         <MFXButton fx:id="l2Button" onAction="#generateFloor" text="Lower Level 2">
