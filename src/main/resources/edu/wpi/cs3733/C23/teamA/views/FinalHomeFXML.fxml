@@ -34,7 +34,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="1057.0" style="-fx-background-color: #022D58; -fx-border-color: #022D58; -fx-border-radius: 0 0 0 2;" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <ComboBox fx:id="serviceRequest" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="295.0" promptText="Service Request Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS">
+                                    <ComboBox fx:id="serviceRequest" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="346.0" promptText="Service Request Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin></ComboBox>
