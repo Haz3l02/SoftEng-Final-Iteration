@@ -420,7 +420,7 @@ public class MoveController extends MenuController {
     // clearMaps();
     if (mainPane.getItems().size() == 1) {
       mainPane.getItems().add(1, allImages);
-      mainPane.setDividerPositions(0.2);
+      mainPane.setDividerPositions(0.3);
     }
     editButton.setVisible(true);
 
