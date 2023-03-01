@@ -384,18 +384,20 @@ public class ServiceRequestImpl extends Observable
     ArrayList<ServiceRequestEntity> fin = new ArrayList<>();
 
     for (ServiceRequestEntity ser : services) {
-      if (ser.getLocation().getLongname().equals(longname)) {
-        if (holder.getJob().equalsIgnoreCase("maintenance")) {
-          if (ser.getEmployeeAssigned() == null
-              ? false
-              : ser.getEmployeeAssigned().getName().equalsIgnoreCase(holder.getName())) {
+      if(ser.getEmployee() != null) {
+        if (ser.getLocation().getLongname().equals(longname)) {
+          if (holder.getJob().equalsIgnoreCase("maintenance")) {
+            if (ser.getEmployeeAssigned() == null
+                    ? false
+                    : ser.getEmployeeAssigned().getName().equalsIgnoreCase(holder.getName())) {
+              fin.add(ser);
+            }
+          } else if (holder.getJob().equalsIgnoreCase("admin")) {
             fin.add(ser);
-          }
-        } else if (holder.getJob().equalsIgnoreCase("admin")) {
-          fin.add(ser);
-        } else {
-          if (ser.getEmployee().getEmployeeid() == holder.getEmployeeID()) {
-            fin.add(ser);
+          } else {
+            if (ser.getEmployee().getEmployeeid() == holder.getEmployeeID()) {
+              fin.add(ser);
+            }
           }
         }
       }
