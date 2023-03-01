@@ -63,21 +63,20 @@ public class ImportCSVController {
     } else {
       reminder.setVisible(false);
       reminderPane.setVisible(false);
-      //if (iecsv.getTableType().equals("employee")) {
-        FacadeRepository.getInstance().importEmployee(fileNameField.getText());
-        System.out.println("Import employee works");
-        //Navigation.navigate(Screen.EMPLOYEE);
-      //} else if (iecsv.getTableType().equals("node")) {
-        FacadeRepository.getInstance().importNode(fileNameField.getText());
-        System.out.println("Import node works");
-        //Navigation.navigate(Screen.NODE);
-      //} else if (iecsv.getTableType().equals("move")) {
-        // locationName.importFromCSV("locationname");
-        // FacadeRepository.getInstance().importNode("nodes");
-        FacadeRepository.getInstance().importMove(fileNameField.getText());
-        System.out.println("Import move works");
-        //Navigation.navigate(Screen.MOVE);
-      }
+      // if (iecsv.getTableType().equals("employee")) {
+      FacadeRepository.getInstance().importEmployee(fileNameField.getText());
+      System.out.println("Import employee works");
+      // Navigation.navigate(Screen.EMPLOYEE);
+      // } else if (iecsv.getTableType().equals("node")) {
+      FacadeRepository.getInstance().importNode(fileNameField.getText());
+      System.out.println("Import node works");
+      // Navigation.navigate(Screen.NODE);
+      // } else if (iecsv.getTableType().equals("move")) {
+      // locationName.importFromCSV("locationname");
+      // FacadeRepository.getInstance().importNode("nodes");
+      FacadeRepository.getInstance().importMove(fileNameField.getText());
+      System.out.println("Import move works");
+      // Navigation.navigate(Screen.MOVE);
     }
-
+  }
 }
