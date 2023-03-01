@@ -29,17 +29,20 @@
                                 <Insets left="15.0" />
                             </VBox.margin>
                         </Text>
-                          <TableView fx:id="messagesTable" editable="true" onMouseClicked="#rowClicked" prefHeight="632.0" prefWidth="1376.0" style="-fx-background-color: d3e9f6;">
+                          <TableView fx:id="messagesTable" editable="true" onMouseClicked="#rowClicked" prefHeight="632.0" prefWidth="1376.0" style="-fx-background-color: d3e9f6;" stylesheets="@../assets/tableView.css" VBox.vgrow="ALWAYS">
                               <columns>
-                                  <TableColumn fx:id="senderCol" editable="false" prefWidth="142.0" text="Sender" />
-                        <TableColumn fx:id="recipientCol" prefWidth="142.0" text="Recipient" />
+                                  <TableColumn fx:id="senderCol" editable="false" prefWidth="121.0" text="Sender" />
+                        <TableColumn fx:id="recipientCol" prefWidth="419.0" text="Recipient" />
                                   <TableColumn fx:id="timeSentCol" editable="false" prefWidth="146.39999389648438" text="Time Sent" />
                         <TableColumn fx:id="titleCol" editable="false" prefWidth="203.20001220703125" text="Title" />
                                   <TableColumn fx:id="messageCol" prefWidth="806.0" text="Message" />
                               </columns>
-                     <padding>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" />
-                     </padding>
+                     </VBox.margin>
                           </TableView>
                     </children>
                 </VBox>
@@ -47,19 +50,15 @@
             <bottom>
                 <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="375.0">
-                            <children>
-                                <MFXButton id="helpButton" fx:id="newMessageButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#popupNewMessage" onMouseEntered="#updateMouseCoords" prefHeight="55.0" prefWidth="208.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="blue" text="New Message" textFill="#d3e9f6">
-                                    <font>
-                                        <Font size="25.0" />
-                                    </font>
-                                    <HBox.margin>
-                                        <Insets left="10.0" />
-                                    </HBox.margin>
-                                </MFXButton>
-                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1118.0" spacing="10.0">
+                          <MFXButton id="helpButton" fx:id="newMessageButton" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#popupNewMessage" onMouseEntered="#updateMouseCoords" prefHeight="55.0" prefWidth="208.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="blue" text="New Message" textFill="#d3e9f6">
+                              <font>
+                                  <Font size="25.0" />
+                              </font>
+                              <HBox.margin>
+                                  <Insets left="10.0" />
+                              </HBox.margin>
+                          </MFXButton>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="1118.0" spacing="10.0" HBox.hgrow="ALWAYS">
                             <children>
                         <MFXButton id="cancelButton" buttonType="RAISED" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToHomeDatabaseScene" prefHeight="55.0" prefWidth="216.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="blue" text="Back to Home" textFill="#d3e9f6">
                            <font>

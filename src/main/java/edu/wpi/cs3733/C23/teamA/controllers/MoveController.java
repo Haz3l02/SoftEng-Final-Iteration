@@ -106,8 +106,8 @@ public class MoveController extends MenuController {
     allImages = mainPane.getItems().get(1);
     mainPane.getItems().remove(allImages);
 
-    currentNodeImage = imagePane.getItems().get(1); // 1st image
-    newNodeImage = imagePane.getItems().get(2); // 2nd Image
+    currentNodeImage = imagePane.getItems().get(0); // 1st image
+    newNodeImage = imagePane.getItems().get(1); // 2nd Image
 
     moveData = FacadeRepository.getInstance().getAllMove();
 
@@ -123,6 +123,8 @@ public class MoveController extends MenuController {
 
     this.topMainGesturePane.setContent(mainStackPane);
     this.middleGesturePane.setContent(mainStackPane1);
+    topMainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+    middleGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
 
     allNodeID =
         FacadeRepository.getInstance().getAllMove().stream()
@@ -195,7 +197,6 @@ public class MoveController extends MenuController {
         .addListener(
             observable -> {
               if (nodeBox.getValue() != null) {
-                System.out.println(nodeBox.getValue());
                 GraphNode start = pathfindingSystem.getNode(nodeBox.getValue().toString());
                 PathInfo pathInfo = pathfindingSystem.runPathfinding(start, start);
                 String finalTableString = pathInfo.getFloorPath().get(0);
@@ -208,7 +209,7 @@ public class MoveController extends MenuController {
                         + nodeBox.getValue().toString()
                         + ".");
                 editButton.setDisable(false);
-                if (imagePane.getItems().size() == 2) imagePane.getItems().add(2, newNodeImage);
+                if (imagePane.getItems().size() == 1) imagePane.getItems().add(1, newNodeImage);
                 ArrayList<GraphNode> path = pathInfo.getPath();
                 ArrayList<String> floorPath = pathInfo.getFloorPath();
                 callMapDraw(path, floorPath);
@@ -245,7 +246,7 @@ public class MoveController extends MenuController {
 
     if (pathInfo.getFloorPath().size() != 1) {
 
-      if (imagePane.getItems().size() == 2) imagePane.getItems().add(2, newNodeImage);
+      if (imagePane.getItems().size() == 1) imagePane.getItems().add(1, newNodeImage);
       if (pathInfo
           .getFloorPath()
           .get(pathInfo.getFloorPath().size() - 1)
@@ -300,16 +301,6 @@ public class MoveController extends MenuController {
       ap.setVisible(true);
     }
     aps[currentFloor].setVisible(true);
-
-    //      for (AnchorPane ap : aps1) {
-    //        ap.getChildren().clear();
-    //        ap.setVisible(false);
-    //      }
-    //      aps1[currentFloor].setVisible(true);
-
-    // Make this floor's pane viewable
-    // aps[currentFloor].setVisible(true);
-
     pathfindingSystem.drawPath(aps, path);
   }
   /** Clear and retrieve all table rows again With hibernate only use once at start */
@@ -355,17 +346,8 @@ public class MoveController extends MenuController {
   }
 
   public void submitEdit(ActionEvent event) {
-    //    if (!nodeBox.getText().trim().isBlank()
-    //        || !locationBox.getText().trim().isBlank()
-    //        || !dateBox.getValue().toString().isEmpty()) {
 
     ObservableList<MoveEntity> currentTableData = dbTable.getItems();
-
-    //      LocalDate moveDate = dateBox.getValue();
-    //      String nodeID = nodeBox.getValue();
-    //      String theLocation = locationBox.getValue();
-    //      String submitDate = dateBox.getText().toString();
-
     for (MoveEntity move : currentTableData) {
       if (move.getMovedate().equals(clickedDate)
           && move.getLocationName().getLongname().equals(clickedLocation)
@@ -376,14 +358,12 @@ public class MoveController extends MenuController {
         moveID.add(clickedDate.toString());
 
         LocationNameEntity loc = FacadeRepository.getInstance().getLocation(clickedLocation);
-
         move.setNode(FacadeRepository.getInstance().getNode(clickedNode));
         move.setLocationName(loc);
         move.setMovedate(clickedDate);
         move.setMessage(moveMessage.getText());
         System.out.println(moveMessage.getText());
         FacadeRepository.getInstance().moveUpdateMessage(moveMessage.getText(), moveID);
-        // FacadeRepository.getInstance().updateMove(moveID, move);
         dbTable.setItems(currentTableData);
         reloadData();
         break;
@@ -405,19 +385,25 @@ public class MoveController extends MenuController {
     nodeBox.clear();
     locationBox.clear();
     dateBox.setValue(dateBox.getCurrentDate());
+    dateBox.clear();
     moveMessage.clear();
+    clearMaps();
+    mainPane.getItems().remove(allImages);
+  }
+
+  public void clearMaps() {
     for (AnchorPane ap : aps) {
       ap.getChildren().clear();
       ap.setVisible(false);
     }
-    //        createEmployee.setVisible(true);
-    //        editButton.setDisable(true);
   }
 
   @FXML
   public void rowClicked(MouseEvent event) throws SQLException {
+    // clearMaps();
     if (mainPane.getItems().size() == 1) {
       mainPane.getItems().add(1, allImages);
+      mainPane.setDividerPositions(0.2);
     }
     editButton.setVisible(true);
 
