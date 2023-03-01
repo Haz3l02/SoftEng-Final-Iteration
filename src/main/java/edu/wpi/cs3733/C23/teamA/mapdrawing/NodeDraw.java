@@ -418,6 +418,7 @@ public class NodeDraw {
                     <= nodeAnchor.getHeight()
                 && selectNodePane.getLayoutX() + mouseEvent.getY() > 0
                 && selectNodePane.getLayoutY() + mouseEvent.getY() > 0)) {
+              nmc.getMainGesturePane().setGestureEnabled(false);
             } else {
               if (selectNodePane != null && selectedNodeEntity != null) {
                 nmc.getMainGesturePane().setGestureEnabled(false);

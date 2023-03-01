@@ -269,7 +269,7 @@
                   </MFXButton>
                </children>
             </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="107.0" prefWidth="316.0">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="107.0" prefWidth="316.0" VBox.vgrow="ALWAYS">
                <children>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="46.0" prefWidth="316.0" spacing="20.0">
                      <children>
