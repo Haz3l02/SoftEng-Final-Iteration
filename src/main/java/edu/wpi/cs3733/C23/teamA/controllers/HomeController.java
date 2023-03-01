@@ -366,7 +366,7 @@ public class HomeController extends MenuController {
     // added scaling to auto-zoom
     Platform.runLater(
         () -> {
-          mapPane.zoomTo(1.1, new Point2D(900, 100));
+          mapPane.zoomTo(1.1, new Point2D(2000, 100));
         });
   }
 
