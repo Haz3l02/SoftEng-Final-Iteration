@@ -160,16 +160,16 @@
             </VBox>
             <VBox prefHeight="234.0" prefWidth="1324.0" spacing="10.0" style="-fx-background-color: #BAD1EA; -fx-background-radius: 15; -fx-border-radius: 15;">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="518.0" spacing="10.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="518.0" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Move Location:">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
                               </Text>
-                              <MFXFilterComboBox fx:id="moveLocation" floatMode="ABOVE" prefHeight="43.0" prefWidth="264.0" promptText="Move..." styleClass="dropDowns2" text="Move Location...">
+                              <MFXFilterComboBox fx:id="moveLocation" floatMode="ABOVE" prefHeight="43.0" prefWidth="268.0" promptText="Move..." styleClass="dropDowns2" text="Move Location...">
                                  <font>
                                     <Font name="Verdana" size="24.0" />
                                  </font>
@@ -188,19 +188,32 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="107.0" prefWidth="751.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="107.0" prefWidth="751.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Move Description:">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                        <TextArea fx:id="moveDescription" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="149.0" prefWidth="223.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" styleClass="decBox2" wrapText="true">
-                           <font>
-                              <Font name="Verdana" size="24.0" />
-                           </font>
-                        </TextArea>
-                        <VBox alignment="CENTER" prefHeight="173.0" prefWidth="186.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="107.0" prefWidth="549.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Move Description:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="25.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <TextArea fx:id="moveDescription" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="62.0" prefWidth="246.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" styleClass="decBox2" wrapText="true">
+                                 <font>
+                                    <Font name="Verdana" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </HBox.margin>
+                              </TextArea>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER" prefHeight="107.0" prefWidth="346.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Show Directions" textAlignment="CENTER" wrappingWidth="193.49853515625">
                                  <font>
@@ -211,6 +224,9 @@
                            </children>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
                </children>
                <VBox.margin>
