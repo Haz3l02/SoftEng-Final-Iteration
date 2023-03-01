@@ -11,12 +11,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 
 public class NewMessageController {
 
   @FXML MFXFilterComboBox<String> recipientBox;
   @FXML MFXTextField titleBox;
-  @FXML MFXTextField messageBox;
+  @FXML TextArea messageBox;
 
   static EmployeeEntity employee;
 
