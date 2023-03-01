@@ -27,6 +27,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -361,6 +362,12 @@ public class HomeController extends MenuController {
       label2.setText("Open requests: " + openRequests);
       label3.setText("Completed requests: " + completedRequests);
     }
+
+    // added scaling to auto-zoom
+    Platform.runLater(
+        () -> {
+          mapPane.zoomTo(1.1, new Point2D(900, 100));
+        });
   }
 
   @FXML
