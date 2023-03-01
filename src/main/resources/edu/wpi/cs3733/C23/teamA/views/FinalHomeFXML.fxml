@@ -34,7 +34,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="1057.0" style="-fx-background-color: #022D58; -fx-border-color: #022D58; -fx-border-radius: 0 0 0 2;" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <ComboBox fx:id="serviceRequest" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="295.0" promptText="Service Request Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS">
+                                    <ComboBox fx:id="serviceRequest" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="346.0" promptText="Service Request Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin></ComboBox>
@@ -50,8 +50,8 @@
                                     </MFXButton>
                                     <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="276.0">
                                        <children>
-                                          <ComboBox fx:id="admin" promptText="Admin Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" visible="false" />
-                                          <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
+                                          <ComboBox fx:id="admin" prefHeight="44.0" prefWidth="258.0" promptText="Admin Systems" styleClass="Hover" stylesheets="@../assets/dropDown.css" visible="false" />
+                                          <MFXButton fx:id="myAssignments" onAction="#switchToServiceRequestStatus" prefHeight="46.0" prefWidth="246.0" style="-fx-background-color: #022D58;" styleClass="Hover" stylesheets="@../assets/buttonOnHover.css" text="My Assignments" textFill="#d3e9f6" visible="false">
                                              <font>
                                                 <Font size="27.0" />
                                              </font>
@@ -194,17 +194,17 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="231.0" prefWidth="316.0">
+            <VBox alignment="TOP_CENTER" prefHeight="233.0" prefWidth="316.0">
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," VBox.vgrow="ALWAYS">
                      <font>
-                        <Font name="Verdana Bold" size="48.0" />
+                        <Font name="Verdana Bold" size="36.0" />
                      </font>
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Text>
-                  <Label fx:id="welcome" alignment="TOP_CENTER" graphicTextGap="15.0" prefHeight="100.0" prefWidth="266.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                  <Label fx:id="welcome" alignment="TOP_CENTER" graphicTextGap="15.0" prefHeight="98.0" prefWidth="266.0" text="Label" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="Verdana" size="36.0" />
                      </font>
@@ -214,14 +214,14 @@
                   </Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="185.0" prefWidth="296.0" spacing="10.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-background-radius: 15;" VBox.vgrow="NEVER">
+            <VBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="200.0" prefWidth="266.0" spacing="20.0" style="-fx-background-color: #eaeaea; -fx-background-radius: 15; -fx-background-radius: 15;" VBox.vgrow="NEVER">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Stats:">
                      <font>
-                        <Font name="Verdana" size="36.0" />
+                        <Font name="Verdana" size="24.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" />
+                        <Insets bottom="10.0" left="10.0" />
                      </VBox.margin>
                   </Text>
                   <Label fx:id="label1" alignment="CENTER" text="Label" wrapText="true">
@@ -269,7 +269,7 @@
                   </MFXButton>
                </children>
             </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="221.0" prefWidth="316.0">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="107.0" prefWidth="316.0">
                <children>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="46.0" prefWidth="316.0" spacing="20.0">
                      <children>

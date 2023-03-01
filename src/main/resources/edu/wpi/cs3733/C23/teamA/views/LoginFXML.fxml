@@ -29,7 +29,7 @@
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
                                  <font>
-                                    <Font name="Verdana" size="40.0" />
+                                    <Font name="Verdana" size="36.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets bottom="15.0" />
@@ -72,9 +72,9 @@
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
                   </StackPane>
-                  <Text fx:id="incorrectNotification" fill="#eaeaea" strokeType="OUTSIDE" strokeWidth="0.0" text="Try Again!">
+                  <Text fx:id="incorrectNotification" fill="#eaeaea" strokeType="OUTSIDE" strokeWidth="0.0" text="Incorrect Username or Password">
                      <font>
-                        <Font name="Verdana" size="24.0" />
+                        <Font name="Verdana" size="18.0" />
                      </font>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -102,7 +102,7 @@
    <right>
       <VBox prefHeight="500.0" prefWidth="360.0" BorderPane.alignment="CENTER">
          <children>
-            <StackPane opacity="0.85" prefHeight="97.0" prefWidth="389.0" style="-fx-background-color: #f6bd3a; -fx-background-radius: 15;">
+            <StackPane opacity="0.85" prefHeight="97.0" prefWidth="389.0" style="-fx-background-radius: 15;" styleClass="yellow">
                <children>
                   <ImageView fitHeight="72.0" fitWidth="387.0" pickOnBounds="true" preserveRatio="true">
                      <image>
