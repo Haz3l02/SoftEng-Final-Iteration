@@ -10,7 +10,7 @@
 
 /* clear and reset button */
 .blue-Button{
-    -fx-background-color: #224870;
+    -fx-background-color: #022D58;
     -fx-background-radius: 15;
     -fx-border-color: #122c34;
     -fx-border-radius: 15;
@@ -25,7 +25,7 @@
 }
 
 .blue{
-    -fx-background-color: #224870;
+    -fx-background-color: #022D58;
     -fx-background-radius: 15;
     -fx-border-color: #122c34;
     -fx-border-radius: 15;
