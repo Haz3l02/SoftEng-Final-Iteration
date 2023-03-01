@@ -160,20 +160,24 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
     q = session.createMutationQuery(hql);
     q.executeUpdate();
 
-    hql = "delete from EmployeeEntity ";
-    q = session.createMutationQuery(hql);
-    q.executeUpdate();
+    employees.forEach(
+        employee -> session.remove(session.get(EmployeeEntity.class, employee.getEmployeeid())));
+    employees.clear();
+    tx.commit();
+
+    tx = session.beginTransaction();
 
     File emps = new File(filename);
 
     Scanner read = new Scanner(emps);
-    int count = 0;
+    int count = 1;
     read.nextLine();
 
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");
-      session.merge(new EmployeeEntity(Integer.parseInt(b[0]), b[1], b[5], b[4], b[2], b[3]));
-      employees.add(session.get(EmployeeEntity.class, b[0]));
+      session.persist(new EmployeeEntity(/*Integer.parseInt(b[0]),*/ b[1], b[5], b[4], b[2], b[3]));
+      employees.add(session.get(EmployeeEntity.class, count));
+      count++;
     }
     tx.commit();
     session.close();

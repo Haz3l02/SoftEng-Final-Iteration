@@ -182,11 +182,6 @@
                         <Font size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="helpButton" fx:id="clearButton1" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToImport" prefHeight="0.0" prefWidth="184.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="blue" text="Import CSV" textFill="#d3e9f6">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </MFXButton>
                   <MFXButton id="helpButton" fx:id="clearButton11" buttonType="RAISED" maxWidth="-Infinity" minWidth="-Infinity" onAction="#switchToExport" prefHeight="20.0" prefWidth="179.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="blue" text="Export CSV" textFill="#d3e9f6">
                      <font>
                         <Font size="25.0" />

@@ -76,6 +76,7 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
     MutationQuery q = session.createMutationQuery(hql);
     q.executeUpdate();
     nodes.clear();
+    tx.commit();
 
     if (filename.length() > 4) {
       if (!filename.substring(filename.length() - 4).equals(".csv")) {
@@ -84,6 +85,8 @@ public class NodeImpl extends Observable implements IDatabaseAPI<NodeEntity, Str
     } else filename += ".csv";
 
     File node = new File(filename);
+
+    tx = session.beginTransaction();
     Scanner read = new Scanner(node);
     int count = 0;
     read.nextLine();

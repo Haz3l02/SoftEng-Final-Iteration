@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.C23.teamA.serviceRequests;
 
 import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ public class Kiosk {
   @Getter @Setter private boolean directions;
   @Getter @Setter private String message;
   @Getter @Setter private String moveName;
+  @Getter @Setter private LocalDate date;
 
   public Kiosk(
       NodeEntity startLocation,
@@ -20,7 +22,8 @@ public class Kiosk {
       String right,
       boolean directions,
       String message,
-      String moveName) {
+      String moveName,
+      LocalDate date) {
     this.startLocation = startLocation;
     this.endLocation = endLocation;
     this.left = left;
@@ -28,5 +31,6 @@ public class Kiosk {
     this.directions = directions;
     this.message = message;
     this.moveName = moveName;
+    this.date = date;
   }
 }

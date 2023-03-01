@@ -40,7 +40,7 @@ public class AboutController {
   private final Image ImageE =
       new Image(AApp.class.getResourceAsStream("assets/TeamPhotos/IMG_E.jpeg"));
   private final Image ImageF =
-      new Image(AApp.class.getResourceAsStream("assets/TeamPhotos/IMG_F.JPG"));
+      new Image(AApp.class.getResourceAsStream("assets/TeamPhotos/IMG_F.jpg"));
   private final Image ImageG =
       new Image(AApp.class.getResourceAsStream("assets/TeamPhotos/IMG_G.jpg"));
 

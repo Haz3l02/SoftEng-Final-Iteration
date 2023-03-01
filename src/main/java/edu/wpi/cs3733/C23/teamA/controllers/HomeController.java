@@ -171,6 +171,9 @@ public class HomeController extends MenuController {
                 case "Kiosk Creator":
                   switchToKioskSetupScene();
                   break;
+                case "Import Tables":
+                  switchToImport();
+                  break;
                 default:
                   break;
               }
@@ -331,7 +334,8 @@ public class HomeController extends MenuController {
               "Access Employee Records",
               "Department Moves",
               "Create Nodes",
-              "Kiosk Creator");
+              "Kiosk Creator",
+              "Import Tables");
 
     } else {
       adminTable.setVisible(false);

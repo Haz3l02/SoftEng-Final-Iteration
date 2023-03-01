@@ -14,7 +14,7 @@ public abstract class NavigationController {
 
   public static ImportExportCSV iecsv = new ImportExportCSV("");
 
-  public void switchToImport(javafx.event.ActionEvent event) throws IOException {
+  public void switchToImport() {
     Navigation.navigate(Screen.IMPORT_CSV);
   }
 
