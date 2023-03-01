@@ -90,7 +90,7 @@ public class ImportCSVController {
       // FacadeRepository.getInstance().importNode("nodes");
       FacadeRepository.getInstance().importMove(moveField.getText());
       System.out.println("Import move works");
-      // Navigation.navigate(Screen.MOVE);
+      Navigation.navigateHome(Screen.HOME_ACTUAL);
     }
   }
 }
