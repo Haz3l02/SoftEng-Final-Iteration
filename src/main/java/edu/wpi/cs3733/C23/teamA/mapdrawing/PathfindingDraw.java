@@ -150,7 +150,10 @@ public class PathfindingDraw {
       // IdNumberHolder holder = IdNumberHolder.getInstance();
       for (int i = 0; i < Math.min(requests.size(), 4); i++) {
         texts[i] =
-            requests.get(i).getRequestType().toString() + " : " + requests.get(i).getDescription();
+            requests.get(i).getRequestType().toString()
+                + " : "
+                + requests.get(i).getUrgency()
+                + " URGENCY";
       }
       controller.addText(texts);
 
