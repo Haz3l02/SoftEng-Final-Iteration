@@ -73,7 +73,7 @@ public class ImportCSVController {
         Navigation.navigate(Screen.NODE);
       } else if (iecsv.getTableType().equals("move")) {
         // locationName.importFromCSV("locationname");
-        FacadeRepository.getInstance().importNode("nodes");
+        // FacadeRepository.getInstance().importNode("nodes");
         FacadeRepository.getInstance().importMove(fileNameField.getText());
         System.out.println("Import move works");
         Navigation.navigate(Screen.MOVE);

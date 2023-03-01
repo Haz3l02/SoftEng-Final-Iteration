@@ -68,7 +68,7 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
 
     File csvFile = new File(filename);
     FileWriter fileWriter = new FileWriter(csvFile);
-    fileWriter.write("movedate,longname,nodeid\n");
+    fileWriter.write("movedate,longname,nodeid,message\n");
     for (MoveEntity mov : moves) {
       fileWriter.write(
           mov.getMovedate()
@@ -76,6 +76,8 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
               + mov.getLocationName().getLongname()
               + ","
               + mov.getNode().getNodeid()
+              + ","
+              + mov.getMessage()
               + "\n");
     }
     fileWriter.close();
@@ -110,7 +112,8 @@ public class MoveImpl extends Observable implements IDatabaseAPI<MoveEntity, Lis
           new MoveEntity(
               session.get(NodeEntity.class, b[0]),
               session.get(LocationNameEntity.class, b[1]),
-              LocalDate.parse(b[2]));
+              LocalDate.parse(b[2]),
+              "");
       session.persist(mov);
 
       count++;

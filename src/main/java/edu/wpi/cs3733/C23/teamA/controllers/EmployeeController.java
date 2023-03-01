@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -76,7 +75,7 @@ public class EmployeeController extends MenuController {
       employeeCol.setCellValueFactory(new PropertyValueFactory<>("hospitalid"));
       usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
       passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
-      jobCol.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getJob()));
+      jobCol.setCellValueFactory(new PropertyValueFactory<>("job"));
 
       dbTableRowsModel.addAll(employeeData);
       employeeTable.setItems(dbTableRowsModel);
