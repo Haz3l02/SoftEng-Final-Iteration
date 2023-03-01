@@ -97,12 +97,15 @@
                                           <Insets />
                                        </StackPane.margin>
                                     </StackPane>
-                                    <GesturePane fx:id="mainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="813.0" />
-                                    <Label fx:id="floorNumber" alignment="BOTTOM_RIGHT" prefHeight="459.0" prefWidth="636.0" text="Label">
+                                    <GesturePane fx:id="mainGesturePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="459.0" prefWidth="675.0" />
+                                    <Text fx:id="floorNumber" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="RIGHT" StackPane.alignment="BOTTOM_RIGHT">
                                        <font>
-                                          <Font name="Verdana" size="36.0" />
+                                          <Font size="29.0" />
                                        </font>
-                                    </Label>
+                                       <StackPane.margin>
+                                          <Insets bottom="10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Text>
                                  </children>
                               </StackPane>
                            </children>

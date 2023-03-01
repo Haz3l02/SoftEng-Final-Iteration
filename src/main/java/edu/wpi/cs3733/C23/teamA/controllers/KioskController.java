@@ -8,6 +8,7 @@ import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
 import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
+import edu.wpi.cs3733.C23.teamA.pathfinding.PathInterpreter;
 import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.algorithms.AStar;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
@@ -46,13 +47,14 @@ public class KioskController {
   @FXML private GesturePane mainGesturePane;
   @FXML private StackPane mainStackPane;
   @FXML private Label moveDetails;
-  @FXML private Label floorNumber;
+  @FXML private Text floorNumber;
 
   private AnchorPane[] aps = new AnchorPane[5];
   private PathfindingSystem pathfindingSystem = new PathfindingSystem(new AStar());
   private int currentFloorIndex = 0;
   private ArrayList<String> floorPath = new ArrayList<>();
   private String directions;
+  private ArrayList<String> directionsArray;
 
   @FXML
   public void initialize() throws SQLException {
@@ -99,7 +101,7 @@ public class KioskController {
     GraphNode end = pathfindingSystem.getNode(kiosk.getEndLocation().getNodeid());
     PathInfo info = pathfindingSystem.runPathfinding(start, end);
     ArrayList<GraphNode> path = info.getPath();
-    System.out.println(path.size());
+
     floorPath = info.getFloorPath();
     if (start.getFloor().equals(end.getFloor())) {
       moveDetails.setText(
@@ -116,8 +118,9 @@ public class KioskController {
               + Floor.extendedStringFromTableString(end.getFloor())
               + ".");
     }
-    directions = pathfindingSystem.generatePathString(path, floorPath);
-    directionsText.setText(directions);
+    // directions = PathInterpreter.generatePathStringShort(path, floorPath);
+    // directionsText.setText(directions);
+    directionsArray = PathInterpreter.generatePathStringShortArray(path, floorPath);
 
     PathDraw.drawPathLines(aps, path, 5, 0.135);
     cycleMaps();
@@ -144,10 +147,12 @@ public class KioskController {
     int size = floorPath.size();
     if (floorPath.size() > 0) {
       thisFloor = floorPath.get(currentFloorIndex % size);
+      directionsText.setText(directionsArray.get(currentFloorIndex % size));
       currentFloorIndex++;
     }
     mainImageView.setImage(ImageLoader.getImage(thisFloor));
     aps[Floor.indexFromTableString(thisFloor)].setVisible(true);
+    floorNumber.setText(Floor.extendedStringFromTableString(thisFloor));
   }
 
   @FXML
