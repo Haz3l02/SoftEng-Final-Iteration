@@ -154,6 +154,24 @@
                   </MFXButton>
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <MFXTextField fx:id="edgeField" floatMode="ABOVE" prefHeight="65.0" prefWidth="1250.0" promptText="File Path" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Edges...">
+                     <font>
+                        <Font name="Verdana" size="30.0" />
+                     </font>
+                  </MFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <MFXButton fx:id="moveFileExplorer1" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#openFileExplorerEdge" prefHeight="50.0" prefWidth="244.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Select Move File" textAlignment="CENTER" textFill="#224870">
+                     <font>
+                        <Font name="Kohinoor Bangla" size="25.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>

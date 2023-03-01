@@ -16,7 +16,7 @@ import javafx.stage.FileChooser;
 public class ImportCSVController {
   @FXML private Text reminder;
   @FXML private StackPane reminderPane;
-  @FXML private MFXTextField employeeField, nodeField, moveField;
+  @FXML private MFXTextField employeeField, nodeField, moveField, edgeField;
   @FXML private MFXButton cancel;
 
   @FXML
@@ -56,6 +56,15 @@ public class ImportCSVController {
   }
 
   @FXML
+  public void openFileExplorerEdge(ActionEvent event) {
+    FileChooser fc = new FileChooser();
+    File selectedFile = fc.showOpenDialog(null);
+    if (selectedFile != null) {
+      edgeField.setText(selectedFile.getAbsolutePath());
+    }
+  }
+
+  @FXML
   public void cancel(ActionEvent event) {
     Navigation.navigateHome(Screen.HOME_ACTUAL);
   }
@@ -65,6 +74,7 @@ public class ImportCSVController {
     employeeField.clear();
     nodeField.clear();
     moveField.clear();
+    edgeField.clear();
   }
 
   @FXML
@@ -90,6 +100,9 @@ public class ImportCSVController {
       // FacadeRepository.getInstance().importNode("nodes");
       FacadeRepository.getInstance().importMove(moveField.getText());
       System.out.println("Import move works");
+
+      FacadeRepository.getInstance().importEdge(edgeField.getText());
+      System.out.println("Import edge works");
       Navigation.navigateHome(Screen.HOME_ACTUAL);
     }
   }
