@@ -108,7 +108,7 @@ public class KioskController {
           kiosk.getMoveName()
               + " is moving on "
               + Floor.extendedStringFromTableString(end.getFloor())
-              + " on"
+              + " on "
               + kiosk.getDate().toString()
               + ".");
     } else {
@@ -118,7 +118,7 @@ public class KioskController {
               + Floor.extendedStringFromTableString(start.getFloor())
               + " to "
               + Floor.extendedStringFromTableString(end.getFloor())
-              + " on"
+              + " on "
               + kiosk.getDate().toString()
               + ".");
     }
