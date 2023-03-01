@@ -9,12 +9,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="300.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.DisplayServiceRequestsPopupController">
+<BorderPane maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="300.0" style="-fx-background-color: #D3E9F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.C23.teamA.controllers.DisplayServiceRequestsPopupController">
    <stylesheets>
       <URL value="@StyleSheet.css" />
    </stylesheets>
    <top>
-      <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="24.0" prefWidth="400.0" style="-fx-background-color: #224870; -fx-border-color: BLACK; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER_LEFT">
+      <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="24.0" prefWidth="400.0" style="-fx-background-color: #022D58; -fx-border-color: BLACK; -fx-border-width: 0 0 2 0;" BorderPane.alignment="CENTER_LEFT">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests:">
                <font>
@@ -28,11 +28,11 @@
       </HBox>
    </top>
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" spacing="5.0">
          <children>
             <Text fx:id="mainText" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0">
                <VBox.margin>
-                  <Insets />
+                  <Insets top="5.0" />
                </VBox.margin>
                <font>
                   <Font name="Verdana Bold" size="16.0" />
@@ -40,7 +40,7 @@
             </Text>
             <Text fx:id="req1" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
-                  <Font name="Verdana Italic" size="14.0" />
+                  <Font name="Verdana Italic" size="13.0" />
                </font>
                <VBox.margin>
                   <Insets />
@@ -48,20 +48,20 @@
             </Text>
             <Text fx:id="req2" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
-                  <Font name="Verdana Italic" size="14.0" />
+                  <Font name="Verdana Italic" size="13.0" />
                </font>
             </Text>
             <Text fx:id="req3" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
-                  <Font name="Verdana Italic" size="14.0" />
+                  <Font name="Verdana Italic" size="13.0" />
                </font>
             </Text>
             <Text fx:id="req4" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="250.0">
                <font>
-                  <Font name="Verdana Italic" size="14.0" />
+                  <Font name="Verdana Italic" size="13.0" />
                </font>
             </Text>
-            <MFXButton fx:id="requestsButton" onAction="#viewRequests" prefHeight="40.0" prefWidth="105.0" rippleColor="#c0cced" style="-fx-font-size: 14;" styleClass="blue-Button" text="View Requests" textFill="#d3e9f6">
+            <MFXButton fx:id="requestsButton" maxHeight="-Infinity" onAction="#viewRequests" prefHeight="30.0" prefWidth="120.0" rippleColor="#c0cced" style="-fx-font-size: 14; -fx-background-color: #022D58; -fx-background-radius: 15;" text="View Requests" textFill="#d3e9f6">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
