@@ -32,10 +32,8 @@ import net.kurobako.gesturefx.GesturePane;
 public class KioskController {
   @FXML private Label announcement, left, right, leftD, rightD;
   @FXML public SplitPane mainSplitPane;
-  @FXML public Node leftPane;
   @FXML public Node mapPane;
   @FXML public Node directionsPane;
-  @FXML public Node rightPane;
   @FXML private Text directionsText;
 
   @FXML private AnchorPane anchorF3;
@@ -59,27 +57,15 @@ public class KioskController {
   @FXML
   public void initialize() throws SQLException {
     System.out.println(kiosk.getRight());
-    leftPane = mainSplitPane.getItems().get(0);
-    mapPane = mainSplitPane.getItems().get(1);
-    directionsPane = mainSplitPane.getItems().get(2);
-    rightPane = mainSplitPane.getItems().get(3);
+    mapPane = mainSplitPane.getItems().get(0);
+    directionsPane = mainSplitPane.getItems().get(1);
 
     announcement.setText(kiosk.getMessage());
+    leftD.setText(kiosk.getLeft());
+    rightD.setText(kiosk.getRight());
 
-    if (kiosk.isDirections()) {
-      mainSplitPane.getItems().remove(leftPane);
-      mainSplitPane.getItems().remove(rightPane);
-      leftD.setText(kiosk.getLeft());
-      rightD.setText(kiosk.getRight());
-
-      // added
-      //      left.setText(kiosk.getLeft());
-      //      right.setText(kiosk.getRight());
-      // end of added
-    } else {
+    if (!kiosk.isDirections()) {
       mainSplitPane.getItems().remove(directionsPane);
-      left.setText(kiosk.getLeft());
-      right.setText(kiosk.getRight());
     }
 
     // set anchorPanes into an array

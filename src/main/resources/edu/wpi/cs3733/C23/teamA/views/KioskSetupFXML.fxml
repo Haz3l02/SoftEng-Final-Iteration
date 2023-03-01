@@ -59,7 +59,7 @@
                               <Font name="Verdana" size="25.0" />
                            </font>
                         </Text>
-                        <Text fx:id="moveReminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="Not a valid Move!" textAlignment="CENTER">
+                        <Text fx:id="moveReminder" fill="#122c34" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="reminder" text="This is not a move!" textAlignment="CENTER">
                            <font>
                               <Font name="Verdana" size="25.0" />
                            </font>
@@ -77,7 +77,7 @@
                         <Font name="Kohinoor Bangla" size="25.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#generateKiosk" prefHeight="50.0" prefWidth="159.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Generate" textFill="#224870">
+                  <MFXButton fx:id="generateButton" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#generateKiosk" prefHeight="50.0" prefWidth="159.0" rippleColor="#c0cced" style="-fx-font-size: 25;" styleClass="yellow" text="Generate" textFill="#224870">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
