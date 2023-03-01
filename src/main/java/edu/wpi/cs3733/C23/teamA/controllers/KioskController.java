@@ -58,14 +58,14 @@ public class KioskController {
 
   @FXML
   public void initialize() throws SQLException {
-    System.out.println(kiosk.getRight());
-    mapPane = mainSplitPane.getItems().get(0);
     directionsPane = mainSplitPane.getItems().get(1);
 
+    // set admin message and the left and right directions
     announcement.setText(kiosk.getMessage());
     leftD.setText(kiosk.getLeft());
     rightD.setText(kiosk.getRight());
 
+    // hide directions panel if not wanted
     if (!kiosk.isDirections()) {
       mainSplitPane.getItems().remove(directionsPane);
     }
@@ -81,7 +81,7 @@ public class KioskController {
     this.mainGesturePane.setContent(mainStackPane);
     mainGesturePane.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
 
-    runPathfinding();
+    runPathfinding(); // run pathfinding method, see below
 
     // added scaling to auto-zoom
     Platform.runLater(
@@ -118,11 +118,12 @@ public class KioskController {
               + Floor.extendedStringFromTableString(end.getFloor())
               + ".");
     }
-    // directions = PathInterpreter.generatePathStringShort(path, floorPath);
-    // directionsText.setText(directions);
     directionsArray = PathInterpreter.generatePathStringShortArray(path, floorPath);
 
+    // draws path onto anchorPanes
     PathDraw.drawPathLines(aps, path, 5, 0.135);
+
+    // call to cycle through floors on a timer
     cycleMaps();
   }
 

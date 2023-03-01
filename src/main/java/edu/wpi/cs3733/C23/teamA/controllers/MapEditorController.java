@@ -64,17 +64,11 @@ public class MapEditorController extends MenuController {
   @FXML MFXComboBox FloorBox; // delete later
   @FXML MFXComboBox BuildingBox; // delete later
   @FXML MFXButton saveButton; // delete later
-  @FXML MFXTextField node1; // delete later
-  @FXML MFXTextField node2; // delete later
   @FXML VBox fieldBox;
   @FXML MFXButton createNodeButton;
   @FXML MFXFilterComboBox<String> longNameBox = new MFXFilterComboBox<>();
   @FXML MFXTextField locationIDBox;
-  @FXML MFXButton createLocation;
   @FXML MFXToggleButton toggleSwitch = new MFXToggleButton();
-
-  @FXML MFXTextField node1Box;
-  @FXML MFXTextField node2Box;
 
   @FXML MFXTextField shortNameBox;
   @FXML MFXTextField locTypeBox;
