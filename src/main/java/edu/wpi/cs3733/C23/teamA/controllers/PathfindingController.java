@@ -1,15 +1,20 @@
 package edu.wpi.cs3733.C23.teamA.controllers;
 
 import edu.wpi.cs3733.C23.teamA.Database.API.FacadeRepository;
-import edu.wpi.cs3733.C23.teamA.Database.Entities.*;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.LocationNameEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.MoveEntity;
+import edu.wpi.cs3733.C23.teamA.Database.Entities.NodeEntity;
 import edu.wpi.cs3733.C23.teamA.ImageLoader;
 import edu.wpi.cs3733.C23.teamA.mapdrawing.PathfindingDraw;
 import edu.wpi.cs3733.C23.teamA.navigation.Navigation;
 import edu.wpi.cs3733.C23.teamA.navigation.Screen;
-import edu.wpi.cs3733.C23.teamA.pathfinding.*;
+import edu.wpi.cs3733.C23.teamA.pathfinding.GraphNode;
+import edu.wpi.cs3733.C23.teamA.pathfinding.PathInfo;
+import edu.wpi.cs3733.C23.teamA.pathfinding.PathfindingSystem;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Algorithm;
 import edu.wpi.cs3733.C23.teamA.pathfinding.enums.Floor;
 import edu.wpi.cs3733.C23.teamA.serviceRequests.IdNumberHolder;
+import edu.wpi.cs3733.C23.teamA.tts.TextReader;
 import io.github.palexdev.materialfx.controls.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -64,6 +69,9 @@ public class PathfindingController extends MenuController {
   @FXML private StackPane mainStackPane; // stack pane with all the anchor panes and image view
   @FXML private GesturePane mainGesturePane; // gesture pane to sync with stack pane above
   @FXML Text messageText;
+
+  // TTS button
+  @FXML private MFXButton speakButton;
 
   // local variables saved
   private AnchorPane[] aps = new AnchorPane[5];
@@ -188,7 +196,13 @@ public class PathfindingController extends MenuController {
     startLocBox.setItems(empty);
     endLocBox.setItems(empty);
 
-    // text
+    // clear the anchorPanes w/ the drawn paths
+    for (AnchorPane ap : aps) {
+      ap.getChildren().clear();
+      ap.setVisible(false);
+    }
+
+    // clear the text
     pathMapText.setText("Directions on how to get to your destination go here...");
     errorMessage.setText("");
   }
@@ -590,5 +604,12 @@ public class PathfindingController extends MenuController {
 
     // show location names
     PathfindingDraw.drawLocations(allNodes, textAnchorPane);
+  }
+
+  /** Takes the text in the pathfinding directions and speaks them out loud in english. */
+  @FXML
+  public void directionsToSpeech() {
+    TextReader tts = new TextReader(pathMapText.getText());
+    tts.readText();
   }
 }
