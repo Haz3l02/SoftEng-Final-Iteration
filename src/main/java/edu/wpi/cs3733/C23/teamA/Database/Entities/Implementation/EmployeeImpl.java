@@ -172,7 +172,7 @@ public class EmployeeImpl extends Observable implements IDatabaseAPI<EmployeeEnt
 
     while (read.hasNextLine()) {
       String[] b = read.nextLine().split(",");
-      session.persist(new EmployeeEntity(Integer.parseInt(b[0]), b[1], b[4], b[3], b[1], b[2]));
+      session.persist(new EmployeeEntity(Integer.parseInt(b[0]), b[1], b[5], b[4], b[2], b[3]));
       employees.add(session.get(EmployeeEntity.class, b[0]));
     }
     tx.commit();
