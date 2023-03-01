@@ -18,12 +18,12 @@
     -fx-text-fill: #022D58;
 
 }
-.table-view {
-    -fx-border-color: #224870;
-    -fx-border-width:  3 3 3 3;
-    -fx-border-radius: 6px;
+/*.table-view {*/
+/*    -fx-border-color: #224870;*/
+/*    -fx-border-width:  3 3 3 3;*/
+/*    -fx-border-radius: 6px;*/
 
-}
+/*}*/
 
 .table-view .table-cell  {
     /*-fx-background-color: #bad1dea;*/
